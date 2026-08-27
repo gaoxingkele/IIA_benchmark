@@ -6,7 +6,7 @@
 - Venue: IEEE Transactions on Automation Science and Engineering
 - DOI: [10.1109/TASE.2011.2176490](https://doi.org/10.1109/TASE.2011.2176490)
 - Benchmark role: book-chapter-2 mathematical baseline
-- ARA status: `engineering_validated_source_gated`
+- ARA status: `engineering_validated_source_acquired`
 
 ## Executive summary
 
@@ -19,6 +19,6 @@ Finite-state Markov expressions for false-alarm rate, missed-alarm rate, and ave
 
 ## Reproduction status
 
-Source acquisition is `not_openly_downloadable`. This ARA package does not claim a
+Source acquisition is `downloaded`. This ARA package does not claim a
 score reproduction until `evidence/runs/local_validation.md` records a command,
 environment, dataset split, expected result, observed result, and pass/fail decision.
