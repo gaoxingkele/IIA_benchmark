@@ -20,6 +20,10 @@ reproduced merely because a related baseline below is callable.
 | Time-varying regression | Bayesian/ridge update + binomial freeze | `BayesianWindowRegressionAlarm` | A | pump paper score pending |
 | Condenser monitor | physical pressure model + search-cone NOZ | `CondenserNOZAlarm` | A | Bayesian worst-case bounds and industrial score pending |
 | Binary RCA | lagged TE + surrogate threshold | `TransferEntropyRanker` | A | first-order discrete TE; indirect pruning pending |
+| Alarm NTE/NDTE | OR histories + normalization + Bernoulli surrogates | `NormalizedTransferEntropyGraph` | A | industrial paper score pending |
+| IGTE/IGDTE | information granules + OPTICS + conditional TE | `information_granulation_transfer_entropy` | A | paper two-tank/TEP score pending |
+| Online BN RCA | recursive probabilities + unknown-cause pattern | `RecursiveBayesianAlarmRCA` | A | thermal-plant score pending |
+| Trend contribution RCA | PLR + lag correlation + non-negative MLR | `PLRContributionRCA` | A | industrial paper score pending |
 | Flood detection | newly activated unique tags in window | `detect_alarm_floods` | A | activation-only logs cannot recover standing alarms |
 | Flood similarity | local sequence alignment | `smith_waterman_similarity` | A | priority/time-aware BLAST acceleration pending |
 | Next alarm | all-current-tag context + distance decay | `EmpiricalNextAlarmPredictor` | A | transparent empirical approximation, not exact max-entropy solver |

@@ -1,5 +1,6 @@
 # Local validation
 
-Status: **not run**.
+Status: **passed**.
 
-Required fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision.
+- Command: `python -m pytest -q tests/test_root_cause_book.py`
+- Scope: information-granule/OPTICS/IGTE causal-chain tests; paper two-tank score pending

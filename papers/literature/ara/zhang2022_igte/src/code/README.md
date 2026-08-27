@@ -1,3 +1,5 @@
 # Code
 
-No vendored code. Official artifacts remain source-linked and must be license-audited before import.
+Local implementations:
+
+- `src/iia_benchmark/models/root_cause_book.py:information_granulation_transfer_entropy`

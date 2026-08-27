@@ -6,7 +6,7 @@
 - Venue: Entropy
 - DOI: [10.3390/e24020212](https://doi.org/10.3390/e24020212)
 - Benchmark role: book-chapter-4 continuous-variable causal inference
-- ARA status: `source_acquired_code_pending`
+- ARA status: `engineering_validated_source_acquired`
 
 ## Executive summary
 
