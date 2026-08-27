@@ -38,7 +38,10 @@
       "printed_pages": "85-107",
       "physical_pages": "96-118",
       "required_components": ["maximum amplitude deviations", "deadband index", "Bayesian posterior", "credible interval", "deadband-width design"],
-      "implementation": "iia_benchmark.models.univariate_book.deadband_index + design_deadband_width",
+      "implementation": [
+        "iia_benchmark.models.univariate_book.deadband_index",
+        "iia_benchmark.models.univariate_book.design_deadband_width"
+      ],
       "status": "partial"
     },
     {
@@ -48,7 +51,10 @@
       "printed_pages": "108-125",
       "physical_pages": "119-136",
       "required_components": ["Markov-state quantization algorithm 1", "quantization algorithm 2", "P_k statistic", "T_k statistic", "P_am statistic", "T_am statistic", "threshold objective"],
-      "implementation": "iia_benchmark.models.univariate_book.build_alarm_probability_plot + select_alarm_probability_threshold",
+      "implementation": [
+        "iia_benchmark.models.univariate_book.build_alarm_probability_plot",
+        "iia_benchmark.models.univariate_book.select_alarm_probability_threshold"
+      ],
       "status": "partial"
     },
     {
@@ -78,7 +84,10 @@
       "printed_pages": "154-172",
       "physical_pages": "165-183",
       "required_components": ["adaptive time gradients", "volatility estimation", "direction sign vector", "forbidden-direction rule matrix", "online alarm logic"],
-      "implementation": "iia_benchmark.models.multivariate_book.AdaptiveTimeGradient + VariationDirectionAlarm",
+      "implementation": [
+        "iia_benchmark.models.multivariate_book.AdaptiveTimeGradient",
+        "iia_benchmark.models.multivariate_book.VariationDirectionAlarm"
+      ],
       "status": "partial"
     },
     {
@@ -98,7 +107,10 @@
       "printed_pages": "192-217",
       "physical_pages": "203-228",
       "required_components": ["condenser equations 3.90-3.103", "parameter estimation", "search-cone zone", "Bayesian worst-case FAR bound", "Bayesian worst-case MAR bound"],
-      "implementation": "iia_benchmark.models.multivariate_book.CondenserPhysicalModel + CondenserNOZAlarm",
+      "implementation": [
+        "iia_benchmark.models.multivariate_book.CondenserPhysicalModel",
+        "iia_benchmark.models.multivariate_book.CondenserNOZAlarm"
+      ],
       "status": "partial"
     },
     {
@@ -188,7 +200,10 @@
       "printed_pages": "344-355",
       "physical_pages": "355-366",
       "required_components": ["transaction encoding", "CHARM closed itemsets", "support", "delta similarity", "representative-pattern clustering"],
-      "implementation": "iia_benchmark.models.flood_book.charm_closed_alarm_patterns + representative_alarm_patterns",
+      "implementation": [
+        "iia_benchmark.models.flood_book.charm_closed_alarm_patterns",
+        "iia_benchmark.models.flood_book.representative_alarm_patterns"
+      ],
       "status": "partial"
     },
     {
@@ -208,7 +223,10 @@
       "printed_pages": "381-417",
       "physical_pages": "392-428",
       "required_components": ["performance KPI views", "related-alarm graph", "event timeline", "alarm-flood sequence view", "exportable verification report"],
-      "implementation": "iia_benchmark.visualization.build_alarm_visual_analytics + export_alarm_visual_report",
+      "implementation": [
+        "iia_benchmark.visualization.build_alarm_visual_analytics",
+        "iia_benchmark.visualization.export_alarm_visual_report"
+      ],
       "status": "partial"
     }
   ]

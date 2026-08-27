@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib
 import json
 from pathlib import Path
 
@@ -68,6 +69,12 @@ def main() -> int:
     if task_ids != [f"T{index}" for index in range(1, 7)]:
         failures.append(f"downstream tasks must be ordered T1..T6, got {task_ids}")
 
+    book_registry = json.loads(
+        (ROOT / "configs" / "algorithms" / "book_algorithms.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
     sota_registry = json.loads(
         (ROOT / "configs" / "algorithms" / "sota_algorithms.json").read_text(encoding="utf-8")
     )
@@ -80,6 +87,24 @@ def main() -> int:
             failures.append(f"{item.get('id')}: invalid SOTA status {item.get('status')}")
         if item.get("status") == "missing" and item.get("local_implementation"):
             failures.append(f"{item.get('id')}: missing SOTA cannot name an implementation")
+
+    for item, field in [
+        *((item, "implementation") for item in book_registry.get("algorithms", [])),
+        *((item, "local_implementation") for item in sota),
+    ]:
+        value = item.get(field)
+        paths = value if isinstance(value, list) else [value] if isinstance(value, str) else []
+        if not paths:
+            failures.append(f"{item.get('id')}: no callable implementation registered")
+            continue
+        for dotted_path in paths:
+            try:
+                module_name, attribute = dotted_path.rsplit(".", 1)
+                candidate = getattr(importlib.import_module(module_name), attribute)
+                if not callable(candidate):
+                    failures.append(f"{item.get('id')}: {dotted_path} is not callable")
+            except (ImportError, AttributeError, ValueError) as error:
+                failures.append(f"{item.get('id')}: cannot resolve {dotted_path}: {error}")
 
     if failures:
         print("\n".join(failures))
