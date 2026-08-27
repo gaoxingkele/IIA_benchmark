@@ -20,6 +20,11 @@ from .cone_afc import (
     evaluate_prediction_sets,
     expected_cone_coverage,
 )
+from .cross_conformal_afc import (
+    CrossConformalAFCCalibrator,
+    CrossConformalAlarmFloodClassifier,
+    CrossConformalDiagnostics,
+)
 from .flood_book import (
     AlarmAlignmentResult,
     AlarmToken,
@@ -129,6 +134,9 @@ __all__ = [
     "ConformalSetMetrics",
     "ConformalThresholds",
     "CriterionCResult",
+    "CrossConformalAFCCalibrator",
+    "CrossConformalAlarmFloodClassifier",
+    "CrossConformalDiagnostics",
     "DeadbandDesignResult",
     "DeadbandIndexResult",
     "EmpiricalNextAlarmPredictor",

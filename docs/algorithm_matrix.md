@@ -34,6 +34,7 @@ reproduced merely because a related baseline below is callable.
 | AFC-RobustBench | missing/spurious/timing/detector-delay/mixed perturbations, progress/severity profiles, Monte-Carlo intervals and robustness AUC | `run_afc_robustness_benchmark` | B | full protocol is callable; paper-score comparison pending preprint PDF/data |
 | CASIM | MultiRocket + ridge ensemble + LoOP | independent callable reproduction + official Code Ocean comparison slot | B | mechanics/invariants tested; official TEP score reproduction pending capsule/data |
 | ConE-AFC | class- and stepwise inductive conformal prediction | independent callable wrapper + official Code Ocean comparison slot | B | Eqs. 1-5/Algorithms 1-2 tested; official synthetic-data tables pending capsule/data |
+| Cross-conformal AFC | pooled fold-wise class-conditional p-values + explicit empty-set repair | `CrossConformalAlarmFloodClassifier` | B | standard mechanism/invariants tested; ICPS full text, exact postprocessing and synthetic paper scores gated |
 | Uncertainty-reduction forecasting | random forest + leave-one-out jackknife+ + stable delay timer | `UncertaintyReductionForecaster` | B | statistical mechanics tested; paper feature/table reproduction pending full text/two datasets |
 | Chapter 6 visual analytics | bubble/treemap/analytics/bad-actor/radar/HDAP/3D-bar/correlation/workflow/event-flow/burst/similarity/spiral | `build_alarm_visual_analytics`, standalone HTML+JSON export | A | synthetic invariant validation passed; original industrial visual case pending |
 
