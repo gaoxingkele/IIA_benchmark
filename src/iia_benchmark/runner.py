@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
+from dataclasses import asdict
 import hashlib
 import json
 from pathlib import Path
@@ -12,6 +14,8 @@ from iia_benchmark.config import load_experiment_config, load_json_reference
 from iia_benchmark.data import (
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
+    build_pronto_fault_window_split,
+    load_pronto_merged_csv,
     load_skab_csv,
     load_tep_ascii,
     make_synthetic_alarm_run,
@@ -19,14 +23,20 @@ from iia_benchmark.data import (
     make_synthetic_floods,
     make_synthetic_multivariate_run,
 )
-from iia_benchmark.evaluation import binary_alarm_metrics, sequence_accuracy
+from iia_benchmark.evaluation import (
+    binary_alarm_metrics,
+    multiclass_classification_metrics,
+    sequence_accuracy,
+)
 from iia_benchmark.models import (
+    CASIMClassifier,
     ConvexHullNOZAlarm,
     EmpiricalNextAlarmPredictor,
     MahalanobisAlarm,
     NormalizedTransferEntropyGraph,
     TransferEntropyRanker,
     design_alarm,
+    criterion_c_alarm_flood_detection,
     smith_waterman_similarity,
 )
 from iia_benchmark.visualization import (
@@ -40,10 +50,14 @@ def _resolve(root: Path, value: str) -> Path:
 
 
 def _load_references(root: Path, experiment: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    return {
+    references = {
         field: load_json_reference(_resolve(root, experiment[field]))
         for field in ("system", "dataset", "split", "model", "metrics")
     }
+    for field in ("flood_detector",):
+        if field in experiment:
+            references[field] = load_json_reference(_resolve(root, experiment[field]))
+    return references
 
 
 def _range(specification: dict[str, Any]) -> np.ndarray:
@@ -440,6 +454,102 @@ def _run_real_visual_analytics(
     }
 
 
+def _run_real_pronto_alarm_classification(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    split_config = references["split"]
+    model_config = references["model"]
+    paths = [_resolve(root, value) for value in dataset["paths"]]
+    runs = [
+        load_pronto_merged_csv(
+            path,
+            alarm_column_count=int(dataset.get("alarm_column_count", 12)),
+            label_column=str(dataset.get("label_column", "Fault")),
+        )
+        for path in paths
+    ]
+    split = build_pronto_fault_window_split(
+        runs,
+        window_size=int(split_config["window_size_samples"]),
+        train_fraction=float(split_config["train_fraction"]),
+        purge_windows=int(split_config.get("purge_windows", 1)),
+        excluded_labels=tuple(split_config.get("excluded_labels", ["Normal"])),
+    )
+    parameters = dict(model_config.get("parameters", {}))
+    if "alphas" in parameters:
+        parameters["alphas"] = tuple(float(value) for value in parameters["alphas"])
+    classifier = CASIMClassifier(**parameters).fit(split.X_train, split.y_train)
+    probabilities = classifier.predict_proba(split.X_test)
+    predictions = classifier.classes_[np.argmax(probabilities, axis=1)]
+    metrics = multiclass_classification_metrics(
+        split.y_test.tolist(), predictions.tolist()
+    )
+
+    detector_parameters = references["flood_detector"]["parameters"]
+    criterion_runs = []
+    for run in runs:
+        detection = criterion_c_alarm_flood_detection(
+            run.alarm_states,
+            tag_names=run.alarm_names,
+            **{key: int(value) for key, value in detector_parameters.items()},
+        )
+        transitions = np.maximum(
+            detection.delayed_detection
+            - np.r_[np.int8(0), detection.delayed_detection[:-1]],
+            0,
+        )
+        criterion_runs.append(
+            {
+                "run_id": run.run_id,
+                "evaluated_points": len(detection.sample_indices),
+                "maximum_attention_set_cardinality": int(
+                    np.max(detection.cardinality, initial=0)
+                ),
+                "flood_intervals": int(np.sum(transitions)),
+                "flood_exposure": float(np.mean(detection.delayed_detection)),
+            }
+        )
+
+    label_counts = Counter(label for run in runs for label in run.labels.tolist())
+    return {
+        "metrics": metrics,
+        "train_windows": len(split.y_train),
+        "test_windows": len(split.y_test),
+        "window_size_samples": int(split.X_train.shape[2]),
+        "alarm_tags": list(split.alarm_names),
+        "train_class_counts": dict(sorted(Counter(split.y_train.tolist()).items())),
+        "test_class_counts": dict(sorted(Counter(split.y_test.tolist()).items())),
+        "source_label_counts": dict(sorted(label_counts.items())),
+        "groups": [asdict(group) for group in split.groups],
+        "criterion_c": {
+            "parameters": detector_parameters,
+            "runs": criterion_runs,
+            "confirmed_flood_intervals": sum(
+                record["flood_intervals"] for record in criterion_runs
+            ),
+        },
+        "data_evidence": _data_evidence(paths, root),
+        "target_policy": (
+            "closed-set classification of non-Normal, fixed-length alarm-state windows; "
+            "these fault-conditioned windows are not relabelled as confirmed floods"
+        ),
+        "split_policy": (
+            "per contiguous fault segment: earlier non-overlapping windows train, "
+            "one or more complete windows purged, later windows test"
+        ),
+        "reporting_status": (
+            "real-data surrogate engineering validation; not leaderboard-eligible and "
+            "not a paper-score reproduction"
+        ),
+        "limitations": [
+            "PRONTO provides fault-condition labels rather than expert flood-episode labels.",
+            "All classes cannot be separated by test day, so train/test windows may share a source day.",
+            "Open-set and prefix protocols are not evaluated in this closed-set run.",
+        ],
+    }
+
+
 def run_experiment(config_path: str | Path) -> dict[str, Any]:
     path = Path(config_path).resolve()
     root = path.parents[2]
@@ -464,6 +574,8 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         result = _run_real_causal_graph(root, references)
     elif task == "real_visual_analytics":
         result = _run_real_visual_analytics(root, run_dir, references)
+    elif task == "real_pronto_alarm_classification":
+        result = _run_real_pronto_alarm_classification(root, references)
     else:
         raise ValueError(f"Unsupported runnable task: {task}")
     payload = {

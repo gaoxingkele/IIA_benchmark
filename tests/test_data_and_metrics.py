@@ -9,13 +9,16 @@ from iia_benchmark.data import (
     ProcessRun,
     alarm_events_to_state_matrix,
     audit_pronto_archive,
+    build_pronto_fault_window_split,
     extract_pronto_members,
     load_piade_alarm_events,
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
+    load_pronto_merged_csv,
     load_skab_csv,
     load_tep_ascii,
 )
+from iia_benchmark.evaluation import multiclass_classification_metrics
 from iia_benchmark.evaluation import prediction_set_metrics, robustness_degradation
 
 
@@ -150,3 +153,32 @@ def test_pronto_subset_extraction_is_prefix_selected_and_bounded(tmp_path: Path)
             prefixes=("root/video",),
             maximum_total_bytes=10,
         )
+
+
+def test_pronto_merged_adapter_and_purged_fault_window_split(tmp_path: Path) -> None:
+    header = "A1,A2,P1,Fault\n"
+    rows = []
+    for label, first, second in (("F1", 1, 0), ("Normal", 0, 1), ("F2", 0, 1)):
+        rows.extend(f"{first},{second},{index / 10},{label}\n" for index in range(12))
+    source = tmp_path / "day.csv"
+    source.write_text(header + "".join(rows), encoding="utf-8")
+    run = load_pronto_merged_csv(source, alarm_column_count=2)
+    assert run.alarm_states.shape == (36, 2)
+    assert run.process_names == ("P1",)
+    split = build_pronto_fault_window_split(
+        [run], window_size=3, train_fraction=0.5, purge_windows=1
+    )
+    assert split.X_train.shape == (4, 2, 3)
+    assert split.X_test.shape == (2, 2, 3)
+    assert set(split.y_train) == set(split.y_test) == {"F1", "F2"}
+    assert all(group.purged_windows == 1 for group in split.groups)
+
+
+def test_multiclass_metrics_include_per_class_and_confusion_audit() -> None:
+    result = multiclass_classification_metrics(
+        ["a", "a", "b", "b"], ["a", "b", "b", "b"]
+    )
+    assert result["accuracy"] == 0.75
+    assert result["balanced_accuracy"] == 0.75
+    assert result["confusion_matrix"]["a"]["b"] == 1
+    assert result["per_class"]["b"]["recall"] == 1.0

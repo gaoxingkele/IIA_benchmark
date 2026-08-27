@@ -3,7 +3,7 @@
 | ID | 状态 | 内容/适用任务 | 获取与引用 |
 |---|---|---|---|
 | `tep_classic` | 已下载 Git，revision 见 audit | 过程变量、故障；T1/T2/T3 | [GitHub](https://github.com/jkitchin/tennessee-eastman-profbraatz), Downs & Vogel DOI `10.1016/0098-1354(93)80018-I` |
-| `pronto_*` | README/技术报告已下载；1.72 GB payload 可选 | 过程变量+报警；T1–T5 | [Zenodo 1341583](https://zenodo.org/records/1341583), CC BY 4.0 |
+| `pronto_*` | 1.72 GB payload 已下载，MD5 与全量 ZIP CRC 已通过；官方 aligned/labelled 子集已安全提取 | 过程变量+报警；T1–T5（T4 为故障窗代理，非专家洪泛标签） | [Zenodo 1341583](https://zenodo.org/records/1341583), CC BY 4.0 |
 | `piade_*` | 两个 CSV 已下载且 MD5 通过 | 五台包装机 interval/alarm 与小时序列；T4/T5/T6 | [Zenodo 7071747](https://zenodo.org/records/7071747) |
 | `skab` | 已下载 Git | 35 个水循环异常实验；T1/T2/鲁棒性 | [官方仓库](https://github.com/waico/SKAB), DOI `10.1007/s41060-022-00355-4` |
 | `tep_alarm_dataport` | landing page 已下载；payload 受限 | 100-run 工业报警洪泛；T3/T4/open-set | [IEEE DataPort](https://ieee-dataport.org/open-access/tennessee-eastman-process-alarm-management-dataset), DOI `10.21227/326k-qr90` |

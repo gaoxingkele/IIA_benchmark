@@ -22,15 +22,15 @@ this report.
 |---|---:|
 | Public registry records | 10 |
 | Logical public dataset families | 7 |
-| Main payloads locally available | 3 |
+| Main payloads locally available | 4 |
 | Synthetic smoke datasets | 4 |
 | Downstream tasks defined | 6 |
-| Tasks runnable on available real data | 5 |
+| Tasks runnable on available real data | 6 |
 | Tasks with the primary payload gated | 1 |
 | Leaderboard-eligible splits | 0 |
-| Real-data validation reports | 5 |
+| Real-data validation reports | 6 |
 
-Locally available public main payloads: `piade`, `skab`, `tep_classic`.
+Locally available public main payloads: `piade`, `pronto`, `skab`, `tep_classic`.
 
 ## Evidence
 
@@ -40,7 +40,7 @@ Locally available public main payloads: `piade`, `skab`, `tep_classic`.
 | Paper PDFs downloaded | 3 |
 | DOI records marked open by Unpaywall | 5 |
 | Direct PDF candidates reported by Unpaywall | 2 |
-| Tasks with executed real-data validation | T1, T2, T3, T5, T6 |
+| Tasks with executed real-data validation | T1, T2, T3, T4, T5, T6 |
 | ARA paper packages with fresh local validation | 28 |
 
 The detailed machine-readable report is in `docs/status_audit.json`.

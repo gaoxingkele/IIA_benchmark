@@ -57,6 +57,54 @@ def sequence_accuracy(truth: Sequence[str], prediction: Sequence[str]) -> float:
     return sum(a == b for a, b in zip(truth, prediction)) / len(truth)
 
 
+def multiclass_classification_metrics(
+    truth: Sequence[str], prediction: Sequence[str]
+) -> dict[str, object]:
+    """Return accuracy, balanced accuracy, macro F1 and an audited confusion matrix."""
+
+    if len(truth) != len(prediction) or not truth:
+        raise ValueError("truth and prediction must be non-empty and equal length")
+    labels = tuple(sorted(set(truth) | set(prediction)))
+    confusion = {
+        actual: {
+            predicted: sum(
+                left == actual and right == predicted
+                for left, right in zip(truth, prediction)
+            )
+            for predicted in labels
+        }
+        for actual in labels
+    }
+    recalls, f1_scores = [], []
+    per_class: dict[str, dict[str, float | int]] = {}
+    for label in labels:
+        tp = confusion[label][label]
+        support = sum(confusion[label].values())
+        predicted_count = sum(confusion[actual][label] for actual in labels)
+        recall = tp / support if support else 0.0
+        precision = tp / predicted_count if predicted_count else 0.0
+        f1 = (
+            2 * precision * recall / (precision + recall)
+            if precision + recall
+            else 0.0
+        )
+        recalls.append(recall)
+        f1_scores.append(f1)
+        per_class[label] = {
+            "support": support,
+            "precision": precision,
+            "recall": recall,
+            "f1": f1,
+        }
+    return {
+        "accuracy": sequence_accuracy(truth, prediction),
+        "balanced_accuracy": float(np.mean(recalls)),
+        "macro_f1": float(np.mean(f1_scores)),
+        "per_class": per_class,
+        "confusion_matrix": confusion,
+    }
+
+
 def prediction_set_metrics(
     truth: Sequence[str], prediction_sets: Sequence[Sequence[str]]
 ) -> dict[str, float]:

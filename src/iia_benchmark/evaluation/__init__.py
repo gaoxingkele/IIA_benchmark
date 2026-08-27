@@ -1,5 +1,6 @@
 from .metrics import (
     binary_alarm_metrics,
+    multiclass_classification_metrics,
     mean_reciprocal_rank,
     prediction_set_metrics,
     robustness_degradation,
@@ -17,6 +18,7 @@ from .robustness import (
 
 __all__ = [
     "binary_alarm_metrics",
+    "multiclass_classification_metrics",
     "AFCRobustnessReport",
     "mean_reciprocal_rank",
     "prediction_set_metrics",

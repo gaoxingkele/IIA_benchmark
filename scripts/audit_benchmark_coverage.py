@@ -85,8 +85,14 @@ def main() -> int:
         },
         "tasks": {
             "defined": len(tasks),
-            "runnable_real_data": sum(item["status"] == "runnable_real_data" for item in tasks),
-            "protocol_ready_data_gated": sum("gated" in item["status"] for item in tasks),
+            "runnable_real_data": sum(
+                item["status"].startswith("runnable_real_data") for item in tasks
+            ),
+            "protocol_ready_data_gated": sum(
+                "gated" in item["status"]
+                or "gated" in item.get("primary_payload_status", "")
+                for item in tasks
+            ),
             "task_status": {item["id"]: item["status"] for item in tasks},
         },
         "evidence": {

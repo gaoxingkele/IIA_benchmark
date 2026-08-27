@@ -33,6 +33,7 @@ pytest -q
 
 ```powershell
 python -m iia_benchmark.runner configs/experiments/synthetic_flood_similarity_smoke.json
+python -m iia_benchmark.runner configs/experiments/pronto_casim_fault_classification_validation.json
 python -m iia_benchmark.runner configs/experiments/synthetic_multivariate_noz_smoke.json
 python -m iia_benchmark.runner configs/experiments/synthetic_root_cause_smoke.json
 ```
