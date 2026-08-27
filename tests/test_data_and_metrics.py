@@ -1,4 +1,5 @@
 from pathlib import Path
+import zipfile
 
 import pytest
 
@@ -6,6 +7,7 @@ import numpy as np
 
 from iia_benchmark.data import (
     ProcessRun,
+    audit_pronto_archive,
     load_piade_alarm_events,
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
@@ -79,3 +81,22 @@ def test_tep_adapter_detects_transposed_storage(tmp_path: Path) -> None:
     run = load_tep_ascii(path, fault_start=2, root_cause="IDV_01")
     assert run.values.shape == (5, 52)
     assert run.abnormal.tolist() == [False, False, True, True, True]
+
+
+def test_pronto_archive_audit_inventory_and_traversal_rejection(tmp_path: Path) -> None:
+    safe_path = tmp_path / "safe.zip"
+    with zipfile.ZipFile(safe_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("PRONTO/Test1/process.csv", "time,value\n0,1\n")
+        archive.writestr("PRONTO/Test1/alarms.txt", "Date,Time,Node\n")
+    audit = audit_pronto_archive(safe_path, verify_crc=True)
+    assert audit["files"] == 2
+    assert audit["suffix_counts"] == {".csv": 1, ".txt": 1}
+    assert audit["safe_to_extract"]
+    assert audit["crc_verified"]
+
+    unsafe_path = tmp_path / "unsafe.zip"
+    with zipfile.ZipFile(unsafe_path, "w") as archive:
+        archive.writestr("../outside.csv", "forbidden")
+    unsafe_audit = audit_pronto_archive(unsafe_path)
+    assert not unsafe_audit["safe_to_extract"]
+    assert unsafe_audit["unsafe_members"][0]["reason"] == "empty_or_parent_path_component"
