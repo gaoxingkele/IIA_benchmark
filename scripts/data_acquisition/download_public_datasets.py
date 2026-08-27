@@ -54,7 +54,7 @@ def checksum_ok(path: Path, expected: str | None) -> bool:
     return checksum(path, algorithm) == value
 
 
-def download_file(source: dict[str, Any]) -> None:
+def download_file(source: dict[str, Any], *, proxy: str | None = PROXY) -> None:
     target = ROOT / source["path"]
     target.parent.mkdir(parents=True, exist_ok=True)
     if checksum_ok(target, source.get("checksum")):
@@ -64,7 +64,6 @@ def download_file(source: dict[str, Any]) -> None:
     if aria2:
         command = [
             aria2,
-            f"--all-proxy={PROXY}",
             "--split=16",
             "--max-connection-per-server=16",
             "--min-split-size=1M",
@@ -81,34 +80,48 @@ def download_file(source: dict[str, Any]) -> None:
             str(target.parent),
             "-o",
             target.name,
-            source["url"],
         ]
+        if proxy:
+            command.append(f"--all-proxy={proxy}")
+        command.append(source["url"])
         print(f"download {source['id']} with aria2")
         subprocess.run(command, check=True)
     else:
         print(f"download {source['id']} with urllib (aria2 unavailable)")
-        urllib.request.urlretrieve(source["url"], target)
+        opener = urllib.request.build_opener(
+            urllib.request.ProxyHandler({"http": proxy, "https": proxy})
+            if proxy
+            else urllib.request.ProxyHandler({})
+        )
+        with opener.open(source["url"]) as response, target.open("wb") as stream:
+            shutil.copyfileobj(response, stream)
     if not checksum_ok(target, source.get("checksum")):
         raise RuntimeError(f"checksum failed for {source['id']}: {target}")
 
 
-def clone_git(source: dict[str, Any]) -> None:
+def clone_git(source: dict[str, Any], *, proxy: str | None = PROXY) -> None:
     target = ROOT / source["path"]
     target.parent.mkdir(parents=True, exist_ok=True)
     if (target / ".git").exists():
         print(f"exists {source['id']}: {target.relative_to(ROOT)}")
         return
     print(f"clone {source['id']}: {source['url']}")
-    subprocess.run(
-        ["git", "-c", f"http.proxy={PROXY}", "clone", "--depth", "1", source["url"], str(target)],
-        check=True,
-    )
+    command = ["git"]
+    if proxy:
+        command.extend(["-c", f"http.proxy={proxy}"])
+    command.extend(["clone", "--depth", "1", source["url"], str(target)])
+    subprocess.run(command, check=True)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", action="append", default=[], help="Source id; repeatable")
     parser.add_argument("--include-large", action="store_true")
+    parser.add_argument(
+        "--direct",
+        action="store_true",
+        help="Bypass the configured proxy (useful after a measured connectivity check).",
+    )
     parser.add_argument("--round", type=int, choices=(1, 2, 3), help="Only fetch one expansion round")
     args = parser.parse_args()
     sources = load_sources()
@@ -129,11 +142,12 @@ def main() -> int:
             print(f"skip {source['id']}: large; pass --include-large or --dataset")
             continue
         selected.append(source)
+    proxy = None if args.direct else PROXY
     for source in selected:
         if source["kind"] == "file":
-            download_file(source)
+            download_file(source, proxy=proxy)
         elif source["kind"] == "git":
-            clone_git(source)
+            clone_git(source, proxy=proxy)
         else:
             raise ValueError(f"unsupported source kind: {source['kind']}")
     return 0
@@ -141,4 +155,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
