@@ -6,7 +6,7 @@
     "page_mapping": "physical_pdf_page = printed_page + 11 for Chapters 2-6"
   },
   "status_semantics": {
-    "verified": "Callable implementation, unit tests, source-linked config, and an engineering validation record exist.",
+    "verified": "Equation-complete callable implementation, unit tests, source-linked config, and paper-protocol validation within a declared tolerance exist.",
     "partial": "A callable baseline exists but one or more equations, optimization steps, or validation cases from the book are absent.",
     "missing": "Inventory and source pages exist, but no faithful callable implementation exists yet."
   },
@@ -18,7 +18,7 @@
       "printed_pages": "49-67",
       "physical_pages": "60-78",
       "required_components": ["finite-state Markov chain", "closed-form FAR", "closed-form MAR", "closed-form AAD", "weighted threshold-delay search"],
-      "implementation": "iia_benchmark.models.univariate",
+      "implementation": "iia_benchmark.models.univariate_book.iid_delay_timer_performance",
       "status": "partial"
     },
     {
@@ -28,8 +28,8 @@
       "printed_pages": "68-84",
       "physical_pages": "79-95",
       "required_components": ["Pettitt recursive segmentation", "segment homogeneity tests", "duration PMF estimation", "Bayesian credible intervals", "joint delay-threshold design"],
-      "implementation": null,
-      "status": "missing"
+      "implementation": "iia_benchmark.models.univariate_book.design_non_iid_delay_timer",
+      "status": "partial"
     },
     {
       "id": "book_2_3_non_iid_deadband",
@@ -38,7 +38,7 @@
       "printed_pages": "85-107",
       "physical_pages": "96-118",
       "required_components": ["maximum amplitude deviations", "deadband index", "Bayesian posterior", "credible interval", "deadband-width design"],
-      "implementation": "iia_benchmark.models.univariate.ThresholdDelayDeadband",
+      "implementation": "iia_benchmark.models.univariate_book.deadband_index + design_deadband_width",
       "status": "partial"
     },
     {
@@ -48,8 +48,8 @@
       "printed_pages": "108-125",
       "physical_pages": "119-136",
       "required_components": ["Markov-state quantization algorithm 1", "quantization algorithm 2", "P_k statistic", "T_k statistic", "P_am statistic", "T_am statistic", "threshold objective"],
-      "implementation": null,
-      "status": "missing"
+      "implementation": "iia_benchmark.models.univariate_book.build_alarm_probability_plot + select_alarm_probability_threshold",
+      "status": "partial"
     },
     {
       "id": "book_3_1_convex_noz",

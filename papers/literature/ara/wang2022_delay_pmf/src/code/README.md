@@ -1,3 +1,5 @@
 # Code
 
-No vendored code. Official artifacts remain source-linked and must be license-audited before import.
+Local implementations:
+
+- `src/iia_benchmark/models/univariate_book.py:design_non_iid_delay_timer`

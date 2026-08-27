@@ -16,6 +16,8 @@
       "access": "gated",
       "landing_url": "https://doi.org/10.1109/TASE.2011.2176490",
       "method_summary": "Finite-state Markov expressions for false-alarm rate, missed-alarm rate, and average alarm delay, followed by alarm parameter design.",
+      "local_implementation": ["src/iia_benchmark/models/univariate_book.py:iid_delay_timer_performance"],
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_univariate_book.py", "scope": "closed-form and invariant tests; not a paper-score reproduction"},
       "claims": [
         {"id": "C1", "statement": "FAR, MAR, and AAD jointly define alarm-system performance.", "support": "book_chapter_2_and_publisher_metadata", "status": "explicit"}
       ]
@@ -30,8 +32,42 @@
       "access": "gated",
       "landing_url": "https://doi.org/10.1016/j.jprocont.2022.01.002",
       "method_summary": "Estimates duration PMFs from non-IID alarm data and uses them to design delay timers.",
+      "local_implementation": ["src/iia_benchmark/models/univariate_book.py:design_non_iid_delay_timer"],
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_univariate_book.py", "scope": "synthetic duration-tail recovery; not a paper-score reproduction"},
       "claims": [
         {"id": "C1", "statement": "Duration distributions provide a non-IID route to delay-timer design.", "support": "book_chapter_2_and_publisher_metadata", "status": "explicit"}
+      ]
+    },
+    {
+      "id": "wang2023_deadband",
+      "year": 2023,
+      "title": "Alarm Deadband Design Based on Maximum Amplitude Deviations and Bayesian Estimation",
+      "doi": "10.1109/TCST.2023.3240020",
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "role": "book-chapter-2 non-IID deadband design",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1109/TCST.2023.3240020",
+      "method_summary": "Uses alarm-duration/deviation geometry to decide whether deadband is appropriate and a Bayesian amplitude-tail estimate to choose its width.",
+      "local_implementation": ["src/iia_benchmark/models/univariate_book.py:deadband_index", "src/iia_benchmark/models/univariate_book.py:design_deadband_width"],
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_univariate_book.py", "scope": "equation and synthetic episode tests; not a paper-score reproduction"},
+      "claims": [
+        {"id": "C1", "statement": "Maximum alarm deviations determine the remaining false-alarm probability after a deadband is applied.", "support": "book_chapter_2_and_publisher_metadata", "status": "explicit"}
+      ]
+    },
+    {
+      "id": "yu2017_alarm_probability_plot",
+      "year": 2017,
+      "title": "Design of Alarm Trippoints for Univariate Analog Process Variables Based on Alarm Probability Plots",
+      "doi": "10.1109/TIE.2017.2682783",
+      "venue": "IEEE Transactions on Industrial Electronics",
+      "role": "book-chapter-2 alarm probability plots",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1109/TIE.2017.2682783",
+      "method_summary": "Quantizes a process variable into Markov states and uses transition probability/time statistics to select a trippoint.",
+      "local_implementation": ["src/iia_benchmark/models/univariate_book.py:build_alarm_probability_plot", "src/iia_benchmark/models/univariate_book.py:select_alarm_probability_threshold"],
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_univariate_book.py", "scope": "state-quantization and Markov-statistic invariants; not a paper-score reproduction"},
+      "claims": [
+        {"id": "C1", "statement": "APP threshold selection combines transition probability with available transition time.", "support": "book_chapter_2_and_publisher_metadata", "status": "explicit"}
       ]
     },
     {

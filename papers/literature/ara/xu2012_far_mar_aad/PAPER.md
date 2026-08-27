@@ -6,7 +6,7 @@
 - Venue: IEEE Transactions on Automation Science and Engineering
 - DOI: [10.1109/TASE.2011.2176490](https://doi.org/10.1109/TASE.2011.2176490)
 - Benchmark role: book-chapter-2 mathematical baseline
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 

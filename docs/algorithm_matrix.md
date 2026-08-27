@@ -9,6 +9,10 @@ reproduced merely because a related baseline below is callable.
 |---|---|---|---|---|
 | Fixed alarm | threshold + on-delay + deadband | `ThresholdDelayDeadband` | A | sample-based delay only |
 | Alarm design | FAR/MAR/AAD weighted search | `design_alarm` | A | plug-in estimates; Bayesian CI pending |
+| IID delay design | Markov FAR/MAR/AAD equations 2.8/2.15/2.16 | `iid_delay_timer_performance` | A | paper industrial score pending |
+| Non-IID delay design | duration tails + Bayesian interval + grid search | `design_non_iid_delay_timer` | A | paper industrial score pending |
+| Deadband design | angle suitability index + Bayesian width | `deadband_index`, `design_deadband_width` | A | paper industrial score pending |
+| Alarm probability plot | equal-count Markov states + four statistics | `build_alarm_probability_plot` | A | paper industrial score pending |
 | MSPC | covariance normal zone | `MahalanobisAlarm` | A | unimodal elliptical zone |
 | Multivariate NOZ | convex operating polytope + conditional bound | `ConvexHullNOZAlarm` | A | robust center trimming approximates full book search |
 | Binary RCA | lagged TE + surrogate threshold | `TransferEntropyRanker` | A | first-order discrete TE; indirect pruning pending |

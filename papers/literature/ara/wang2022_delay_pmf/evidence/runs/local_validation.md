@@ -1,5 +1,6 @@
 # Local validation
 
-Status: **not run**.
+Status: **passed**.
 
-Required fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision.
+- Command: `python -m pytest -q tests/test_univariate_book.py`
+- Scope: synthetic duration-tail recovery; not a paper-score reproduction

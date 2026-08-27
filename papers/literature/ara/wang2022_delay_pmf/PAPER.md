@@ -6,7 +6,7 @@
 - Venue: Journal of Process Control
 - DOI: [10.1016/j.jprocont.2022.01.002](https://doi.org/10.1016/j.jprocont.2022.01.002)
 - Benchmark role: book-chapter-2 non-IID delay design
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 

@@ -20,6 +20,12 @@ def write(path: Path, content: str) -> None:
 
 
 def artifact_status(paper: dict, download: dict) -> str:
+    if paper.get("local_validation", {}).get("status") == "passed":
+        return (
+            "engineering_validated_source_acquired"
+            if download.get("status") == "downloaded"
+            else "engineering_validated_source_gated"
+        )
     if download.get("status") == "downloaded":
         if paper.get("official_artifact", {}).get("status") == "downloaded":
             return "source_and_code_acquired"
@@ -53,6 +59,8 @@ def main() -> int:
             "access": paper["access"],
             "local_source": download,
             "official_artifact": paper.get("official_artifact"),
+            "local_implementation": paper.get("local_implementation", []),
+            "local_validation": paper.get("local_validation"),
             "ara_status": status,
         }
         write(paper_dir / "metadata.json", json.dumps(metadata, indent=2, ensure_ascii=False))
@@ -141,9 +149,21 @@ before the method can be called reproduced.
 - Official artifact: {paper.get('official_artifact', {}).get('url', 'not registered')}
 """,
         )
+        validation = paper.get("local_validation")
+        validation_text = (
+            f"""# Local validation
+
+Status: **{validation['status']}**.
+
+- Command: `{validation['command']}`
+- Scope: {validation['scope']}
+"""
+            if validation
+            else "# Local validation\n\nStatus: **not run**.\n\nRequired fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision."
+        )
         write(
             paper_dir / "evidence" / "runs" / "local_validation.md",
-            "# Local validation\n\nStatus: **not run**.\n\nRequired fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision.",
+            validation_text,
         )
         write(paper_dir / "evidence" / "tables" / "README.md", "# Tables\n\nNo derived tables yet.")
         write(paper_dir / "evidence" / "figures" / "README.md", "# Figures\n\nNo derived figures yet.")
@@ -151,15 +171,22 @@ before the method can be called reproduced.
             paper_dir / "src" / "environment.md",
             "# Environment\n\nStatus: not locked. Record OS, Python version, dependency lock, hardware, and official artifact version before validation.",
         )
-        write(paper_dir / "src" / "code" / "README.md", "# Code\n\nNo vendored code. Official artifacts remain source-linked and must be license-audited before import.")
+        implementations = paper.get("local_implementation", [])
+        code_text = (
+            "# Code\n\nLocal implementations:\n\n"
+            + "\n".join(f"- `{item}`" for item in implementations)
+            if implementations
+            else "# Code\n\nNo vendored code. Official artifacts remain source-linked and must be license-audited before import."
+        )
+        write(paper_dir / "src" / "code" / "README.md", code_text)
         write(paper_dir / "src" / "configs" / "README.md", "# Configs\n\nNo frozen reproduction config yet.")
         trace = {
             "paper_id": paper["id"],
             "nodes": [
                 {"id": "source", "kind": "evidence", "status": download.get("status")},
                 {"id": "method", "kind": "extraction", "status": "registered"},
-                {"id": "implementation", "kind": "code", "status": "pending"},
-                {"id": "validation", "kind": "run", "status": "pending"},
+                {"id": "implementation", "kind": "code", "status": "registered" if paper.get("local_implementation") else "pending"},
+                {"id": "validation", "kind": "run", "status": paper.get("local_validation", {}).get("status", "pending")},
             ],
             "edges": [
                 {"from": "source", "to": "method", "support": "explicit_or_book_crosscheck"},
