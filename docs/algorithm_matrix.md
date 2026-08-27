@@ -32,7 +32,7 @@ reproduced merely because a related baseline below is callable.
 | Closed patterns | vertical TID closedness + delta representative cover | `charm_closed_alarm_patterns` | A | industrial 921-to-207 result pending |
 | Maximum entropy | learned log-linear f1/f2 next-alarm distribution | `MaximumEntropyNextAlarmPredictor` | A | paper Monte Carlo score pending |
 | Robustness | missing/spurious/timing perturbations | `perturb_alarm_episode` | A | detector-delay perturbation remains protocol-level |
-| CASIM | MultiRocket + ridge ensemble + LoOP | official Code Ocean reproduction slot | B | environment/data not yet locked |
+| CASIM | MultiRocket + ridge ensemble + LoOP | independent callable reproduction + official Code Ocean comparison slot | B | mechanics/invariants tested; official TEP score reproduction pending capsule/data |
 | ConE-AFC | conformal early classification | metrics ready; model slot | B | calibration split and artifact pending |
 | AFC-RobustBench | four realistic alarm corruptions | protocol partially implemented | C | 2026 preprint; official release audit pending |
 

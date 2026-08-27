@@ -1,5 +1,6 @@
 # Local validation
 
-Status: **not run**.
+Status: **passed**.
 
-Required fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision.
+- Command: `python -m pytest -q tests/test_casim.py`
+- Scope: paper equations/mechanics and synthetic invariants; official TEP score reproduction pending gated data and capsule

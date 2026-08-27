@@ -312,6 +312,18 @@
         "status": "remote_access_pending"
       },
       "method_summary": "CASIM transforms alarm sequences with randomized convolutional kernels, pools the responses, and uses a ridge ensemble plus local outlier probability for open-set decisions.",
+      "local_implementation": [
+        "src/iia_benchmark/models/casim.py:CASIMFeatureTransformer",
+        "src/iia_benchmark/models/casim.py:CASIMClassifier",
+        "src/iia_benchmark/models/casim.py:CASIMExpandingWindowClassifier",
+        "src/iia_benchmark/models/casim.py:LocalOutlierProbability"
+      ],
+      "local_validation": {
+        "status": "passed",
+        "reproduction_type": "independent_reimplementation",
+        "command": "python -m pytest -q tests/test_casim.py",
+        "scope": "paper equations/mechanics and synthetic invariants; official TEP score reproduction pending gated data and capsule"
+      },
       "claims": [
         {"id": "C1", "statement": "CASIM uses convolutional-kernel features for early alarm-flood classification.", "support": "paper_pdf_method", "status": "explicit"},
         {"id": "C2", "statement": "Open-set evaluation includes nuisance alarms, order changes, and unseen flood classes.", "support": "paper_pdf_experiments", "status": "explicit"},

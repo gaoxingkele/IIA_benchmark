@@ -6,7 +6,7 @@
 - Venue: Data-Centric Engineering
 - DOI: [10.1017/dce.2024.22](https://doi.org/10.1017/dce.2024.22)
 - Benchmark role: SOTA early/open-set alarm flood classification
-- ARA status: `source_acquired_code_pending`
+- ARA status: `engineering_validated_source_acquired`
 
 ## Executive summary
 

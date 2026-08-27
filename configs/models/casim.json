@@ -1,0 +1,26 @@
+{
+  "id": "casim",
+  "family": "sota_alarm_flood_classification",
+  "entrypoint": "iia_benchmark.models.CASIMClassifier",
+  "parameters": {
+    "n_features": 672,
+    "n_classifiers": 10,
+    "alphas": [0.001, 0.0046415888, 0.0215443469, 0.1, 0.4641588834, 2.15443469, 10.0, 46.41588834, 215.443469, 1000.0],
+    "k_loop": 10,
+    "loop_extent": 3.0,
+    "random_state": 0
+  },
+  "online_protocol": {
+    "initial_window_minutes": 10,
+    "interval_minutes": 10,
+    "maximum_window_minutes": 420,
+    "novelty_threshold_grid": {"start": 0.001, "stop": 1.0, "step": 0.001}
+  },
+  "equations": ["CASIM Eqs. 1-10", "LoOP (Kriegel et al., 2009)"],
+  "source": {
+    "paper_doi": "10.1017/dce.2024.22",
+    "official_artifact_doi": "10.24433/CO.4874993.v1",
+    "implementation_status": "independent_reimplementation",
+    "paper_score_status": "pending_official_TEP_alarm_data_and_capsule"
+  }
+}

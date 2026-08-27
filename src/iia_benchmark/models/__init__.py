@@ -4,6 +4,14 @@ from .flood import (
     perturb_alarm_episode,
     smith_waterman_similarity,
 )
+from .casim import (
+    CASIMClassifier,
+    CASIMExpandingWindowClassifier,
+    CASIMFeatureTransformer,
+    CASIMKernel,
+    LocalOutlierProbability,
+    casim_loop_features,
+)
 from .flood_book import (
     AlarmAlignmentResult,
     AlarmToken,
@@ -88,6 +96,10 @@ __all__ = [
     "BayesianWindowRegressionAlarm",
     "BetaPosterior",
     "CausalEdge",
+    "CASIMClassifier",
+    "CASIMExpandingWindowClassifier",
+    "CASIMFeatureTransformer",
+    "CASIMKernel",
     "ClosedAlarmPattern",
     "ConvexHullNOZAlarm",
     "CondenserNOZAlarm",
@@ -99,6 +111,7 @@ __all__ = [
     "EmpiricalNextAlarmPredictor",
     "IIDAlarmPerformance",
     "LinearSegment",
+    "LocalOutlierProbability",
     "MahalanobisAlarm",
     "MaximumEntropyNextAlarmPredictor",
     "NonIIDDelayDesignResult",
@@ -120,6 +133,7 @@ __all__ = [
     "binary_run_lengths",
     "build_alarm_probability_plot",
     "charm_closed_alarm_patterns",
+    "casim_loop_features",
     "cluster_information_granules",
     "conditional_entropy",
     "criterion_c_alarm_flood_detection",

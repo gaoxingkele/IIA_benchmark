@@ -1,3 +1,8 @@
 # Code
 
-No vendored code. Official artifacts remain source-linked and must be license-audited before import.
+Local implementations:
+
+- `src/iia_benchmark/models/casim.py:CASIMFeatureTransformer`
+- `src/iia_benchmark/models/casim.py:CASIMClassifier`
+- `src/iia_benchmark/models/casim.py:CASIMExpandingWindowClassifier`
+- `src/iia_benchmark/models/casim.py:LocalOutlierProbability`
