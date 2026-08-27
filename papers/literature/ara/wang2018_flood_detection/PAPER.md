@@ -6,7 +6,7 @@
 - Venue: IEEE Transactions on Control Systems Technology
 - DOI: [10.1109/TCST.2017.2723578](https://doi.org/10.1109/TCST.2017.2723578)
 - Benchmark role: book-chapter-5 flood segmentation
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 

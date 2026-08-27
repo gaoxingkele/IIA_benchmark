@@ -1,5 +1,6 @@
 # Local validation
 
-Status: **not run**.
+Status: **passed**.
 
-Required fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision.
+- Command: `python -m pytest -q tests/test_flood_book.py`
+- Scope: log-linear probability normalization and dominant-next-alarm recovery; paper Monte Carlo score pending

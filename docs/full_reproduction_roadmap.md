@@ -10,8 +10,8 @@ The target is the complete algorithm inventory in `configs/algorithms/book_algor
 ## Current baseline after inventory
 
 - 20 book deliverables are registered: 19 algorithmic methods plus the Chapter 6 visual-analytics verification suite.
-- Existing callable code now covers 18 entries, but all 18 remain `partial` until their remaining paper-data/score evidence is closed.
-- The only missing algorithm is Chapter 5 CHARM/representative clustering; Chapter 6's visual verification suite is also still missing.
+- All 19 book algorithms now have callable implementations and invariant/recovery tests, but remain `partial` until their remaining paper-data/score evidence is closed.
+- Chapter 6's visual verification suite is the only `missing` book deliverable.
 - SOTA sources are tracked separately from book methods. A DOI or downloaded PDF is evidence acquisition, not an implementation or score reproduction.
 
 ## Planned implementation batches

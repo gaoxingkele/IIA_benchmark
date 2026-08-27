@@ -6,7 +6,7 @@
 - Venue: Journal of Process Control
 - DOI: [10.1016/j.jprocont.2021.10.002](https://doi.org/10.1016/j.jprocont.2021.10.002)
 - Benchmark role: book-chapter-5 next-alarm prediction
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 

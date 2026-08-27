@@ -6,7 +6,7 @@
 - Venue: Control Engineering Practice
 - DOI: [10.1016/j.conengprac.2016.05.021](https://doi.org/10.1016/j.conengprac.2016.05.021)
 - Benchmark role: book-chapter-5 alarm-flood matching
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 

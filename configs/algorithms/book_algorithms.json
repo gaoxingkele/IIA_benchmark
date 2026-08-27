@@ -168,7 +168,7 @@
       "printed_pages": "303-321",
       "physical_pages": "314-332",
       "required_components": ["criterion C", "recent-state inheritance", "long-standing alarm exclusion", "online detector", "offline interval merge"],
-      "implementation": "iia_benchmark.models.flood.detect_alarm_floods",
+      "implementation": "iia_benchmark.models.flood_book.criterion_c_alarm_flood_detection",
       "status": "partial"
     },
     {
@@ -178,7 +178,7 @@
       "printed_pages": "322-343",
       "physical_pages": "333-354",
       "required_components": ["priority-aware score", "time ambiguity", "pre-match", "seed", "extend", "backtrack", "normalized similarity"],
-      "implementation": "iia_benchmark.models.flood.smith_waterman_similarity",
+      "implementation": "iia_benchmark.models.flood_book.accelerated_alarm_alignment",
       "status": "partial"
     },
     {
@@ -188,8 +188,8 @@
       "printed_pages": "344-355",
       "physical_pages": "355-366",
       "required_components": ["transaction encoding", "CHARM closed itemsets", "support", "delta similarity", "representative-pattern clustering"],
-      "implementation": null,
-      "status": "missing"
+      "implementation": "iia_benchmark.models.flood_book.charm_closed_alarm_patterns + representative_alarm_patterns",
+      "status": "partial"
     },
     {
       "id": "book_5_4_max_entropy_prediction",
@@ -198,7 +198,7 @@
       "printed_pages": "356-376",
       "physical_pages": "367-387",
       "required_components": ["history characteristic functions", "current alarm context", "time-distance penalty", "maximum-entropy constraints", "iterative scaling", "next-alarm ranking"],
-      "implementation": "iia_benchmark.models.flood.EmpiricalNextAlarmPredictor",
+      "implementation": "iia_benchmark.models.flood_book.MaximumEntropyNextAlarmPredictor",
       "status": "partial"
     },
     {

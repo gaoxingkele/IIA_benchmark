@@ -1,5 +1,6 @@
 # Local validation
 
-Status: **not run**.
+Status: **passed**.
 
-Required fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision.
+- Command: `python -m pytest -q tests/test_flood_book.py`
+- Scope: I1/I2/I3 inheritance, long-standing exclusion, and delay tests; industrial score pending
