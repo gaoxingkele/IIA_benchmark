@@ -15,6 +15,7 @@ from iia_benchmark.data import (
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
     load_pronto_merged_csv,
+    pronto_normal_train_evaluation_masks,
     load_skab_csv,
     load_tep_ascii,
 )
@@ -182,3 +183,14 @@ def test_multiclass_metrics_include_per_class_and_confusion_audit() -> None:
     assert result["balanced_accuracy"] == 0.75
     assert result["confusion_matrix"]["a"]["b"] == 1
     assert result["per_class"]["b"]["recall"] == 1.0
+
+
+def test_pronto_normal_split_is_purged_and_keeps_all_faults() -> None:
+    labels = np.array(["Normal"] * 10 + ["Fault"] * 4 + ["Normal"] * 8)
+    train, evaluate = pronto_normal_train_evaluation_masks(
+        labels, train_fraction=0.5, purge_samples=2
+    )
+    np.testing.assert_array_equal(np.flatnonzero(train), [0, 1, 2, 3, 4, 14, 15, 16, 17])
+    assert np.all(evaluate[10:14])
+    assert not np.any(evaluate[[5, 6, 18, 19]])
+    assert not np.any(train & evaluate)

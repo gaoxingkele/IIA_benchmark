@@ -162,6 +162,39 @@ def build_pronto_fault_window_split(
     )
 
 
+def pronto_normal_train_evaluation_masks(
+    labels: np.ndarray,
+    *,
+    normal_label: str = "Normal",
+    train_fraction: float = 0.5,
+    purge_samples: int = 60,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Split every contiguous normal segment and retain all faults for evaluation."""
+
+    values = np.asarray(labels, dtype=str)
+    if values.ndim != 1 or values.size == 0 or not 0 < train_fraction < 1:
+        raise ValueError("labels and train_fraction are invalid")
+    if purge_samples < 0:
+        raise ValueError("purge_samples must be nonnegative")
+    train = np.zeros(values.size, dtype=bool)
+    evaluate = values != normal_label
+    starts = np.r_[0, np.flatnonzero(values[1:] != values[:-1]) + 1]
+    stops = np.r_[starts[1:], len(values)]
+    for start, stop in zip(starts, stops, strict=True):
+        if values[start] != normal_label:
+            continue
+        length = int(stop - start)
+        train_count = int(np.floor(length * train_fraction))
+        test_start = int(start + train_count + purge_samples)
+        if train_count < 1 or test_start >= stop:
+            continue
+        train[start : start + train_count] = True
+        evaluate[test_start:stop] = True
+    if not train.any() or not evaluate.any() or np.any(train & evaluate):
+        raise ValueError("normal split must create disjoint nonempty train/evaluation masks")
+    return train, evaluate
+
+
 def _unsafe_archive_member(info: zipfile.ZipInfo) -> str | None:
     """Return the reason a ZIP member cannot be safely materialized."""
 

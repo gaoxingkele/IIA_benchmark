@@ -16,6 +16,7 @@ from iia_benchmark.data import (
     load_piade_alarm_sequences,
     build_pronto_fault_window_split,
     load_pronto_merged_csv,
+    pronto_normal_train_evaluation_masks,
     load_skab_csv,
     load_tep_ascii,
     make_synthetic_alarm_run,
@@ -550,6 +551,74 @@ def _run_real_pronto_alarm_classification(
     }
 
 
+def _run_real_pronto_multivariate(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    split = references["split"]
+    model = references["model"]
+    paths = [_resolve(root, value) for value in dataset["paths"]]
+    runs = [
+        load_pronto_merged_csv(
+            path,
+            alarm_column_count=int(dataset.get("alarm_column_count", 12)),
+            label_column=str(dataset.get("label_column", "Fault")),
+        )
+        for path in paths
+    ]
+    process_names = runs[0].process_names
+    if any(run.process_names != process_names for run in runs):
+        raise ValueError("PRONTO test days have inconsistent process columns")
+    masks = [
+        pronto_normal_train_evaluation_masks(
+            run.labels,
+            normal_label=str(split.get("normal_label", "Normal")),
+            train_fraction=float(split["train_fraction"]),
+            purge_samples=int(split.get("purge_samples", 60)),
+        )
+        for run in runs
+    ]
+    training = np.vstack(
+        [run.process_values[train_mask] for run, (train_mask, _) in zip(runs, masks)]
+    )
+    estimator = MahalanobisAlarm(quantile=float(model.get("quantile", 0.99))).fit(
+        training
+    )
+    normal_label = str(split.get("normal_label", "Normal"))
+    per_run = []
+    for path, run, (train_mask, evaluation_mask) in zip(
+        paths, runs, masks, strict=True
+    ):
+        truth = run.labels[evaluation_mask] != normal_label
+        prediction = estimator.predict(run.process_values[evaluation_mask])
+        per_run.append(
+            {
+                "run_id": path.relative_to(root).as_posix(),
+                "train_normal_samples": int(np.sum(train_mask)),
+                "evaluation_samples": int(np.sum(evaluation_mask)),
+                "evaluation_normal_samples": int(np.sum(~truth)),
+                "evaluation_fault_samples": int(np.sum(truth)),
+                "metrics": binary_alarm_metrics(truth, prediction),
+            }
+        )
+    return {
+        "metrics": _macro_metrics(per_run),
+        "runs": per_run,
+        "train_normal_samples": len(training),
+        "features": list(process_names),
+        "threshold": estimator.threshold_,
+        "label_policy": f"Fault != {normal_label!r}; native point labels; no point adjustment",
+        "split_policy": (
+            "first fraction of every contiguous Normal segment trains; a complete "
+            "sample gap is purged; later Normal samples and all fault samples evaluate"
+        ),
+        "data_evidence": _data_evidence(paths, root),
+        "reporting_status": (
+            "real-data engineering validation; source-day reuse prevents leaderboard use"
+        ),
+    }
+
+
 def run_experiment(config_path: str | Path) -> dict[str, Any]:
     path = Path(config_path).resolve()
     root = path.parents[2]
@@ -576,6 +645,8 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         result = _run_real_visual_analytics(root, run_dir, references)
     elif task == "real_pronto_alarm_classification":
         result = _run_real_pronto_alarm_classification(root, references)
+    elif task == "real_pronto_multivariate_detection":
+        result = _run_real_pronto_multivariate(root, references)
     else:
         raise ValueError(f"Unsupported runnable task: {task}")
     payload = {

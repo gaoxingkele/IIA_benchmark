@@ -12,6 +12,7 @@ from .pronto import (
     build_pronto_fault_window_split,
     extract_pronto_members,
     load_pronto_merged_csv,
+    pronto_normal_train_evaluation_masks,
 )
 from .skab import load_skab_csv
 from .synthetic import (
@@ -35,6 +36,7 @@ __all__ = [
     "build_pronto_fault_window_split",
     "extract_pronto_members",
     "load_pronto_merged_csv",
+    "pronto_normal_train_evaluation_masks",
     "ProntoFaultWindowGroup",
     "ProntoFaultWindowSplit",
     "ProntoMergedRun",
