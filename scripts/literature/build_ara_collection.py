@@ -66,7 +66,7 @@ def main() -> int:
         write(paper_dir / "metadata.json", json.dumps(metadata, indent=2, ensure_ascii=False))
 
         claims_md = "\n".join(
-            f"- `{claim['id']}` [{claim['status']}] {claim['statement']}  \n"
+            f"- `{claim['id']}` [{claim['status']}] {claim['statement']}\n"
             f"  Support locator: `{claim['support']}`"
             for claim in paper["claims"]
         )
@@ -120,13 +120,19 @@ before the method can be called reproduced.
             paper_dir / "logic" / "related_work.md",
             "# Related work\n\nSee `papers/literature/registry.json` and the book algorithm inventory for the method family and expansion cycle.",
         )
+        experiment_summary = paper.get(
+            "experiment_summary",
+            "No paper-score reproduction is asserted by collection generation alone. "
+            "Add frozen dataset, grouped split, seeds, hyperparameters, and target "
+            "metrics here after execution.",
+        )
         write(
             paper_dir / "logic" / "experiments.md",
-            "# Experiments\n\nNo paper-score reproduction is asserted by collection generation alone. Add frozen dataset, grouped split, seeds, hyperparameters, and target metrics here after execution.",
+            f"# Experiments\n\n{experiment_summary}",
         )
         write(
             paper_dir / "logic" / "solution" / "method.md",
-            f"# Method\n\n{paper['method_summary']}",
+            f"# Method\n\n{paper['method_summary']}\n\n{paper.get('method_details', '')}",
         )
         write(
             paper_dir / "logic" / "solution" / "constraints.md",

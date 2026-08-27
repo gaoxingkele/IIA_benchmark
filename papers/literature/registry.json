@@ -355,15 +355,19 @@
       "doi": "10.1109/ACCESS.2024.3492348",
       "venue": "IEEE Access",
       "role": "SOTA uncertainty-aware online alarm flood classification",
-      "access": "open_access_remote_blocked",
+      "access": "author_manuscript_open",
       "landing_url": "https://doi.org/10.1109/ACCESS.2024.3492348",
+      "pdf_url": "https://hss-opus.ub.ruhr-uni-bochum.de/opus4/files/13643/MancaGianluca4.pdf",
+      "access_note": "Author-submitted manuscript in Ruhr University Bochum's OPUS institutional repository; discovered through the DOI's OpenAlex locations and HTTP-validated on 2026-08-28.",
       "license": "CC BY 4.0",
       "official_artifact": {
         "doi": "10.24433/CO.5512337.v2",
         "url": "https://codeocean.com/capsule/9490503/tree/v2",
-        "status": "remote_access_pending"
+        "status": "remote_access_blocked_403"
       },
       "method_summary": "ConE-AFC wraps online alarm-flood classifiers with conformal calibration and returns prediction sets at controlled error levels.",
+      "method_details": "For every expanding window and class, Algorithm 1 sorts held-out true-class probability scores in descending order (or distance scores ascending) and applies the finite-sample thresholds in Eqs. (2)-(3). Algorithm 2 includes a class when its online score passes the corresponding class/window threshold, as specified by Eqs. (4)-(5). Eq. (1) reports expected finite-calibration coverage from alpha, delta, and epsilon.",
+      "experiment_summary": "The paper's public synthetic dataset contains 18,750 binary alarm subsequences: 3,750 per class, five classes, ten alarm variables, and a 1/min sampling rate. Evaluation uses training/calibration/test partitions inside 10 repetitions of stratified 5-fold cross-validation (50 tests), expanding windows starting at 10 minutes with 1-minute steps, alpha in {0.1, 0.05, 0.01}, and class-balanced calibration sizes 22, 102, or 2491. Metrics are accuracy, coverage, and average prediction-set size. The Code Ocean capsule is currently HTTP 403 from this environment, so its exact data and table reproduction remain gated.",
       "local_implementation": [
         "src/iia_benchmark/models/cone_afc.py:ConEAFCCalibrator",
         "src/iia_benchmark/models/cone_afc.py:ConEAlarmFloodClassifier"
@@ -375,8 +379,9 @@
         "scope": "Eqs. 1-5, Algorithms 1-2, probability/distance and expanding-window invariants; official table reproduction pending capsule/data"
       },
       "claims": [
-        {"id": "C1", "statement": "Conformal prediction exposes uncertainty as label sets for expanding alarm-sequence prefixes.", "support": "publisher_metadata_and_artifact", "status": "explicit"},
-        {"id": "C2", "statement": "The authors provide a versioned Code Ocean reproduction capsule.", "support": "publisher_reproducibility_statement", "status": "explicit"}
+        {"id": "C1", "statement": "Conformal prediction exposes uncertainty as label sets for expanding alarm-sequence prefixes.", "support": "paper_pdf_algorithms_1_2_and_equations_1_5", "status": "explicit"},
+        {"id": "C2", "statement": "The authors provide a versioned Code Ocean reproduction capsule.", "support": "paper_pdf_code_and_data_availability_statement", "status": "explicit"},
+        {"id": "C3", "statement": "The evaluation uses 18,750 synthetic alarm subsequences and 50 repeated stratified folds.", "support": "paper_pdf_sections_IV_A_IV_C", "status": "explicit"}
       ]
     },
     {

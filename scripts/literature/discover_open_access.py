@@ -62,6 +62,10 @@ def main() -> int:
             f"https://api.unpaywall.org/v2/{encoded}?email={urllib.parse.quote(args.email)}"
         )
         crossref, crossref_error = query(f"https://api.crossref.org/works/{encoded}")
+        openalex, openalex_error = query(
+            "https://api.openalex.org/works/"
+            f"https://doi.org/{doi}?mailto={urllib.parse.quote(args.email)}"
+        )
         best = (unpaywall or {}).get("best_oa_location") or {}
         crossref_links = (crossref or {}).get("message", {}).get("link", [])
         publisher_pdf_candidates = [
@@ -69,6 +73,13 @@ def main() -> int:
             for link in crossref_links
             if "pdf" in str(link.get("content-type", "")).lower()
         ]
+        openalex_pdf_candidates = list(
+            dict.fromkeys(
+                location["pdf_url"]
+                for location in (openalex or {}).get("locations", [])
+                if location.get("pdf_url")
+            )
+        )
         download = downloads.get(paper["id"], {})
         oa_pdf = best.get("url_for_pdf")
         action = (
@@ -77,7 +88,7 @@ def main() -> int:
             else "retry_confirmed_open_pdf"
             if paper.get("pdf_url")
             else "review_oa_candidate"
-            if oa_pdf
+            if oa_pdf or openalex_pdf_candidates
             else "manual_authenticated_author_copy"
             if paper.get("manual_author_copy_url")
             else "institutional_access_or_author_request"
@@ -107,6 +118,15 @@ def main() -> int:
                     "error": crossref_error,
                     "publisher_pdf_candidates": publisher_pdf_candidates,
                 },
+                "openalex": {
+                    "query_ok": openalex is not None,
+                    "error": openalex_error,
+                    "is_oa": (openalex or {}).get("open_access", {}).get("is_oa"),
+                    "repository_has_fulltext": (openalex or {})
+                    .get("open_access", {})
+                    .get("any_repository_has_fulltext"),
+                    "pdf_candidates": openalex_pdf_candidates,
+                },
                 "next_action": action,
             }
         )
@@ -123,6 +143,9 @@ def main() -> int:
             "unpaywall_oa": sum(record["unpaywall"]["is_oa"] is True for record in records),
             "oa_pdf_candidates": sum(bool(record["unpaywall"]["best_pdf_url"]) for record in records),
             "publisher_pdf_candidates": sum(bool(record["crossref"]["publisher_pdf_candidates"]) for record in records),
+            "openalex_pdf_candidates": sum(
+                bool(record["openalex"]["pdf_candidates"]) for record in records
+            ),
             "manual_author_copy_candidates": sum(
                 bool(record["manual_author_copy"]["url"]) for record in records
             ),

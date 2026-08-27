@@ -37,7 +37,7 @@ Locally available public main payloads: `piade`, `pronto`, `skab`, `tep_classic`
 | Item | Count |
 |---|---:|
 | Papers registered | 28 |
-| Paper PDFs downloaded | 3 |
+| Paper PDFs downloaded | 4 |
 | DOI records marked open by Unpaywall | 5 |
 | Direct PDF candidates reported by Unpaywall | 2 |
 | Tasks with executed real-data validation | T1, T2, T3, T4, T5, T6 |
