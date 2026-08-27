@@ -38,6 +38,8 @@ Locally available public main payloads: `piade`, `skab`, `tep_classic`.
 |---|---:|
 | Papers registered | 28 |
 | Paper PDFs downloaded | 3 |
+| DOI records marked open by Unpaywall | 5 |
+| Direct PDF candidates reported by Unpaywall | 2 |
 | Tasks with executed real-data validation | T1, T2, T3, T5, T6 |
 | ARA paper packages with fresh local validation | 28 |
 

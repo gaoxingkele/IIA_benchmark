@@ -21,6 +21,7 @@ def main() -> int:
     data_audit = read("data/public_datasets/audit.json")
     data_by_id = {item["id"]: item for item in data_audit}
     paper_downloads = read("papers/literature/download_manifest.json")
+    paper_access = read("papers/literature/access_audit.json")
     families = sorted({item["dataset_family"] for item in sources})
     usable_families = sorted(
         {
@@ -91,6 +92,8 @@ def main() -> int:
         "evidence": {
             "registered_papers": paper_downloads["summary"]["registered"],
             "downloaded_papers": paper_downloads["summary"]["downloaded"],
+            "unpaywall_open_access_records": paper_access["summary"]["unpaywall_oa"],
+            "unpaywall_direct_pdf_candidates": paper_access["summary"]["oa_pdf_candidates"],
             "leaderboard_eligible_splits": sum(bool(item.get("leaderboard_eligible")) for item in split_configs),
             "real_data_validation_reports": sum(
                 str(config.get("task", "")).startswith("real_")
@@ -149,6 +152,8 @@ Locally available public main payloads: {', '.join(f'`{item}`' for item in repor
 |---|---:|
 | Papers registered | {report['evidence']['registered_papers']} |
 | Paper PDFs downloaded | {report['evidence']['downloaded_papers']} |
+| DOI records marked open by Unpaywall | {report['evidence']['unpaywall_open_access_records']} |
+| Direct PDF candidates reported by Unpaywall | {report['evidence']['unpaywall_direct_pdf_candidates']} |
 | Tasks with executed real-data validation | {', '.join(report['evidence']['real_data_validated_tasks']) or 'none'} |
 | ARA paper packages with fresh local validation | {report['evidence']['ara_algorithm_validations_passed']} |
 
