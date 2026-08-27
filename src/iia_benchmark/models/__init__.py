@@ -54,6 +54,11 @@ from .structured_hdam import (
     high_density_alarm_matrix,
     structured_hdam_alignment,
 )
+from .time_encoded_histogram import (
+    OptimalTimeEncodedHistogramClassifier,
+    TimedAlarmSequence,
+    time_encoded_histogram,
+)
 from .flood_book import (
     AlarmAlignmentResult,
     AlarmToken,
@@ -189,6 +194,7 @@ __all__ = [
     "NonIIDDelayDesignResult",
     "NGramSelection",
     "NormalizedTransferEntropyGraph",
+    "OptimalTimeEncodedHistogramClassifier",
     "PLRContributionRCA",
     "PettittResult",
     "RecursiveBayesianAlarmRCA",
@@ -198,6 +204,7 @@ __all__ = [
     "SpectralAlarmFloodClusterer",
     "ThresholdDelayDeadband",
     "TFIDFLSTMAlarmFloodClassifier",
+    "TimedAlarmSequence",
     "TransferEntropyRanker",
     "UncertaintyReductionForecaster",
     "VariationDirectionAlarm",
@@ -248,6 +255,7 @@ __all__ = [
     "smith_waterman_similarity",
     "structured_hdam_alignment",
     "threshold_states",
+    "time_encoded_histogram",
     "transfer_entropy",
     "weighted_time_gradient",
 ]

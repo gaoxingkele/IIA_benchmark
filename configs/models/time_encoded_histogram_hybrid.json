@@ -1,0 +1,27 @@
+{
+  "id": "time_encoded_histogram_hybrid",
+  "family": "sota_optimal_time_encoded_histogram_neural_afc",
+  "entrypoint": "iia_benchmark.models.OptimalTimeEncodedHistogramClassifier",
+  "parameters": {
+    "latent_size": 8,
+    "autoencoder_hidden_size": 16,
+    "transformer_width": 8,
+    "attention_heads": 2,
+    "transformer_layers": 1,
+    "pretrain_epochs": 30,
+    "classifier_epochs": 30,
+    "joint_epochs": 40,
+    "learning_rate": 0.02,
+    "initial_attenuation": 1.0,
+    "reconstruction_weight": 0.1
+  },
+  "training_phases": ["autoencoder_pretraining", "transformer_pretraining", "joint_attenuation_finetuning"],
+  "metrics": ["accuracy", "macro_f1", "decision_time", "runtime", "reconstruction_loss"],
+  "source": {
+    "paper_doi": "10.1016/j.engappai.2025.113705",
+    "implementation_status": "independent_partial_reimplementation",
+    "paper_score_status": "pending_full_text_exact_histogram_transformer_hyperparameters_and_TEP_alarm_payload",
+    "reference_result_gate": "selected-paper result tables and a same-authorship companion study reporting 93.7 percent accuracy are not claimed locally",
+    "evidence_boundary": "publisher-confirmed exponential histogram/gradient attenuation/autoencoder/modified-Transformer/separate-plus-joint training; local layer widths and losses are explicit independent choices"
+  }
+}
