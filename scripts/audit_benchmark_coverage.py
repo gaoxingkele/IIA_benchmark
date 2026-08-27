@@ -38,9 +38,21 @@ def main() -> int:
         for line in matrix_lines
     )
     split_configs = [read(str(path.relative_to(ROOT)).replace("\\", "/")) for path in (ROOT / "configs/splits").glob("*.json")]
+    validation_reports = sorted((ROOT / "experiments/reports").glob("*.json"))
+    validation_configs = [
+        read(read(str(path.relative_to(ROOT)).replace("\\", "/"))["config"])
+        for path in validation_reports
+    ]
+    validated_tasks = sorted(
+        {
+            task
+            for config in validation_configs
+            for task in config.get("downstream_tasks", [])
+        }
+    )
     report = {
         "schema_version": 1,
-        "cutoff_date": "2026-08-27",
+        "cutoff_date": "2026-08-28",
         "algorithms": {
             "callable_method_families": callable_families,
             "model_configs": len(list((ROOT / "configs/models").glob("*.json"))),
@@ -76,6 +88,8 @@ def main() -> int:
             "registered_papers": paper_downloads["summary"]["registered"],
             "downloaded_papers": paper_downloads["summary"]["downloaded"],
             "leaderboard_eligible_splits": sum(bool(item.get("leaderboard_eligible")) for item in split_configs),
+            "real_data_validation_reports": len(validation_reports),
+            "real_data_validated_tasks": validated_tasks,
         },
     }
     output = ROOT / "docs/status_audit.json"
@@ -110,6 +124,7 @@ this report.
 | Tasks runnable on available real data | {report['tasks']['runnable_real_data']} |
 | Tasks with the primary payload gated | {report['tasks']['protocol_ready_data_gated']} |
 | Leaderboard-eligible splits | {report['evidence']['leaderboard_eligible_splits']} |
+| Real-data validation reports | {report['evidence']['real_data_validation_reports']} |
 
 Locally available public main payloads: {', '.join(f'`{item}`' for item in report['datasets']['main_payload_available_ids'])}.
 
@@ -119,6 +134,7 @@ Locally available public main payloads: {', '.join(f'`{item}`' for item in repor
 |---|---:|
 | Papers registered | {report['evidence']['registered_papers']} |
 | Paper PDFs downloaded | {report['evidence']['downloaded_papers']} |
+| Tasks with executed real-data validation | {', '.join(report['evidence']['real_data_validated_tasks']) or 'none'} |
 
 The detailed machine-readable report is in `docs/status_audit.json`.
 """

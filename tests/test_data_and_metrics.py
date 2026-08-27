@@ -4,7 +4,14 @@ import pytest
 
 import numpy as np
 
-from iia_benchmark.data import ProcessRun, load_piade_alarm_events, load_tep_ascii
+from iia_benchmark.data import (
+    ProcessRun,
+    load_piade_alarm_events,
+    load_piade_alarm_intervals,
+    load_piade_alarm_sequences,
+    load_skab_csv,
+    load_tep_ascii,
+)
 from iia_benchmark.evaluation import prediction_set_metrics, robustness_degradation
 
 
@@ -22,6 +29,41 @@ def test_piade_adapter_filters_no_alarm(tmp_path: Path) -> None:
     )
     events = load_piade_alarm_events(path, equipment_id="s_1")
     assert [(event.timestamp, event.tag) for event in events] == [(2.0, "A_123")]
+
+
+def test_piade_interval_and_sequence_adapters(tmp_path: Path) -> None:
+    path = tmp_path / "piade.csv"
+    path.write_text(
+        "equipment_ID,alarm,start,end\n"
+        "s_1,A_001,1.0,2.0\n"
+        "s_1,A_002,3.0,4.0\n"
+        "s_1,A_003,101.0,102.0\n"
+        "s_2,A_004,5.0,6.0\n",
+        encoding="utf-8",
+    )
+    intervals = load_piade_alarm_intervals(path, equipment_id="s_1")
+    assert [(event.timestamp, event.tag, event.state) for event in intervals[:2]] == [
+        (1.0, "A_001", 1),
+        (2.0, "A_001", 0),
+    ]
+    sequences = load_piade_alarm_sequences(path, window_seconds=100.0)
+    assert [[event.tag for event in sequence] for sequence in sequences["s_1"]] == [
+        ["A_001", "A_002"]
+    ]
+
+
+def test_skab_adapter_keeps_point_labels_without_adjustment(tmp_path: Path) -> None:
+    path = tmp_path / "experiment.csv"
+    path.write_text(
+        "datetime;sensor_a;sensor_b;anomaly;changepoint\n"
+        "2020-01-01 00:00:00;1.0;2.0;0;0\n"
+        "2020-01-01 00:00:01;1.5;2.5;1;1\n",
+        encoding="utf-8",
+    )
+    run = load_skab_csv(path)
+    assert run.feature_names == ("sensor_a", "sensor_b")
+    assert run.values.shape == (2, 2)
+    assert run.abnormal.tolist() == [False, True]
 
 
 def test_uncertainty_and_robustness_metrics() -> None:

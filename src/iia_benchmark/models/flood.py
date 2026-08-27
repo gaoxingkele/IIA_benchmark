@@ -84,6 +84,23 @@ class EmpiricalNextAlarmPredictor:
         if not self.sequences_:
             raise ValueError("at least one non-empty sequence is required")
         self.vocabulary_ = tuple(sorted({tag for sequence in self.sequences_ for tag in sequence}))
+        self.context_scores_: dict[str, Counter[str]] = {
+            tag: Counter() for tag in self.vocabulary_
+        }
+        for historical in self.sequences_:
+            positions = {tag: index for index, tag in enumerate(historical)}
+            for context_tag, context_position in positions.items():
+                scores = self.context_scores_[context_tag]
+                for candidate, candidate_position in positions.items():
+                    if candidate == context_tag:
+                        continue
+                    distance = candidate_position - context_position
+                    weight = (
+                        1.0
+                        if distance > 0
+                        else exp(-((abs(distance) / self.distance_scale) ** 2) / 2)
+                    )
+                    scores[candidate] += weight
         return self
 
     def predict_proba(self, current: Sequence[str]) -> dict[str, float]:
@@ -93,17 +110,8 @@ class EmpiricalNextAlarmPredictor:
         if not remaining:
             return {}
         scores: Counter[str] = Counter()
-        for historical in self.sequences_:
-            positions = {tag: index for index, tag in enumerate(historical)}
-            for candidate in remaining:
-                if candidate not in positions:
-                    continue
-                candidate_position = positions[candidate]
-                for context_tag in dict.fromkeys(current):
-                    if context_tag in positions:
-                        distance = candidate_position - positions[context_tag]
-                        weight = 1.0 if distance > 0 else exp(-((abs(distance) / self.distance_scale) ** 2) / 2)
-                        scores[candidate] += weight
+        for context_tag in dict.fromkeys(current):
+            scores.update(self.context_scores_.get(context_tag, {}))
         if not scores:
             probability = 1.0 / len(remaining)
             return {tag: probability for tag in remaining}

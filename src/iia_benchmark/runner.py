@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -9,6 +10,10 @@ import numpy as np
 
 from iia_benchmark.config import load_experiment_config, load_json_reference
 from iia_benchmark.data import (
+    load_piade_alarm_intervals,
+    load_piade_alarm_sequences,
+    load_skab_csv,
+    load_tep_ascii,
     make_synthetic_alarm_run,
     make_synthetic_causal_alarm_series,
     make_synthetic_floods,
@@ -17,9 +22,15 @@ from iia_benchmark.data import (
 from iia_benchmark.evaluation import binary_alarm_metrics, sequence_accuracy
 from iia_benchmark.models import (
     ConvexHullNOZAlarm,
+    EmpiricalNextAlarmPredictor,
+    MahalanobisAlarm,
     TransferEntropyRanker,
     design_alarm,
     smith_waterman_similarity,
+)
+from iia_benchmark.visualization import (
+    build_alarm_visual_analytics,
+    export_alarm_visual_report,
 )
 
 
@@ -40,6 +51,37 @@ def _range(specification: dict[str, Any]) -> np.ndarray:
         float(specification["stop"]),
         int(specification["num"]),
     )
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _data_evidence(paths: list[Path], root: Path) -> dict[str, Any]:
+    records = [
+        {
+            "path": path.relative_to(root).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": _sha256(path),
+        }
+        for path in paths
+    ]
+    combined = hashlib.sha256(
+        json.dumps(records, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return {"files": records, "combined_sha256": combined}
+
+
+def _macro_metrics(per_run: list[dict[str, Any]]) -> dict[str, float]:
+    keys = tuple(per_run[0]["metrics"])
+    return {
+        key: float(np.mean([record["metrics"][key] for record in per_run]))
+        for key in keys
+    }
 
 
 def _run_univariate(references: dict[str, dict[str, Any]]) -> dict[str, Any]:
@@ -128,12 +170,198 @@ def _run_root_cause(references: dict[str, dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _run_real_multivariate(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    model = references["model"]
+    loader = dataset["loader"]
+    test_globs = dataset.get("test_globs", [dataset["test_glob"]])
+    excluded_stems = set(dataset.get("exclude_test_stems", []))
+    test_paths = sorted(
+        {
+            path
+            for pattern in test_globs
+            for path in root.glob(pattern)
+            if path.stem not in excluded_stems
+        }
+    )
+    if loader == "skab":
+        train_path = _resolve(root, dataset["train_path"])
+        train = load_skab_csv(train_path)
+        tests = [load_skab_csv(path) for path in test_paths]
+        label_policy = "native point labels; no point adjustment"
+    elif loader == "tep_ascii":
+        train_path = _resolve(root, dataset["train_path"])
+        fault_start = int(dataset["fault_start"])
+        train = load_tep_ascii(
+            train_path, sample_period=float(dataset.get("sample_period", 180.0))
+        )
+        tests = [
+            load_tep_ascii(
+                path,
+                fault_start=fault_start,
+                root_cause=path.stem.split("_")[0].upper(),
+                sample_period=float(dataset.get("sample_period", 180.0)),
+            )
+            for path in test_paths
+        ]
+        label_policy = f"fault onset fixed at zero-based sample {fault_start}"
+    else:
+        raise ValueError(f"Unsupported real multivariate loader: {loader}")
+    if not tests:
+        raise ValueError("real multivariate experiment selected no test runs")
+    estimator = MahalanobisAlarm(quantile=float(model.get("quantile", 0.99))).fit(
+        train.values
+    )
+    per_run = []
+    for path, run in zip(test_paths, tests, strict=True):
+        prediction = estimator.predict(run.values)
+        per_run.append(
+            {
+                "run_id": path.relative_to(root).as_posix(),
+                "samples": len(run.timestamps),
+                "abnormal_samples": int(run.abnormal.sum()),
+                "metrics": binary_alarm_metrics(run.abnormal, prediction),
+            }
+        )
+    return {
+        "metrics": _macro_metrics(per_run),
+        "runs": per_run,
+        "train_samples": len(train.timestamps),
+        "test_runs": len(tests),
+        "threshold": estimator.threshold_,
+        "label_policy": label_policy,
+        "data_evidence": _data_evidence([train_path, *test_paths], root),
+        "reporting_status": "engineering validation; not a leaderboard claim",
+    }
+
+
+def _run_real_next_alarm(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    split = references["split"]
+    model = references["model"]
+    source = _resolve(root, dataset["path"])
+    by_equipment = load_piade_alarm_sequences(
+        source, window_seconds=float(dataset.get("window_seconds", 86_400.0))
+    )
+    train_sequences: list[tuple[str, ...]] = []
+    test_sequences: list[tuple[str, ...]] = []
+    groups: list[dict[str, Any]] = []
+    train_fraction = float(split["train_fraction"])
+    for equipment, sequences in by_equipment.items():
+        boundary = min(max(1, int(len(sequences) * train_fraction)), len(sequences) - 1)
+        train = sequences[:boundary]
+        test = sequences[boundary:]
+        train_sequences.extend(tuple(event.tag for event in sequence) for sequence in train)
+        test_sequences.extend(tuple(event.tag for event in sequence) for sequence in test)
+        groups.append(
+            {
+                "equipment_id": equipment,
+                "train_windows": len(train),
+                "test_windows": len(test),
+            }
+        )
+    predictor = EmpiricalNextAlarmPredictor(
+        distance_scale=float(model.get("distance_scale", 3.0))
+    ).fit(train_sequences)
+    truth: list[str] = []
+    predicted: list[str] = []
+    top3_hits = 0
+    eligible = 0
+    total = 0
+    for sequence in test_sequences:
+        distinct = tuple(dict.fromkeys(sequence))
+        for current, target in zip(distinct, distinct[1:]):
+            total += 1
+            if current not in predictor.vocabulary_ or target not in predictor.vocabulary_:
+                continue
+            probabilities = predictor.predict_proba((current,))
+            if not probabilities:
+                continue
+            ranking = sorted(probabilities, key=probabilities.get, reverse=True)
+            truth.append(target)
+            predicted.append(ranking[0])
+            top3_hits += int(target in ranking[:3])
+            eligible += 1
+    if not eligible:
+        raise ValueError("PIADE test split contains no evaluable next-alarm transitions")
+    return {
+        "metrics": {
+            "top1_accuracy": sequence_accuracy(truth, predicted),
+            "top3_accuracy": top3_hits / eligible,
+            "vocabulary_coverage": eligible / total if total else 0.0,
+        },
+        "train_windows": len(train_sequences),
+        "test_windows": len(test_sequences),
+        "evaluated_transitions": eligible,
+        "candidate_transitions": total,
+        "equipment_splits": groups,
+        "target_policy": "next distinct alarm within fixed chronological window",
+        "data_evidence": _data_evidence([source], root),
+        "reporting_status": "engineering validation; not a leaderboard claim",
+    }
+
+
+def _run_real_visual_analytics(
+    root: Path,
+    run_dir: Path,
+    references: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    source = _resolve(root, dataset["path"])
+    events = load_piade_alarm_intervals(
+        source, equipment_id=str(dataset["equipment_id"])
+    )
+    parameters = dataset.get("visualization", {})
+    max_duration_days = float(parameters.get("max_duration_days", 0.0))
+    if max_duration_days > 0 and events:
+        cutoff = events[0].timestamp + max_duration_days * 86_400.0
+        events = tuple(event for event in events if event.timestamp <= cutoff)
+    report = build_alarm_visual_analytics(
+        events,
+        console=str(dataset["equipment_id"]),
+        window_seconds=float(parameters.get("window_seconds", 600.0)),
+        sample_seconds=float(parameters.get("sample_seconds", 60.0)),
+        flood_start=int(parameters.get("flood_start", 10)),
+        flood_end=int(parameters.get("flood_end", 5)),
+        top_n=int(parameters.get("top_n", 20)),
+    )
+    html_path, json_path = export_alarm_visual_report(report, run_dir)
+    payload = report.as_dict()
+    return {
+        "events": len(events),
+        "activations": int(payload["source"]["activation_count"]),
+        "unique_alarm_tags": int(payload["performance"]["unique_alarm_tags"]),
+        "flood_intervals": len(payload["burst_plot"]["flood_intervals"]),
+        "time_span_days": (
+            (events[-1].timestamp - events[0].timestamp) / 86_400.0 if events else 0.0
+        ),
+        "slice_policy": (
+            f"first {max_duration_days:g} days for bounded engineering artifact"
+            if max_duration_days > 0
+            else "full equipment timeline"
+        ),
+        "artifacts": {
+            "html": html_path.relative_to(root).as_posix(),
+            "facts": json_path.relative_to(root).as_posix(),
+        },
+        "artifact_evidence": _data_evidence([html_path, json_path], root),
+        "data_evidence": _data_evidence([source], root),
+        "reporting_status": "descriptive real-data validation; not a classifier score",
+    }
+
+
 def run_experiment(config_path: str | Path) -> dict[str, Any]:
     path = Path(config_path).resolve()
     root = path.parents[2]
     experiment = load_experiment_config(path)
     references = _load_references(root, experiment)
     task = experiment["task"]
+    run_dir = _resolve(root, experiment["outputs"]["run_dir"])
+    run_dir.mkdir(parents=True, exist_ok=True)
     if task == "univariate_alarm_design":
         result = _run_univariate(references)
     elif task == "alarm_flood_similarity":
@@ -142,6 +370,12 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         result = _run_multivariate_noz(references)
     elif task == "root_cause_transfer_entropy":
         result = _run_root_cause(references)
+    elif task == "real_multivariate_detection":
+        result = _run_real_multivariate(root, references)
+    elif task == "real_next_alarm_forecasting":
+        result = _run_real_next_alarm(root, references)
+    elif task == "real_visual_analytics":
+        result = _run_real_visual_analytics(root, run_dir, references)
     else:
         raise ValueError(f"Unsupported runnable task: {task}")
     payload = {
@@ -150,11 +384,23 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         "result": result,
         "config": str(path.relative_to(root)).replace("\\", "/"),
     }
-    run_dir = _resolve(root, experiment["outputs"]["run_dir"])
-    run_dir.mkdir(parents=True, exist_ok=True)
     (run_dir / "result.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
+    if experiment["outputs"].get("summary"):
+        summary_path = _resolve(root, experiment["outputs"]["summary"])
+        summary_path.parent.mkdir(parents=True, exist_ok=True)
+        serialized = json.dumps(payload, ensure_ascii=False, indent=2)
+        if summary_path.suffix.lower() == ".md":
+            serialized = (
+                f"# {experiment['id']}\n\n"
+                "Generated engineering-validation record. Synthetic smoke results are "
+                "not leaderboard evidence.\n\n```json\n"
+                f"{serialized}\n```\n"
+            )
+        else:
+            serialized += "\n"
+        summary_path.write_text(serialized, encoding="utf-8")
     return payload
 
 
