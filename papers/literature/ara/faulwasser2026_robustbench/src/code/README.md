@@ -1,3 +1,6 @@
 # Code
 
-No vendored code. Official artifacts remain source-linked and must be license-audited before import.
+Local implementations:
+
+- `src/iia_benchmark/evaluation/robustness.py:PerturbationScenario`
+- `src/iia_benchmark/evaluation/robustness.py:run_afc_robustness_benchmark`

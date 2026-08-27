@@ -121,25 +121,45 @@ def perturb_alarm_episode(
     missing_probability: float = 0.0,
     spurious_count: int = 0,
     timing_jitter: float = 0.0,
+    detector_delay: float = 0.0,
+    spurious_tags: Sequence[str] | None = None,
     seed: int = 0,
 ) -> AlarmEpisode:
-    """Apply reproducible missing/spurious/timing perturbations for robustness tests."""
-    if not 0 <= missing_probability <= 1 or spurious_count < 0 or timing_jitter < 0:
+    """Apply reproducible AFC-RobustBench-style event-stream perturbations.
+
+    ``detector_delay`` models a pipeline that starts extracting the episode
+    after its true onset; preceding events are unavailable to the classifier.
+    The remaining timestamps stay on the original clock so prefix evaluation
+    can use a common clean observation horizon.
+    """
+    if (
+        not 0 <= missing_probability <= 1
+        or spurious_count < 0
+        or timing_jitter < 0
+        or detector_delay < 0
+    ):
         raise ValueError("invalid perturbation parameters")
     rng = np.random.default_rng(seed)
     kept: list[AlarmEvent] = []
+    onset = min((event.timestamp for event in episode.events), default=0.0)
+    detection_time = onset + detector_delay
     for event in episode.events:
-        if rng.random() >= missing_probability:
+        if event.timestamp >= detection_time and rng.random() >= missing_probability:
             jitter = float(rng.normal(0.0, timing_jitter)) if timing_jitter else 0.0
             kept.append(replace(event, timestamp=max(0.0, event.timestamp + jitter)))
     if episode.events:
-        low = min(event.timestamp for event in episode.events)
+        low = min(max(detection_time, event.timestamp) for event in episode.events)
         high = max(event.timestamp for event in episode.events) + 1.0
+        tag_pool = tuple(spurious_tags) if spurious_tags else ()
         for index in range(spurious_count):
             kept.append(
                 AlarmEvent(
                     timestamp=float(rng.uniform(low, high)),
-                    tag=f"SPURIOUS_{index:03d}",
+                    tag=(
+                        str(rng.choice(tag_pool))
+                        if tag_pool
+                        else f"SPURIOUS_{index:03d}"
+                    ),
                 )
             )
     kept.sort(key=lambda event: event.timestamp)

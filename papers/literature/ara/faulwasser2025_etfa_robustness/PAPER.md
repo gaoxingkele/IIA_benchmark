@@ -6,7 +6,7 @@
 - Venue: IEEE ETFA
 - DOI: [10.1109/ETFA65518.2025.11205709](https://doi.org/10.1109/ETFA65518.2025.11205709)
 - Benchmark role: SOTA alarm-corruption robustness
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 

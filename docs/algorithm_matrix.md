@@ -31,7 +31,7 @@ reproduced merely because a related baseline below is callable.
 | Accelerated alignment | priority/time-aware seeds + banded local alignment | `accelerated_alarm_alignment` | A | paper runtime/accuracy table pending |
 | Closed patterns | vertical TID closedness + delta representative cover | `charm_closed_alarm_patterns` | A | industrial 921-to-207 result pending |
 | Maximum entropy | learned log-linear f1/f2 next-alarm distribution | `MaximumEntropyNextAlarmPredictor` | A | paper Monte Carlo score pending |
-| Robustness | missing/spurious/timing perturbations | `perturb_alarm_episode` | A | detector-delay perturbation remains protocol-level |
+| AFC-RobustBench | missing/spurious/timing/detector-delay/mixed perturbations, progress/severity profiles, Monte-Carlo intervals and robustness AUC | `run_afc_robustness_benchmark` | B | full protocol is callable; paper-score comparison pending preprint PDF/data |
 | CASIM | MultiRocket + ridge ensemble + LoOP | independent callable reproduction + official Code Ocean comparison slot | B | mechanics/invariants tested; official TEP score reproduction pending capsule/data |
 | ConE-AFC | class- and stepwise inductive conformal prediction | independent callable wrapper + official Code Ocean comparison slot | B | Eqs. 1-5/Algorithms 1-2 tested; official synthetic-data tables pending capsule/data |
 | ConE-AFC | conformal early classification | metrics ready; model slot | B | calibration split and artifact pending |

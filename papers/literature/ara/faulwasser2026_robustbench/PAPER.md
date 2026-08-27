@@ -6,7 +6,7 @@
 - Venue: SSRN preprint
 - DOI: [10.2139/ssrn.6999280](https://doi.org/10.2139/ssrn.6999280)
 - Benchmark role: SOTA robustness benchmark
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 
@@ -19,6 +19,6 @@ Defines benchmark perturbations for missing, spurious, timing-shifted, and delay
 
 ## Reproduction status
 
-Source acquisition is `not_openly_downloadable`. This ARA package does not claim a
+Source acquisition is `download_failed`. This ARA package does not claim a
 score reproduction until `evidence/runs/local_validation.md` records a command,
 environment, dataset split, expected result, observed result, and pass/fail decision.

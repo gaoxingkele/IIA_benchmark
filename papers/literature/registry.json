@@ -385,6 +385,16 @@
       "access": "gated",
       "landing_url": "https://doi.org/10.1109/ETFA65518.2025.11205709",
       "method_summary": "Evaluates alarm-flood classification under realistic corruptions and motivates robustness-specific metrics.",
+      "local_implementation": [
+        "src/iia_benchmark/models/flood.py:perturb_alarm_episode",
+        "src/iia_benchmark/evaluation/robustness.py:run_afc_robustness_benchmark"
+      ],
+      "local_validation": {
+        "status": "passed",
+        "reproduction_type": "independent_reimplementation",
+        "command": "python -m pytest -q tests/test_robustness.py",
+        "scope": "isolated data-quality corruptions and reproducibility invariants; original ETFA dataset scores pending"
+      },
       "claims": [
         {"id": "C1", "statement": "Nominal classification accuracy is insufficient for corrupted alarm streams.", "support": "publisher_metadata", "status": "explicit"}
       ]
@@ -396,9 +406,20 @@
       "doi": "10.2139/ssrn.6999280",
       "venue": "SSRN preprint",
       "role": "SOTA robustness benchmark",
-      "access": "preprint_remote_blocked",
+      "access": "open_preprint",
       "landing_url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6999280",
+      "pdf_url": "https://papers.ssrn.com/sol3/Delivery.cfm/09cd2327-d617-439b-bb28-6fb65a73634f-MECA.pdf?abstractid=6999280&mirid=1&type=2",
       "method_summary": "Defines benchmark perturbations for missing, spurious, timing-shifted, and delayed alarm detections, including mixed corruption.",
+      "local_implementation": [
+        "src/iia_benchmark/evaluation/robustness.py:PerturbationScenario",
+        "src/iia_benchmark/evaluation/robustness.py:run_afc_robustness_benchmark"
+      ],
+      "local_validation": {
+        "status": "passed",
+        "reproduction_type": "independent_reimplementation",
+        "command": "python -m pytest -q tests/test_robustness.py",
+        "scope": "five corruption regimes, prefix/severity profiles, Monte-Carlo intervals and normalized robustness AUC; exact paper tables pending source PDF/data"
+      },
       "claims": [
         {"id": "C1", "statement": "Robust evaluation must report separate and mixed alarm corruption regimes.", "support": "preprint_metadata", "status": "explicit"}
       ]

@@ -1,0 +1,42 @@
+{
+  "id": "afc_robustbench",
+  "task": "online_alarm_flood_classification_robustness",
+  "domain": "intelligent_industrial_alarm",
+  "system": "configs/systems/synthetic_process.json",
+  "dataset": "configs/datasets/synthetic_alarm_floods.json",
+  "split": "configs/splits/synthetic_smoke.json",
+  "model": "configs/models/casim.json",
+  "metrics": "configs/metrics/alarm_flood_core.json",
+  "protocol": {
+    "test_only_perturbation": true,
+    "observation_progress": [0.25, 0.5, 0.75, 1.0],
+    "perturbations": ["missing", "spurious", "timing", "detector_delay", "mixed"],
+    "normalized_severity": [0.05, 0.1, 0.2],
+    "monte_carlo_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "uncertainty_interval": [0.025, 0.975]
+  },
+  "severity_mapping": {
+    "missing": "Bernoulli event deletion probability",
+    "spurious": "ceil(severity * episode event count) insertions",
+    "timing": "Gaussian timestamp jitter sigma = severity * median positive inter-event gap",
+    "detector_delay": "severity * clean episode duration",
+    "mixed": "composition of all four mappings"
+  },
+  "reported_metrics": [
+    "clean_score",
+    "mean_perturbed_score",
+    "absolute_degradation",
+    "normalized_robustness_auc",
+    "monte_carlo_95_percent_interval"
+  ],
+  "outputs": {
+    "run_dir": "experiments/runs/afc_robustbench",
+    "summary": "docs/reports/afc_robustbench.md"
+  },
+  "source": {
+    "preprint_doi": "10.2139/ssrn.6999280",
+    "conference_precursor_doi": "10.1109/ETFA65518.2025.11205709",
+    "implementation_status": "independent_reimplementation",
+    "paper_score_status": "pending_preprint_pdf_and_dataset_access"
+  }
+}
