@@ -1,0 +1,24 @@
+{
+  "id": "uncertainty_reduction_forecaster",
+  "family": "sota_online_alarm_flood_uncertainty_forecasting",
+  "entrypoint": "iia_benchmark.models.UncertaintyReductionForecaster",
+  "parameters": {
+    "n_estimators": 200,
+    "min_samples_leaf": 1,
+    "max_features": 1.0,
+    "random_state": 0,
+    "delay_timer": {"delay": 3, "tolerance_minutes": 10},
+    "jackknife_plus_error_rate": 0.1
+  },
+  "features": [
+    "normalized_observation_time",
+    "current_prediction_set_size",
+    "time_since_previous_reduction",
+    "number_of_prior_reductions"
+  ],
+  "source": {
+    "paper_doi": "10.1016/j.ifacol.2025.11.935",
+    "implementation_status": "independent_reimplementation",
+    "paper_score_status": "pending_full_text_feature_table_and_two_evaluation_datasets"
+  }
+}

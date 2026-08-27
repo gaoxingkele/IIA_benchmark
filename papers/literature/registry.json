@@ -371,6 +371,17 @@
       "access": "complimentary_remote_blocked",
       "landing_url": "https://doi.org/10.1016/j.ifacol.2025.11.935",
       "method_summary": "Predicts when additional alarm observations are expected to reduce classification uncertainty.",
+      "local_implementation": [
+        "src/iia_benchmark/models/uncertainty_reduction.py:UncertaintyReductionForecaster",
+        "src/iia_benchmark/models/uncertainty_reduction.py:JackknifePlusRandomForestRegressor",
+        "src/iia_benchmark/models/uncertainty_reduction.py:BifurcationDelayTimer"
+      ],
+      "local_validation": {
+        "status": "passed",
+        "reproduction_type": "independent_reimplementation",
+        "command": "python -m pytest -q tests/test_uncertainty_reduction.py",
+        "scope": "bifurcation targets, explicit leave-one-out jackknife+ intervals and delay-timer invariants; paper feature/table reproduction pending full text/data"
+      },
       "claims": [
         {"id": "C1", "statement": "Uncertainty-reduction prediction is coupled to online classification delay.", "support": "publisher_metadata", "status": "explicit"}
       ]

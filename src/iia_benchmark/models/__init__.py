@@ -65,6 +65,14 @@ from .root_cause_book import (
     piecewise_linear_representation,
 )
 from .univariate import AlarmDesignResult, ThresholdDelayDeadband, design_alarm
+from .uncertainty_reduction import (
+    BifurcationDelayTimer,
+    BifurcationForecast,
+    BifurcationTrainingData,
+    JackknifePlusRandomForestRegressor,
+    UncertaintyReductionForecaster,
+    extract_bifurcation_training_data,
+)
 from .univariate_book import (
     AlarmEpisodeMetrics,
     AlarmProbabilityPlot,
@@ -103,6 +111,9 @@ __all__ = [
     "AdaptiveTimeGradient",
     "BayesianWindowRegressionAlarm",
     "BetaPosterior",
+    "BifurcationDelayTimer",
+    "BifurcationForecast",
+    "BifurcationTrainingData",
     "CausalEdge",
     "CASIMClassifier",
     "CASIMExpandingWindowClassifier",
@@ -122,6 +133,7 @@ __all__ = [
     "DeadbandIndexResult",
     "EmpiricalNextAlarmPredictor",
     "IIDAlarmPerformance",
+    "JackknifePlusRandomForestRegressor",
     "LinearSegment",
     "LocalOutlierProbability",
     "MahalanobisAlarm",
@@ -136,6 +148,7 @@ __all__ = [
     "SegmentContribution",
     "ThresholdDelayDeadband",
     "TransferEntropyRanker",
+    "UncertaintyReductionForecaster",
     "VariationDirectionAlarm",
     "alarm_episode_metrics",
     "accelerated_alarm_alignment",
@@ -155,6 +168,7 @@ __all__ = [
     "design_non_iid_delay_timer",
     "detect_alarm_floods",
     "estimate_transition_matrix",
+    "extract_bifurcation_training_data",
     "evaluate_prediction_sets",
     "expected_cone_coverage",
     "iid_delay_timer_performance",

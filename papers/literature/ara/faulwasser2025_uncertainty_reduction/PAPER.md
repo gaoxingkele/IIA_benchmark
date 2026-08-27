@@ -6,7 +6,7 @@
 - Venue: IFAC-PapersOnLine
 - DOI: [10.1016/j.ifacol.2025.11.935](https://doi.org/10.1016/j.ifacol.2025.11.935)
 - Benchmark role: SOTA early decision timing
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 

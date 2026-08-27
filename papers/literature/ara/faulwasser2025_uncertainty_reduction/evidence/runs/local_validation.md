@@ -1,5 +1,6 @@
 # Local validation
 
-Status: **not run**.
+Status: **passed**.
 
-Required fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision.
+- Command: `python -m pytest -q tests/test_uncertainty_reduction.py`
+- Scope: bifurcation targets, explicit leave-one-out jackknife+ intervals and delay-timer invariants; paper feature/table reproduction pending full text/data

@@ -1,3 +1,7 @@
 # Code
 
-No vendored code. Official artifacts remain source-linked and must be license-audited before import.
+Local implementations:
+
+- `src/iia_benchmark/models/uncertainty_reduction.py:UncertaintyReductionForecaster`
+- `src/iia_benchmark/models/uncertainty_reduction.py:JackknifePlusRandomForestRegressor`
+- `src/iia_benchmark/models/uncertainty_reduction.py:BifurcationDelayTimer`
