@@ -1,4 +1,9 @@
-# Algorithm matrix
+# Callable baseline matrix
+
+This table describes currently callable baselines. It is not the book-completeness
+ledger. The authoritative 20-item closure ledger is
+`configs/algorithms/book_algorithms.json`; none of those entries may be called fully
+reproduced merely because a related baseline below is callable.
 
 | Family | Book/source idea | Callable implementation | Maturity | Main limitations |
 |---|---|---|---|---|
@@ -15,4 +20,6 @@
 | ConE-AFC | conformal early classification | metrics ready; model slot | B | calibration split and artifact pending |
 | AFC-RobustBench | four realistic alarm corruptions | protocol partially implemented | C | 2026 preprint; official release audit pending |
 
-Maturity A means callable and unit-tested, not that it reproduces the authors' reported score. Each reported experiment still needs a dataset adapter, grouped split and frozen config.
+Maturity A means callable and unit-tested, not equation-complete or paper-score
+reproduced. Each reported experiment still needs a dataset adapter, grouped split,
+frozen config, and an ARA validation record.

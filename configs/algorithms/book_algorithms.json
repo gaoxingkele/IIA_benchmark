@@ -1,0 +1,215 @@
+{
+  "source": {
+    "title": "Intelligent Industrial Alarm Systems: Advanced Analysis and Design Methods",
+    "doi": "10.1007/978-981-97-6516-4",
+    "edition_year": 2024,
+    "page_mapping": "physical_pdf_page = printed_page + 11 for Chapters 2-6"
+  },
+  "status_semantics": {
+    "verified": "Callable implementation, unit tests, source-linked config, and an engineering validation record exist.",
+    "partial": "A callable baseline exists but one or more equations, optimization steps, or validation cases from the book are absent.",
+    "missing": "Inventory and source pages exist, but no faithful callable implementation exists yet."
+  },
+  "algorithms": [
+    {
+      "id": "book_2_1_iid_delay_timer",
+      "chapter": "2.1",
+      "name": "IID threshold and delay-timer design by FAR/MAR/AAD",
+      "printed_pages": "49-67",
+      "physical_pages": "60-78",
+      "required_components": ["finite-state Markov chain", "closed-form FAR", "closed-form MAR", "closed-form AAD", "weighted threshold-delay search"],
+      "implementation": "iia_benchmark.models.univariate",
+      "status": "partial"
+    },
+    {
+      "id": "book_2_2_non_iid_delay_timer",
+      "chapter": "2.2",
+      "name": "Non-IID delay-timer design from alarm durations and intervals",
+      "printed_pages": "68-84",
+      "physical_pages": "79-95",
+      "required_components": ["Pettitt recursive segmentation", "segment homogeneity tests", "duration PMF estimation", "Bayesian credible intervals", "joint delay-threshold design"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_2_3_non_iid_deadband",
+      "chapter": "2.3",
+      "name": "Deadband design by maximum amplitude deviations and Bayesian estimation",
+      "printed_pages": "85-107",
+      "physical_pages": "96-118",
+      "required_components": ["maximum amplitude deviations", "deadband index", "Bayesian posterior", "credible interval", "deadband-width design"],
+      "implementation": "iia_benchmark.models.univariate.ThresholdDelayDeadband",
+      "status": "partial"
+    },
+    {
+      "id": "book_2_4_alarm_probability_plot",
+      "chapter": "2.4",
+      "name": "Alarm Probability Plot threshold design",
+      "printed_pages": "108-125",
+      "physical_pages": "119-136",
+      "required_components": ["Markov-state quantization algorithm 1", "quantization algorithm 2", "P_k statistic", "T_k statistic", "P_am statistic", "T_am statistic", "threshold objective"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_3_1_convex_noz",
+      "chapter": "3.1.2",
+      "name": "Convex-hull normal operating zone alarm",
+      "printed_pages": "131-137",
+      "physical_pages": "142-148",
+      "required_components": ["robust normal-point selection", "Quickhull", "point-in-hull test", "conditional dynamic bounds"],
+      "implementation": "iia_benchmark.models.multivariate.ConvexHullNOZAlarm",
+      "status": "partial"
+    },
+    {
+      "id": "book_3_1_nonconvex_noz",
+      "chapter": "3.1.3",
+      "name": "Non-convex normal operating zone by search cones",
+      "printed_pages": "138-153",
+      "physical_pages": "149-164",
+      "required_components": ["center selection", "spherical-direction search cones", "radial boundaries", "online membership", "dynamic thresholds"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_3_2_variation_direction",
+      "chapter": "3.2",
+      "name": "Variation-direction multivariate alarm system",
+      "printed_pages": "154-172",
+      "physical_pages": "165-183",
+      "required_components": ["adaptive time gradients", "volatility estimation", "direction sign vector", "forbidden-direction rule matrix", "online alarm logic"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_3_3_electrical_pump",
+      "chapter": "3.3",
+      "name": "Bayesian-filter multivariate alarms for electrical pumps",
+      "printed_pages": "173-191",
+      "physical_pages": "184-202",
+      "required_components": ["time-varying regression", "Bayesian filter", "cumulative residual", "binomial hypothesis update", "abnormal-state update freeze"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_3_4_condenser",
+      "chapter": "3.4",
+      "name": "Physics-guided condenser normal operating zones",
+      "printed_pages": "192-217",
+      "physical_pages": "203-228",
+      "required_components": ["condenser equations 3.90-3.103", "parameter estimation", "search-cone zone", "Bayesian worst-case FAR bound", "Bayesian worst-case MAR bound"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_4_1_nte",
+      "chapter": "4.1",
+      "name": "Normalized Transfer Entropy for binary alarm variables",
+      "printed_pages": "221-238",
+      "physical_pages": "232-249",
+      "required_components": ["binary lagged TE", "normalization", "lag search", "Bernoulli surrogate significance", "occurrence-count guard"],
+      "implementation": "iia_benchmark.models.root_cause.TransferEntropyRanker",
+      "status": "partial"
+    },
+    {
+      "id": "book_4_1_ndte",
+      "chapter": "4.1",
+      "name": "Normalized Direct Transfer Entropy",
+      "printed_pages": "221-238",
+      "physical_pages": "232-249",
+      "required_components": ["conditional/direct TE", "indirect-edge pruning", "lag search", "surrogate significance"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_4_2_igte",
+      "chapter": "4.2",
+      "name": "Information-granulation Transfer Entropy",
+      "printed_pages": "239-261",
+      "physical_pages": "250-272",
+      "required_components": ["information granules", "OPTICS clustering", "PDF estimation", "second-order TE", "surrogate significance"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_4_2_igdte",
+      "chapter": "4.2",
+      "name": "Information-granulation Direct Transfer Entropy",
+      "printed_pages": "239-261",
+      "physical_pages": "250-272",
+      "required_components": ["information granules", "direct/conditional TE", "indirect-edge pruning", "lag search"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_4_3_recursive_bn",
+      "chapter": "4.3",
+      "name": "Recursive Bayesian-network alarm root-cause analysis",
+      "printed_pages": "262-276",
+      "physical_pages": "273-287",
+      "required_components": ["known network topology", "recursive conditional-probability update", "unknown-cause node", "half-life update rate", "root posterior ranking"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_4_4_plr_rca",
+      "chapter": "4.4",
+      "name": "Piecewise-linear trend and non-negative-regression root-cause analysis",
+      "printed_pages": "277-298",
+      "physical_pages": "288-309",
+      "required_components": ["piecewise-linear representation", "qualitative trend", "lagged correlation", "non-negative multiple linear regression", "contribution factors"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_5_1_flood_detection",
+      "chapter": "5.1",
+      "name": "Online/offline alarm flood detection using newly appearing tags",
+      "printed_pages": "303-321",
+      "physical_pages": "314-332",
+      "required_components": ["criterion C", "recent-state inheritance", "long-standing alarm exclusion", "online detector", "offline interval merge"],
+      "implementation": "iia_benchmark.models.flood.detect_alarm_floods",
+      "status": "partial"
+    },
+    {
+      "id": "book_5_2_alarm_alignment",
+      "chapter": "5.2",
+      "name": "Priority/time-aware BLAST-like alarm flood alignment",
+      "printed_pages": "322-343",
+      "physical_pages": "333-354",
+      "required_components": ["priority-aware score", "time ambiguity", "pre-match", "seed", "extend", "backtrack", "normalized similarity"],
+      "implementation": "iia_benchmark.models.flood.smith_waterman_similarity",
+      "status": "partial"
+    },
+    {
+      "id": "book_5_3_closed_patterns",
+      "chapter": "5.3",
+      "name": "CHARM closed alarm patterns and representative clustering",
+      "printed_pages": "344-355",
+      "physical_pages": "355-366",
+      "required_components": ["transaction encoding", "CHARM closed itemsets", "support", "delta similarity", "representative-pattern clustering"],
+      "implementation": null,
+      "status": "missing"
+    },
+    {
+      "id": "book_5_4_max_entropy_prediction",
+      "chapter": "5.4",
+      "name": "Maximum-entropy next-alarm prediction",
+      "printed_pages": "356-376",
+      "physical_pages": "367-387",
+      "required_components": ["history characteristic functions", "current alarm context", "time-distance penalty", "maximum-entropy constraints", "iterative scaling", "next-alarm ranking"],
+      "implementation": "iia_benchmark.models.flood.EmpiricalNextAlarmPredictor",
+      "status": "partial"
+    },
+    {
+      "id": "book_6_visual_analytics",
+      "chapter": "6",
+      "name": "Alarm visual analytics verification suite",
+      "printed_pages": "381-417",
+      "physical_pages": "392-428",
+      "required_components": ["performance KPI views", "related-alarm graph", "event timeline", "alarm-flood sequence view", "exportable verification report"],
+      "implementation": null,
+      "status": "missing"
+    }
+  ]
+}
