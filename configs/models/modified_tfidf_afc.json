@@ -1,0 +1,27 @@
+{
+  "id": "modified_tfidf_afc",
+  "family": "sota_modified_tfidf_realtime_alarm_flood_classification",
+  "entrypoint": "iia_benchmark.models.TFIDFLSTMAlarmFloodClassifier",
+  "components": {
+    "vectorizer": "iia_benchmark.models.ModifiedTFIDFVectorizer",
+    "clustering": "iia_benchmark.models.SpectralAlarmFloodClusterer",
+    "fault_isolation": "iia_benchmark.models.KernelPCAFaultIsolator",
+    "classifier": "iia_benchmark.models.TFIDFLSTMAlarmFloodClassifier"
+  },
+  "parameters": {
+    "ngram_candidates": [1, 2, 3, 4],
+    "position_decay": 1.0,
+    "spectral_clusters": "dataset_fault_count",
+    "kernel": "rbf",
+    "lstm_hidden_size": 16,
+    "epochs": 100,
+    "learning_rate": 0.02
+  },
+  "metrics": ["silhouette", "accuracy", "macro_f1", "decision_time", "false_alarm_rate", "miss_rate"],
+  "source": {
+    "paper_doi": "10.1016/j.conengprac.2025.106485",
+    "implementation_status": "independent_partial_reimplementation",
+    "paper_score_status": "pending_full_text_exact_equations_hyperparameters_and_VAM_data",
+    "evidence_boundary": "publisher-confirmed position-weighted TF-IDF/n-gram/spectral clustering/kernel-PCA/LSTM/threshold pipeline; local formulas and hyperparameters are explicit independent choices"
+  }
+}

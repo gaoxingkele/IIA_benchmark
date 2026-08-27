@@ -1,0 +1,31 @@
+{
+  "id": "rahaman2025_modified_tfidf",
+  "title": "Real-Time Classification and Early Warning of Industrial Alarm Floods Using Modified TF-IDF Methods",
+  "year": 2025,
+  "venue": "Control Engineering Practice",
+  "doi": "10.1016/j.conengprac.2025.106485",
+  "role": "SOTA n-gram clustering, fault isolation and early alarm-flood warning",
+  "access": "gated",
+  "local_source": {
+    "id": "rahaman2025_modified_tfidf",
+    "doi": "10.1016/j.conengprac.2025.106485",
+    "path": "papers/literature/pdfs/rahaman2025_modified_tfidf.pdf",
+    "source_url": null,
+    "status": "not_openly_downloadable",
+    "reason": "gated"
+  },
+  "official_artifact": null,
+  "local_implementation": [
+    "src/iia_benchmark/models/modified_tfidf_afc.py:ModifiedTFIDFVectorizer",
+    "src/iia_benchmark/models/modified_tfidf_afc.py:SpectralAlarmFloodClusterer",
+    "src/iia_benchmark/models/modified_tfidf_afc.py:KernelPCAFaultIsolator",
+    "src/iia_benchmark/models/modified_tfidf_afc.py:TFIDFLSTMAlarmFloodClassifier"
+  ],
+  "local_validation": {
+    "status": "passed",
+    "reproduction_type": "independent_partial_reimplementation",
+    "command": "python -m pytest -q tests/test_modified_tfidf_afc.py",
+    "scope": "position-aware n-gram vectors, unsupervised n selection, spectral clustering, kernel-PCA residuals, threshold calibration and trainable prefix LSTM invariants; paper equations/VAM data/tables pending"
+  },
+  "ara_status": "engineering_validated_source_gated"
+}
