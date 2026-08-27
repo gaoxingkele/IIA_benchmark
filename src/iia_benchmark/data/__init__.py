@@ -1,4 +1,4 @@
-from .schema import AlarmEvent, AlarmEpisode, ProcessRun
+from .schema import AlarmEvent, AlarmEpisode, ProcessRun, alarm_events_to_state_matrix
 from .piade import (
     load_piade_alarm_events,
     load_piade_alarm_intervals,
@@ -18,6 +18,7 @@ __all__ = [
     "AlarmEvent",
     "AlarmEpisode",
     "ProcessRun",
+    "alarm_events_to_state_matrix",
     "TEP_FEATURE_NAMES",
     "load_piade_alarm_events",
     "load_piade_alarm_intervals",

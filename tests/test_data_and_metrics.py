@@ -7,6 +7,7 @@ import numpy as np
 
 from iia_benchmark.data import (
     ProcessRun,
+    alarm_events_to_state_matrix,
     audit_pronto_archive,
     load_piade_alarm_events,
     load_piade_alarm_intervals,
@@ -100,3 +101,26 @@ def test_pronto_archive_audit_inventory_and_traversal_rejection(tmp_path: Path) 
     unsafe_audit = audit_pronto_archive(unsafe_path)
     assert not unsafe_audit["safe_to_extract"]
     assert unsafe_audit["unsafe_members"][0]["reason"] == "empty_or_parent_path_component"
+
+
+def test_alarm_events_replay_to_binary_state_matrix() -> None:
+    from iia_benchmark.data import AlarmEvent
+
+    events = [
+        AlarmEvent(3.0, "B", 1),
+        AlarmEvent(1.0, "A", 1),
+        AlarmEvent(2.0, "A", 0),
+        AlarmEvent(4.0, "B", 0),
+    ]
+    grid, names, states = alarm_events_to_state_matrix(
+        events, sample_seconds=1.0, start=0.0, stop=4.0
+    )
+    assert grid.tolist() == [0.0, 1.0, 2.0, 3.0, 4.0]
+    assert names == ("A", "B")
+    assert states.tolist() == [
+        [0, 0],
+        [1, 0],
+        [0, 0],
+        [0, 1],
+        [0, 0],
+    ]
