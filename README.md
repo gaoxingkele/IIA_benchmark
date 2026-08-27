@@ -43,6 +43,7 @@ python -m iia_benchmark.runner configs/experiments/synthetic_root_cause_smoke.js
 - `papers/extracted_text/book/`：带 PDF 物理页标记的证据层及哈希 manifest。
 - `docs/three_round_expansion.md`：三轮“数据集→文献→方法→算法/SOTA→数据集”轨迹。
 - `docs/build_report.md`：本轮数据 profile、四个 smoke 效果与验证状态。
+- `docs/status_audit.md`：严格区分可调用、部分复现、闭环验证及数据门禁的自动覆盖审计。
 - `configs/`：系统、数据、切分、模型、指标、实验的 JSON 唯一事实来源。
 - `src/iia_benchmark/`：统一数据对象、可调用经典模型、指标和 runner。
 - `scripts/data_acquisition/`：aria2/代理优先的下载器与校验审计。

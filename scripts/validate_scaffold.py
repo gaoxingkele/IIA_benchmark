@@ -19,6 +19,9 @@ def main() -> int:
         "papers/extracted_text/book/manifest.json",
         "knowledge_base/book/README.md",
         "docs/three_round_expansion.md",
+        "configs/algorithms/book_algorithms.json",
+        "configs/algorithms/sota_algorithms.json",
+        "configs/tasks/downstream_tasks.json",
     )
     failures: list[str] = []
     for relative in required:
@@ -50,6 +53,33 @@ def main() -> int:
     rounds = {source.get("round") for source in registry.get("sources", [])}
     if rounds != {1, 2, 3}:
         failures.append(f"public registry rounds must equal {{1,2,3}}, got {rounds}")
+    valid_roles = {"main", "documentation", "metadata"}
+    for source in registry.get("sources", []):
+        if not source.get("dataset_family"):
+            failures.append(f"{source['id']}: missing dataset_family")
+        if source.get("payload_role") not in valid_roles:
+            failures.append(f"{source['id']}: invalid payload_role {source.get('payload_role')}")
+
+    task_registry = json.loads(
+        (ROOT / "configs" / "tasks" / "downstream_tasks.json").read_text(encoding="utf-8")
+    )
+    tasks = task_registry.get("tasks", [])
+    task_ids = [item.get("id") for item in tasks]
+    if task_ids != [f"T{index}" for index in range(1, 7)]:
+        failures.append(f"downstream tasks must be ordered T1..T6, got {task_ids}")
+
+    sota_registry = json.loads(
+        (ROOT / "configs" / "algorithms" / "sota_algorithms.json").read_text(encoding="utf-8")
+    )
+    sota = sota_registry.get("algorithms", [])
+    sota_ids = [item.get("id") for item in sota]
+    if len(sota_ids) != len(set(sota_ids)):
+        failures.append("SOTA algorithm ids must be unique")
+    for item in sota:
+        if item.get("status") not in {"verified", "partial", "missing"}:
+            failures.append(f"{item.get('id')}: invalid SOTA status {item.get('status')}")
+        if item.get("status") == "missing" and item.get("local_implementation"):
+            failures.append(f"{item.get('id')}: missing SOTA cannot name an implementation")
 
     if failures:
         print("\n".join(failures))
