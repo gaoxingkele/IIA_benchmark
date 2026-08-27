@@ -85,6 +85,70 @@
       ]
     },
     {
+      "id": "wang2024_search_cones",
+      "year": 2024,
+      "title": "Multivariate Alarm Monitoring for Non-Convex Normal Operating Zones Based on Search Cones",
+      "doi": "10.1109/TASE.2022.3222413",
+      "venue": "IEEE Transactions on Automation Science and Engineering",
+      "role": "book-chapter-3 non-convex NOZ",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1109/TASE.2022.3222413",
+      "method_summary": "Partitions directional space into search cones and learns a radial boundary for a non-convex normal operating zone.",
+      "local_implementation": ["src/iia_benchmark/models/multivariate_book.py:SearchConeNOZAlarm"],
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_multivariate_book.py", "scope": "non-convex angular/radial membership test; not a paper-score reproduction"},
+      "claims": [
+        {"id": "C1", "statement": "A union of search cones can represent non-convex normal operating zones.", "support": "book_chapter_3_and_publisher_metadata", "status": "explicit"}
+      ]
+    },
+    {
+      "id": "chen2017_variation_directions",
+      "year": 2017,
+      "title": "Design of Multivariate Alarm Systems Based on Online Calculation of Variational Directions",
+      "doi": "10.1016/j.cherd.2017.04.011",
+      "venue": "Chemical Engineering Research and Design",
+      "role": "book-chapter-3 variation-direction alarms",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1016/j.cherd.2017.04.011",
+      "method_summary": "Extracts adaptive time gradients online and compares the multivariate direction vector with permitted normal rules.",
+      "local_implementation": ["src/iia_benchmark/models/multivariate_book.py:AdaptiveTimeGradient", "src/iia_benchmark/models/multivariate_book.py:VariationDirectionAlarm"],
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_multivariate_book.py", "scope": "weighted-slope and unseen-direction invariants; not a paper-score reproduction"},
+      "claims": [
+        {"id": "C1", "statement": "Adaptive time scales reduce noise sensitivity in online variation-direction extraction.", "support": "book_chapter_3_and_publisher_metadata", "status": "explicit"}
+      ]
+    },
+    {
+      "id": "xiong2018_bayesian_pumps",
+      "year": 2018,
+      "title": "Multivariate Alarm Systems for Time-Varying Processes Using Bayesian Filters With Applications to Electrical Pumps",
+      "doi": "10.1109/TII.2017.2749332",
+      "venue": "IEEE Transactions on Industrial Informatics",
+      "role": "book-chapter-3 time-varying pump alarms",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1109/TII.2017.2749332",
+      "method_summary": "Tracks normal time-varying regression parameters with a Bayesian filter and freezes updates in statistically abnormal windows.",
+      "local_implementation": ["src/iia_benchmark/models/multivariate_book.py:BayesianWindowRegressionAlarm"],
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_multivariate_book.py", "scope": "parameter tracking, alarm, and update-freeze invariants; not a paper-score reproduction"},
+      "claims": [
+        {"id": "C1", "statement": "Freezing model updates in abnormal windows prevents a time-varying estimator from adapting to faults.", "support": "book_chapter_3_and_publisher_metadata", "status": "explicit"}
+      ]
+    },
+    {
+      "id": "wang2024_condenser_noz",
+      "year": 2024,
+      "title": "Multivariate Process Monitoring for Safe Operation of Condensers in Thermal Power Plants Based on Normal Operating Zones",
+      "doi": "10.1109/TCST.2024.3370036",
+      "venue": "IEEE Transactions on Control Systems Technology",
+      "role": "book-chapter-3 physics-guided condenser monitoring",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1109/TCST.2024.3370036",
+      "method_summary": "Combines a condenser pressure model with a four-variable search-cone operating zone and Bayesian uncertainty analysis.",
+      "local_implementation": ["src/iia_benchmark/models/multivariate_book.py:CondenserPhysicalModel", "src/iia_benchmark/models/multivariate_book.py:CondenserNOZAlarm"],
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_multivariate_book.py", "scope": "physical self-consistency and residual/zone alarm invariants; Bayesian paper bounds and industrial score pending"},
+      "claims": [
+        {"id": "C1", "statement": "Condenser pressure is modeled from steam flow and cooling-water inlet/outlet temperatures before NOZ monitoring.", "support": "book_chapter_3_and_publisher_metadata", "status": "explicit"}
+      ]
+    },
+    {
       "id": "zhang2022_igte",
       "year": 2022,
       "title": "Detection of Cause-Effect Relations Based on Information Granulation and Transfer Entropy",

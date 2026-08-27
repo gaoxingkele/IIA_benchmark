@@ -15,6 +15,10 @@ reproduced merely because a related baseline below is callable.
 | Alarm probability plot | equal-count Markov states + four statistics | `build_alarm_probability_plot` | A | paper industrial score pending |
 | MSPC | covariance normal zone | `MahalanobisAlarm` | A | unimodal elliptical zone |
 | Multivariate NOZ | convex operating polytope + conditional bound | `ConvexHullNOZAlarm` | A | robust center trimming approximates full book search |
+| Non-convex NOZ | angular search cones + radial boundaries | `SearchConeNOZAlarm` | A | exact paper cone-facet tuning pending |
+| Direction alarm | adaptive weighted gradients + normal rule matrix | `VariationDirectionAlarm` | A | industrial rule matrix pending |
+| Time-varying regression | Bayesian/ridge update + binomial freeze | `BayesianWindowRegressionAlarm` | A | pump paper score pending |
+| Condenser monitor | physical pressure model + search-cone NOZ | `CondenserNOZAlarm` | A | Bayesian worst-case bounds and industrial score pending |
 | Binary RCA | lagged TE + surrogate threshold | `TransferEntropyRanker` | A | first-order discrete TE; indirect pruning pending |
 | Flood detection | newly activated unique tags in window | `detect_alarm_floods` | A | activation-only logs cannot recover standing alarms |
 | Flood similarity | local sequence alignment | `smith_waterman_similarity` | A | priority/time-aware BLAST acceleration pending |

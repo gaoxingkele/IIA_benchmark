@@ -5,6 +5,16 @@ from .flood import (
     smith_waterman_similarity,
 )
 from .multivariate import ConvexHullNOZAlarm, MahalanobisAlarm
+from .multivariate_book import (
+    AdaptiveTimeGradient,
+    BayesianWindowRegressionAlarm,
+    CondenserNOZAlarm,
+    CondenserParameters,
+    CondenserPhysicalModel,
+    SearchConeNOZAlarm,
+    VariationDirectionAlarm,
+    weighted_time_gradient,
+)
 from .root_cause import TransferEntropyRanker, transfer_entropy
 from .univariate import AlarmDesignResult, ThresholdDelayDeadband, design_alarm
 from .univariate_book import (
@@ -39,8 +49,13 @@ __all__ = [
     "AlarmEpisodeMetrics",
     "AlarmProbabilityPlot",
     "AlarmProbabilityThresholdResult",
+    "AdaptiveTimeGradient",
+    "BayesianWindowRegressionAlarm",
     "BetaPosterior",
     "ConvexHullNOZAlarm",
+    "CondenserNOZAlarm",
+    "CondenserParameters",
+    "CondenserPhysicalModel",
     "DeadbandDesignResult",
     "DeadbandIndexResult",
     "EmpiricalNextAlarmPredictor",
@@ -48,8 +63,10 @@ __all__ = [
     "MahalanobisAlarm",
     "NonIIDDelayDesignResult",
     "PettittResult",
+    "SearchConeNOZAlarm",
     "ThresholdDelayDeadband",
     "TransferEntropyRanker",
+    "VariationDirectionAlarm",
     "alarm_episode_metrics",
     "bayesian_duration_tail",
     "beta_binomial_posterior",
@@ -70,4 +87,5 @@ __all__ = [
     "smith_waterman_similarity",
     "threshold_states",
     "transfer_entropy",
+    "weighted_time_gradient",
 ]

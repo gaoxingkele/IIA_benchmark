@@ -10,8 +10,8 @@ The target is the complete algorithm inventory in `configs/algorithms/book_algor
 ## Current baseline after inventory
 
 - 20 book deliverables are registered: 19 algorithmic methods plus the Chapter 6 visual-analytics verification suite.
-- Existing callable code now covers nine entries, but all nine remain `partial` until their remaining paper-data/score evidence is closed.
-- The other 11 entries are `missing`; therefore the repository does **not** yet claim that all book algorithms have landed.
+- Existing callable code now covers 13 entries, but all 13 remain `partial` until their remaining paper-data/score evidence is closed.
+- The other seven entries are `missing`; therefore the repository does **not** yet claim that all book algorithms have landed.
 - SOTA sources are tracked separately from book methods. A DOI or downloaded PDF is evidence acquisition, not an implementation or score reproduction.
 
 ## Planned implementation batches
