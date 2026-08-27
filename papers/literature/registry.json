@@ -460,6 +460,33 @@
         {"id": "C2", "statement": "The paper introduces postprocessing for erroneously empty prediction sets.", "support": "publisher_abstract", "status": "explicit"},
         {"id": "C3", "statement": "The current local top-p-value repair is an explicit independent choice and not asserted to be the paper-exact rule.", "support": "local_evidence_boundary", "status": "inferred"}
       ]
+    },
+    {
+      "id": "rao2025_ctfh",
+      "year": 2025,
+      "title": "Online Alarm Flood Classification via Deterministic Fingerprinting with Combinatorial Hashing: A Robust and Scalable Framework",
+      "doi": "10.1016/j.cherd.2025.11.026",
+      "venue": "Chemical Engineering Research and Design",
+      "role": "SOTA deterministic and scalable online alarm flood classification",
+      "access": "gated",
+      "landing_url": "https://www.sciencedirect.com/science/article/pii/S0263876225006252",
+      "method_summary": "Builds Alarm Evolution Matrices from sliding activation rates, extracts local peaks, forms deterministic combinatorial temporal hashes, aggregates class-level consensus fingerprint profiles, and classifies streaming floods with variability-aware evidence.",
+      "local_implementation": [
+        "src/iia_benchmark/models/ctfh.py:alarm_evolution_matrix",
+        "src/iia_benchmark/models/ctfh.py:combinatorial_temporal_fingerprints",
+        "src/iia_benchmark/models/ctfh.py:CTFHAlarmFloodClassifier"
+      ],
+      "local_validation": {
+        "status": "passed",
+        "reproduction_type": "independent_partial_reimplementation",
+        "command": "python -m pytest -q tests/test_ctfh.py",
+        "scope": "AEM sliding rates, deterministic peaks/hashes, majority consensus profiles, variability and prefix classification invariants; paper equations/parameters/tables and TEP scores pending"
+      },
+      "claims": [
+        {"id": "C1", "statement": "The offline pipeline uses AEM, localized peaks, CTFH and category-wise consensus fingerprint profiles.", "support": "publisher_abstract_and_section_snippets", "status": "explicit"},
+        {"id": "C2", "statement": "The evaluation uses TEP and missing, false, delayed and reordered alarm perturbations.", "support": "publisher_abstract", "status": "explicit"},
+        {"id": "C3", "statement": "The local peak, SHA-256 truncation, time quantization and Jaccard rules are auditable independent choices until full-text equations are acquired.", "support": "local_evidence_boundary", "status": "inferred"}
+      ]
     }
   ]
 }

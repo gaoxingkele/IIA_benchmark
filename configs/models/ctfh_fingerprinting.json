@@ -1,0 +1,23 @@
+{
+  "id": "ctfh_fingerprinting",
+  "family": "sota_deterministic_alarm_flood_fingerprinting",
+  "entrypoint": "iia_benchmark.models.CTFHAlarmFloodClassifier",
+  "parameters": {
+    "window_size": 5,
+    "stride": 1,
+    "peak_threshold": 0.2,
+    "temporal_radius": 1,
+    "min_delta": 1,
+    "max_delta": 10,
+    "fanout": 5,
+    "delta_quantization": 1,
+    "consensus_fraction": 0.5
+  },
+  "metrics": ["accuracy", "macro_f1", "decision_time", "runtime", "storage", "robustness_auc"],
+  "source": {
+    "paper_doi": "10.1016/j.cherd.2025.11.026",
+    "implementation_status": "independent_partial_reimplementation",
+    "paper_score_status": "pending_full_text_exact_parameters_and_TEP_alarm_payload",
+    "evidence_boundary": "publisher-confirmed AEM/peak/CTFH/CFP/variability pipeline; local peak, hash, similarity and quantization definitions are explicit independent choices"
+  }
+}
