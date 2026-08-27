@@ -9,6 +9,7 @@ from iia_benchmark.data import (
     ProcessRun,
     alarm_events_to_state_matrix,
     audit_pronto_archive,
+    extract_pronto_members,
     load_piade_alarm_events,
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
@@ -124,3 +125,28 @@ def test_alarm_events_replay_to_binary_state_matrix() -> None:
         [0, 1],
         [0, 0],
     ]
+
+
+def test_pronto_subset_extraction_is_prefix_selected_and_bounded(tmp_path: Path) -> None:
+    archive_path = tmp_path / "pronto.zip"
+    with zipfile.ZipFile(archive_path, "w") as archive:
+        archive.writestr("root/preprocessed/a.csv", "a,b\n1,2\n")
+        archive.writestr("root/video/large.mp4", b"x" * 100)
+    destination = tmp_path / "extracted"
+    extracted = extract_pronto_members(
+        archive_path,
+        destination,
+        prefixes=("root/preprocessed",),
+        maximum_total_bytes=32,
+    )
+    assert [path.relative_to(destination).as_posix() for path in extracted] == [
+        "root/preprocessed/a.csv"
+    ]
+    assert extracted[0].read_text(encoding="utf-8") == "a,b\n1,2\n"
+    with pytest.raises(ValueError, match="exceeding"):
+        extract_pronto_members(
+            archive_path,
+            destination,
+            prefixes=("root/video",),
+            maximum_total_bytes=10,
+        )

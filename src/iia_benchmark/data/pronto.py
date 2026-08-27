@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 from pathlib import Path, PurePosixPath, PureWindowsPath
+import shutil
 import stat
 import zipfile
 
@@ -72,3 +73,50 @@ def audit_pronto_archive(path: str | Path, *, verify_crc: bool = False) -> dict:
         "crc_failure": crc_failure,
     }
 
+
+def extract_pronto_members(
+    path: str | Path,
+    destination: str | Path,
+    *,
+    prefixes: tuple[str, ...],
+    maximum_total_bytes: int,
+) -> tuple[Path, ...]:
+    """Safely extract a bounded, prefix-selected PRONTO subset."""
+
+    if not prefixes or maximum_total_bytes <= 0:
+        raise ValueError("prefixes and maximum_total_bytes must be positive")
+    normalized_prefixes = tuple(prefix.replace("\\", "/").rstrip("/") + "/" for prefix in prefixes)
+    root = Path(destination).resolve()
+    source = Path(path)
+    with zipfile.ZipFile(source) as archive:
+        selected = [
+            info
+            for info in archive.infolist()
+            if not info.is_dir()
+            and any(info.filename.replace("\\", "/").startswith(prefix) for prefix in normalized_prefixes)
+        ]
+        if not selected:
+            raise ValueError("no archive members matched the requested prefixes")
+        unsafe = [
+            (info.filename, reason)
+            for info in selected
+            if (reason := _unsafe_archive_member(info)) is not None
+        ]
+        if unsafe:
+            raise ValueError(f"unsafe archive members selected: {unsafe}")
+        total = sum(info.file_size for info in selected)
+        if total > maximum_total_bytes:
+            raise ValueError(
+                f"selected members require {total} bytes, exceeding {maximum_total_bytes}"
+            )
+        extracted: list[Path] = []
+        for info in selected:
+            relative = PurePosixPath(info.filename.replace("\\", "/"))
+            target = (root / Path(*relative.parts)).resolve()
+            if not target.is_relative_to(root):
+                raise ValueError(f"archive target escapes destination: {info.filename}")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with archive.open(info) as source_stream, target.open("wb") as target_stream:
+                shutil.copyfileobj(source_stream, target_stream)
+            extracted.append(target)
+    return tuple(extracted)
