@@ -78,6 +78,8 @@ def main() -> int:
             if paper.get("pdf_url")
             else "review_oa_candidate"
             if oa_pdf
+            else "manual_authenticated_author_copy"
+            if paper.get("manual_author_copy_url")
             else "institutional_access_or_author_request"
         )
         records.append(
@@ -86,6 +88,10 @@ def main() -> int:
                 "doi": doi,
                 "download_status": download.get("status", "not_registered"),
                 "access_class": paper["access"],
+                "manual_author_copy": {
+                    "url": paper.get("manual_author_copy_url"),
+                    "note": paper.get("manual_copy_note"),
+                },
                 "unpaywall": {
                     "query_ok": unpaywall is not None,
                     "error": unpaywall_error,
@@ -117,6 +123,9 @@ def main() -> int:
             "unpaywall_oa": sum(record["unpaywall"]["is_oa"] is True for record in records),
             "oa_pdf_candidates": sum(bool(record["unpaywall"]["best_pdf_url"]) for record in records),
             "publisher_pdf_candidates": sum(bool(record["crossref"]["publisher_pdf_candidates"]) for record in records),
+            "manual_author_copy_candidates": sum(
+                bool(record["manual_author_copy"]["url"]) for record in records
+            ),
         },
         "records": records,
     }
