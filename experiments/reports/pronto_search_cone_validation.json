@@ -1,14 +1,14 @@
 {
-  "experiment_id": "pronto_mahalanobis_validation",
+  "experiment_id": "pronto_search_cone_validation",
   "task": "real_pronto_multivariate_detection",
   "result": {
     "metrics": {
-      "precision": 0.982304799823048,
-      "recall": 0.2609138297112407,
-      "f1": 0.39780818360660447,
-      "false_alarm_rate": 0.008207653637016518,
-      "missed_alarm_rate": 0.7390861702887593,
-      "average_alarm_delay": 1546.1944444444443
+      "precision": 0.8049292463936215,
+      "recall": 0.47177611177772877,
+      "f1": 0.576746483163506,
+      "false_alarm_rate": 0.47822129472768476,
+      "missed_alarm_rate": 0.5282238882222713,
+      "average_alarm_delay": 391.1111111111111
     },
     "runs": [
       {
@@ -18,12 +18,12 @@
         "evaluation_normal_samples": 242,
         "evaluation_fault_samples": 11698,
         "metrics": {
-          "precision": 1.0,
-          "recall": 0.3831424175072662,
-          "f1": 0.554017305315204,
-          "false_alarm_rate": 0.0,
-          "missed_alarm_rate": 0.6168575824927338,
-          "average_alarm_delay": 1507.0
+          "precision": 0.9818268202874451,
+          "recall": 0.7066165156436998,
+          "f1": 0.8217925137943033,
+          "false_alarm_rate": 0.6322314049586777,
+          "missed_alarm_rate": 0.29338348435630024,
+          "average_alarm_delay": 0.0
         }
       },
       {
@@ -33,12 +33,12 @@
         "evaluation_normal_samples": 1920,
         "evaluation_fault_samples": 16980,
         "metrics": {
-          "precision": 1.0,
-          "recall": 0.10494699646643109,
-          "f1": 0.18995842660697151,
-          "false_alarm_rate": 0.0,
-          "missed_alarm_rate": 0.8950530035335689,
-          "average_alarm_delay": 2977.25
+          "precision": 0.9245215524950814,
+          "recall": 0.30441696113074207,
+          "f1": 0.4580213548358513,
+          "false_alarm_rate": 0.21979166666666666,
+          "missed_alarm_rate": 0.695583038869258,
+          "average_alarm_delay": 1145.0
         }
       },
       {
@@ -48,12 +48,12 @@
         "evaluation_normal_samples": 3249,
         "evaluation_fault_samples": 4843,
         "metrics": {
-          "precision": 0.946914399469144,
-          "recall": 0.2946520751600248,
-          "f1": 0.4494488188976378,
-          "false_alarm_rate": 0.024622960911049555,
-          "missed_alarm_rate": 0.7053479248399752,
-          "average_alarm_delay": 154.33333333333334
+          "precision": 0.5084393663983381,
+          "recall": 0.4042948585587446,
+          "f1": 0.45042558086036344,
+          "false_alarm_rate": 0.58264081255771,
+          "missed_alarm_rate": 0.5957051414412554,
+          "average_alarm_delay": 28.333333333333332
         }
       }
     ],
@@ -78,7 +78,8 @@
       "water.tank.level"
     ],
     "model_diagnostics": {
-      "threshold": 95.69808761930712
+      "search_cones": 2901,
+      "angular_resolution_degrees": 10.0
     },
     "label_policy": "Fault != 'Normal'; native point labels; no point adjustment",
     "split_policy": "first fraction of every contiguous Normal segment trains; a complete sample gap is purged; later Normal samples and all fault samples evaluate",
@@ -104,5 +105,5 @@
     },
     "reporting_status": "real-data engineering validation; source-day reuse prevents leaderboard use"
   },
-  "config": "configs/experiments/pronto_mahalanobis_validation.json"
+  "config": "configs/experiments/pronto_search_cone_validation.json"
 }

@@ -28,7 +28,7 @@ this report.
 | Tasks runnable on available real data | 6 |
 | Tasks with the primary payload gated | 1 |
 | Leaderboard-eligible splits | 0 |
-| Real-data validation reports | 7 |
+| Real-data validation reports | 8 |
 
 Locally available public main payloads: `piade`, `pronto`, `skab`, `tep_classic`.
 

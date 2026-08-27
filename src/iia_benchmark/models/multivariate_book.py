@@ -34,6 +34,7 @@ class SearchConeNOZAlarm:
     angular_resolution_degrees: float = 10.0
     radial_quantile: float = 1.0
     false_alarm_fraction: float = 0.0
+    inference_batch_size: int = 2048
 
     def _keys(self, directions: np.ndarray) -> np.ndarray:
         if directions.shape[1] == 2:
@@ -58,6 +59,8 @@ class SearchConeNOZAlarm:
             raise ValueError("radial_quantile must be in [0.5, 1]")
         if not 0 <= self.false_alarm_fraction < 0.5:
             raise ValueError("false_alarm_fraction must be in [0, 0.5)")
+        if self.inference_batch_size < 1:
+            raise ValueError("inference_batch_size must be positive")
         self.mean_ = matrix.mean(axis=0)
         self.scale_ = matrix.std(axis=0, ddof=1)
         self.scale_[self.scale_ == 0] = 1.0
@@ -89,8 +92,11 @@ class SearchConeNOZAlarm:
         if matrix.ndim != 2 or matrix.shape[1] != len(self.mean_):
             raise ValueError("values have the wrong shape")
         directions, radii = _unit_directions((matrix - self.mean_) / self.scale_)
-        similarity = directions @ self.cone_directions_.T
-        nearest = np.argmax(similarity, axis=1)
+        nearest = np.empty(len(directions), dtype=int)
+        for start in range(0, len(directions), self.inference_batch_size):
+            stop = min(len(directions), start + self.inference_batch_size)
+            similarity = directions[start:stop] @ self.cone_directions_.T
+            nearest[start:stop] = np.argmax(similarity, axis=1)
         return radii - self.cone_radii_[nearest]
 
     def predict(self, values: Iterable[Iterable[float]]) -> np.ndarray:

@@ -35,6 +35,7 @@ from iia_benchmark.models import (
     EmpiricalNextAlarmPredictor,
     MahalanobisAlarm,
     NormalizedTransferEntropyGraph,
+    SearchConeNOZAlarm,
     TransferEntropyRanker,
     design_alarm,
     criterion_c_alarm_flood_detection,
@@ -98,6 +99,31 @@ def _macro_metrics(per_run: list[dict[str, Any]]) -> dict[str, float]:
         key: float(np.mean([record["metrics"][key] for record in per_run]))
         for key in keys
     }
+
+
+def _fit_multivariate_estimator(
+    model: dict[str, Any], training: np.ndarray
+) -> tuple[object, dict[str, Any]]:
+    model_id = model["id"]
+    if model_id == "mahalanobis":
+        estimator = MahalanobisAlarm(quantile=float(model.get("quantile", 0.99))).fit(
+            training
+        )
+        diagnostics = {"threshold": estimator.threshold_}
+    elif model_id == "search_cone_noz":
+        estimator = SearchConeNOZAlarm(**model.get("parameters", {})).fit(training)
+        diagnostics = {
+            "search_cones": len(estimator.cone_radii_),
+            "angular_resolution_degrees": estimator.angular_resolution_degrees,
+        }
+    elif model_id == "convex_hull_noz":
+        estimator = ConvexHullNOZAlarm(
+            false_alarm_fraction=float(model.get("false_alarm_fraction", 0.01))
+        ).fit(training)
+        diagnostics = {"hull_facets": len(estimator.equations_)}
+    else:
+        raise ValueError(f"unsupported multivariate estimator config: {model_id}")
+    return estimator, diagnostics
 
 
 def _run_univariate(references: dict[str, dict[str, Any]]) -> dict[str, Any]:
@@ -227,9 +253,7 @@ def _run_real_multivariate(
         raise ValueError(f"Unsupported real multivariate loader: {loader}")
     if not tests:
         raise ValueError("real multivariate experiment selected no test runs")
-    estimator = MahalanobisAlarm(quantile=float(model.get("quantile", 0.99))).fit(
-        train.values
-    )
+    estimator, model_diagnostics = _fit_multivariate_estimator(model, train.values)
     per_run = []
     for path, run in zip(test_paths, tests, strict=True):
         prediction = estimator.predict(run.values)
@@ -246,7 +270,7 @@ def _run_real_multivariate(
         "runs": per_run,
         "train_samples": len(train.timestamps),
         "test_runs": len(tests),
-        "threshold": estimator.threshold_,
+        "model_diagnostics": model_diagnostics,
         "label_policy": label_policy,
         "data_evidence": _data_evidence([train_path, *test_paths], root),
         "reporting_status": "engineering validation; not a leaderboard claim",
@@ -581,9 +605,7 @@ def _run_real_pronto_multivariate(
     training = np.vstack(
         [run.process_values[train_mask] for run, (train_mask, _) in zip(runs, masks)]
     )
-    estimator = MahalanobisAlarm(quantile=float(model.get("quantile", 0.99))).fit(
-        training
-    )
+    estimator, model_diagnostics = _fit_multivariate_estimator(model, training)
     normal_label = str(split.get("normal_label", "Normal"))
     per_run = []
     for path, run, (train_mask, evaluation_mask) in zip(
@@ -606,7 +628,7 @@ def _run_real_pronto_multivariate(
         "runs": per_run,
         "train_normal_samples": len(training),
         "features": list(process_names),
-        "threshold": estimator.threshold_,
+        "model_diagnostics": model_diagnostics,
         "label_policy": f"Fault != {normal_label!r}; native point labels; no point adjustment",
         "split_policy": (
             "first fraction of every contiguous Normal segment trains; a complete "

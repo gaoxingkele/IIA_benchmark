@@ -18,7 +18,9 @@ def test_search_cone_preserves_nonconvex_radial_boundary() -> None:
     angle = np.r_[rng.normal(0.0, 0.04, 120), rng.normal(np.pi / 2, 0.04, 120)]
     radius = rng.uniform(0.5, 2.0, len(angle))
     normal = np.column_stack([radius * np.cos(angle), radius * np.sin(angle)])
-    model = SearchConeNOZAlarm(angular_resolution_degrees=12).fit(normal)
+    model = SearchConeNOZAlarm(
+        angular_resolution_degrees=12, inference_batch_size=2
+    ).fit(normal)
     prediction = model.predict([[1.0, 0.0], [0.0, 1.0], [-4.0, -4.0]])
     np.testing.assert_array_equal(prediction, [0, 0, 1])
 
