@@ -346,6 +346,16 @@
         "status": "remote_access_pending"
       },
       "method_summary": "ConE-AFC wraps online alarm-flood classifiers with conformal calibration and returns prediction sets at controlled error levels.",
+      "local_implementation": [
+        "src/iia_benchmark/models/cone_afc.py:ConEAFCCalibrator",
+        "src/iia_benchmark/models/cone_afc.py:ConEAlarmFloodClassifier"
+      ],
+      "local_validation": {
+        "status": "passed",
+        "reproduction_type": "independent_reimplementation",
+        "command": "python -m pytest -q tests/test_cone_afc.py",
+        "scope": "Eqs. 1-5, Algorithms 1-2, probability/distance and expanding-window invariants; official table reproduction pending capsule/data"
+      },
       "claims": [
         {"id": "C1", "statement": "Conformal prediction exposes uncertainty as label sets for expanding alarm-sequence prefixes.", "support": "publisher_metadata_and_artifact", "status": "explicit"},
         {"id": "C2", "statement": "The authors provide a versioned Code Ocean reproduction capsule.", "support": "publisher_reproducibility_statement", "status": "explicit"}

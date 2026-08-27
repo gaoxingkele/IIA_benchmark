@@ -6,7 +6,7 @@
 - Venue: IEEE Access
 - DOI: [10.1109/ACCESS.2024.3492348](https://doi.org/10.1109/ACCESS.2024.3492348)
 - Benchmark role: SOTA uncertainty-aware online alarm flood classification
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 

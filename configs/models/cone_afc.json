@@ -1,0 +1,22 @@
+{
+  "id": "cone_afc",
+  "family": "sota_uncertainty_aware_alarm_flood_classification",
+  "entrypoint": "iia_benchmark.models.ConEAlarmFloodClassifier",
+  "parameters": {
+    "error_rate": 0.1,
+    "score_kind": "probability",
+    "window_interval_minutes": 10
+  },
+  "paper_evaluation_grid": {
+    "error_rates": [0.01, 0.05, 0.1],
+    "calibration_samples_per_class": [22, 102, 2491],
+    "metrics": ["average_coverage", "average_set_size", "accuracy"]
+  },
+  "equations": ["ConE-AFC Eqs. 1-5", "ConE-AFC Algorithms 1-2"],
+  "source": {
+    "paper_doi": "10.1109/ACCESS.2024.3492348",
+    "official_artifact_doi": "10.24433/CO.5512337.v2",
+    "implementation_status": "independent_reimplementation",
+    "paper_score_status": "pending_official_synthetic_dataset_and_capsule"
+  }
+}

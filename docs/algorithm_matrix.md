@@ -33,6 +33,7 @@ reproduced merely because a related baseline below is callable.
 | Maximum entropy | learned log-linear f1/f2 next-alarm distribution | `MaximumEntropyNextAlarmPredictor` | A | paper Monte Carlo score pending |
 | Robustness | missing/spurious/timing perturbations | `perturb_alarm_episode` | A | detector-delay perturbation remains protocol-level |
 | CASIM | MultiRocket + ridge ensemble + LoOP | independent callable reproduction + official Code Ocean comparison slot | B | mechanics/invariants tested; official TEP score reproduction pending capsule/data |
+| ConE-AFC | class- and stepwise inductive conformal prediction | independent callable wrapper + official Code Ocean comparison slot | B | Eqs. 1-5/Algorithms 1-2 tested; official synthetic-data tables pending capsule/data |
 | ConE-AFC | conformal early classification | metrics ready; model slot | B | calibration split and artifact pending |
 | AFC-RobustBench | four realistic alarm corruptions | protocol partially implemented | C | 2026 preprint; official release audit pending |
 

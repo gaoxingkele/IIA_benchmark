@@ -12,6 +12,14 @@ from .casim import (
     LocalOutlierProbability,
     casim_loop_features,
 )
+from .cone_afc import (
+    ConEAFCCalibrator,
+    ConEAlarmFloodClassifier,
+    ConformalSetMetrics,
+    ConformalThresholds,
+    evaluate_prediction_sets,
+    expected_cone_coverage,
+)
 from .flood_book import (
     AlarmAlignmentResult,
     AlarmToken,
@@ -105,6 +113,10 @@ __all__ = [
     "CondenserNOZAlarm",
     "CondenserParameters",
     "CondenserPhysicalModel",
+    "ConEAFCCalibrator",
+    "ConEAlarmFloodClassifier",
+    "ConformalSetMetrics",
+    "ConformalThresholds",
     "CriterionCResult",
     "DeadbandDesignResult",
     "DeadbandIndexResult",
@@ -143,6 +155,8 @@ __all__ = [
     "design_non_iid_delay_timer",
     "detect_alarm_floods",
     "estimate_transition_matrix",
+    "evaluate_prediction_sets",
+    "expected_cone_coverage",
     "iid_delay_timer_performance",
     "information_granulation_direct_transfer_entropy",
     "information_granulation_transfer_entropy",

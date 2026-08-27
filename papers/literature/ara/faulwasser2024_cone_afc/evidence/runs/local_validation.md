@@ -1,5 +1,6 @@
 # Local validation
 
-Status: **not run**.
+Status: **passed**.
 
-Required fields: command, environment lock, dataset version/hash, split, random seeds, expected paper result, observed result, tolerance, and decision.
+- Command: `python -m pytest -q tests/test_cone_afc.py`
+- Scope: Eqs. 1-5, Algorithms 1-2, probability/distance and expanding-window invariants; official table reproduction pending capsule/data
