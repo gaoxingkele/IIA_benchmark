@@ -24,6 +24,7 @@ from iia_benchmark.models import (
     ConvexHullNOZAlarm,
     EmpiricalNextAlarmPredictor,
     MahalanobisAlarm,
+    NormalizedTransferEntropyGraph,
     TransferEntropyRanker,
     design_alarm,
     smith_waterman_similarity,
@@ -305,6 +306,91 @@ def _run_real_next_alarm(
     }
 
 
+def _run_real_causal_graph(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    model = references["model"]
+    train_path = _resolve(root, dataset["train_path"])
+    train = load_tep_ascii(
+        train_path, sample_period=float(dataset.get("sample_period", 180.0))
+    )
+    low_quantile, high_quantile = map(
+        float, dataset.get("alarm_quantiles", [0.005, 0.995])
+    )
+    lower = np.quantile(train.values, low_quantile, axis=0)
+    upper = np.quantile(train.values, high_quantile, axis=0)
+    analysis_paths = [_resolve(root, value) for value in dataset["analysis_runs"]]
+    run_results = []
+    for run_index, path in enumerate(analysis_paths):
+        run = load_tep_ascii(
+            path,
+            fault_start=int(dataset["fault_start"]),
+            root_cause=path.stem.split("_")[0].upper(),
+            sample_period=float(dataset.get("sample_period", 180.0)),
+        )
+        alarms = ((run.values < lower) | (run.values > upper)).astype(np.int8)
+        counts = alarms.sum(axis=0)
+        eligible = np.flatnonzero(counts >= int(model["minimum_occurrences"]))
+        selected = eligible[
+            np.argsort(counts[eligible])[-int(model.get("max_features", 8)) :]
+        ]
+        series = {run.feature_names[index]: alarms[:, index] for index in selected}
+        graph = NormalizedTransferEntropyGraph(
+            max_lag=int(model["max_lag"]),
+            simulations=int(model["simulations"]),
+            significance=float(model["significance"]),
+            minimum_occurrences=int(model["minimum_occurrences"]),
+            seed=int(model.get("seed", 0)) + run_index,
+        )
+        edges = graph.infer(series)
+        outgoing = {
+            name: float(
+                sum(edge.score for edge in edges if edge.source == name and edge.direct)
+            )
+            for name in series
+        }
+        ranking = sorted(outgoing, key=outgoing.get, reverse=True)
+        run_results.append(
+            {
+                "run_id": path.relative_to(root).as_posix(),
+                "fault_id": run.root_cause,
+                "selected_alarm_variables": [
+                    {"tag": run.feature_names[index], "occurrences": int(counts[index])}
+                    for index in selected
+                ],
+                "directed_edges": [
+                    {
+                        "source": edge.source,
+                        "target": edge.target,
+                        "score": edge.score,
+                        "lag": edge.lag,
+                        "threshold": edge.threshold,
+                        "direct": edge.direct,
+                    }
+                    for edge in edges
+                ],
+                "candidate_root_alarm_ranking": [
+                    {"tag": name, "outgoing_direct_score": outgoing[name]}
+                    for name in ranking
+                ],
+            }
+        )
+    return {
+        "runs": run_results,
+        "analysis_runs": len(run_results),
+        "alarm_threshold_policy": {
+            "lower_normal_quantile": low_quantile,
+            "upper_normal_quantile": high_quantile,
+        },
+        "data_evidence": _data_evidence([train_path, *analysis_paths], root),
+        "reporting_status": (
+            "real-data structural validation; candidate alarm-node ranking is not "
+            "fault-injection root-cause accuracy"
+        ),
+    }
+
+
 def _run_real_visual_analytics(
     root: Path,
     run_dir: Path,
@@ -374,6 +460,8 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         result = _run_real_multivariate(root, references)
     elif task == "real_next_alarm_forecasting":
         result = _run_real_next_alarm(root, references)
+    elif task == "real_causal_graph":
+        result = _run_real_causal_graph(root, references)
     elif task == "real_visual_analytics":
         result = _run_real_visual_analytics(root, run_dir, references)
     else:

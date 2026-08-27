@@ -38,10 +38,14 @@ def main() -> int:
         for line in matrix_lines
     )
     split_configs = [read(str(path.relative_to(ROOT)).replace("\\", "/")) for path in (ROOT / "configs/splits").glob("*.json")]
-    validation_reports = sorted((ROOT / "experiments/reports").glob("*.json"))
+    report_payloads = [
+        read(str(path.relative_to(ROOT)).replace("\\", "/"))
+        for path in sorted((ROOT / "experiments/reports").glob("*.json"))
+    ]
+    validation_reports = [payload for payload in report_payloads if payload.get("config")]
     validation_configs = [
-        read(read(str(path.relative_to(ROOT)).replace("\\", "/"))["config"])
-        for path in validation_reports
+        read(payload["config"])
+        for payload in validation_reports
     ]
     validated_tasks = sorted(
         {
@@ -88,8 +92,19 @@ def main() -> int:
             "registered_papers": paper_downloads["summary"]["registered"],
             "downloaded_papers": paper_downloads["summary"]["downloaded"],
             "leaderboard_eligible_splits": sum(bool(item.get("leaderboard_eligible")) for item in split_configs),
-            "real_data_validation_reports": len(validation_reports),
+            "real_data_validation_reports": sum(
+                str(config.get("task", "")).startswith("real_")
+                for config in validation_configs
+            ),
             "real_data_validated_tasks": validated_tasks,
+            "ara_algorithm_validations_passed": next(
+                (
+                    payload["summary"]["passed"]
+                    for payload in report_payloads
+                    if payload.get("registry") == "papers/literature/registry.json"
+                ),
+                0,
+            ),
         },
     }
     output = ROOT / "docs/status_audit.json"
@@ -135,6 +150,7 @@ Locally available public main payloads: {', '.join(f'`{item}`' for item in repor
 | Papers registered | {report['evidence']['registered_papers']} |
 | Paper PDFs downloaded | {report['evidence']['downloaded_papers']} |
 | Tasks with executed real-data validation | {', '.join(report['evidence']['real_data_validated_tasks']) or 'none'} |
+| ARA paper packages with fresh local validation | {report['evidence']['ara_algorithm_validations_passed']} |
 
 The detailed machine-readable report is in `docs/status_audit.json`.
 """

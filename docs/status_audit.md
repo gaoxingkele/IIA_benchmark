@@ -28,7 +28,7 @@ this report.
 | Tasks runnable on available real data | 5 |
 | Tasks with the primary payload gated | 1 |
 | Leaderboard-eligible splits | 0 |
-| Real-data validation reports | 4 |
+| Real-data validation reports | 5 |
 
 Locally available public main payloads: `piade`, `skab`, `tep_classic`.
 
@@ -38,6 +38,7 @@ Locally available public main payloads: `piade`, `skab`, `tep_classic`.
 |---|---:|
 | Papers registered | 28 |
 | Paper PDFs downloaded | 3 |
-| Tasks with executed real-data validation | T1, T2, T5, T6 |
+| Tasks with executed real-data validation | T1, T2, T3, T5, T6 |
+| ARA paper packages with fresh local validation | 28 |
 
 The detailed machine-readable report is in `docs/status_audit.json`.

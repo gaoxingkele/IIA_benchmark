@@ -6,7 +6,7 @@
 - Venue: IEEE Transactions on Control Systems Technology
 - DOI: [10.1109/TCST.2019.2943469](https://doi.org/10.1109/TCST.2019.2943469)
 - Benchmark role: book-chapter-3 convex NOZ
-- ARA status: `metadata_only`
+- ARA status: `engineering_validated_source_gated`
 
 ## Executive summary
 
