@@ -34,8 +34,7 @@ reproduced merely because a related baseline below is callable.
 | AFC-RobustBench | missing/spurious/timing/detector-delay/mixed perturbations, progress/severity profiles, Monte-Carlo intervals and robustness AUC | `run_afc_robustness_benchmark` | B | full protocol is callable; paper-score comparison pending preprint PDF/data |
 | CASIM | MultiRocket + ridge ensemble + LoOP | independent callable reproduction + official Code Ocean comparison slot | B | mechanics/invariants tested; official TEP score reproduction pending capsule/data |
 | ConE-AFC | class- and stepwise inductive conformal prediction | independent callable wrapper + official Code Ocean comparison slot | B | Eqs. 1-5/Algorithms 1-2 tested; official synthetic-data tables pending capsule/data |
-| ConE-AFC | conformal early classification | metrics ready; model slot | B | calibration split and artifact pending |
-| AFC-RobustBench | four realistic alarm corruptions | protocol partially implemented | C | 2026 preprint; official release audit pending |
+| Chapter 6 visual analytics | bubble/treemap/analytics/bad-actor/radar/HDAP/3D-bar/correlation/workflow/event-flow/burst/similarity/spiral | `build_alarm_visual_analytics`, standalone HTML+JSON export | A | synthetic invariant validation passed; original industrial visual case pending |
 
 Maturity A means callable and unit-tested, not equation-complete or paper-score
 reproduced. Each reported experiment still needs a dataset adapter, grouped split,

@@ -11,7 +11,7 @@ The target is the complete algorithm inventory in `configs/algorithms/book_algor
 
 - 20 book deliverables are registered: 19 algorithmic methods plus the Chapter 6 visual-analytics verification suite.
 - All 19 book algorithms now have callable implementations and invariant/recovery tests, but remain `partial` until their remaining paper-data/score evidence is closed.
-- Chapter 6's visual verification suite is the only `missing` book deliverable.
+- Chapter 6's visual verification suite is callable and exportable; its original industrial case remains the validation gate. No book deliverable is now `missing`.
 - SOTA sources are tracked separately from book methods. A DOI or downloaded PDF is evidence acquisition, not an implementation or score reproduction.
 
 ## Planned implementation batches

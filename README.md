@@ -14,6 +14,7 @@ Canonical repository: <https://github.com/gaoxingkele/IIA_benchmark>
 | 报警洪泛 | 新出现标签检测、Smith–Waterman、next-alarm | 检出率、序列准确率、提前量 | synthetic、PIADE、TEP alarm（受限） |
 | 开集/早期分类 | 协议与指标层，CASIM/ConE-AFC 复现位 | macro-F1、AUROC、coverage、set size | TEP alarm、NPP/FCC（受限） |
 | 鲁棒性 | missing/spurious/timing perturbation | clean score、退化量、最坏组 | synthetic、PIADE、SKAB |
+| 可视分析验证 | Chapter 6 KPI/bad actor/HDAP/burst/correlation/timeline/similarity/spiral 报告 | 数值事实层、HTML、JSON、事件行追溯 | 任意统一 `AlarmEvent`/`AlarmEpisode` 数据 |
 
 “已实现”“论文复现位”“仅元数据”被明确分层，避免把尚未拿到受限文件的方法写成可比较结果。
 
