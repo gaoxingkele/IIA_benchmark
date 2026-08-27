@@ -9,9 +9,9 @@ this report.
 | Scope | Registered | Callable | Verified | Partial | Missing |
 |---|---:|---:|---:|---:|---:|
 | Book deliverables | 20 | 20 | 0 | 20 | 0 |
-| Selected SOTA | 10 | 8 | 0 | 8 | 2 |
+| Selected SOTA | 10 | 9 | 0 | 9 | 1 |
 
-- Callable method families in the algorithm matrix: **32**.
+- Callable method families in the algorithm matrix: **33**.
 - Strict score-closed reproductions: **0**.
 - A callable implementation is not considered verified until the cited split,
   metric, seed protocol, and reference score have all been reproduced.
@@ -35,7 +35,7 @@ Locally available public main payloads: `piade`, `skab`, `tep_classic`.
 
 | Item | Count |
 |---|---:|
-| Papers registered | 26 |
+| Papers registered | 27 |
 | Paper PDFs downloaded | 2 |
 
 The detailed machine-readable report is in `docs/status_audit.json`.
