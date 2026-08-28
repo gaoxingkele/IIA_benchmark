@@ -77,6 +77,65 @@ def main() -> int:
             "fault_label_counts": dict(sorted(label_counts.items())),
             "validation": "finite process values, binary alarm states, nonempty labels",
         }
+    fcc_alarm_archive = DATA / "fcc_alarm" / "alarmseriesdata.zip"
+    fcc_timeseries_archive = DATA / "fcc_alarm" / "timeseriesdata.zip"
+    if fcc_alarm_archive.exists() and fcc_timeseries_archive.exists():
+        with zipfile.ZipFile(fcc_alarm_archive) as alarm_archive:
+            alarm_files = sorted(
+                name
+                for name in alarm_archive.namelist()
+                if name.lower().endswith(".csv")
+            )
+            alarm_categories = Counter(name.split("/")[1] for name in alarm_files)
+            with alarm_archive.open(alarm_files[0]) as stream:
+                alarm_sample = pd.read_csv(stream)
+            alarm_crc_valid = alarm_archive.testzip() is None
+            alarm_archive_entries = len(alarm_archive.infolist())
+        with zipfile.ZipFile(fcc_timeseries_archive) as timeseries_archive:
+            timeseries_files = sorted(
+                name
+                for name in timeseries_archive.namelist()
+                if name.lower().endswith(".csv")
+            )
+            series_by_kind = Counter(
+                Path(name).stem.rsplit("_", 1)[-1] for name in timeseries_files
+            )
+            sample_columns: dict[str, int] = {}
+            sample_rows: dict[str, int] = {}
+            for kind in ("process", "valves", "disturbances"):
+                sample_name = next(
+                    name
+                    for name in timeseries_files
+                    if Path(name).stem.endswith(f"_{kind}")
+                )
+                with timeseries_archive.open(sample_name) as stream:
+                    sample = pd.read_csv(stream)
+                sample_columns[kind] = len(sample.columns)
+                sample_rows[kind] = len(sample)
+            timeseries_crc_valid = timeseries_archive.testzip() is None
+            timeseries_archive_entries = len(timeseries_archive.infolist())
+        profile["fcc_alarm"] = {
+            "simulation_runs": len(alarm_files),
+            "abnormal_situations": len(alarm_categories),
+            "runs_per_situation": dict(sorted(alarm_categories.items())),
+            "samples_per_alarm_run": len(alarm_sample),
+            "alarm_variables": len(alarm_sample.columns),
+            "timeseries_csv_files": len(timeseries_files),
+            "timeseries_files_by_kind": dict(sorted(series_by_kind.items())),
+            "timeseries_sample_rows": sample_rows,
+            "timeseries_columns_including_time": sample_columns,
+            "alarm_archive_entries": alarm_archive_entries,
+            "timeseries_archive_entries": timeseries_archive_entries,
+            "zip_crc_valid": {
+                "alarmseriesdata": alarm_crc_valid,
+                "timeseriesdata": timeseries_crc_valid,
+            },
+            "representation_boundary": (
+                "high-fidelity simulated FCC runs with scenario-directory labels; "
+                "grouped evaluation must split by run and reserve complete abnormal "
+                "situations for open-set testing"
+            ),
+        }
     comopi = DATA / "comopi" / "industrial_dataset_alarm_10m_agg.csv"
     if comopi.exists():
         rows = 0

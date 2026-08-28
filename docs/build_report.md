@@ -1,5 +1,9 @@
 # Initial build report — 2026-08-27
 
+> Historical snapshot. Current machine-readable state is in `docs/status_audit.json`.
+> TEP/NPP archives were acquired on 2026-08-28, and the four official FCC Alarm
+> attachments were acquired from ReSeeD on 2026-08-29.
+
 ## Delivered
 
 - 433-page reference book verified and split into front matter + six page-addressable chapters; source SHA-256 begins `d002db25abf1`.

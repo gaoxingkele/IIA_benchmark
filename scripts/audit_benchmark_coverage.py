@@ -85,7 +85,7 @@ def main() -> int:
     )
     report = {
         "schema_version": 1,
-        "cutoff_date": "2026-08-28",
+        "cutoff_date": "2026-08-29",
         "algorithms": {
             "callable_method_families": callable_families,
             "model_configs": len(list((ROOT / "configs/models").glob("*.json"))),

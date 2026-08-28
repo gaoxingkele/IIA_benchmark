@@ -24,7 +24,7 @@
 
 **算法/协议落地**：当前 A 级包含序列对齐和 coverage/set-size 指标；MultiRocket/ridge/LoOP 与 conformal calibration 为 B 级复现位，必须从官方 artifact 锁定环境后才能比较。
 
-**扩展终点**：Nuclear Power Plant Alarm Dataset（DOI `10.21227/g2fa-9y43`）原始 RAR 已取得并通过 CRC，含 101 个顶层 run/组、12 类事故/扰动加 Normal 及 101 个阈值文件；adapter 尚未实现。名为 `FCC Alarm Dataset.zip` 的候选包经嵌入元数据核验实际为 CO2 吸附动力学数据（DOI `10.60517/19027803-fec9-41f2-8a02-408cc176554e`），已隔离并拒绝进入 FCC alarm 评测；真正 FCC alarm 数据仍缺失。
+**扩展终点**：Nuclear Power Plant Alarm Dataset（DOI `10.21227/g2fa-9y43`）原始 RAR 已取得并通过 CRC，含 101 个顶层 run/组、12 类事故/扰动加 Normal 及 101 个阈值文件；adapter 尚未实现。名为 `FCC Alarm Dataset.zip` 的候选包经嵌入元数据核验实际为 CO2 吸附动力学数据（DOI `10.60517/19027803-fec9-41f2-8a02-408cc176554e`），已隔离。2026-08-29 又从 ReSeeD 官方记录（DOI `10.60517/2v23vv393`）直接取得真正 FCC Alarm 的 2 个 ZIP 和 2 个说明 PDF：1,600 个 run、16 类异常、57 个报警位以及对齐的过程/阀位/扰动序列；两个 ZIP 全量 CRC 通过，adapter 尚未实现。
 
 ## Round 3：从跨域数据到现实扰动鲁棒性
 
@@ -36,4 +36,4 @@
 
 **算法落地**：`perturb_alarm_episode` 与 `robustness_degradation` 为 A 级；jackknife+/bifurcation 预测和 RobustBench 完整模型为 B/C 级。2026 工作是预印本 SOTA candidate，需等数据/代码可得性审计，不在 README 宣称领先结果。
 
-**本轮终点/下一循环**：形成 `TEP/PRONTO → PIADE → SKAB/NPP/FCC` 的跨数据矩阵。2026-08-28 的补充数据审计又取得 CoMoPI 报警计数、SMD10TOWFGR 风机事件日志、EnAS 状态事件和 iMAKS 合成因果载荷；它们补充 T3/T5/T6 及 T4 的事件密度验证，但均没有 TEP Alarm 等价的专家洪泛类别。PRONTO 的 state/rising-edge 消融也确认 CTFH/HDAM 的主要问题是载荷/标签错配，而不是单一编码选择。下一轮仍应优先取得 DataPort 授权归档、接入 CASIM/ConE-AFC 官方 artifact，并新增设备/工厂留一与标签漂移协议。
+**本轮终点/下一循环**：形成 `TEP/PRONTO → PIADE → SKAB/NPP/FCC` 的跨数据矩阵。2026-08-28 的补充数据审计取得 CoMoPI 报警计数、SMD10TOWFGR 风机事件日志、EnAS 状态事件和 iMAKS 合成因果载荷；2026-08-29 又补齐具有 16 类异常真值的 FCC Alarm 官方载荷。PRONTO 的 state/rising-edge 消融确认 CTFH/HDAM 的主要问题是载荷/标签错配，而不是单一编码选择。下一轮应优先实现 TEP/NPP/FCC adapter、接入 CASIM/ConE-AFC 官方 artifact，并新增按 run/异常族/设备/工厂留一和标签漂移协议。

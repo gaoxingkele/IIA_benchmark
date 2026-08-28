@@ -18,14 +18,14 @@
 | 书籍交付项 | 20（19 个算法 + 1 个第 6 章可视分析套件） | 20/20 可调用，20 个均为 `partial`，0 个 `verified` |
 | SOTA 交付项 | 10 | 10/10 可调用，10 个均为 `partial`，0 个 `verified` |
 | 下游任务 | 6 | 6/6 均已有真实数据运行记录；T4 仅为代理验证 |
-| 公共数据登记记录 | 14 条、11 个逻辑数据集族 | 8 个主载荷已取得（7 个真实/实采 + 1 个 synthetic），3 个关键载荷仍受访问/站点限制 |
+| 公共数据登记记录 | 21 条、11 个逻辑数据集族 | 11/11 个主载荷已取得（10 个真实/实采/仿真 + 1 个 synthetic）；TEP/NPP/FCC adapter 仍待完成 |
 | 真实数据验证报告 | 17 | 10/30 个登记算法已有真实数据执行；0 个满足正式排行榜闭环 |
-| 登记论文 | 28 | 本地 PDF 4 篇，缺 24 篇 |
+| 登记论文 | 28 | 本地 PDF 5 篇，缺 23 篇 |
 | ARA 文献工程包 | 28 | 28/28 本地验证通过，14 条唯一验证命令 |
 | 全仓测试 | 95 | `95 passed`；包含 PRONTO 表示消融工件回归和 SMD10TOWFGR adapter 测试 |
 | 严格论文分数闭环 | 0 | 当前不能宣称“全部算法完整复现”或“SOTA 已复现” |
 
-最重要的判断是：**算法接口和主要机制已经落地，但算法集、论文集、数据集和实验集尚未达到论文同协议、同数据、同切分、同指标、同分数的严格完备状态。** 当前最成熟的成果是工程化可调用基线、真实数据适配、证据链和缺口审计；最主要的阻塞是 24 篇全文、TEP/NPP/FCC 报警载荷、官方 Code Ocean 工件以及论文级参考分数未闭环。
+最重要的判断是：**算法接口和主要机制已经落地，但算法集、论文集、数据集和实验集尚未达到论文同协议、同数据、同切分、同指标、同分数的严格完备状态。** 当前最成熟的成果是工程化可调用基线、真实数据适配、证据链和缺口审计；最主要的阻塞是 23 篇全文、TEP/NPP/FCC 专用 adapter 与 grouped split、官方 Code Ocean 工件以及论文级参考分数未闭环。
 
 ## 2. 方法体系与三轮扩展逻辑
 
@@ -44,9 +44,9 @@
 |---|---|---|---|---|
 | Round 1 | TEP classic、PRONTO | 书第 2–5 章；报警设计、NOZ、因果、洪泛序列 | 经典透明基线、书籍算法清单和 T1–T5 雏形 | TEP Alarm DataPort |
 | Round 2 | TEP Alarm、PIADE | CASIM、ConE-AFC；早期/开集/不确定性 | 分类与 conformal 接口、PIADE next-alarm 和可视分析 | NPP、FCC |
-| Round 3 | PIADE、SKAB、NPP/FCC | uncertainty reduction、AFC-RobustBench 及 2025–2026 方法 | TEP/NPP 原始载荷审计、扰动矩阵、鲁棒性协议、更多 SOTA 可调用复现位 | 专用 adapter、跨工厂验证 |
+| Round 3 | PIADE、SKAB、NPP/FCC | uncertainty reduction、AFC-RobustBench 及 2025–2026 方法 | TEP/NPP/FCC 原始载荷审计、扰动矩阵、鲁棒性协议、更多 SOTA 可调用复现位 | 专用 adapter、跨工厂验证 |
 
-此循环的价值是将“读书所得的算法”置于真实数据与新论文中反复校验。本轮又加入 CoMoPI、SMD10TOWFGR、EnAS 和 iMAKS，形成“真实报警计数—原始事件日志—离散状态事件—合成因果真值”的补充梯度。2026-08-28 晚些时候又通过认证传输取得 TEP/NPP 专用报警归档；当前关键限制已从“访问权限”转为 adapter、官方标签语义、grouped split、作者工件与参考分数。真正 FCC alarm 载荷仍缺失。
+此循环的价值是将“读书所得的算法”置于真实数据与新论文中反复校验。本轮又加入 CoMoPI、SMD10TOWFGR、EnAS 和 iMAKS，形成“真实报警计数—原始事件日志—离散状态事件—合成因果真值”的补充梯度。2026-08-28 晚些时候通过认证传输取得 TEP/NPP 专用报警归档；2026-08-29 又从 ReSeeD 官方记录直接取得 FCC Alarm 的 2 个 ZIP 和 2 个说明 PDF。当前关键限制已从“访问权限”转为 adapter、官方标签语义、grouped split、作者工件与参考分数。
 
 ## 3. 书籍章节拆解与 benchmark 对照
 
@@ -114,15 +114,15 @@
 | T1 | 报警生成与设计 | 连续过程量 → binary alarm、FAR、MAR、AAD | TEP、SKAB、PRONTO | Mahalanobis/阈值派生报警验证 | 可运行；未形成统一排行榜 |
 | T2 | 多变量动态报警限 | 多变量状态 → NOZ、dynamic limit、alarm state | TEP、SKAB、PRONTO | Mahalanobis、PRONTO search-cone | 可运行；跨模型同切分比较不足 |
 | T3 | 因果图与根因排序 | 报警/过程序列 → directed edges、root ranking | TEP；PRONTO 可接入 | TEP D01/D04/D11 NTE 结构验证 | 可运行；缺根因真值精度 |
-| T4 | 洪泛检测、聚类与分类 | 报警事件/窗口 → flood interval、class、unknown、prediction set | PRONTO 代理；SMD 事件日志补充；TEP/NPP/FCC 受限 | PRONTO CASIM/CTFH/HDAM/ConE/Cross-Conformal + Criterion C | 仅 `runnable_real_data_surrogate`；表示消融仍退化，非专家洪泛标签 |
+| T4 | 洪泛检测、聚类与分类 | 报警事件/窗口 → flood interval、class、unknown、prediction set | PRONTO 代理；SMD 事件日志补充；TEP/NPP/FCC 原始载荷已取得 | PRONTO CASIM/CTFH/HDAM/ConE/Cross-Conformal + Criterion C | 仅 `runnable_real_data_surrogate`；专用载荷 adapter/grouped split 尚未运行 |
 | T5 | next-alarm 与洪泛预测 | 报警前缀 → next tag、future set、early warning | PIADE、PRONTO、CoMoPI、SMD、EnAS | PIADE next distinct alarm；PRONTO 60–300 秒前缀消融 | 可运行；尚无论文同协议早期预测榜 |
 | T6 | 运维可视分析 | 统一 AlarmEvent/Episode → KPI、bad actor、关联图、洪泛报告 | PIADE、PRONTO、CoMoPI、SMD | PIADE 30 日 HTML/JSON 工件 | 可运行；原书工业案例未复刻 |
 
-六个任务均有真实数据执行记录，但只有“执行覆盖”，没有任何任务已经满足正式 benchmark 的全部公平比较门槛。T4 尤其需要 TEP/NPP/FCC 专用报警洪泛载荷与专家标签。
+六个任务均有真实数据执行记录，但只有“执行覆盖”，没有任何任务已经满足正式 benchmark 的全部公平比较门槛。T4 已具备 TEP/NPP/FCC 专用报警载荷，下一缺口是标签语义核对、adapter、grouped split 和同协议实验。
 
 ## 7. 数据集总表与验证状态
 
-14 条下载登记记录归并为 11 个数据集族；PRONTO 包含 README、技术报告和完整载荷 3 条记录，PIADE 包含 raw 与 hourly sequences 2 条记录。新增四个候选载荷均已下载并通过登记 MD5。
+21 条下载登记记录归并为 11 个数据集族；PRONTO 包含 README、技术报告和完整载荷 3 条记录，PIADE 包含 raw 与 hourly sequences 2 条记录，FCC 包含元数据、2 个主载荷、2 个说明附件和 1 个已拒绝的误命名候选。11 个数据集族均已有至少一个有效主载荷。
 
 | 数据集族 | 当前状态 | 本地画像/用途 | 任务 | 来源 |
 |---|---|---|---|---|
@@ -132,7 +132,7 @@
 | `skab` | Git 数据已下载并记录 revision | 35 个水循环异常实验 CSV | T1/T2/鲁棒性 | [SKAB](https://github.com/waico/SKAB)，[10.1007/s41060-022-00355-4](https://doi.org/10.1007/s41060-022-00355-4) |
 | `tep_alarm_dataport` | 16,983,510,811 字节 RAR 已取得；SHA-256 与外层 RAR5 CRC 通过；嵌套目录已审计 | 100 Tests run × 3 处理版本、1,000 条五类报警 CSV、18 个异常场景变体；adapter/正式实验待完成 | T3/T4/T6 | [IEEE DataPort](https://ieee-dataport.org/open-access/tennessee-eastman-process-alarm-management-dataset)，[10.21227/326k-qr90](https://doi.org/10.21227/326k-qr90) |
 | `npp_alarm_dataport` | 199,576,419 字节 RAR 已取得；SHA-256 与 UnRAR 全量 CRC 通过 | 101 个顶层 run/组、12 类事故/扰动 + Normal、122,510 个 CSV；adapter 待完成 | T3/T4 | [IEEE DataPort](https://ieee-dataport.org/open-access/nuclear-power-plant-alarm-dataset)，[10.21227/g2fa-9y43](https://doi.org/10.21227/g2fa-9y43) |
-| `fcc_alarm` | DOI 已登记；真正 payload 仍缺；同名候选 ZIP 经元数据证实为 CO2 吸附数据并隔离 | FCC 报警跨装置验证仍是缺口 | T3/T4 | [10.60517/2v23vv393](https://doi.org/10.60517/2v23vv393) |
+| `fcc_alarm` | ReSeeD 官方 2 个 ZIP 与 2 个说明 PDF 已下载；SHA-256 与 ZIP 全量 CRC 通过；误命名 CO2 候选继续隔离 | 1,600 个 run、16 类异常、60 个一分钟采样、57 个报警位，并配套 4,800 个过程/阀位/扰动 CSV；adapter 待完成 | T3/T4/open-set/鲁棒性 | [ReSeeD](https://reseed.ruhr-uni-bochum.de/concern/datasets/19217e41-e9ad-4c0e-bb51-97e7072813f7)，[10.60517/2v23vv393](https://doi.org/10.60517/2v23vv393)，CC BY 4.0 |
 | `comopi` | 42,677,268 字节报警 CSV 已下载、MD5 通过 | 150,650 个十分钟 bin、8 台设备、123 类报警、194,974 次报警；AL_53/54 阳性 bin 仅 23/18 | T5/T6、bad actor；缺 bin 内次序和洪泛标签 | [Zenodo 7572501](https://zenodo.org/records/7572501) |
 | `smd10towfgr` | 180,707,378 字节 XLSX 已下载、MD5 通过 | 10 台风机、230,618 条日志、167 个 code；Alarm 1,002、Warning 688 | T4 序列/密度、T5/T6；缺专家洪泛类别 | [Zenodo 14546480](https://zenodo.org/records/14546480)，CC BY 4.0 |
 | `enas` | 20,010,388 字节 CSV 已下载、MD5 通过 | 219,893 条离散传感器/执行器状态记录、人工错误状态、两种产品变体 | T3/T5；不是报警洪泛语料 | [Zenodo 4742256](https://zenodo.org/records/4742256)，CC BY 4.0 |
@@ -188,11 +188,11 @@
 |---|---|---|---|
 | P0 | TEP Alarm adapter 与论文实验 | 主载荷已取得，但 CASIM、ConE-AFC、CTFH、HDAM、时间直方图等 SOTA 仍需同口径输入与正式切分 | 只读 RAR/ZIP adapter、`ground_truth.xlsx` 语义核对、官方 run/类别映射、grouped split、参考分数 |
 | P0 | NPP Alarm adapter 与跨域实验 | 主载荷已取得；仍需验证方法能否从化工仿真迁移到核电报警，并支撑 T3/T4 跨域结论 | 标签说明核对、只读 adapter、run/alpha 分组切分、跨域指标 |
-| P0 | FCC Alarm 主载荷 | 防止 benchmark 只覆盖 TEP/PRONTO，提供真实炼化跨装置测试 | 稳定来源、许可、checksum、事件适配器 |
+| P0 | FCC Alarm adapter 与正式实验 | 主载荷、许可和 checksum 已闭环；仍需把 1,600 个仿真 run 转换为统一事件/episode 合同 | 只读 ZIP adapter、按 run 分组、异常族留一 open-set、参考方法同协议重跑 |
 | P1 | SMD10TOWFGR 洪泛 episode 派生/专家复核 | 本轮已取得 230,618 条时间戳日志，可用于验证事件适配与洪泛密度，但没有根因类别 | 按 Alarm/Warning 过滤、Criterion C 候选区间、专家复核和设备级 grouped split |
 | P1 | CoMoPI 稀有故障报警预测协议 | AL_53/54 目标只有 23/18 个阳性 bin，常规随机切分会严重失真 | 按设备/时间切分、PR-AUC、事件召回、阳性区间 bootstrap CI |
 | P0 | CASIM/ConE-AFC Code Ocean 工件 | 锁定作者环境、预处理、随机种子和表格生成逻辑 | 合法取得 capsule，冻结依赖并复跑参考表 |
-| P0 | 24 篇缺失全文 | 确保方程、算法分支、超参与分数口径完整 | 合法 PDF、SHA-256、页码证据、ARA 更新 |
+| P0 | 23 篇缺失全文 | 确保方程、算法分支、超参与分数口径完整 | 合法 PDF、SHA-256、页码证据、ARA 更新 |
 | P0 | 统一 leaderboard-eligible split | 目前 0 个正式榜单切分，现有数据复用/代理标签会造成泄漏或不可比 | 按 run/设备/工厂分组；训练期定超参；测试冻结；版本化 split |
 | P1 | 书第 2–5 章逐论文分数复测 | 这是 20 个书籍交付项从 `partial` 到 `verified` 的关键 | 同数据/切分/指标/容差重现代表表或图 |
 | P1 | 10 个 SOTA 同协议横评 | 当前只能比较实现机制，无法回答谁是 SOTA | 同一事件合同、同一 split、prefix/open-set/coverage/鲁棒性指标 |
@@ -347,10 +347,10 @@ python -m pytest -q
 ## 14. 建议的下一次迭代顺序
 
 1. 为已取得的 TEP 五类报警 CSV 与 Tests/异常工况 XLSX 建立只读 adapter、`ground_truth.xlsx` 语义核对和 run-grouped split，随后重跑 CTFH/HDAM/CASIM/ConE。
-2. 为已取得的 NPP 报警 RAR 建立 adapter，明确 run/alpha/事故族层级并实施跨 run、跨事故族和跨域切分；同时继续补齐真正 FCC alarm 稳定下载。
+2. 为已取得的 NPP 报警 RAR 建立 adapter，明确 run/alpha/事故族层级；同时为 FCC 的 1,600 个 run 建立只读 adapter，并实施跨 run、异常族留一和跨域切分。
 3. 为本轮已下载的 SMD10TOWFGR 建立 `AlarmEvent` adapter、Criterion C 候选 episode 和设备留一协议；该结果保持“无专家类别”的次级榜定位。
 4. 为 CoMoPI 建立按设备/时间分组的 AL_53/54 稀有报警预测协议，不把十分钟计数恢复成虚构的事件次序。
-5. 通过机构订阅、作者索取或已登录的合法作者副本渠道补齐 24 篇全文，同时补充 PDF hash 和页码证据。
+5. 通过机构订阅、作者索取或已登录的合法作者副本渠道补齐 23 篇全文，同时补充 PDF hash 和页码证据。
 6. 获取 CASIM、ConE-AFC 官方 Code Ocean 工件，锁定环境并复跑代表表格。
 7. 发布第一个 leaderboard v0：优先 TEP/PRONTO 的 T1/T2，建立无源日复用的 grouped split、固定 seeds 和 95% CI；T4 专项榜必须使用专家 episode、open-set 留一类别、前缀和鲁棒性矩阵。
 8. 逐项推动书籍 20 项与 SOTA 10 项从 `partial` 升级为 `verified`；每次升级都应在同一提交中加入实现、测试、配置、引用和参考分数证据。
