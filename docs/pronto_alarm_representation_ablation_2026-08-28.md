@@ -1,6 +1,6 @@
 # PRONTO 报警表示与标签错配消融报告
 
-日期：2026-08-28  
+日期：2026-08-28
 适用范围：CTFH、Structured HDAM、ConE-AFC、Cross-Conformal AFC 的工程化真实数据代理验证
 
 ## 结论
