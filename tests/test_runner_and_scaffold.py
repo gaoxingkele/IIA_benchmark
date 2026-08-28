@@ -41,3 +41,39 @@ def test_book_manifest() -> None:
         (312, 388),
         (389, 428),
     ]
+
+
+def test_pronto_representation_ablation_reports_preserve_degenerate_results() -> None:
+    reports = ROOT / "experiments" / "reports"
+    ctfh_state = json.loads(
+        (reports / "pronto_ctfh_fault_classification_validation.json").read_text(
+            encoding="utf-8"
+        )
+    )["result"]
+    ctfh_edge = json.loads(
+        (reports / "pronto_ctfh_activation_classification_validation.json").read_text(
+            encoding="utf-8"
+        )
+    )["result"]
+    assert ctfh_state["alarm_representation"] == "state"
+    assert ctfh_edge["alarm_representation"] == "rising_edge"
+    assert ctfh_state["metrics"] == ctfh_edge["metrics"]
+    assert all(
+        profile["consensus_hashes"] == 0
+        for profile in ctfh_state["model_diagnostics"]["profiles"]
+    )
+
+    for name, representation in (
+        ("pronto_cone_uncertainty_validation.json", "state"),
+        ("pronto_cone_activation_uncertainty_validation.json", "rising_edge"),
+        ("pronto_cross_conformal_uncertainty_validation.json", "state"),
+        (
+            "pronto_cross_conformal_activation_uncertainty_validation.json",
+            "rising_edge",
+        ),
+    ):
+        result = json.loads((reports / name).read_text(encoding="utf-8"))["result"]
+        assert result["alarm_representation"] == representation
+        assert result["metrics"]["coverage"] == 1.0
+        assert result["metrics"]["average_set_size"] == 4.0
+        assert result["metrics"]["singleton_accuracy"] is None

@@ -20,17 +20,19 @@ this report.
 
 | Item | Count |
 |---|---:|
-| Public registry records | 10 |
-| Logical public dataset families | 7 |
-| Main payloads locally available | 4 |
+| Public registry records | 14 |
+| Logical public dataset families | 11 |
+| Main payloads locally available (all) | 8 |
+| Real/acquired main payloads locally available | 7 |
+| Registered synthetic main payloads locally available | 1 |
 | Synthetic smoke datasets | 4 |
 | Downstream tasks defined | 6 |
 | Tasks runnable on available real data | 6 |
 | Tasks with the primary payload gated | 1 |
 | Leaderboard-eligible splits | 0 |
-| Real-data validation reports | 8 |
+| Real-data validation reports | 17 |
 
-Locally available public main payloads: `piade`, `pronto`, `skab`, `tep_classic`.
+Locally available public main payloads: `comopi`, `enas`, `imaks`, `piade`, `pronto`, `skab`, `smd10towfgr`, `tep_classic`.
 
 ## Evidence
 
@@ -40,6 +42,7 @@ Locally available public main payloads: `piade`, `pronto`, `skab`, `tep_classic`
 | Paper PDFs downloaded | 4 |
 | DOI records marked open by Unpaywall | 5 |
 | Direct PDF candidates reported by Unpaywall | 2 |
+| Registered algorithms with real-data execution | 10 |
 | Tasks with executed real-data validation | T1, T2, T3, T4, T5, T6 |
 | ARA paper packages with fresh local validation | 28 |
 

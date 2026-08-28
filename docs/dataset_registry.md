@@ -9,13 +9,20 @@
 | `tep_alarm_dataport` | landing page 已下载；payload 受限 | 100-run 工业报警洪泛；T3/T4/open-set | [IEEE DataPort](https://ieee-dataport.org/open-access/tennessee-eastman-process-alarm-management-dataset), DOI `10.21227/326k-qr90` |
 | `npp_alarm_dataport` | landing page 已下载；payload 可能需登录 | 核电报警；T3/T4 | DOI `10.21227/g2fa-9y43` |
 | `fcc_alarm` | 已登记；站点重定向不稳定 | FCC 报警；跨域 T3/T4 | DOI `10.60517/2v23vv393` |
+| `comopi` | 报警 CSV 已下载，42,677,268 字节，MD5 通过 | 8 台包装设备、123 类十分钟报警计数；T5/T6、bad actor；无 bin 内次序/洪泛标签 | [Zenodo 7572501](https://zenodo.org/records/7572501)，DOI `10.5281/zenodo.7572501` |
+| `smd10towfgr` | 180,707,378 字节 XLSX 已下载，MD5 通过 | 10 台风机的 SCADA 与 230,618 条事件/报警日志；T4 序列/密度、T5/T6；缺专家洪泛类别 | [Zenodo 14546480](https://zenodo.org/records/14546480)，CC BY 4.0 |
+| `enas` | 20,010,388 字节 CSV 已下载，MD5 通过 | 219,893 条数字传感器/执行器状态变化和人工错误状态；T3/T5 | [Zenodo 4742256](https://zenodo.org/records/4742256)，CC BY 4.0 |
+| `imaks` | 19,797,994 字节 ZIP 已下载，MD5 通过；synthetic | MQTT/传感器报警和因果真值；T3/鲁棒性 smoke，不得进入真实工业榜单 | [Zenodo 20075430](https://zenodo.org/records/20075430) |
 
-本次本地 profile：PIADE raw 429,394 行、5 台设备、92,084 个非 `A_000` 报警区间；PIADE 小时表 23,376 行/164 列；SKAB 35 个 CSV 实验；经典 TEP 44 个 run 文件（2 normal、42 fault）、52 个变量。数值来自 `profile_public_datasets.py`，可在数据更新后重算，不作为上游数据集的永久版本声明。
+本次本地 profile：PIADE raw 429,394 行、5 台设备、92,084 个非 `A_000` 报警区间；CoMoPI 150,650 个十分钟 bin、194,974 次报警；SMD10TOWFGR 230,618 条日志、167 个事件 code；EnAS 219,893 行；iMAKS annotated sensor 表 211,200 行；SKAB 35 个 CSV 实验；经典 TEP 44 个 run 文件（2 normal、42 fault）、52 个变量。数值来自 `profile_public_datasets.py`，可在数据更新后重算，不作为上游数据集的永久版本声明。
 
 `configs/datasets/public_sources.json` 是机器可读登记；`data/public_datasets/audit.json` 是本机实际状态。下载器默认只抓取体量适中且无需交互授权的资源。显式下载 PRONTO 完整包：
 
 ```powershell
 python scripts/data_acquisition/download_public_datasets.py --dataset pronto_full
+
+# 显式下载 180.7 MB 的 SMD10TOWFGR 工作簿
+python scripts/data_acquisition/download_public_datasets.py --dataset smd10towfgr
 ```
 
 DataPort 的二进制归档不能通过绕过登录/条款的方式抓取。取得授权后，将文件放入登记目录、补充 checksum 与 adapter，再把成熟度从 C/B 提升为 A。

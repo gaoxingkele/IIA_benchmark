@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "id": "pronto_public",
+  "id": "pronto_alarm_activations_public",
   "family": "pronto",
   "loader": "pronto_merged_csv",
   "paths": [
@@ -11,7 +11,8 @@
   "alarm_column_count": 12,
   "label_column": "Fault",
   "sample_period_seconds": 1,
-  "alarm_representation": "state",
+  "alarm_representation": "rising_edge",
+  "representation_note": "Each alarm tag is converted to a 0->1 activation on the full aligned test-day timeline before fault segments and windows are cut. Standing alarms crossing a window boundary are not recounted.",
   "archive_md5": "13b7464b88bd0a011c20cb26712e48e5",
   "citation_doi": "10.5281/zenodo.1341583",
   "license": "CC BY 4.0"

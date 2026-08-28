@@ -100,11 +100,14 @@ def build_pronto_fault_window_split(
     train_fraction: float,
     purge_windows: int = 1,
     excluded_labels: tuple[str, ...] = ("Normal",),
+    alarm_representation: str = "state",
 ) -> ProntoFaultWindowSplit:
     """Create non-overlapping, chronologically purged windows per fault segment."""
 
     if not runs or window_size < 1 or not 0 < train_fraction < 1 or purge_windows < 0:
         raise ValueError("runs/window/split parameters are invalid")
+    if alarm_representation not in {"state", "rising_edge"}:
+        raise ValueError("alarm_representation must be 'state' or 'rising_edge'")
     alarm_names = tuple(sorted({name for run in runs for name in run.alarm_names}))
     train, test, y_train, y_test, groups = [], [], [], [], []
     excluded = set(excluded_labels)
@@ -113,6 +116,11 @@ def build_pronto_fault_window_split(
         target_columns = {name: index for index, name in enumerate(alarm_names)}
         for source_column, name in enumerate(run.alarm_names):
             aligned[:, target_columns[name]] = run.alarm_states[:, source_column]
+        if alarm_representation == "rising_edge":
+            previous = np.vstack(
+                (np.zeros((1, aligned.shape[1]), dtype=np.int8), aligned[:-1])
+            )
+            aligned = np.maximum(aligned - previous, 0).astype(np.int8)
         starts = np.r_[0, np.flatnonzero(run.labels[1:] != run.labels[:-1]) + 1]
         stops = np.r_[starts[1:], len(run.labels)]
         for segment_index, (start, stop) in enumerate(zip(starts, stops, strict=True)):

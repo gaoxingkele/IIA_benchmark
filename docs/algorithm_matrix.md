@@ -27,7 +27,7 @@ reproduced merely because a related baseline below is callable.
 | Flood detection | newly activated unique tags in window | `detect_alarm_floods` | A | activation-only logs cannot recover standing alarms |
 | Flood similarity | local sequence alignment | `smith_waterman_similarity` | A | priority/time-aware BLAST acceleration pending |
 | Next alarm | all-current-tag context + distance decay | `EmpiricalNextAlarmPredictor` | A | transparent empirical approximation, not exact max-entropy solver |
-| Criterion C | I1/I2/I3 inheritance + delayed flood state | `criterion_c_alarm_flood_detection` | A | industrial year-scale validation pending |
+| Criterion C | I1/I2/I3 inheritance + delayed flood state | `criterion_c_alarm_flood_detection` | A | SMD10TOWFGR six-month event-log candidates executed; expert flood truth and original year-scale score pending |
 | Accelerated alignment | priority/time-aware seeds + banded local alignment | `accelerated_alarm_alignment` | A | paper runtime/accuracy table pending |
 | Closed patterns | vertical TID closedness + delta representative cover | `charm_closed_alarm_patterns` | A | industrial 921-to-207 result pending |
 | Maximum entropy | learned log-linear f1/f2 next-alarm distribution | `MaximumEntropyNextAlarmPredictor` | A | paper Monte Carlo score pending |

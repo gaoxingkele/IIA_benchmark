@@ -14,6 +14,7 @@ from iia_benchmark.config import load_experiment_config, load_json_reference
 from iia_benchmark.data import (
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
+    load_smd_alarm_events,
     build_pronto_fault_window_split,
     load_pronto_merged_csv,
     pronto_normal_train_evaluation_masks,
@@ -31,8 +32,12 @@ from iia_benchmark.evaluation import (
 )
 from iia_benchmark.models import (
     CASIMClassifier,
+    ConEAlarmFloodClassifier,
     ConvexHullNOZAlarm,
+    CrossConformalAlarmFloodClassifier,
+    CTFHAlarmFloodClassifier,
     EmpiricalNextAlarmPredictor,
+    HDAMTemplateMatcher,
     MahalanobisAlarm,
     NormalizedTransferEntropyGraph,
     SearchConeNOZAlarm,
@@ -56,7 +61,7 @@ def _load_references(root: Path, experiment: dict[str, Any]) -> dict[str, dict[s
         field: load_json_reference(_resolve(root, experiment[field]))
         for field in ("system", "dataset", "split", "model", "metrics")
     }
-    for field in ("flood_detector",):
+    for field in ("flood_detector", "base_model"):
         if field in experiment:
             references[field] = load_json_reference(_resolve(root, experiment[field]))
     return references
@@ -479,6 +484,237 @@ def _run_real_visual_analytics(
     }
 
 
+def _pronto_prefix_lengths(
+    split_config: dict[str, Any], episode_length: int, *, minimum: int = 1
+) -> tuple[int, ...]:
+    requested = split_config.get("prefix_lengths_samples", [episode_length])
+    lengths = tuple(
+        sorted(
+            {
+                int(value)
+                for value in requested
+                if minimum <= int(value) <= episode_length
+            }
+        )
+    )
+    if not lengths or lengths[-1] != episode_length:
+        lengths = (*lengths, episode_length)
+    return lengths
+
+
+def _validation_parameters(model_config: dict[str, Any]) -> dict[str, Any]:
+    parameters = dict(
+        model_config.get("validation_parameters", model_config.get("parameters", {}))
+    )
+    if "alphas" in parameters:
+        parameters["alphas"] = tuple(float(value) for value in parameters["alphas"])
+    return parameters
+
+
+def _fit_pronto_point_classifier(
+    model_config: dict[str, Any], X: np.ndarray, y: np.ndarray
+) -> tuple[object, dict[str, Any]]:
+    model_id = str(model_config["id"])
+    parameters = _validation_parameters(model_config)
+    if model_id == "casim":
+        classifier = CASIMClassifier(**parameters).fit(X, y)
+        diagnostics = {
+            "ensemble_classifiers": len(classifier.classifiers_),
+            "features_per_classifier": classifier.n_features,
+            "loop_training_samples": len(classifier.loop_training_labels_),
+        }
+    elif model_id == "ctfh_fingerprinting":
+        classifier = CTFHAlarmFloodClassifier(**parameters).fit(X, y)
+        diagnostics = {
+            "profiles": [
+                {
+                    "label": str(profile.label),
+                    "sample_count": profile.sample_count,
+                    "consensus_hashes": len(profile.hashes),
+                    "variability_index": profile.variability_index,
+                }
+                for profile in classifier.profiles_
+            ]
+        }
+    elif model_id == "structured_hdam":
+        classifier = HDAMTemplateMatcher(**parameters).fit(X, y)
+        diagnostics = {
+            "validation_parameters": parameters,
+            "templates": [
+                {
+                    "label": str(template.label),
+                    "sample_count": template.sample_count,
+                    "width": int(template.values.shape[1]),
+                    "stability": template.stability,
+                }
+                for template in classifier.templates_
+            ],
+        }
+    else:
+        raise ValueError(f"unsupported PRONTO point classifier config: {model_id}")
+    return classifier, diagnostics
+
+
+def _point_prefix_metrics(
+    classifier: object,
+    X: np.ndarray,
+    y: np.ndarray,
+    prefix_lengths: tuple[int, ...],
+) -> dict[str, dict[str, object]]:
+    method = getattr(classifier, "predict_evolution", None)
+    if method is None:
+        return {}
+    evolution = method(X, list(prefix_lengths))
+    return {
+        str(length): multiclass_classification_metrics(
+            y.tolist(), np.asarray(predictions).tolist()
+        )
+        for length, predictions in evolution.items()
+    }
+
+
+def _stratified_fit_calibration_indices(
+    labels: np.ndarray, calibration_fraction: float
+) -> tuple[np.ndarray, np.ndarray]:
+    if not 0 < calibration_fraction < 1:
+        raise ValueError("calibration_fraction must be in (0, 1)")
+    values = np.asarray(labels)
+    fit_indices: list[int] = []
+    calibration_indices: list[int] = []
+    for label in sorted(set(values.tolist()), key=repr):
+        indices = np.flatnonzero(values == label)
+        calibration_count = min(
+            len(indices) - 1, max(1, int(np.floor(len(indices) * calibration_fraction)))
+        )
+        fit_indices.extend(indices[:-calibration_count].tolist())
+        calibration_indices.extend(indices[-calibration_count:].tolist())
+    return np.asarray(sorted(fit_indices)), np.asarray(sorted(calibration_indices))
+
+
+def _stratified_fold_ids(labels: np.ndarray, folds: int) -> np.ndarray:
+    values = np.asarray(labels)
+    if folds < 2:
+        raise ValueError("cross-conformal validation requires at least two folds")
+    assignments = np.empty(len(values), dtype=int)
+    for label in sorted(set(values.tolist()), key=repr):
+        indices = np.flatnonzero(values == label)
+        if len(indices) < folds:
+            raise ValueError(f"class {label!r} has fewer samples than folds")
+        assignments[indices] = np.arange(len(indices)) % folds
+    return assignments
+
+
+def _set_metrics_by_prefix(
+    classifier: object,
+    X: np.ndarray,
+    y: np.ndarray,
+) -> dict[str, dict[str, float | None]]:
+    evolution = classifier.evaluate_evolution(X, y)
+    return {
+        str(length): {
+            key: float(value) if np.isfinite(value) else None
+            for key, value in asdict(metrics).items()
+        }
+        for length, metrics in evolution.items()
+    }
+
+
+def _run_pronto_conformal_classifier(
+    model_config: dict[str, Any],
+    base_model_config: dict[str, Any],
+    split_config: dict[str, Any],
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    X_test: np.ndarray,
+    y_test: np.ndarray,
+) -> dict[str, Any]:
+    model_id = str(model_config["id"])
+    parameters = _validation_parameters(model_config)
+    prefix_lengths = _pronto_prefix_lengths(
+        split_config,
+        X_train.shape[2],
+        minimum=int(_validation_parameters(base_model_config).get("window_size", 1)),
+    )
+    if model_id == "cone_afc":
+        calibration_fraction = float(
+            split_config.get("calibration_fraction_of_training", 0.4)
+        )
+        fit_indices, calibration_indices = _stratified_fit_calibration_indices(
+            y_train, calibration_fraction
+        )
+        models = {
+            length: _fit_pronto_point_classifier(
+                base_model_config,
+                X_train[fit_indices, :, :length],
+                y_train[fit_indices],
+            )[0]
+            for length in prefix_lengths
+        }
+        classifier = ConEAlarmFloodClassifier(
+            models,
+            error_rate=float(parameters["error_rate"]),
+            score_kind=str(parameters.get("score_kind", "probability")),
+        ).calibrate(X_train[calibration_indices], y_train[calibration_indices])
+        prefix_metrics = _set_metrics_by_prefix(classifier, X_test, y_test)
+        diagnostics = {
+            "fit_windows": len(fit_indices),
+            "calibration_windows": len(calibration_indices),
+            "fit_class_counts": dict(
+                sorted(Counter(y_train[fit_indices].tolist()).items())
+            ),
+            "calibration_class_counts": dict(
+                sorted(Counter(y_train[calibration_indices].tolist()).items())
+            ),
+            "thresholds": classifier.thresholds_.values.tolist(),
+            "calibration_counts": classifier.thresholds_.calibration_counts.tolist(),
+        }
+    elif model_id == "cross_conformal_afc":
+        fold_count = int(parameters.get("n_folds", 5))
+        fold_ids = _stratified_fold_ids(y_train, fold_count)
+        models = {
+            length: {
+                fold: _fit_pronto_point_classifier(
+                    base_model_config,
+                    X_train[fold_ids != fold, :, :length],
+                    y_train[fold_ids != fold],
+                )[0]
+                for fold in range(fold_count)
+            }
+            for length in prefix_lengths
+        }
+        classifier = CrossConformalAlarmFloodClassifier(
+            models,
+            error_rate=float(parameters["error_rate"]),
+            score_kind=str(parameters.get("score_kind", "probability")),
+            class_conditional=bool(parameters.get("class_conditional", True)),
+            empty_set_policy=str(parameters.get("empty_set_policy", "top_p_value")),
+        ).calibrate(X_train, y_train, fold_ids)
+        prefix_metrics = _set_metrics_by_prefix(classifier, X_test, y_test)
+        diagnostics = {
+            "folds": fold_count,
+            "fold_class_counts": {
+                str(fold): dict(
+                    sorted(Counter(y_train[fold_ids == fold].tolist()).items())
+                )
+                for fold in range(fold_count)
+            },
+            "calibration_counts": (
+                classifier.calibrator_.diagnostics_.calibration_counts.tolist()
+            ),
+        }
+    else:
+        raise ValueError(f"unsupported conformal PRONTO classifier: {model_id}")
+    return {
+        "model_id": model_id,
+        "base_model_id": str(base_model_config["id"]),
+        "metrics": prefix_metrics[str(prefix_lengths[-1])],
+        "prefix_metrics": prefix_metrics,
+        "prefix_lengths_samples": list(prefix_lengths),
+        "model_diagnostics": diagnostics,
+        "metric_kind": "conformal_prediction_set",
+    }
+
+
 def _run_real_pronto_alarm_classification(
     root: Path, references: dict[str, dict[str, Any]]
 ) -> dict[str, Any]:
@@ -500,16 +736,42 @@ def _run_real_pronto_alarm_classification(
         train_fraction=float(split_config["train_fraction"]),
         purge_windows=int(split_config.get("purge_windows", 1)),
         excluded_labels=tuple(split_config.get("excluded_labels", ["Normal"])),
+        alarm_representation=str(dataset.get("alarm_representation", "state")),
     )
-    parameters = dict(model_config.get("parameters", {}))
-    if "alphas" in parameters:
-        parameters["alphas"] = tuple(float(value) for value in parameters["alphas"])
-    classifier = CASIMClassifier(**parameters).fit(split.X_train, split.y_train)
-    probabilities = classifier.predict_proba(split.X_test)
-    predictions = classifier.classes_[np.argmax(probabilities, axis=1)]
-    metrics = multiclass_classification_metrics(
-        split.y_test.tolist(), predictions.tolist()
-    )
+    model_id = str(model_config["id"])
+    if model_id in {"cone_afc", "cross_conformal_afc"}:
+        classification = _run_pronto_conformal_classifier(
+            model_config,
+            references["base_model"],
+            split_config,
+            split.X_train,
+            split.y_train,
+            split.X_test,
+            split.y_test,
+        )
+    else:
+        classifier, model_diagnostics = _fit_pronto_point_classifier(
+            model_config, split.X_train, split.y_train
+        )
+        probabilities = classifier.predict_proba(split.X_test)
+        predictions = classifier.classes_[np.argmax(probabilities, axis=1)]
+        prefix_lengths = _pronto_prefix_lengths(
+            split_config,
+            split.X_train.shape[2],
+            minimum=int(_validation_parameters(model_config).get("window_size", 1)),
+        )
+        classification = {
+            "model_id": model_id,
+            "metrics": multiclass_classification_metrics(
+                split.y_test.tolist(), predictions.tolist()
+            ),
+            "prefix_metrics": _point_prefix_metrics(
+                classifier, split.X_test, split.y_test, prefix_lengths
+            ),
+            "prefix_lengths_samples": list(prefix_lengths),
+            "model_diagnostics": model_diagnostics,
+            "metric_kind": "closed_set_point_classification",
+        }
 
     detector_parameters = references["flood_detector"]["parameters"]
     criterion_runs = []
@@ -538,11 +800,12 @@ def _run_real_pronto_alarm_classification(
 
     label_counts = Counter(label for run in runs for label in run.labels.tolist())
     return {
-        "metrics": metrics,
+        **classification,
         "train_windows": len(split.y_train),
         "test_windows": len(split.y_test),
         "window_size_samples": int(split.X_train.shape[2]),
         "alarm_tags": list(split.alarm_names),
+        "alarm_representation": str(dataset.get("alarm_representation", "state")),
         "train_class_counts": dict(sorted(Counter(split.y_train.tolist()).items())),
         "test_class_counts": dict(sorted(Counter(split.y_test.tolist()).items())),
         "source_label_counts": dict(sorted(label_counts.items())),
@@ -570,8 +833,186 @@ def _run_real_pronto_alarm_classification(
         "limitations": [
             "PRONTO provides fault-condition labels rather than expert flood-episode labels.",
             "All classes cannot be separated by test day, so train/test windows may share a source day.",
-            "Open-set and prefix protocols are not evaluated in this closed-set run.",
+            (
+                "Prefix metrics are engineering curves on fault-conditioned windows; "
+                "the paper-specific online protocol is not reproduced."
+            ),
+            (
+                "Conformal coverage in this surrogate run is descriptive and does not "
+                "establish the paper's finite-sample guarantee."
+            ),
         ],
+    }
+
+
+def _datetime64_seconds(value: str) -> float:
+    return float(np.datetime64(value).astype("datetime64[s]").astype(np.int64))
+
+
+def _run_real_smd_alarm_flood_detection(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    split = references["split"]
+    model = references["model"]
+    source = _resolve(root, dataset["path"])
+    by_turbine = load_smd_alarm_events(
+        source,
+        turbines=dataset.get("turbines"),
+        event_types=dataset.get("event_types", ["Alarm log (A)", "Warning log (W)"]),
+    )
+    bin_seconds = int(split["bin_seconds"])
+    if bin_seconds < 1 or 86_400 % bin_seconds:
+        raise ValueError("SMD bin_seconds must be a positive divisor of one day")
+    start = _datetime64_seconds(str(split["period_start"]))
+    stop = _datetime64_seconds(str(split["period_stop"]))
+    if stop < start:
+        raise ValueError("SMD period_stop precedes period_start")
+    days = int((stop - start) // 86_400) + 1
+    bins_per_day = 86_400 // bin_seconds
+    parameters = model["parameters"]
+    criterion_parameters = {
+        "attention_window": max(1, int(np.ceil(parameters["attention_window"] / bin_seconds))),
+        "long_standing_window": max(
+            1, int(np.ceil(parameters["long_standing_window"] / bin_seconds))
+        ),
+        "update_step": max(1, int(np.ceil(parameters["update_step"] / bin_seconds))),
+        "threshold": int(parameters["threshold"]),
+        "delay_samples": max(1, int(np.ceil(parameters["delay_samples"] / bin_seconds))),
+    }
+    daily_records: list[dict[str, Any]] = []
+    total_events = 0
+    total_unique_occurrences = 0
+    total_evaluated = 0
+    total_candidate_intervals = 0
+    total_candidate_bins = 0
+    event_type_counts = {"Alarm log (A)": 0, "Warning log (W)": 0}
+    per_turbine: list[dict[str, Any]] = []
+    for turbine, events in by_turbine.items():
+        tags = tuple(sorted({event.tag for event in events}))
+        tag_index = {tag: index for index, tag in enumerate(tags)}
+        grouped: dict[int, list[object]] = {}
+        for event in events:
+            day_index = int((event.timestamp - start) // 86_400)
+            if 0 <= day_index < days:
+                grouped.setdefault(day_index, []).append(event)
+                event_type_counts[
+                    "Alarm log (A)" if event.priority == 1 else "Warning log (W)"
+                ] += 1
+        turbine_maximum = 0
+        turbine_intervals = 0
+        turbine_candidate_days = 0
+        turbine_events = sum(len(values) for values in grouped.values())
+        total_events += turbine_events
+        empty_day_evaluations = max(
+            0,
+            len(
+                range(
+                    criterion_parameters["attention_window"] - 1,
+                    bins_per_day,
+                    criterion_parameters["update_step"],
+                )
+            ),
+        )
+        total_evaluated += (days - len(grouped)) * empty_day_evaluations
+        for day_index, event_rows in sorted(grouped.items()):
+            occurrences = np.zeros((bins_per_day, len(tags)), dtype=np.int8)
+            day_start = start + day_index * 86_400
+            for event in event_rows:
+                bin_index = min(
+                    bins_per_day - 1,
+                    max(0, int((event.timestamp - day_start) // bin_seconds)),
+                )
+                occurrences[bin_index, tag_index[event.tag]] = 1
+            unique_occurrences = int(np.sum(occurrences))
+            total_unique_occurrences += unique_occurrences
+            detection = criterion_c_alarm_flood_detection(
+                occurrences,
+                tag_names=tags,
+                **criterion_parameters,
+            )
+            starts = int(
+                np.sum(
+                    (detection.delayed_detection == 1)
+                    & (
+                        np.r_[0, detection.delayed_detection[:-1]]
+                        == 0
+                    )
+                )
+            )
+            candidate_bins = int(np.sum(detection.delayed_detection))
+            maximum = int(np.max(detection.cardinality, initial=0))
+            total_evaluated += len(detection.sample_indices)
+            total_candidate_intervals += starts
+            total_candidate_bins += candidate_bins
+            turbine_maximum = max(turbine_maximum, maximum)
+            turbine_intervals += starts
+            turbine_candidate_days += int(candidate_bins > 0)
+            daily_records.append(
+                {
+                    "turbine": turbine,
+                    "date": str(
+                        np.datetime64(str(split["period_start"]))
+                        + np.timedelta64(day_index, "D")
+                    ),
+                    "source_events": len(event_rows),
+                    "unique_tag_bins": unique_occurrences,
+                    "maximum_attention_cardinality": maximum,
+                    "candidate_intervals": starts,
+                    "candidate_bins": candidate_bins,
+                }
+            )
+        per_turbine.append(
+            {
+                "turbine": turbine,
+                "events": turbine_events,
+                "distinct_codes": len(tags),
+                "maximum_attention_cardinality": turbine_maximum,
+                "candidate_device_days": turbine_candidate_days,
+                "candidate_intervals": turbine_intervals,
+            }
+        )
+    top_dense_days = sorted(
+        daily_records,
+        key=lambda row: (
+            -row["maximum_attention_cardinality"],
+            -row["source_events"],
+            row["turbine"],
+            row["date"],
+        ),
+    )[:20]
+    return {
+        "events": total_events,
+        "event_type_counts": event_type_counts,
+        "turbines": len(by_turbine),
+        "device_days": len(by_turbine) * days,
+        "nonempty_device_days": len(daily_records),
+        "distinct_codes_union": len(
+            {event.tag for events in by_turbine.values() for event in events}
+        ),
+        "unique_tag_bins": total_unique_occurrences,
+        "criterion_c_parameters_in_bins": criterion_parameters,
+        "candidate_intervals": total_candidate_intervals,
+        "candidate_device_days": sum(
+            row["candidate_device_days"] for row in per_turbine
+        ),
+        "candidate_exposure": (
+            total_candidate_bins / total_evaluated if total_evaluated else 0.0
+        ),
+        "maximum_attention_cardinality": max(
+            (row["maximum_attention_cardinality"] for row in per_turbine), default=0
+        ),
+        "per_turbine": per_turbine,
+        "top_dense_device_days": top_dense_days,
+        "data_evidence": _data_evidence([source], root),
+        "event_policy": (
+            "Alarm and Warning log rows are timestamped occurrences binned without "
+            "inventing activation-clearance state; duplicate code/bin occurrences collapse"
+        ),
+        "reporting_status": (
+            "real event-log descriptive validation; detected intervals are Criterion C "
+            "candidates, not expert-confirmed alarm floods or leaderboard labels"
+        ),
     }
 
 
@@ -667,6 +1108,8 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         result = _run_real_visual_analytics(root, run_dir, references)
     elif task == "real_pronto_alarm_classification":
         result = _run_real_pronto_alarm_classification(root, references)
+    elif task == "real_smd_alarm_flood_detection":
+        result = _run_real_smd_alarm_flood_detection(root, references)
     elif task == "real_pronto_multivariate_detection":
         result = _run_real_pronto_multivariate(root, references)
     else:
@@ -678,12 +1121,13 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         "config": str(path.relative_to(root)).replace("\\", "/"),
     }
     (run_dir / "result.json").write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
     )
     if experiment["outputs"].get("summary"):
         summary_path = _resolve(root, experiment["outputs"]["summary"])
         summary_path.parent.mkdir(parents=True, exist_ok=True)
-        serialized = json.dumps(payload, ensure_ascii=False, indent=2)
+        serialized = json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False)
         if summary_path.suffix.lower() == ".md":
             serialized = (
                 f"# {experiment['id']}\n\n"
@@ -702,7 +1146,7 @@ def main() -> int:
     parser.add_argument("config", type=Path)
     args = parser.parse_args()
     result = run_experiment(args.config)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
     return 0
 
 

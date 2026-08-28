@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import json
+import zipfile
 from collections import Counter
 from pathlib import Path
 
 import pandas as pd
+from openpyxl import load_workbook
 
 from iia_benchmark.data import audit_pronto_archive, load_pronto_merged_csv
 
@@ -74,6 +76,111 @@ def main() -> int:
             "process_features": list(runs[0].process_names) if runs else [],
             "fault_label_counts": dict(sorted(label_counts.items())),
             "validation": "finite process values, binary alarm states, nonempty labels",
+        }
+    comopi = DATA / "comopi" / "industrial_dataset_alarm_10m_agg.csv"
+    if comopi.exists():
+        rows = 0
+        machines: set[str] = set()
+        alarm_totals: Counter[str] = Counter()
+        target_positive_bins = Counter({"AL_53": 0, "AL_54": 0})
+        for chunk in pd.read_csv(comopi, chunksize=100_000):
+            rows += len(chunk)
+            machines.update(chunk["_serial"].astype(str).unique().tolist())
+            alarms = chunk.filter(regex=r"^AL_")
+            alarm_totals.update(
+                {name: int(value) for name, value in alarms.sum().items()}
+            )
+            for target in target_positive_bins:
+                target_positive_bins[target] += int((chunk[target] > 0).sum())
+        profile["comopi_alarm_counts"] = {
+            "rows": rows,
+            "machines": len(machines),
+            "bin_minutes": 10,
+            "alarm_types": len(alarm_totals),
+            "total_alarm_occurrences": sum(alarm_totals.values()),
+            "target_positive_bins": dict(target_positive_bins),
+            "top_alarm_counts": dict(alarm_totals.most_common(10)),
+            "representation_boundary": (
+                "within-bin event order is unavailable; AL_53/AL_54 are rare "
+                "fault-condition targets, not flood-episode labels"
+            ),
+        }
+    enas = DATA / "enas" / "EnAS_20200923-20210202.csv"
+    if enas.exists():
+        frame = pd.read_csv(enas)
+        profile["enas_event_log"] = {
+            "rows": len(frame),
+            "columns": len(frame.columns),
+            "start": str(frame["Timestamp"].iloc[0]),
+            "end": str(frame["Timestamp"].iloc[-1]),
+            "product_variant_counts": {
+                str(key): int(value)
+                for key, value in frame["PV"].value_counts().sort_index().items()
+            },
+            "representation_boundary": (
+                "digital sensor/actuator state changes and manual error states; "
+                "not an expert alarm-flood corpus"
+            ),
+        }
+    imaks = DATA / "imaks" / "iMAKS_dataset.zip"
+    if imaks.exists():
+        with zipfile.ZipFile(imaks) as archive:
+            with archive.open("sensors/timeseries_annotated.csv") as stream:
+                frame = pd.read_csv(stream, low_memory=False)
+            profile["imaks_synthetic"] = {
+                "archive_entries": len(archive.infolist()),
+                "annotated_sensor_rows": len(frame),
+                "stations": int(frame["station_id"].nunique()),
+                "sensors": int(frame["sensor_id"].nunique()),
+                "anomaly_label_counts": {
+                    str(key): int(value)
+                    for key, value in frame["anomaly_label"].value_counts().items()
+                },
+                "alarm_flag_counts": {
+                    str(key): int(value)
+                    for key, value in frame["alarm_flag"].value_counts().items()
+                },
+                "representation_boundary": (
+                    "synthetic data with alarm and causal truth; smoke/structural "
+                    "validation only"
+                ),
+            }
+    smd = DATA / "smd10towfgr" / "SCADA__monitoring_dataset_2020.xlsx"
+    if smd.exists():
+        workbook = load_workbook(smd, read_only=True, data_only=True)
+        log_rows = 0
+        distinct_codes: set[str] = set()
+        event_types: Counter[str] = Counter()
+        per_turbine: dict[str, int] = {}
+        for sheet in workbook.worksheets:
+            if not sheet.title.endswith("_logs.csv"):
+                continue
+            iterator = sheet.iter_rows(values_only=True)
+            header = [str(value) if value is not None else "" for value in next(iterator)]
+            code_index = header.index("Code")
+            type_index = header.index("Event type")
+            count = 0
+            for row in iterator:
+                if row[code_index] is None:
+                    continue
+                count += 1
+                distinct_codes.add(str(row[code_index]))
+                event_types[str(row[type_index])] += 1
+            log_rows += count
+            per_turbine[sheet.title.removesuffix("_logs.csv")] = count
+        workbook.close()
+        profile["smd10towfgr"] = {
+            "turbines": len(per_turbine),
+            "scada_rows_per_turbine_including_header": 26_209,
+            "scada_features_including_timestamp": 132,
+            "log_rows": log_rows,
+            "distinct_event_codes": len(distinct_codes),
+            "event_type_counts": dict(event_types.most_common()),
+            "log_rows_by_turbine": per_turbine,
+            "representation_boundary": (
+                "timestamped alarm/event logs are directly usable for sequence and "
+                "density tasks; flood-class labels require derivation or expert review"
+            ),
         }
     output = DATA / "profile.json"
     output.write_text(json.dumps(profile, indent=2) + "\n", encoding="utf-8")

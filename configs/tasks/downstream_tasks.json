@@ -19,7 +19,7 @@
       "id": "T3",
       "name": "causal_graph_and_root_cause_ranking",
       "status": "runnable_real_data",
-      "dataset_families": ["tep_classic", "pronto", "tep_alarm_dataport", "npp_alarm_dataport"],
+      "dataset_families": ["tep_classic", "pronto", "enas", "imaks", "tep_alarm_dataport", "npp_alarm_dataport"],
       "outputs": ["directed_edges", "root_cause_ranking"]
     },
     {
@@ -27,22 +27,22 @@
       "name": "alarm_flood_detection_clustering_and_classification",
       "status": "runnable_real_data_surrogate",
       "primary_payload_status": "access_gated",
-      "validation_scope": "PRONTO fault-conditioned alarm-state windows plus Criterion C; no expert-confirmed PRONTO flood labels",
-      "dataset_families": ["pronto", "tep_alarm_dataport", "npp_alarm_dataport", "fcc_alarm"],
+      "validation_scope": "PRONTO fault-conditioned state/rising-edge windows plus Criterion C; SMD10TOWFGR event-log Criterion C candidates; neither source has expert-confirmed flood labels",
+      "dataset_families": ["pronto", "smd10towfgr", "tep_alarm_dataport", "npp_alarm_dataport", "fcc_alarm"],
       "outputs": ["flood_intervals", "class_label", "open_set_label", "prefix_prediction_set"]
     },
     {
       "id": "T5",
       "name": "next_alarm_and_flood_forecasting",
       "status": "runnable_real_data",
-      "dataset_families": ["piade", "pronto"],
+      "dataset_families": ["piade", "pronto", "comopi", "smd10towfgr", "enas"],
       "outputs": ["next_tag", "future_alarm_set", "early_warning"]
     },
     {
       "id": "T6",
       "name": "operations_visual_analytics",
       "status": "runnable_real_data",
-      "dataset_families": ["piade", "pronto", "tep_alarm_dataport"],
+      "dataset_families": ["piade", "pronto", "comopi", "smd10towfgr", "tep_alarm_dataport"],
       "outputs": ["KPI", "bad_actor", "correlation_graph", "flood_visual_report"]
     }
   ]

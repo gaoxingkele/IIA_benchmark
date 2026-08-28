@@ -36,4 +36,4 @@
 
 **算法落地**：`perturb_alarm_episode` 与 `robustness_degradation` 为 A 级；jackknife+/bifurcation 预测和 RobustBench 完整模型为 B/C 级。2026 工作是预印本 SOTA candidate，需等数据/代码可得性审计，不在 README 宣称领先结果。
 
-**本轮终点/下一循环**：形成 `TEP/PRONTO → PIADE → SKAB/NPP/FCC` 的跨数据矩阵。下一轮应优先取得 DataPort 授权归档、接入 CASIM/ConE-AFC 官方 artifact，并新增跨工厂 leave-one-site-out 与标签漂移协议。
+**本轮终点/下一循环**：形成 `TEP/PRONTO → PIADE → SKAB/NPP/FCC` 的跨数据矩阵。2026-08-28 的补充数据审计又取得 CoMoPI 报警计数、SMD10TOWFGR 风机事件日志、EnAS 状态事件和 iMAKS 合成因果载荷；它们补充 T3/T5/T6 及 T4 的事件密度验证，但均没有 TEP Alarm 等价的专家洪泛类别。PRONTO 的 state/rising-edge 消融也确认 CTFH/HDAM 的主要问题是载荷/标签错配，而不是单一编码选择。下一轮仍应优先取得 DataPort 授权归档、接入 CASIM/ConE-AFC 官方 artifact，并新增设备/工厂留一与标签漂移协议。

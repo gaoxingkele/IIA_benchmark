@@ -15,6 +15,7 @@ from .pronto import (
     pronto_normal_train_evaluation_masks,
 )
 from .skab import load_skab_csv
+from .smd10towfgr import load_smd_alarm_events
 from .synthetic import (
     make_synthetic_alarm_run,
     make_synthetic_causal_alarm_series,
@@ -41,6 +42,7 @@ __all__ = [
     "ProntoFaultWindowSplit",
     "ProntoMergedRun",
     "load_skab_csv",
+    "load_smd_alarm_events",
     "load_tep_ascii",
     "make_synthetic_alarm_run",
     "make_synthetic_causal_alarm_series",

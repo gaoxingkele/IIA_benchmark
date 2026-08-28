@@ -1,7 +1,7 @@
 # IIA Benchmark 整体回顾报告
 
 报告日期：2026-08-28（Asia/Shanghai）  
-统计基线提交：`122530a620998ac8ae1f0953e38aff059da3d3a8`  
+本轮迭代起点提交：`c238ea59fa367c724ec8cc9aa7d5bd32f415e621`
 项目仓库：<https://github.com/gaoxingkele/IIA_benchmark>  
 理论主线：Wang、Hu、Chen，*Intelligent Industrial Alarm Systems: Advanced Analysis and Design Methods*（2024），DOI [10.1007/978-981-97-6516-4](https://doi.org/10.1007/978-981-97-6516-4)
 
@@ -18,11 +18,11 @@
 | 书籍交付项 | 20（19 个算法 + 1 个第 6 章可视分析套件） | 20/20 可调用，20 个均为 `partial`，0 个 `verified` |
 | SOTA 交付项 | 10 | 10/10 可调用，10 个均为 `partial`，0 个 `verified` |
 | 下游任务 | 6 | 6/6 均已有真实数据运行记录；T4 仅为代理验证 |
-| 公共数据登记记录 | 10 条、7 个逻辑数据集族 | 4 个主载荷已取得，3 个仍受访问/站点限制 |
-| 真实数据验证报告 | 8 | 工程验证有效，0 个满足正式排行榜闭环 |
+| 公共数据登记记录 | 14 条、11 个逻辑数据集族 | 8 个主载荷已取得（7 个真实/实采 + 1 个 synthetic），3 个关键载荷仍受访问/站点限制 |
+| 真实数据验证报告 | 17 | 10/30 个登记算法已有真实数据执行；0 个满足正式排行榜闭环 |
 | 登记论文 | 28 | 本地 PDF 4 篇，缺 24 篇 |
 | ARA 文献工程包 | 28 | 28/28 本地验证通过，14 条唯一验证命令 |
-| 全仓测试 | 93 | `93 passed`（2026-08-28 重新执行） |
+| 全仓测试 | 95 | `95 passed`；包含 PRONTO 表示消融工件回归和 SMD10TOWFGR adapter 测试 |
 | 严格论文分数闭环 | 0 | 当前不能宣称“全部算法完整复现”或“SOTA 已复现” |
 
 最重要的判断是：**算法接口和主要机制已经落地，但算法集、论文集、数据集和实验集尚未达到论文同协议、同数据、同切分、同指标、同分数的严格完备状态。** 当前最成熟的成果是工程化可调用基线、真实数据适配、证据链和缺口审计；最主要的阻塞是 24 篇全文、TEP/NPP/FCC 报警载荷、官方 Code Ocean 工件以及论文级参考分数未闭环。
@@ -46,7 +46,7 @@
 | Round 2 | TEP Alarm 元数据、PIADE | CASIM、ConE-AFC；早期/开集/不确定性 | 分类与 conformal 接口、PIADE next-alarm 和可视分析 | NPP、FCC |
 | Round 3 | PIADE、SKAB、NPP/FCC 元数据 | uncertainty reduction、AFC-RobustBench 及 2025–2026 方法 | 扰动矩阵、鲁棒性协议、更多 SOTA 可调用复现位 | DataPort 授权、跨工厂验证 |
 
-此循环的价值是将“读书所得的算法”置于真实数据与新论文中反复校验；当前短板是循环中的最后一个“数据/论文闭环”仍被访问权限和官方工件可得性限制。
+此循环的价值是将“读书所得的算法”置于真实数据与新论文中反复校验。本轮又加入 CoMoPI、SMD10TOWFGR、EnAS 和 iMAKS，形成“真实报警计数—原始事件日志—离散状态事件—合成因果真值”的补充梯度；但 TEP/NPP/FCC 的专家洪泛标签、访问权限和作者工件仍是最后一个数据/论文闭环的关键限制。
 
 ## 3. 书籍章节拆解与 benchmark 对照
 
@@ -114,15 +114,15 @@
 | T1 | 报警生成与设计 | 连续过程量 → binary alarm、FAR、MAR、AAD | TEP、SKAB、PRONTO | Mahalanobis/阈值派生报警验证 | 可运行；未形成统一排行榜 |
 | T2 | 多变量动态报警限 | 多变量状态 → NOZ、dynamic limit、alarm state | TEP、SKAB、PRONTO | Mahalanobis、PRONTO search-cone | 可运行；跨模型同切分比较不足 |
 | T3 | 因果图与根因排序 | 报警/过程序列 → directed edges、root ranking | TEP；PRONTO 可接入 | TEP D01/D04/D11 NTE 结构验证 | 可运行；缺根因真值精度 |
-| T4 | 洪泛检测、聚类与分类 | 报警事件/窗口 → flood interval、class、unknown、prediction set | PRONTO 代理；TEP/NPP/FCC 受限 | PRONTO fault-window CASIM + Criterion C | 仅 `runnable_real_data_surrogate`；非专家洪泛标签 |
-| T5 | next-alarm 与洪泛预测 | 报警前缀 → next tag、future set、early warning | PIADE、PRONTO | PIADE next distinct alarm | 可运行；尚无论文同协议早期预测榜 |
-| T6 | 运维可视分析 | 统一 AlarmEvent/Episode → KPI、bad actor、关联图、洪泛报告 | PIADE、PRONTO | PIADE 30 日 HTML/JSON 工件 | 可运行；原书工业案例未复刻 |
+| T4 | 洪泛检测、聚类与分类 | 报警事件/窗口 → flood interval、class、unknown、prediction set | PRONTO 代理；SMD 事件日志补充；TEP/NPP/FCC 受限 | PRONTO CASIM/CTFH/HDAM/ConE/Cross-Conformal + Criterion C | 仅 `runnable_real_data_surrogate`；表示消融仍退化，非专家洪泛标签 |
+| T5 | next-alarm 与洪泛预测 | 报警前缀 → next tag、future set、early warning | PIADE、PRONTO、CoMoPI、SMD、EnAS | PIADE next distinct alarm；PRONTO 60–300 秒前缀消融 | 可运行；尚无论文同协议早期预测榜 |
+| T6 | 运维可视分析 | 统一 AlarmEvent/Episode → KPI、bad actor、关联图、洪泛报告 | PIADE、PRONTO、CoMoPI、SMD | PIADE 30 日 HTML/JSON 工件 | 可运行；原书工业案例未复刻 |
 
 六个任务均有真实数据执行记录，但只有“执行覆盖”，没有任何任务已经满足正式 benchmark 的全部公平比较门槛。T4 尤其需要 TEP/NPP/FCC 专用报警洪泛载荷与专家标签。
 
 ## 7. 数据集总表与验证状态
 
-10 条下载登记记录归并为 7 个数据集族；PRONTO 包含 README、技术报告和完整载荷 3 条记录，PIADE 包含 raw 与 hourly sequences 2 条记录。
+14 条下载登记记录归并为 11 个数据集族；PRONTO 包含 README、技术报告和完整载荷 3 条记录，PIADE 包含 raw 与 hourly sequences 2 条记录。新增四个候选载荷均已下载并通过登记 MD5。
 
 | 数据集族 | 当前状态 | 本地画像/用途 | 任务 | 来源 |
 |---|---|---|---|---|
@@ -133,6 +133,10 @@
 | `tep_alarm_dataport` | 仅 landing metadata；主载荷需 IEEE DataPort 登录/接受条款 | 论文所需过程报警洪泛、开集/前缀分类主数据；登记文件约 61.88 MB、6.5 GB、9.25 GB | T3/T4/T6 | [IEEE DataPort](https://ieee-dataport.org/open-access/tennessee-eastman-process-alarm-management-dataset)，[10.21227/326k-qr90](https://doi.org/10.21227/326k-qr90) |
 | `npp_alarm_dataport` | 仅 landing metadata；主载荷需登录/接受条款 | 核电报警跨域数据 | T3/T4 | [IEEE DataPort](https://ieee-dataport.org/open-access/nuclear-power-plant-alarm-dataset)，[10.21227/g2fa-9y43](https://doi.org/10.21227/g2fa-9y43) |
 | `fcc_alarm` | DOI 已登记；本次站点重定向不稳定，landing/payload 均缺 | FCC 报警跨装置验证 | T3/T4 | [10.60517/2v23vv393](https://doi.org/10.60517/2v23vv393) |
+| `comopi` | 42,677,268 字节报警 CSV 已下载、MD5 通过 | 150,650 个十分钟 bin、8 台设备、123 类报警、194,974 次报警；AL_53/54 阳性 bin 仅 23/18 | T5/T6、bad actor；缺 bin 内次序和洪泛标签 | [Zenodo 7572501](https://zenodo.org/records/7572501) |
+| `smd10towfgr` | 180,707,378 字节 XLSX 已下载、MD5 通过 | 10 台风机、230,618 条日志、167 个 code；Alarm 1,002、Warning 688 | T4 序列/密度、T5/T6；缺专家洪泛类别 | [Zenodo 14546480](https://zenodo.org/records/14546480)，CC BY 4.0 |
+| `enas` | 20,010,388 字节 CSV 已下载、MD5 通过 | 219,893 条离散传感器/执行器状态记录、人工错误状态、两种产品变体 | T3/T5；不是报警洪泛语料 | [Zenodo 4742256](https://zenodo.org/records/4742256)，CC BY 4.0 |
+| `imaks` | 19,797,994 字节 ZIP 已下载、MD5 通过；synthetic | 211,200 条带注释传感器记录、22 个 sensor、1,460 条 WARNING/CRITICAL | T3/鲁棒性 smoke；不得用于真实工业性能声明 | [Zenodo 20075430](https://zenodo.org/records/20075430) |
 
 另外有 4 个合成 smoke 数据集，用于单变量、非凸 NOZ、根因和洪泛相似性代码路径验证；它们不能进入正式排行榜。
 
@@ -148,11 +152,16 @@
 | PRONTO / Search-cone NOZ | T1/T2 | 10° 下 2,901 个 cones；Precision 0.8049，Recall 0.4718，F1 0.5767，FAR 0.4782，MAR 0.5282，AAD 391.11 | 相比 PRONTO Mahalanobis 提高召回/F1并降低延迟，但 FAR 明显升高 |
 | TEP / normalized TE | T3 | D01、D04、D11 共 3 个因果图；候选根节点分别以 `XMEAS_01/XMV_03`、`XMEAS_13`、`XMEAS_07` 居前 | 只验证图结构生成和候选排序；不能解释为故障根因准确率 |
 | PRONTO / CASIM fault-window | T4 代理 | 60 train / 38 test；Accuracy 0.3421，Balanced Accuracy 0.2520，Macro-F1 0.1944 | 标签是故障工况而非专家确认洪泛；闭集、同源日、非论文协议 |
+| PRONTO / CTFH，state | T4 代理 | Accuracy 0.2895，BA 0.2500，Macro-F1 0.1122；四类 consensus hash 均为 0；所有前缀全部预测 `Air blockage` | 指纹完全退化；保留为表示/标签错配证据 |
+| PRONTO / HDAM，state | T4 代理 | 全窗口 Accuracy 0.1053，BA 0.1010，Macro-F1 0.0720；120 秒前缀 BA 局部峰值 0.1913 | 两类全窗口召回为 0，前缀峰值不稳定 |
+| PRONTO / CTFH、HDAM，rising edge | T4 代理 | CTFH 与 state 完全相同；HDAM BA 0.25、Macro-F1 0.1122，但所有样本均预测多数类 | 上升沿编码未解决错配；HDAM 的数值上升只是多数类塌缩 |
+| PRONTO / ConE-AFC 与 Cross-Conformal + CTFH | T4 代理 | state/rising edge、60–300 秒前缀均 Coverage 1.0、平均集合大小 4.0、singleton rate 0 | 全类别集合取得覆盖，无判别效率；基分类器无信息时的诚实保守退化 |
 | PRONTO / Criterion C | T4 代理 | 3 日最大 attention tag 数为 3/4/4；按书中默认阈值发现 0 个 confirmed flood interval | 不能据此断言无洪泛；数据和参数缺少专家洪泛标注校准 |
+| SMD10TOWFGR / Criterion C | T4/T6 描述性 | 1,690 条 Alarm/Warning、1,820 turbine-day；4 个候选区间/3 个设备日；最大 cardinality 11；exposure `7.30e-6` | 真实事件 occurrence 与算法输入更匹配；仍无专家洪泛真值，候选不能计为 TP |
 | PIADE / empirical next alarm | T5 | 1,551 train windows、669 test windows、4,294 个转移；Top-1 0.1267，Top-3 0.2881，词表覆盖 0.9813 | 可作为真实设备日志起点；尚非书中最大熵论文同协议结果 |
 | PIADE / visual analytics | T6 | `s_1` 前 30 日：2,951 事件、1,476 activations、26 tags、1 个检测洪泛；输出 HTML+JSON | 描述性验证，不是分类分数；证明第 6 章工件链可运行 |
 
-辅助 synthetic smoke 结果如下，仅证明管线和已知不变量：单变量 F1 0.9950；凸 NOZ F1 0.9852；合成根因 `ROOT` 在 lag 3 排第一；10 个合成洪泛的留一 1-NN 相似分类准确率 1.0。
+辅助 synthetic smoke 结果如下，仅证明管线和已知不变量：单变量 F1 0.9950；凸 NOZ F1 0.9852；合成根因 `ROOT` 在 lag 3 排第一；10 个合成洪泛的留一 1-NN 相似分类准确率 1.0。PRONTO 的完整表示消融、诊断和正式 T4 数据门槛见 `docs/pronto_alarm_representation_ablation_2026-08-28.md`。
 
 ## 9. 论文获取现状与缺失论文
 
@@ -180,6 +189,8 @@
 | P0 | TEP Alarm DataPort 主载荷 | CASIM、ConE-AFC、CTFH、HDAM、时间直方图等 SOTA 的主要论文数据；也是 T4 专用报警洪泛协议的核心 | 授权下载、checksum、adapter、官方 run/类别映射、grouped split |
 | P0 | NPP Alarm DataPort 主载荷 | 验证方法能否从化工仿真迁移到核电报警，并支撑 T3/T4 跨域结论 | 授权载荷、标签说明、设备/工况分组切分 |
 | P0 | FCC Alarm 主载荷 | 防止 benchmark 只覆盖 TEP/PRONTO，提供真实炼化跨装置测试 | 稳定来源、许可、checksum、事件适配器 |
+| P1 | SMD10TOWFGR 洪泛 episode 派生/专家复核 | 本轮已取得 230,618 条时间戳日志，可用于验证事件适配与洪泛密度，但没有根因类别 | 按 Alarm/Warning 过滤、Criterion C 候选区间、专家复核和设备级 grouped split |
+| P1 | CoMoPI 稀有故障报警预测协议 | AL_53/54 目标只有 23/18 个阳性 bin，常规随机切分会严重失真 | 按设备/时间切分、PR-AUC、事件召回、阳性区间 bootstrap CI |
 | P0 | CASIM/ConE-AFC Code Ocean 工件 | 锁定作者环境、预处理、随机种子和表格生成逻辑 | 合法取得 capsule，冻结依赖并复跑参考表 |
 | P0 | 24 篇缺失全文 | 确保方程、算法分支、超参与分数口径完整 | 合法 PDF、SHA-256、页码证据、ARA 更新 |
 | P0 | 统一 leaderboard-eligible split | 目前 0 个正式榜单切分，现有数据复用/代理标签会造成泄漏或不可比 | 按 run/设备/工厂分组；训练期定超参；测试冻结；版本化 split |
@@ -221,7 +232,7 @@ IIA_benchmark/
 ├─ data/public_datasets/       # 下载数据、审计、画像和安全抽取结果
 ├─ docs/                       # 范围、矩阵、协议、路线图、审计与本报告
 ├─ experiments/
-│  ├─ reports/                 # 8 个真实数据报告 + ARA 验证汇总
+│  ├─ reports/                 # 17 个真实数据报告 + ARA 验证汇总
 │  └─ runs/                    # 运行工件（HTML/JSON 等）
 ├─ knowledge_base/
 │  ├─ book/                    # 六章知识、算法伪代码和任务映射
@@ -241,7 +252,7 @@ IIA_benchmark/
 │  ├─ models/                  # 经典、书籍与 SOTA 可调用实现
 │  ├─ tasks/                   # 任务执行逻辑
 │  └─ visualization/           # 第 6 章可视分析
-└─ tests/                      # 93 个当前通过测试
+└─ tests/                      # 单元、机制、数据表示和 runner 回归测试
 ```
 
 数据原始载荷和论文 PDF 按项目策略通常只保存在本地；Git 跟踪其元数据、来源和哈希，不把大文件或受许可约束的内容直接提交到公开仓库。
@@ -310,6 +321,15 @@ python -m iia_benchmark.runner configs/experiments/tep_normalized_te_causal_vali
 python -m iia_benchmark.runner configs/experiments/pronto_mahalanobis_validation.json
 python -m iia_benchmark.runner configs/experiments/pronto_search_cone_validation.json
 python -m iia_benchmark.runner configs/experiments/pronto_casim_fault_classification_validation.json
+python -m iia_benchmark.runner configs/experiments/pronto_ctfh_fault_classification_validation.json
+python -m iia_benchmark.runner configs/experiments/pronto_hdam_fault_classification_validation.json
+python -m iia_benchmark.runner configs/experiments/pronto_cone_uncertainty_validation.json
+python -m iia_benchmark.runner configs/experiments/pronto_cross_conformal_uncertainty_validation.json
+python -m iia_benchmark.runner configs/experiments/pronto_ctfh_activation_classification_validation.json
+python -m iia_benchmark.runner configs/experiments/pronto_hdam_activation_classification_validation.json
+python -m iia_benchmark.runner configs/experiments/pronto_cone_activation_uncertainty_validation.json
+python -m iia_benchmark.runner configs/experiments/pronto_cross_conformal_activation_uncertainty_validation.json
+python -m iia_benchmark.runner configs/experiments/smd10towfgr_criterion_c_validation.json
 python -m iia_benchmark.runner configs/experiments/piade_next_alarm_validation.json
 python -m iia_benchmark.runner configs/experiments/piade_visual_analytics_validation.json
 ```
@@ -327,11 +347,12 @@ python -m pytest -q
 ## 14. 建议的下一次迭代顺序
 
 1. 由有权限的成员获取 TEP/NPP DataPort 载荷，并补齐 FCC 稳定下载；这是 T4 和多数 SOTA 闭环的最高杠杆步骤。
-2. 通过机构订阅、作者索取或已登录的合法作者副本渠道补齐 24 篇全文，同时补充 PDF hash 和页码证据。
-3. 获取 CASIM、ConE-AFC 官方 Code Ocean 工件，锁定环境并复跑代表表格。
-4. 发布第一个 leaderboard v0：优先 TEP/PRONTO 的 T1/T2，建立无源日复用的 grouped split、固定 seeds 和 95% CI。
-5. 发布 T4 专项榜：必须使用专家洪泛 episode、open-set 留一类别、10–100% prefix 和鲁棒性矩阵。
-6. 逐项推动书籍 20 项与 SOTA 10 项从 `partial` 升级为 `verified`；每次升级都应在同一提交中加入实现、测试、配置、引用和参考分数证据。
+2. 为本轮已下载的 SMD10TOWFGR 建立 `AlarmEvent` adapter、Criterion C 候选 episode 和设备留一协议；该结果保持“无专家类别”的次级榜定位。
+3. 为 CoMoPI 建立按设备/时间分组的 AL_53/54 稀有报警预测协议，不把十分钟计数恢复成虚构的事件次序。
+4. 通过机构订阅、作者索取或已登录的合法作者副本渠道补齐 24 篇全文，同时补充 PDF hash 和页码证据。
+5. 获取 CASIM、ConE-AFC 官方 Code Ocean 工件，锁定环境并复跑代表表格。
+6. 发布第一个 leaderboard v0：优先 TEP/PRONTO 的 T1/T2，建立无源日复用的 grouped split、固定 seeds 和 95% CI；T4 专项榜必须使用专家 episode、open-set 留一类别、前缀和鲁棒性矩阵。
+7. 逐项推动书籍 20 项与 SOTA 10 项从 `partial` 升级为 `verified`；每次升级都应在同一提交中加入实现、测试、配置、引用和参考分数证据。
 
 ## 15. 可审计事实入口
 
@@ -340,6 +361,7 @@ python -m pytest -q
 - 数据登记/本机状态：`configs/datasets/public_sources.json`、`data/public_datasets/audit.json`、`data/public_datasets/profile.json`
 - 文献登记/下载：`papers/literature/registry.json`、`papers/literature/download_manifest.json`、`papers/literature/access_audit.json`
 - 实验结果：`experiments/reports/`
+- PRONTO 负结果与新数据决策：`docs/pronto_alarm_representation_ablation_2026-08-28.md`
 - 总体覆盖：`docs/status_audit.json`、`docs/status_audit.md`
 - 评估边界：`docs/evaluation_protocol.md`
 - 完整复现路线：`docs/full_reproduction_roadmap.md`

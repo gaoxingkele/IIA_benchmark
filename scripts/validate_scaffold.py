@@ -106,6 +106,21 @@ def main() -> int:
             except (ImportError, AttributeError, ValueError) as error:
                 failures.append(f"{item.get('id')}: cannot resolve {dotted_path}: {error}")
 
+    registered_algorithm_ids = {
+        item.get("id") for item in book_registry.get("algorithms", [])
+    } | {item.get("id") for item in sota}
+    for path in sorted((ROOT / "configs" / "experiments").glob("*.json")):
+        experiment = json.loads(path.read_text(encoding="utf-8"))
+        validated = experiment.get("validated_algorithms", [])
+        if not isinstance(validated, list) or len(validated) != len(set(validated)):
+            failures.append(f"{path.name}: validated_algorithms must be a unique list")
+            continue
+        unknown = set(validated) - registered_algorithm_ids
+        if unknown:
+            failures.append(
+                f"{path.name}: unknown validated_algorithms {sorted(unknown)}"
+            )
+
     if failures:
         print("\n".join(failures))
         return 1

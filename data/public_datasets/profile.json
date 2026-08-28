@@ -76,5 +76,86 @@
       "Slugging": 4843
     },
     "validation": "finite process values, binary alarm states, nonempty labels"
+  },
+  "comopi_alarm_counts": {
+    "rows": 150650,
+    "machines": 8,
+    "bin_minutes": 10,
+    "alarm_types": 123,
+    "total_alarm_occurrences": 194974,
+    "target_positive_bins": {
+      "AL_53": 23,
+      "AL_54": 18
+    },
+    "top_alarm_counts": {
+      "AL_1": 130614,
+      "AL_102": 27164,
+      "AL_12": 5555,
+      "AL_77": 4721,
+      "AL_32": 4222,
+      "AL_104": 3433,
+      "AL_29": 3406,
+      "AL_117": 2486,
+      "AL_19": 1993,
+      "AL_36": 1725
+    },
+    "representation_boundary": "within-bin event order is unavailable; AL_53/AL_54 are rare fault-condition targets, not flood-episode labels"
+  },
+  "enas_event_log": {
+    "rows": 219893,
+    "columns": 33,
+    "start": "2020-09-23 10:47:52.546555",
+    "end": "2021-02-02 14:18:02.230944",
+    "product_variant_counts": {
+      "1": 54499,
+      "2": 165394
+    },
+    "representation_boundary": "digital sensor/actuator state changes and manual error states; not an expert alarm-flood corpus"
+  },
+  "imaks_synthetic": {
+    "archive_entries": 1171,
+    "annotated_sensor_rows": 211200,
+    "stations": 9,
+    "sensors": 22,
+    "anomaly_label_counts": {
+      "NORMAL": 209740,
+      "DRIFT": 1055,
+      "OUT_OF_RANGE": 244,
+      "CORRELATED": 121,
+      "STUCK": 25,
+      "SPIKE": 15
+    },
+    "alarm_flag_counts": {
+      "NONE": 209740,
+      "WARNING": 906,
+      "CRITICAL": 554
+    },
+    "representation_boundary": "synthetic data with alarm and causal truth; smoke/structural validation only"
+  },
+  "smd10towfgr": {
+    "turbines": 10,
+    "scada_rows_per_turbine_including_header": 26209,
+    "scada_features_including_timestamp": 132,
+    "log_rows": 230618,
+    "distinct_event_codes": 167,
+    "event_type_counts": {
+      "Operation log (O)": 227107,
+      "System log (S)": 1821,
+      "Alarm log (A)": 1002,
+      "Warning log (W)": 688
+    },
+    "log_rows_by_turbine": {
+      "WT01": 16037,
+      "WT02": 25444,
+      "WT03": 23731,
+      "WT04": 19623,
+      "WT05": 22501,
+      "WT06": 25293,
+      "WT07": 25645,
+      "WT08": 24202,
+      "WT09": 24083,
+      "WT10": 24059
+    },
+    "representation_boundary": "timestamped alarm/event logs are directly usable for sequence and density tasks; flood-class labels require derivation or expert review"
   }
 }

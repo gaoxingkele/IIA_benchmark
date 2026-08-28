@@ -1,66 +1,53 @@
 {
-  "experiment_id": "pronto_casim_fault_classification_validation",
+  "experiment_id": "pronto_cone_activation_uncertainty_validation",
   "task": "real_pronto_alarm_classification",
   "result": {
-    "model_id": "casim",
+    "model_id": "cone_afc",
+    "base_model_id": "ctfh_fingerprinting",
     "metrics": {
-      "accuracy": 0.34210526315789475,
-      "balanced_accuracy": 0.251984126984127,
-      "macro_f1": 0.19444444444444448,
-      "per_class": {
-        "Air blockage": {
-          "support": 11,
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1": 0.0
-        },
-        "Air leakage": {
-          "support": 9,
-          "precision": 0.13333333333333333,
-          "recall": 0.2222222222222222,
-          "f1": 0.16666666666666669
-        },
-        "Diverted flow": {
-          "support": 14,
-          "precision": 0.5,
-          "recall": 0.7857142857142857,
-          "f1": 0.6111111111111112
-        },
-        "Slugging": {
-          "support": 4,
-          "precision": 0.0,
-          "recall": 0.0,
-          "f1": 0.0
-        }
+      "coverage": 1.0,
+      "average_set_size": 4.0,
+      "empty_rate": 0.0,
+      "singleton_rate": 0.0,
+      "singleton_accuracy": null
+    },
+    "prefix_metrics": {
+      "60": {
+        "coverage": 1.0,
+        "average_set_size": 4.0,
+        "empty_rate": 0.0,
+        "singleton_rate": 0.0,
+        "singleton_accuracy": null
       },
-      "confusion_matrix": {
-        "Air blockage": {
-          "Air blockage": 0,
-          "Air leakage": 9,
-          "Diverted flow": 2,
-          "Slugging": 0
-        },
-        "Air leakage": {
-          "Air blockage": 0,
-          "Air leakage": 2,
-          "Diverted flow": 7,
-          "Slugging": 0
-        },
-        "Diverted flow": {
-          "Air blockage": 1,
-          "Air leakage": 2,
-          "Diverted flow": 11,
-          "Slugging": 0
-        },
-        "Slugging": {
-          "Air blockage": 0,
-          "Air leakage": 2,
-          "Diverted flow": 2,
-          "Slugging": 0
-        }
+      "120": {
+        "coverage": 1.0,
+        "average_set_size": 4.0,
+        "empty_rate": 0.0,
+        "singleton_rate": 0.0,
+        "singleton_accuracy": null
+      },
+      "180": {
+        "coverage": 1.0,
+        "average_set_size": 4.0,
+        "empty_rate": 0.0,
+        "singleton_rate": 0.0,
+        "singleton_accuracy": null
+      },
+      "240": {
+        "coverage": 1.0,
+        "average_set_size": 4.0,
+        "empty_rate": 0.0,
+        "singleton_rate": 0.0,
+        "singleton_accuracy": null
+      },
+      "300": {
+        "coverage": 1.0,
+        "average_set_size": 4.0,
+        "empty_rate": 0.0,
+        "singleton_rate": 0.0,
+        "singleton_accuracy": null
       }
     },
-    "prefix_metrics": {},
     "prefix_lengths_samples": [
       60,
       120,
@@ -69,11 +56,86 @@
       300
     ],
     "model_diagnostics": {
-      "ensemble_classifiers": 10,
-      "features_per_classifier": 672,
-      "loop_training_samples": 43
+      "fit_windows": 38,
+      "calibration_windows": 22,
+      "fit_class_counts": {
+        "Air blockage": 11,
+        "Air leakage": 9,
+        "Diverted flow": 13,
+        "Slugging": 5
+      },
+      "calibration_class_counts": {
+        "Air blockage": 6,
+        "Air leakage": 5,
+        "Diverted flow": 8,
+        "Slugging": 3
+      },
+      "thresholds": [
+        [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ]
+      ],
+      "calibration_counts": [
+        [
+          6,
+          5,
+          8,
+          3
+        ],
+        [
+          6,
+          5,
+          8,
+          3
+        ],
+        [
+          6,
+          5,
+          8,
+          3
+        ],
+        [
+          6,
+          5,
+          8,
+          3
+        ],
+        [
+          6,
+          5,
+          8,
+          3
+        ]
+      ]
     },
-    "metric_kind": "closed_set_point_classification",
+    "metric_kind": "conformal_prediction_set",
     "train_windows": 60,
     "test_windows": 38,
     "window_size_samples": 300,
@@ -92,7 +154,7 @@
       "VC406",
       "VLV303"
     ],
-    "alarm_representation": "state",
+    "alarm_representation": "rising_edge",
     "train_class_counts": {
       "Air blockage": 17,
       "Air leakage": 14,
@@ -276,5 +338,5 @@
       "Conformal coverage in this surrogate run is descriptive and does not establish the paper's finite-sample guarantee."
     ]
   },
-  "config": "configs/experiments/pronto_casim_fault_classification_validation.json"
+  "config": "configs/experiments/pronto_cone_activation_uncertainty_validation.json"
 }

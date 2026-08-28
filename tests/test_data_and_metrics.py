@@ -4,6 +4,7 @@ import zipfile
 import pytest
 
 import numpy as np
+from openpyxl import Workbook
 
 from iia_benchmark.data import (
     ProcessRun,
@@ -17,6 +18,7 @@ from iia_benchmark.data import (
     load_pronto_merged_csv,
     pronto_normal_train_evaluation_masks,
     load_skab_csv,
+    load_smd_alarm_events,
     load_tep_ascii,
 )
 from iia_benchmark.evaluation import multiclass_classification_metrics
@@ -58,6 +60,39 @@ def test_piade_interval_and_sequence_adapters(tmp_path: Path) -> None:
     assert [[event.tag for event in sequence] for sequence in sequences["s_1"]] == [
         ["A_001", "A_002"]
     ]
+
+
+def test_smd_alarm_event_adapter_filters_log_types(tmp_path: Path) -> None:
+    path = tmp_path / "smd.xlsx"
+    workbook = Workbook()
+    sheet = workbook.active
+    sheet.title = "WT01_logs.csv"
+    sheet.append(
+        [
+            "Code",
+            "Description",
+            "Detected",
+            "Device ack.",
+            "Reset/Run",
+            "Duration",
+            "Event type",
+            "Severity",
+        ]
+    )
+    sheet.append([356, "alarm", "2020-01-01 01:02:03", None, None, None, "Alarm log (A)", 212])
+    sheet.append([598, "warning", "2020-01-01 01:03:00", None, None, None, "Warning log (W)", 201])
+    sheet.append([70, "system", "2020-01-01 01:04:00", None, None, None, "System log (S)", 101])
+    workbook.save(path)
+    events = load_smd_alarm_events(path)
+    assert list(events) == ["WT01"]
+    assert [(event.tag, event.priority) for event in events["WT01"]] == [
+        ("356", 1),
+        ("598", 2),
+    ]
+    alarms_only = load_smd_alarm_events(path, event_types=["Alarm log (A)"])
+    assert [event.tag for event in alarms_only["WT01"]] == ["356"]
+    with pytest.raises(ValueError, match="unknown turbines"):
+        load_smd_alarm_events(path, turbines=["WT99"])
 
 
 def test_skab_adapter_keeps_point_labels_without_adjustment(tmp_path: Path) -> None:
@@ -173,6 +208,25 @@ def test_pronto_merged_adapter_and_purged_fault_window_split(tmp_path: Path) -> 
     assert split.X_test.shape == (2, 2, 3)
     assert set(split.y_train) == set(split.y_test) == {"F1", "F2"}
     assert all(group.purged_windows == 1 for group in split.groups)
+    activations = build_pronto_fault_window_split(
+        [run],
+        window_size=3,
+        train_fraction=0.5,
+        purge_windows=1,
+        alarm_representation="rising_edge",
+    )
+    assert int(split.X_train.sum()) == 12
+    assert int(activations.X_train.sum()) == 1
+    # A2 is already standing during Normal, so F2 must not invent a new
+    # activation at the fault-segment or window boundary.
+    assert int(activations.X_train[activations.y_train == "F2"].sum()) == 0
+    with pytest.raises(ValueError, match="alarm_representation"):
+        build_pronto_fault_window_split(
+            [run],
+            window_size=3,
+            train_fraction=0.5,
+            alarm_representation="unknown",
+        )
 
 
 def test_multiclass_metrics_include_per_class_and_confusion_audit() -> None:

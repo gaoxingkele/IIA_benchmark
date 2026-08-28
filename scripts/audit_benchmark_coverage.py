@@ -31,6 +31,24 @@ def main() -> int:
             and data_by_id.get(item["id"], {}).get("valid", False)
         }
     )
+    usable_real_families = sorted(
+        {
+            item["dataset_family"]
+            for item in sources
+            if item["payload_role"] == "main"
+            and not item.get("synthetic", False)
+            and data_by_id.get(item["id"], {}).get("valid", False)
+        }
+    )
+    usable_registered_synthetic_families = sorted(
+        {
+            item["dataset_family"]
+            for item in sources
+            if item["payload_role"] == "main"
+            and item.get("synthetic", False)
+            and data_by_id.get(item["id"], {}).get("valid", False)
+        }
+    )
     matrix_lines = (ROOT / "docs/algorithm_matrix.md").read_text(encoding="utf-8").splitlines()
     callable_families = sum(
         line.startswith("| ")
@@ -48,6 +66,16 @@ def main() -> int:
         read(payload["config"])
         for payload in validation_reports
     ]
+    registered_algorithm_ids = {item["id"] for item in book + sota}
+    real_data_algorithm_ids = sorted(
+        {
+            algorithm
+            for config in validation_configs
+            if str(config.get("task", "")).startswith("real_")
+            for algorithm in config.get("validated_algorithms", [])
+            if algorithm in registered_algorithm_ids
+        }
+    )
     validated_tasks = sorted(
         {
             task
@@ -81,6 +109,14 @@ def main() -> int:
             "logical_public_family_ids": families,
             "main_payload_available_families": len(usable_families),
             "main_payload_available_ids": usable_families,
+            "real_main_payload_available_families": len(usable_real_families),
+            "real_main_payload_available_ids": usable_real_families,
+            "registered_synthetic_payload_available_families": len(
+                usable_registered_synthetic_families
+            ),
+            "registered_synthetic_payload_available_ids": (
+                usable_registered_synthetic_families
+            ),
             "synthetic_smoke_datasets": len(list((ROOT / "configs/datasets").glob("synthetic_*.json"))),
         },
         "tasks": {
@@ -105,6 +141,10 @@ def main() -> int:
                 str(config.get("task", "")).startswith("real_")
                 for config in validation_configs
             ),
+            "registered_algorithms_with_real_data_execution": len(
+                real_data_algorithm_ids
+            ),
+            "registered_algorithm_real_data_ids": real_data_algorithm_ids,
             "real_data_validated_tasks": validated_tasks,
             "ara_algorithm_validations_passed": next(
                 (
@@ -142,7 +182,9 @@ this report.
 |---|---:|
 | Public registry records | {report['datasets']['registry_records']} |
 | Logical public dataset families | {report['datasets']['logical_public_families']} |
-| Main payloads locally available | {report['datasets']['main_payload_available_families']} |
+| Main payloads locally available (all) | {report['datasets']['main_payload_available_families']} |
+| Real/acquired main payloads locally available | {report['datasets']['real_main_payload_available_families']} |
+| Registered synthetic main payloads locally available | {report['datasets']['registered_synthetic_payload_available_families']} |
 | Synthetic smoke datasets | {report['datasets']['synthetic_smoke_datasets']} |
 | Downstream tasks defined | {report['tasks']['defined']} |
 | Tasks runnable on available real data | {report['tasks']['runnable_real_data']} |
@@ -160,6 +202,7 @@ Locally available public main payloads: {', '.join(f'`{item}`' for item in repor
 | Paper PDFs downloaded | {report['evidence']['downloaded_papers']} |
 | DOI records marked open by Unpaywall | {report['evidence']['unpaywall_open_access_records']} |
 | Direct PDF candidates reported by Unpaywall | {report['evidence']['unpaywall_direct_pdf_candidates']} |
+| Registered algorithms with real-data execution | {report['evidence']['registered_algorithms_with_real_data_execution']} |
 | Tasks with executed real-data validation | {', '.join(report['evidence']['real_data_validated_tasks']) or 'none'} |
 | ARA paper packages with fresh local validation | {report['evidence']['ara_algorithm_validations_passed']} |
 
