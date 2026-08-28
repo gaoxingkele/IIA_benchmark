@@ -6,7 +6,7 @@
 |---|---|---|
 | Wang, Hu & Chen, *Intelligent Industrial Alarm Systems* (2024), DOI `10.1007/978-981-97-6516-4` | Theory spine, Ch. 1–6 | Local PDF extracted with hash |
 | Downs & Vogel, *A Plant-Wide Industrial Process Control Problem* (1993), DOI `10.1016/0098-1354(93)80018-I` | TEP source | Simulator repo downloaded |
-| Manca & Fay, TEP Alarm Management Dataset, DOI `10.21227/326k-qr90` | Alarm benchmark data | Landing page only; archive login-gated |
+| Manca & Fay, TEP Alarm Management Dataset, DOI `10.21227/326k-qr90` | Alarm benchmark data | Authenticated raw archive acquired and CRC-audited; adapter/grouped split/reference scores pending |
 | Melo et al., alarm management benchmark (IEEE Access 2021) | TEP alarm evaluation protocol | Paper evidence; dataset gated |
 | CASIM, *Convolutional kernel-based classification of industrial alarm floods* (DCE 2024), DOI `10.1017/dce.2024.22` | early/open-set flood classification | Official Code Ocean DOI `10.24433/CO.4874993.v1`; B level |
 | ConE-AFC (IEEE Access 2024), DOI `10.1109/ACCESS.2024.3492348` | conformal uncertainty for early classification | Official artifact DOI `10.24433/CO.5512337.v2`; B level |

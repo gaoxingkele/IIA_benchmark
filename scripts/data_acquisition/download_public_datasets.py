@@ -60,6 +60,11 @@ def download_file(source: dict[str, Any], *, proxy: str | None = PROXY) -> None:
     if checksum_ok(target, source.get("checksum")):
         print(f"exists {source['id']}: {target.relative_to(ROOT)}")
         return
+    if source.get("manual_download"):
+        raise RuntimeError(
+            f"{source['id']} requires an authenticated/manual download; "
+            f"place the original file at {target.relative_to(ROOT)} and rerun the audit"
+        )
     aria2 = find_aria2()
     if aria2:
         command = [

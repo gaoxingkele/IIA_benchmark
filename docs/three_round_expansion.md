@@ -12,7 +12,7 @@
 
 **算法落地**：`ThresholdDelayDeadband`、`design_alarm`、`MahalanobisAlarm`、`ConvexHullNOZAlarm`、`TransferEntropyRanker`、`smith_waterman_similarity`、`EmpiricalNextAlarmPredictor`。这些是透明经典基线，不宣称逐行复现书中全部加速技巧。
 
-**扩展终点**：TEP alarm 专用数据具备 100 个仿真 run、300 个异常实例/29 个变体、170 个阈值及报警激活记录的论文描述，但归档文件目前需 DataPort 登录，故只登记元数据；PRONTO 完整压缩包 1.72 GB 默认跳过，可显式下载。
+**扩展终点**：2026-08-28 已通过项目所有者提供的认证传输取得 TEP alarm 原始归档并完成 SHA-256/RAR5 CRC/嵌套目录审计。归档含 100 个 Tests run 的 Original/Filter/Deadband 报警工作簿、五类各 200 条的 1,000 个报警 CSV、18 个异常场景变体及 3 个正常稳态 run。取得载荷不等于论文闭环；adapter、grouped split 与参考分数仍待实现。PRONTO 完整压缩包 1.72 GB 已下载并通过 CRC。
 
 ## Round 2：从洪泛序列到早期、开集与不确定性
 
@@ -24,7 +24,7 @@
 
 **算法/协议落地**：当前 A 级包含序列对齐和 coverage/set-size 指标；MultiRocket/ridge/LoOP 与 conformal calibration 为 B 级复现位，必须从官方 artifact 锁定环境后才能比较。
 
-**扩展终点**：Nuclear Power Plant Alarm Dataset（DOI `10.21227/g2fa-9y43`）和 FCC alarm dataset（DOI `10.60517/2v23vv393`）进入第三轮跨装置/跨域验证候选；受许可页约束时只保存 landing metadata。
+**扩展终点**：Nuclear Power Plant Alarm Dataset（DOI `10.21227/g2fa-9y43`）原始 RAR 已取得并通过 CRC，含 101 个顶层 run/组、12 类事故/扰动加 Normal 及 101 个阈值文件；adapter 尚未实现。名为 `FCC Alarm Dataset.zip` 的候选包经嵌入元数据核验实际为 CO2 吸附动力学数据（DOI `10.60517/19027803-fec9-41f2-8a02-408cc176554e`），已隔离并拒绝进入 FCC alarm 评测；真正 FCC alarm 数据仍缺失。
 
 ## Round 3：从跨域数据到现实扰动鲁棒性
 

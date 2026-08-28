@@ -20,19 +20,19 @@ this report.
 
 | Item | Count |
 |---|---:|
-| Public registry records | 14 |
+| Public registry records | 17 |
 | Logical public dataset families | 11 |
-| Main payloads locally available (all) | 8 |
-| Real/acquired main payloads locally available | 7 |
+| Main payloads locally available (all) | 10 |
+| Real/acquired main payloads locally available | 9 |
 | Registered synthetic main payloads locally available | 1 |
 | Synthetic smoke datasets | 4 |
 | Downstream tasks defined | 6 |
 | Tasks runnable on available real data | 6 |
-| Tasks with the primary payload gated | 1 |
+| Tasks with the primary payload gated | 0 |
 | Leaderboard-eligible splits | 0 |
 | Real-data validation reports | 17 |
 
-Locally available public main payloads: `comopi`, `enas`, `imaks`, `piade`, `pronto`, `skab`, `smd10towfgr`, `tep_classic`.
+Locally available public main payloads: `comopi`, `enas`, `imaks`, `npp_alarm_dataport`, `piade`, `pronto`, `skab`, `smd10towfgr`, `tep_alarm_dataport`, `tep_classic`.
 
 ## Evidence
 
