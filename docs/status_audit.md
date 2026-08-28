@@ -39,7 +39,7 @@ Locally available public main payloads: `comopi`, `enas`, `imaks`, `piade`, `pro
 | Item | Count |
 |---|---:|
 | Papers registered | 28 |
-| Paper PDFs downloaded | 4 |
+| Paper PDFs downloaded | 5 |
 | DOI records marked open by Unpaywall | 5 |
 | Direct PDF candidates reported by Unpaywall | 2 |
 | Registered algorithms with real-data execution | 10 |

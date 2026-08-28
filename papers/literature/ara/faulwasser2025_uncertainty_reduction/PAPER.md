@@ -6,7 +6,7 @@
 - Venue: IFAC-PapersOnLine
 - DOI: [10.1016/j.ifacol.2025.11.935](https://doi.org/10.1016/j.ifacol.2025.11.935)
 - Benchmark role: SOTA early decision timing
-- ARA status: `engineering_validated_source_gated`
+- ARA status: `engineering_validated_source_acquired`
 
 ## Executive summary
 
@@ -15,10 +15,10 @@ Predicts when additional alarm observations are expected to reduce classificatio
 ## Claims and evidence
 
 - `C1` [explicit] Uncertainty-reduction prediction is coupled to online classification delay.  
-  Support locator: `publisher_metadata`
+  Support locator: `paper_pdf_sections_2_3`
 
 ## Reproduction status
 
-Source acquisition is `not_openly_downloadable`. This ARA package does not claim a
-score reproduction until `evidence/runs/local_validation.md` records a command,
-environment, dataset split, expected result, observed result, and pass/fail decision.
+The six-page publisher PDF is archived and verified. The local implementation remains
+an independent engineering reproduction; exact Tables 1-4 and paper-score closure
+still require the official Code Ocean data/code artifact and frozen paper splits.
