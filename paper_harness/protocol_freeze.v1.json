@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.0",
+  "harness_id": "iia-paper-harness-2026-08-29-v1",
+  "status": "draft_freeze_pending_wave_0",
+  "cutoff_date": "2026-08-29",
+  "objective": "Validate every registered book and SOTA algorithm on as many task-compatible local datasets as possible, while keeping engineering transfer results separate from exact paper-score reproduction.",
+  "immutable_kernel": {
+    "registries": [
+      "configs/algorithms/book_algorithms.json",
+      "configs/algorithms/sota_algorithms.json",
+      "configs/datasets/public_sources.json",
+      "configs/tasks/downstream_tasks.json",
+      "papers/literature/registry.json"
+    ],
+    "evaluation_code": [
+      "src/iia_benchmark/evaluation/metrics.py",
+      "src/iia_benchmark/evaluation/robustness.py"
+    ],
+    "rules": [
+      "Split by complete process run, device, equipment, or simulator seed; never split adjacent windows from one source group across partitions.",
+      "Fit normalization, thresholds, dictionaries, templates, calibration scores, and hyperparameters on train/calibration only.",
+      "Use the same dataset adapter, split manifest, metric version, and seed list for all methods in one comparison lane.",
+      "Synthetic smoke, descriptive candidates, M1 mismatch sentinels, and transfer studies cannot be promoted as paper-score reproductions.",
+      "A frozen held-out test partition is evaluated once per protocol version.",
+      "Negative, null, degenerate, and failed-activation results remain in the evidence ledger."
+    ]
+  },
+  "mutable_surface": {
+    "allowed": [
+      "model hyperparameters declared before the held-out run",
+      "representation adapters and event-window policies",
+      "training budget and resource class",
+      "calibration size and conformal alpha",
+      "registered robustness corruption and severity"
+    ],
+    "forbidden_after_freeze": [
+      "test labels",
+      "test-derived thresholds or class dictionaries",
+      "metric formulas",
+      "group membership",
+      "selective deletion of negative runs",
+      "unregistered post-hoc seed or dataset selection"
+    ]
+  },
+  "matching_grades": {
+    "M3": "Native representation and task labels/ground truth are present; suitable for primary benchmark evidence.",
+    "M2": "Representation is task-compatible but labels or domain are transferred/derived; suitable for engineering multi-dataset evidence.",
+    "M1": "Representation or labels are materially mismatched; diagnostic sentinel only.",
+    "M0": "Invalid or unusable pairing; do not execute."
+  },
+  "protocol_fidelity": {
+    "P3": "Same paper dataset, split, preprocessing, hyperparameters, metrics, and reference item.",
+    "P2": "Same dataset family and reconstructed paper protocol, with documented differences.",
+    "P1": "Cross-dataset transfer protocol; no paper-score claim.",
+    "P0": "Activation, smoke, descriptive, or mismatch-only evidence."
+  },
+  "evidence_tiers": {
+    "E0": "Callable implementation plus unit/invariant tests.",
+    "E1": "Activation beacon passes on a bounded smoke or diagnostic slice.",
+    "E2": "One real/acquired dataset engineering validation with frozen split.",
+    "E3": "At least three M2/M3 datasets, three fixed seeds, aggregate and per-dataset results.",
+    "E4": "A named book/paper experiment item reproduced under P2 or P3 with a declared tolerance.",
+    "E5": "Once-only held-out evaluation after all earlier gates are locked."
+  },
+  "seed_policy": {
+    "development_seed": 20260829,
+    "formal_seeds": [1103, 2207, 3301],
+    "robustness_seeds": [1103, 2207, 3301, 4409, 5501, 6607, 7703, 8807, 9901, 10103],
+    "rule": "Every stochastic formal comparison reports per-seed results, mean, standard deviation, and a paired confidence interval."
+  },
+  "gates": [
+    {
+      "id": "G0_validity",
+      "pass": "Payload integrity, schema/profile, group split, leakage audit, label semantics, and metric denominator all pass.",
+      "failure_action": "Block scoring; retain the audit record."
+    },
+    {
+      "id": "G1_activation",
+      "pass": "Algorithm-specific beacon is non-degenerate: predictions vary when expected, training loss/fit changes when applicable, and outputs are finite.",
+      "failure_action": "Diagnose representation, label, scaling, window, or implementation mismatch before tuning."
+    },
+    {
+      "id": "G2_multi_dataset",
+      "pass": "At least three M2/M3 datasets and three formal seeds finish, or a documented domain-specific exception is approved before execution.",
+      "failure_action": "Keep E1/E2 evidence but do not claim multi-dataset validation."
+    },
+    {
+      "id": "G3_competitive_credit",
+      "pass": "For claims of improvement over the frozen lane parent, paired mean delta is positive and the two-sided normal approximation satisfies |z| >= 1.96; multiplicity is disclosed.",
+      "failure_action": "Retain the valid negative/null result and deny superiority language."
+    },
+    {
+      "id": "G4_reference_reproduction",
+      "pass": "Named table/figure/case item, source hash, exact differences, target tolerance, and observed delta are recorded under P2/P3.",
+      "failure_action": "Label as independent reimplementation or transfer validation."
+    },
+    {
+      "id": "G5_held_out",
+      "pass": "Protocol hash is frozen and the held-out partition is scored once with no subsequent selection.",
+      "failure_action": "A changed hypothesis requires a new protocol version and a new untouched holdout."
+    }
+  ],
+  "comparison_lanes": [
+    {
+      "id": "L1_alarm_design",
+      "task": "T1",
+      "parent": "threshold_delay_deadband",
+      "primary_metrics": ["FAR", "MAR", "AAD"],
+      "activation_beacon": "finite parameters, both alarm states reachable, and response changes under threshold/delay perturbation"
+    },
+    {
+      "id": "L2_multivariate_limits",
+      "task": "T2",
+      "parent": "mahalanobis",
+      "primary_metrics": ["FAR", "MAR", "AAD", "balanced_accuracy"],
+      "activation_beacon": "non-empty learned zone and non-constant signed violation or alarm output"
+    },
+    {
+      "id": "L3_root_cause",
+      "task": "T3",
+      "parent": "transfer_entropy_ranker",
+      "primary_metrics": ["Top-1", "Top-3", "MRR", "edge_F1", "lag_error"],
+      "activation_beacon": "at least one finite non-zero edge/contribution or posterior movement from the prior"
+    },
+    {
+      "id": "L4_flood",
+      "task": "T4",
+      "parent": "smith_waterman_1nn",
+      "primary_metrics": ["event_F1", "macro_F1", "balanced_accuracy", "prefix_AUC", "unknown_AUROC"],
+      "activation_beacon": "at least two predicted classes or a justified open-set rejection, plus non-constant prefix scores"
+    },
+    {
+      "id": "L5_forecasting",
+      "task": "T5",
+      "parent": "empirical_next_alarm",
+      "primary_metrics": ["top1_accuracy", "top3_accuracy", "NLL", "Brier", "lead_time"],
+      "activation_beacon": "non-uniform predictive distribution and evaluable vocabulary coverage"
+    },
+    {
+      "id": "L6_visual_analytics",
+      "task": "T6",
+      "parent": "chapter6_fact_export",
+      "primary_metrics": ["fact_consistency", "episode_traceability", "render_completeness"],
+      "activation_beacon": "every rendered aggregate round-trips to frozen facts and source episode IDs"
+    }
+  ],
+  "stages": [
+    {
+      "id": "S0_preflight",
+      "title": "Data priors, adapters, split manifests, and protocol freeze",
+      "exit_gate": "G0_validity passes for every admitted dataset family; all matrix and reference targets validate."
+    },
+    {
+      "id": "S1_initial_implementation",
+      "title": "Runner integration and activation",
+      "exit_gate": "All 30 algorithms have a runner path, bounded config, unit tests, and G1 activation evidence."
+    },
+    {
+      "id": "S2_baseline_tuning",
+      "title": "Fair train/calibration tuning on at least two datasets",
+      "exit_gate": "No test access; per-lane parents and search budgets are frozen."
+    },
+    {
+      "id": "S3_multi_dataset_reproduction",
+      "title": "Three-seed multi-dataset validation and book/paper experiment rows",
+      "exit_gate": "G2 passes; each reference row is P1/P2/P3-labelled and G4 is evaluated."
+    },
+    {
+      "id": "S4_ablation_robustness",
+      "title": "Component ablations, missing/spurious/jitter/delay, prefix, and open-set tests",
+      "exit_gate": "Same datasets/seeds as S3; paired deltas and failure modes are retained."
+    },
+    {
+      "id": "S5_held_out_release",
+      "title": "Once-only held-out scoring, independent audit, figures, and claim ledger",
+      "exit_gate": "G5 passes and no P0/P1 result is phrased as an exact reproduction."
+    }
+  ],
+  "resource_classes": {
+    "cpu_small": {"wall_clock_limit_minutes": 30, "use": "activation and classical methods"},
+    "cpu_medium": {"wall_clock_limit_minutes": 240, "use": "transfer entropy, pattern mining, and full classical sweeps"},
+    "gpu_medium": {"wall_clock_limit_minutes": 720, "use": "MultiRocket/LSTM/Transformer/HDAM formal runs"}
+  },
+  "negative_result_policy": {
+    "required_fields": ["run_id", "protocol_hash", "dataset_match", "activation_diagnostics", "metrics", "failure_interpretation", "next_falsification_test"],
+    "known_sentinel": "PRONTO T4 state-window results for CTFH, HDAM, ConE, Cross-Conformal, and CASIM remain visible as M1/P0 representation-label mismatch evidence."
+  },
+  "required_artifacts_per_run": [
+    "resolved_config.json",
+    "protocol_hash.txt",
+    "data_manifest.json",
+    "split_manifest.json",
+    "environment.json",
+    "seed_results.jsonl",
+    "metrics.json",
+    "activation.json",
+    "resource_usage.json",
+    "claim_ledger_row.json"
+  ]
+}

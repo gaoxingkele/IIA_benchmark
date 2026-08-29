@@ -25,6 +25,8 @@ python -m pip install -e ".[test]"
 python scripts/book/extract_book.py
 python scripts/data_acquisition/download_public_datasets.py
 python scripts/data_acquisition/audit_public_datasets.py
+python scripts/paper_harness.py check
+python scripts/paper_harness.py plan
 python -m iia_benchmark.runner configs/experiments/synthetic_univariate_smoke.json
 pytest -q
 ```
@@ -48,6 +50,8 @@ python -m iia_benchmark.runner configs/experiments/synthetic_root_cause_smoke.js
 - `docs/build_report.md`：本轮数据 profile、四个 smoke 效果与验证状态。
 - `docs/status_audit.md`：严格区分可调用、部分复现、闭环验证及数据门禁的自动覆盖审计。
 - `docs/reports/current_inventory_2026-08-29.md`：28 篇论文、30 项核心算法、11 个数据集族与 6 个下游任务的当前完整清单。
+- `docs/paper_harness_plan_2026-08-29.md`：30 个算法、121 个算法×数据集目标和书籍/论文实验条目的分阶段复现计划。
+- `paper_harness/`：协议冻结、匹配矩阵、reference backlog、gate ledger 与语义 gene bank。
 - `configs/`：系统、数据、切分、模型、指标、实验的 JSON 唯一事实来源。
 - `src/iia_benchmark/`：统一数据对象、可调用经典模型、指标和 runner。
 - `scripts/data_acquisition/`：aria2/代理优先的下载器与校验审计。

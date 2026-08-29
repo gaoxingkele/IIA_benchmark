@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0",
+  "cutoff_date": "2026-08-29",
+  "adapter_status": {
+    "tep_classic": "runnable",
+    "pronto": "runnable",
+    "piade": "runnable",
+    "skab": "runnable",
+    "smd10towfgr": "runnable",
+    "tep_alarm_dataport": "adapter_pending",
+    "npp_alarm_dataport": "adapter_pending",
+    "fcc_alarm": "adapter_pending",
+    "comopi": "adapter_pending",
+    "enas": "adapter_pending",
+    "imaks": "adapter_pending"
+  },
+  "dataset_sets": {
+    "continuous_alarm_design": [
+      {"dataset_family": "tep_classic", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "pronto", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "skab", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "transfer"}
+    ],
+    "continuous_multivariate": [
+      {"dataset_family": "tep_classic", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "pronto", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "skab", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "transfer"}
+    ],
+    "pump_transfer": [
+      {"dataset_family": "pronto", "match": "M2", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "skab", "match": "M2", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "fcc_alarm", "match": "M2", "protocol": "P1", "role": "transfer"}
+    ],
+    "condenser_transfer": [
+      {"dataset_family": "tep_classic", "match": "M2", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "pronto", "match": "M2", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "fcc_alarm", "match": "M2", "protocol": "P1", "role": "transfer"}
+    ],
+    "binary_alarm_rca": [
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "tep_classic", "match": "M2", "protocol": "P1", "role": "derived_alarm"}
+    ],
+    "continuous_rca": [
+      {"dataset_family": "tep_classic", "match": "M3", "protocol": "P2", "role": "primary"},
+      {"dataset_family": "pronto", "match": "M2", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"}
+    ],
+    "bayesian_rca": [
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P2", "role": "transfer"},
+      {"dataset_family": "imaks", "match": "M2", "protocol": "P1", "role": "causal_smoke"}
+    ],
+    "plr_rca": [
+      {"dataset_family": "tep_classic", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "pronto", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "skab", "match": "M2", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"}
+    ],
+    "alarm_flood_methods": [
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "smd10towfgr", "match": "M2", "protocol": "P0", "role": "detection_only"},
+      {"dataset_family": "pronto", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"}
+    ],
+    "alarm_forecasting": [
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "piade", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "enas", "match": "M2", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "smd10towfgr", "match": "M2", "protocol": "P1", "role": "transfer"}
+    ],
+    "visual_analytics": [
+      {"dataset_family": "piade", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "smd10towfgr", "match": "M2", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "comopi", "match": "M2", "protocol": "P1", "role": "count_vector"},
+      {"dataset_family": "pronto", "match": "M2", "protocol": "P1", "role": "transfer"}
+    ],
+    "tep_afc_sota": [
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "pronto", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"}
+    ],
+    "sota_uncertainty_forecasting": [
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "piade", "match": "M2", "protocol": "P1", "role": "forecast_transfer"}
+    ],
+    "sota_robustness": [
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P1", "role": "transfer"}
+    ],
+    "modified_tfidf_transfer": [
+      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "piade", "match": "M2", "protocol": "P1", "role": "sequence_transfer"}
+    ]
+  },
+  "algorithms": [
+    {"algorithm_id": "book_2_1_iid_delay_timer", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["xu2012_far_mar_aad"], "current_evidence": "E0"},
+    {"algorithm_id": "book_2_2_non_iid_delay_timer", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["wang2022_delay_pmf"], "current_evidence": "E0"},
+    {"algorithm_id": "book_2_3_non_iid_deadband", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["wang2023_deadband"], "current_evidence": "E0"},
+    {"algorithm_id": "book_2_4_alarm_probability_plot", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["yu2017_alarm_probability_plot"], "current_evidence": "E0"},
+    {"algorithm_id": "book_3_1_convex_noz", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["yu2020_convex_noz"], "current_evidence": "E0"},
+    {"algorithm_id": "book_3_1_nonconvex_noz", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["wang2024_search_cones"], "current_evidence": "E2"},
+    {"algorithm_id": "book_3_2_variation_direction", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["chen2017_variation_directions"], "current_evidence": "E0"},
+    {"algorithm_id": "book_3_3_electrical_pump", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "pump_transfer", "paper_ids": ["xiong2018_bayesian_pumps"], "current_evidence": "E0"},
+    {"algorithm_id": "book_3_4_condenser", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "condenser_transfer", "paper_ids": ["wang2024_condenser_noz"], "current_evidence": "E0"},
+    {"algorithm_id": "book_4_1_nte", "lane": "L3_root_cause", "task": "T3", "dataset_set": "binary_alarm_rca", "paper_ids": ["hu2017_alarm_transfer_entropy"], "current_evidence": "E2"},
+    {"algorithm_id": "book_4_1_ndte", "lane": "L3_root_cause", "task": "T3", "dataset_set": "binary_alarm_rca", "paper_ids": ["hu2017_alarm_transfer_entropy"], "current_evidence": "E2"},
+    {"algorithm_id": "book_4_2_igte", "lane": "L3_root_cause", "task": "T3", "dataset_set": "continuous_rca", "paper_ids": ["zhang2022_igte"], "current_evidence": "E0"},
+    {"algorithm_id": "book_4_2_igdte", "lane": "L3_root_cause", "task": "T3", "dataset_set": "continuous_rca", "paper_ids": ["zhang2023_igdte"], "current_evidence": "E0"},
+    {"algorithm_id": "book_4_3_recursive_bn", "lane": "L3_root_cause", "task": "T3", "dataset_set": "bayesian_rca", "paper_ids": ["wang2018_recursive_bn_rca"], "current_evidence": "E0"},
+    {"algorithm_id": "book_4_4_plr_rca", "lane": "L3_root_cause", "task": "T3", "dataset_set": "plr_rca", "paper_ids": ["hu2022_qualitative_trend_rca"], "current_evidence": "E0"},
+    {"algorithm_id": "book_5_1_flood_detection", "lane": "L4_flood", "task": "T4", "dataset_set": "alarm_flood_methods", "paper_ids": ["wang2018_flood_detection"], "current_evidence": "E2"},
+    {"algorithm_id": "book_5_2_alarm_alignment", "lane": "L4_flood", "task": "T4", "dataset_set": "alarm_flood_methods", "paper_ids": ["hu2016_local_alignment"], "current_evidence": "E0"},
+    {"algorithm_id": "book_5_3_closed_patterns", "lane": "L4_flood", "task": "T4", "dataset_set": "alarm_flood_methods", "paper_ids": ["hu2018_closed_alarm_patterns"], "current_evidence": "E0"},
+    {"algorithm_id": "book_5_4_max_entropy_prediction", "lane": "L5_forecasting", "task": "T5", "dataset_set": "alarm_forecasting", "paper_ids": ["xu2021_max_entropy"], "current_evidence": "E0"},
+    {"algorithm_id": "book_6_visual_analytics", "lane": "L6_visual_analytics", "task": "T6", "dataset_set": "visual_analytics", "paper_ids": [], "current_evidence": "E2"},
+    {"algorithm_id": "casim_2024", "lane": "L4_flood", "task": "T4", "dataset_set": "tep_afc_sota", "paper_ids": ["faulwasser2024_casim"], "current_evidence": "E2"},
+    {"algorithm_id": "cone_afc_2024", "lane": "L4_flood", "task": "T4", "dataset_set": "tep_afc_sota", "paper_ids": ["faulwasser2024_cone_afc"], "current_evidence": "E2"},
+    {"algorithm_id": "uncertainty_reduction_2025", "lane": "L5_forecasting", "task": "T5", "dataset_set": "sota_uncertainty_forecasting", "paper_ids": ["faulwasser2025_uncertainty_reduction"], "current_evidence": "E0"},
+    {"algorithm_id": "etfa_robustness_2025", "lane": "L4_flood", "task": "T4", "dataset_set": "sota_robustness", "paper_ids": ["faulwasser2025_etfa_robustness"], "current_evidence": "E0"},
+    {"algorithm_id": "afc_robustbench_2026", "lane": "L4_flood", "task": "T4", "dataset_set": "sota_robustness", "paper_ids": ["faulwasser2026_robustbench"], "current_evidence": "E0"},
+    {"algorithm_id": "cross_conformal_afc_2025", "lane": "L4_flood", "task": "T4", "dataset_set": "tep_afc_sota", "paper_ids": ["manca2025_cross_conformal_afc"], "current_evidence": "E2"},
+    {"algorithm_id": "modified_tfidf_afc_2025", "lane": "L4_flood", "task": "T4", "dataset_set": "modified_tfidf_transfer", "paper_ids": ["rahaman2025_modified_tfidf"], "current_evidence": "E0"},
+    {"algorithm_id": "ctfh_fingerprinting_2025", "lane": "L4_flood", "task": "T4", "dataset_set": "tep_afc_sota", "paper_ids": ["rao2025_ctfh"], "current_evidence": "E2"},
+    {"algorithm_id": "hybrid_histogram_afc_2026", "lane": "L4_flood", "task": "T4", "dataset_set": "tep_afc_sota", "paper_ids": ["najafi2026_time_histogram_hybrid"], "current_evidence": "E0"},
+    {"algorithm_id": "structured_hdam_2026", "lane": "L4_flood", "task": "T4", "dataset_set": "tep_afc_sota", "paper_ids": ["rahimi2026_structured_hdam"], "current_evidence": "E2"}
+  ]
+}
