@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "config": "configs/experiments/book_chapter4_igte_multidataset.json",
+  "algorithm_ids": ["book_4_2_igte", "book_4_2_igdte"],
+  "paper_ids": ["zhang2022_igte", "zhang2023_igdte"],
+  "book_sections": ["4.2.2", "4.2.3", "4.2.4.2"],
+  "seeds": [1103, 2207, 3301],
+  "dataset_families": ["tep_classic", "pronto", "skab"],
+  "prior_gate": {
+    "passed": true,
+    "finite_episodes": 7,
+    "episodes_with_constant_selected_features": 0,
+    "minimum_observed_feature_standard_deviation": 0.0003051973727144493,
+    "median_standardized_shift_range": [0.3599273928845941, 4.184791477384839]
+  },
+  "aggregate_metrics": {
+    "tep_idv1": {
+      "graph_activation_rate": 1.0,
+      "mean_significant_edges": 2.0,
+      "mean_igdte_pruned_edges": 0.0,
+      "igte_table_4_8_f1": 0.0,
+      "igdte_reference_f1": 0.0,
+      "published_root_v1_rank": 2,
+      "same_episode_cross_seed_jaccard": 1.0
+    },
+    "pronto": {
+      "mean_graph_activation_rate": 0.6666666666666666,
+      "mean_significant_edges": 1.3333333333333333,
+      "mean_igdte_pruned_edges": 0.0,
+      "within_fault_jaccard": 0.0,
+      "cross_fault_jaccard": 0.16666666666666666,
+      "same_episode_cross_seed_jaccard": 0.31481481481481477
+    },
+    "skab": {
+      "mean_graph_activation_rate": 1.0,
+      "mean_significant_edges": 3.888888888888889,
+      "mean_igdte_pruned_edges": 0.0,
+      "within_valve_jaccard": 0.047619047619047616,
+      "cross_valve_jaccard": 0.10416666666666667,
+      "same_episode_cross_seed_jaccard": 0.5416666666666666
+    }
+  },
+  "activation": {
+    "igte": "partial_TEP_and_SKAB_activate_but_PRONTO_is_seed_unstable",
+    "igdte": "failed_no_triangle_pruning_on_any_of_21_episode_seed_evaluations",
+    "overall_passed": false
+  },
+  "negative_evidence": "The implementation contains every algorithmic component specified in Book Section 4.2, but it does not reproduce Table 4.8 on the acquired TEP IDV(1) realization and never gives IGDTE an activated triangle to prune. Sparse surrogate-significant graphs are also weakly stable within PRONTO/SKAB groups.",
+  "competitive_credit": "deny_exact_paper_score_deny_direct_causality_claim_retain_E2_engineering_evidence_for_IGTE_only",
+  "missing_items": [
+    "2023 Control Engineering Practice full text or author code with reachability-peak extraction parameters",
+    "the exact TEP realization/preprocessing used for Book Table 4.8",
+    "feature-level causal truth for PRONTO and SKAB"
+  ],
+  "evidence": "experiments/paper_harness/chapter4_igte_multidataset"
+}

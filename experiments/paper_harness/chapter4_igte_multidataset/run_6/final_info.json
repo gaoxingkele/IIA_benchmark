@@ -1,0 +1,578 @@
+{
+  "schema_version": 1,
+  "run_name": "run_6",
+  "config": "configs/experiments/book_chapter4_igte_multidataset.json",
+  "config_sha256": "b22c35cd7913b8f23f2970d20df67bf67b038fc60703099dff19d31f010fe060",
+  "git_revision": "b3f59b8d36ffc6e78d4acc72c579f4cf6bc7aa2d",
+  "execution_provenance": {
+    "git_worktree_dirty": true,
+    "git_status_porcelain": [
+      " M docs/paper_harness_plan_2026-08-29.md",
+      " M docs/status_audit.json",
+      " M docs/status_audit.md",
+      " M experiments/reports/ara_algorithm_validation.json",
+      " M paper_harness/experiment_matrix.v1.json",
+      " M paper_harness/gate_ledger.seed.jsonl",
+      " M paper_harness/semantic_gene_bank.md",
+      " M papers/literature/ara/zhang2022_igte/logic/experiments.md",
+      " M papers/literature/ara/zhang2022_igte/metadata.json",
+      " M papers/literature/ara/zhang2023_igdte/logic/experiments.md",
+      " M papers/literature/ara/zhang2023_igdte/metadata.json",
+      " M papers/literature/ara/zhang2023_igdte/trace/exploration_tree.json",
+      " M papers/literature/registry.json",
+      " M src/iia_benchmark/models/__init__.py",
+      " M src/iia_benchmark/models/root_cause_book.py",
+      " M tests/test_paper_harness.py",
+      " M tests/test_root_cause_book.py",
+      "?? configs/experiments/book_chapter4_igte_multidataset.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/Figure_1.png",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/Figure_2.png",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/experiment.py",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/notes.txt",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/plot.py",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_1/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_1_initial_incomplete_igte_failure.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_2/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_3/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_4/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_5/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_6/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_7/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_8/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_9/final_info.json",
+      "?? experiments/reports/book_ch4_igte_igdte_multidataset_validation.json"
+    ],
+    "tracked_diff_sha256": "3f217897372a6050de7ccc7d6572ad416a6dd02672a43ebb347ce67c06ceca43",
+    "source_sha256": {
+      "src/iia_benchmark/models/root_cause_book.py": "25d1e2796300d574136eb3e794290b2bbc3a26b60e91b82c0af5857ca72fd0bc",
+      "src/iia_benchmark/data/tep.py": "4432649222f36a8a704d6b1067a55c3bcec219fbe52d7778e61b6e8ca7676308",
+      "src/iia_benchmark/data/pronto.py": "82cdb2ca7624e49016fb763d9a15dc57317ed97ffd7c99da86defdbefbc35ad1",
+      "src/iia_benchmark/data/skab.py": "ef46a913442ba770ec97b593c46f076dc99c7f3e728062bf4583c1ba9737bc1a",
+      "experiments/paper_harness/chapter4_igte_multidataset/experiment.py": "60deba1e36792f2fa51540518bbe6ba17d47cee3cc9a3a82dd505b5b14335be3",
+      "configs/experiments/book_chapter4_igte_multidataset.json": "b22c35cd7913b8f23f2970d20df67bf67b038fc60703099dff19d31f010fe060"
+    }
+  },
+  "started_at_utc": "2026-08-29T17:00:46.597593+00:00",
+  "finished_at_utc": "2026-08-29T17:01:02.747801+00:00",
+  "wall_clock_seconds": 15.830837300047278,
+  "result": {
+    "dataset": "pronto",
+    "dataset_family": "pronto",
+    "dataset_match": "M2",
+    "protocol_fidelity": "P1",
+    "seed": 3301,
+    "input_files": [
+      {
+        "path": "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday2_merged.csv",
+        "bytes": 2964251,
+        "sha256": "5396adc910560513f0413e5f2a9f1cb2cbd32d98b7fc1af8881847dd3c53be9d"
+      },
+      {
+        "path": "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday3_merged.csv",
+        "bytes": 5045921,
+        "sha256": "abe1d895945a1e19a4025a7081abd159b06f27e4cdfe53a5610b327b95518540"
+      },
+      {
+        "path": "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday4_merged.csv",
+        "bytes": 2737013,
+        "sha256": "9d24682206bcaa2952fa7d0a08c9628be692db5ebf9f69cb3c2d2a7e015f1e12"
+      }
+    ],
+    "metrics": {
+      "episodes": 3,
+      "graph_activation_rate": 0.3333333333333333,
+      "mean_significant_edges": 0.6666666666666666,
+      "mean_direct_edges": 0.6666666666666666,
+      "mean_pruned_edges": 0.0,
+      "within_group_direct_edge_jaccard": 0.0,
+      "cross_group_direct_edge_jaccard": 0.5,
+      "mean_graph_wall_clock_seconds": 5.232937933333839
+    },
+    "activation": {
+      "igte_passed": false,
+      "igdte_passed": false,
+      "beacon": "every episode has a surrogate-significant IGTE edge and an IGDTE-pruned triangle edge",
+      "passed": false
+    },
+    "reporting_status": "structural transfer only; feature-level root truth absent, so top-k/MRR and causal precision are prohibited",
+    "episodes": [
+      {
+        "episode_id": "Testday2_merged_Air_leakage",
+        "group": "Air leakage",
+        "prior": {
+          "samples": 900,
+          "features": 8,
+          "finite": true,
+          "minimum_standard_deviation": 0.004051583567741166,
+          "constant_features": [],
+          "median_absolute_standardized_shift": 0.7545746012290644,
+          "maximum_absolute_standardized_shift": 7.446890733246554
+        },
+        "graph": {
+          "significant_edges": 0,
+          "direct_edges": 0,
+          "pruned_edges": 0,
+          "root_ranking": [
+            "Air.P",
+            "Air.T",
+            "Air.Valve",
+            "FR.topsep.gas",
+            "Mixture.zone.P",
+            "Water.T",
+            "riser.outlet.P",
+            "water.tank.level"
+          ],
+          "root_scores": {
+            "Air.Valve": 0.0,
+            "Air.P": 0.0,
+            "Mixture.zone.P": 0.0,
+            "water.tank.level": 0.0,
+            "FR.topsep.gas": 0.0,
+            "Air.T": 0.0,
+            "riser.outlet.P": 0.0,
+            "Water.T": 0.0
+          },
+          "edges": [],
+          "top_pair_diagnostics": [
+            {
+              "source": "Air.P",
+              "target": "Air.Valve",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "water.tank.level",
+              "target": "Air.P",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 49,
+              "window_size": 24
+            },
+            {
+              "source": "water.tank.level",
+              "target": "Air.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "water.tank.level",
+              "target": "Water.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "water.tank.level",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Air.T",
+              "target": "Air.Valve",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 46,
+              "window_size": 23
+            },
+            {
+              "source": "Air.T",
+              "target": "water.tank.level",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Air.T",
+              "target": "Water.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 59,
+              "window_size": 30
+            },
+            {
+              "source": "Water.T",
+              "target": "Air.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Air.P",
+              "target": "Air.T",
+              "igte": 0.2927644523997656,
+              "threshold": 0.2933210791220036,
+              "margin": -0.0005566267222379961,
+              "raw_lag": 12,
+              "window_size": 6
+            },
+            {
+              "source": "Mixture.zone.P",
+              "target": "Air.T",
+              "igte": 0.36844367236741055,
+              "threshold": 0.3711586755496758,
+              "margin": -0.002715003182265252,
+              "raw_lag": 11,
+              "window_size": 6
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "Mixture.zone.P",
+              "igte": 0.2388668279870364,
+              "threshold": 0.2467161621009267,
+              "margin": -0.0078493341138903,
+              "raw_lag": 60,
+              "window_size": 30
+            }
+          ],
+          "wall_clock_seconds": 5.33934920001775
+        }
+      },
+      {
+        "episode_id": "Testday3_merged_Air_leakage",
+        "group": "Air leakage",
+        "prior": {
+          "samples": 900,
+          "features": 8,
+          "finite": true,
+          "minimum_standard_deviation": 0.001382367892715836,
+          "constant_features": [],
+          "median_absolute_standardized_shift": 0.8994882150072185,
+          "maximum_absolute_standardized_shift": 1.6396111927159285
+        },
+        "graph": {
+          "significant_edges": 2,
+          "direct_edges": 2,
+          "pruned_edges": 0,
+          "root_ranking": [
+            "water.tank.level",
+            "Water.T",
+            "Air.P",
+            "Air.Valve",
+            "FR.topsep.gas",
+            "Mixture.zone.P",
+            "riser.outlet.P",
+            "Air.T"
+          ],
+          "root_scores": {
+            "Air.Valve": 0.0,
+            "Air.P": 0.0,
+            "Mixture.zone.P": 0.0,
+            "water.tank.level": 0.09124969581322107,
+            "FR.topsep.gas": 0.0,
+            "Air.T": -0.1448256713671887,
+            "riser.outlet.P": 0.0,
+            "Water.T": 0.053575975553967634
+          },
+          "edges": [
+            {
+              "source": "water.tank.level",
+              "target": "Air.T",
+              "igte": 0.09124969581322107,
+              "threshold": 0.08083461076749877,
+              "raw_lag": 60,
+              "raw_correlation": 0.15777769951342993,
+              "raw_correlation_threshold": 0.1838244257880919,
+              "window_size": 30,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Water.T",
+              "target": "Air.T",
+              "igte": 0.053575975553967634,
+              "threshold": 0.044838022528025434,
+              "raw_lag": 6,
+              "raw_correlation": -0.04709468346688831,
+              "raw_correlation_threshold": 0.1787030410369341,
+              "window_size": 3,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            }
+          ],
+          "top_pair_diagnostics": [
+            {
+              "source": "water.tank.level",
+              "target": "Air.T",
+              "igte": 0.09124969581322107,
+              "threshold": 0.08083461076749877,
+              "margin": 0.010415085045722292,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Water.T",
+              "target": "Air.T",
+              "igte": 0.053575975553967634,
+              "threshold": 0.044838022528025434,
+              "margin": 0.0087379530259422,
+              "raw_lag": 6,
+              "window_size": 3
+            },
+            {
+              "source": "Air.Valve",
+              "target": "Mixture.zone.P",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Air.P",
+              "target": "Air.Valve",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Air.P",
+              "target": "Air.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Air.P",
+              "target": "Water.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 38,
+              "window_size": 19
+            },
+            {
+              "source": "Mixture.zone.P",
+              "target": "Air.Valve",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Mixture.zone.P",
+              "target": "Water.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 38,
+              "window_size": 19
+            },
+            {
+              "source": "water.tank.level",
+              "target": "Water.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 57,
+              "window_size": 28
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "Air.P",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "Mixture.zone.P",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Air.T",
+              "target": "Mixture.zone.P",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            }
+          ],
+          "wall_clock_seconds": 5.128487000009045
+        }
+      },
+      {
+        "episode_id": "Testday4_merged_Slugging",
+        "group": "Slugging",
+        "prior": {
+          "samples": 900,
+          "features": 8,
+          "finite": true,
+          "minimum_standard_deviation": 0.0018593492117463745,
+          "constant_features": [],
+          "median_absolute_standardized_shift": 0.810476417837552,
+          "maximum_absolute_standardized_shift": 1.1931808320229667
+        },
+        "graph": {
+          "significant_edges": 0,
+          "direct_edges": 0,
+          "pruned_edges": 0,
+          "root_ranking": [
+            "Air.P",
+            "Air.T",
+            "Air.Valve",
+            "FR.topsep.gas",
+            "Mixture.zone.P",
+            "Water.T",
+            "riser.outlet.P",
+            "water.tank.level"
+          ],
+          "root_scores": {
+            "Air.Valve": 0.0,
+            "Air.P": 0.0,
+            "Mixture.zone.P": 0.0,
+            "water.tank.level": 0.0,
+            "FR.topsep.gas": 0.0,
+            "Air.T": 0.0,
+            "riser.outlet.P": 0.0,
+            "Water.T": 0.0
+          },
+          "edges": [],
+          "top_pair_diagnostics": [
+            {
+              "source": "Air.Valve",
+              "target": "Air.P",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Air.Valve",
+              "target": "Water.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 55,
+              "window_size": 28
+            },
+            {
+              "source": "Air.P",
+              "target": "Air.Valve",
+              "igte": 0.25093460146421526,
+              "threshold": 0.25093460146421526,
+              "margin": 0.0,
+              "raw_lag": 0,
+              "window_size": 2
+            },
+            {
+              "source": "Air.P",
+              "target": "Air.T",
+              "igte": 0.05450950737323761,
+              "threshold": 0.05450950737323761,
+              "margin": 0.0,
+              "raw_lag": 7,
+              "window_size": 4
+            },
+            {
+              "source": "Mixture.zone.P",
+              "target": "FR.topsep.gas",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 18,
+              "window_size": 9
+            },
+            {
+              "source": "Mixture.zone.P",
+              "target": "Air.T",
+              "igte": 0.0755922032854538,
+              "threshold": 0.0755922032854538,
+              "margin": 0.0,
+              "raw_lag": 13,
+              "window_size": 6
+            },
+            {
+              "source": "water.tank.level",
+              "target": "FR.topsep.gas",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 7,
+              "window_size": 4
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "Air.Valve",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 6,
+              "window_size": 3
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "Air.P",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 58,
+              "window_size": 29
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "Mixture.zone.P",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 53,
+              "window_size": 26
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "Air.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 11,
+              "window_size": 6
+            },
+            {
+              "source": "FR.topsep.gas",
+              "target": "Water.T",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 46,
+              "window_size": 23
+            }
+          ],
+          "wall_clock_seconds": 5.230977599974722
+        }
+      }
+    ]
+  }
+}

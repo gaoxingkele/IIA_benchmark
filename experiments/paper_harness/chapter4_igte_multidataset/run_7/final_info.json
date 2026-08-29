@@ -1,0 +1,697 @@
+{
+  "schema_version": 1,
+  "run_name": "run_7",
+  "config": "configs/experiments/book_chapter4_igte_multidataset.json",
+  "config_sha256": "b22c35cd7913b8f23f2970d20df67bf67b038fc60703099dff19d31f010fe060",
+  "git_revision": "b3f59b8d36ffc6e78d4acc72c579f4cf6bc7aa2d",
+  "execution_provenance": {
+    "git_worktree_dirty": true,
+    "git_status_porcelain": [
+      " M docs/paper_harness_plan_2026-08-29.md",
+      " M docs/status_audit.json",
+      " M docs/status_audit.md",
+      " M experiments/reports/ara_algorithm_validation.json",
+      " M paper_harness/experiment_matrix.v1.json",
+      " M paper_harness/gate_ledger.seed.jsonl",
+      " M paper_harness/semantic_gene_bank.md",
+      " M papers/literature/ara/zhang2022_igte/logic/experiments.md",
+      " M papers/literature/ara/zhang2022_igte/metadata.json",
+      " M papers/literature/ara/zhang2023_igdte/logic/experiments.md",
+      " M papers/literature/ara/zhang2023_igdte/metadata.json",
+      " M papers/literature/ara/zhang2023_igdte/trace/exploration_tree.json",
+      " M papers/literature/registry.json",
+      " M src/iia_benchmark/models/__init__.py",
+      " M src/iia_benchmark/models/root_cause_book.py",
+      " M tests/test_paper_harness.py",
+      " M tests/test_root_cause_book.py",
+      "?? configs/experiments/book_chapter4_igte_multidataset.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/Figure_1.png",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/Figure_2.png",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/experiment.py",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/notes.txt",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/plot.py",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_1/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_1_initial_incomplete_igte_failure.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_2/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_3/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_4/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_5/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_6/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_7/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_8/final_info.json",
+      "?? experiments/paper_harness/chapter4_igte_multidataset/run_9/final_info.json",
+      "?? experiments/reports/book_ch4_igte_igdte_multidataset_validation.json"
+    ],
+    "tracked_diff_sha256": "3f217897372a6050de7ccc7d6572ad416a6dd02672a43ebb347ce67c06ceca43",
+    "source_sha256": {
+      "src/iia_benchmark/models/root_cause_book.py": "25d1e2796300d574136eb3e794290b2bbc3a26b60e91b82c0af5857ca72fd0bc",
+      "src/iia_benchmark/data/tep.py": "4432649222f36a8a704d6b1067a55c3bcec219fbe52d7778e61b6e8ca7676308",
+      "src/iia_benchmark/data/pronto.py": "82cdb2ca7624e49016fb763d9a15dc57317ed97ffd7c99da86defdbefbc35ad1",
+      "src/iia_benchmark/data/skab.py": "ef46a913442ba770ec97b593c46f076dc99c7f3e728062bf4583c1ba9737bc1a",
+      "experiments/paper_harness/chapter4_igte_multidataset/experiment.py": "60deba1e36792f2fa51540518bbe6ba17d47cee3cc9a3a82dd505b5b14335be3",
+      "configs/experiments/book_chapter4_igte_multidataset.json": "b22c35cd7913b8f23f2970d20df67bf67b038fc60703099dff19d31f010fe060"
+    }
+  },
+  "started_at_utc": "2026-08-29T17:00:46.603859+00:00",
+  "finished_at_utc": "2026-08-29T17:01:02.208487+00:00",
+  "wall_clock_seconds": 15.274587500025518,
+  "result": {
+    "dataset": "skab",
+    "dataset_family": "skab",
+    "dataset_match": "M2",
+    "protocol_fidelity": "P1",
+    "seed": 1103,
+    "input_files": [
+      {
+        "path": "data/public_datasets/skab/data/valve1/0.csv",
+        "bytes": 110346,
+        "sha256": "16af3f71313a23dd33d9b7b8065d836d05c3f9257588881cc7fbe07c076d9dc8"
+      },
+      {
+        "path": "data/public_datasets/skab/data/valve1/1.csv",
+        "bytes": 110330,
+        "sha256": "fe4493bf805baef4e6dfb864094275d8cc2ea80a16b3735e2752b18b6aefd812"
+      },
+      {
+        "path": "data/public_datasets/skab/data/valve2/0.csv",
+        "bytes": 109156,
+        "sha256": "a6670e7a68c7c6ba62c649bd9d350633e80db624578e9529f2b736ced5e32bde"
+      }
+    ],
+    "metrics": {
+      "episodes": 3,
+      "graph_activation_rate": 1.0,
+      "mean_significant_edges": 3.6666666666666665,
+      "mean_direct_edges": 3.6666666666666665,
+      "mean_pruned_edges": 0.0,
+      "within_group_direct_edge_jaccard": 0.14285714285714285,
+      "cross_group_direct_edge_jaccard": 0.1875,
+      "mean_graph_wall_clock_seconds": 5.086328633323622
+    },
+    "activation": {
+      "igte_passed": true,
+      "igdte_passed": false,
+      "beacon": "every episode has a surrogate-significant IGTE edge and an IGDTE-pruned triangle edge",
+      "passed": false
+    },
+    "reporting_status": "structural transfer only; feature-level root truth absent, so top-k/MRR and causal precision are prohibited",
+    "episodes": [
+      {
+        "episode_id": "valve1_0",
+        "group": "valve1",
+        "prior": {
+          "samples": 900,
+          "features": 8,
+          "finite": true,
+          "minimum_standard_deviation": 0.0003051973727144493,
+          "constant_features": [],
+          "median_absolute_standardized_shift": 0.3599273928845941,
+          "maximum_absolute_standardized_shift": 9.33493086613879
+        },
+        "graph": {
+          "significant_edges": 6,
+          "direct_edges": 6,
+          "pruned_edges": 0,
+          "root_ranking": [
+            "Accelerometer1RMS",
+            "Voltage",
+            "Volume Flow RateRMS",
+            "Temperature",
+            "Pressure",
+            "Thermocouple",
+            "Accelerometer2RMS",
+            "Current"
+          ],
+          "root_scores": {
+            "Accelerometer1RMS": 0.986052571627366,
+            "Accelerometer2RMS": -0.6711564783230851,
+            "Current": -0.8070822583436731,
+            "Pressure": -0.210148777148915,
+            "Temperature": 0.09447153264622121,
+            "Thermocouple": -0.28720871357022915,
+            "Voltage": 0.7023349421883072,
+            "Volume Flow RateRMS": 0.19273718092400793
+          },
+          "edges": [
+            {
+              "source": "Accelerometer1RMS",
+              "target": "Pressure",
+              "igte": 0.986052571627366,
+              "threshold": 0.9272290422156013,
+              "raw_lag": 50,
+              "raw_correlation": 0.08449359713030574,
+              "raw_correlation_threshold": 0.18284028522703533,
+              "window_size": 25,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Accelerometer2RMS",
+              "target": "Current",
+              "igte": 0.8070822583436731,
+              "threshold": 0.742566129311415,
+              "raw_lag": 54,
+              "raw_correlation": 0.10174999391278909,
+              "raw_correlation_threshold": 0.18323190162030295,
+              "window_size": 27,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Pressure",
+              "target": "Accelerometer2RMS",
+              "igte": 0.775903794478451,
+              "threshold": 0.7648135600358426,
+              "raw_lag": 53,
+              "raw_correlation": 0.08569277280799266,
+              "raw_correlation_threshold": 0.18313374427385884,
+              "window_size": 26,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Temperature",
+              "target": "Thermocouple",
+              "igte": 0.28720871357022915,
+              "threshold": 0.27088330061276106,
+              "raw_lag": 60,
+              "raw_correlation": 0.777471355379027,
+              "raw_correlation_threshold": 0.1838244257880919,
+              "window_size": 30,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Voltage",
+              "target": "Accelerometer2RMS",
+              "igte": 0.7023349421883072,
+              "threshold": 0.6242113220118284,
+              "raw_lag": 28,
+              "raw_correlation": -0.08492294482476602,
+              "raw_correlation_threshold": 0.18073354005504771,
+              "window_size": 14,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Volume Flow RateRMS",
+              "target": "Temperature",
+              "igte": 0.19273718092400793,
+              "threshold": 0.12130860949543651,
+              "raw_lag": 60,
+              "raw_correlation": 0.27194181217014696,
+              "raw_correlation_threshold": 0.1838244257880919,
+              "window_size": 30,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            }
+          ],
+          "top_pair_diagnostics": [
+            {
+              "source": "Voltage",
+              "target": "Accelerometer2RMS",
+              "igte": 0.7023349421883072,
+              "threshold": 0.6242113220118284,
+              "margin": 0.07812362017647878,
+              "raw_lag": 28,
+              "window_size": 14
+            },
+            {
+              "source": "Volume Flow RateRMS",
+              "target": "Temperature",
+              "igte": 0.19273718092400793,
+              "threshold": 0.12130860949543651,
+              "margin": 0.07142857142857142,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Accelerometer2RMS",
+              "target": "Current",
+              "igte": 0.8070822583436731,
+              "threshold": 0.742566129311415,
+              "margin": 0.06451612903225812,
+              "raw_lag": 54,
+              "window_size": 27
+            },
+            {
+              "source": "Accelerometer1RMS",
+              "target": "Pressure",
+              "igte": 0.986052571627366,
+              "threshold": 0.9272290422156013,
+              "margin": 0.05882352941176472,
+              "raw_lag": 50,
+              "window_size": 25
+            },
+            {
+              "source": "Temperature",
+              "target": "Thermocouple",
+              "igte": 0.28720871357022915,
+              "threshold": 0.27088330061276106,
+              "margin": 0.01632541295746809,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Pressure",
+              "target": "Accelerometer2RMS",
+              "igte": 0.775903794478451,
+              "threshold": 0.7648135600358426,
+              "margin": 0.011090234442608482,
+              "raw_lag": 53,
+              "window_size": 26
+            },
+            {
+              "source": "Accelerometer2RMS",
+              "target": "Thermocouple",
+              "igte": 0.42043743418986673,
+              "threshold": 0.42043743418986673,
+              "margin": 0.0,
+              "raw_lag": 38,
+              "window_size": 19
+            },
+            {
+              "source": "Accelerometer2RMS",
+              "target": "Voltage",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 50,
+              "window_size": 25
+            },
+            {
+              "source": "Pressure",
+              "target": "Accelerometer1RMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 57,
+              "window_size": 28
+            },
+            {
+              "source": "Pressure",
+              "target": "Current",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 43,
+              "window_size": 22
+            },
+            {
+              "source": "Pressure",
+              "target": "Temperature",
+              "igte": 0.47505293664558845,
+              "threshold": 0.47505293664558845,
+              "margin": 0.0,
+              "raw_lag": 15,
+              "window_size": 8
+            },
+            {
+              "source": "Pressure",
+              "target": "Voltage",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 39,
+              "window_size": 20
+            }
+          ],
+          "wall_clock_seconds": 6.0184744000434875
+        }
+      },
+      {
+        "episode_id": "valve1_1",
+        "group": "valve1",
+        "prior": {
+          "samples": 900,
+          "features": 8,
+          "finite": true,
+          "minimum_standard_deviation": 0.00031164874132034537,
+          "constant_features": [],
+          "median_absolute_standardized_shift": 0.421958368899039,
+          "maximum_absolute_standardized_shift": 2.3500382418509815
+        },
+        "graph": {
+          "significant_edges": 2,
+          "direct_edges": 2,
+          "pruned_edges": 0,
+          "root_ranking": [
+            "Pressure",
+            "Current",
+            "Accelerometer1RMS",
+            "Temperature",
+            "Thermocouple",
+            "Voltage",
+            "Volume Flow RateRMS",
+            "Accelerometer2RMS"
+          ],
+          "root_scores": {
+            "Accelerometer1RMS": 0.0,
+            "Accelerometer2RMS": -1.0713959538535462,
+            "Current": 0.6753983754528473,
+            "Pressure": 1.0713959538535462,
+            "Temperature": 0.0,
+            "Thermocouple": 0.0,
+            "Voltage": 0.0,
+            "Volume Flow RateRMS": -0.6753983754528473
+          },
+          "edges": [
+            {
+              "source": "Current",
+              "target": "Volume Flow RateRMS",
+              "igte": 0.6753983754528473,
+              "threshold": 0.606432858211468,
+              "raw_lag": 58,
+              "raw_correlation": 0.0988448818144032,
+              "raw_correlation_threshold": 0.18362623248660626,
+              "window_size": 29,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Pressure",
+              "target": "Accelerometer2RMS",
+              "igte": 1.0713959538535462,
+              "threshold": 1.0304379907944292,
+              "raw_lag": 33,
+              "raw_correlation": -0.06952114060407916,
+              "raw_correlation_threshold": 0.1812054795375337,
+              "window_size": 16,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            }
+          ],
+          "top_pair_diagnostics": [
+            {
+              "source": "Current",
+              "target": "Volume Flow RateRMS",
+              "igte": 0.6753983754528473,
+              "threshold": 0.606432858211468,
+              "margin": 0.06896551724137934,
+              "raw_lag": 58,
+              "window_size": 29
+            },
+            {
+              "source": "Pressure",
+              "target": "Accelerometer2RMS",
+              "igte": 1.0713959538535462,
+              "threshold": 1.0304379907944292,
+              "margin": 0.04095796305911703,
+              "raw_lag": 33,
+              "window_size": 16
+            },
+            {
+              "source": "Accelerometer1RMS",
+              "target": "Temperature",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Accelerometer1RMS",
+              "target": "Volume Flow RateRMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Temperature",
+              "target": "Volume Flow RateRMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 57,
+              "window_size": 28
+            },
+            {
+              "source": "Voltage",
+              "target": "Accelerometer2RMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 27,
+              "window_size": 14
+            },
+            {
+              "source": "Voltage",
+              "target": "Pressure",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 27,
+              "window_size": 14
+            },
+            {
+              "source": "Voltage",
+              "target": "Temperature",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 57,
+              "window_size": 28
+            },
+            {
+              "source": "Voltage",
+              "target": "Thermocouple",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 60,
+              "window_size": 30
+            },
+            {
+              "source": "Volume Flow RateRMS",
+              "target": "Accelerometer1RMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 48,
+              "window_size": 24
+            },
+            {
+              "source": "Volume Flow RateRMS",
+              "target": "Voltage",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 27,
+              "window_size": 14
+            },
+            {
+              "source": "Accelerometer1RMS",
+              "target": "Voltage",
+              "igte": 0.7210070380390746,
+              "threshold": 0.7254713237533603,
+              "margin": -0.004464285714285698,
+              "raw_lag": 2,
+              "window_size": 2
+            }
+          ],
+          "wall_clock_seconds": 4.812758899992332
+        }
+      },
+      {
+        "episode_id": "valve2_0",
+        "group": "valve2",
+        "prior": {
+          "samples": 900,
+          "features": 8,
+          "finite": true,
+          "minimum_standard_deviation": 0.0003693812179216534,
+          "constant_features": [],
+          "median_absolute_standardized_shift": 0.5751831976766392,
+          "maximum_absolute_standardized_shift": 5.28953240002148
+        },
+        "graph": {
+          "significant_edges": 3,
+          "direct_edges": 3,
+          "pruned_edges": 0,
+          "root_ranking": [
+            "Pressure",
+            "Current",
+            "Accelerometer1RMS",
+            "Temperature",
+            "Voltage",
+            "Thermocouple",
+            "Volume Flow RateRMS",
+            "Accelerometer2RMS"
+          ],
+          "root_scores": {
+            "Accelerometer1RMS": 0.0,
+            "Accelerometer2RMS": -0.8059543279804761,
+            "Current": 0.5599241808031037,
+            "Pressure": 1.428620211463703,
+            "Temperature": 0.0,
+            "Thermocouple": -0.5599241808031037,
+            "Voltage": 0.0,
+            "Volume Flow RateRMS": -0.622665883483227
+          },
+          "edges": [
+            {
+              "source": "Current",
+              "target": "Thermocouple",
+              "igte": 0.5599241808031037,
+              "threshold": 0.5200009252709692,
+              "raw_lag": 29,
+              "raw_correlation": 0.055616370723966295,
+              "raw_correlation_threshold": 0.18082761123904814,
+              "window_size": 14,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Pressure",
+              "target": "Accelerometer2RMS",
+              "igte": 0.8059543279804761,
+              "threshold": 0.7860888673972268,
+              "raw_lag": 43,
+              "raw_correlation": -0.07301548208347368,
+              "raw_correlation_threshold": 0.18216139420457816,
+              "window_size": 22,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            },
+            {
+              "source": "Pressure",
+              "target": "Volume Flow RateRMS",
+              "igte": 0.622665883483227,
+              "threshold": 0.5700343045358586,
+              "raw_lag": 43,
+              "raw_correlation": 0.10844450360923409,
+              "raw_correlation_threshold": 0.18216139420457816,
+              "window_size": 22,
+              "intermediates": [],
+              "conditional_scores": [],
+              "direct": true
+            }
+          ],
+          "top_pair_diagnostics": [
+            {
+              "source": "Pressure",
+              "target": "Volume Flow RateRMS",
+              "igte": 0.622665883483227,
+              "threshold": 0.5700343045358586,
+              "margin": 0.052631578947368474,
+              "raw_lag": 43,
+              "window_size": 22
+            },
+            {
+              "source": "Current",
+              "target": "Thermocouple",
+              "igte": 0.5599241808031037,
+              "threshold": 0.5200009252709692,
+              "margin": 0.039923255532134494,
+              "raw_lag": 29,
+              "window_size": 14
+            },
+            {
+              "source": "Pressure",
+              "target": "Accelerometer2RMS",
+              "igte": 0.8059543279804761,
+              "threshold": 0.7860888673972268,
+              "margin": 0.019865460583249228,
+              "raw_lag": 43,
+              "window_size": 22
+            },
+            {
+              "source": "Accelerometer1RMS",
+              "target": "Current",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 29,
+              "window_size": 14
+            },
+            {
+              "source": "Accelerometer1RMS",
+              "target": "Voltage",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 49,
+              "window_size": 24
+            },
+            {
+              "source": "Current",
+              "target": "Accelerometer1RMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 59,
+              "window_size": 30
+            },
+            {
+              "source": "Pressure",
+              "target": "Accelerometer1RMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 48,
+              "window_size": 24
+            },
+            {
+              "source": "Temperature",
+              "target": "Accelerometer1RMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 56,
+              "window_size": 28
+            },
+            {
+              "source": "Voltage",
+              "target": "Accelerometer2RMS",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 48,
+              "window_size": 24
+            },
+            {
+              "source": "Voltage",
+              "target": "Current",
+              "igte": 0.5257210791800709,
+              "threshold": 0.5257210791800709,
+              "margin": 0.0,
+              "raw_lag": 0,
+              "window_size": 2
+            },
+            {
+              "source": "Voltage",
+              "target": "Pressure",
+              "igte": 0.0,
+              "threshold": 0.0,
+              "margin": 0.0,
+              "raw_lag": 41,
+              "window_size": 20
+            },
+            {
+              "source": "Current",
+              "target": "Voltage",
+              "igte": 0.7851405199941182,
+              "threshold": 0.7896048057084039,
+              "margin": -0.004464285714285698,
+              "raw_lag": 0,
+              "window_size": 2
+            }
+          ],
+          "wall_clock_seconds": 4.427752599935047
+        }
+      }
+    ]
+  }
+}

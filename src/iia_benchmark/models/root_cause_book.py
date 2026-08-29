@@ -8,6 +8,7 @@ from typing import Iterable, Mapping, Sequence
 
 import numpy as np
 from scipy.optimize import nnls
+from scipy.signal import find_peaks
 
 
 def _discrete_vector(values: Sequence[int]) -> np.ndarray:
@@ -48,8 +49,8 @@ def conditional_entropy(outcome: Sequence[int], *conditions: Sequence[object]) -
 def _history_states(values: np.ndarray, horizon: int, indices: np.ndarray) -> np.ndarray:
     if horizon < 1:
         raise ValueError("history horizon must be positive")
-    if np.isin(values, [0, 1]).all():
-        return np.asarray([int(np.any(values[index - horizon + 1 : index + 1])) for index in indices])
+    if horizon == 1:
+        return values[indices]
     result = np.empty(len(indices), dtype=object)
     result[:] = [tuple(values[index - horizon + 1 : index + 1]) for index in indices]
     return result
@@ -78,8 +79,43 @@ def normalized_transfer_entropy(
     base = conditional_entropy(present, y_history)
     if base <= 1e-15:
         return 0.0
-    score = 1.0 - conditional_entropy(present, y_history, x_history) / base
+    score = discrete_transfer_entropy(
+        x,
+        y,
+        lag=lag,
+        source_horizon=source_horizon,
+        target_horizon=target_horizon,
+    ) / base
     return float(np.clip(score, 0.0, 1.0))
+
+
+def discrete_transfer_entropy(
+    source: Sequence[int],
+    target: Sequence[int],
+    *,
+    lag: int = 1,
+    source_horizon: int = 1,
+    target_horizon: int = 1,
+) -> float:
+    """Empirical discrete TE in bits, without Chapter-4.1 normalization."""
+
+    x, y = _discrete_vector(source), _discrete_vector(target)
+    if len(x) != len(y) or lag < 0:
+        raise ValueError("source/target lengths must match and lag be non-negative")
+    start = max(target_horizon, lag + source_horizon - 1)
+    indices = np.arange(start, len(y))
+    if not len(indices):
+        raise ValueError("sequences are too short for the horizons and lag")
+    present = y[indices]
+    y_history = _history_states(y, target_horizon, indices - 1)
+    x_history = _history_states(x, source_horizon, indices - lag)
+    return float(
+        max(
+            conditional_entropy(present, y_history)
+            - conditional_entropy(present, y_history, x_history),
+            0.0,
+        )
+    )
 
 
 def normalized_direct_transfer_entropy(
@@ -96,8 +132,8 @@ def normalized_direct_transfer_entropy(
     """Normalized direct TE conditioned on an intermediate, Book equation (4.12)."""
 
     x, y, z = map(_discrete_vector, (source, target, intermediate))
-    if len({len(x), len(y), len(z)}) != 1:
-        raise ValueError("all sequence lengths must match")
+    if len({len(x), len(y), len(z)}) != 1 or min(source_lag, intermediate_lag) < 0:
+        raise ValueError("all sequence lengths must match and lags be non-negative")
     start = max(
         target_horizon,
         source_lag + source_horizon - 1,
@@ -113,7 +149,54 @@ def normalized_direct_transfer_entropy(
     base = conditional_entropy(present, yh, zh)
     if base <= 1e-15:
         return 0.0
-    return float(np.clip(1.0 - conditional_entropy(present, yh, zh, xh) / base, 0.0, 1.0))
+    score = discrete_direct_transfer_entropy(
+        x,
+        y,
+        z,
+        source_lag=source_lag,
+        intermediate_lag=intermediate_lag,
+        source_horizon=source_horizon,
+        target_horizon=target_horizon,
+        intermediate_horizon=intermediate_horizon,
+    )
+    return float(np.clip(score / base, 0.0, 1.0))
+
+
+def discrete_direct_transfer_entropy(
+    source: Sequence[int],
+    target: Sequence[int],
+    intermediate: Sequence[int],
+    *,
+    source_lag: int = 1,
+    intermediate_lag: int = 1,
+    source_horizon: int = 1,
+    target_horizon: int = 1,
+    intermediate_horizon: int = 1,
+) -> float:
+    """Empirical conditional/direct TE in bits for Book Section 4.2.3."""
+
+    x, y, z = map(_discrete_vector, (source, target, intermediate))
+    if len({len(x), len(y), len(z)}) != 1 or min(source_lag, intermediate_lag) < 0:
+        raise ValueError("all sequence lengths must match and lags be non-negative")
+    start = max(
+        target_horizon,
+        source_lag + source_horizon - 1,
+        intermediate_lag + intermediate_horizon - 1,
+    )
+    indices = np.arange(start, len(y))
+    if not len(indices):
+        raise ValueError("sequences are too short")
+    present = y[indices]
+    yh = _history_states(y, target_horizon, indices - 1)
+    xh = _history_states(x, source_horizon, indices - source_lag)
+    zh = _history_states(z, intermediate_horizon, indices - intermediate_lag)
+    return float(
+        max(
+            conditional_entropy(present, yh, zh)
+            - conditional_entropy(present, yh, zh, xh),
+            0.0,
+        )
+    )
 
 
 def bernoulli_surrogate_threshold(
@@ -194,14 +277,22 @@ class NormalizedTransferEntropyGraph:
 
 
 def information_granules(values: Sequence[float], window_size: int) -> np.ndarray:
-    """Create lower/mean/upper information granules from non-overlapping windows."""
+    """Create fuzzy lower-support/core/upper-support granules, equations (4.23)-(4.24)."""
 
     samples = np.asarray(values, dtype=float)
     if samples.ndim != 1 or window_size < 2 or len(samples) < window_size:
         raise ValueError("valid values and window_size are required")
     count = len(samples) // window_size
-    windows = samples[: count * window_size].reshape(count, window_size)
-    return np.column_stack([np.min(windows, axis=1), np.mean(windows, axis=1), np.max(windows, axis=1)])
+    windows = np.sort(
+        samples[: count * window_size].reshape(count, window_size), axis=1
+    )
+    cores = np.median(windows, axis=1)
+    half = window_size // 2
+    lower_values = windows[:, :half]
+    upper_values = windows[:, half if window_size % 2 == 0 else half + 1 :]
+    lower_spread = np.sqrt(np.mean((lower_values - cores[:, None]) ** 2, axis=1))
+    upper_spread = np.sqrt(np.mean((upper_values - cores[:, None]) ** 2, axis=1))
+    return np.column_stack([cores - lower_spread, cores, cores + upper_spread])
 
 
 def cluster_information_granules(
@@ -214,15 +305,40 @@ def cluster_information_granules(
     except ImportError as exc:  # pragma: no cover - optional dependency route
         raise RuntimeError("IGTE requires the project 'ml' extra (scikit-learn)") from exc
     matrix = np.asarray(list(granules), dtype=float)
-    labels = OPTICS(min_samples=min(min_samples, max(2, len(matrix) // 2)), xi=xi).fit_predict(matrix)
-    if np.all(labels == -1):
-        order = np.argsort(np.argsort(matrix[:, 1]))
-        labels = np.floor(order / max(min_samples, 1)).astype(int)
-    elif np.any(labels == -1):
-        centers = np.asarray([np.mean(matrix[labels == label], axis=0) for label in sorted(set(labels) - {-1})])
-        noise = np.flatnonzero(labels == -1)
-        labels[noise] = np.argmin(np.linalg.norm(matrix[noise, None] - centers[None, :], axis=2), axis=1)
-    return labels.astype(int)
+    if matrix.ndim != 2 or matrix.shape[1] != 3 or len(matrix) < 2:
+        raise ValueError("granules must be a non-empty matrix of three-dimensional features")
+    neighborhood = min(min_samples, max(2, len(matrix) // 2))
+    optics = OPTICS(
+        min_samples=neighborhood,
+        xi=xi,
+        cluster_method="dbscan",
+        eps=np.inf,
+    ).fit(matrix)
+    ordering = np.asarray(optics.ordering_, dtype=int)
+    reachability = np.asarray(optics.reachability_[ordering], dtype=float)
+    finite = reachability[np.isfinite(reachability)]
+    if not len(finite):
+        labels = np.zeros(len(matrix), dtype=int)
+    else:
+        profile = reachability.copy()
+        profile[~np.isfinite(profile)] = float(np.max(finite))
+        prominence = max(float(np.std(finite)) * max(5.0 * xi, 0.1), 1e-12)
+        peaks, _ = find_peaks(
+            profile,
+            prominence=prominence,
+            distance=max(2, neighborhood),
+        )
+        boundaries = [0, *[int(peak) for peak in peaks if 0 < peak < len(ordering)], len(ordering)]
+        labels = np.empty(len(matrix), dtype=int)
+        for cluster, (start, stop) in enumerate(
+            zip(boundaries[:-1], boundaries[1:], strict=True)
+        ):
+            labels[ordering[start:stop]] = cluster
+    cluster_order = sorted(
+        set(labels), key=lambda label: float(np.median(matrix[labels == label, 1]))
+    )
+    trend_preserving = {label: rank for rank, label in enumerate(cluster_order)}
+    return np.asarray([trend_preserving[label] for label in labels], dtype=int)
 
 
 def information_granulation_transfer_entropy(
@@ -233,10 +349,12 @@ def information_granulation_transfer_entropy(
     lag: int = 1,
     order: int = 2,
     min_samples: int = 5,
+    normalized: bool = False,
 ) -> float:
     x = cluster_information_granules(information_granules(source, window_size), min_samples=min_samples)
     y = cluster_information_granules(information_granules(target, window_size), min_samples=min_samples)
-    return normalized_transfer_entropy(x, y, lag=lag, source_horizon=order, target_horizon=order)
+    scorer = normalized_transfer_entropy if normalized else discrete_transfer_entropy
+    return scorer(x, y, lag=lag, source_horizon=order, target_horizon=order)
 
 
 def information_granulation_direct_transfer_entropy(
@@ -248,14 +366,51 @@ def information_granulation_direct_transfer_entropy(
     lag: int = 1,
     order: int = 2,
     min_samples: int = 5,
+    normalized: bool = False,
 ) -> float:
     x = cluster_information_granules(information_granules(source, window_size), min_samples=min_samples)
     y = cluster_information_granules(information_granules(target, window_size), min_samples=min_samples)
     z = cluster_information_granules(information_granules(intermediate, window_size), min_samples=min_samples)
-    return normalized_direct_transfer_entropy(
+    scorer = (
+        normalized_direct_transfer_entropy
+        if normalized
+        else discrete_direct_transfer_entropy
+    )
+    return scorer(
         x, y, z, source_lag=lag, intermediate_lag=lag,
         source_horizon=order, target_horizon=order, intermediate_horizon=order,
     )
+
+
+def clustered_surrogate_threshold(
+    source_labels: Sequence[int],
+    target_labels: Sequence[int],
+    *,
+    lag: int = 1,
+    order: int = 2,
+    simulations: int = 19,
+    significance: float = 0.1,
+    seed: int = 0,
+) -> float:
+    """Permutation threshold on clustered granule features (Book Sec. 4.2.3)."""
+
+    if simulations < 1 or not 0.0 < significance < 1.0:
+        raise ValueError("positive simulations and significance in (0, 1) are required")
+    x, y = _discrete_vector(source_labels), _discrete_vector(target_labels)
+    if len(x) != len(y):
+        raise ValueError("clustered sequences must be aligned")
+    rng = np.random.default_rng(seed)
+    scores = [
+        discrete_transfer_entropy(
+            rng.permutation(x),
+            y,
+            lag=lag,
+            source_horizon=order,
+            target_horizon=order,
+        )
+        for _ in range(simulations)
+    ]
+    return float(np.quantile(scores, 1.0 - significance))
 
 
 @dataclass

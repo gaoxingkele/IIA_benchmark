@@ -1,0 +1,25 @@
+Book Chapter 4.2 IGTE/IGDTE multi-dataset validation
+====================================================
+
+The implementation now includes fuzzy triangular information granules, modified
+OPTICS reachability-peak clusters, trend-preserving cluster relabeling, empirical
+second-order TE/DTE, pairwise cross-correlation window selection, and clustered
+feature surrogate thresholds.
+
+The frozen protocol uses three seeds (1103/2207/3301) on TEP IDV(1), PRONTO,
+and SKAB. All inputs are acquired public payloads and pass finite/nonconstant
+prior gates. TEP uses the exact eight variables listed in Book Table 4.7 and
+compares against Table 4.8 plus the four stated IGDTE removals. PRONTO and SKAB
+lack feature-level causal truth, so root accuracy and edge precision are denied.
+
+This wave is a retained negative result. TEP yields two significant edges per
+seed but zero overlap with Table 4.8, V1 rank 2, and no triangle available for
+IGDTE. PRONTO activation varies from 0.3333 to 1.0 across surrogate seeds; SKAB
+activates all episodes but within-group graph overlap is only 0.0476. No run on
+any dataset produces an IGDTE-pruned edge. The missing 2023 full text/code,
+undisclosed reachability-peak parameters, and a potentially different TEP
+realization remain blockers to exact table reproduction. These failures are not
+converted into SOTA or direct-causality claims.
+
+The initial incomplete parent (`min/mean/max` granules plus stock Xi labels) is
+retained as `run_1_initial_incomplete_igte_failure.json` for repair provenance.

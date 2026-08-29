@@ -208,3 +208,25 @@ accuracy is 0.8627 versus 0.0588 for instantaneous lookup. The recursive method
 has lower overall point accuracy (0.9491 versus 0.9850) and 19-sample transition
 delays; this cost is retained. Because the original plant waveforms are absent,
 the run is P1/E1 controlled evidence rather than Figure 4.37 reproduction.
+
+## Chapter 4.2 IGTE/IGDTE three-dataset validation
+
+The frozen Chapter 4.2 wave uses seeds 1103/2207/3301 on TEP IDV(1), PRONTO,
+and SKAB. It implements the book-specified triangular fuzzy granules, modified
+OPTICS reachability-peak clustering, trend-preserving cluster labels,
+second-order IGTE/IGDTE, pair-specific delay windows, and clustered surrogate
+thresholds. All seven acquired episodes pass finite, nonconstant, and
+pre/post-shift prior checks.
+
+TEP generates two significant edges per seed but has F1 0 against Book Table
+4.8; V1 ranks second and no indirect edge is pruned. PRONTO has mean activation
+0.6667 and same-episode cross-seed direct-edge Jaccard 0.3148. SKAB activates on
+all episodes, but within-valve Jaccard is 0.0476. No IGDTE pruning occurs in any
+of the 21 episode-by-seed evaluations. The negative result is retained, IGTE
+receives E2 engineering credit, and IGDTE remains E0 because its defining
+direct-edge mechanism never activates. Exact paper/table credit is blocked by
+the unavailable 2023 full text/code, reachability-peak parameters, and exact
+TEP realization.
+
+Machine-readable report:
+`experiments/reports/book_ch4_igte_igdte_multidataset_validation.json`.

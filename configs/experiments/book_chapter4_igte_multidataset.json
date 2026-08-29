@@ -1,0 +1,60 @@
+{
+  "id": "book_chapter4_igte_multidataset",
+  "task": "real_continuous_causal_graph",
+  "downstream_tasks": ["T3"],
+  "validated_algorithms": ["book_4_2_igte", "book_4_2_igdte"],
+  "book_sections": ["4.2.2", "4.2.3", "4.2.4.2"],
+  "runs": {
+    "run_1": {"dataset": "tep_idv1", "seed": 1103},
+    "run_2": {"dataset": "tep_idv1", "seed": 2207},
+    "run_3": {"dataset": "tep_idv1", "seed": 3301},
+    "run_4": {"dataset": "pronto", "seed": 1103},
+    "run_5": {"dataset": "pronto", "seed": 2207},
+    "run_6": {"dataset": "pronto", "seed": 3301},
+    "run_7": {"dataset": "skab", "seed": 1103},
+    "run_8": {"dataset": "skab", "seed": 2207},
+    "run_9": {"dataset": "skab", "seed": 3301}
+  },
+  "model": {
+    "order": 2,
+    "granular_lag": 1,
+    "max_raw_lag": 60,
+    "min_window_size": 2,
+    "min_samples": 5,
+    "optics_xi": 0.05,
+    "surrogate_simulations": 19,
+    "significance": 0.1,
+    "max_features": 8
+  },
+  "datasets": {
+    "tep_idv1": {
+      "family": "tep_classic",
+      "match": "M3",
+      "protocol": "P2",
+      "path": "data/public_datasets/tep_classic/data/d01_te.dat",
+      "slice": [60, 960],
+      "fault_start_in_slice": 100,
+      "features": ["V1", "V4", "V8", "V16", "V18", "V31", "V38", "V50"],
+      "loader_features": ["XMEAS_01", "XMEAS_04", "XMEAS_08", "XMEAS_16", "XMEAS_18", "XMEAS_31", "XMEAS_38", "XMV_09"],
+      "reference": "Book Table 4.8 and the four IGDTE removals stated on printed pages 259-261"
+    },
+    "pronto": {
+      "family": "pronto",
+      "match": "M2",
+      "protocol": "P1",
+      "glob": "data/public_datasets/pronto/extracted/**/Testday*_merged.csv",
+      "episodes": [["Testday2_merged", "Air leakage"], ["Testday3_merged", "Air leakage"], ["Testday4_merged", "Slugging"]],
+      "episode_samples": 900,
+      "features": ["Air.Valve", "Air.P", "Mixture.zone.P", "water.tank.level", "FR.topsep.gas", "Air.T", "riser.outlet.P", "Water.T"]
+    },
+    "skab": {
+      "family": "skab",
+      "match": "M2",
+      "protocol": "P1",
+      "paths": ["data/public_datasets/skab/data/valve1/0.csv", "data/public_datasets/skab/data/valve1/1.csv", "data/public_datasets/skab/data/valve2/0.csv"],
+      "episode_samples": 900,
+      "pre_anomaly_samples": 450
+    }
+  },
+  "reporting_boundary": "TEP IDV(1) may be compared with the book's published graph because the same simulator/fault and variable mapping are used. PRONTO and SKAB expose fault/anomaly labels but no feature-level causal truth; only graph activation, IGDTE pruning, stability, lag/window distributions, and runtime are admissible."
+}

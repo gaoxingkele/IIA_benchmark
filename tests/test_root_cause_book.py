@@ -2,12 +2,16 @@ from pathlib import Path
 from zipfile import ZipFile
 
 import numpy as np
+import pytest
 
 from iia_benchmark.models import (
     LinearSegment,
     NormalizedTransferEntropyGraph,
     PLRContributionRCA,
     RecursiveBayesianAlarmRCA,
+    clustered_surrogate_threshold,
+    discrete_direct_transfer_entropy,
+    discrete_transfer_entropy,
     information_granulation_direct_transfer_entropy,
     information_granulation_transfer_entropy,
     information_granules,
@@ -40,6 +44,12 @@ def test_nte_and_ndte_remove_indirect_edge() -> None:
     )
     assert nte > 0.1
     assert ndte < nte
+    te = discrete_transfer_entropy(root, target, lag=6)
+    dte = discrete_direct_transfer_entropy(
+        root, target, middle, source_lag=6, intermediate_lag=3
+    )
+    assert te > 0
+    assert dte < te
 
 
 def test_nte_graph_finds_direct_chain_edges() -> None:
@@ -65,8 +75,20 @@ def test_information_granulation_te_and_direct_te() -> None:
     igdte = information_granulation_direct_transfer_entropy(
         source, target, middle, window_size=10, lag=1, order=2, min_samples=4
     )
-    assert 0 <= igdte <= 1
-    assert 0 < igte <= 1
+    assert igdte >= 0
+    assert igte > 0
+    xlabels = rng.binomial(1, 0.2, 2000)
+    ylabels = np.roll(xlabels, 2)
+    threshold = clustered_surrogate_threshold(
+        xlabels, ylabels, order=2, simulations=5, significance=0.2, seed=3
+    )
+    assert discrete_transfer_entropy(
+        xlabels, ylabels, lag=2, source_horizon=2, target_horizon=2
+    ) > threshold
+    with pytest.raises(ValueError, match="lags be non-negative"):
+        discrete_direct_transfer_entropy(
+            xlabels, ylabels, xlabels, source_lag=-1
+        )
 
 
 def test_recursive_bayesian_network_converges_and_handles_unknown() -> None:

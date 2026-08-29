@@ -179,7 +179,7 @@
       "license": "CC BY 4.0",
       "method_summary": "Abstracts continuous time series into information granules before estimating transfer entropy for causal discovery.",
       "local_implementation": ["src/iia_benchmark/models/root_cause_book.py:information_granulation_transfer_entropy"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_root_cause_book.py", "scope": "information-granule/OPTICS/IGTE causal-chain tests; paper two-tank score pending"},
+      "local_validation": {"status": "partial", "command": "python -m pytest -q tests/test_root_cause_book.py", "scope": "shared information-granulation and transfer-entropy invariants pass; the paper's earlier KDE/first-order two-tank and industrial scores remain pending"},
       "claims": [
         {"id": "C1", "statement": "Information granulation is used before transfer-entropy estimation.", "support": "paper_pdf_method", "status": "explicit"},
         {"id": "C2", "statement": "The method is evaluated on simulated and industrial-process examples.", "support": "paper_pdf_experiments", "status": "explicit"}
@@ -212,7 +212,7 @@
       "landing_url": "https://doi.org/10.1016/j.conengprac.2023.105669",
       "method_summary": "Combines information granulation, clustering, second-order transfer entropy, and direct conditional transfer entropy.",
       "local_implementation": ["src/iia_benchmark/models/root_cause_book.py:information_granulation_transfer_entropy", "src/iia_benchmark/models/root_cause_book.py:information_granulation_direct_transfer_entropy"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_root_cause_book.py", "scope": "synthetic continuous causal-chain test; paper two-tank and TEP scores pending"},
+      "local_validation": {"status": "negative_multi_dataset", "command": "python experiments/paper_harness/chapter4_igte_multidataset/experiment.py --out_dir experiments/paper_harness/chapter4_igte_multidataset/run_1", "scope": "book-specified clustering/second-order logic on TEP IDV(1), PRONTO, and SKAB for three seeds; IGTE engineering activation is partial, TEP Table 4.8 F1 is 0, and IGDTE prunes no edge in 21 episode-seed evaluations"},
       "claims": [
         {"id": "C1", "statement": "Second-order IGTE improves stability relative to first order while IGDTE prunes indirect paths.", "support": "book_chapter_4_and_publisher_metadata", "status": "explicit"}
       ]
