@@ -24,3 +24,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Result: balanced accuracy 0.972727, macro-F1 0.973137, all classes predicted; 3 errors among 110 test runs; wall time 85.35 s.
 - Evidence: `configs/experiments/npp_alarm_casim_state_validation.json` and `experiments/reports/npp_alarm_casim_state_validation.json`.
 - Boundary: high performance on one alpha slice and one seed is transfer evidence only; alpha robustness, repeated seeds, and the paper's exact table remain open.
+
+## SOTA Wave 2 grouped multi-dataset validation (E2/P1)
+
+- Seeds 1103/2207/3301 use complete-trajectory grouped TEP/NPP/FCC splits and a Jaccard class-core parent.
+- Mean balanced accuracy is 1.0000/0.8182/0.9922; classification paired credit passes 8/9 dataset-seeds.
+- Full-progress five-regime robustness AUC is 0.9733/0.7379/0.8318; robustness paired credit passes 3/9.
+- Evidence: `experiments/reports/sota_wave2_multidataset_validation.json`.
+- Boundary: local 128-feature/3-classifier bounded configuration; LoOP open-set leave-one-class-out and official capsule/table reproduction remain open.

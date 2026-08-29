@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "id": "sota_wave2_multidataset",
+  "seeds": [1103, 2207, 3301],
+  "datasets": {
+    "tep_alarm_dataport": {
+      "path": "data/public_datasets/tep_alarm_dataport/payload/2nd_Alarm_Dataset_5Classes.zip",
+      "match": "M3",
+      "protocol": "P1-grouped-complete-trajectory",
+      "train_per_class": 120,
+      "calibration_per_class": 40,
+      "test_per_class": 40,
+      "robustness_test_per_class": 1,
+      "boundary": "Exact public five-class TEP alarm payload, but the split and independent model hyperparameters are not asserted to match any cited paper."
+    },
+    "npp_alarm_dataport": {
+      "path": "data/public_datasets/npp_alarm_dataport/payload/alpha_050",
+      "match": "M3",
+      "protocol": "P1-grouped-unique-trajectory",
+      "train_per_class": 20,
+      "calibration_per_class": 8,
+      "test_per_class": 8,
+      "robustness_test_per_class": 1,
+      "boundary": "Alpha 0.50, 160 samples, 11 identifiable fault families; exact trajectory components and cross-label conflicts are excluded before splitting."
+    },
+    "fcc_alarm": {
+      "path": "data/public_datasets/fcc_alarm/alarmseriesdata.zip",
+      "match": "M3",
+      "protocol": "P1-grouped-unique-trajectory",
+      "train_per_class": 24,
+      "calibration_per_class": 8,
+      "test_per_class": 8,
+      "robustness_test_per_class": 1,
+      "boundary": "All 16 abnormal FCC situations; exact rising-edge duplicate trajectories are reduced to one representative before seeded splitting."
+    }
+  },
+  "prefix_fractions": [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0],
+  "classification": {
+    "ctfh_fingerprinting": {
+      "window_size": 5,
+      "stride": 1,
+      "peak_threshold": 0.2,
+      "temporal_radius": 1,
+      "min_delta": 1,
+      "max_delta": 10,
+      "fanout": 5,
+      "delta_quantization": 1,
+      "consensus_fraction": 0.5
+    },
+    "structured_hdam": {
+      "bin_size": 5,
+      "aggregation": "binary",
+      "template_width_fraction": 1.0,
+      "candidate_stride": 1,
+      "max_tag_shift": 0
+    },
+    "casim": {
+      "n_features": 128,
+      "n_classifiers": 3,
+      "alphas": [0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0],
+      "k_loop": 5,
+      "loop_extent": 3.0
+    },
+    "modified_tfidf_afc": {
+      "ngram_candidates": [1, 2, 3, 4],
+      "position_decay": 1.0,
+      "hidden_size": 16,
+      "epochs": 100,
+      "learning_rate": 0.02
+    },
+    "time_encoded_histogram_hybrid": {
+      "latent_size": 8,
+      "autoencoder_hidden_size": 16,
+      "transformer_width": 8,
+      "attention_heads": 2,
+      "transformer_layers": 1,
+      "pretrain_epochs": 30,
+      "classifier_epochs": 30,
+      "joint_epochs": 40,
+      "learning_rate": 0.02,
+      "initial_attenuation": 1.0,
+      "reconstruction_weight": 0.1
+    }
+  },
+  "conformal": {
+    "base_model": "ctfh_fingerprinting",
+    "error_rate": 0.1,
+    "cross_conformal_folds": 3,
+    "class_conditional": true,
+    "empty_set_policy": "top_p_value"
+  },
+  "uncertainty_reduction": {
+    "n_estimators": 30,
+    "min_samples_leaf": 1,
+    "max_features": 1.0,
+    "jackknife_plus_error_rate": 0.1,
+    "maximum_training_rows": 40,
+    "delay": 3,
+    "tolerance_minutes": 10.0
+  },
+  "robustness": {
+    "observation_progress": [0.25, 0.5, 1.0],
+    "perturbations": ["missing", "spurious", "timing", "detector_delay", "mixed"],
+    "normalized_severity": [0.1, 0.2],
+    "monte_carlo_draws_per_outer_seed": 2,
+    "reporting_boundary": "The three outer seeds give six total Monte Carlo draws per dataset/model/scenario after aggregation; this bounded real-data screen is not the inaccessible paper's exact protocol."
+  },
+  "gates": {
+    "paired_z": 1.96,
+    "coverage_target": 0.9,
+    "performance_floor": "strictly_above_balanced_random_chance"
+  },
+  "reporting_boundary": "All paper-specific scores remain blocked until exact PDFs, official code/capsules, paper splits, and paper datasets are available. This wave grants engineering and transfer evidence only."
+}

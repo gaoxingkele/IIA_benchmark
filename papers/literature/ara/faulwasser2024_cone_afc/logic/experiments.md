@@ -24,3 +24,11 @@ The paper's public synthetic dataset contains 18,750 binary alarm subsequences: 
 - Full-prefix coverage 0.900000, mean set size 1.300000/11, empty rate 0.063636, singleton rate 0.572727, singleton accuracy 0.936508.
 - Evidence: `experiments/reports/npp_alarm_cone_ctfh_validation.json`.
 - Boundary: efficiency is non-degenerate and nominal coverage is met on this split, but the paper's synthetic payload, 50-test grid, and calibration-size ablation remain blocked.
+
+## SOTA Wave 2 grouped prefix validation (E2/P1)
+
+- Eight expanding prefixes are calibrated independently on grouped TEP/NPP/FCC trajectories for seeds 1103/2207/3301.
+- Full-prefix coverage/set size is 0.8167/1.0050, 0.7689/1.0871, and 0.9010/6.6745.
+- Efficiency passes 9/9, but nominal 0.90 coverage passes only 2/9; the TEP/NPP undercoverage is retained.
+- Evidence: `experiments/reports/sota_wave2_multidataset_validation.json`.
+- Boundary: local CTFH base, not the paper's 18,750-subsequence 50-test grid or official tables.

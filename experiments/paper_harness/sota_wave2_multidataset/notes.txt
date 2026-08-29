@@ -1,0 +1,56 @@
+SOTA Wave 2 multi-dataset experiment notes
+
+Protocol
+- Seeds: 1103, 2207, 3301.
+- TEP/NPP/FCC complete rising-edge trajectories are grouped before fitting.
+- Five point classifiers share one split and Jaccard class-core parent.
+- Robustness uses test-only missing/spurious/timing/delay/mixed corruptions.
+- ConE and Cross-Conformal report coverage together with set efficiency.
+- Uncertainty reduction predicts the next contraction of the ConE set.
+
+Classification (mean balanced accuracy +/- seed SD)
+TEP Alarm
+  Jaccard core: 0.9667 +/- 0.0104
+  CTFH: 0.7350 +/- 0.0100
+  HDAM: 0.9967 +/- 0.0029
+  CASIM: 1.0000 +/- 0.0000
+  Modified TF-IDF: 0.8450 +/- 0.1039
+  Time histogram: 0.7017 +/- 0.1056
+NPP Alarm
+  Jaccard core: 0.6932 +/- 0.0341
+  CTFH: 0.8371 +/- 0.0365
+  HDAM: 0.6932 +/- 0.0455
+  CASIM: 0.8182 +/- 0.0455
+  Modified TF-IDF: 0.6250 +/- 0.1311
+  Time histogram: 0.2652 +/- 0.0459
+FCC Alarm
+  Jaccard core: 0.9115 +/- 0.0119
+  CTFH: 0.3828 +/- 0.0590
+  HDAM: 0.9375 +/- 0.0156
+  CASIM: 0.9922 +/- 0.0078
+  Modified TF-IDF: 0.9896 +/- 0.0045
+  Time histogram: 0.3698 +/- 0.1398
+
+Full-progress robustness (mean normalized AUC)
+- TEP Alarm: Jaccard core=0.8750, CTFH=0.7967, HDAM=1.0000, CASIM=0.9733, Modified TF-IDF=0.7783, Time histogram=0.6850
+- NPP Alarm: Jaccard core=0.6856, CTFH=0.6864, HDAM=0.6621, CASIM=0.7379, Modified TF-IDF=0.5348, Time histogram=0.2159
+- FCC Alarm: Jaccard core=0.7234, CTFH=0.2922, HDAM=0.7359, CASIM=0.8318, Modified TF-IDF=0.7151, Time histogram=0.2599
+
+Conformal full-prefix result
+- TEP Alarm cone_afc_2024: coverage=0.8167, set_size=1.0050
+- TEP Alarm cross_conformal_afc_2025: coverage=0.9617, set_size=1.2467
+- NPP Alarm cone_afc_2024: coverage=0.7689, set_size=1.0871
+- NPP Alarm cross_conformal_afc_2025: coverage=0.9735, set_size=1.5606
+- FCC Alarm cone_afc_2024: coverage=0.9010, set_size=6.6745
+- FCC Alarm cross_conformal_afc_2025: coverage=0.9661, set_size=8.0703
+
+Uncertainty reduction
+- TEP Alarm: MAE=12.5743, baseline=16.0377, coverage=0.9032, competitive_passes=2/3
+- NPP Alarm: MAE=3.7065, baseline=4.0506, coverage=0.8666, competitive_passes=2/3
+- FCC Alarm: MAE=0.8197, baseline=2.3580, coverage=0.9230, competitive_passes=3/3
+
+Evidence boundaries
+- No cited paper score is closed: exact full texts/capsules, paper splits, and/or original datasets remain unavailable.
+- Modified TF-IDF KPCA isolation is non-applicable because all three payloads contain abnormal classes only and no normal-operation class.
+- The attempted packed-LSTM runtime patch was rejected: endpoint tests passed but end-to-end runtime did not materially improve.
+- Robustness Monte Carlo is bounded; three outer seeds yield six draws per model/scenario after aggregation.

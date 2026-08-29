@@ -1,0 +1,3222 @@
+{
+  "schema_version": 1,
+  "experiment_id": "sota_wave2_multidataset",
+  "task": "real_sota_alarm_flood_multidataset_validation",
+  "downstream_tasks": [
+    "T4",
+    "T5"
+  ],
+  "real_data_validated_algorithms": [
+    "casim_2024",
+    "cone_afc_2024",
+    "uncertainty_reduction_2025",
+    "etfa_robustness_2025",
+    "afc_robustbench_2026",
+    "cross_conformal_afc_2025",
+    "modified_tfidf_afc_2025",
+    "ctfh_fingerprinting_2025",
+    "structured_hdam_2026",
+    "hybrid_histogram_afc_2026"
+  ],
+  "run_seeds": [
+    1103,
+    2207,
+    3301
+  ],
+  "wall_clock_seconds": {
+    "mean": 721.1853953666674,
+    "standard_deviation": 0.9552632877978239,
+    "minimum": 720.3661743999692,
+    "maximum": 722.2346821000101
+  },
+  "provenance_gate": {
+    "passed": true,
+    "config_sha256": "6197cdc9b7f6cd097f15adc4b8a247320cb7d72906d048240cdca22af3578603",
+    "config_matches_all_runs": true,
+    "source_hashes_identical_across_runs": true,
+    "source_hashes_match_current_worktree": true,
+    "source_files": 16,
+    "npp_csv_manifest": {
+      "root": "data/public_datasets/npp_alarm_dataport/payload/alpha_050",
+      "files": 1212,
+      "bytes": 193695038,
+      "combined_sha256": "fed72ffbc3436133c745d09ba0b025497f915163926b43aaf37e12c45cf6dd79"
+    },
+    "final_info_sha256": {
+      "run_1": "473dc290250c45381c94533c464d0a32bcf17eab7776c9c0c16f4a1775a9ac67",
+      "run_2": "0d1baa144bf46ee805278d21c3bf2ec2839645f944cde85d53c38bd6b7197deb",
+      "run_3": "4ecd54e0247f4db50c2e081b19d05799861f4fbb4f9ba37b6748db1d3bd4757c"
+    },
+    "known_boundary": "The NPP directory was not hashed inside the original run provenance. This aggregate records its complete current CSV manifest; deterministic adapter statistics and G0 trajectory counts agree across every run."
+  },
+  "prior_validation": {
+    "tep_alarm_dataport": {
+      "passes": 3,
+      "checks": {
+        "finite_binary_nonempty": 3,
+        "disjoint_run_ids": 3,
+        "disjoint_complete_trajectory_hashes": 3,
+        "clean_event_raster_equals_registered_rising_edge": 3,
+        "class_coverage_all_partitions": 3,
+        "nonempty_activation_sequences": 3
+      },
+      "within_class_tag_jaccard": {
+        "mean": 0.8880139664856971,
+        "standard_deviation": 1.3597399555105182e-16,
+        "minimum": 0.888013966485697,
+        "maximum": 0.888013966485697
+      },
+      "cross_class_tag_jaccard": {
+        "mean": 0.6251457742181167,
+        "standard_deviation": 0.0,
+        "minimum": 0.6251457742181167,
+        "maximum": 0.6251457742181167
+      },
+      "event_count_distribution": {
+        "minimum": 133.0,
+        "q25": 169.0,
+        "median": 210.5,
+        "q75": 258.0,
+        "maximum": 361.0,
+        "mean": 218.907
+      },
+      "unique_tag_distribution": {
+        "minimum": 22.0,
+        "q25": 27.0,
+        "median": 29.0,
+        "q75": 35.0,
+        "maximum": 46.0,
+        "mean": 31.629
+      },
+      "exclusions": {
+        "duplicate_nonrepresentatives": 0,
+        "cross_label_conflicts": 0
+      }
+    },
+    "npp_alarm_dataport": {
+      "passes": 3,
+      "checks": {
+        "finite_binary_nonempty": 3,
+        "disjoint_run_ids": 3,
+        "disjoint_complete_trajectory_hashes": 3,
+        "clean_event_raster_equals_registered_rising_edge": 3,
+        "class_coverage_all_partitions": 3,
+        "nonempty_activation_sequences": 3
+      },
+      "within_class_tag_jaccard": {
+        "mean": 0.8703894288584767,
+        "standard_deviation": 0.004669065078861376,
+        "minimum": 0.8667272511492236,
+        "maximum": 0.8756471063271668
+      },
+      "cross_class_tag_jaccard": {
+        "mean": 0.6101037369609608,
+        "standard_deviation": 0.001932853912287788,
+        "minimum": 0.6086042669201815,
+        "maximum": 0.6122851201377947
+      },
+      "event_count_distribution": {
+        "minimum": 40.0,
+        "q25": 51.0,
+        "median": 110.0,
+        "q75": 123.0,
+        "maximum": 156.0,
+        "mean": 96.95707070707071
+      },
+      "unique_tag_distribution": {
+        "minimum": 40.0,
+        "q25": 47.0,
+        "median": 97.0,
+        "q75": 107.0,
+        "maximum": 117.0,
+        "mean": 83.79040404040404
+      },
+      "exclusions": {
+        "duplicate_nonrepresentatives": 125,
+        "cross_label_conflicts": 45,
+        "unused_unique_trajectories": 653
+      }
+    },
+    "fcc_alarm": {
+      "passes": 3,
+      "checks": {
+        "finite_binary_nonempty": 3,
+        "disjoint_run_ids": 3,
+        "disjoint_complete_trajectory_hashes": 3,
+        "clean_event_raster_equals_registered_rising_edge": 3,
+        "class_coverage_all_partitions": 3,
+        "nonempty_activation_sequences": 3
+      },
+      "within_class_tag_jaccard": {
+        "mean": 0.6713313024017952,
+        "standard_deviation": 0.004126438511944143,
+        "minimum": 0.6687351778945324,
+        "maximum": 0.6760895088648415
+      },
+      "cross_class_tag_jaccard": {
+        "mean": 0.21845978076034814,
+        "standard_deviation": 0.0007551408075922665,
+        "minimum": 0.21762636136629968,
+        "maximum": 0.21909851911432687
+      },
+      "event_count_distribution": {
+        "minimum": 3.0,
+        "q25": 9.0,
+        "median": 13.0,
+        "q75": 18.0,
+        "maximum": 54.0,
+        "mean": 13.321875
+      },
+      "unique_tag_distribution": {
+        "minimum": 3.0,
+        "q25": 8.0,
+        "median": 12.0,
+        "q75": 16.0,
+        "maximum": 23.0,
+        "mean": 12.2140625
+      },
+      "exclusions": {
+        "duplicate_nonrepresentatives": 27,
+        "unused_unique_trajectories": 933
+      }
+    }
+  },
+  "classification": {
+    "tep_alarm_dataport": {
+      "jaccard_class_core": {
+        "balanced_accuracy": {
+          "mean": 0.9666666666666667,
+          "standard_deviation": 0.010408329997330611,
+          "minimum": 0.9550000000000001,
+          "maximum": 0.975
+        },
+        "macro_f1": {
+          "mean": 0.9663851414729416,
+          "standard_deviation": 0.010665226225468994,
+          "minimum": 0.9544231682228201,
+          "maximum": 0.9749019607843138
+        },
+        "fit_seconds": {
+          "mean": 0.016614500045155484,
+          "standard_deviation": 0.0027722477423520343,
+          "minimum": 0.014990400057286024,
+          "maximum": 0.019815500010736287
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": null,
+        "selected_ngram_sizes": null
+      },
+      "ctfh_fingerprinting": {
+        "balanced_accuracy": {
+          "mean": 0.735,
+          "standard_deviation": 0.010000000000000009,
+          "minimum": 0.725,
+          "maximum": 0.745
+        },
+        "macro_f1": {
+          "mean": 0.6685323335358797,
+          "standard_deviation": 0.007832279832764539,
+          "minimum": 0.6603300447543456,
+          "maximum": 0.6759329402217746
+        },
+        "fit_seconds": {
+          "mean": 5.9971827000069124,
+          "standard_deviation": 0.045763636803953144,
+          "minimum": 5.946783700026572,
+          "maximum": 6.036139599978924
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": null
+      },
+      "structured_hdam": {
+        "balanced_accuracy": {
+          "mean": 0.9966666666666666,
+          "standard_deviation": 0.0028867513459481953,
+          "minimum": 0.9949999999999999,
+          "maximum": 1.0
+        },
+        "macro_f1": {
+          "mean": 0.9966661457519405,
+          "standard_deviation": 0.0028872024713342635,
+          "minimum": 0.9949992186279106,
+          "maximum": 1.0
+        },
+        "fit_seconds": {
+          "mean": 1.3578351333271712,
+          "standard_deviation": 0.11652260199369856,
+          "minimum": 1.2735234000720084,
+          "maximum": 1.4907993999077007
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 2,
+        "selected_ngram_sizes": null
+      },
+      "casim": {
+        "balanced_accuracy": {
+          "mean": 1.0,
+          "standard_deviation": 0.0,
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "macro_f1": {
+          "mean": 1.0,
+          "standard_deviation": 0.0,
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "fit_seconds": {
+          "mean": 8.389054366659062,
+          "standard_deviation": 0.29414756982955004,
+          "minimum": 8.050499100005254,
+          "maximum": 8.581954899942502
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 3,
+        "selected_ngram_sizes": null
+      },
+      "modified_tfidf_afc": {
+        "balanced_accuracy": {
+          "mean": 0.8450000000000001,
+          "standard_deviation": 0.10392304845413274,
+          "minimum": 0.7849999999999999,
+          "maximum": 0.9650000000000001
+        },
+        "macro_f1": {
+          "mean": 0.8041867274490522,
+          "standard_deviation": 0.13904402892195286,
+          "minimum": 0.7222890930208004,
+          "maximum": 0.9647299637852307
+        },
+        "fit_seconds": {
+          "mean": 423.3478922333646,
+          "standard_deviation": 3.699039858208358,
+          "minimum": 419.0789242000319,
+          "maximum": 425.60415400005877
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": [
+          1,
+          1,
+          1
+        ]
+      },
+      "time_encoded_histogram_hybrid": {
+        "balanced_accuracy": {
+          "mean": 0.7016666666666667,
+          "standard_deviation": 0.10563301251660552,
+          "minimum": 0.58,
+          "maximum": 0.77
+        },
+        "macro_f1": {
+          "mean": 0.634192940478698,
+          "standard_deviation": 0.13537434481200247,
+          "minimum": 0.4799498746867168,
+          "maximum": 0.7332922058463713
+        },
+        "fit_seconds": {
+          "mean": 0.5762034999594713,
+          "standard_deviation": 0.017876390633543588,
+          "minimum": 0.5656766999745741,
+          "maximum": 0.5968439999269322
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": null
+      }
+    },
+    "npp_alarm_dataport": {
+      "jaccard_class_core": {
+        "balanced_accuracy": {
+          "mean": 0.6931818181818182,
+          "standard_deviation": 0.034090909090909116,
+          "minimum": 0.6590909090909091,
+          "maximum": 0.7272727272727273
+        },
+        "macro_f1": {
+          "mean": 0.6600431046137268,
+          "standard_deviation": 0.055592667257674304,
+          "minimum": 0.6187710437710439,
+          "maximum": 0.723258559622196
+        },
+        "fit_seconds": {
+          "mean": 0.004696733318269253,
+          "standard_deviation": 0.0005718538933234015,
+          "minimum": 0.004232999985106289,
+          "maximum": 0.005335699999704957
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": null,
+        "selected_ngram_sizes": null
+      },
+      "ctfh_fingerprinting": {
+        "balanced_accuracy": {
+          "mean": 0.8371212121212123,
+          "standard_deviation": 0.03652898015527638,
+          "minimum": 0.7954545454545454,
+          "maximum": 0.8636363636363636
+        },
+        "macro_f1": {
+          "mean": 0.8252084115861206,
+          "standard_deviation": 0.03888164764769527,
+          "minimum": 0.7878398175611797,
+          "maximum": 0.8654443595620066
+        },
+        "fit_seconds": {
+          "mean": 1.1505741333045687,
+          "standard_deviation": 0.029209658146896786,
+          "minimum": 1.122939399909228,
+          "maximum": 1.181137999985367
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 3,
+        "selected_ngram_sizes": null
+      },
+      "structured_hdam": {
+        "balanced_accuracy": {
+          "mean": 0.6931818181818182,
+          "standard_deviation": 0.04545454545454547,
+          "minimum": 0.6477272727272727,
+          "maximum": 0.7386363636363636
+        },
+        "macro_f1": {
+          "mean": 0.6749022717998722,
+          "standard_deviation": 0.04980155101637871,
+          "minimum": 0.6218355824191065,
+          "maximum": 0.7206225740985099
+        },
+        "fit_seconds": {
+          "mean": 0.1277432666392997,
+          "standard_deviation": 0.0038433268205704764,
+          "minimum": 0.12380299996584654,
+          "maximum": 0.13148169999476522
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": null
+      },
+      "casim": {
+        "balanced_accuracy": {
+          "mean": 0.8181818181818182,
+          "standard_deviation": 0.04545454545454547,
+          "minimum": 0.7727272727272727,
+          "maximum": 0.8636363636363636
+        },
+        "macro_f1": {
+          "mean": 0.8143463014557865,
+          "standard_deviation": 0.04835616665182672,
+          "minimum": 0.766981539272561,
+          "maximum": 0.8636363636363636
+        },
+        "fit_seconds": {
+          "mean": 2.6578465333053223,
+          "standard_deviation": 0.04328383834816584,
+          "minimum": 2.6104121999815106,
+          "maximum": 2.6952010999666527
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 2,
+        "selected_ngram_sizes": null
+      },
+      "modified_tfidf_afc": {
+        "balanced_accuracy": {
+          "mean": 0.625,
+          "standard_deviation": 0.13105184766671357,
+          "minimum": 0.4772727272727273,
+          "maximum": 0.7272727272727273
+        },
+        "macro_f1": {
+          "mean": 0.5756718103813027,
+          "standard_deviation": 0.16751624295451387,
+          "minimum": 0.39751285397218417,
+          "maximum": 0.7299910873440285
+        },
+        "fit_seconds": {
+          "mean": 7.332855800011505,
+          "standard_deviation": 0.2391208947499394,
+          "minimum": 7.177418300067075,
+          "maximum": 7.608205999946222
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": [
+          1,
+          1,
+          1
+        ]
+      },
+      "time_encoded_histogram_hybrid": {
+        "balanced_accuracy": {
+          "mean": 0.26515151515151514,
+          "standard_deviation": 0.045925589594629314,
+          "minimum": 0.23863636363636365,
+          "maximum": 0.3181818181818182
+        },
+        "macro_f1": {
+          "mean": 0.16924946060129242,
+          "standard_deviation": 0.05423895690231188,
+          "minimum": 0.1335275835275835,
+          "maximum": 0.23166177475775002
+        },
+        "fit_seconds": {
+          "mean": 0.39407190001414466,
+          "standard_deviation": 0.018958677769520604,
+          "minimum": 0.3733191000064835,
+          "maximum": 0.4104833999881521
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": null
+      }
+    },
+    "fcc_alarm": {
+      "jaccard_class_core": {
+        "balanced_accuracy": {
+          "mean": 0.9114583333333334,
+          "standard_deviation": 0.011933790872280834,
+          "minimum": 0.8984375,
+          "maximum": 0.921875
+        },
+        "macro_f1": {
+          "mean": 0.9068175183161639,
+          "standard_deviation": 0.010567821327251432,
+          "minimum": 0.8946700449748051,
+          "maximum": 0.9138952550717256
+        },
+        "fit_seconds": {
+          "mean": 0.0017744333405668538,
+          "standard_deviation": 0.00019149786590912874,
+          "minimum": 0.0015657000476494431,
+          "maximum": 0.0019420000026002526
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": null,
+        "selected_ngram_sizes": null
+      },
+      "ctfh_fingerprinting": {
+        "balanced_accuracy": {
+          "mean": 0.3828125,
+          "standard_deviation": 0.05898308152555273,
+          "minimum": 0.328125,
+          "maximum": 0.4453125
+        },
+        "macro_f1": {
+          "mean": 0.3376056916481396,
+          "standard_deviation": 0.05371849103858384,
+          "minimum": 0.2829650673400673,
+          "maximum": 0.39035193369432497
+        },
+        "fit_seconds": {
+          "mean": 0.2724573999488105,
+          "standard_deviation": 0.0017944270359195585,
+          "minimum": 0.27097699989099056,
+          "maximum": 0.2744530999334529
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": null
+      },
+      "structured_hdam": {
+        "balanced_accuracy": {
+          "mean": 0.9375,
+          "standard_deviation": 0.015625,
+          "minimum": 0.921875,
+          "maximum": 0.953125
+        },
+        "macro_f1": {
+          "mean": 0.9374054519468605,
+          "standard_deviation": 0.01665315599699414,
+          "minimum": 0.9208274976657329,
+          "maximum": 0.9541328044375645
+        },
+        "fit_seconds": {
+          "mean": 0.13854739997380724,
+          "standard_deviation": 0.0010846913560116733,
+          "minimum": 0.1375898999394849,
+          "maximum": 0.13972540001850575
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": null
+      },
+      "casim": {
+        "balanced_accuracy": {
+          "mean": 0.9921875,
+          "standard_deviation": 0.0078125,
+          "minimum": 0.984375,
+          "maximum": 1.0
+        },
+        "macro_f1": {
+          "mean": 0.9921568627450981,
+          "standard_deviation": 0.007843137254901933,
+          "minimum": 0.9843137254901961,
+          "maximum": 1.0
+        },
+        "fit_seconds": {
+          "mean": 3.6822916000382975,
+          "standard_deviation": 0.18294012968238269,
+          "minimum": 3.47369080001954,
+          "maximum": 3.815425500040874
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 3,
+        "selected_ngram_sizes": null
+      },
+      "modified_tfidf_afc": {
+        "balanced_accuracy": {
+          "mean": 0.9895833333333334,
+          "standard_deviation": 0.004510548978043951,
+          "minimum": 0.984375,
+          "maximum": 0.9921875
+        },
+        "macro_f1": {
+          "mean": 0.9895424836601308,
+          "standard_deviation": 0.004528237405408813,
+          "minimum": 0.9843137254901961,
+          "maximum": 0.9921568627450981
+        },
+        "fit_seconds": {
+          "mean": 2.35200516670011,
+          "standard_deviation": 0.07886474327570334,
+          "minimum": 2.2611824000487104,
+          "maximum": 2.4031669000396505
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 3,
+        "selected_ngram_sizes": [
+          1,
+          1,
+          1
+        ]
+      },
+      "time_encoded_histogram_hybrid": {
+        "balanced_accuracy": {
+          "mean": 0.3697916666666667,
+          "standard_deviation": 0.1398270183193625,
+          "minimum": 0.2890625,
+          "maximum": 0.53125
+        },
+        "macro_f1": {
+          "mean": 0.3039101051954117,
+          "standard_deviation": 0.16362318871811982,
+          "minimum": 0.1984637605042017,
+          "maximum": 0.4924027482615448
+        },
+        "fit_seconds": {
+          "mean": 0.4854594000304739,
+          "standard_deviation": 0.011306648252128999,
+          "minimum": 0.4728419000748545,
+          "maximum": 0.49467320006806403
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0,
+        "selected_ngram_sizes": null
+      }
+    }
+  },
+  "robustness": {
+    "tep_alarm_dataport": {
+      "jaccard_class_core": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.875,
+          "standard_deviation": 0.013228756555322987,
+          "minimum": 0.86,
+          "maximum": 0.885
+        },
+        "maximum_degradation": {
+          "mean": 0.6999999999999998,
+          "standard_deviation": 0.10000000000000003,
+          "minimum": 0.6,
+          "maximum": 0.8
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.9666666666666667,
+            "standard_deviation": 0.05773502691896256,
+            "minimum": 0.9,
+            "maximum": 1.0
+          },
+          "missing@1": {
+            "mean": 0.9583333333333334,
+            "standard_deviation": 0.07216878364870323,
+            "minimum": 0.875,
+            "maximum": 1.0
+          },
+          "mixed@1": {
+            "mean": 0.6916666666666668,
+            "standard_deviation": 0.014433756729740658,
+            "minimum": 0.675,
+            "maximum": 0.7000000000000001
+          },
+          "spurious@1": {
+            "mean": 0.7583333333333333,
+            "standard_deviation": 0.06291528696058946,
+            "minimum": 0.7000000000000001,
+            "maximum": 0.8249999999999998
+          },
+          "timing@1": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": null
+      },
+      "ctfh_fingerprinting": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.7966666666666669,
+          "standard_deviation": 0.0028867513459481316,
+          "minimum": 0.7950000000000002,
+          "maximum": 0.8000000000000002
+        },
+        "maximum_degradation": {
+          "mean": 0.19999999999999996,
+          "standard_deviation": 3.925231146709438e-17,
+          "minimum": 0.19999999999999996,
+          "maximum": 0.2
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.8000000000000002,
+            "standard_deviation": 0.0,
+            "minimum": 0.8000000000000002,
+            "maximum": 0.8000000000000002
+          },
+          "missing@1": {
+            "mean": 0.7916666666666669,
+            "standard_deviation": 0.014433756729740658,
+            "minimum": 0.7750000000000001,
+            "maximum": 0.8000000000000002
+          },
+          "mixed@1": {
+            "mean": 0.8000000000000002,
+            "standard_deviation": 0.0,
+            "minimum": 0.8000000000000002,
+            "maximum": 0.8000000000000002
+          },
+          "spurious@1": {
+            "mean": 0.8000000000000002,
+            "standard_deviation": 0.0,
+            "minimum": 0.8000000000000002,
+            "maximum": 0.8000000000000002
+          },
+          "timing@1": {
+            "mean": 0.7916666666666669,
+            "standard_deviation": 0.014433756729740658,
+            "minimum": 0.7750000000000001,
+            "maximum": 0.8000000000000002
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0
+      },
+      "structured_hdam": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 1.0,
+          "standard_deviation": 0.0,
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "maximum_degradation": {
+          "mean": 0.0666666666666667,
+          "standard_deviation": 0.11547005383792518,
+          "minimum": 0.0,
+          "maximum": 0.20000000000000007
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "missing@1": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "mixed@1": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "spurious@1": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "timing@1": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 2
+      },
+      "casim": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.9733333333333333,
+          "standard_deviation": 0.03403429642777026,
+          "minimum": 0.9349999999999999,
+          "maximum": 1.0
+        },
+        "maximum_degradation": {
+          "mean": 0.3333333333333333,
+          "standard_deviation": 0.05773502691896256,
+          "minimum": 0.30000000000000004,
+          "maximum": 0.4
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.9333333333333332,
+            "standard_deviation": 0.11547005383792519,
+            "minimum": 0.7999999999999999,
+            "maximum": 1.0
+          },
+          "missing@1": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "mixed@1": {
+            "mean": 0.9416666666666665,
+            "standard_deviation": 0.05204164998665332,
+            "minimum": 0.9,
+            "maximum": 1.0
+          },
+          "spurious@1": {
+            "mean": 0.9916666666666667,
+            "standard_deviation": 0.014433756729740658,
+            "minimum": 0.975,
+            "maximum": 1.0
+          },
+          "timing@1": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0
+      },
+      "modified_tfidf_afc": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.7783333333333334,
+          "standard_deviation": 0.04856267428111156,
+          "minimum": 0.7250000000000001,
+          "maximum": 0.8200000000000001
+        },
+        "maximum_degradation": {
+          "mean": 0.5333333333333333,
+          "standard_deviation": 0.11547005383792519,
+          "minimum": 0.39999999999999997,
+          "maximum": 0.6000000000000001
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.7500000000000001,
+            "standard_deviation": 0.08660254037844395,
+            "minimum": 0.65,
+            "maximum": 0.8000000000000002
+          },
+          "missing@1": {
+            "mean": 0.8333333333333334,
+            "standard_deviation": 0.08036375634160783,
+            "minimum": 0.7750000000000001,
+            "maximum": 0.9249999999999999
+          },
+          "mixed@1": {
+            "mean": 0.7250000000000001,
+            "standard_deviation": 0.06614378277661483,
+            "minimum": 0.65,
+            "maximum": 0.7750000000000001
+          },
+          "spurious@1": {
+            "mean": 0.7833333333333335,
+            "standard_deviation": 0.028867513459481315,
+            "minimum": 0.7500000000000001,
+            "maximum": 0.8000000000000002
+          },
+          "timing@1": {
+            "mean": 0.8000000000000002,
+            "standard_deviation": 0.0,
+            "minimum": 0.8000000000000002,
+            "maximum": 0.8000000000000002
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0
+      },
+      "time_encoded_histogram_hybrid": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.685,
+          "standard_deviation": 0.0904157066001257,
+          "minimum": 0.6,
+          "maximum": 0.7800000000000001
+        },
+        "maximum_degradation": {
+          "mean": 0.23333333333333336,
+          "standard_deviation": 0.057735026918962595,
+          "minimum": 0.19999999999999996,
+          "maximum": 0.30000000000000004
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.6666666666666666,
+            "standard_deviation": 0.11547005383792526,
+            "minimum": 0.6,
+            "maximum": 0.8000000000000002
+          },
+          "missing@1": {
+            "mean": 0.6916666666666668,
+            "standard_deviation": 0.10103629710818461,
+            "minimum": 0.6,
+            "maximum": 0.8000000000000002
+          },
+          "mixed@1": {
+            "mean": 0.6416666666666666,
+            "standard_deviation": 0.05204164998665338,
+            "minimum": 0.6,
+            "maximum": 0.7000000000000001
+          },
+          "spurious@1": {
+            "mean": 0.7583333333333334,
+            "standard_deviation": 0.1421560175769332,
+            "minimum": 0.6,
+            "maximum": 0.875
+          },
+          "timing@1": {
+            "mean": 0.6666666666666666,
+            "standard_deviation": 0.11547005383792526,
+            "minimum": 0.6,
+            "maximum": 0.8000000000000002
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0
+      }
+    },
+    "npp_alarm_dataport": {
+      "jaccard_class_core": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.6856060606060606,
+          "standard_deviation": 0.08595397256351232,
+          "minimum": 0.5863636363636364,
+          "maximum": 0.7363636363636363
+        },
+        "maximum_degradation": {
+          "mean": 0.5454545454545454,
+          "standard_deviation": 0.09090909090909091,
+          "minimum": 0.45454545454545453,
+          "maximum": 0.6363636363636364
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.5757575757575758,
+            "standard_deviation": 0.12517205789286598,
+            "minimum": 0.4318181818181818,
+            "maximum": 0.6590909090909092
+          },
+          "missing@1": {
+            "mean": 0.7196969696969697,
+            "standard_deviation": 0.06258602894643295,
+            "minimum": 0.6477272727272728,
+            "maximum": 0.7613636363636364
+          },
+          "mixed@1": {
+            "mean": 0.5984848484848485,
+            "standard_deviation": 0.06258602894643303,
+            "minimum": 0.5340909090909091,
+            "maximum": 0.6590909090909092
+          },
+          "spurious@1": {
+            "mean": 0.7803030303030303,
+            "standard_deviation": 0.08604406584545872,
+            "minimum": 0.6818181818181819,
+            "maximum": 0.840909090909091
+          },
+          "timing@1": {
+            "mean": 0.7537878787878788,
+            "standard_deviation": 0.10185098227082391,
+            "minimum": 0.6363636363636364,
+            "maximum": 0.8181818181818182
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": null
+      },
+      "ctfh_fingerprinting": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.6863636363636364,
+          "standard_deviation": 0.018603074481528228,
+          "minimum": 0.665909090909091,
+          "maximum": 0.7022727272727273
+        },
+        "maximum_degradation": {
+          "mean": 0.7424242424242425,
+          "standard_deviation": 0.09462118179391506,
+          "minimum": 0.6363636363636365,
+          "maximum": 0.8181818181818181
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.44696969696969696,
+            "standard_deviation": 0.034716482537544266,
+            "minimum": 0.40909090909090906,
+            "maximum": 0.4772727272727273
+          },
+          "missing@1": {
+            "mean": 0.8522727272727272,
+            "standard_deviation": 0.039364791081110746,
+            "minimum": 0.8068181818181819,
+            "maximum": 0.8749999999999999
+          },
+          "mixed@1": {
+            "mean": 0.4356060606060606,
+            "standard_deviation": 0.04592558959462934,
+            "minimum": 0.38636363636363635,
+            "maximum": 0.4772727272727273
+          },
+          "spurious@1": {
+            "mean": 0.8598484848484849,
+            "standard_deviation": 0.05831365272098726,
+            "minimum": 0.7954545454545455,
+            "maximum": 0.9090909090909091
+          },
+          "timing@1": {
+            "mean": 0.8371212121212123,
+            "standard_deviation": 0.05831365272098733,
+            "minimum": 0.7727272727272727,
+            "maximum": 0.8863636363636364
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 1
+      },
+      "structured_hdam": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.6621212121212121,
+          "standard_deviation": 0.08084437316335828,
+          "minimum": 0.5909090909090908,
+          "maximum": 0.7500000000000001
+        },
+        "maximum_degradation": {
+          "mean": 0.48484848484848486,
+          "standard_deviation": 0.11439143083743561,
+          "minimum": 0.36363636363636365,
+          "maximum": 0.5909090909090909
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.6893939393939394,
+            "standard_deviation": 0.03471648253754415,
+            "minimum": 0.6590909090909092,
+            "maximum": 0.7272727272727272
+          },
+          "missing@1": {
+            "mean": 0.6704545454545454,
+            "standard_deviation": 0.13397529684717727,
+            "minimum": 0.5568181818181818,
+            "maximum": 0.8181818181818182
+          },
+          "mixed@1": {
+            "mean": 0.6098484848484849,
+            "standard_deviation": 0.03652898015527631,
+            "minimum": 0.5681818181818182,
+            "maximum": 0.6363636363636364
+          },
+          "spurious@1": {
+            "mean": 0.6666666666666666,
+            "standard_deviation": 0.138865930150177,
+            "minimum": 0.5454545454545454,
+            "maximum": 0.8181818181818182
+          },
+          "timing@1": {
+            "mean": 0.6742424242424242,
+            "standard_deviation": 0.12923274325175754,
+            "minimum": 0.568181818181818,
+            "maximum": 0.8181818181818182
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 1
+      },
+      "casim": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.7378787878787879,
+          "standard_deviation": 0.06592215126608217,
+          "minimum": 0.6727272727272727,
+          "maximum": 0.8045454545454547
+        },
+        "maximum_degradation": {
+          "mean": 0.7272727272727272,
+          "standard_deviation": 0.12026142323020864,
+          "minimum": 0.5909090909090909,
+          "maximum": 0.8181818181818181
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.5606060606060606,
+            "standard_deviation": 0.06943296507508842,
+            "minimum": 0.5,
+            "maximum": 0.6363636363636362
+          },
+          "missing@1": {
+            "mean": 0.8712121212121212,
+            "standard_deviation": 0.09928289713697849,
+            "minimum": 0.7613636363636364,
+            "maximum": 0.9545454545454546
+          },
+          "mixed@1": {
+            "mean": 0.4659090909090909,
+            "standard_deviation": 0.03006535580755215,
+            "minimum": 0.44318181818181823,
+            "maximum": 0.5
+          },
+          "spurious@1": {
+            "mean": 0.8977272727272728,
+            "standard_deviation": 0.06912230148066162,
+            "minimum": 0.8181818181818182,
+            "maximum": 0.9431818181818182
+          },
+          "timing@1": {
+            "mean": 0.8939393939393939,
+            "standard_deviation": 0.10248294892779301,
+            "minimum": 0.7954545454545455,
+            "maximum": 1.0
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 1
+      },
+      "modified_tfidf_afc": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.5348484848484848,
+          "standard_deviation": 0.123531316782002,
+          "minimum": 0.45681818181818185,
+          "maximum": 0.6772727272727274
+        },
+        "maximum_degradation": {
+          "mean": 0.409090909090909,
+          "standard_deviation": 0.09090909090909094,
+          "minimum": 0.3181818181818181,
+          "maximum": 0.5
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.45454545454545453,
+            "standard_deviation": 0.08194434716963614,
+            "minimum": 0.3636363636363636,
+            "maximum": 0.5227272727272727
+          },
+          "missing@1": {
+            "mean": 0.6060606060606061,
+            "standard_deviation": 0.18924236358783028,
+            "minimum": 0.45454545454545453,
+            "maximum": 0.8181818181818182
+          },
+          "mixed@1": {
+            "mean": 0.4090909090909091,
+            "standard_deviation": 0.06327004957761391,
+            "minimum": 0.35227272727272724,
+            "maximum": 0.4772727272727273
+          },
+          "spurious@1": {
+            "mean": 0.6022727272727272,
+            "standard_deviation": 0.13963870144823304,
+            "minimum": 0.5,
+            "maximum": 0.7613636363636364
+          },
+          "timing@1": {
+            "mean": 0.6022727272727273,
+            "standard_deviation": 0.18288041976626232,
+            "minimum": 0.45454545454545453,
+            "maximum": 0.8068181818181819
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0
+      },
+      "time_encoded_histogram_hybrid": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.2159090909090909,
+          "standard_deviation": 0.07902426659415322,
+          "minimum": 0.16363636363636364,
+          "maximum": 0.3068181818181818
+        },
+        "maximum_degradation": {
+          "mean": 0.24242424242424243,
+          "standard_deviation": 0.09462118179391513,
+          "minimum": 0.13636363636363635,
+          "maximum": 0.3181818181818182
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.20454545454545456,
+            "standard_deviation": 0.02272727272727272,
+            "minimum": 0.18181818181818182,
+            "maximum": 0.22727272727272727
+          },
+          "missing@1": {
+            "mean": 0.23484848484848486,
+            "standard_deviation": 0.09185117918925866,
+            "minimum": 0.18181818181818182,
+            "maximum": 0.34090909090909094
+          },
+          "mixed@1": {
+            "mean": 0.1590909090909091,
+            "standard_deviation": 0.04545454545454545,
+            "minimum": 0.11363636363636363,
+            "maximum": 0.20454545454545453
+          },
+          "spurious@1": {
+            "mean": 0.23863636363636362,
+            "standard_deviation": 0.13963870144823304,
+            "minimum": 0.13636363636363635,
+            "maximum": 0.3977272727272727
+          },
+          "timing@1": {
+            "mean": 0.24242424242424243,
+            "standard_deviation": 0.1049727762162956,
+            "minimum": 0.18181818181818182,
+            "maximum": 0.36363636363636365
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0
+      }
+    },
+    "fcc_alarm": {
+      "jaccard_class_core": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.7234375000000001,
+          "standard_deviation": 0.012500000000000011,
+          "minimum": 0.7109375,
+          "maximum": 0.7359375
+        },
+        "maximum_degradation": {
+          "mean": 0.5729166666666666,
+          "standard_deviation": 0.04773516348912333,
+          "minimum": 0.53125,
+          "maximum": 0.625
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.5625,
+            "standard_deviation": 0.0,
+            "minimum": 0.5625,
+            "maximum": 0.5625
+          },
+          "missing@1": {
+            "mean": 0.8333333333333334,
+            "standard_deviation": 0.03157384284630771,
+            "minimum": 0.8046875,
+            "maximum": 0.8671875000000001
+          },
+          "mixed@1": {
+            "mean": 0.5286458333333334,
+            "standard_deviation": 0.05542655378591865,
+            "minimum": 0.46875,
+            "maximum": 0.578125
+          },
+          "spurious@1": {
+            "mean": 0.8515625,
+            "standard_deviation": 0.020669932117692157,
+            "minimum": 0.8359374999999999,
+            "maximum": 0.875
+          },
+          "timing@1": {
+            "mean": 0.8411458333333334,
+            "standard_deviation": 0.031573842846307605,
+            "minimum": 0.8125000000000001,
+            "maximum": 0.875
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": null
+      },
+      "ctfh_fingerprinting": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.2921875,
+          "standard_deviation": 0.030777680630612803,
+          "minimum": 0.2671875,
+          "maximum": 0.3265625
+        },
+        "maximum_degradation": {
+          "mean": 0.17708333333333334,
+          "standard_deviation": 0.09021097956087902,
+          "minimum": 0.125,
+          "maximum": 0.28125
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.3072916666666667,
+            "standard_deviation": 0.009021097956087935,
+            "minimum": 0.29687499999999994,
+            "maximum": 0.3125
+          },
+          "missing@1": {
+            "mean": 0.30468749999999994,
+            "standard_deviation": 0.05122998847110941,
+            "minimum": 0.25781249999999994,
+            "maximum": 0.359375
+          },
+          "mixed@1": {
+            "mean": 0.23697916666666666,
+            "standard_deviation": 0.019661027175184247,
+            "minimum": 0.21875,
+            "maximum": 0.2578125
+          },
+          "spurious@1": {
+            "mean": 0.3177083333333333,
+            "standard_deviation": 0.016263015620829192,
+            "minimum": 0.3046875,
+            "maximum": 0.33593750000000006
+          },
+          "timing@1": {
+            "mean": 0.2942708333333333,
+            "standard_deviation": 0.06314768569261536,
+            "minimum": 0.25781249999999994,
+            "maximum": 0.36718750000000006
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0
+      },
+      "structured_hdam": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.7359375,
+          "standard_deviation": 0.07323776028286225,
+          "minimum": 0.675,
+          "maximum": 0.8171875
+        },
+        "maximum_degradation": {
+          "mean": 0.7395833333333334,
+          "standard_deviation": 0.047735163489123336,
+          "minimum": 0.6875,
+          "maximum": 0.78125
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.6666666666666666,
+            "standard_deviation": 0.11727427342914273,
+            "minimum": 0.546875,
+            "maximum": 0.78125
+          },
+          "missing@1": {
+            "mean": 0.7916666666666666,
+            "standard_deviation": 0.06644453553215149,
+            "minimum": 0.7421875,
+            "maximum": 0.8671875000000001
+          },
+          "mixed@1": {
+            "mean": 0.625,
+            "standard_deviation": 0.05898308152555273,
+            "minimum": 0.5703125,
+            "maximum": 0.6875
+          },
+          "spurious@1": {
+            "mean": 0.7916666666666666,
+            "standard_deviation": 0.07216878364870315,
+            "minimum": 0.7500000000000001,
+            "maximum": 0.875
+          },
+          "timing@1": {
+            "mean": 0.8046875,
+            "standard_deviation": 0.061017575593020734,
+            "minimum": 0.765625,
+            "maximum": 0.875
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 3
+      },
+      "casim": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.8317708333333332,
+          "standard_deviation": 0.03293627448700496,
+          "minimum": 0.7953125,
+          "maximum": 0.859375
+        },
+        "maximum_degradation": {
+          "mean": 0.7083333333333334,
+          "standard_deviation": 0.07864410870073699,
+          "minimum": 0.625,
+          "maximum": 0.78125
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.6927083333333334,
+            "standard_deviation": 0.04773516348912333,
+            "minimum": 0.640625,
+            "maximum": 0.734375
+          },
+          "missing@1": {
+            "mean": 0.9479166666666666,
+            "standard_deviation": 0.009021097956087904,
+            "minimum": 0.9375,
+            "maximum": 0.953125
+          },
+          "mixed@1": {
+            "mean": 0.5598958333333334,
+            "standard_deviation": 0.04709151385423209,
+            "minimum": 0.515625,
+            "maximum": 0.609375
+          },
+          "spurious@1": {
+            "mean": 0.9791666666666666,
+            "standard_deviation": 0.029577647634376363,
+            "minimum": 0.9453125000000001,
+            "maximum": 1.0
+          },
+          "timing@1": {
+            "mean": 0.9791666666666666,
+            "standard_deviation": 0.03608439182435161,
+            "minimum": 0.9375,
+            "maximum": 1.0
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 2
+      },
+      "modified_tfidf_afc": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.7151041666666668,
+          "standard_deviation": 0.03410165944764764,
+          "minimum": 0.678125,
+          "maximum": 0.7453125
+        },
+        "maximum_degradation": {
+          "mean": 0.8645833333333334,
+          "standard_deviation": 0.03608439182435161,
+          "minimum": 0.84375,
+          "maximum": 0.90625
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.4270833333333333,
+            "standard_deviation": 0.009021097956087904,
+            "minimum": 0.421875,
+            "maximum": 0.4375
+          },
+          "missing@1": {
+            "mean": 0.9322916666666666,
+            "standard_deviation": 0.08353653610596587,
+            "minimum": 0.8359375,
+            "maximum": 0.9843750000000001
+          },
+          "mixed@1": {
+            "mean": 0.3723958333333333,
+            "standard_deviation": 0.039322054350368486,
+            "minimum": 0.33593749999999994,
+            "maximum": 0.41406249999999994
+          },
+          "spurious@1": {
+            "mean": 0.9609375,
+            "standard_deviation": 0.03405389799641149,
+            "minimum": 0.9375,
+            "maximum": 1.0
+          },
+          "timing@1": {
+            "mean": 0.8828125,
+            "standard_deviation": 0.031249999999999944,
+            "minimum": 0.8515625000000001,
+            "maximum": 0.9140625
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 1
+      },
+      "time_encoded_histogram_hybrid": {
+        "full_progress_mean_normalized_auc": {
+          "mean": 0.2598958333333334,
+          "standard_deviation": 0.02671524709006701,
+          "minimum": 0.2421875,
+          "maximum": 0.290625
+        },
+        "maximum_degradation": {
+          "mean": 0.22916666666666666,
+          "standard_deviation": 0.09547032697824667,
+          "minimum": 0.125,
+          "maximum": 0.3125
+        },
+        "auc_by_perturbation": {
+          "detector_delay@1": {
+            "mean": 0.171875,
+            "standard_deviation": 0.05633673867912483,
+            "minimum": 0.125,
+            "maximum": 0.234375
+          },
+          "missing@1": {
+            "mean": 0.28125,
+            "standard_deviation": 0.0390625,
+            "minimum": 0.2421875,
+            "maximum": 0.3203125
+          },
+          "mixed@1": {
+            "mean": 0.15625,
+            "standard_deviation": 0.020669932117692115,
+            "minimum": 0.1328125,
+            "maximum": 0.171875
+          },
+          "spurious@1": {
+            "mean": 0.3645833333333333,
+            "standard_deviation": 0.06644453553215146,
+            "minimum": 0.29687499999999994,
+            "maximum": 0.4296875
+          },
+          "timing@1": {
+            "mean": 0.3255208333333333,
+            "standard_deviation": 0.050227347713504976,
+            "minimum": 0.2890625,
+            "maximum": 0.3828125
+          }
+        },
+        "activation_passes": 3,
+        "performance_passes": 3,
+        "competitive_passes": 0
+      }
+    }
+  },
+  "conformal": {
+    "tep_alarm_dataport": {
+      "cone_afc_2024": {
+        "prefix_lengths": [
+          38,
+          75,
+          112,
+          150,
+          188,
+          225,
+          262,
+          300
+        ],
+        "by_prefix": {
+          "38": {
+            "coverage": {
+              "mean": 1.0,
+              "standard_deviation": 0.0,
+              "minimum": 1.0,
+              "maximum": 1.0
+            },
+            "average_set_size": {
+              "mean": 5.0,
+              "standard_deviation": 0.0,
+              "minimum": 5.0,
+              "maximum": 5.0
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "75": {
+            "coverage": {
+              "mean": 0.9616666666666666,
+              "standard_deviation": 0.012583057392117928,
+              "minimum": 0.95,
+              "maximum": 0.975
+            },
+            "average_set_size": {
+              "mean": 3.2399999999999998,
+              "standard_deviation": 0.19287301521985903,
+              "minimum": 3.1,
+              "maximum": 3.46
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "112": {
+            "coverage": {
+              "mean": 0.8850000000000001,
+              "standard_deviation": 0.050744457825461144,
+              "minimum": 0.83,
+              "maximum": 0.93
+            },
+            "average_set_size": {
+              "mean": 3.2916666666666665,
+              "standard_deviation": 0.4654388610046795,
+              "minimum": 2.755,
+              "maximum": 3.585
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "150": {
+            "coverage": {
+              "mean": 0.8366666666666666,
+              "standard_deviation": 0.03617089069035114,
+              "minimum": 0.795,
+              "maximum": 0.86
+            },
+            "average_set_size": {
+              "mean": 2.2766666666666664,
+              "standard_deviation": 0.38393792901110113,
+              "minimum": 1.845,
+              "maximum": 2.58
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.055,
+              "standard_deviation": 0.09526279441628827,
+              "minimum": 0.0,
+              "maximum": 0.165
+            }
+          },
+          "188": {
+            "coverage": {
+              "mean": 0.8316666666666667,
+              "standard_deviation": 0.048562674281111544,
+              "minimum": 0.79,
+              "maximum": 0.885
+            },
+            "average_set_size": {
+              "mean": 1.5483333333333331,
+              "standard_deviation": 0.3400122546811119,
+              "minimum": 1.21,
+              "maximum": 1.89
+            },
+            "empty_rate": {
+              "mean": 0.05000000000000001,
+              "standard_deviation": 0.04358898943540673,
+              "minimum": 0.0,
+              "maximum": 0.08
+            },
+            "singleton_rate": {
+              "mean": 0.4383333333333333,
+              "standard_deviation": 0.17017148213885117,
+              "minimum": 0.305,
+              "maximum": 0.63
+            },
+            "singleton_accuracy": {
+              "mean": 0.8102325485845762,
+              "standard_deviation": 0.15292796082194138,
+              "minimum": 0.639344262295082,
+              "maximum": 0.9342105263157895
+            }
+          },
+          "225": {
+            "coverage": {
+              "mean": 0.8483333333333333,
+              "standard_deviation": 0.020816659994661344,
+              "minimum": 0.825,
+              "maximum": 0.865
+            },
+            "average_set_size": {
+              "mean": 1.0366666666666666,
+              "standard_deviation": 0.0625166644450369,
+              "minimum": 0.975,
+              "maximum": 1.1
+            },
+            "empty_rate": {
+              "mean": 0.12333333333333334,
+              "standard_deviation": 0.010408329997330667,
+              "minimum": 0.115,
+              "maximum": 0.135
+            },
+            "singleton_rate": {
+              "mean": 0.7166666666666667,
+              "standard_deviation": 0.04310839052125852,
+              "minimum": 0.67,
+              "maximum": 0.755
+            },
+            "singleton_accuracy": {
+              "mean": 0.9608954542201076,
+              "standard_deviation": 0.012237761792664054,
+              "minimum": 0.9470198675496688,
+              "maximum": 0.9701492537313433
+            }
+          },
+          "262": {
+            "coverage": {
+              "mean": 0.8016666666666666,
+              "standard_deviation": 0.04536885862938731,
+              "minimum": 0.75,
+              "maximum": 0.835
+            },
+            "average_set_size": {
+              "mean": 0.9966666666666667,
+              "standard_deviation": 0.10680979980008076,
+              "minimum": 0.875,
+              "maximum": 1.075
+            },
+            "empty_rate": {
+              "mean": 0.18499999999999997,
+              "standard_deviation": 0.047696960070847276,
+              "minimum": 0.155,
+              "maximum": 0.24
+            },
+            "singleton_rate": {
+              "mean": 0.6333333333333333,
+              "standard_deviation": 0.02466441431158126,
+              "minimum": 0.605,
+              "maximum": 0.65
+            },
+            "singleton_accuracy": {
+              "mean": 0.9792567075865173,
+              "standard_deviation": 0.015765609978257402,
+              "minimum": 0.9615384615384616,
+              "maximum": 0.9917355371900827
+            }
+          },
+          "300": {
+            "coverage": {
+              "mean": 0.8166666666666668,
+              "standard_deviation": 0.01527525231651942,
+              "minimum": 0.8,
+              "maximum": 0.83
+            },
+            "average_set_size": {
+              "mean": 1.005,
+              "standard_deviation": 0.03605551275463986,
+              "minimum": 0.965,
+              "maximum": 1.035
+            },
+            "empty_rate": {
+              "mean": 0.16666666666666666,
+              "standard_deviation": 0.011547005383792509,
+              "minimum": 0.16,
+              "maximum": 0.18
+            },
+            "singleton_rate": {
+              "mean": 0.6616666666666666,
+              "standard_deviation": 0.05507570547286102,
+              "minimum": 0.605,
+              "maximum": 0.715
+            },
+            "singleton_accuracy": {
+              "mean": 0.9742936489347972,
+              "standard_deviation": 0.01025908358395263,
+              "minimum": 0.9669421487603306,
+              "maximum": 0.986013986013986
+            }
+          }
+        },
+        "coverage_target_passes_at_full_prefix": 0,
+        "efficiency_passes_at_full_prefix": 3,
+        "activation_passes": 3
+      },
+      "cross_conformal_afc_2025": {
+        "prefix_lengths": [
+          38,
+          75,
+          112,
+          150,
+          188,
+          225,
+          262,
+          300
+        ],
+        "by_prefix": {
+          "38": {
+            "coverage": {
+              "mean": 1.0,
+              "standard_deviation": 0.0,
+              "minimum": 1.0,
+              "maximum": 1.0
+            },
+            "average_set_size": {
+              "mean": 5.0,
+              "standard_deviation": 0.0,
+              "minimum": 5.0,
+              "maximum": 5.0
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "75": {
+            "coverage": {
+              "mean": 0.985,
+              "standard_deviation": 0.008660254037844393,
+              "minimum": 0.98,
+              "maximum": 0.995
+            },
+            "average_set_size": {
+              "mean": 3.5866666666666664,
+              "standard_deviation": 0.01527525231651958,
+              "minimum": 3.57,
+              "maximum": 3.6
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "112": {
+            "coverage": {
+              "mean": 0.9466666666666667,
+              "standard_deviation": 0.016072751268321566,
+              "minimum": 0.935,
+              "maximum": 0.965
+            },
+            "average_set_size": {
+              "mean": 3.395,
+              "standard_deviation": 0.30744918279286415,
+              "minimum": 3.215,
+              "maximum": 3.75
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "150": {
+            "coverage": {
+              "mean": 0.9316666666666666,
+              "standard_deviation": 0.014433756729740593,
+              "minimum": 0.915,
+              "maximum": 0.94
+            },
+            "average_set_size": {
+              "mean": 2.9466666666666668,
+              "standard_deviation": 0.02516611478423597,
+              "minimum": 2.92,
+              "maximum": 2.97
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "188": {
+            "coverage": {
+              "mean": 0.935,
+              "standard_deviation": 0.022912878474779158,
+              "minimum": 0.91,
+              "maximum": 0.955
+            },
+            "average_set_size": {
+              "mean": 1.7466666666666668,
+              "standard_deviation": 0.0621154838452807,
+              "minimum": 1.675,
+              "maximum": 1.785
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.41333333333333333,
+              "standard_deviation": 0.035118845842842465,
+              "minimum": 0.38,
+              "maximum": 0.45
+            },
+            "singleton_accuracy": {
+              "mean": 0.8953549184614653,
+              "standard_deviation": 0.006796179574793691,
+              "minimum": 0.8888888888888888,
+              "maximum": 0.9024390243902439
+            }
+          },
+          "225": {
+            "coverage": {
+              "mean": 0.9550000000000001,
+              "standard_deviation": 0.0050000000000000044,
+              "minimum": 0.95,
+              "maximum": 0.96
+            },
+            "average_set_size": {
+              "mean": 1.2133333333333334,
+              "standard_deviation": 0.02020725942163693,
+              "minimum": 1.195,
+              "maximum": 1.235
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.7866666666666667,
+              "standard_deviation": 0.020207259421636918,
+              "minimum": 0.765,
+              "maximum": 0.805
+            },
+            "singleton_accuracy": {
+              "mean": 0.9428402193140449,
+              "standard_deviation": 0.0056088039503587855,
+              "minimum": 0.9367088607594937,
+              "maximum": 0.9477124183006536
+            }
+          },
+          "262": {
+            "coverage": {
+              "mean": 0.9733333333333333,
+              "standard_deviation": 0.016072751268321604,
+              "minimum": 0.955,
+              "maximum": 0.985
+            },
+            "average_set_size": {
+              "mean": 1.2716666666666667,
+              "standard_deviation": 0.03013856886670856,
+              "minimum": 1.24,
+              "maximum": 1.3
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.7283333333333334,
+              "standard_deviation": 0.03013856886670857,
+              "minimum": 0.7,
+              "maximum": 0.76
+            },
+            "singleton_accuracy": {
+              "mean": 0.9639248984530292,
+              "standard_deviation": 0.02027103914614099,
+              "minimum": 0.9407894736842105,
+              "maximum": 0.9785714285714285
+            }
+          },
+          "300": {
+            "coverage": {
+              "mean": 0.9616666666666666,
+              "standard_deviation": 0.014433756729740658,
+              "minimum": 0.945,
+              "maximum": 0.97
+            },
+            "average_set_size": {
+              "mean": 1.2466666666666668,
+              "standard_deviation": 0.03055050463303896,
+              "minimum": 1.22,
+              "maximum": 1.28
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.7533333333333333,
+              "standard_deviation": 0.03055050463303896,
+              "minimum": 0.72,
+              "maximum": 0.78
+            },
+            "singleton_accuracy": {
+              "mean": 0.9494489428699954,
+              "standard_deviation": 0.017322132981445592,
+              "minimum": 0.9294871794871795,
+              "maximum": 0.9605263157894737
+            }
+          }
+        },
+        "coverage_target_passes_at_full_prefix": 3,
+        "efficiency_passes_at_full_prefix": 3,
+        "activation_passes": 3
+      }
+    },
+    "npp_alarm_dataport": {
+      "cone_afc_2024": {
+        "prefix_lengths": [
+          20,
+          40,
+          60,
+          80,
+          100,
+          120,
+          140,
+          160
+        ],
+        "by_prefix": {
+          "20": {
+            "coverage": {
+              "mean": 0.8219696969696969,
+              "standard_deviation": 0.06258602894643298,
+              "minimum": 0.75,
+              "maximum": 0.8636363636363636
+            },
+            "average_set_size": {
+              "mean": 1.121212121212121,
+              "standard_deviation": 0.10185098227082383,
+              "minimum": 1.0568181818181819,
+              "maximum": 1.2386363636363635
+            },
+            "empty_rate": {
+              "mean": 0.10606060606060606,
+              "standard_deviation": 0.01735824126877212,
+              "minimum": 0.09090909090909091,
+              "maximum": 0.125
+            },
+            "singleton_rate": {
+              "mean": 0.6666666666666666,
+              "standard_deviation": 0.0806204418704271,
+              "minimum": 0.5795454545454546,
+              "maximum": 0.7386363636363636
+            },
+            "singleton_accuracy": {
+              "mean": 0.9016339869281046,
+              "standard_deviation": 0.09327818714662062,
+              "minimum": 0.8,
+              "maximum": 0.9833333333333333
+            }
+          },
+          "40": {
+            "coverage": {
+              "mean": 0.7954545454545454,
+              "standard_deviation": 0.01968239554055547,
+              "minimum": 0.7840909090909091,
+              "maximum": 0.8181818181818182
+            },
+            "average_set_size": {
+              "mean": 1.0833333333333335,
+              "standard_deviation": 0.11036971427525354,
+              "minimum": 0.9886363636363636,
+              "maximum": 1.2045454545454546
+            },
+            "empty_rate": {
+              "mean": 0.12878787878787878,
+              "standard_deviation": 0.03990777936686643,
+              "minimum": 0.09090909090909091,
+              "maximum": 0.17045454545454544
+            },
+            "singleton_rate": {
+              "mean": 0.6590909090909091,
+              "standard_deviation": 0.10840218197919838,
+              "minimum": 0.5454545454545454,
+              "maximum": 0.7613636363636364
+            },
+            "singleton_accuracy": {
+              "mean": 0.8948969840065212,
+              "standard_deviation": 0.051747807824160996,
+              "minimum": 0.835820895522388,
+              "maximum": 0.9322033898305084
+            }
+          },
+          "60": {
+            "coverage": {
+              "mean": 0.837121212121212,
+              "standard_deviation": 0.028597857709358934,
+              "minimum": 0.8068181818181818,
+              "maximum": 0.8636363636363636
+            },
+            "average_set_size": {
+              "mean": 1.1363636363636365,
+              "standard_deviation": 0.0601307116151044,
+              "minimum": 1.0909090909090908,
+              "maximum": 1.2045454545454546
+            },
+            "empty_rate": {
+              "mean": 0.10984848484848485,
+              "standard_deviation": 0.006560798513518469,
+              "minimum": 0.10227272727272728,
+              "maximum": 0.11363636363636363
+            },
+            "singleton_rate": {
+              "mean": 0.6439393939393939,
+              "standard_deviation": 0.06560798513518469,
+              "minimum": 0.5681818181818182,
+              "maximum": 0.6818181818181818
+            },
+            "singleton_accuracy": {
+              "mean": 0.9177777777777778,
+              "standard_deviation": 0.05003702332976756,
+              "minimum": 0.8666666666666667,
+              "maximum": 0.9666666666666667
+            }
+          },
+          "80": {
+            "coverage": {
+              "mean": 0.8030303030303031,
+              "standard_deviation": 0.03652898015527638,
+              "minimum": 0.7613636363636364,
+              "maximum": 0.8295454545454546
+            },
+            "average_set_size": {
+              "mean": 1.1022727272727273,
+              "standard_deviation": 0.07954545454545453,
+              "minimum": 1.0454545454545454,
+              "maximum": 1.1931818181818181
+            },
+            "empty_rate": {
+              "mean": 0.14393939393939392,
+              "standard_deviation": 0.017358241268772123,
+              "minimum": 0.125,
+              "maximum": 0.1590909090909091
+            },
+            "singleton_rate": {
+              "mean": 0.6098484848484849,
+              "standard_deviation": 0.051241474463896534,
+              "minimum": 0.5568181818181818,
+              "maximum": 0.6590909090909091
+            },
+            "singleton_accuracy": {
+              "mean": 0.9138365435573973,
+              "standard_deviation": 0.06126912076968548,
+              "minimum": 0.8620689655172413,
+              "maximum": 0.9814814814814815
+            }
+          },
+          "100": {
+            "coverage": {
+              "mean": 0.7954545454545454,
+              "standard_deviation": 0.01968239554055547,
+              "minimum": 0.7840909090909091,
+              "maximum": 0.8181818181818182
+            },
+            "average_set_size": {
+              "mean": 1.1856060606060606,
+              "standard_deviation": 0.08220656975079814,
+              "minimum": 1.0909090909090908,
+              "maximum": 1.2386363636363635
+            },
+            "empty_rate": {
+              "mean": 0.14393939393939392,
+              "standard_deviation": 0.023655295448478778,
+              "minimum": 0.125,
+              "maximum": 0.17045454545454544
+            },
+            "singleton_rate": {
+              "mean": 0.5568181818181818,
+              "standard_deviation": 0.08875283722621197,
+              "minimum": 0.5,
+              "maximum": 0.6590909090909091
+            },
+            "singleton_accuracy": {
+              "mean": 0.8935852780680368,
+              "standard_deviation": 0.07367644012090449,
+              "minimum": 0.8409090909090909,
+              "maximum": 0.9777777777777777
+            }
+          },
+          "120": {
+            "coverage": {
+              "mean": 0.787878787878788,
+              "standard_deviation": 0.03990777936686646,
+              "minimum": 0.75,
+              "maximum": 0.8295454545454546
+            },
+            "average_set_size": {
+              "mean": 1.1666666666666667,
+              "standard_deviation": 0.13461633063573372,
+              "minimum": 1.0113636363636365,
+              "maximum": 1.25
+            },
+            "empty_rate": {
+              "mean": 0.1515151515151515,
+              "standard_deviation": 0.023655295448478778,
+              "minimum": 0.125,
+              "maximum": 0.17045454545454544
+            },
+            "singleton_rate": {
+              "mean": 0.5606060606060607,
+              "standard_deviation": 0.07566281952817491,
+              "minimum": 0.5113636363636364,
+              "maximum": 0.6477272727272727
+            },
+            "singleton_accuracy": {
+              "mean": 0.8925586914145266,
+              "standard_deviation": 0.07914602722185923,
+              "minimum": 0.8222222222222222,
+              "maximum": 0.9782608695652174
+            }
+          },
+          "140": {
+            "coverage": {
+              "mean": 0.7651515151515151,
+              "standard_deviation": 0.0646163716258787,
+              "minimum": 0.6931818181818182,
+              "maximum": 0.8181818181818182
+            },
+            "average_set_size": {
+              "mean": 1.0946969696969697,
+              "standard_deviation": 0.14787288860562975,
+              "minimum": 0.9431818181818182,
+              "maximum": 1.2386363636363635
+            },
+            "empty_rate": {
+              "mean": 0.17424242424242423,
+              "standard_deviation": 0.028597857709358906,
+              "minimum": 0.14772727272727273,
+              "maximum": 0.20454545454545456
+            },
+            "singleton_rate": {
+              "mean": 0.587121212121212,
+              "standard_deviation": 0.06943296507508849,
+              "minimum": 0.5113636363636364,
+              "maximum": 0.6477272727272727
+            },
+            "singleton_accuracy": {
+              "mean": 0.9022251645886205,
+              "standard_deviation": 0.06914032289470973,
+              "minimum": 0.8421052631578947,
+              "maximum": 0.9777777777777777
+            }
+          },
+          "160": {
+            "coverage": {
+              "mean": 0.7689393939393939,
+              "standard_deviation": 0.08604406584545872,
+              "minimum": 0.6704545454545454,
+              "maximum": 0.8295454545454546
+            },
+            "average_set_size": {
+              "mean": 1.0871212121212122,
+              "standard_deviation": 0.17020183286864377,
+              "minimum": 0.8977272727272727,
+              "maximum": 1.2272727272727273
+            },
+            "empty_rate": {
+              "mean": 0.1818181818181818,
+              "standard_deviation": 0.045454545454545456,
+              "minimum": 0.13636363636363635,
+              "maximum": 0.22727272727272727
+            },
+            "singleton_rate": {
+              "mean": 0.5795454545454546,
+              "standard_deviation": 0.07451634686706818,
+              "minimum": 0.5,
+              "maximum": 0.6477272727272727
+            },
+            "singleton_accuracy": {
+              "mean": 0.9205618942461048,
+              "standard_deviation": 0.0701585393149697,
+              "minimum": 0.8421052631578947,
+              "maximum": 0.9772727272727273
+            }
+          }
+        },
+        "coverage_target_passes_at_full_prefix": 0,
+        "efficiency_passes_at_full_prefix": 3,
+        "activation_passes": 3
+      },
+      "cross_conformal_afc_2025": {
+        "prefix_lengths": [
+          20,
+          40,
+          60,
+          80,
+          100,
+          120,
+          140,
+          160
+        ],
+        "by_prefix": {
+          "20": {
+            "coverage": {
+              "mean": 0.9659090909090909,
+              "standard_deviation": 0.030065355807552138,
+              "minimum": 0.9431818181818182,
+              "maximum": 1.0
+            },
+            "average_set_size": {
+              "mean": 1.5113636363636365,
+              "standard_deviation": 0.16969527867122816,
+              "minimum": 1.3863636363636365,
+              "maximum": 1.7045454545454546
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.537878787878788,
+              "standard_deviation": 0.09462118179391514,
+              "minimum": 0.4318181818181818,
+              "maximum": 0.6136363636363636
+            },
+            "singleton_accuracy": {
+              "mean": 0.9489928525016245,
+              "standard_deviation": 0.044240638234420336,
+              "minimum": 0.9210526315789473,
+              "maximum": 1.0
+            }
+          },
+          "40": {
+            "coverage": {
+              "mean": 0.9734848484848485,
+              "standard_deviation": 0.017358241268772105,
+              "minimum": 0.9545454545454546,
+              "maximum": 0.9886363636363636
+            },
+            "average_set_size": {
+              "mean": 1.4696969696969697,
+              "standard_deviation": 0.1447842034364879,
+              "minimum": 1.375,
+              "maximum": 1.6363636363636365
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.5757575757575758,
+              "standard_deviation": 0.07735067369947779,
+              "minimum": 0.48863636363636365,
+              "maximum": 0.6363636363636364
+            },
+            "singleton_accuracy": {
+              "mean": 0.9636118598382749,
+              "standard_deviation": 0.03573335197725835,
+              "minimum": 0.9285714285714286,
+              "maximum": 1.0
+            }
+          },
+          "60": {
+            "coverage": {
+              "mean": 0.9734848484848485,
+              "standard_deviation": 0.026243194054073875,
+              "minimum": 0.9431818181818182,
+              "maximum": 0.9886363636363636
+            },
+            "average_set_size": {
+              "mean": 1.4621212121212122,
+              "standard_deviation": 0.15260028089760375,
+              "minimum": 1.3522727272727273,
+              "maximum": 1.6363636363636365
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.5795454545454546,
+              "standard_deviation": 0.08194434716963611,
+              "minimum": 0.48863636363636365,
+              "maximum": 0.6477272727272727
+            },
+            "singleton_accuracy": {
+              "mean": 0.964470925742028,
+              "standard_deviation": 0.046172115545116764,
+              "minimum": 0.9122807017543859,
+              "maximum": 1.0
+            }
+          },
+          "80": {
+            "coverage": {
+              "mean": 0.9772727272727274,
+              "standard_deviation": 0.011363636363636354,
+              "minimum": 0.9659090909090909,
+              "maximum": 0.9886363636363636
+            },
+            "average_set_size": {
+              "mean": 1.5946969696969697,
+              "standard_deviation": 0.1438895447971408,
+              "minimum": 1.4659090909090908,
+              "maximum": 1.75
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.481060606060606,
+              "standard_deviation": 0.09185117918925863,
+              "minimum": 0.375,
+              "maximum": 0.5340909090909091
+            },
+            "singleton_accuracy": {
+              "mean": 0.9645390070921986,
+              "standard_deviation": 0.032500536843658424,
+              "minimum": 0.9361702127659575,
+              "maximum": 1.0
+            }
+          },
+          "100": {
+            "coverage": {
+              "mean": 0.9810606060606061,
+              "standard_deviation": 0.013121597027036937,
+              "minimum": 0.9659090909090909,
+              "maximum": 0.9886363636363636
+            },
+            "average_set_size": {
+              "mean": 1.6628787878787878,
+              "standard_deviation": 0.1542834231395174,
+              "minimum": 1.5681818181818181,
+              "maximum": 1.8409090909090908
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.47348484848484845,
+              "standard_deviation": 0.08604406584545868,
+              "minimum": 0.375,
+              "maximum": 0.5340909090909091
+            },
+            "singleton_accuracy": {
+              "mean": 0.9713159968479118,
+              "standard_deviation": 0.03240179615661715,
+              "minimum": 0.9361702127659575,
+              "maximum": 1.0
+            }
+          },
+          "120": {
+            "coverage": {
+              "mean": 0.9848484848484849,
+              "standard_deviation": 0.017358241268772105,
+              "minimum": 0.9659090909090909,
+              "maximum": 1.0
+            },
+            "average_set_size": {
+              "mean": 1.6666666666666667,
+              "standard_deviation": 0.15089836581092483,
+              "minimum": 1.5795454545454546,
+              "maximum": 1.8409090909090908
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.4696969696969697,
+              "standard_deviation": 0.08220656975079811,
+              "minimum": 0.375,
+              "maximum": 0.5227272727272727
+            },
+            "singleton_accuracy": {
+              "mean": 0.9782608695652174,
+              "standard_deviation": 0.03765327842541035,
+              "minimum": 0.9347826086956522,
+              "maximum": 1.0
+            }
+          },
+          "140": {
+            "coverage": {
+              "mean": 0.9734848484848485,
+              "standard_deviation": 0.017358241268772105,
+              "minimum": 0.9545454545454546,
+              "maximum": 0.9886363636363636
+            },
+            "average_set_size": {
+              "mean": 1.5909090909090908,
+              "standard_deviation": 0.14508119698640576,
+              "minimum": 1.4659090909090908,
+              "maximum": 1.75
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.47348484848484845,
+              "standard_deviation": 0.08604406584545868,
+              "minimum": 0.375,
+              "maximum": 0.5340909090909091
+            },
+            "singleton_accuracy": {
+              "mean": 0.9716312056737588,
+              "standard_deviation": 0.04913619312252135,
+              "minimum": 0.9148936170212766,
+              "maximum": 1.0
+            }
+          },
+          "160": {
+            "coverage": {
+              "mean": 0.9734848484848485,
+              "standard_deviation": 0.017358241268772105,
+              "minimum": 0.9545454545454546,
+              "maximum": 0.9886363636363636
+            },
+            "average_set_size": {
+              "mean": 1.5606060606060606,
+              "standard_deviation": 0.1640199628379619,
+              "minimum": 1.4659090909090908,
+              "maximum": 1.75
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.481060606060606,
+              "standard_deviation": 0.09185117918925863,
+              "minimum": 0.375,
+              "maximum": 0.5340909090909091
+            },
+            "singleton_accuracy": {
+              "mean": 0.9574468085106383,
+              "standard_deviation": 0.04255319148936171,
+              "minimum": 0.9148936170212766,
+              "maximum": 1.0
+            }
+          }
+        },
+        "coverage_target_passes_at_full_prefix": 3,
+        "efficiency_passes_at_full_prefix": 3,
+        "activation_passes": 3
+      }
+    },
+    "fcc_alarm": {
+      "cone_afc_2024": {
+        "prefix_lengths": [
+          8,
+          15,
+          22,
+          30,
+          38,
+          45,
+          52,
+          60
+        ],
+        "by_prefix": {
+          "8": {
+            "coverage": {
+              "mean": 0.9817708333333334,
+              "standard_deviation": 0.016263015620829165,
+              "minimum": 0.96875,
+              "maximum": 1.0
+            },
+            "average_set_size": {
+              "mean": 14.557291666666666,
+              "standard_deviation": 1.386698576731199,
+              "minimum": 13.234375,
+              "maximum": 16.0
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "15": {
+            "coverage": {
+              "mean": 0.9401041666666666,
+              "standard_deviation": 0.05651701670367372,
+              "minimum": 0.875,
+              "maximum": 0.9765625
+            },
+            "average_set_size": {
+              "mean": 10.598958333333334,
+              "standard_deviation": 0.9133054200893496,
+              "minimum": 9.984375,
+              "maximum": 11.6484375
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "22": {
+            "coverage": {
+              "mean": 0.9348958333333334,
+              "standard_deviation": 0.06068323019651586,
+              "minimum": 0.8671875,
+              "maximum": 0.984375
+            },
+            "average_set_size": {
+              "mean": 9.080729166666666,
+              "standard_deviation": 0.9752908386999661,
+              "minimum": 7.9921875,
+              "maximum": 9.875
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "30": {
+            "coverage": {
+              "mean": 0.9322916666666666,
+              "standard_deviation": 0.029577647634376425,
+              "minimum": 0.8984375,
+              "maximum": 0.953125
+            },
+            "average_set_size": {
+              "mean": 7.760416666666667,
+              "standard_deviation": 0.7437210034613675,
+              "minimum": 7.28125,
+              "maximum": 8.6171875
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "38": {
+            "coverage": {
+              "mean": 0.9270833333333334,
+              "standard_deviation": 0.03252603124165832,
+              "minimum": 0.890625,
+              "maximum": 0.953125
+            },
+            "average_set_size": {
+              "mean": 6.9296875,
+              "standard_deviation": 0.798520054440557,
+              "minimum": 6.2578125,
+              "maximum": 7.8125
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "45": {
+            "coverage": {
+              "mean": 0.921875,
+              "standard_deviation": 0.028168369339562415,
+              "minimum": 0.890625,
+              "maximum": 0.9453125
+            },
+            "average_set_size": {
+              "mean": 6.921875,
+              "standard_deviation": 0.7646278583198169,
+              "minimum": 6.2578125,
+              "maximum": 7.7578125
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "52": {
+            "coverage": {
+              "mean": 0.921875,
+              "standard_deviation": 0.0358013726168425,
+              "minimum": 0.8828125,
+              "maximum": 0.953125
+            },
+            "average_set_size": {
+              "mean": 6.908854166666667,
+              "standard_deviation": 0.9632319321992671,
+              "minimum": 6.2109375,
+              "maximum": 8.0078125
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "60": {
+            "coverage": {
+              "mean": 0.9010416666666666,
+              "standard_deviation": 0.03608439182435161,
+              "minimum": 0.859375,
+              "maximum": 0.921875
+            },
+            "average_set_size": {
+              "mean": 6.674479166666667,
+              "standard_deviation": 0.7212225361250044,
+              "minimum": 6.1015625,
+              "maximum": 7.484375
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          }
+        },
+        "coverage_target_passes_at_full_prefix": 2,
+        "efficiency_passes_at_full_prefix": 3,
+        "activation_passes": 3
+      },
+      "cross_conformal_afc_2025": {
+        "prefix_lengths": [
+          8,
+          15,
+          22,
+          30,
+          38,
+          45,
+          52,
+          60
+        ],
+        "by_prefix": {
+          "8": {
+            "coverage": {
+              "mean": 0.9973958333333334,
+              "standard_deviation": 0.004510548978043951,
+              "minimum": 0.9921875,
+              "maximum": 1.0
+            },
+            "average_set_size": {
+              "mean": 15.1796875,
+              "standard_deviation": 0.7808983583628217,
+              "minimum": 14.4453125,
+              "maximum": 16.0
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "15": {
+            "coverage": {
+              "mean": 0.9973958333333334,
+              "standard_deviation": 0.004510548978043951,
+              "minimum": 0.9921875,
+              "maximum": 1.0
+            },
+            "average_set_size": {
+              "mean": 12.78125,
+              "standard_deviation": 0.6097254601201675,
+              "minimum": 12.078125,
+              "maximum": 13.1640625
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "22": {
+            "coverage": {
+              "mean": 0.984375,
+              "standard_deviation": 0.013531646934131853,
+              "minimum": 0.96875,
+              "maximum": 0.9921875
+            },
+            "average_set_size": {
+              "mean": 10.4609375,
+              "standard_deviation": 0.5678994326683202,
+              "minimum": 9.9765625,
+              "maximum": 11.0859375
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "30": {
+            "coverage": {
+              "mean": 0.9713541666666666,
+              "standard_deviation": 0.011933790872280834,
+              "minimum": 0.9609375,
+              "maximum": 0.984375
+            },
+            "average_set_size": {
+              "mean": 9.1171875,
+              "standard_deviation": 0.3049878327491115,
+              "minimum": 8.8046875,
+              "maximum": 9.4140625
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "38": {
+            "coverage": {
+              "mean": 0.9635416666666666,
+              "standard_deviation": 0.004510548978043951,
+              "minimum": 0.9609375,
+              "maximum": 0.96875
+            },
+            "average_set_size": {
+              "mean": 7.953125,
+              "standard_deviation": 0.28416458561676894,
+              "minimum": 7.6953125,
+              "maximum": 8.2578125
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "45": {
+            "coverage": {
+              "mean": 0.9635416666666666,
+              "standard_deviation": 0.004510548978043951,
+              "minimum": 0.9609375,
+              "maximum": 0.96875
+            },
+            "average_set_size": {
+              "mean": 8.096354166666666,
+              "standard_deviation": 0.22294161172733845,
+              "minimum": 7.84375,
+              "maximum": 8.265625
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "52": {
+            "coverage": {
+              "mean": 0.9661458333333334,
+              "standard_deviation": 0.004510548978043951,
+              "minimum": 0.9609375,
+              "maximum": 0.96875
+            },
+            "average_set_size": {
+              "mean": 8.114583333333334,
+              "standard_deviation": 0.1159658545740225,
+              "minimum": 8.015625,
+              "maximum": 8.2421875
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          },
+          "60": {
+            "coverage": {
+              "mean": 0.9661458333333334,
+              "standard_deviation": 0.004510548978043951,
+              "minimum": 0.9609375,
+              "maximum": 0.96875
+            },
+            "average_set_size": {
+              "mean": 8.0703125,
+              "standard_deviation": 0.17399263633843817,
+              "minimum": 7.9140625,
+              "maximum": 8.2578125
+            },
+            "empty_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            },
+            "singleton_rate": {
+              "mean": 0.0,
+              "standard_deviation": 0.0,
+              "minimum": 0.0,
+              "maximum": 0.0
+            }
+          }
+        },
+        "coverage_target_passes_at_full_prefix": 3,
+        "efficiency_passes_at_full_prefix": 3,
+        "activation_passes": 3
+      }
+    }
+  },
+  "uncertainty_reduction": {
+    "tep_alarm_dataport": {
+      "statuses": [
+        "executed",
+        "executed",
+        "executed"
+      ],
+      "training_rows": [
+        40,
+        40,
+        40
+      ],
+      "test_rows": [
+        939,
+        968,
+        971
+      ],
+      "mean_absolute_error_minutes": {
+        "mean": 12.574274832427804,
+        "standard_deviation": 5.5394297230397465,
+        "minimum": 8.628846572116009,
+        "maximum": 18.907089711252933
+      },
+      "median_baseline_mae_minutes": {
+        "mean": 16.03767520126097,
+        "standard_deviation": 3.092901763236761,
+        "minimum": 13.592173017507724,
+        "maximum": 19.514462809917354
+      },
+      "jackknife_plus_coverage": {
+        "mean": 0.9032235158144593,
+        "standard_deviation": 0.03432043318650247,
+        "minimum": 0.878099173553719,
+        "maximum": 0.9423274974253347
+      },
+      "mean_interval_width_minutes": {
+        "mean": 68.10093904122591,
+        "standard_deviation": 19.581325096228422,
+        "minimum": 52.0516360701185,
+        "maximum": 89.91845818112863
+      },
+      "delay_timer_emissions": {
+        "mean": 93.66666666666667,
+        "standard_deviation": 92.50045044935368,
+        "minimum": 16.0,
+        "maximum": 196.0
+      },
+      "activation_passes": 3,
+      "performance_passes": 3,
+      "competitive_passes": 2
+    },
+    "npp_alarm_dataport": {
+      "statuses": [
+        "executed",
+        "executed",
+        "executed"
+      ],
+      "training_rows": [
+        36,
+        40,
+        37
+      ],
+      "test_rows": [
+        120,
+        93,
+        42
+      ],
+      "mean_absolute_error_minutes": {
+        "mean": 3.706474132452542,
+        "standard_deviation": 0.4016751580299759,
+        "minimum": 3.2541578483245157,
+        "maximum": 4.021516563976881
+      },
+      "median_baseline_mae_minutes": {
+        "mean": 4.050648574842124,
+        "standard_deviation": 0.6805609499043077,
+        "minimum": 3.412698412698413,
+        "maximum": 4.767025089605736
+      },
+      "jackknife_plus_coverage": {
+        "mean": 0.8666026625704045,
+        "standard_deviation": 0.09468741254240981,
+        "minimum": 0.7619047619047619,
+        "maximum": 0.946236559139785
+      },
+      "mean_interval_width_minutes": {
+        "mean": 14.809995336939139,
+        "standard_deviation": 3.571229020751792,
+        "minimum": 11.418565238406508,
+        "maximum": 18.53729305342208
+      },
+      "delay_timer_emissions": {
+        "mean": 39.666666666666664,
+        "standard_deviation": 21.45538005567213,
+        "minimum": 15.0,
+        "maximum": 54.0
+      },
+      "activation_passes": 3,
+      "performance_passes": 2,
+      "competitive_passes": 2
+    },
+    "fcc_alarm": {
+      "statuses": [
+        "executed",
+        "executed",
+        "executed"
+      ],
+      "training_rows": [
+        40,
+        40,
+        40
+      ],
+      "test_rows": [
+        615,
+        614,
+        320
+      ],
+      "mean_absolute_error_minutes": {
+        "mean": 0.8196514297526253,
+        "standard_deviation": 0.14224076502817598,
+        "minimum": 0.6712499999999999,
+        "maximum": 0.9548045602605864
+      },
+      "median_baseline_mae_minutes": {
+        "mean": 2.3579728147647927,
+        "standard_deviation": 0.887902032459247,
+        "minimum": 1.334375,
+        "maximum": 2.9203252032520326
+      },
+      "jackknife_plus_coverage": {
+        "mean": 0.923041216466725,
+        "standard_deviation": 0.04314708428758461,
+        "minimum": 0.878125,
+        "maximum": 0.9641693811074918
+      },
+      "mean_interval_width_minutes": {
+        "mean": 4.884874584925953,
+        "standard_deviation": 6.309147175731851,
+        "minimum": 0.5876041666666671,
+        "maximum": 12.128157799493305
+      },
+      "delay_timer_emissions": {
+        "mean": 143.66666666666666,
+        "standard_deviation": 118.25537338038104,
+        "minimum": 11.0,
+        "maximum": 238.0
+      },
+      "activation_passes": 3,
+      "performance_passes": 3,
+      "competitive_passes": 3
+    }
+  },
+  "evidence_updates": [
+    {
+      "algorithm_id": "modified_tfidf_afc_2025",
+      "from": "E0",
+      "to": "E2"
+    },
+    {
+      "algorithm_id": "hybrid_histogram_afc_2026",
+      "from": "E0",
+      "to": "E2"
+    },
+    {
+      "algorithm_id": "uncertainty_reduction_2025",
+      "from": "E0",
+      "to": "E2"
+    },
+    {
+      "algorithm_id": "etfa_robustness_2025",
+      "from": "E0",
+      "to": "E2"
+    },
+    {
+      "algorithm_id": "afc_robustbench_2026",
+      "from": "E0",
+      "to": "E2"
+    }
+  ],
+  "strict_paper_score_closure": {
+    "closed": 0,
+    "total": 9,
+    "reason": "Exact paper data/splits/full text or official capsules remain unavailable."
+  },
+  "runtime_gene_trial": {
+    "where": "runtime",
+    "why": "variable-length TF-IDF LSTM padding",
+    "candidate": "packed recurrent sequence",
+    "validity": "endpoint equality unit test passed",
+    "activation": true,
+    "gain": "no material end-to-end acceleration observed before ConE",
+    "bank_decision": "reject_keep_parent"
+  },
+  "reporting_boundary": "Engineering and cross-dataset transfer evidence only; no paper table is claimed reproduced."
+}

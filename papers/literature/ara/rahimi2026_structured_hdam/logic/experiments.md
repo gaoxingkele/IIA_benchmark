@@ -23,3 +23,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Main confusions are SGATR/SGBTR, LOCA/LOCAC, and SLBIC/SLBOC; the lower score than NPP CTFH/CASIM is retained as negative comparative evidence.
 - Evidence: `experiments/reports/npp_alarm_hdam_state_validation.json`.
 - Boundary: one transfer seed and an engineering template width; no paper-score reproduction is asserted.
+
+## SOTA Wave 2 grouped classification and robustness (E2/P1)
+
+- Full binned templates are fixed before test prediction for seeds 1103/2207/3301 on grouped TEP/NPP/FCC rising-edge trajectories.
+- Mean balanced accuracy is 0.9967/0.6932/0.9375; classification paired credit passes 2/9 because NPP matches the parent and FCC gains are not consistently significant.
+- Full-progress robustness AUC is 1.0000/0.6621/0.7359 with paired robustness credit in 6/9 dataset-seeds.
+- Evidence: `experiments/reports/sota_wave2_multidataset_validation.json`.
+- Boundary: exact template/convolution equations, paper width/split, and selected tables remain gated.

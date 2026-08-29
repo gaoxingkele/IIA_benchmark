@@ -25,3 +25,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Both representations predict all 11 classes; state is slightly stronger, confirming that the FCC/TEP representation ordering is not universal.
 - Evidence: `experiments/reports/npp_alarm_ctfh_state_validation.json`, `experiments/reports/npp_alarm_ctfh_rising_edge_validation.json`, and `experiments/reports/npp_alarm_alpha050_prior_validation.json`.
 - Boundary: this is a grouped NPP transfer experiment, not the source paper's TEP score or exact repetition protocol.
+
+## SOTA Wave 2 grouped classification and robustness (E2/P1)
+
+- Three grouped seeds produce mean balanced accuracy 0.7350/0.8371/0.3828 on TEP/NPP/FCC; mechanism and chance-performance gates pass 9/9.
+- Relative to class-core Jaccard, classification paired credit passes only the three NPP seeds; robustness credit passes 1/9.
+- Full-progress five-regime robustness AUC is 0.7967/0.6864/0.2922.
+- Evidence: `experiments/reports/sota_wave2_multidataset_validation.json`.
+- Boundary: source equations, hash/peak parameters, paper split/repetitions, and target tables remain gated.

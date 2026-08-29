@@ -127,6 +127,31 @@
 | `T5` | next-alarm 与洪泛预测 | `runnable_real_data` | `piade`, `pronto`, `comopi`, `smd10towfgr`, `enas`, `tep_alarm_dataport`, `fcc_alarm` | `next_tag`, `future_alarm_set`, `early_warning` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 | `T6` | 运维可视分析 | `runnable_real_data` | `piade`, `pronto`, `comopi`, `smd10towfgr`, `tep_alarm_dataport` | `KPI`, `bad_actor`, `correlation_graph`, `flood_visual_report` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 
+### 5.1 SOTA Wave 2 validated evidence (2026-08-30)
+
+TEP Alarm, NPP Alarm alpha 0.50, and FCC Alarm now share a three-seed grouped
+Wave 2 protocol for CTFH, HDAM, CASIM, modified TF-IDF/LSTM, the time-encoded
+histogram hybrid, ConE, Cross-Conformal, robustness, and uncertainty-reduction
+forecasting. All 9 dataset-seed prior gates pass with zero complete-trajectory
+hash overlap. The five previously E0 targets `modified_tfidf_afc_2025`,
+`hybrid_histogram_afc_2026`, `uncertainty_reduction_2025`,
+`etfa_robustness_2025`, and `afc_robustbench_2026` now have E2 real-data
+engineering evidence.
+
+CASIM is the most stable point classifier at balanced accuracy
+`1.0000/0.8182/0.9922` on TEP/NPP/FCC. CTFH transfers best only to NPP
+(`0.8371`), modified TF-IDF is strong on FCC (`0.9896`) but high-variance on
+TEP/NPP, and the time histogram is negative transfer on NPP/FCC
+(`0.2652/0.3698`). Cross-Conformal reaches full-prefix coverage
+`0.9617/0.9735/0.9661` with nontrivial sets. Jackknife+ uncertainty-reduction
+forecasting beats the median-time baseline on all three data families, while
+NPP interval coverage remains below target in one seed.
+
+The machine-readable evidence is
+`experiments/reports/sota_wave2_multidataset_validation.json`. No exact paper
+score is promoted: official capsules, VAM/original robustness payloads, paper
+splits, equations, hyperparameters, and reference tables remain outstanding.
+
 ## 6. 当前主要缺口与优先顺序
 
 1. 补齐 23 篇论文全文，更新 PDF SHA-256、页码证据和 ARA evidence；其中 22 篇访问受限、1 篇自动下载遭遇 HTTP 403。

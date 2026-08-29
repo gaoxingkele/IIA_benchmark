@@ -25,3 +25,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Relative to split ConE, coverage improves by 0.063636 and empty sets disappear at a 0.236364-label mean set-size cost; no superiority claim is made from one seed.
 - Evidence: `experiments/reports/npp_alarm_cross_conformal_ctfh_validation.json`.
 - Boundary: the source paper protocol and exact target table remain unclosed.
+
+## SOTA Wave 2 grouped cross-conformal validation (E2/P1)
+
+- Three stratified folds and eight prefixes are fitted independently on grouped TEP/NPP/FCC pools for seeds 1103/2207/3301.
+- Full-prefix coverage is 0.9617/0.9735/0.9661 with mean set size 1.2467/1.5606/8.0703 for 5/11/16 classes.
+- Coverage and efficiency pass all 9 dataset-seeds; the larger FCC set cost is retained.
+- Evidence: `experiments/reports/sota_wave2_multidataset_validation.json`.
+- Boundary: exact ICPS equations, small-calibration grid, data, and postprocessing table remain gated.

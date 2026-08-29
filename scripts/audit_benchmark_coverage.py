@@ -78,12 +78,24 @@ def main() -> int:
             )
             if algorithm in registered_algorithm_ids
         }
+        | {
+            algorithm
+            for payload in report_payloads
+            if str(payload.get("task", "")).startswith("real_")
+            for algorithm in payload.get("real_data_validated_algorithms", [])
+            if algorithm in registered_algorithm_ids
+        }
     )
     validated_tasks = sorted(
         {
             task
             for config in validation_configs
             for task in config.get("downstream_tasks", [])
+        }
+        | {
+            task
+            for payload in report_payloads
+            for task in payload.get("downstream_tasks", [])
         }
     )
     report = {
@@ -143,6 +155,11 @@ def main() -> int:
             "real_data_validation_reports": sum(
                 str(config.get("task", "")).startswith("real_")
                 for config in validation_configs
+            )
+            + sum(
+                str(payload.get("task", "")).startswith("real_")
+                for payload in report_payloads
+                if not payload.get("config")
             ),
             "registered_algorithms_with_real_data_execution": len(
                 real_data_algorithm_ids

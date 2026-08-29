@@ -323,3 +323,55 @@ All four original paper scores remain blocked by their industrial payloads.
 
 Machine-readable report:
 `experiments/reports/book_ch5_multidataset_validation.json`.
+
+## SOTA Wave 2 three-dataset robustness and uncertainty validation
+
+Wave 2 freezes seeds 1103/2207/3301 over grouped complete rising-edge trajectories
+from TEP Alarm, NPP Alarm alpha 0.50, and FCC Alarm. Every split passes binary,
+finite, class-coverage, run-ID separation, complete-trajectory-hash separation,
+and event-raster round-trip checks. The NPP aggregate additionally records a
+1,212-file, 193,695,038-byte CSV manifest with SHA-256
+`fed72ffbc3436133c745d09ba0b025497f915163926b43aaf37e12c45cf6dd79`.
+
+Five point classifiers share the same split and a class-core Jaccard parent.
+Mean balanced accuracy on TEP/NPP/FCC is:
+
+| Method | TEP | NPP | FCC | Classification competitive seeds |
+|---|---:|---:|---:|---:|
+| Jaccard class core | 0.9667 | 0.6932 | 0.9115 | parent |
+| CTFH | 0.7350 | 0.8371 | 0.3828 | 3/9 |
+| HDAM | 0.9967 | 0.6932 | 0.9375 | 2/9 |
+| CASIM | 1.0000 | 0.8182 | 0.9922 | 8/9 |
+| Modified TF-IDF/LSTM | 0.8450 | 0.6250 | 0.9896 | 3/9 |
+| Time-encoded histogram hybrid | 0.7017 | 0.2652 | 0.3698 | 0/9 |
+
+All defining mechanisms activate. This does not imply superiority: modified
+TF-IDF is excellent on FCC but has seed SD 0.1039/0.1311 on TEP/NPP, while the
+histogram hybrid loses every paired comparison. The TF-IDF 1--4 gram selection
+chooses unigrams in every run, and its 100-epoch TEP fit averages 423.35 s. A
+packed-sequence runtime offspring passed endpoint equality but did not show
+material end-to-end gain and was rejected; the parent implementation is retained.
+
+The robustness block applies missing, spurious, timing, detector-delay, and mixed
+corruptions at severities 0.1/0.2 and progress 0.25/0.5/1.0 to test-only episodes.
+Mean full-progress AUC for CTFH/HDAM/CASIM/TF-IDF/histogram is
+0.7967/1.0000/0.9733/0.7783/0.6850 on TEP,
+0.6864/0.6621/0.7379/0.5348/0.2159 on NPP, and
+0.2922/0.7359/0.8318/0.7151/0.2599 on FCC. Clean and corrupted rankings are
+therefore reported separately.
+
+At the full prefix, ConE coverage/set size is 0.8167/1.0050,
+0.7689/1.0871, and 0.9010/6.6745. Three-fold Cross-Conformal raises coverage to
+0.9617/0.9735/0.9661 while keeping sizes below the 5/11/16-class label spaces
+at 1.2467/1.5606/8.0703. The random-forest jackknife+ forecaster then reduces
+next-set-contraction MAE from median baselines 16.0377/4.0506/2.3580 to
+12.5743/3.7065/0.8197 minutes; interval coverage is 0.9032/0.8666/0.9230, so
+NPP does not pass every nominal-coverage gate.
+
+This promotes modified TF-IDF, the time-histogram hybrid, uncertainty reduction,
+ETFA robustness, and AFC-RobustBench from E0 to E2 engineering evidence. It closes
+zero exact paper scores: VAM data, official capsules, exact paper splits,
+full equations/hyperparameters, and selected reference tables remain blocked.
+
+Machine-readable report:
+`experiments/reports/sota_wave2_multidataset_validation.json`.
