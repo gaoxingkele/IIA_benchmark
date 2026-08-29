@@ -1,6 +1,6 @@
 # IIA Benchmark 当前清单与完备性说明（2026-08-29）
 
-仓库：<https://github.com/gaoxingkele/IIA_benchmark>；生成基线 revision：`7347cd6`。
+仓库：<https://github.com/gaoxingkele/IIA_benchmark>；生成基线 revision：`5519380`。
 
 ## 1. 总体结论
 
