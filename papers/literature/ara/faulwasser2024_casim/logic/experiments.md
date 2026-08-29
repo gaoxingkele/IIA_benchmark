@@ -17,3 +17,10 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - G0 class-centroid accuracy is already 0.975, so the fixed split is easy and perfect separation alone is not evidence of universal superiority.
 - Evidence: `configs/experiments/tep_alarm_casim_state_validation.json` and `experiments/reports/tep_alarm_casim_state_validation.json`.
 - Boundary: exact public data is available, but the paper's repeated split, online grid, reference table, and official capsule equivalence remain open.
+
+## NPP alpha-0.50 transfer validation (E2/P1)
+
+- Fixed grouped 28/10/10 split per each of 11 fault families; full registered CASIM with 672 features and 10 classifiers.
+- Result: balanced accuracy 0.972727, macro-F1 0.973137, all classes predicted; 3 errors among 110 test runs; wall time 85.35 s.
+- Evidence: `configs/experiments/npp_alarm_casim_state_validation.json` and `experiments/reports/npp_alarm_casim_state_validation.json`.
+- Boundary: high performance on one alpha slice and one seed is transfer evidence only; alpha robustness, repeated seeds, and the paper's exact table remain open.

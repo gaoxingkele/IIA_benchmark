@@ -13,6 +13,7 @@ from iia_benchmark.data import (
     audit_pronto_archive,
     build_pronto_fault_window_split,
     build_fcc_alarm_split,
+    build_npp_alarm_split,
     build_tep_five_class_split,
     extract_pronto_members,
     load_piade_alarm_events,
@@ -21,6 +22,7 @@ from iia_benchmark.data import (
     load_pronto_merged_csv,
     load_fcc_alarm_runs,
     load_fcc_timeseries_runs,
+    load_npp_alarm_runs,
     load_tep_five_class_alarm_runs,
     pronto_normal_train_evaluation_masks,
     load_skab_csv,
@@ -360,6 +362,54 @@ def test_tep_five_class_adapter_and_seeded_group_split(tmp_path: Path) -> None:
         representation="rising_edge",
     )
     assert repeated.train_run_ids == split.train_run_ids
+
+
+def test_npp_adapter_horizon_filter_and_seeded_split(tmp_path: Path) -> None:
+    root = tmp_path / "alpha50"
+    columns = "TIME,A0,A1,A2,A3,A4,A5\n"
+    for family, sign in (("FLB", 1), ("RI", -1)):
+        folder = root / family
+        folder.mkdir(parents=True)
+        for position in range(1, 8):
+            run_number = sign * position
+            code = position + (8 if family == "RI" else 0)
+            state = ",".join(str((code >> bit) & 1) for bit in range(6))
+            rows = "\n".join(
+                f"{sample * 10},{state}" for sample in range(6 if position > 1 else 3)
+            )
+            (folder / f"{run_number}_alpha0,50.csv").write_text(
+                columns + rows + "\n", encoding="utf-8"
+            )
+    runs = load_npp_alarm_runs(
+        root,
+        alpha=0.5,
+        minimum_samples=6,
+        horizon_samples=6,
+    )
+    assert len(runs) == 12
+    assert {run.fault_family for run in runs} == {"FLB", "RI"}
+    assert runs[0].alarm_states.shape == (6, 6)
+    assert all(run.source_samples == 6 for run in runs)
+    assert runs[-1].base_run_id.startswith("RI_run-")
+    split = build_npp_alarm_split(
+        runs,
+        train_per_class=2,
+        calibration_per_class=2,
+        test_per_class=2,
+        random_state=1103,
+        representation="rising_edge",
+    )
+    assert split.X_train.shape == (4, 6, 6)
+    assert set(split.y_test) == {"FLB", "RI"}
+    assert len(split.unused_run_ids) == 0
+    with pytest.raises(ValueError, match="independent trajectory groups"):
+        build_npp_alarm_split(
+            runs,
+            train_per_class=3,
+            calibration_per_class=2,
+            test_per_class=2,
+            random_state=1103,
+        )
 
 
 def test_pronto_normal_split_is_purged_and_keeps_all_faults() -> None:

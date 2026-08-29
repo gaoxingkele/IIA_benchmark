@@ -17,3 +17,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Relative to split ConE on the same registered split, coverage and empty-set behavior improve at a 0.18-label mean set-size cost; no paired superiority claim is made from one seed.
 - Evidence: `experiments/reports/tep_alarm_cross_conformal_ctfh_validation.json`.
 - Boundary: the full paper equations/repetition protocol and exact reference table remain unclosed.
+
+## NPP alpha-0.50 transfer validation (E2/P1)
+
+- Five stratified train/calibration folds over unique trajectory components; untouched 11-class test set; rising-edge CTFH base and alpha 0.10.
+- Coverage 0.963636, mean set size 1.536364/11, empty rate 0, singleton rate 0.463636, singleton accuracy 0.921569.
+- Relative to split ConE, coverage improves by 0.063636 and empty sets disappear at a 0.236364-label mean set-size cost; no superiority claim is made from one seed.
+- Evidence: `experiments/reports/npp_alarm_cross_conformal_ctfh_validation.json`.
+- Boundary: the source paper protocol and exact target table remain unclosed.

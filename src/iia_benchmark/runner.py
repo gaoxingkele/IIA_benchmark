@@ -13,6 +13,7 @@ import numpy as np
 from iia_benchmark.config import load_experiment_config, load_json_reference
 from iia_benchmark.data import (
     build_fcc_alarm_split,
+    build_npp_alarm_split,
     build_tep_five_class_split,
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
@@ -20,6 +21,7 @@ from iia_benchmark.data import (
     build_pronto_fault_window_split,
     load_pronto_merged_csv,
     load_fcc_alarm_runs,
+    load_npp_alarm_runs,
     load_tep_five_class_alarm_runs,
     pronto_normal_train_evaluation_masks,
     load_skab_csv,
@@ -1109,6 +1111,104 @@ def _run_real_tep_alarm_classification(
     }
 
 
+def _run_real_npp_alarm_classification(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    split_config = references["split"]
+    model_config = references["model"]
+    extracted_root = _resolve(root, dataset["extracted_root"])
+    source_archive = _resolve(root, dataset["source_archive"])
+    runs = load_npp_alarm_runs(
+        extracted_root,
+        alpha=float(dataset["alpha"]),
+        fault_families=tuple(dataset["fault_families"]),
+        minimum_samples=int(dataset["minimum_samples"]),
+        horizon_samples=int(dataset["horizon_samples"]),
+        include_normal=bool(dataset.get("include_normal", False)),
+    )
+    split = build_npp_alarm_split(
+        runs,
+        train_per_class=int(split_config["train_per_class"]),
+        calibration_per_class=int(split_config["calibration_per_class"]),
+        test_per_class=int(split_config["test_per_class"]),
+        random_state=int(split_config["random_state"]),
+        representation=str(dataset.get("alarm_representation", "state")),
+    )
+    classes, classification, activation = _classify_complete_alarm_split(
+        model_config,
+        references.get("base_model"),
+        split_config,
+        split,
+    )
+    detector_parameters = {
+        key: int(value)
+        for key, value in references["flood_detector"]["parameters"].items()
+    }
+    criterion_runs = _criterion_c_diagnostics(runs, detector_parameters)
+    split_ids = {
+        "train": split.train_run_ids,
+        "calibration": split.calibration_run_ids,
+        "test": split.test_run_ids,
+    }
+    partition_sha256 = hashlib.sha256(
+        json.dumps(split_ids, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return {
+        **classification,
+        "activation": activation,
+        "train_runs": len(split.y_train),
+        "calibration_runs": len(split.y_calibration),
+        "test_runs": len(split.y_test),
+        "eligible_runs_before_deduplication": len(runs),
+        "unused_or_deduplicated_runs": len(split.unused_run_ids),
+        "duplicate_nonrepresentative_runs": len(split.duplicate_run_ids),
+        "cross_label_conflicting_runs": len(split.conflicting_run_ids),
+        "cross_label_conflicting_run_ids": list(split.conflicting_run_ids),
+        "classes": classes,
+        "excluded_fault_families": list(dataset.get("excluded_fault_families", [])),
+        "alarm_tags": list(split.alarm_names),
+        "samples_per_run": int(split.X_train.shape[2]),
+        "sample_seconds": float(runs[0].sample_seconds),
+        "alarm_representation": split.representation,
+        "alpha": float(dataset["alpha"]),
+        "train_class_counts": dict(sorted(Counter(split.y_train.tolist()).items())),
+        "calibration_class_counts": dict(
+            sorted(Counter(split.y_calibration.tolist()).items())
+        ),
+        "test_class_counts": dict(sorted(Counter(split.y_test.tolist()).items())),
+        "split_policy": (
+            "alpha=0.50; at least 160 source samples; exact state-or-edge "
+            "trajectory components are deduplicated; cross-label conflicts are "
+            "removed; one representative per component; 28/10/10 per class"
+        ),
+        "split_random_state": split.random_state,
+        "partition_sha256": partition_sha256,
+        "criterion_c": {
+            "parameters": detector_parameters,
+            "candidate_intervals": sum(
+                row["candidate_flood_intervals"] for row in criterion_runs
+            ),
+            "runs_with_candidates": sum(
+                row["candidate_flood_intervals"] > 0 for row in criterion_runs
+            ),
+            "per_run": criterion_runs,
+            "label_boundary": "criterion-C intervals are candidates, not expert-confirmed floods",
+        },
+        "data_evidence": _data_evidence([source_archive], root),
+        "reporting_status": (
+            "NPP alpha-0.50 engineering transfer validation; P1 grouped unique-"
+            "trajectory split, not a paper-score reproduction"
+        ),
+        "limitations": [
+            "Normal has one run per alpha and is excluded from balanced closed-set scoring.",
+            "MD has one unique 160-sample alarm trajectory across 100 runs and is excluded from independent train/test scoring.",
+            "Runs shorter than 160 samples and state/edge duplicate or cross-label-conflict components are excluded by G0.",
+            "Other alpha slices are reserved for grouped threshold-robustness evaluation.",
+        ],
+    }
+
+
 def _fcc_alarm_tokens(run: object) -> tuple[AlarmToken, ...]:
     episode = run.to_episode(include_clearances=False)
     return tuple(
@@ -1730,6 +1830,8 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         result = _run_real_fcc_alarm_classification(root, references)
     elif task == "real_tep_alarm_classification":
         result = _run_real_tep_alarm_classification(root, references)
+    elif task == "real_npp_alarm_classification":
+        result = _run_real_npp_alarm_classification(root, references)
     elif task == "real_fcc_book_sequence_method":
         result = _run_real_fcc_book_sequence_method(root, references)
     elif task == "real_smd_alarm_flood_detection":

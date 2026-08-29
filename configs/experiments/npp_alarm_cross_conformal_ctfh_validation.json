@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "npp_alarm_cross_conformal_ctfh_validation",
+  "task": "real_npp_alarm_classification",
+  "downstream_tasks": ["T4"],
+  "validated_algorithms": ["cross_conformal_afc_2025"],
+  "domain": "intelligent_industrial_alarm",
+  "system": "configs/systems/npp_alarm_simulator.json",
+  "dataset": "configs/datasets/npp_alarm_alpha050_rising_edge.json",
+  "split": "configs/splits/npp_alarm_alpha050_unique_seed1103.json",
+  "model": "configs/models/cross_conformal_afc.json",
+  "base_model": "configs/models/ctfh_fingerprinting.json",
+  "flood_detector": "configs/models/criterion_c_npp_alpha050.json",
+  "metrics": "configs/metrics/alarm_flood_uncertainty_core.json",
+  "outputs": {
+    "run_dir": "experiments/runs/npp_alarm_cross_conformal_ctfh_validation",
+    "summary": "experiments/reports/npp_alarm_cross_conformal_ctfh_validation.json"
+  }
+}

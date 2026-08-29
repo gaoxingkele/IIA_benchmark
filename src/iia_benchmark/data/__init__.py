@@ -4,6 +4,12 @@ from .piade import (
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
 )
+from .npp_alarm import (
+    NPPAlarmRun,
+    NPPAlarmSplit,
+    build_npp_alarm_split,
+    load_npp_alarm_runs,
+)
 from .fcc import (
     FCCAlarmRun,
     FCCAlarmSplit,
@@ -43,6 +49,10 @@ __all__ = [
     "AlarmEpisode",
     "ProcessRun",
     "alarm_events_to_state_matrix",
+    "NPPAlarmRun",
+    "NPPAlarmSplit",
+    "build_npp_alarm_split",
+    "load_npp_alarm_runs",
     "FCCAlarmRun",
     "FCCAlarmSplit",
     "FCCTimeSeriesRun",

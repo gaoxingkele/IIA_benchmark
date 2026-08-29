@@ -11,12 +11,12 @@
 |---|---:|---|
 | 注册算法 | 30 | 20 book + 10 SOTA，全部 callable |
 | 已有 E2 真实数据证据的算法 | 10 | 其余 20 个仍需统一 runner 和真实数据配置 |
-| 数据集族 | 11 | 11/11 主载荷已在本地；FCC 与 TEP 五类 alarm adapter/G0 已完成 |
+| 数据集族 | 11 | 11/11 主载荷已在本地；FCC、TEP 五类与 NPP alpha=0.50 adapter/G0 已完成 |
 | 算法×数据集目标 | 121 | 包含有效匹配与诊断哨兵 |
 | M2/M3 有效目标 | 112 | 可进入跨数据集汇总 |
 | M1/P0 哨兵目标 | 9 | 仅保留错配退化证据 |
-| 按现有数据适配器可调度 | 101 | 其中 92 个为 M2/M3，9 个为 PRONTO 类哨兵 |
-| 被适配器阻塞 | 20 | NPP 17 个及 CoMoPI/EnAS/iMAKS 各 1 个仍待统一入口 |
+| 按现有数据适配器可调度 | 118 | 其中 109 个为 M2/M3，9 个为 PRONTO 类哨兵 |
+| 被适配器阻塞 | 3 | CoMoPI/EnAS/iMAKS 各 1 个仍待统一入口 |
 | 论文实验 backlog | 28 | 与本地 literature registry 28/28 对齐 |
 
 “数据已下载”和“可进入公平实验”是两件事。当前适配器按解锁收益排序：
@@ -25,15 +25,15 @@
 |---:|---|---:|
 | 已完成 | FCC Alarm | 25 个有效目标已具备数据入口；T4 首批 6 runs 已执行 |
 | 已完成 | TEP Alarm 五类载荷 | 18 个目标已有统一 episode/split 入口；首批 6 runs 已执行 |
-| 1 | NPP Alarm DataPort | 17 |
+| 已完成 | NPP Alarm DataPort | 17 个目标已有统一入口；alpha=0.50 首批 6 runs 已执行 |
 | 3 | CoMoPI | 1 |
 | 3 | EnAS | 1 |
 | 3 | iMAKS | 1 |
 
 FCC G0 发现其 1600 个 run 均为异常场景、没有独立正常工况，因此已从 Chapter 3 NOZ 数据目标
-中移除并由 SMD/SKAB 替代；FCC 继续用于报警状态复现、RCA、洪泛分类、预测和可视分析。下一步
-下一步推进 NPP，并补 TEP 100-run/异常变体的处理鲁棒性入口；完成后，书籍 Chapter 4/5
-以及绝大多数 AFC SOTA 才能摆脱 PRONTO 代理错配。
+中移除并由 SMD/SKAB 替代；FCC 继续用于报警状态复现、RCA、洪泛分类、预测和可视分析。NPP
+alpha=0.50 的 grouped adapter 已解锁 17 个目标。下一步补 TEP 100-run/异常变体与 NPP 跨 alpha
+处理鲁棒性入口，并把书籍 Chapter 4/5 及 AFC SOTA 的其余 callable 实现接入这三类报警载荷。
 
 ## 固定内核与允许修改范围
 
@@ -141,6 +141,27 @@ HDAM 的 PRONTO 12-bin 父参数在 TEP 60-bin episode 上超过 482.6 秒仍未
 3.07 亿次模板位置比较；在不查看测试预测的前提下改为完整 60-bin 模板后，9.67 秒完成。父失败与
 修复均保留，修复仅获得运行时信用。上述结果虽使用准确的公开五类载荷，仍是单 seed、本地 60/20/20
 split；在论文 split、重复次数、超参和表格逐项闭合前只记 P2/E2，不记严格 paper-score reproduction。
+
+## NPP Alarm Wave 1 已执行结果
+
+NPP 使用 IEEE DataPort DOI `10.21227/g2fa-9y43` 的 alpha=0.50 阈值层。原始 CSV 实际为
+`TIME + 192` 个二值报警位、10 秒采样。G0 在 160 样本完整窗口上发现：Normal 只有 1 个 run；
+MD 的 100 个 run 具有同一状态轨迹；19 个 state-or-edge 连通分量含 45 个跨标签冲突 run。
+固定协议移除这些不可独立识别样本，并为其余 11 类各选 48 个唯一轨迹分量代表，以 seed 1103
+分成 28/10/10 train/calibration/test；最终 528 个 run 的 state 与 rising-edge 轨迹均无跨分区重复。
+
+| 方法 | 表示 | Balanced accuracy / coverage | Macro-F1 / set size | G1 |
+|---|---|---:|---:|---|
+| CTFH | state | 0.836364 | 0.827591 | pass；3,317 hashes，11 类 |
+| CTFH | rising edge | 0.818182 | 0.812328 | pass；3,164 hashes，11 类 |
+| HDAM | state/full episode | 0.763636 | 0.752807 | pass；11 类，minimum stability 0.802876 |
+| CASIM | state | 0.972727 | 0.973137 | pass；11 类，110 个测试中错 3 个 |
+| ConE + CTFH | rising edge | coverage 0.900000 | set size 1.300000/11 | pass；singleton 0.572727，empty 0.063636 |
+| Cross-Conformal + CTFH | rising edge | coverage 0.963636 | set size 1.536364/11 | pass；singleton 0.463636，empty 0 |
+
+这些是 P1/E2 单阈值、单 seed 的分组工程验证。它们验证了 NPP 事件载荷能激活洪泛指纹与
+conformal 效率机制，但不复现 TEP 论文分数。下一步必须以相同 base-run identity 对 alpha 层分组，
+执行 `1103/2207/3301` 与跨阈值鲁棒性，避免把同一仿真轨迹的阈值变体泄漏到训练和测试两侧。
 
 校验命令：
 

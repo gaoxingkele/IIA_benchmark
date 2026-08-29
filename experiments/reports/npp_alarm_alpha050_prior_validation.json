@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "dataset_family": "npp_alarm_dataport",
+  "selection": {
+    "alpha": 0.5,
+    "horizon_samples": 160,
+    "sample_seconds": 10,
+    "included_fault_families": [
+      "FLB",
+      "LLB",
+      "LOCA",
+      "LOCAC",
+      "LR",
+      "RI",
+      "RW",
+      "SGATR",
+      "SGBTR",
+      "SLBIC",
+      "SLBOC"
+    ],
+    "excluded_from_closed_set": [
+      "MD",
+      "Normal"
+    ]
+  },
+  "source": {
+    "archive_path": "data/public_datasets/alipan_anomaly_archives/Industrial-Alarm-Datasets.rar",
+    "archive_bytes": 199576419,
+    "archive_sha256": "5ce297029e075d1c47f4af59cb0757bc6cdc0bf187489e31acc6b1d2e8daefd1",
+    "extracted_slice_files": 1212,
+    "citation_doi": "10.21227/g2fa-9y43"
+  },
+  "schema": {
+    "alpha_slice_runs": 1212,
+    "fault_families_plus_normal": 13,
+    "alarm_variables": 192,
+    "time_column": "TIME",
+    "sample_seconds": 10,
+    "missing_values": 0,
+    "nonbinary_alarm_values": 0
+  },
+  "source_family_profiles": {
+    "FLB": {
+      "runs": 100,
+      "source_length_samples": {
+        "min": 161.0,
+        "p10": 168.9,
+        "p50": 206.0,
+        "p90": 248.0,
+        "max": 553.0
+      },
+      "eligible_at_160": 100
+    },
+    "LLB": {
+      "runs": 101,
+      "source_length_samples": {
+        "min": 538.0,
+        "p10": 552.0,
+        "p50": 555.0,
+        "p90": 557.0,
+        "max": 558.0
+      },
+      "eligible_at_160": 101
+    },
+    "LOCA": {
+      "runs": 100,
+      "source_length_samples": {
+        "min": 302.0,
+        "p10": 324.6,
+        "p50": 388.5,
+        "p90": 451.1,
+        "max": 475.0
+      },
+      "eligible_at_160": 100
+    },
+    "LOCAC": {
+      "runs": 100,
+      "source_length_samples": {
+        "min": 367.0,
+        "p10": 393.8,
+        "p50": 452.5,
+        "p90": 504.0,
+        "max": 544.0
+      },
+      "eligible_at_160": 100
+    },
+    "LR": {
+      "runs": 99,
+      "source_length_samples": {
+        "min": 551.0,
+        "p10": 554.0,
+        "p50": 556.0,
+        "p90": 558.0,
+        "max": 558.0
+      },
+      "eligible_at_160": 99
+    },
+    "MD": {
+      "runs": 100,
+      "source_length_samples": {
+        "min": 539.0,
+        "p10": 553.0,
+        "p50": 556.0,
+        "p90": 637.0,
+        "max": 638.0
+      },
+      "eligible_at_160": 100
+    },
+    "Normal": {
+      "runs": 1,
+      "source_length_samples": {
+        "min": 302.0,
+        "p10": 302.0,
+        "p50": 302.0,
+        "p90": 302.0,
+        "max": 302.0
+      },
+      "eligible_at_160": 1
+    },
+    "RI": {
+      "runs": 100,
+      "source_length_samples": {
+        "min": 11.0,
+        "p10": 11.0,
+        "p50": 160.0,
+        "p90": 318.0,
+        "max": 319.0
+      },
+      "eligible_at_160": 51
+    },
+    "RW": {
+      "runs": 100,
+      "source_length_samples": {
+        "min": 155.0,
+        "p10": 158.9,
+        "p50": 171.0,
+        "p90": 207.10000000000002,
+        "max": 555.0
+      },
+      "eligible_at_160": 87
+    },
+    "SGATR": {
+      "runs": 100,
+      "source_length_samples": {
+        "min": 400.0,
+        "p10": 410.9,
+        "p50": 441.0,
+        "p90": 523.3000000000001,
+        "max": 568.0
+      },
+      "eligible_at_160": 100
+    },
+    "SGBTR": {
+      "runs": 110,
+      "source_length_samples": {
+        "min": 415.0,
+        "p10": 421.0,
+        "p50": 443.5,
+        "p90": 549.1,
+        "max": 557.0
+      },
+      "eligible_at_160": 110
+    },
+    "SLBIC": {
+      "runs": 101,
+      "source_length_samples": {
+        "min": 175.0,
+        "p10": 189.0,
+        "p50": 224.0,
+        "p90": 543.0,
+        "max": 551.0
+      },
+      "eligible_at_160": 101
+    },
+    "SLBOC": {
+      "runs": 100,
+      "source_length_samples": {
+        "min": 422.0,
+        "p10": 424.0,
+        "p50": 482.0,
+        "p90": 514.0,
+        "max": 561.0
+      },
+      "eligible_at_160": 100
+    }
+  },
+  "benchmark_class_profiles": {
+    "FLB": {
+      "eligible_runs": 100,
+      "state_prevalence": 0.3285299479166667,
+      "activation_edges_per_run": {
+        "min": 52.0,
+        "p10": 128.9,
+        "p50": 140.0,
+        "p90": 149.10000000000002,
+        "max": 156.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 52.0,
+        "p10": 107.0,
+        "p50": 107.0,
+        "p90": 109.0,
+        "max": 109.0
+      }
+    },
+    "LLB": {
+      "eligible_runs": 101,
+      "state_prevalence": 0.22473152588696368,
+      "activation_edges_per_run": {
+        "min": 44.0,
+        "p10": 46.0,
+        "p50": 46.0,
+        "p90": 48.0,
+        "max": 51.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 44.0,
+        "p10": 44.0,
+        "p50": 44.0,
+        "p90": 46.0,
+        "max": 47.0
+      }
+    },
+    "LOCA": {
+      "eligible_runs": 100,
+      "state_prevalence": 0.3737867838541667,
+      "activation_edges_per_run": {
+        "min": 82.0,
+        "p10": 113.0,
+        "p50": 118.0,
+        "p90": 122.0,
+        "max": 127.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 56.0,
+        "p10": 107.0,
+        "p50": 109.0,
+        "p90": 114.0,
+        "max": 117.0
+      }
+    },
+    "LOCAC": {
+      "eligible_runs": 100,
+      "state_prevalence": 0.37302506510416666,
+      "activation_edges_per_run": {
+        "min": 93.0,
+        "p10": 113.0,
+        "p50": 119.0,
+        "p90": 125.0,
+        "max": 153.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 54.0,
+        "p10": 107.0,
+        "p50": 110.0,
+        "p90": 114.0,
+        "max": 120.0
+      }
+    },
+    "LR": {
+      "eligible_runs": 99,
+      "state_prevalence": 0.14419159038299664,
+      "activation_edges_per_run": {
+        "min": 40.0,
+        "p10": 42.8,
+        "p50": 45.0,
+        "p90": 119.0,
+        "max": 134.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 40.0,
+        "p10": 42.0,
+        "p50": 44.0,
+        "p90": 106.0,
+        "max": 109.0
+      }
+    },
+    "RI": {
+      "eligible_runs": 51,
+      "state_prevalence": 0.24341681985294117,
+      "activation_edges_per_run": {
+        "min": 88.0,
+        "p10": 95.0,
+        "p50": 110.0,
+        "p90": 140.0,
+        "max": 159.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 59.0,
+        "p10": 76.0,
+        "p50": 93.0,
+        "p90": 102.0,
+        "max": 104.0
+      }
+    },
+    "RW": {
+      "eligible_runs": 87,
+      "state_prevalence": 0.30398257902298853,
+      "activation_edges_per_run": {
+        "min": 101.0,
+        "p10": 131.6,
+        "p50": 139.0,
+        "p90": 146.0,
+        "max": 152.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 92.0,
+        "p10": 100.0,
+        "p50": 101.0,
+        "p90": 102.0,
+        "max": 104.0
+      }
+    },
+    "SGATR": {
+      "eligible_runs": 100,
+      "state_prevalence": 0.22421158854166667,
+      "activation_edges_per_run": {
+        "min": 46.0,
+        "p10": 46.0,
+        "p50": 56.0,
+        "p90": 108.0,
+        "max": 113.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 44.0,
+        "p10": 44.0,
+        "p50": 49.0,
+        "p90": 97.0,
+        "max": 97.0
+      }
+    },
+    "SGBTR": {
+      "eligible_runs": 110,
+      "state_prevalence": 0.22810132575757575,
+      "activation_edges_per_run": {
+        "min": 46.0,
+        "p10": 46.0,
+        "p50": 69.0,
+        "p90": 106.0,
+        "max": 112.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 44.0,
+        "p10": 44.0,
+        "p50": 49.5,
+        "p90": 97.0,
+        "max": 98.0
+      }
+    },
+    "SLBIC": {
+      "eligible_runs": 101,
+      "state_prevalence": 0.3221415403259076,
+      "activation_edges_per_run": {
+        "min": 44.0,
+        "p10": 50.0,
+        "p50": 121.0,
+        "p90": 134.0,
+        "max": 157.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 44.0,
+        "p10": 50.0,
+        "p50": 105.0,
+        "p90": 108.0,
+        "max": 110.0
+      }
+    },
+    "SLBOC": {
+      "eligible_runs": 100,
+      "state_prevalence": 0.19707682291666667,
+      "activation_edges_per_run": {
+        "min": 43.0,
+        "p10": 43.0,
+        "p50": 44.0,
+        "p90": 44.0,
+        "max": 44.0
+      },
+      "unique_active_tags_per_run": {
+        "min": 43.0,
+        "p10": 43.0,
+        "p50": 44.0,
+        "p90": 44.0,
+        "max": 44.0
+      }
+    }
+  },
+  "distribution": {
+    "active_states_per_sample": {
+      "min": 14.0,
+      "p10": 37.0,
+      "p50": 44.0,
+      "p90": 76.0,
+      "max": 82.0
+    },
+    "activation_edges_per_run": {
+      "min": 40.0,
+      "p10": 44.0,
+      "p50": 107.0,
+      "p90": 140.0,
+      "max": 159.0
+    },
+    "unique_active_tags_per_run": {
+      "min": 40.0,
+      "p10": 44.0,
+      "p50": 97.0,
+      "p90": 109.0,
+      "max": 120.0
+    },
+    "never_active_alarm_tags": [
+      "WLR_LO",
+      "WUP_LO",
+      "WHPI_LO",
+      "WECS_LO",
+      "WTRA_LO",
+      "WTRB_LO",
+      "QRHR_LO",
+      "FRCL_LO",
+      "PRB_LO",
+      "PRBA_LO",
+      "TRB_LO",
+      "LWRB_LO",
+      "QFCL_LO",
+      "WBK_LO",
+      "WSPY_LO",
+      "WCSP_LO",
+      "HTR_LO",
+      "MH2_LO",
+      "CNH2_LO",
+      "WCFT_LO",
+      "WLPI_LO",
+      "WCHG_LO",
+      "RM1_LO",
+      "RM3_LO",
+      "RM4_LO",
+      "RC87_LO",
+      "RC131_LO",
+      "STSG_LO",
+      "STTB_LO",
+      "RBLK_HI",
+      "SGLK_LO",
+      "WRLA_LO",
+      "WRLB_LO",
+      "MBK_LO",
+      "EBK_LO",
+      "FRZR_LO",
+      "TDBR_LO",
+      "MDBR_LO",
+      "MCRT_LO",
+      "MGAS_LO",
+      "TCRT_LO",
+      "TSLP_LO",
+      "PPM_LO",
+      "WFLB_LO"
+    ]
+  },
+  "degeneracy_audit": {
+    "md_eligible_runs": 100,
+    "md_unique_state_trajectories": 1,
+    "normal_runs_in_alpha_slice": 1,
+    "decision": "MD and Normal excluded from independent balanced closed-set score"
+  },
+  "registered_split": {
+    "random_state": 1103,
+    "partition_sha256": "fd090e7c4b6ad546454dd5b29f2d381bdbd35f5da7de68440aa033833136e934",
+    "state": {
+      "partition_sha256": "fd090e7c4b6ad546454dd5b29f2d381bdbd35f5da7de68440aa033833136e934",
+      "centroid_test_accuracy": 0.7727272727272727,
+      "cross_partition_duplicate_groups": 0,
+      "train_runs": 308,
+      "calibration_runs": 110,
+      "test_runs": 110,
+      "unused_or_deduplicated_runs": 521,
+      "duplicate_nonrepresentatives": 125,
+      "cross_label_conflicting_runs": 45
+    },
+    "rising_edge": {
+      "partition_sha256": "fd090e7c4b6ad546454dd5b29f2d381bdbd35f5da7de68440aa033833136e934",
+      "centroid_test_accuracy": 0.7818181818181819,
+      "cross_partition_duplicate_groups": 0,
+      "train_runs": 308,
+      "calibration_runs": 110,
+      "test_runs": 110,
+      "unused_or_deduplicated_runs": 521,
+      "duplicate_nonrepresentatives": 125,
+      "cross_label_conflicting_runs": 45
+    }
+  },
+  "criterion_c_descriptive_prior": {
+    "parameters": {
+      "attention_window": 60,
+      "long_standing_window": 120,
+      "update_step": 6,
+      "threshold": 40,
+      "delay_samples": 2
+    },
+    "candidate_intervals": 996,
+    "runs_with_candidates": 949,
+    "maximum_attention_set_cardinality": 117,
+    "label_boundary": "No expert interval labels; candidates are descriptive only."
+  },
+  "g0": {
+    "passed": true,
+    "checks": [
+      "13 source families including Normal",
+      "strict 192-bit binary schema and 10-second grid",
+      "160-sample eligibility without padding",
+      "MD duplicate and Normal singleton degeneracy explicitly excluded",
+      "state-or-edge equivalence components cannot cross partitions",
+      "cross-label trajectory conflicts removed"
+    ]
+  },
+  "limitations": [
+    "Only alpha=0.50 is used for the base score; other alpha values are reserved for grouped robustness.",
+    "The 160-sample horizon excludes 62 short runs: 49 RI and 13 RW cases relative to the included-family alpha slice.",
+    "The split uses one representative per state-or-edge trajectory component, so it measures generalization to unseen signatures rather than duplicate replay."
+  ]
+}

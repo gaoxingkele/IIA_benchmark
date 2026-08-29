@@ -20,7 +20,7 @@ DATASET_DESCRIPTIONS = {
     "piade": "5 台包装设备；429,394 行原始记录及 23,376 行小时序列",
     "skab": "35 个水循环异常实验 CSV",
     "tep_alarm_dataport": "16.98 GB；100 个 Tests run、1,000 条五类报警序列及异常场景变体",
-    "npp_alarm_dataport": "101 个 run/组、12 类事故/扰动加 Normal、122,510 个 CSV",
+    "npp_alarm_dataport": "101 个阈值层；每层 1,212 个 run、12 类事故/扰动加 Normal、192 个二值报警位",
     "fcc_alarm": "1,600 个 FCC 仿真 run、16 类异常、57 个报警位及 4,800 个配套时序 CSV",
     "comopi": "8 台包装设备、150,650 个十分钟 bin、123 类报警",
     "smd10towfgr": "10 台风机 SCADA；230,618 条日志、167 个事件代码",

@@ -15,3 +15,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - A full 60-bin template, selected from episode length/runtime before any test prediction, completed in 9.67 s with balanced accuracy 0.975000, macro-F1 0.974902, all five classes predicted, and minimum stability 0.196923.
 - Evidence: `experiments/paper_harness/tep_alarm_wave1/run_3_initial_runtime_failure.json` and `experiments/reports/tep_alarm_hdam_state_validation.json`.
 - Boundary: runtime repair is admitted; exact paper alignment rules, template width, split, and scores remain unverified.
+
+## NPP alpha-0.50 transfer validation (E2/P1)
+
+- Registered full 16-bin episode template on the fixed 11-class unique-trajectory split.
+- Result: balanced accuracy 0.763636, macro-F1 0.752807, all 11 classes predicted, minimum template stability 0.802876, wall time 6.00 s.
+- Main confusions are SGATR/SGBTR, LOCA/LOCAC, and SLBIC/SLBOC; the lower score than NPP CTFH/CASIM is retained as negative comparative evidence.
+- Evidence: `experiments/reports/npp_alarm_hdam_state_validation.json`.
+- Boundary: one transfer seed and an engineering template width; no paper-score reproduction is asserted.

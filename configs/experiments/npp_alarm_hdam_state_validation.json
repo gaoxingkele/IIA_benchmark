@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "npp_alarm_hdam_state_validation",
+  "task": "real_npp_alarm_classification",
+  "downstream_tasks": ["T4"],
+  "validated_algorithms": ["structured_hdam_2026"],
+  "domain": "intelligent_industrial_alarm",
+  "system": "configs/systems/npp_alarm_simulator.json",
+  "dataset": "configs/datasets/npp_alarm_alpha050_state.json",
+  "split": "configs/splits/npp_alarm_alpha050_unique_seed1103.json",
+  "model": "configs/models/structured_hdam_npp_full_episode.json",
+  "flood_detector": "configs/models/criterion_c_npp_alpha050.json",
+  "metrics": "configs/metrics/alarm_flood_core.json",
+  "outputs": {
+    "run_dir": "experiments/runs/npp_alarm_hdam_state_validation",
+    "summary": "experiments/reports/npp_alarm_hdam_state_validation.json"
+  }
+}

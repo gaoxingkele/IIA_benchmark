@@ -1,0 +1,53 @@
+NPP Alarm Wave 1 experiment plan
+================================
+
+Dataset and G0 boundary
+-----------------------
+IEEE DataPort DOI 10.21227/g2fa-9y43, alpha=0.50. The base lane uses an
+un-padded 160-sample (10 s/sample) horizon. MD is excluded because all 100
+eligible runs have one identical state trajectory; Normal is excluded because
+there is one run. Exact state-or-edge trajectory components are never split.
+Cross-label conflict components are removed. Eleven classes each contribute
+48 unique representatives: 28 train, 10 calibration, and 10 test (seed 1103).
+
+Runs
+----
+run_1: CTFH on persistent alarm states.
+run_2: CTFH on rising edges.
+run_3: structured HDAM with a full 16-bin category template.
+run_4: full registered CASIM (672 features, 10 classifiers).
+run_5: ConE-AFC with rising-edge CTFH.
+run_6: Cross-Conformal AFC with rising-edge CTFH and five folds.
+
+Evidence policy
+---------------
+This is P1 NPP transfer evidence, not a reproduction of any TEP-paper score.
+Other alpha slices are held for threshold robustness and must stay grouped by
+the same base run identity. Criterion-C intervals have no expert interval truth.
+
+Observed results
+----------------
+run_1 completed in 34.99 s. CTFH/state produced 3,317 consensus hashes and
+       balanced accuracy 0.836364 / macro-F1 0.827591 across all 11 classes.
+run_2 completed in 9.81 s. CTFH/rising-edge produced 3,164 consensus hashes and
+       balanced accuracy 0.818182 / macro-F1 0.812328 across all 11 classes.
+run_3 completed in 6.00 s. HDAM predicted all 11 classes with balanced accuracy
+       0.763636 / macro-F1 0.752807; minimum template stability was 0.802876.
+run_4 completed in 85.35 s. Full registered CASIM reached balanced accuracy
+       0.972727 / macro-F1 0.973137, with three errors among 110 test runs.
+run_5 completed in 14.44 s. ConE coverage was 0.900000, mean set size 1.300000,
+       empty rate 0.063636, singleton rate 0.572727, and singleton accuracy
+       0.936508.
+run_6 completed in 51.73 s. Cross-Conformal coverage was 0.963636, mean set
+       size 1.536364, empty rate 0, singleton rate 0.463636, and singleton
+       accuracy 0.921569.
+
+G0 exclusions retained
+----------------------
+At horizon 160, 1,049 runs were eligible before trajectory auditing. Normal
+has only one run and MD has one identical state trajectory across 100 runs, so
+neither can support independent closed-set train/test scoring. Nineteen
+state-or-edge connected components containing 45 runs had cross-label
+conflicts and were excluded. The final 528-run split has no exact state or edge
+trajectory component crossing train/calibration/test. This filtering is fixed
+by the G0 protocol and is not a result-based sample selection.
