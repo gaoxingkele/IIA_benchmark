@@ -1,0 +1,33 @@
+{
+  "id": "book_chapter4_numeric_harness",
+  "task": "book_numeric_reproduction",
+  "downstream_tasks": ["T3"],
+  "validated_algorithms": ["book_4_3_recursive_bn", "book_4_4_plr_rca"],
+  "chapters": ["4.3.2-4.3.4", "4.4.2-4.4.4"],
+  "algorithms": ["book_4_3_recursive_bn", "book_4_4_plr_rca"],
+  "runs": {
+    "run_1": {"method": "plr", "seed": 41},
+    "run_2": {"method": "plr", "seed": 42},
+    "run_3": {"method": "plr", "seed": 43},
+    "run_4": {"method": "recursive_bayesian", "seed": 0}
+  },
+  "plr_protocol": {
+    "source": "Book equations 4.67-4.93 and Figures 4.44-4.47",
+    "samples": 3200,
+    "segments": 32,
+    "segment_samples": 100,
+    "x1_delay": 10,
+    "x2_delay": 8,
+    "expected_dominant_driver": {"segments_1_16": "x1", "segments_17_32": "x2"},
+    "protocol_fidelity": "P2_equation_defined_numerical_reproduction"
+  },
+  "recursive_bayesian_protocol": {
+    "source": "Book equations 4.35-4.52 and coal-feeder event descriptions on printed pages 269-273",
+    "samples": 3200,
+    "response_time_samples": 20,
+    "initial_probability": 0.0,
+    "nuisance_intervals": "book-listed false/missing alarm intervals",
+    "protocol_fidelity": "P1_controlled_recreation_source_time_series_unavailable"
+  },
+  "reporting_boundary": "PLR uses fully specified published equations and three independent noise seeds. Recursive Bayesian validation recreates the published event logic and nuisance intervals but cannot claim the unavailable plant waveforms or exact Figure 4.37 scores."
+}

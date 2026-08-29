@@ -228,7 +228,7 @@
       "landing_url": "https://doi.org/10.1016/j.ijepes.2018.05.029",
       "method_summary": "Recursively updates binary Bayesian-network probabilities and ranks known cause patterns plus an unknown-cause state.",
       "local_implementation": ["src/iia_benchmark/models/root_cause_book.py:RecursiveBayesianAlarmRCA"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_root_cause_book.py", "scope": "known/unknown root convergence and update-rate equation tests; industrial score pending"},
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_root_cause_book.py", "scope": "zero-initialized recursive updates, online known/coexisting/unknown root convergence, and book-listed nuisance-interval controlled recreation; source plant score pending"},
       "claims": [
         {"id": "C1", "statement": "The update rate is selected as 1-(0.5)^(1/m) to match an m-sample state-change rule.", "support": "book_chapter_4_equation_4_52", "status": "explicit"}
       ]
@@ -244,7 +244,7 @@
       "landing_url": "https://doi.org/10.1016/j.compchemeng.2022.107813",
       "method_summary": "Segments the target with PLR, aligns causes by piecewise lag correlation, and assigns non-negative regression contribution factors.",
       "local_implementation": ["src/iia_benchmark/models/root_cause_book.py:PLRContributionRCA"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_root_cause_book.py", "scope": "PLR, delay recovery, and dominant-driver factor tests; industrial score pending"},
+      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_root_cause_book.py", "scope": "equations 4.90-4.93 three-seed numerical reproduction with 10/8 delay recovery and 32-segment dominant-driver factors; industrial score pending"},
       "claims": [
         {"id": "C1", "statement": "Non-negative regression factors quantify each aligned variable's share of the target amplitude change.", "support": "book_chapter_4_and_publisher_metadata", "status": "explicit"}
       ]

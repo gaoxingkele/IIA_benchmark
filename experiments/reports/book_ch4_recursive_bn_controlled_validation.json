@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "config": "configs/experiments/book_chapter4_numeric_harness.json",
+  "algorithm_id": "book_4_3_recursive_bn",
+  "paper_id": "wang2018_recursive_bn_rca",
+  "book_sections": ["4.3.2", "4.3.3", "4.3.4.1"],
+  "protocol_fidelity": "P1_controlled_recreation_source_time_series_unavailable",
+  "evidence_level": "E1",
+  "metrics": {
+    "overall_online_accuracy": 0.9490625,
+    "naive_overall_accuracy": 0.985,
+    "nuisance_sample_accuracy": 0.8627450980392157,
+    "naive_nuisance_sample_accuracy": 0.058823529411764705,
+    "nuisance_samples": 51,
+    "stable_region_minimum_accuracy": 1.0,
+    "x2_detection_delay_samples": 19,
+    "unknown_detection_delay_samples": 19
+  },
+  "activation": {
+    "passed": true,
+    "beacon": "all stable root states detected and nuisance accuracy exceeds instantaneous lookup"
+  },
+  "negative_evidence": "Recursive smoothing lowers whole-stream point accuracy because it intentionally delays transitions; instantaneous lookup is higher overall but fails on 48 of 51 nuisance samples.",
+  "competitive_credit": "controlled_robustness_only_exact_plant_waveforms_and_paper_figures_missing",
+  "evidence": "experiments/paper_harness/chapter4_numeric_exact/run_4/final_info.json"
+}

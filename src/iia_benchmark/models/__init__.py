@@ -101,6 +101,7 @@ from .root_cause_book import (
     lagged_correlation_delay,
     normalized_direct_transfer_entropy,
     normalized_transfer_entropy,
+    piecewise_lagged_correlation_delay,
     piecewise_linear_representation,
 )
 from .univariate import AlarmDesignResult, ThresholdDelayDeadband, design_alarm
@@ -246,6 +247,7 @@ __all__ = [
     "optimize_ngram_size",
     "pettitt_test",
     "perturb_alarm_episode",
+    "piecewise_lagged_correlation_delay",
     "piecewise_linear_representation",
     "priority_match_score",
     "quantize_alarm_probability_states",

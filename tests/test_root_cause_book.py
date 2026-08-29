@@ -4,6 +4,7 @@ from zipfile import ZipFile
 import numpy as np
 
 from iia_benchmark.models import (
+    LinearSegment,
     NormalizedTransferEntropyGraph,
     PLRContributionRCA,
     RecursiveBayesianAlarmRCA,
@@ -13,6 +14,7 @@ from iia_benchmark.models import (
     lagged_correlation_delay,
     normalized_direct_transfer_entropy,
     normalized_transfer_entropy,
+    piecewise_lagged_correlation_delay,
     piecewise_linear_representation,
 )
 from iia_benchmark.runner import _run_real_alarm_causal_graph
@@ -79,6 +81,13 @@ def test_recursive_bayesian_network_converges_and_handles_unknown() -> None:
     assert unknown.root_cause() == ("unknown",)
 
 
+def test_recursive_bayesian_sequence_uses_book_zero_initialization() -> None:
+    model = RecursiveBayesianAlarmRCA(["cause"], response_time_samples=5)
+    assert np.all(model.cause_probabilities_ == 0)
+    decisions = model.infer_sequence([[0]] * 10 + [[1]] * 20, [0] * 10 + [1] * 20)
+    assert decisions[-1] == ("cause",)
+
+
 def test_plr_delay_and_nonnegative_contributions_rank_driver() -> None:
     rng = np.random.default_rng(4)
     x1 = np.r_[np.zeros(60), np.linspace(0, 10, 80), np.full(60, 10)]
@@ -95,6 +104,55 @@ def test_plr_delay_and_nonnegative_contributions_rank_driver() -> None:
     changing = [result for result in results if result.target_trend != 0]
     assert changing
     assert max(result.factors[0] for result in changing) > 0.8
+
+
+def test_piecewise_plr_reproduces_book_numerical_delays_and_dominant_halves() -> None:
+    rng = np.random.default_rng(41)
+    time = np.arange(1, 3201, dtype=float)
+    sine = np.sin(np.pi * time / 100.0 - np.pi / 2.0)
+    x1 = np.empty(3200)
+    x2 = np.empty(3200)
+    x1[:1600] = 5.0 * sine[:1600] + 5.0 + rng.normal(size=1600)
+    x2[:800] = 2.5 * sine[:800] + 2.5 + 1.5 * rng.normal(size=800)
+    x2[800:1600] = 1.5 * rng.normal(size=800)
+    x1[1600:2400] = 2.5 * sine[1600:2400] + 2.5 + 1.5 * rng.normal(size=800)
+    x1[2400:] = 1.5 * rng.normal(size=800)
+    x2[1600:] = 5.0 * sine[1600:] + 5.0 + rng.normal(size=1600)
+    y = np.zeros(3200)
+    for index in range(3200):
+        x1_delayed = x1[max(index - 10, 0)]
+        x2_delayed = x2[max(index - 8, 0)]
+        if index < 800:
+            y[index] = 1.5 * x1_delayed + x2_delayed
+        elif index < 1600:
+            y[index] = 1.5 * x1_delayed
+        elif index < 2400:
+            y[index] = x1_delayed + 1.5 * x2_delayed
+        else:
+            y[index] = 1.5 * x2_delayed
+    y += rng.normal(size=3200)
+    boundaries = tuple(range(0, 3201, 100))
+    fixed_segments = [
+        LinearSegment(start, stop, 0.0, 0.0, 0.0, 0.0)
+        for start, stop in zip(boundaries[:-1], boundaries[1:], strict=True)
+    ]
+    delay1, evidence1 = piecewise_lagged_correlation_delay(
+        x1, y, fixed_segments, max_lag=15
+    )
+    delay2, evidence2 = piecewise_lagged_correlation_delay(
+        x2, y, fixed_segments, max_lag=15
+    )
+    assert delay1 == 10
+    assert delay2 == 8
+    assert sum(bool(row["significant"]) for row in evidence1) >= 20
+    assert sum(bool(row["significant"]) for row in evidence2) >= 20
+    results = PLRContributionRCA(max_segments=32, min_size=80, max_lag=15).analyze(
+        np.column_stack([x1, x2]), y, segment_boundaries=boundaries
+    )
+    first_half = [result for result in results[:16] if result.target_trend != 0]
+    second_half = [result for result in results[16:] if result.target_trend != 0]
+    assert np.mean([result.factors[0] > result.factors[1] for result in first_half]) >= 0.75
+    assert np.mean([result.factors[1] > result.factors[0] for result in second_half]) >= 0.75
 
 
 def test_grouped_alarm_nte_runner_activates_and_prunes(tmp_path: Path) -> None:

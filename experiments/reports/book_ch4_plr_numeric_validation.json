@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "config": "configs/experiments/book_chapter4_numeric_harness.json",
+  "algorithm_id": "book_4_4_plr_rca",
+  "paper_id": "hu2022_qualitative_trend_rca",
+  "book_sections": ["4.4.2", "4.4.3", "4.4.4.1"],
+  "protocol_fidelity": "P2_equation_defined_numerical_reproduction",
+  "evidence_level": "E1",
+  "seeds": [41, 42, 43],
+  "published_targets": {
+    "samples": 3200,
+    "segments": 32,
+    "x1_delay": 10,
+    "x2_delay": 8,
+    "dominant_driver_segments_1_16": "x1",
+    "dominant_driver_segments_17_32": "x2"
+  },
+  "aggregate_metrics": {
+    "x1_delay_all_seeds": [10, 10, 10],
+    "x2_delay_all_seeds": [8, 8, 8],
+    "dominant_driver_accuracy_all_seeds": [1.0, 1.0, 1.0],
+    "mean_x1_factor_segments_1_8": 0.7458956314372274,
+    "mean_x2_factor_segments_17_24": 0.7485164855572597
+  },
+  "activation": {
+    "passed": true,
+    "beacon": "both published delays recovered and all 32 dominant drivers correct for every seed"
+  },
+  "competitive_credit": "numerical_equation_reproduction_only_industrial_plant_data_missing",
+  "evidence": [
+    "experiments/paper_harness/chapter4_numeric_exact/run_1/final_info.json",
+    "experiments/paper_harness/chapter4_numeric_exact/run_2/final_info.json",
+    "experiments/paper_harness/chapter4_numeric_exact/run_3/final_info.json"
+  ]
+}

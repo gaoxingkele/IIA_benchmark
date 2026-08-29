@@ -189,3 +189,22 @@ python scripts/paper_harness.py status
 python scripts/paper_harness.py plan
 python -m pytest -q tests/test_paper_harness.py
 ```
+
+## Chapter 4.3/4.4 equation and controlled-recreation validation
+
+Chapter 4.4 PLR now executes equations (4.90)-(4.93) for all 3,200 samples,
+the published 32 monotone segments, and seeds 41/42/43. All three runs recover
+the exact delays `x1=10`, `x2=8`; all 32 active segments rank `x1` first in
+segments 1-16 and `x2` first in segments 17-32. Mean contribution in the
+published mixed-driver blocks is 0.7459 for x1 (segments 1-8) and 0.7485 for
+x2 (segments 17-24). This closes the equation-defined numerical entry at P2,
+but remains E1 because the cited two-month thermal-plant payload is missing.
+
+Chapter 4.3 recursive Bayesian RCA now uses the paper's zero probability
+initialization, `lambda=1-(0.5)^(1/20)`, online posterior decisions, known,
+co-existing, and unknown causes, plus every false/missing-alarm interval listed
+in the coal-feeder example. Stable-state accuracy is 1.0 and nuisance-sample
+accuracy is 0.8627 versus 0.0588 for instantaneous lookup. The recursive method
+has lower overall point accuracy (0.9491 versus 0.9850) and 19-sample transition
+delays; this cost is retained. Because the original plant waveforms are absent,
+the run is P1/E1 controlled evidence rather than Figure 4.37 reproduction.

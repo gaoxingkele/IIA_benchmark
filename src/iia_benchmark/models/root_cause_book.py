@@ -264,16 +264,28 @@ class RecursiveBayesianAlarmRCA:
 
     cause_names: Sequence[str]
     response_time_samples: int = 15
+    initial_probability: float = 0.0
 
     def __post_init__(self) -> None:
-        if not self.cause_names or self.response_time_samples < 1:
-            raise ValueError("cause_names and positive response_time_samples are required")
+        if (
+            not self.cause_names
+            or self.response_time_samples < 1
+            or not 0.0 <= self.initial_probability <= 0.5
+        ):
+            raise ValueError(
+                "cause_names, positive response_time_samples, and an initial probability "
+                "in [0, 0.5] are required"
+            )
         self.update_rate = 1.0 - 0.5 ** (1.0 / self.response_time_samples)
         self.patterns_ = [pattern for pattern in product((0, 1), repeat=len(self.cause_names)) if any(pattern)]
         self.patterns_.append(tuple(0 for _ in self.cause_names))
-        self.cause_probabilities_ = np.full((len(self.cause_names), 2), 0.5)
-        self.alarm_conditionals_ = np.full((len(self.patterns_), 2), 0.5)
-        self.alarm_probability_ = np.full(2, 0.5)
+        self.cause_probabilities_ = np.full(
+            (len(self.cause_names), 2), self.initial_probability
+        )
+        self.alarm_conditionals_ = np.full(
+            (len(self.patterns_), 2), self.initial_probability
+        )
+        self.alarm_probability_ = np.full(2, self.initial_probability)
 
     def update(self, cause_states: Sequence[int], alarm_state: int) -> None:
         pattern = tuple(map(int, cause_states))
@@ -304,6 +316,21 @@ class RecursiveBayesianAlarmRCA:
         if not any(pattern):
             return ("unknown",)
         return tuple(name for name, active in zip(self.cause_names, pattern, strict=True) if active)
+
+    def infer_sequence(
+        self, cause_states: Iterable[Sequence[int]], alarm_states: Sequence[int]
+    ) -> tuple[tuple[str, ...], ...]:
+        """Update recursively and return the online decision at every sample."""
+
+        causes = list(cause_states)
+        alarms = list(alarm_states)
+        if len(causes) != len(alarms):
+            raise ValueError("cause and alarm sequences must have equal lengths")
+        decisions = []
+        for states, alarm in zip(causes, alarms, strict=True):
+            self.update(states, int(alarm))
+            decisions.append(self.root_cause())
+        return tuple(decisions)
 
 
 @dataclass(frozen=True)
@@ -375,6 +402,62 @@ def lagged_correlation_delay(source: Sequence[float], target: Sequence[float], *
     return lag, scores[lag], float(threshold)
 
 
+def piecewise_lagged_correlation_delay(
+    source: Sequence[float],
+    target: Sequence[float],
+    segments: Sequence[LinearSegment],
+    *,
+    max_lag: int,
+) -> tuple[int, tuple[dict[str, float | int | bool], ...]]:
+    """Book equations (4.67)-(4.72): significant segment-weighted delay.
+
+    A positive delay means ``source[t-delay]`` explains ``target[t]``.  This
+    convention is consistent with the numerical example in equations
+    (4.90)-(4.93), where ``y(t)`` uses ``x1(t-10)`` and ``x2(t-8)``.
+    """
+
+    x, y = np.asarray(source, dtype=float), np.asarray(target, dtype=float)
+    if x.ndim != 1 or y.ndim != 1 or len(x) != len(y) or max_lag < 0:
+        raise ValueError("aligned one-dimensional inputs and nonnegative max_lag are required")
+    evidence: list[dict[str, float | int | bool]] = []
+    weighted_lags, weights = [], []
+    for segment_index, segment in enumerate(segments):
+        scores = []
+        for lag in range(max_lag + 1):
+            target_indices = np.arange(max(segment.start, lag), segment.stop)
+            if len(target_indices) < 3:
+                scores.append(0.0)
+                continue
+            left, right = x[target_indices - lag], y[target_indices]
+            score = (
+                float(np.corrcoef(left, right)[0, 1])
+                if np.std(left) > 0 and np.std(right) > 0
+                else 0.0
+            )
+            scores.append(score if np.isfinite(score) else 0.0)
+        lag = int(np.argmax(np.abs(scores)))
+        correlation = float(scores[lag])
+        sample_count = max(segment.stop - max(segment.start, lag), 1)
+        threshold = float(1.85 * sample_count ** -0.41 + 2.37 * sample_count ** -0.53)
+        significant = abs(correlation) >= threshold
+        evidence.append(
+            {
+                "segment_index": segment_index,
+                "lag": lag,
+                "correlation": correlation,
+                "threshold": threshold,
+                "significant": significant,
+            }
+        )
+        if significant:
+            weighted_lags.append(lag * abs(correlation))
+            weights.append(abs(correlation))
+    if not weights:
+        return 0, tuple(evidence)
+    delay = int(np.rint(np.sum(weighted_lags) / np.sum(weights)))
+    return delay, tuple(evidence)
+
+
 @dataclass(frozen=True)
 class SegmentContribution:
     segment: LinearSegment
@@ -390,12 +473,39 @@ class PLRContributionRCA:
     min_size: int = 8
     max_lag: int = 20
 
-    def analyze(self, predictors: Iterable[Iterable[float]], target: Sequence[float]) -> list[SegmentContribution]:
+    def analyze(
+        self,
+        predictors: Iterable[Iterable[float]],
+        target: Sequence[float],
+        *,
+        segment_boundaries: Sequence[int] | None = None,
+    ) -> list[SegmentContribution]:
         x, y = np.asarray(list(predictors), dtype=float), np.asarray(target, dtype=float)
         if x.ndim != 2 or len(x) != len(y):
             raise ValueError("predictors and target must be aligned")
-        segments = piecewise_linear_representation(y, max_segments=self.max_segments, min_size=self.min_size)
-        lags = tuple(lagged_correlation_delay(x[:, i], y, max_lag=self.max_lag)[0] for i in range(x.shape[1]))
+        if segment_boundaries is None:
+            segments = piecewise_linear_representation(
+                y, max_segments=self.max_segments, min_size=self.min_size
+            )
+        else:
+            boundaries = tuple(int(value) for value in segment_boundaries)
+            if (
+                len(boundaries) < 2
+                or boundaries[0] != 0
+                or boundaries[-1] != len(y)
+                or any(stop - start < self.min_size for start, stop in zip(boundaries[:-1], boundaries[1:], strict=True))
+            ):
+                raise ValueError("segment boundaries must cover the target with valid segment sizes")
+            segments = [
+                _linear_segment(y, start, stop)
+                for start, stop in zip(boundaries[:-1], boundaries[1:], strict=True)
+            ]
+        lags = tuple(
+            piecewise_lagged_correlation_delay(
+                x[:, index], y, segments, max_lag=self.max_lag
+            )[0]
+            for index in range(x.shape[1])
+        )
         results = []
         for segment in segments:
             length = segment.stop - segment.start
@@ -403,11 +513,10 @@ class PLRContributionRCA:
             target_trend = int(np.sign(segment.amplitude)) if abs(segment.amplitude) >= target_threshold else 0
             columns, source_trends, amplitudes, scales = [], [], [], []
             for index, lag in enumerate(lags):
-                start, stop = segment.start + lag, segment.stop + lag
-                if stop > len(x):
-                    raw = x[len(x) - length :, index]
-                else:
-                    raw = x[start:stop, index]
+                source_indices = np.clip(
+                    np.arange(segment.start, segment.stop) - lag, 0, len(x) - 1
+                )
+                raw = x[source_indices, index]
                 local = _linear_segment(raw, 0, len(raw))
                 scale = max(2.0 * np.sqrt(local.residual_variance), 1e-12)
                 trend = int(np.sign(local.amplitude)) if abs(local.amplitude) >= scale else 0
