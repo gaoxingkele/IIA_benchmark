@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "fcc_ctfh_state_validation",
+  "task": "real_fcc_alarm_classification",
+  "downstream_tasks": ["T4"],
+  "validated_algorithms": ["ctfh_fingerprinting_2025"],
+  "domain": "intelligent_industrial_alarm",
+  "system": "configs/systems/fcc_simulator.json",
+  "dataset": "configs/datasets/fcc_alarm_state_public.json",
+  "split": "configs/splits/fcc_grouped_runs_60_20_20.json",
+  "model": "configs/models/ctfh_fingerprinting.json",
+  "flood_detector": "configs/models/criterion_c_fcc.json",
+  "metrics": "configs/metrics/alarm_flood_core.json",
+  "outputs": {
+    "run_dir": "experiments/runs/fcc_ctfh_state_validation",
+    "summary": "experiments/reports/fcc_ctfh_state_validation.json"
+  }
+}

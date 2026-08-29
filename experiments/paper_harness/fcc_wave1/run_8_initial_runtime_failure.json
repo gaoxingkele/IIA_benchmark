@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_name": "run_8",
+  "model_id": "charm_representative_patterns",
+  "dataset_family": "fcc_alarm",
+  "status": "terminated_runtime_pathology",
+  "failure_stage": "frequent_itemset_enumeration_before_closed_filter",
+  "observed_cpu_seconds": 222.453125,
+  "observed_working_set_bytes": 753811456,
+  "observed_wall_clock_lower_bound_seconds": 240,
+  "completion_artifact_created": false,
+  "diagnosis": "The parent implementation materialized every frequent subset and only then removed non-closed itemsets, causing exponential growth on dense FCC transactions.",
+  "repair": "Enumerate distinct vertical TID-set intersections directly; derive the unique item closure for each TID set and retain only closed patterns.",
+  "falsification": "The repaired implementation must match brute-force closed sets on a bounded corpus and complete the unchanged 1600-run FCC experiment.",
+  "repaired_evidence": "experiments/paper_harness/fcc_wave1/run_8/final_info.json"
+}

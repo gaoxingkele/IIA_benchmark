@@ -1,4 +1,5 @@
 import numpy as np
+from itertools import combinations
 
 from iia_benchmark.models import (
     AlarmToken,
@@ -79,6 +80,40 @@ def test_charm_closed_patterns_and_representative_clustering() -> None:
     representatives = representative_alarm_patterns(patterns, similarity_threshold=0.5)
     assert len(representatives) < len(patterns)
     assert set().union(*(item.items for item in representatives)) == {"A", "B", "C", "D"}
+
+
+def test_charm_direct_closure_matches_brute_force() -> None:
+    transactions = [
+        {"A", "B", "D"},
+        {"A", "C", "D"},
+        {"A", "B", "C", "D"},
+        {"B", "C", "E"},
+        {"A", "B", "C", "E"},
+        {"A", "B", "C", "D", "E"},
+    ]
+    minimum_count = 2
+    items = sorted(set().union(*transactions))
+    frequent = {}
+    for size in range(2, len(items) + 1):
+        for candidate in combinations(items, size):
+            itemset = frozenset(candidate)
+            tids = frozenset(
+                index for index, transaction in enumerate(transactions) if itemset <= transaction
+            )
+            if len(tids) >= minimum_count:
+                frequent[itemset] = tids
+    expected = {
+        itemset
+        for itemset, tids in frequent.items()
+        if not any(itemset < other and tids == other_tids for other, other_tids in frequent.items())
+    }
+    observed = {
+        pattern.items
+        for pattern in charm_closed_alarm_patterns(
+            transactions, minimum_support=minimum_count
+        )
+    }
+    assert observed == expected
 
 
 def test_maximum_entropy_predictor_learns_dominant_next_alarm() -> None:

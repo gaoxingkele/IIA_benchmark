@@ -1,0 +1,76 @@
+FCC Wave 1 experiment plan
+==========================
+
+Purpose
+-------
+Use the locally acquired official FCC alarm payload to test whether existing AFC
+implementations activate on a task-matched event/state corpus. Every split uses
+complete simulation runs: 1-60 train, 61-80 calibration, 81-100 test, for all 16
+abnormal-situation classes. The experiment is P1 engineering transfer evidence,
+not a reproduction of a cited TEP or synthetic-data paper score.
+
+Runs
+----
+run_1: CTFH on alarm states. Diagnostic comparison against the earlier PRONTO
+       zero-consensus-hash failure.
+run_2: CTFH on rising edges. Tests the event-fingerprint activation hypothesis.
+run_3: structured HDAM on alarm states. Tests template discrimination.
+run_4: CASIM on alarm states. Tests high-capacity closed-set discrimination.
+run_5: ConE-AFC with rising-edge CTFH and an explicit 20-run/class calibration set.
+run_6: Cross-Conformal AFC with rising-edge CTFH and five complete-run folds.
+run_7: Book Section 5.2 priority/time-aware accelerated alignment 1-NN.
+run_8: Book Section 5.3 CHARM closed patterns and representative clustering.
+run_9: Book Section 5.4 maximum-entropy next-alarm prediction.
+
+Observed results
+----------------
+run_1 completed in 9.36 s. CTFH/state passed activation with 62 consensus
+       hashes and 12/16 predicted classes. Balanced accuracy 0.512500;
+       macro-F1 0.464254.
+run_2 completed in 4.82 s. CTFH/rising-edge passed activation with 45 consensus
+       hashes and 10/16 predicted classes. Balanced accuracy 0.365625;
+       macro-F1 0.324116. Rising edges did not improve over states.
+run_3 completed in 6.02 s. HDAM/state passed activation, predicted all 16 classes,
+       and had minimum template stability 0.641034. Balanced accuracy 0.993750;
+       macro-F1 0.993734.
+run_4 completed in 205.15 s. Full registered CASIM (10 classifiers, 672 features)
+       passed activation and achieved balanced accuracy/macro-F1 1.000000.
+run_5 completed in 7.77 s. ConE-AFC coverage 0.940625, mean set size 8.009375
+       of 16, singleton rate 0. The set-efficiency beacon passed at all six
+       prefixes, but early decisions remain non-singleton.
+run_6 completed in 27.57 s. Cross-Conformal coverage 0.965625, mean set size
+       7.671875 of 16, singleton rate 0. The set-efficiency beacon passed at all
+       six prefixes, but early decisions remain non-singleton.
+run_7 completed in 25.61 s. Accelerated alignment passed activation, predicted
+       all 16 classes, evaluated 8,415,297 DP cells, and achieved balanced
+       accuracy 0.887500 / macro-F1 0.890699.
+run_8 first attempt exceeded four minutes and reached an observed 753,811,456 B
+       working set because the old implementation enumerated every frequent
+       subset before closure filtering. After replacing that path with direct
+       unique TID-intersection closure enumeration, the same full dataset and
+       fixed parameters completed in 1.54 s. It produced 130 closed patterns,
+       16 representatives, balanced accuracy 0.931250 and macro-F1 0.929589.
+run_9 completed in 3.87 s. Maximum entropy passed activation on 3,550 covered
+       transitions with vocabulary coverage 0.919927. Top-1 accuracy 0.187324,
+       top-3 accuracy 0.412958, NLL 3.155777 and Brier 0.017883.
+
+Interpretation
+--------------
+The FCC result falsifies the claim that local CTFH/HDAM implementations are
+globally nonfunctional: both activate on task-matched FCC data, and HDAM is nearly
+perfect. It also falsifies the narrower assumption that rising edges must improve
+CTFH. Conformal prediction is no longer the vacuous all-16-label set seen on
+PRONTO, but a zero singleton rate prevents a strong early-decision claim. These are
+single deterministic split results; no paired-significance or E3 credit is granted.
+
+Fixed boundaries
+----------------
+- 57 alarm variables, 60 one-minute samples per run, 16 classes.
+- No normal-operation class; no NOZ/FAR/MAR claim is allowed from FCC alone.
+- Criterion-C intervals are descriptive candidates, not expert flood labels.
+- Test runs are not used for thresholds, templates, dictionaries, or calibration.
+- All activation failures, class collapse, and vacuous conformal sets are retained.
+- Runs 1-9 were executed before their implementation commit was created. Their
+  recorded Git revision therefore points to the parent commit while the worktree
+  was dirty. They are E2 engineering evidence, not clean-commit E3 reproduction.
+  Future runs record worktree status, tracked-diff hash, and source-file hashes.

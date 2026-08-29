@@ -12,11 +12,13 @@ import numpy as np
 
 from iia_benchmark.config import load_experiment_config, load_json_reference
 from iia_benchmark.data import (
+    build_fcc_alarm_split,
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
     load_smd_alarm_events,
     build_pronto_fault_window_split,
     load_pronto_merged_csv,
+    load_fcc_alarm_runs,
     pronto_normal_train_evaluation_masks,
     load_skab_csv,
     load_tep_ascii,
@@ -31,6 +33,7 @@ from iia_benchmark.evaluation import (
     sequence_accuracy,
 )
 from iia_benchmark.models import (
+    AlarmToken,
     CASIMClassifier,
     ConEAlarmFloodClassifier,
     ConvexHullNOZAlarm,
@@ -38,12 +41,16 @@ from iia_benchmark.models import (
     CTFHAlarmFloodClassifier,
     EmpiricalNextAlarmPredictor,
     HDAMTemplateMatcher,
+    MaximumEntropyNextAlarmPredictor,
     MahalanobisAlarm,
     NormalizedTransferEntropyGraph,
     SearchConeNOZAlarm,
     TransferEntropyRanker,
+    accelerated_alarm_alignment,
+    charm_closed_alarm_patterns,
     design_alarm,
     criterion_c_alarm_flood_detection,
+    representative_alarm_patterns,
     smith_waterman_similarity,
 )
 from iia_benchmark.visualization import (
@@ -715,6 +722,483 @@ def _run_pronto_conformal_classifier(
     }
 
 
+def _run_fcc_conformal_classifier(
+    model_config: dict[str, Any],
+    base_model_config: dict[str, Any],
+    split_config: dict[str, Any],
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    X_calibration: np.ndarray,
+    y_calibration: np.ndarray,
+    X_test: np.ndarray,
+    y_test: np.ndarray,
+) -> dict[str, Any]:
+    """Evaluate conformal AFC with an explicit complete-run calibration split."""
+
+    model_id = str(model_config["id"])
+    parameters = _validation_parameters(model_config)
+    prefix_lengths = _pronto_prefix_lengths(
+        split_config,
+        X_train.shape[2],
+        minimum=int(_validation_parameters(base_model_config).get("window_size", 1)),
+    )
+    if model_id == "cone_afc":
+        models = {
+            length: _fit_pronto_point_classifier(
+                base_model_config, X_train[:, :, :length], y_train
+            )[0]
+            for length in prefix_lengths
+        }
+        classifier = ConEAlarmFloodClassifier(
+            models,
+            error_rate=float(parameters["error_rate"]),
+            score_kind=str(parameters.get("score_kind", "probability")),
+        ).calibrate(X_calibration, y_calibration)
+        prefix_metrics = _set_metrics_by_prefix(classifier, X_test, y_test)
+        diagnostics = {
+            "fit_runs": len(y_train),
+            "calibration_runs": len(y_calibration),
+            "fit_class_counts": dict(sorted(Counter(y_train.tolist()).items())),
+            "calibration_class_counts": dict(
+                sorted(Counter(y_calibration.tolist()).items())
+            ),
+            "thresholds": classifier.thresholds_.values.tolist(),
+            "calibration_counts": classifier.thresholds_.calibration_counts.tolist(),
+        }
+    elif model_id == "cross_conformal_afc":
+        X_pool = np.concatenate((X_train, X_calibration), axis=0)
+        y_pool = np.concatenate((y_train, y_calibration), axis=0)
+        fold_count = int(parameters.get("n_folds", 5))
+        fold_ids = _stratified_fold_ids(y_pool, fold_count)
+        models = {
+            length: {
+                fold: _fit_pronto_point_classifier(
+                    base_model_config,
+                    X_pool[fold_ids != fold, :, :length],
+                    y_pool[fold_ids != fold],
+                )[0]
+                for fold in range(fold_count)
+            }
+            for length in prefix_lengths
+        }
+        classifier = CrossConformalAlarmFloodClassifier(
+            models,
+            error_rate=float(parameters["error_rate"]),
+            score_kind=str(parameters.get("score_kind", "probability")),
+            class_conditional=bool(parameters.get("class_conditional", True)),
+            empty_set_policy=str(parameters.get("empty_set_policy", "top_p_value")),
+        ).calibrate(X_pool, y_pool, fold_ids)
+        prefix_metrics = _set_metrics_by_prefix(classifier, X_test, y_test)
+        diagnostics = {
+            "fit_and_calibration_runs": len(y_pool),
+            "folds": fold_count,
+            "fold_class_counts": {
+                str(fold): dict(sorted(Counter(y_pool[fold_ids == fold].tolist()).items()))
+                for fold in range(fold_count)
+            },
+            "calibration_counts": (
+                classifier.calibrator_.diagnostics_.calibration_counts.tolist()
+            ),
+        }
+    else:
+        raise ValueError(f"unsupported conformal FCC classifier: {model_id}")
+    return {
+        "model_id": model_id,
+        "base_model_id": str(base_model_config["id"]),
+        "metrics": prefix_metrics[str(prefix_lengths[-1])],
+        "prefix_metrics": prefix_metrics,
+        "prefix_lengths_samples": list(prefix_lengths),
+        "model_diagnostics": diagnostics,
+        "metric_kind": "conformal_prediction_set",
+    }
+
+
+def _run_real_fcc_alarm_classification(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    split_config = references["split"]
+    model_config = references["model"]
+    alarm_archive = _resolve(root, dataset["alarm_archive"])
+    runs = load_fcc_alarm_runs(
+        alarm_archive,
+        scenarios=tuple(dataset["scenarios"]) if dataset.get("scenarios") else None,
+    )
+    split = build_fcc_alarm_split(
+        runs,
+        train_run_numbers=tuple(split_config["train_run_numbers"]),
+        calibration_run_numbers=tuple(split_config["calibration_run_numbers"]),
+        test_run_numbers=tuple(split_config["test_run_numbers"]),
+        representation=str(dataset.get("alarm_representation", "state")),
+    )
+    model_id = str(model_config["id"])
+    classes = sorted(set(split.y_train.tolist()))
+    if model_id in {"cone_afc", "cross_conformal_afc"}:
+        classification = _run_fcc_conformal_classifier(
+            model_config,
+            references["base_model"],
+            split_config,
+            split.X_train,
+            split.y_train,
+            split.X_calibration,
+            split.y_calibration,
+            split.X_test,
+            split.y_test,
+        )
+        full_size = len(classes)
+        prefix_metrics = classification["prefix_metrics"]
+        efficient_prefixes = sum(
+            float(row["average_set_size"]) < full_size for row in prefix_metrics.values()
+        )
+        activation = {
+            "passed": efficient_prefixes > 0,
+            "beacon": "at least one prefix prediction set is smaller than the full label space",
+            "efficient_prefixes": efficient_prefixes,
+            "prefixes": len(prefix_metrics),
+            "class_count": full_size,
+        }
+    else:
+        X_fit = np.concatenate((split.X_train, split.X_calibration), axis=0)
+        y_fit = np.concatenate((split.y_train, split.y_calibration), axis=0)
+        classifier, model_diagnostics = _fit_pronto_point_classifier(
+            model_config, X_fit, y_fit
+        )
+        probabilities = classifier.predict_proba(split.X_test)
+        predictions = classifier.classes_[np.argmax(probabilities, axis=1)]
+        prefix_lengths = _pronto_prefix_lengths(
+            split_config,
+            split.X_train.shape[2],
+            minimum=int(_validation_parameters(model_config).get("window_size", 1)),
+        )
+        classification = {
+            "model_id": model_id,
+            "metrics": multiclass_classification_metrics(
+                split.y_test.tolist(), predictions.tolist()
+            ),
+            "prefix_metrics": _point_prefix_metrics(
+                classifier, split.X_test, split.y_test, prefix_lengths
+            ),
+            "prefix_lengths_samples": list(prefix_lengths),
+            "model_diagnostics": model_diagnostics,
+            "metric_kind": "closed_set_point_classification",
+        }
+        predicted_classes = len(set(predictions.tolist()))
+        finite_probabilities = bool(np.isfinite(probabilities).all())
+        if model_id == "ctfh_fingerprinting":
+            mechanism_value = sum(
+                profile["consensus_hashes"] for profile in model_diagnostics["profiles"]
+            )
+            mechanism_name = "total_consensus_hashes"
+            passed = finite_probabilities and predicted_classes >= 2 and mechanism_value > 0
+        elif model_id == "structured_hdam":
+            mechanism_value = min(
+                template["stability"] for template in model_diagnostics["templates"]
+            )
+            mechanism_name = "minimum_template_stability"
+            passed = finite_probabilities and predicted_classes >= 2 and np.isfinite(mechanism_value)
+        else:
+            mechanism_value = predicted_classes
+            mechanism_name = "predicted_classes"
+            passed = finite_probabilities and predicted_classes >= 2
+        activation = {
+            "passed": bool(passed),
+            "beacon": "finite scores, at least two predicted classes, and model-specific mechanism activation",
+            "predicted_classes": predicted_classes,
+            "class_count": len(classes),
+            "finite_probabilities": finite_probabilities,
+            mechanism_name: float(mechanism_value),
+        }
+
+    detector_parameters = {
+        key: int(value)
+        for key, value in references["flood_detector"]["parameters"].items()
+    }
+
+
+def _fcc_alarm_tokens(run: object) -> tuple[AlarmToken, ...]:
+    episode = run.to_episode(include_clearances=False)
+    return tuple(
+        AlarmToken(event.tag, event.timestamp, event.priority)
+        for event in episode.activations()
+    )
+
+
+def _run_real_fcc_book_sequence_method(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    dataset = references["dataset"]
+    split_config = references["split"]
+    model_config = references["model"]
+    alarm_archive = _resolve(root, dataset["alarm_archive"])
+    runs = load_fcc_alarm_runs(
+        alarm_archive,
+        scenarios=tuple(dataset["scenarios"]) if dataset.get("scenarios") else None,
+    )
+    train_ids = set(map(int, split_config["train_run_numbers"]))
+    calibration_ids = set(map(int, split_config["calibration_run_numbers"]))
+    test_ids = set(map(int, split_config["test_run_numbers"]))
+    fit_runs = [run for run in runs if run.run_number in train_ids | calibration_ids]
+    test_runs = [run for run in runs if run.run_number in test_ids]
+    classes = sorted({run.scenario for run in runs})
+    model_id = str(model_config["id"])
+    parameters = dict(
+        model_config.get("validation_parameters", model_config.get("parameters", {}))
+    )
+
+    if model_id == "accelerated_alarm_alignment":
+        prototypes_per_class = int(parameters.pop("prototypes_per_class", 10))
+        prototypes = {
+            label: [
+                _fcc_alarm_tokens(run)
+                for run in fit_runs
+                if run.scenario == label
+            ][:prototypes_per_class]
+            for label in classes
+        }
+        truth: list[str] = []
+        prediction: list[str] = []
+        best_scores: list[float] = []
+        evaluated_cells = 0
+        for run in test_runs:
+            query = _fcc_alarm_tokens(run)
+            class_scores: dict[str, float] = {}
+            for label, candidates in prototypes.items():
+                results = [
+                    accelerated_alarm_alignment(query, candidate, **parameters)
+                    for candidate in candidates
+                ]
+                evaluated_cells += sum(result.cells_evaluated for result in results)
+                class_scores[label] = max(
+                    (result.similarity for result in results), default=0.0
+                )
+            truth.append(run.scenario)
+            prediction.append(max(class_scores, key=class_scores.get))
+            best_scores.append(max(class_scores.values()))
+        metrics = multiclass_classification_metrics(truth, prediction)
+        activation = {
+            "passed": len(set(prediction)) >= 2 and max(best_scores, default=0.0) > 0,
+            "beacon": "positive alignment similarity and at least two predicted classes",
+            "predicted_classes": len(set(prediction)),
+            "class_count": len(classes),
+            "mean_best_similarity": float(np.mean(best_scores)),
+            "cells_evaluated": evaluated_cells,
+        }
+        method_result = {
+            "metrics": metrics,
+            "prototype_runs_per_class": prototypes_per_class,
+            "alignment_parameters": parameters,
+            "mean_best_similarity": float(np.mean(best_scores)),
+            "cells_evaluated": evaluated_cells,
+        }
+    elif model_id == "charm_representative_patterns":
+        models = {}
+        for label in classes:
+            transactions = [
+                run.to_episode(include_clearances=False).tags(unique=True)
+                for run in fit_runs
+                if run.scenario == label
+            ]
+            closed = charm_closed_alarm_patterns(
+                transactions,
+                minimum_support=float(parameters["minimum_support"]),
+            )
+            representatives = representative_alarm_patterns(
+                closed,
+                similarity_threshold=float(parameters["similarity_threshold"]),
+            )
+            models[label] = {"closed": closed, "representatives": representatives}
+        if any(not value["representatives"] for value in models.values()):
+            missing = [label for label, value in models.items() if not value["representatives"]]
+            raise RuntimeError(f"FCC CHARM produced no representatives for {missing}")
+
+        def jaccard(left: set[str], right: frozenset[str]) -> float:
+            union = left | set(right)
+            return len(left & set(right)) / len(union) if union else 1.0
+
+        truth = []
+        prediction = []
+        best_scores = []
+        for run in test_runs:
+            transaction = set(run.to_episode(include_clearances=False).tags(unique=True))
+            scores = {
+                label: max(
+                    jaccard(transaction, representative.items)
+                    for representative in value["representatives"]
+                )
+                for label, value in models.items()
+            }
+            truth.append(run.scenario)
+            prediction.append(max(scores, key=scores.get))
+            best_scores.append(max(scores.values()))
+        metrics = multiclass_classification_metrics(truth, prediction)
+        pattern_counts = {
+            label: {
+                "closed_patterns": len(value["closed"]),
+                "representative_patterns": len(value["representatives"]),
+            }
+            for label, value in models.items()
+        }
+        activation = {
+            "passed": len(set(prediction)) >= 2 and all(
+                row["representative_patterns"] > 0 for row in pattern_counts.values()
+            ),
+            "beacon": "every class has a representative pattern and predictions span at least two classes",
+            "predicted_classes": len(set(prediction)),
+            "class_count": len(classes),
+            "total_closed_patterns": sum(
+                row["closed_patterns"] for row in pattern_counts.values()
+            ),
+            "total_representative_patterns": sum(
+                row["representative_patterns"] for row in pattern_counts.values()
+            ),
+        }
+        method_result = {
+            "metrics": metrics,
+            "pattern_counts": pattern_counts,
+            "parameters": parameters,
+            "mean_best_jaccard": float(np.mean(best_scores)),
+        }
+    elif model_id == "maximum_entropy_next_alarm":
+        fit_sequences = [_fcc_alarm_tokens(run) for run in fit_runs]
+        predictor = MaximumEntropyNextAlarmPredictor(**parameters).fit(fit_sequences)
+        truth = []
+        prediction = []
+        top3_hits = 0
+        negative_log_likelihood = []
+        brier = []
+        lead_times = []
+        candidate_transitions = 0
+        nonuniform_predictions = 0
+        vocabulary = tuple(predictor.vocabulary_)
+        for run in test_runs:
+            sequence = _fcc_alarm_tokens(run)
+            for index in range(1, len(sequence)):
+                candidate_transitions += 1
+                target = sequence[index].tag
+                probabilities = predictor.predict_proba(sequence[:index])
+                if target not in probabilities or not probabilities:
+                    continue
+                ranking = sorted(probabilities, key=probabilities.get, reverse=True)
+                truth.append(target)
+                prediction.append(ranking[0])
+                top3_hits += int(target in ranking[:3])
+                probability = max(float(probabilities[target]), 1e-15)
+                negative_log_likelihood.append(-np.log(probability))
+                vector = np.asarray([probabilities.get(tag, 0.0) for tag in vocabulary])
+                target_vector = np.asarray([tag == target for tag in vocabulary], dtype=float)
+                brier.append(float(np.mean((vector - target_vector) ** 2)))
+                lead_times.append(sequence[index].timestamp - sequence[index - 1].timestamp)
+                nonuniform_predictions += int(
+                    np.ptp(np.asarray(list(probabilities.values()), dtype=float)) > 1e-12
+                )
+        if not truth:
+            raise RuntimeError("FCC maximum-entropy evaluation has no covered transitions")
+        top1 = sequence_accuracy(truth, prediction)
+        metrics = {
+            "top1_accuracy": top1,
+            "top3_accuracy": top3_hits / len(truth),
+            "negative_log_likelihood": float(np.mean(negative_log_likelihood)),
+            "brier_score": float(np.mean(brier)),
+            "mean_lead_time_seconds": float(np.mean(lead_times)),
+            "vocabulary_coverage": len(truth) / candidate_transitions,
+        }
+        activation = {
+            "passed": nonuniform_predictions > 0 and len(set(prediction)) >= 2,
+            "beacon": "non-uniform next-alarm distributions and at least two predicted tags",
+            "nonuniform_predictions": nonuniform_predictions,
+            "evaluated_transitions": len(truth),
+            "candidate_transitions": candidate_transitions,
+            "predicted_tags": len(set(prediction)),
+            "vocabulary_size": len(vocabulary),
+        }
+        method_result = {
+            "metrics": metrics,
+            "learned_weights": predictor.weights_.tolist(),
+            "vocabulary_size": len(vocabulary),
+            "candidate_transitions": candidate_transitions,
+            "evaluated_transitions": len(truth),
+            "tie_policy": "same-minute activations retain source alarm-column order",
+        }
+    else:
+        raise ValueError(f"unsupported FCC book sequence method: {model_id}")
+
+    return {
+        "model_id": model_id,
+        **method_result,
+        "activation": activation,
+        "fit_runs": len(fit_runs),
+        "test_runs": len(test_runs),
+        "classes": classes,
+        "alarm_representation": "ordered rising-edge activation sequence",
+        "split_policy": "complete run numbers 1-80 fit and 81-100 test; registered engineering hyperparameters are fixed before test",
+        "data_evidence": _data_evidence([alarm_archive], root),
+        "reporting_status": "FCC real-data engineering validation; P1 transfer protocol, not a paper-score reproduction",
+        "limitations": [
+            "Scenario-conditioned run sequences are used; no expert-confirmed flood interval labels exist.",
+            "Simultaneous alarm activations have no sub-minute causal order.",
+            "The fixed FCC run split is not the cited paper protocol."
+        ],
+    }
+    criterion_runs = []
+    for run in runs:
+        detection = criterion_c_alarm_flood_detection(
+            run.alarm_states,
+            tag_names=run.alarm_names,
+            **detector_parameters,
+        )
+        transitions = np.maximum(
+            detection.delayed_detection
+            - np.r_[np.int8(0), detection.delayed_detection[:-1]],
+            0,
+        )
+        criterion_runs.append(
+            {
+                "run_id": run.run_id,
+                "maximum_attention_set_cardinality": int(
+                    np.max(detection.cardinality, initial=0)
+                ),
+                "candidate_flood_intervals": int(np.sum(transitions)),
+                "candidate_flood_exposure": float(np.mean(detection.delayed_detection)),
+            }
+        )
+
+    return {
+        **classification,
+        "activation": activation,
+        "train_runs": len(split.y_train),
+        "calibration_runs": len(split.y_calibration),
+        "test_runs": len(split.y_test),
+        "classes": classes,
+        "alarm_tags": list(split.alarm_names),
+        "samples_per_run": int(split.X_train.shape[2]),
+        "alarm_representation": split.representation,
+        "train_class_counts": dict(sorted(Counter(split.y_train.tolist()).items())),
+        "calibration_class_counts": dict(
+            sorted(Counter(split.y_calibration.tolist()).items())
+        ),
+        "test_class_counts": dict(sorted(Counter(split.y_test.tolist()).items())),
+        "split_policy": "complete run numbers 1-60 train, 61-80 calibration, 81-100 test within every scenario",
+        "criterion_c": {
+            "parameters": detector_parameters,
+            "candidate_intervals": sum(
+                row["candidate_flood_intervals"] for row in criterion_runs
+            ),
+            "runs_with_candidates": sum(
+                row["candidate_flood_intervals"] > 0 for row in criterion_runs
+            ),
+            "per_run": criterion_runs,
+            "label_boundary": "criterion-C intervals are candidates, not expert-confirmed floods",
+        },
+        "data_evidence": _data_evidence([alarm_archive], root),
+        "reporting_status": "FCC real-data engineering validation; P1 transfer protocol, not a paper-score reproduction",
+        "limitations": [
+            "All 16 labels are simulated abnormal situations; no normal-operation class is present.",
+            "Scenario labels are used for AFC, while criterion-C intervals remain descriptive candidates.",
+            "The fixed run-number split is not the split of any cited AFC paper."
+        ],
+    }
+
+
 def _run_real_pronto_alarm_classification(
     root: Path, references: dict[str, dict[str, Any]]
 ) -> dict[str, Any]:
@@ -1108,6 +1592,10 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         result = _run_real_visual_analytics(root, run_dir, references)
     elif task == "real_pronto_alarm_classification":
         result = _run_real_pronto_alarm_classification(root, references)
+    elif task == "real_fcc_alarm_classification":
+        result = _run_real_fcc_alarm_classification(root, references)
+    elif task == "real_fcc_book_sequence_method":
+        result = _run_real_fcc_book_sequence_method(root, references)
     elif task == "real_smd_alarm_flood_detection":
         result = _run_real_smd_alarm_flood_detection(root, references)
     elif task == "real_pronto_multivariate_detection":

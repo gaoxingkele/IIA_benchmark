@@ -228,7 +228,12 @@ class ClosedAlarmPattern:
 def charm_closed_alarm_patterns(
     transactions: Iterable[Iterable[str]], *, minimum_support: float | int
 ) -> tuple[ClosedAlarmPattern, ...]:
-    """Vertical-TID closed frequent pattern mining (Book Algorithms 5.5-5.6)."""
+    """Vertical-TID closed frequent pattern mining (Book Algorithms 5.5-5.6).
+
+    Each distinct intersection of singleton TID sets corresponds to one closure.
+    Enumerating those intersections directly avoids materializing every frequent
+    non-closed subset, which is essential for dense industrial alarm records.
+    """
 
     database = [frozenset(transaction) for transaction in transactions]
     if not database:
@@ -240,29 +245,42 @@ def charm_closed_alarm_patterns(
     for tid, transaction in enumerate(database):
         for item in transaction:
             item_tids[item] = item_tids.get(item, frozenset()) | frozenset({tid})
-    items = sorted((item, tids) for item, tids in item_tids.items() if len(tids) >= minimum_count)
-    frequent: dict[frozenset[str], frozenset[int]] = {}
+    items = sorted(
+        (item, tids) for item, tids in item_tids.items() if len(tids) >= minimum_count
+    )
+    names = tuple(item for item, _ in items)
+    masks = tuple(
+        sum(1 << transaction_id for transaction_id in tids) for _, tids in items
+    )
+    visited: set[int] = set()
+    closed: list[ClosedAlarmPattern] = []
 
-    def extend(prefix: frozenset[str], candidates: list[tuple[str, frozenset[int]]]) -> None:
-        for index, (item, tids) in enumerate(candidates):
-            pattern = prefix | {item}
-            frequent[pattern] = tids
-            suffix = []
-            for next_item, next_tids in candidates[index + 1 :]:
-                intersection = tids & next_tids
-                if len(intersection) >= minimum_count:
-                    suffix.append((next_item, intersection))
-            if suffix:
-                extend(pattern, suffix)
+    def explore(mask: int, start: int) -> None:
+        if mask in visited:
+            return
+        visited.add(mask)
+        support_count = mask.bit_count()
+        closure = frozenset(
+            name
+            for name, item_mask in zip(names, masks, strict=True)
+            if mask & item_mask == mask
+        )
+        if len(closure) >= 2:
+            tids = frozenset(
+                transaction_id
+                for transaction_id in range(len(database))
+                if mask & (1 << transaction_id)
+            )
+            closed.append(
+                ClosedAlarmPattern(closure, tids, support_count / len(database))
+            )
+        for position in range(start, len(masks)):
+            intersection = mask & masks[position]
+            if intersection != mask and intersection.bit_count() >= minimum_count:
+                explore(intersection, position + 1)
 
-    extend(frozenset(), items)
-    closed = []
-    for pattern, tids in frequent.items():
-        if len(pattern) < 2:
-            continue
-        if any(pattern < other and tids == other_tids for other, other_tids in frequent.items()):
-            continue
-        closed.append(ClosedAlarmPattern(pattern, tids, len(tids) / len(database)))
+    for position, mask in enumerate(masks):
+        explore(mask, position + 1)
     return tuple(sorted(closed, key=lambda item: (-item.support, -len(item.items), sorted(item.items))))
 
 

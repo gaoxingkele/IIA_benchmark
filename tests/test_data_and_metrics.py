@@ -11,11 +11,14 @@ from iia_benchmark.data import (
     alarm_events_to_state_matrix,
     audit_pronto_archive,
     build_pronto_fault_window_split,
+    build_fcc_alarm_split,
     extract_pronto_members,
     load_piade_alarm_events,
     load_piade_alarm_intervals,
     load_piade_alarm_sequences,
     load_pronto_merged_csv,
+    load_fcc_alarm_runs,
+    load_fcc_timeseries_runs,
     pronto_normal_train_evaluation_masks,
     load_skab_csv,
     load_smd_alarm_events,
@@ -237,6 +240,66 @@ def test_multiclass_metrics_include_per_class_and_confusion_audit() -> None:
     assert result["balanced_accuracy"] == 0.75
     assert result["confusion_matrix"]["a"]["b"] == 1
     assert result["per_class"]["b"]["recall"] == 1.0
+
+
+def test_fcc_adapters_and_complete_run_split(tmp_path: Path) -> None:
+    alarm_path = tmp_path / "alarm.zip"
+    series_path = tmp_path / "series.zip"
+    alarm_header = "A_low,A_high\n"
+    with zipfile.ZipFile(alarm_path, "w") as archive:
+        for label, offset in (("fault_a", 0), ("fault_b", 1)):
+            for run_number in range(1, 7):
+                rows = [
+                    f"{int((sample + offset) % 2 == 0)},{int((sample + offset) % 2 == 1)}"
+                    for sample in range(4)
+                ]
+                archive.writestr(
+                    f"alarmseriesdata/{label}/{label}_run{run_number}_alarm.csv",
+                    alarm_header + "\n".join(rows) + "\n",
+                )
+    with zipfile.ZipFile(series_path, "w") as archive:
+        for label in ("fault_a", "fault_b"):
+            for run_number in (1,):
+                prefix = f"timeseriesdata/{label}/{label}_run{run_number}"
+                archive.writestr(
+                    f"{prefix}_process.csv", "Time,P1\n0,1.0\n1,2.0\n"
+                )
+                archive.writestr(
+                    f"{prefix}_valves.csv", "Time,V1\n0,3.0\n1,4.0\n"
+                )
+                archive.writestr(
+                    f"{prefix}_disturbances.csv",
+                    "Time,Dist_V2\n0,0.5\n1,0.5\n",
+                )
+
+    runs = load_fcc_alarm_runs(alarm_path)
+    assert len(runs) == 12
+    assert runs[0].alarm_states.shape == (4, 2)
+    assert runs[0].to_episode().label == "fault_a"
+    rising = runs[0].representation("rising_edge")
+    assert int(rising.sum()) == 4
+    split = build_fcc_alarm_split(
+        runs,
+        train_run_numbers=(1, 2),
+        calibration_run_numbers=(3, 4),
+        test_run_numbers=(5, 6),
+        representation="rising_edge",
+    )
+    assert split.X_train.shape == (4, 2, 4)
+    assert set(split.y_train) == set(split.y_test) == {"fault_a", "fault_b"}
+    with pytest.raises(ValueError, match="disjoint"):
+        build_fcc_alarm_split(
+            runs,
+            train_run_numbers=(1, 2),
+            calibration_run_numbers=(2, 3),
+            test_run_numbers=(4, 5),
+        )
+
+    series = load_fcc_timeseries_runs(series_path)
+    assert len(series) == 2
+    assert series[0].process_names == ("P1",)
+    assert series[0].timestamps.tolist() == [0.0, 1.0]
+    assert series[0].root_disturbance == "Dist_fault"
 
 
 def test_pronto_normal_split_is_purged_and_keeps_all_faults() -> None:
