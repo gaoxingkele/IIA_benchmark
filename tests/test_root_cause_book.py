@@ -91,6 +91,30 @@ def test_information_granulation_te_and_direct_te() -> None:
         )
 
 
+def test_igdte_accepts_distinct_path_lags_and_prunes_an_indirect_chain() -> None:
+    root, middle, target = _binary_chain()
+    rng = np.random.default_rng(17)
+    continuous = [
+        np.repeat(values, 5) + rng.normal(0.0, 0.01, len(values) * 5)
+        for values in (root, middle, target)
+    ]
+    igte = information_granulation_transfer_entropy(
+        continuous[0], continuous[2], window_size=5, lag=6, order=2, min_samples=4
+    )
+    igdte = information_granulation_direct_transfer_entropy(
+        continuous[0],
+        continuous[2],
+        continuous[1],
+        window_size=5,
+        source_lag=6,
+        intermediate_lag=3,
+        order=2,
+        min_samples=4,
+    )
+    assert igte > 0.1
+    assert igdte < 0.2 * igte
+
+
 def test_recursive_bayesian_network_converges_and_handles_unknown() -> None:
     model = RecursiveBayesianAlarmRCA(["pump", "valve"], response_time_samples=10)
     for _ in range(80):
@@ -104,7 +128,7 @@ def test_recursive_bayesian_network_converges_and_handles_unknown() -> None:
 
 
 def test_recursive_bayesian_sequence_uses_book_zero_initialization() -> None:
-    model = RecursiveBayesianAlarmRCA(["cause"], response_time_samples=5)
+    model = RecursiveBayesianAlarmRCA(["cause"], response_time_samples=5, initial_probability=0)
     assert np.all(model.cause_probabilities_ == 0)
     decisions = model.infer_sequence([[0]] * 10 + [[1]] * 20, [0] * 10 + [1] * 20)
     assert decisions[-1] == ("cause",)

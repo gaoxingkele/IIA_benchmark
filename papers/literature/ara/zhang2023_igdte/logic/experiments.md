@@ -18,3 +18,18 @@ realization remain unavailable. Therefore this evidence grants E2 engineering
 credit to IGTE only and denies exact-paper, Table 4.8, and direct-causality
 claims. Machine-readable evidence:
 `experiments/reports/book_ch4_igte_igdte_multidataset_validation.json`.
+
+## Distinct-lag mechanism closure and iMAKS falsification
+
+The gap-closure harness adds separate source-to-target and mediator-to-target
+lags. On three generated delayed chains, pairwise IGTE is
+`0.3935 ± 0.0070`, above the mean surrogate threshold `0.00551`, while IGDTE
+falls to zero after conditioning on the mediator. This closes the defining
+indirect-edge-pruning mechanism but grants E1 controlled evidence only.
+
+The same frozen diagnostic is also applied to the registered synthetic iMAKS
+edge `ST02_SEALING_CUR -> ST04_PACKAGING_SPD` with its documented 90-minute
+delay. IGTE is `0.05805`, below the three-seed mean threshold `0.08598`, so the
+edge is not detected in any run. Together with 0/21 pruning events on acquired
+TEP/PRONTO/SKAB, this prevents E2 promotion. Evidence:
+`experiments/reports/book_ch4_gap_closure_validation.json`.

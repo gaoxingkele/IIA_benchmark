@@ -11,8 +11,8 @@
 | `fcc_alarm` | ReSeeD 官方 4 个附件已下载并校验；alarm/process adapter、G0、完整 run split 与首批 9 个实验已完成；PLR 适用性 G0 已拒绝时间贡献评分 | 1,600 个仿真 run、16 类异常、每类 100 run；每个 run 有 60 个一分钟采样、57 个报警位，并配套过程/阀位/扰动序列；扰动列在单 run 内恒定，不可用于 PLR 时滞恢复；T3/T4/open-set/鲁棒性 | [ReSeeD](https://reseed.ruhr-uni-bochum.de/concern/datasets/19217e41-e9ad-4c0e-bb51-97e7072813f7)，FCC DOI `10.60517/2v23vv393`，CC BY 4.0；误命名候选包实际 DOI `10.60517/19027803-fec9-41f2-8a02-408cc176554e` |
 | `comopi` | 报警 CSV 已下载，42,677,268 字节，MD5 通过 | 8 台包装设备、123 类十分钟报警计数；T5/T6、bad actor；无 bin 内次序/洪泛标签 | [Zenodo 7572501](https://zenodo.org/records/7572501)，DOI `10.5281/zenodo.7572501` |
 | `smd10towfgr` | 180,707,378 字节 XLSX 已下载，MD5 通过 | 10 台风机的 SCADA 与 230,618 条事件/报警日志；T4 序列/密度、T5/T6；缺专家洪泛类别 | [Zenodo 14546480](https://zenodo.org/records/14546480)，CC BY 4.0 |
-| `enas` | 20,010,388 字节 CSV 已下载，MD5 通过 | 219,893 条数字传感器/执行器状态变化和人工错误状态；T3/T5 | [Zenodo 4742256](https://zenodo.org/records/4742256)，CC BY 4.0 |
-| `imaks` | 19,797,994 字节 ZIP 已下载，MD5 通过；synthetic | MQTT/传感器报警和因果真值；T3/鲁棒性 smoke，不得进入真实工业榜单 | [Zenodo 20075430](https://zenodo.org/records/20075430) |
+| `enas` | 20,010,388 字节 CSV 已下载，MD5 通过；只读 adapter 与 G0 已完成 | 219,893 条数字传感器/执行器状态变化和 160 个 ME/HE/UE 人工错误标记；递归 BN 的原始脉冲与五行持久化配对验证已完成；T3/T5 | [Zenodo 4742256](https://zenodo.org/records/4742256)，CC BY 4.0 |
+| `imaks` | 19,797,994 字节 ZIP 已下载，MD5 通过；sensor/KG adapter 已完成；synthetic | 211,200 行 MQTT/传感器注释与因果真值；IGDTE/BN/PLR 的 T3 诊断 smoke，负结果保留，不得进入真实工业榜单 | [Zenodo 20075430](https://zenodo.org/records/20075430) |
 
 本次本地 profile：FCC Alarm 1,600 个仿真 run、16 类异常、57 个报警位并配套 4,800 个过程/阀位/扰动 CSV；PIADE raw 429,394 行、5 台设备、92,084 个非 `A_000` 报警区间；CoMoPI 150,650 个十分钟 bin、194,974 次报警；SMD10TOWFGR 230,618 条日志、167 个事件 code；EnAS 219,893 行；iMAKS annotated sensor 表 211,200 行；SKAB 35 个 CSV 实验；经典 TEP 44 个 run 文件（2 normal、42 fault）、52 个变量。数值来自 `profile_public_datasets.py`，可在数据更新后重算，不作为上游数据集的永久版本声明。
 

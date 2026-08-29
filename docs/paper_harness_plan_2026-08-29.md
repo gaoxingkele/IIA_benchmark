@@ -1,22 +1,22 @@
 # IIA Paper Harness 多数据集复现计划
 
-截止 `2026-08-29`，Paper Harness 已把 **20 个书籍交付项 + 10 个 SOTA 方法**全部纳入实验矩阵。
-矩阵展开为 **121 个算法×数据集目标**：其中 **111 个 M2/M3 有效匹配**，**10 个 M1/P0
-错配哨兵**。30 个算法均规划了至少 3 个有效数据集，因此目标层已经满足多数据集设计；当前
-还不等于全部实验已完成。
+截至 `2026-08-30`，Paper Harness 已把 **20 个书籍交付项 + 10 个 SOTA 方法**全部纳入实验矩阵。
+矩阵展开为 **131 个算法×数据集目标**：其中 **110 个 M2/M3 有效匹配**，**21 个 M1/P0
+错配哨兵**。除具有明确物理变量例外的 condenser 外，29 个算法均规划了至少 3 个有效数据集；
+30/30 已有 E1 以上机制证据，29/30 已有 E2 以上工程证据。
 
 ## 当前可执行面
 
 | 项目 | 数量 | 含义 |
 |---|---:|---|
 | 注册算法 | 30 | 20 book + 10 SOTA，全部 callable |
-| 已有 E2 真实数据证据的算法 | 10 | 其余 20 个仍需统一 runner 和真实数据配置 |
-| 数据集族 | 11 | 11/11 主载荷已在本地；FCC、TEP 五类与 NPP alpha=0.50 adapter/G0 已完成 |
-| 算法×数据集目标 | 121 | 包含有效匹配与诊断哨兵 |
-| M2/M3 有效目标 | 111 | 可进入跨数据集汇总 |
-| M1/P0 哨兵目标 | 10 | 仅保留错配退化证据 |
-| 按现有数据适配器可调度 | 118 | 其中 108 个为 M2/M3，10 个为错配哨兵 |
-| 被适配器阻塞 | 3 | CoMoPI/EnAS/iMAKS 各 1 个仍待统一入口 |
+| 已有 E2 及以上工程证据的算法 | 29 | IGDTE 仅有 E1 受控机制证据 |
+| 数据集族 | 12 | 11 个公开/已取得族 + 1 个书籍方程生成族；11 个 adapter runnable，CoMoPI 待统一入口 |
+| 算法×数据集目标 | 131 | 包含有效匹配与诊断哨兵 |
+| M2/M3 有效目标 | 110 | 可进入跨数据集汇总 |
+| M1/P0 哨兵目标 | 21 | 仅保留错配退化证据 |
+| 按现有数据适配器可调度 | 130 | 其中 109 个为 M2/M3，21 个为错配哨兵 |
+| 被适配器阻塞 | 1 | 仅 CoMoPI 可视分析目标仍待统一入口 |
 | 论文实验 backlog | 28 | 与本地 literature registry 28/28 对齐 |
 
 “数据已下载”和“可进入公平实验”是两件事。当前适配器按解锁收益排序：
@@ -26,9 +26,9 @@
 | 已完成 | FCC Alarm | 25 个有效目标已具备数据入口；T4 首批 6 runs 已执行 |
 | 已完成 | TEP Alarm 五类载荷 | 18 个目标已有统一 episode/split 入口；首批 6 runs 已执行 |
 | 已完成 | NPP Alarm DataPort | 17 个目标已有统一入口；alpha=0.50 首批 6 runs 已执行 |
+| 已完成 | EnAS | 递归 BN 原始脉冲/五行持久化配对验证已执行 |
+| 已完成 | iMAKS | sensor/KG 因果 adapter 与 IGDTE/BN/PLR 诊断已执行 |
 | 3 | CoMoPI | 1 |
-| 3 | EnAS | 1 |
-| 3 | iMAKS | 1 |
 
 FCC G0 发现其 1600 个 run 均为异常场景、没有独立正常工况，因此已从 Chapter 3 NOZ 数据目标
 中移除并由 SMD/SKAB 替代；FCC 继续用于报警状态复现、RCA、洪泛分类、预测和可视分析。NPP
@@ -223,8 +223,9 @@ TEP generates two significant edges per seed but has F1 0 against Book Table
 0.6667 and same-episode cross-seed direct-edge Jaccard 0.3148. SKAB activates on
 all episodes, but within-valve Jaccard is 0.0476. No IGDTE pruning occurs in any
 of the 21 episode-by-seed evaluations. The negative result is retained, IGTE
-receives E2 engineering credit, and IGDTE remains E0 because its defining
-direct-edge mechanism never activates. Exact paper/table credit is blocked by
+receives E2 engineering credit, and IGDTE remains E0 within this acquired-data
+wave because its defining direct-edge mechanism never activates. The later
+gap-closure control moves IGDTE to E1 only. Exact paper/table credit is blocked by
 the unavailable 2023 full text/code, reachability-peak parameters, and exact
 TEP realization.
 
@@ -375,3 +376,25 @@ full equations/hyperparameters, and selected reference tables remain blocked.
 
 Machine-readable report:
 `experiments/reports/sota_wave2_multidataset_validation.json`.
+
+## Chapter 4 gap-closure execution (2026-08-30)
+
+The frozen seeds `1103/2207/3301` execute one controlled IGDTE chain, all
+219,893 EnAS event-log rows, three disjoint chronological PIADE folds, and the
+registered iMAKS synthetic causal edge. All G0/G1 mandatory gates pass and the
+three runs share identical source/config hashes.
+
+- IGDTE: a distinct-lag delayed chain prunes the indirect edge in 3/3 runs
+  (`IGTE 0.3935`, `IGDTE 0`, mean threshold `0.00551`). It remains E1 because
+  TEP/PRONTO/SKAB prune 0/21 and the iMAKS edge is detected in 0/3.
+- Recursive BN: raw EnAS ME/HE/UE impulses produce 0/160 decisions; the
+  preregistered five-row persistence adapter activates 160/160. This grants E2
+  mechanism transfer, while tag-level root accuracy is unavailable.
+- PLR RCA: 129/300 nonoverlapping PIADE transition windows activate across
+  folds (`0.43 ± 0.01`). iMAKS returns `[61, 0]` instead of the documented
+  180-sample lag because only recovery has a nonzero trend. This grants E2
+  real-data activation but no causal ranking credit.
+
+The strict cited-paper score closure is still 0/3 because the original plant
+payloads, causal labels, and exact scoring protocols are unavailable. Evidence:
+`experiments/reports/book_ch4_gap_closure_validation.json`.

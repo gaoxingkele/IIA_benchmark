@@ -7,9 +7,9 @@
 ## 文件
 
 - `protocol_freeze.v1.json`：冻结评测内核 K、可变实验面 X、证据等级、门禁、种子和资源预算。
-- `experiment_matrix.v1.json`：30 个算法到 11 个数据集族的目标映射；展开后为 121 个目标。
+- `experiment_matrix.v1.json`：30 个算法到 11 个公开/已取得数据集族和 1 个书籍方程生成族的目标映射；展开后为 131 个目标。
 - `reference_experiments.v1.json`：5 个书籍章节组和 28 篇论文的实验条目复现 backlog。
-- `gate_ledger.seed.jsonl`：已有 PRONTO 负结果的种子账本，确保退化证据不会被覆盖。
+- `gate_ledger.seed.jsonl`：所有已执行波次的门禁与负结果账本，确保退化证据不会被覆盖。
 - `semantic_gene_bank.md`：从失败中提取的 WHERE × WHY 可复用规则。
 - `scripts/paper_harness.py`：只读检查、状态和执行顺序输出。
 
@@ -24,7 +24,7 @@ python scripts/paper_harness.py plan
 python -m pytest -q tests/test_paper_harness.py
 ```
 
-`check` 验证 30 个算法、11 个数据集族和 28 篇论文是否全部闭合，并拒绝未知 ID、
+`check` 验证 30 个算法、12 个数据集族和 28 篇论文是否全部闭合，并拒绝未知 ID、
 重复映射、少于三个有效数据集的算法、M1 非哨兵结果以及 lane/task 不一致。
 这些命令不启动正式训练，也不接触冻结测试集。
 

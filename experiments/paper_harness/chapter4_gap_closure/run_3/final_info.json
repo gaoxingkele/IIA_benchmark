@@ -1,0 +1,1115 @@
+{
+  "schema_version": 1,
+  "experiment_id": "chapter4_gap_closure",
+  "run_name": "run_3",
+  "seed": 3301,
+  "chronological_fold": 2,
+  "config": "configs/experiments/chapter4_gap_closure.json",
+  "config_sha256": "db808fdd6d28e54ded87841712b6ceadbe5ac244408396b241b614aeff2c38fa",
+  "git_revision": "300d16ecde168f18838f62a163be4b4af629a046",
+  "execution_provenance": {
+    "git_worktree_dirty": true,
+    "git_status_porcelain": [
+      " M src/iia_benchmark/data/__init__.py",
+      " M src/iia_benchmark/models/root_cause_book.py",
+      " M tests/test_root_cause_book.py",
+      "?? configs/experiments/chapter4_gap_closure.json",
+      "?? experiments/paper_harness/chapter4_gap_closure/experiment.py",
+      "?? experiments/paper_harness/chapter4_gap_closure/run_1/final_info.json",
+      "?? experiments/paper_harness/chapter4_gap_closure/run_2/final_info.json",
+      "?? experiments/paper_harness/chapter4_gap_closure/run_3/final_info.json",
+      "?? src/iia_benchmark/data/enas.py",
+      "?? src/iia_benchmark/data/imaks.py",
+      "?? tests/test_enas_imaks_data.py"
+    ],
+    "source_sha256": {
+      "src/iia_benchmark/models/root_cause_book.py": "7a7b4e35a5cadb503f0d23a69721bbf892ea2f6c95fcedad647406f9f301f849",
+      "src/iia_benchmark/data/enas.py": "55fbfddad5a23aab3c1da7646edf74bbdcfdc119736f7748dcc855961668ff03",
+      "src/iia_benchmark/data/imaks.py": "1cf9604280c37c53afd3de5e4042f48d2578c0a6157eac824c4ba5b263daa452",
+      "experiments/paper_harness/chapter4_gap_closure/experiment.py": "c5ffd63e3e57bda8f3811395da439b17ac2419caba605bf16fd92adf08c09f19",
+      "configs/experiments/chapter4_gap_closure.json": "db808fdd6d28e54ded87841712b6ceadbe5ac244408396b241b614aeff2c38fa",
+      "data/public_datasets/enas/EnAS_20200923-20210202.csv": "4a16a6ca4f7faf96d574f88337b68068f40c0e32b6e7e0da2cd0db4bb48c146e",
+      "data/public_datasets/piade/raw_data.csv": "b52561a399d714aa3b084520d6bf86d66c1d2f010fc8cbe1d85b2332806fcb72",
+      "data/public_datasets/imaks/iMAKS_dataset.zip": "e358f210d660c4c7bd907f4e0586724d1f5437bffb6614d44102cca7d98602e4"
+    }
+  },
+  "started_at_utc": "2026-08-29T20:45:04.953895+00:00",
+  "finished_at_utc": "2026-08-29T20:45:31.107777+00:00",
+  "wall_clock_seconds": 25.97700509999413,
+  "mandatory_gates": {
+    "controlled_igdte_mechanism": true,
+    "enas_prior": true,
+    "enas_mechanism": true,
+    "piade_prior": true,
+    "piade_mechanism": true,
+    "imaks_prior": true
+  },
+  "results": {
+    "controlled_igdte": {
+      "match": "M0-generated",
+      "protocol": "P0-mechanism-activation",
+      "metrics": {
+        "igte": 0.4014835815860603,
+        "igdte": 0.0,
+        "surrogate_threshold": 0.005872990149604206,
+        "conditional_to_pairwise_ratio": 0.0,
+        "source_lag": 6,
+        "intermediate_lag": 3,
+        "cluster_counts": [
+          2,
+          2,
+          2
+        ]
+      },
+      "gates": {
+        "pairwise_edge_active": true,
+        "indirect_edge_pruned": true,
+        "mechanism": true,
+        "performance": null,
+        "competitive": null,
+        "decision": "E1 mechanism activation only"
+      },
+      "boundary": "Generated causal chain used only to exercise distinct-lag IGDTE indirect-edge pruning."
+    },
+    "enas_recursive_bn": {
+      "dataset_family": "enas",
+      "match": "M2",
+      "protocol": "P1-exception-log-online-transfer",
+      "prior_gate": {
+        "passed": true,
+        "checks": {
+          "finite_strict_timestamps": true,
+          "binary_signals_and_errors": true,
+          "all_error_types_observed": true,
+          "candidate_columns_present": true,
+          "manual_markers_are_impulses": true
+        },
+        "rows": 219893,
+        "signals": 28,
+        "error_counts": {
+          "ME": 103,
+          "HE": 52,
+          "UE": 5
+        },
+        "timestamp_span_days": 132.1459454211703
+      },
+      "targets": {
+        "ME": {
+          "cause_names": [
+            "C1",
+            "C2",
+            "C3",
+            "C4",
+            "C5",
+            "C6"
+          ],
+          "manual_annotation_rows": 103,
+          "raw_impulse": {
+            "events": 103,
+            "nonempty_decision_rate": 0.0,
+            "unknown_decision_rate": 0.0,
+            "known_candidate_decision_rate": 0.0,
+            "unique_event_decisions": 1,
+            "posterior_entropy": 0.24531183992936795,
+            "posterior_range": 0.9491644226938115,
+            "top_decisions": [
+              {
+                "decision": [],
+                "count": 103
+              }
+            ]
+          },
+          "persistent_adapter": {
+            "events": 103,
+            "nonempty_decision_rate": 1.0,
+            "unknown_decision_rate": 0.32038834951456313,
+            "known_candidate_decision_rate": 0.6796116504854369,
+            "unique_event_decisions": 11,
+            "posterior_entropy": 0.2255922014429916,
+            "posterior_range": 0.9556347767819132,
+            "top_decisions": [
+              {
+                "decision": [
+                  "unknown"
+                ],
+                "count": 33
+              },
+              {
+                "decision": [
+                  "C6"
+                ],
+                "count": 20
+              },
+              {
+                "decision": [
+                  "C2"
+                ],
+                "count": 14
+              },
+              {
+                "decision": [
+                  "C3"
+                ],
+                "count": 14
+              },
+              {
+                "decision": [
+                  "C1"
+                ],
+                "count": 8
+              },
+              {
+                "decision": [
+                  "C4"
+                ],
+                "count": 6
+              },
+              {
+                "decision": [
+                  "C3",
+                  "C4"
+                ],
+                "count": 3
+              },
+              {
+                "decision": [
+                  "C1",
+                  "C2"
+                ],
+                "count": 2
+              }
+            ]
+          },
+          "corrupted_persistent_adapter": {
+            "events": 103,
+            "nonempty_decision_rate": 1.0,
+            "unknown_decision_rate": 0.32038834951456313,
+            "known_candidate_decision_rate": 0.6796116504854369,
+            "unique_event_decisions": 12,
+            "posterior_entropy": 1.0051683384570589,
+            "posterior_range": 0.5917131694997971,
+            "top_decisions": [
+              {
+                "decision": [
+                  "unknown"
+                ],
+                "count": 33
+              },
+              {
+                "decision": [
+                  "C6"
+                ],
+                "count": 19
+              },
+              {
+                "decision": [
+                  "C2"
+                ],
+                "count": 15
+              },
+              {
+                "decision": [
+                  "C3"
+                ],
+                "count": 14
+              },
+              {
+                "decision": [
+                  "C1"
+                ],
+                "count": 8
+              },
+              {
+                "decision": [
+                  "C4"
+                ],
+                "count": 6
+              },
+              {
+                "decision": [
+                  "C3",
+                  "C4"
+                ],
+                "count": 3
+              },
+              {
+                "decision": [
+                  "C5",
+                  "C6"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "input_bit_flips": 26420
+        },
+        "HE": {
+          "cause_names": [
+            "EA1",
+            "BA1",
+            "VA1",
+            "EA2",
+            "BA2",
+            "VA2"
+          ],
+          "manual_annotation_rows": 52,
+          "raw_impulse": {
+            "events": 52,
+            "nonempty_decision_rate": 0.0,
+            "unknown_decision_rate": 0.0,
+            "known_candidate_decision_rate": 0.0,
+            "unique_event_decisions": 1,
+            "posterior_entropy": 2.390061422060911e-98,
+            "posterior_range": 1.0,
+            "top_decisions": [
+              {
+                "decision": [],
+                "count": 52
+              }
+            ]
+          },
+          "persistent_adapter": {
+            "events": 52,
+            "nonempty_decision_rate": 1.0,
+            "unknown_decision_rate": 0.8653846153846154,
+            "known_candidate_decision_rate": 0.1346153846153846,
+            "unique_event_decisions": 4,
+            "posterior_entropy": 2.3900614220609106e-98,
+            "posterior_range": 1.0,
+            "top_decisions": [
+              {
+                "decision": [
+                  "unknown"
+                ],
+                "count": 45
+              },
+              {
+                "decision": [
+                  "VA1"
+                ],
+                "count": 4
+              },
+              {
+                "decision": [
+                  "BA2",
+                  "VA2"
+                ],
+                "count": 2
+              },
+              {
+                "decision": [
+                  "EA2",
+                  "VA2"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "corrupted_persistent_adapter": {
+            "events": 52,
+            "nonempty_decision_rate": 1.0,
+            "unknown_decision_rate": 0.8846153846153846,
+            "known_candidate_decision_rate": 0.11538461538461539,
+            "unique_event_decisions": 4,
+            "posterior_entropy": 0.0808258740401592,
+            "posterior_range": 0.9842929110373172,
+            "top_decisions": [
+              {
+                "decision": [
+                  "unknown"
+                ],
+                "count": 46
+              },
+              {
+                "decision": [
+                  "VA1"
+                ],
+                "count": 4
+              },
+              {
+                "decision": [
+                  "BA2",
+                  "VA2"
+                ],
+                "count": 1
+              },
+              {
+                "decision": [
+                  "VA2"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "input_bit_flips": 26180
+        },
+        "UE": {
+          "cause_names": [
+            "C1",
+            "C2",
+            "C3",
+            "C4",
+            "C5",
+            "C6"
+          ],
+          "manual_annotation_rows": 5,
+          "raw_impulse": {
+            "events": 5,
+            "nonempty_decision_rate": 0.0,
+            "unknown_decision_rate": 0.0,
+            "known_candidate_decision_rate": 0.0,
+            "unique_event_decisions": 1,
+            "posterior_entropy": 0.0023136003324698215,
+            "posterior_range": 0.9997511910383625,
+            "top_decisions": [
+              {
+                "decision": [],
+                "count": 5
+              }
+            ]
+          },
+          "persistent_adapter": {
+            "events": 5,
+            "nonempty_decision_rate": 1.0,
+            "unknown_decision_rate": 0.4,
+            "known_candidate_decision_rate": 0.6,
+            "unique_event_decisions": 4,
+            "posterior_entropy": 8.901203087289714e-62,
+            "posterior_range": 1.0,
+            "top_decisions": [
+              {
+                "decision": [
+                  "unknown"
+                ],
+                "count": 2
+              },
+              {
+                "decision": [
+                  "C6"
+                ],
+                "count": 1
+              },
+              {
+                "decision": [
+                  "C4"
+                ],
+                "count": 1
+              },
+              {
+                "decision": [
+                  "C3",
+                  "C4"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "corrupted_persistent_adapter": {
+            "events": 5,
+            "nonempty_decision_rate": 1.0,
+            "unknown_decision_rate": 0.4,
+            "known_candidate_decision_rate": 0.6,
+            "unique_event_decisions": 4,
+            "posterior_entropy": 0.03401869548853955,
+            "posterior_range": 0.9945159053799614,
+            "top_decisions": [
+              {
+                "decision": [
+                  "unknown"
+                ],
+                "count": 2
+              },
+              {
+                "decision": [
+                  "C6"
+                ],
+                "count": 1
+              },
+              {
+                "decision": [
+                  "C4",
+                  "C5"
+                ],
+                "count": 1
+              },
+              {
+                "decision": [
+                  "C3"
+                ],
+                "count": 1
+              }
+            ]
+          },
+          "input_bit_flips": 26348
+        }
+      },
+      "gates": {
+        "mechanism": true,
+        "performance": null,
+        "competitive": null,
+        "decision": "E2 engineering activation only; tag-level truth is absent"
+      },
+      "boundary": "ME/HE/UE are manual one-row error annotations. Five logged state changes of persistence are an explicit transfer adapter, not a source label duration. The source supplies error categories but no exact tag-level cause set."
+    },
+    "piade_plr": {
+      "dataset_family": "piade",
+      "match": "M2",
+      "protocol": "P1-chronological-equipment-grouped",
+      "chronological_fold": 2,
+      "prior_gate": {
+        "passed": true,
+        "checks": {
+          "five_equipment_groups": true,
+          "finite_nonnegative_factors": true,
+          "nonoverlapping_within_run": true,
+          "state_transitions_present": true
+        },
+        "evaluated_windows": 100,
+        "input_ranges": [
+          {
+            "equipment": "s_1",
+            "start": 1623258004.6,
+            "stop": 1623317413.639
+          },
+          {
+            "equipment": "s_1",
+            "start": 1623676459.167,
+            "stop": 1623757051.8079998
+          },
+          {
+            "equipment": "s_1",
+            "start": 1624256736.659,
+            "stop": 1624307461.2570002
+          },
+          {
+            "equipment": "s_1",
+            "start": 1625476696.1720002,
+            "stop": 1625524814.405
+          },
+          {
+            "equipment": "s_1",
+            "start": 1626125568.7029998,
+            "stop": 1626179904.022
+          },
+          {
+            "equipment": "s_1",
+            "start": 1626654342.779,
+            "stop": 1627218293.7610002
+          },
+          {
+            "equipment": "s_1",
+            "start": 1627563810.37,
+            "stop": 1627630157.812
+          },
+          {
+            "equipment": "s_1",
+            "start": 1628669969.7510002,
+            "stop": 1628756354.871
+          },
+          {
+            "equipment": "s_1",
+            "start": 1629202495.724,
+            "stop": 1629289138.5579998
+          },
+          {
+            "equipment": "s_1",
+            "start": 1629559091.127,
+            "stop": 1629700208.6379998
+          },
+          {
+            "equipment": "s_1",
+            "start": 1631291453.569,
+            "stop": 1631353206.6
+          },
+          {
+            "equipment": "s_1",
+            "start": 1631513793.211,
+            "stop": 1631538916.3279998
+          },
+          {
+            "equipment": "s_1",
+            "start": 1631541829.129,
+            "stop": 1631613195.595
+          },
+          {
+            "equipment": "s_1",
+            "start": 1633001401.1360002,
+            "stop": 1633091248.407
+          },
+          {
+            "equipment": "s_1",
+            "start": 1633564309.8379998,
+            "stop": 1633635555.969
+          },
+          {
+            "equipment": "s_1",
+            "start": 1633770285.657,
+            "stop": 1634378800.93
+          },
+          {
+            "equipment": "s_1",
+            "start": 1634552450.0170002,
+            "stop": 1634619788.393
+          },
+          {
+            "equipment": "s_1",
+            "start": 1635491045.1220002,
+            "stop": 1635571647.89
+          },
+          {
+            "equipment": "s_1",
+            "start": 1637927669.589,
+            "stop": 1638012663.7670002
+          },
+          {
+            "equipment": "s_1",
+            "start": 1639711978.323,
+            "stop": 1639804516.301
+          },
+          {
+            "equipment": "s_2",
+            "start": 1627014238.6,
+            "stop": 1627098389.194
+          },
+          {
+            "equipment": "s_2",
+            "start": 1627622984.7470002,
+            "stop": 1627701844.619
+          },
+          {
+            "equipment": "s_2",
+            "start": 1627723353.089,
+            "stop": 1627879453.12
+          },
+          {
+            "equipment": "s_2",
+            "start": 1628052430.792,
+            "stop": 1628141401.6220002
+          },
+          {
+            "equipment": "s_2",
+            "start": 1629268152.217,
+            "stop": 1629342761.604
+          },
+          {
+            "equipment": "s_2",
+            "start": 1630382635.143,
+            "stop": 1630503745.696
+          },
+          {
+            "equipment": "s_2",
+            "start": 1630582976.3760002,
+            "stop": 1630736479.0979998
+          },
+          {
+            "equipment": "s_2",
+            "start": 1631425341.0029998,
+            "stop": 1631656800.0
+          },
+          {
+            "equipment": "s_2",
+            "start": 1631950978.793,
+            "stop": 1632120923.8679998
+          },
+          {
+            "equipment": "s_2",
+            "start": 1632213841.7629998,
+            "stop": 1632285020.447
+          },
+          {
+            "equipment": "s_2",
+            "start": 1634641768.659,
+            "stop": 1634695376.167
+          },
+          {
+            "equipment": "s_2",
+            "start": 1634879765.966,
+            "stop": 1634986609.0670002
+          },
+          {
+            "equipment": "s_2",
+            "start": 1635411720.415,
+            "stop": 1635502355.325
+          },
+          {
+            "equipment": "s_2",
+            "start": 1636200400.033,
+            "stop": 1636442110.67
+          },
+          {
+            "equipment": "s_2",
+            "start": 1636609728.17,
+            "stop": 1636697209.316
+          },
+          {
+            "equipment": "s_2",
+            "start": 1637034144.492,
+            "stop": 1637138160.345
+          },
+          {
+            "equipment": "s_2",
+            "start": 1638340144.574,
+            "stop": 1638423108.7570002
+          },
+          {
+            "equipment": "s_2",
+            "start": 1639662529.271,
+            "stop": 1639833813.875
+          },
+          {
+            "equipment": "s_2",
+            "start": 1640330871.881,
+            "stop": 1640587439.587
+          },
+          {
+            "equipment": "s_2",
+            "start": 1640588574.167,
+            "stop": 1640681826.212
+          },
+          {
+            "equipment": "s_3",
+            "start": 1629544678.706,
+            "stop": 1629817564.199
+          },
+          {
+            "equipment": "s_3",
+            "start": 1629995555.408,
+            "stop": 1630294975.0679998
+          },
+          {
+            "equipment": "s_3",
+            "start": 1630313690.028,
+            "stop": 1630578923.6160002
+          },
+          {
+            "equipment": "s_3",
+            "start": 1630666004.854,
+            "stop": 1630925463.479
+          },
+          {
+            "equipment": "s_3",
+            "start": 1631735027.485,
+            "stop": 1631984448.697
+          },
+          {
+            "equipment": "s_3",
+            "start": 1632486347.8070002,
+            "stop": 1632761999.689
+          },
+          {
+            "equipment": "s_3",
+            "start": 1633102909.107,
+            "stop": 1633342810.346
+          },
+          {
+            "equipment": "s_3",
+            "start": 1633597898.556,
+            "stop": 1633787604.837
+          },
+          {
+            "equipment": "s_3",
+            "start": 1634422028.981,
+            "stop": 1634556374.72
+          },
+          {
+            "equipment": "s_3",
+            "start": 1634742308.43,
+            "stop": 1634930396.64
+          },
+          {
+            "equipment": "s_3",
+            "start": 1635096669.551,
+            "stop": 1635351359.879
+          },
+          {
+            "equipment": "s_3",
+            "start": 1635590662.179,
+            "stop": 1635816957.062
+          },
+          {
+            "equipment": "s_3",
+            "start": 1635854186.975,
+            "stop": 1636105684.702
+          },
+          {
+            "equipment": "s_3",
+            "start": 1636129755.9220002,
+            "stop": 1636291727.9420002
+          },
+          {
+            "equipment": "s_3",
+            "start": 1636901300.095,
+            "stop": 1637057156.5129998
+          },
+          {
+            "equipment": "s_3",
+            "start": 1638096499.835,
+            "stop": 1638362877.0670002
+          },
+          {
+            "equipment": "s_3",
+            "start": 1638423411.337,
+            "stop": 1638660171.322
+          },
+          {
+            "equipment": "s_3",
+            "start": 1640085698.1360002,
+            "stop": 1640253989.6179998
+          },
+          {
+            "equipment": "s_3",
+            "start": 1640433486.718,
+            "stop": 1640596733.468
+          },
+          {
+            "equipment": "s_3",
+            "start": 1640615881.077,
+            "stop": 1640804084.345
+          },
+          {
+            "equipment": "s_4",
+            "start": 1629769478.206,
+            "stop": 1629818772.63
+          },
+          {
+            "equipment": "s_4",
+            "start": 1631676990.701,
+            "stop": 1631727033.815
+          },
+          {
+            "equipment": "s_4",
+            "start": 1631833464.332,
+            "stop": 1631906191.854
+          },
+          {
+            "equipment": "s_4",
+            "start": 1632930361.449,
+            "stop": 1633004595.304
+          },
+          {
+            "equipment": "s_4",
+            "start": 1633737182.536,
+            "stop": 1633811572.675
+          },
+          {
+            "equipment": "s_4",
+            "start": 1634416627.008,
+            "stop": 1634591749.302
+          },
+          {
+            "equipment": "s_4",
+            "start": 1634679302.127,
+            "stop": 1634735352.6829998
+          },
+          {
+            "equipment": "s_4",
+            "start": 1634833071.093,
+            "stop": 1634933234.337
+          },
+          {
+            "equipment": "s_4",
+            "start": 1634934898.17,
+            "stop": 1634996313.426
+          },
+          {
+            "equipment": "s_4",
+            "start": 1635345854.709,
+            "stop": 1635418503.686
+          },
+          {
+            "equipment": "s_4",
+            "start": 1635452877.054,
+            "stop": 1635521713.793
+          },
+          {
+            "equipment": "s_4",
+            "start": 1635864024.6360002,
+            "stop": 1635906484.976
+          },
+          {
+            "equipment": "s_4",
+            "start": 1636469601.867,
+            "stop": 1636484011.619
+          },
+          {
+            "equipment": "s_4",
+            "start": 1637257641.1479998,
+            "stop": 1637334813.579
+          },
+          {
+            "equipment": "s_4",
+            "start": 1638049557.15,
+            "stop": 1638205615.707
+          },
+          {
+            "equipment": "s_4",
+            "start": 1638893669.518,
+            "stop": 1638967585.174
+          },
+          {
+            "equipment": "s_4",
+            "start": 1639531771.28,
+            "stop": 1639586251.279
+          },
+          {
+            "equipment": "s_4",
+            "start": 1639707733.0370002,
+            "stop": 1639783959.296
+          },
+          {
+            "equipment": "s_4",
+            "start": 1640018445.921,
+            "stop": 1640091327.846
+          },
+          {
+            "equipment": "s_4",
+            "start": 1640965780.3079998,
+            "stop": 1641063083.5229998
+          },
+          {
+            "equipment": "s_5",
+            "start": 1623224304.6479998,
+            "stop": 1623356012.492
+          },
+          {
+            "equipment": "s_5",
+            "start": 1623834209.389,
+            "stop": 1623918291.71
+          },
+          {
+            "equipment": "s_5",
+            "start": 1624308577.087,
+            "stop": 1624348026.3879998
+          },
+          {
+            "equipment": "s_5",
+            "start": 1624646078.659,
+            "stop": 1624708905.586
+          },
+          {
+            "equipment": "s_5",
+            "start": 1625245487.587,
+            "stop": 1625269479.959
+          },
+          {
+            "equipment": "s_5",
+            "start": 1631172391.715,
+            "stop": 1631335244.655
+          },
+          {
+            "equipment": "s_5",
+            "start": 1631813356.974,
+            "stop": 1631871227.022
+          },
+          {
+            "equipment": "s_5",
+            "start": 1632094031.469,
+            "stop": 1632183778.1360002
+          },
+          {
+            "equipment": "s_5",
+            "start": 1633008866.3579998,
+            "stop": 1633128428.655
+          },
+          {
+            "equipment": "s_5",
+            "start": 1633274097.158,
+            "stop": 1633352115.586
+          },
+          {
+            "equipment": "s_5",
+            "start": 1634653307.229,
+            "stop": 1634705451.971
+          },
+          {
+            "equipment": "s_5",
+            "start": 1634885163.7429998,
+            "stop": 1634939212.298
+          },
+          {
+            "equipment": "s_5",
+            "start": 1635544615.815,
+            "stop": 1635648745.8720002
+          },
+          {
+            "equipment": "s_5",
+            "start": 1635782494.01,
+            "stop": 1635843942.706
+          },
+          {
+            "equipment": "s_5",
+            "start": 1636953391.117,
+            "stop": 1637009712.472
+          },
+          {
+            "equipment": "s_5",
+            "start": 1637969862.655,
+            "stop": 1638002204.305
+          },
+          {
+            "equipment": "s_5",
+            "start": 1638325589.186,
+            "stop": 1638440763.7529998
+          },
+          {
+            "equipment": "s_5",
+            "start": 1638847322.021,
+            "stop": 1638936593.75
+          },
+          {
+            "equipment": "s_5",
+            "start": 1639962469.019,
+            "stop": 1640035145.245
+          },
+          {
+            "equipment": "s_5",
+            "start": 1640364369.8079998,
+            "stop": 1640435439.2570002
+          }
+        ]
+      },
+      "equipment": {
+        "s_1": {
+          "source_rows": 127676,
+          "windows": 20,
+          "active_windows": 2,
+          "activation_rate": 0.1,
+          "mean_active_factors": [
+            0.5,
+            0.5
+          ],
+          "unique_transition_pairs": 9
+        },
+        "s_2": {
+          "source_rows": 69765,
+          "windows": 20,
+          "active_windows": 12,
+          "activation_rate": 0.6,
+          "mean_active_factors": [
+            0.6153846153846154,
+            0.38461538461538464
+          ],
+          "unique_transition_pairs": 7
+        },
+        "s_3": {
+          "source_rows": 34454,
+          "windows": 20,
+          "active_windows": 5,
+          "activation_rate": 0.25,
+          "mean_active_factors": [
+            0.5,
+            0.5
+          ],
+          "unique_transition_pairs": 8
+        },
+        "s_4": {
+          "source_rows": 96644,
+          "windows": 20,
+          "active_windows": 11,
+          "activation_rate": 0.55,
+          "mean_active_factors": [
+            0.6875,
+            0.3125
+          ],
+          "unique_transition_pairs": 9
+        },
+        "s_5": {
+          "source_rows": 100855,
+          "windows": 20,
+          "active_windows": 14,
+          "activation_rate": 0.7,
+          "mean_active_factors": [
+            0.5333333333333333,
+            0.4666666666666667
+          ],
+          "unique_transition_pairs": 7
+        }
+      },
+      "metrics": {
+        "activation_rate": 0.44,
+        "active_windows": 44,
+        "evaluated_windows": 100,
+        "unique_lag_vectors": 16
+      },
+      "gates": {
+        "mechanism": true,
+        "performance": null,
+        "competitive": null,
+        "decision": "E2 real-data contribution activation; causal ranking score denied"
+      },
+      "boundary": "PIADE exposes time-varying process inputs/outputs and speed but no feature-level causal truth. Contribution activation and stability are reportable; root Top-k/MRR and superiority are prohibited."
+    },
+    "imaks_diagnostics": {
+      "dataset_family": "imaks",
+      "match": "M2-synthetic",
+      "protocol": "P1-synthetic-ground-truth-transfer",
+      "prior_gate": {
+        "passed": true,
+        "checks": {
+          "regular_finite_grid": true,
+          "registered_causal_edge_present": true,
+          "source_and_target_events_present": true,
+          "declared_lag_matches_onsets": true
+        },
+        "timestamps": 9600,
+        "sensors": 22,
+        "window_samples": 961
+      },
+      "recursive_bn": {
+        "target_alarm_samples": 121,
+        "source_cause_recall_during_target_alarm": 0.5206611570247934,
+        "decision_at_target_onset": [],
+        "decision_at_target_end": [
+          "unknown"
+        ]
+      },
+      "igdte": {
+        "known_edge_igte": 0.058047019725921495,
+        "control_conditioned_igdte": 0.012903225806451613,
+        "surrogate_threshold": 0.0825414782154197,
+        "known_edge_detected": false,
+        "granular_lag": 36,
+        "cluster_counts": [
+          11,
+          2,
+          7
+        ]
+      },
+      "plr": {
+        "target_trends": [
+          0,
+          0,
+          1
+        ],
+        "lags": [
+          61,
+          0
+        ],
+        "factors": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ]
+        ],
+        "active": true,
+        "interpretation": "The documented anomalous interval is a sustained offset: its target trend is zero, while only the post-event recovery segment activates. This does not recover the stated 90-minute causal delay."
+      },
+      "gates": {
+        "mechanism": true,
+        "performance": null,
+        "competitive": null,
+        "decision": "synthetic transfer diagnostics only"
+      },
+      "boundary": "Synthetic but physically plausible dataset with an explicit ST02 current to ST04 speed correlated edge. It can validate plumbing and falsify detection, not grant real-industrial or cited-paper score credit."
+    }
+  },
+  "reporting_boundary": "IGDTE receives controlled activation only; recursive BN receives real EnAS engineering activation; PLR receives real grouped PIADE contribution activation. No unavailable paper or plant score is claimed."
+}

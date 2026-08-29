@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "experiment_id": "chapter4_gap_closure",
+  "task": "real_root_cause_gap_closure",
+  "downstream_tasks": [
+    "T3"
+  ],
+  "real_data_validated_algorithms": [
+    "book_4_3_recursive_bn",
+    "book_4_4_plr_rca"
+  ],
+  "run_seeds": [
+    1103,
+    2207,
+    3301
+  ],
+  "wall_clock_seconds": {
+    "mean": 25.79031863331329,
+    "standard_deviation": 0.2964040297055087,
+    "minimum": 25.448547399952076,
+    "maximum": 25.97700509999413
+  },
+  "provenance_gate": {
+    "passed": true,
+    "config_sha256": "db808fdd6d28e54ded87841712b6ceadbe5ac244408396b241b614aeff2c38fa",
+    "config_matches_all_runs": true,
+    "source_hashes_identical_across_runs": true,
+    "source_hashes_match_current_worktree": true,
+    "piade_cross_fold_windows_disjoint": true,
+    "mandatory_gates_pass_all_runs": true,
+    "source_files": 8,
+    "final_info_sha256": {
+      "run_1": "8cdec48663aeb07a8501c40e3dcce92d4e865de0f583b5a57fa6181580631ea2",
+      "run_2": "02bc696fde594aa62789267ef81acf36e4cbb5755ad94913b75fe360222ec301",
+      "run_3": "99d7b9c81b35ef8d30a0df4dca8ec7ba30e04887ad0484bbb2c2761ac10b42a5"
+    }
+  },
+  "igdte": {
+    "controlled_chain": {
+      "igte": {
+        "mean": 0.393472793418093,
+        "standard_deviation": 0.007012691870782847,
+        "minimum": 0.3884435331463142,
+        "maximum": 0.4014835815860603
+      },
+      "igdte": {
+        "mean": 0.0,
+        "standard_deviation": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0
+      },
+      "surrogate_threshold": {
+        "mean": 0.005514417830470522,
+        "standard_deviation": 0.0007960029648811551,
+        "minimum": 0.0046021991098430404,
+        "maximum": 0.00606806423196432
+      },
+      "conditional_to_pairwise_ratio": {
+        "mean": 0.0,
+        "standard_deviation": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0
+      },
+      "mechanism_passes": 3
+    },
+    "imaks_documented_edge": {
+      "igte": {
+        "mean": 0.058047019725921495,
+        "standard_deviation": 0.0,
+        "minimum": 0.058047019725921495,
+        "maximum": 0.058047019725921495
+      },
+      "control_conditioned_igdte": {
+        "mean": 0.012903225806451613,
+        "standard_deviation": 0.0,
+        "minimum": 0.012903225806451613,
+        "maximum": 0.012903225806451613
+      },
+      "surrogate_threshold": {
+        "mean": 0.08598233843047347,
+        "standard_deviation": 0.005959744714215496,
+        "minimum": 0.0825414782154197,
+        "maximum": 0.092864058860581
+      },
+      "detection_passes": 0
+    },
+    "existing_real_transfer": {
+      "datasets": [
+        "tep_classic",
+        "pronto",
+        "skab"
+      ],
+      "episode_seed_evaluations": 21,
+      "igdte_pruned_edges": 0,
+      "activation": "failed_no_triangle_pruning_on_any_of_21_episode_seed_evaluations",
+      "evidence": "experiments/reports/book_ch4_igte_igdte_multidataset_validation.json"
+    },
+    "evidence_decision": "E0_to_E1_controlled_activation; deny E2 because no acquired real/synthetic-dataset edge passes the frozen pruning/detection gate"
+  },
+  "recursive_bn": {
+    "enas": {
+      "rows": 219893,
+      "error_counts": {
+        "ME": 103,
+        "HE": 52,
+        "UE": 5
+      },
+      "prior_passes": 3,
+      "mechanism_passes": 3,
+      "targets": {
+        "ME": {
+          "events": 103,
+          "raw_impulse_nonempty_rate": {
+            "mean": 0.0,
+            "standard_deviation": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0
+          },
+          "persistent_nonempty_rate": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "persistent_known_candidate_rate": {
+            "mean": 0.6796116504854369,
+            "standard_deviation": 0.0,
+            "minimum": 0.6796116504854369,
+            "maximum": 0.6796116504854369
+          },
+          "persistent_unknown_rate": {
+            "mean": 0.32038834951456313,
+            "standard_deviation": 0.0,
+            "minimum": 0.32038834951456313,
+            "maximum": 0.32038834951456313
+          },
+          "corrupted_known_candidate_rate": {
+            "mean": 0.6796116504854369,
+            "standard_deviation": 0.009708737864077666,
+            "minimum": 0.6699029126213593,
+            "maximum": 0.6893203883495146
+          }
+        },
+        "HE": {
+          "events": 52,
+          "raw_impulse_nonempty_rate": {
+            "mean": 0.0,
+            "standard_deviation": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0
+          },
+          "persistent_nonempty_rate": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "persistent_known_candidate_rate": {
+            "mean": 0.1346153846153846,
+            "standard_deviation": 0.0,
+            "minimum": 0.1346153846153846,
+            "maximum": 0.1346153846153846
+          },
+          "persistent_unknown_rate": {
+            "mean": 0.8653846153846154,
+            "standard_deviation": 0.0,
+            "minimum": 0.8653846153846154,
+            "maximum": 0.8653846153846154
+          },
+          "corrupted_known_candidate_rate": {
+            "mean": 0.1217948717948718,
+            "standard_deviation": 0.01110288979210818,
+            "minimum": 0.11538461538461539,
+            "maximum": 0.1346153846153846
+          }
+        },
+        "UE": {
+          "events": 5,
+          "raw_impulse_nonempty_rate": {
+            "mean": 0.0,
+            "standard_deviation": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0
+          },
+          "persistent_nonempty_rate": {
+            "mean": 1.0,
+            "standard_deviation": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          },
+          "persistent_known_candidate_rate": {
+            "mean": 0.6,
+            "standard_deviation": 0.0,
+            "minimum": 0.6,
+            "maximum": 0.6
+          },
+          "persistent_unknown_rate": {
+            "mean": 0.4000000000000001,
+            "standard_deviation": 6.798699777552591e-17,
+            "minimum": 0.4,
+            "maximum": 0.4
+          },
+          "corrupted_known_candidate_rate": {
+            "mean": 0.6666666666666666,
+            "standard_deviation": 0.11547005383792519,
+            "minimum": 0.6,
+            "maximum": 0.8
+          }
+        }
+      }
+    },
+    "imaks_documented_edge": {
+      "source_cause_recall_during_target_alarm": {
+        "mean": 0.5206611570247934,
+        "standard_deviation": 0.0,
+        "minimum": 0.5206611570247934,
+        "maximum": 0.5206611570247934
+      },
+      "synthetic_only": true
+    },
+    "evidence_decision": "E1_to_E2_real_EnAS_online_activation; exact tag-level root accuracy remains unavailable"
+  },
+  "plr": {
+    "piade": {
+      "chronological_folds": [
+        0,
+        1,
+        2
+      ],
+      "activation_rate": {
+        "mean": 0.43,
+        "standard_deviation": 0.010000000000000009,
+        "minimum": 0.42,
+        "maximum": 0.44
+      },
+      "active_windows": 129,
+      "evaluated_windows": 300,
+      "mechanism_passes": 3,
+      "equipment": {
+        "s_1": {
+          "activation_rate": {
+            "mean": 0.2833333333333333,
+            "standard_deviation": 0.2753785273643051,
+            "minimum": 0.1,
+            "maximum": 0.6
+          },
+          "active_windows": 17,
+          "evaluated_windows": 60
+        },
+        "s_2": {
+          "activation_rate": {
+            "mean": 0.5,
+            "standard_deviation": 0.264575131106459,
+            "minimum": 0.2,
+            "maximum": 0.7
+          },
+          "active_windows": 30,
+          "evaluated_windows": 60
+        },
+        "s_3": {
+          "activation_rate": {
+            "mean": 0.2333333333333333,
+            "standard_deviation": 0.028867513459481284,
+            "minimum": 0.2,
+            "maximum": 0.25
+          },
+          "active_windows": 14,
+          "evaluated_windows": 60
+        },
+        "s_4": {
+          "activation_rate": {
+            "mean": 0.5166666666666667,
+            "standard_deviation": 0.10408329997330662,
+            "minimum": 0.4,
+            "maximum": 0.6
+          },
+          "active_windows": 31,
+          "evaluated_windows": 60
+        },
+        "s_5": {
+          "activation_rate": {
+            "mean": 0.6166666666666666,
+            "standard_deviation": 0.10408329997330662,
+            "minimum": 0.5,
+            "maximum": 0.7
+          },
+          "active_windows": 37,
+          "evaluated_windows": 60
+        }
+      }
+    },
+    "imaks_diagnostic": {
+      "active_passes": 3,
+      "target_trends": [
+        0,
+        0,
+        1
+      ],
+      "recovered_lags": [
+        61,
+        0
+      ],
+      "known_lag_samples": 180,
+      "interpretation": "The documented anomalous interval is a sustained offset: its target trend is zero, while only the post-event recovery segment activates. This does not recover the stated 90-minute causal delay."
+    },
+    "existing_book_numeric": {
+      "evidence": "experiments/reports/book_ch4_plr_numeric_validation.json",
+      "published_delays_recovered": [
+        10,
+        8
+      ],
+      "dominant_driver_accuracy": 1.0
+    },
+    "evidence_decision": "E1_to_E2_real_PIADE_activation; causal Top-k/MRR and paper superiority remain unavailable"
+  },
+  "evidence_updates": [
+    {
+      "algorithm_id": "book_4_2_igdte",
+      "from": "E0",
+      "to": "E1"
+    },
+    {
+      "algorithm_id": "book_4_3_recursive_bn",
+      "from": "E1",
+      "to": "E2"
+    },
+    {
+      "algorithm_id": "book_4_4_plr_rca",
+      "from": "E1",
+      "to": "E2"
+    }
+  ],
+  "strict_paper_score_closure": {
+    "closed": 0,
+    "total": 3,
+    "reason": "Exact paper plant payloads, causal truth and scoring protocols remain unavailable."
+  },
+  "reporting_boundary": "Engineering activation and explicit negative evidence only; no cited paper score is reproduced."
+}

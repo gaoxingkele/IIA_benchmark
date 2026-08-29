@@ -31,6 +31,25 @@ def main() -> int:
 
     for path in sorted((ROOT / "configs" / "experiments").glob("*.json")):
         try:
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            if not isinstance(raw, dict):
+                raise ValueError("experiment config root must be an object")
+            is_paper_harness = (
+                "dataset" not in raw
+                and ("datasets" in raw or "runs" in raw)
+                and any(
+                    field in raw
+                    for field in ("validated_algorithms", "algorithms", "classification")
+                )
+            )
+            if is_paper_harness:
+                if not raw.get("id"):
+                    failures.append(f"{path.name}: paper-harness config is missing id")
+                if not (raw.get("runs") or raw.get("seeds")):
+                    failures.append(
+                        f"{path.name}: paper-harness config needs fixed runs or seeds"
+                    )
+                continue
             experiment = load_experiment_config(path)
             for field in ("system", "dataset", "split", "model", "metrics"):
                 target = ROOT / experiment[field]

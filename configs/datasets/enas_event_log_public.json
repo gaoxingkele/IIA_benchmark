@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "enas_event_log_public",
+  "family": "enas",
+  "loader": "iia_benchmark.data.load_enas_event_log",
+  "path": "data/public_datasets/enas/EnAS_20200923-20210202.csv",
+  "event_representation": "timestamped_state_change_with_manual_error_impulses",
+  "manual_error_markers": ["ME", "HE", "UE"],
+  "root_cause_adapter": {
+    "type": "explicit_forward_persistence",
+    "rows": 5,
+    "reason": "The recursive Bayesian method requires a persistent occurring-alarm state, whereas EnAS manual error markers are one-row impulses."
+  },
+  "citation_doi": "10.5281/zenodo.4742256"
+}

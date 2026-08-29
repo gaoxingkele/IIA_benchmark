@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "chapter4_gap_closure",
+  "task": "real_root_cause_gap_closure",
+  "downstream_tasks": ["T3"],
+  "validated_algorithms": [
+    "book_4_2_igdte",
+    "book_4_3_recursive_bn",
+    "book_4_4_plr_rca"
+  ],
+  "seeds": [1103, 2207, 3301],
+  "runs": {
+    "run_1": {"seed": 1103, "chronological_fold": 0},
+    "run_2": {"seed": 2207, "chronological_fold": 1},
+    "run_3": {"seed": 3301, "chronological_fold": 2}
+  },
+  "datasets": {
+    "enas": {
+      "path": "data/public_datasets/enas/EnAS_20200923-20210202.csv",
+      "match": "M2",
+      "protocol": "P1-exception-log-online-transfer",
+      "event_persistence_rows": 5,
+      "response_time_samples": 5,
+      "corruption_probability": 0.02,
+      "targets": {
+        "ME": ["C1", "C2", "C3", "C4", "C5", "C6"],
+        "HE": ["EA1", "BA1", "VA1", "EA2", "BA2", "VA2"],
+        "UE": ["C1", "C2", "C3", "C4", "C5", "C6"]
+      },
+      "boundary": "ME/HE/UE are manual one-row error annotations. Five logged state changes of persistence are an explicit transfer adapter, not a source label duration. The source supplies error categories but no exact tag-level cause set."
+    },
+    "piade": {
+      "path": "data/public_datasets/piade/raw_data.csv",
+      "match": "M2",
+      "protocol": "P1-chronological-equipment-grouped",
+      "equipment_ids": ["s_1", "s_2", "s_3", "s_4", "s_5"],
+      "predictors": ["pi", "po"],
+      "target": "speed",
+      "half_window_rows": 100,
+      "windows_per_equipment": 20,
+      "max_lag": 20,
+      "minimum_active_rate": 0.1,
+      "boundary": "PIADE exposes time-varying process inputs/outputs and speed but no feature-level causal truth. Contribution activation and stability are reportable; root Top-k/MRR and superiority are prohibited."
+    },
+    "imaks": {
+      "path": "data/public_datasets/imaks/iMAKS_dataset.zip",
+      "match": "M2-synthetic",
+      "protocol": "P1-synthetic-ground-truth-transfer",
+      "source_sensor": "ST02_SEALING_CUR",
+      "target_sensor": "ST04_PACKAGING_SPD",
+      "control_sensor": "ST03_LABELLING_SPD",
+      "source_target_lag_minutes": 90,
+      "window_start": "2026-01-08T06:00:00Z",
+      "window_stop": "2026-01-08T14:00:00Z",
+      "granule_window_samples": 5,
+      "surrogate_simulations": 19,
+      "significance": 0.1,
+      "boundary": "Synthetic but physically plausible dataset with an explicit ST02 current to ST04 speed correlated edge. It can validate plumbing and falsify detection, not grant real-industrial or cited-paper score credit."
+    },
+    "controlled_chain": {
+      "match": "M0-generated",
+      "protocol": "P0-mechanism-activation",
+      "length": 1500,
+      "event_probability": 0.08,
+      "path_lag": 3,
+      "granule_window_samples": 5,
+      "continuous_noise_standard_deviation": 0.005,
+      "surrogate_simulations": 19,
+      "significance": 0.1,
+      "boundary": "Generated causal chain used only to exercise distinct-lag IGDTE indirect-edge pruning."
+    }
+  },
+  "evidence_policy": {
+    "book_4_2_igdte": "E1 if the controlled pruning beacon passes; retain the existing 21-unit real-data no-pruning result and deny E2 until a real causal triangle activates.",
+    "book_4_3_recursive_bn": "E2 if EnAS real-data posterior movement and nonempty persistent-event decisions pass; semantic alignment remains descriptive because exact cause tags are absent.",
+    "book_4_4_plr_rca": "E2 if grouped PIADE windows produce finite nonnegative contributions above the frozen activation rate; causal accuracy remains unavailable."
+  }
+}

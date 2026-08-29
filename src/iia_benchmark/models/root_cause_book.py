@@ -364,6 +364,8 @@ def information_granulation_direct_transfer_entropy(
     *,
     window_size: int,
     lag: int = 1,
+    source_lag: int | None = None,
+    intermediate_lag: int | None = None,
     order: int = 2,
     min_samples: int = 5,
     normalized: bool = False,
@@ -376,8 +378,12 @@ def information_granulation_direct_transfer_entropy(
         if normalized
         else discrete_direct_transfer_entropy
     )
+    resolved_source_lag = lag if source_lag is None else int(source_lag)
+    resolved_intermediate_lag = lag if intermediate_lag is None else int(intermediate_lag)
     return scorer(
-        x, y, z, source_lag=lag, intermediate_lag=lag,
+        x, y, z,
+        source_lag=resolved_source_lag,
+        intermediate_lag=resolved_intermediate_lag,
         source_horizon=order, target_horizon=order, intermediate_horizon=order,
     )
 
@@ -435,12 +441,12 @@ class RecursiveBayesianAlarmRCA:
         self.patterns_ = [pattern for pattern in product((0, 1), repeat=len(self.cause_names)) if any(pattern)]
         self.patterns_.append(tuple(0 for _ in self.cause_names))
         self.cause_probabilities_ = np.full(
-            (len(self.cause_names), 2), self.initial_probability
+            (len(self.cause_names), 2), self.initial_probability, dtype=float
         )
         self.alarm_conditionals_ = np.full(
-            (len(self.patterns_), 2), self.initial_probability
+            (len(self.patterns_), 2), self.initial_probability, dtype=float
         )
-        self.alarm_probability_ = np.full(2, self.initial_probability)
+        self.alarm_probability_ = np.full(2, self.initial_probability, dtype=float)
 
     def update(self, cause_states: Sequence[int], alarm_state: int) -> None:
         pattern = tuple(map(int, cause_states))

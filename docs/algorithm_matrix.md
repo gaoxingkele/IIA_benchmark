@@ -21,9 +21,9 @@ reproduced merely because a related baseline below is callable.
 | Condenser monitor | kPa physical pressure model + search-cone NOZ | `CondenserNOZAlarm`, `condenser_alarm_rate_bounds` | A | Table 3.5 synthetic fit passes but 99% FAR upper is 0.3500; V1/V2 worst-case bounds and industrial Tables 3.6-3.7 pending |
 | Binary RCA | lagged TE + surrogate threshold | `TransferEntropyRanker` | A | first-order discrete TE; indirect pruning pending |
 | Alarm NTE/NDTE | OR histories + normalization + Bernoulli surrogates | `NormalizedTransferEntropyGraph` | A | industrial paper score pending |
-| IGTE/IGDTE | information granules + OPTICS + conditional TE | `information_granulation_transfer_entropy` | A | paper two-tank/TEP score pending |
-| Online BN RCA | recursive probabilities + unknown-cause pattern | `RecursiveBayesianAlarmRCA` | A | thermal-plant score pending |
-| Trend contribution RCA | PLR + lag correlation + non-negative MLR | `PLRContributionRCA` | A | industrial paper score pending |
+| IGTE/IGDTE | information granules + OPTICS + conditional TE with distinct path lags | `information_granulation_transfer_entropy`, `information_granulation_direct_transfer_entropy` | A | IGTE has E2 transfer evidence; IGDTE prunes a registered delayed chain in 3/3 seeds (E1), but prunes 0/21 acquired TEP/PRONTO/SKAB graphs and detects the documented iMAKS edge in 0/3; paper two-tank/TEP score pending |
+| Online BN RCA | recursive probabilities + unknown-cause pattern | `RecursiveBayesianAlarmRCA` | A | E2 EnAS activation: raw error impulses give 0/160 decisions and a declared five-row persistence adapter activates 160/160; tag-level root truth and thermal-plant score pending |
+| Trend contribution RCA | PLR + lag correlation + non-negative MLR | `PLRContributionRCA` | A | E2 PIADE activation on 129/300 disjoint grouped windows; iMAKS sustained-offset diagnostic fails its 180-sample lag; causal Top-k/MRR and industrial paper score pending |
 | Flood detection | newly activated unique tags in window | `detect_alarm_floods` | A | activation-only logs cannot recover standing alarms |
 | Flood similarity | local sequence alignment | `smith_waterman_similarity` | A | priority/time-aware BLAST acceleration pending |
 | Next alarm | all-current-tag context + distance decay | `EmpiricalNextAlarmPredictor` | A | transparent empirical approximation, not exact max-entropy solver |

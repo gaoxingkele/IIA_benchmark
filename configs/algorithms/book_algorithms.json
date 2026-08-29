@@ -70,8 +70,7 @@
       "required_components": ["robust normal-point selection", "Quickhull", "point-in-hull test", "conditional dynamic bounds"],
       "implementation": [
         "iia_benchmark.models.multivariate.ConvexHullNOZAlarm",
-        "iia_benchmark.models.multivariate.convex_hull_fitness_index",
-        "iia_benchmark.models.multivariate.closest_normal_point"
+        "iia_benchmark.models.multivariate.convex_hull_fitness_index"
       ],
       "status": "partial"
     },
@@ -160,6 +159,7 @@
       "physical_pages": "250-272",
       "required_components": ["information granules", "direct/conditional TE", "indirect-edge pruning", "lag search"],
       "implementation": "iia_benchmark.models.root_cause_book.information_granulation_direct_transfer_entropy",
+      "validation_evidence": "E1 controlled distinct-lag pruning; 0/21 acquired TEP/PRONTO/SKAB prunes and 0/3 iMAKS documented-edge detections; experiments/reports/book_ch4_gap_closure_validation.json",
       "status": "partial"
     },
     {
@@ -170,6 +170,7 @@
       "physical_pages": "273-287",
       "required_components": ["known network topology", "recursive conditional-probability update", "unknown-cause node", "half-life update rate", "root posterior ranking"],
       "implementation": "iia_benchmark.models.root_cause_book.RecursiveBayesianAlarmRCA",
+      "validation_evidence": "E2 three-seed EnAS event-log activation with an explicit five-row persistence adapter; tag-level root accuracy unavailable; experiments/reports/book_ch4_gap_closure_validation.json",
       "status": "partial"
     },
     {
@@ -180,6 +181,7 @@
       "physical_pages": "288-309",
       "required_components": ["piecewise-linear representation", "qualitative trend", "lagged correlation", "non-negative multiple linear regression", "contribution factors"],
       "implementation": "iia_benchmark.models.root_cause_book.PLRContributionRCA",
+      "validation_evidence": "E2 three-fold PIADE activation on 129/300 grouped transition windows plus exact book numerical delay/factor checks; causal ranking truth unavailable; experiments/reports/book_ch4_gap_closure_validation.json",
       "status": "partial"
     },
     {

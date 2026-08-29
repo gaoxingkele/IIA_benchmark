@@ -1,19 +1,19 @@
 # IIA Benchmark 当前清单与完备性说明（2026-08-29）
 
-仓库：<https://github.com/gaoxingkele/IIA_benchmark>；生成基线 revision：`6d030cb`。
+仓库：<https://github.com/gaoxingkele/IIA_benchmark>；具体生成 revision 以仓库 `main` 分支和各 run 的 provenance 为准。
 
 ## 1. 总体结论
 
 | 范围 | 当前数量 | 完备性判断 |
 |---|---:|---|
 | 登记参考论文 | 28 | 本地全文 5，缺 23 |
-| 书籍算法交付项 | 20 | 可调用 20；verified 0，partial 20 |
+| 书籍算法交付项 | 20 | 可调用 20；verified 1，partial 19 |
 | SOTA 算法交付项 | 10 | 可调用 10；verified 0，partial 10 |
 | 可调用方法族 / 模型配置 | 34 / 39 | 机制与单元测试可运行，不等于论文分数复现 |
 | 逻辑数据集族 | 11 | 有效主载荷 11/11 |
-| 下游任务 | 6 | 6/6 有真实或已取得数据入口；T4 正式专用数据实验仍待 adapter |
+| 下游任务 | 6 | 6/6 有真实或已取得数据入口；T4 的 TEP/NPP/FCC 三数据集三 seed 工程实验已完成 |
 | 正式排行榜切分 | 0 | 尚无 leaderboard-eligible split |
-| 真实数据验证报告 | 41 | 覆盖 13 个登记算法；严格分数闭环仍为 0 |
+| Paper Harness 证据覆盖 | 30/30 E1+；29/30 E2+ | IGDTE 仅 E1；全库严格命名条目闭环 1，Chapter 4 本波次严格论文分数 0/3 |
 
 这里的‘可调用’表示本地实现有明确入口并通过机制/不变量测试；只有在论文原始数据、预处理、grouped split、指标、随机种子和参考分数均闭合后，才能升级为 `verified`。
 
@@ -103,11 +103,11 @@
 | 数据集族 | 内容 | 有效主载荷 | 类型 | 可支持任务 | 当前边界 |
 |---|---|---|---|---|---|
 | `comopi` | 8 台包装设备、150,650 个十分钟 bin、123 类报警 | `comopi_alarm_counts` | public/acquired | `alarm_forecasting`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
-| `enas` | 219,893 条离散传感器、执行器和人工错误状态记录 | `enas_event_log` | public/acquired | `alarm_sequence_modeling`, `anomaly_detection`, `root_cause_analysis` | 已取得；正式榜单仍需冻结 split 与参考分数 |
+| `enas` | 219,893 条离散传感器、执行器和人工错误状态记录 | `enas_event_log` | public/acquired | `alarm_sequence_modeling`, `anomaly_detection`, `root_cause_analysis` | adapter/G0 与递归 BN 原始脉冲—五行持久化配对验证已完成；无 tag-level 根因真值 |
 | `fcc_alarm` | 1,600 个 FCC 仿真 run、16 类异常、57 个报警位及 4,800 个配套时序 CSV | `fcc_alarm_series`, `fcc_alarm_timeseries` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `robustness`, `root_cause_analysis` | adapter、G0 与多 seed 已完成；完整轨迹去重发现旧固定划分有 24 条跨分区重复，论文 exact protocol 待补 |
-| `imaks` | 211,200 条带异常和因果真值的合成 MQTT/传感器记录 | `imaks_synthetic` | synthetic | `alarm_sequence_modeling`, `robustness`, `root_cause_analysis` | 仅用于合成因果/鲁棒性验证，不得作为真实工业性能 |
+| `imaks` | 211,200 条带异常和因果真值的合成 MQTT/传感器记录 | `imaks_synthetic` | synthetic | `alarm_sequence_modeling`, `robustness`, `root_cause_analysis` | sensor/KG adapter 与 IGDTE/BN/PLR 诊断已完成；仅用于合成因果/鲁棒性验证，不得作为真实工业性能 |
 | `npp_alarm_dataport` | 101 个阈值层；每层 1,212 个 run、12 类事故/扰动加 Normal、192 个二值报警位 | `npp_alarm_dataport_archive` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `root_cause_analysis` | alpha=0.50 adapter、冲突轨迹剔除、grouped split 与 Chapter 5 三 seed 已完成；跨 alpha 鲁棒性待补 |
-| `piade` | 5 台包装设备；429,394 行原始记录及 23,376 行小时序列 | `piade_sequences`, `piade_raw` | public/acquired | `alarm_forecasting`, `alarm_sequence_modeling`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
+| `piade` | 5 台包装设备；429,394 行原始记录及 23,376 行小时序列 | `piade_sequences`, `piade_raw` | public/acquired | `alarm_forecasting`, `alarm_sequence_modeling`, `bad_actor_analysis`, `machine_state_classification`, `root_cause_analysis` | PLR 三折 300 个非重叠过程转移窗口已执行；仍无 tag-level 因果真值 |
 | `pronto` | 1.72 GB 多相流实验设施数据；过程、报警和故障标签 | `pronto_full` | public/acquired | `alarm_flood_analysis`, `alarm_generation`, `root_cause_analysis` | T4 使用故障窗代理，不是专家洪泛类别 |
 | `skab` | 35 个水循环异常实验 CSV | `skab` | public/acquired | `alarm_generation`, `anomaly_detection`, `robustness` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 | `smd10towfgr` | 10 台风机 SCADA；230,618 条日志、167 个事件代码 | `smd10towfgr` | public/acquired | `alarm_forecasting`, `alarm_sequence_modeling`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
@@ -122,8 +122,8 @@
 |---|---|---|---|---|---|
 | `T1` | 报警生成与参数设计 | `runnable_real_data` | `tep_classic`, `skab`, `pronto` | `binary_alarm`, `FAR`, `MAR`, `AAD` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 | `T2` | 多变量动态报警限 | `runnable_real_data` | `tep_classic`, `skab`, `pronto` | `normal_operating_zone`, `dynamic_limit`, `alarm_state` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
-| `T3` | 因果图与根因排序 | `runnable_real_data` | `tep_classic`, `pronto`, `enas`, `imaks`, `tep_alarm_dataport`, `npp_alarm_dataport`, `fcc_alarm` | `directed_edges`, `root_cause_ranking` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
-| `T4` | 报警洪泛检测、聚类与分类 | `runnable_real_data_primary_partial` | `pronto`, `smd10towfgr`, `tep_alarm_dataport`, `npp_alarm_dataport`, `fcc_alarm` | `flood_intervals`, `class_label`, `open_set_label`, `prefix_prediction_set` | TEP 五类与 FCC 专用 adapter、G0、grouped split 和首批实验已完成；NPP adapter、多 seed 与论文 exact protocol 待完成；PRONTO 仅保留为错配哨兵。 |
+| `T3` | 因果图与根因排序 | `runnable_real_data` | `tep_classic`, `pronto`, `piade`, `enas`, `imaks`, `tep_alarm_dataport`, `npp_alarm_dataport`, `fcc_alarm` | `directed_edges`, `root_cause_ranking` | NTE/NDTE、IGTE、递归 BN 和 PLR 已做多数据集或真实载荷机制验证；IGDTE 仅受控 E1，所有方法的 tag-level 根因准确率仍受因果真值限制。 |
+| `T4` | 报警洪泛检测、聚类与分类 | `runnable_real_data_primary_partial` | `pronto`, `smd10towfgr`, `tep_alarm_dataport`, `npp_alarm_dataport`, `fcc_alarm` | `flood_intervals`, `class_label`, `open_set_label`, `prefix_prediction_set` | TEP/NPP/FCC 专用 adapter、G0、去重 grouped split 与三 seed Wave 2 已完成；论文 exact protocol 待原始 capsule/载荷；PRONTO 仅保留为错配哨兵。 |
 | `T5` | next-alarm 与洪泛预测 | `runnable_real_data` | `piade`, `pronto`, `comopi`, `smd10towfgr`, `enas`, `tep_alarm_dataport`, `fcc_alarm` | `next_tag`, `future_alarm_set`, `early_warning` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 | `T6` | 运维可视分析 | `runnable_real_data` | `piade`, `pronto`, `comopi`, `smd10towfgr`, `tep_alarm_dataport` | `KPI`, `bad_actor`, `correlation_graph`, `flood_visual_report` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 
@@ -152,14 +152,28 @@ The machine-readable evidence is
 score is promoted: official capsules, VAM/original robustness payloads, paper
 splits, equations, hyperparameters, and reference tables remain outstanding.
 
+### 5.2 Chapter 4 gap closure (2026-08-30)
+
+The final Chapter 4 wave uses seeds `1103/2207/3301`. IGDTE prunes a generated
+distinct-lag mediation chain in 3/3 seeds but prunes no edge in 21 acquired
+TEP/PRONTO/SKAB episode-seed evaluations and detects the documented iMAKS edge
+in 0/3, so it moves only from E0 to E1. Recursive BN runs on all 219,893 EnAS
+rows: raw one-row error markers give no decision, while a declared five-row
+persistence adapter activates all 160 ME/HE/UE events. PLR runs on 300 disjoint
+PIADE equipment windows and activates 129 (`0.43 ± 0.01`); its iMAKS diagnostic
+does not recover the documented 180-sample lag. Recursive BN and PLR move from
+E1 to E2. Exact cited-paper scores remain 0/3.
+
+Evidence: `experiments/reports/book_ch4_gap_closure_validation.json`.
+
 ## 6. 当前主要缺口与优先顺序
 
 1. 补齐 23 篇论文全文，更新 PDF SHA-256、页码证据和 ARA evidence；其中 22 篇访问受限、1 篇自动下载遭遇 HTTP 403。
-2. 为 NPP Alarm 建立只读 adapter；补齐 TEP 100-run/异常变体入口，并按 run/事故族/异常族生成稳定样本 ID。
+2. 补齐 TEP 100-run/异常变体入口与 NPP 跨 alpha grouped adapter，并按 run/事故族/异常族生成稳定样本 ID。
 3. 建立首个 leaderboard-eligible grouped split；训练期确定全部超参，测试期冻结，报告多 seed 与 95% CI。
-4. TEP/FCC 已重跑 CASIM、CTFH、HDAM、ConE-AFC、Cross-Conformal；下一步补书籍序列方法、NPP、时间直方图与多 seed，保留 PRONTO 退化证据。
-5. 合法取得 CASIM、ConE-AFC 等官方 Code Ocean 工件，并复跑论文代表表格；在此之前 30 项算法均保持 `partial`。
-6. 完成 open-set 类别留一、prefix 早期分类、missing/spurious/jitter/delay 鲁棒性矩阵和跨数据集迁移实验。
+4. SOTA Wave 2 已在 TEP/NPP/FCC 三数据集三 seed 完成；下一步只在取得论文 exact capsule/载荷后闭合其原始表格，不用代理分数替代。
+5. 合法取得 CASIM、ConE-AFC 等官方 Code Ocean 工件，并复跑论文代表表格；除已闭合命名方程/表格的 Xu 2012 项外，其余 29 项仍保持 `partial`。
+6. 获取带 tag-level 因果真值的真实工业载荷，以闭合 IGDTE、递归 BN 与 PLR 的根因 Top-k/MRR/edge-F1；当前 iMAKS 仅能作为 synthetic diagnostic。
 
 ## 7. 复现入口
 
