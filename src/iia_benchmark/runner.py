@@ -913,6 +913,64 @@ def _run_real_fcc_alarm_classification(
         key: int(value)
         for key, value in references["flood_detector"]["parameters"].items()
     }
+    criterion_runs = []
+    for run in runs:
+        detection = criterion_c_alarm_flood_detection(
+            run.alarm_states,
+            tag_names=run.alarm_names,
+            **detector_parameters,
+        )
+        transitions = np.maximum(
+            detection.delayed_detection
+            - np.r_[np.int8(0), detection.delayed_detection[:-1]],
+            0,
+        )
+        criterion_runs.append(
+            {
+                "run_id": run.run_id,
+                "maximum_attention_set_cardinality": int(
+                    np.max(detection.cardinality, initial=0)
+                ),
+                "candidate_flood_intervals": int(np.sum(transitions)),
+                "candidate_flood_exposure": float(np.mean(detection.delayed_detection)),
+            }
+        )
+
+    return {
+        **classification,
+        "activation": activation,
+        "train_runs": len(split.y_train),
+        "calibration_runs": len(split.y_calibration),
+        "test_runs": len(split.y_test),
+        "classes": classes,
+        "alarm_tags": list(split.alarm_names),
+        "samples_per_run": int(split.X_train.shape[2]),
+        "alarm_representation": split.representation,
+        "train_class_counts": dict(sorted(Counter(split.y_train.tolist()).items())),
+        "calibration_class_counts": dict(
+            sorted(Counter(split.y_calibration.tolist()).items())
+        ),
+        "test_class_counts": dict(sorted(Counter(split.y_test.tolist()).items())),
+        "split_policy": "complete run numbers 1-60 train, 61-80 calibration, 81-100 test within every scenario",
+        "criterion_c": {
+            "parameters": detector_parameters,
+            "candidate_intervals": sum(
+                row["candidate_flood_intervals"] for row in criterion_runs
+            ),
+            "runs_with_candidates": sum(
+                row["candidate_flood_intervals"] > 0 for row in criterion_runs
+            ),
+            "per_run": criterion_runs,
+            "label_boundary": "criterion-C intervals are candidates, not expert-confirmed floods",
+        },
+        "data_evidence": _data_evidence([alarm_archive], root),
+        "reporting_status": "FCC real-data engineering validation; P1 transfer protocol, not a paper-score reproduction",
+        "limitations": [
+            "All 16 labels are simulated abnormal situations; no normal-operation class is present.",
+            "Scenario labels are used for AFC, while criterion-C intervals remain descriptive candidates.",
+            "The fixed run-number split is not the split of any cited AFC paper.",
+        ],
+    }
 
 
 def _fcc_alarm_tokens(run: object) -> tuple[AlarmToken, ...]:
@@ -1139,66 +1197,6 @@ def _run_real_fcc_book_sequence_method(
             "The fixed FCC run split is not the cited paper protocol."
         ],
     }
-    criterion_runs = []
-    for run in runs:
-        detection = criterion_c_alarm_flood_detection(
-            run.alarm_states,
-            tag_names=run.alarm_names,
-            **detector_parameters,
-        )
-        transitions = np.maximum(
-            detection.delayed_detection
-            - np.r_[np.int8(0), detection.delayed_detection[:-1]],
-            0,
-        )
-        criterion_runs.append(
-            {
-                "run_id": run.run_id,
-                "maximum_attention_set_cardinality": int(
-                    np.max(detection.cardinality, initial=0)
-                ),
-                "candidate_flood_intervals": int(np.sum(transitions)),
-                "candidate_flood_exposure": float(np.mean(detection.delayed_detection)),
-            }
-        )
-
-    return {
-        **classification,
-        "activation": activation,
-        "train_runs": len(split.y_train),
-        "calibration_runs": len(split.y_calibration),
-        "test_runs": len(split.y_test),
-        "classes": classes,
-        "alarm_tags": list(split.alarm_names),
-        "samples_per_run": int(split.X_train.shape[2]),
-        "alarm_representation": split.representation,
-        "train_class_counts": dict(sorted(Counter(split.y_train.tolist()).items())),
-        "calibration_class_counts": dict(
-            sorted(Counter(split.y_calibration.tolist()).items())
-        ),
-        "test_class_counts": dict(sorted(Counter(split.y_test.tolist()).items())),
-        "split_policy": "complete run numbers 1-60 train, 61-80 calibration, 81-100 test within every scenario",
-        "criterion_c": {
-            "parameters": detector_parameters,
-            "candidate_intervals": sum(
-                row["candidate_flood_intervals"] for row in criterion_runs
-            ),
-            "runs_with_candidates": sum(
-                row["candidate_flood_intervals"] > 0 for row in criterion_runs
-            ),
-            "per_run": criterion_runs,
-            "label_boundary": "criterion-C intervals are candidates, not expert-confirmed floods",
-        },
-        "data_evidence": _data_evidence([alarm_archive], root),
-        "reporting_status": "FCC real-data engineering validation; P1 transfer protocol, not a paper-score reproduction",
-        "limitations": [
-            "All 16 labels are simulated abnormal situations; no normal-operation class is present.",
-            "Scenario labels are used for AFC, while criterion-C intervals remain descriptive candidates.",
-            "The fixed run-number split is not the split of any cited AFC paper."
-        ],
-    }
-
-
 def _run_real_pronto_alarm_classification(
     root: Path, references: dict[str, dict[str, Any]]
 ) -> dict[str, Any]:
