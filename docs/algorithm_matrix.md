@@ -14,11 +14,11 @@ reproduced merely because a related baseline below is callable.
 | Deadband design | angle suitability index + Bayesian width | `deadband_index`, `design_deadband_width` | A | suitability passes 7/27 units; exact paper payload pending |
 | Alarm probability plot | equal-count Markov states + four statistics | `build_alarm_probability_plot`, `select_alarm_probability_threshold` | A | three-dataset negative transfer; exact paper payload pending |
 | MSPC | covariance normal zone | `MahalanobisAlarm` | A | unimodal elliptical zone |
-| Multivariate NOZ | convex operating polytope + conditional bound | `ConvexHullNOZAlarm` | A | robust center trimming approximates full book search |
-| Non-convex NOZ | angular search cones + radial boundaries | `SearchConeNOZAlarm` | A | exact paper cone-facet tuning pending |
-| Direction alarm | adaptive weighted gradients + normal rule matrix | `VariationDirectionAlarm` | A | industrial rule matrix pending |
-| Time-varying regression | Bayesian/ridge update + binomial freeze | `BayesianWindowRegressionAlarm` | A | pump paper score pending |
-| Condenser monitor | physical pressure model + search-cone NOZ | `CondenserNOZAlarm` | A | Bayesian worst-case bounds and industrial score pending |
+| Multivariate NOZ | convex operating polytope + conditional bound | `ConvexHullNOZAlarm`, `convex_hull_fitness_index` | A | Figure 3.2 eta and Eq. 3.15 projection pass; three-dataset negative transfer; full robust subset loop and paper data pending |
+| Non-convex NOZ | equation-3.18 angular search cones + radial boundaries | `SearchConeNOZAlarm` | A | three-dataset negative transfer; exact cone facets, alpha knee and paper CSTR score pending |
+| Direction alarm | adaptive weighted gradients + normal rule matrix | `VariationDirectionAlarm` | A | rule matrices activate but held-out MAR is 0.9093/0.9848/0.9953 on TEP/PRONTO/SKAB; exact ATG parameter fit pending |
+| Time-varying regression | Bayesian/ridge update + binomial freeze | `BayesianWindowRegressionAlarm` | A | 4/27 statistical gates pass and 0/27 pump-domain gates pass; original pump payload/score pending |
+| Condenser monitor | kPa physical pressure model + search-cone NOZ | `CondenserNOZAlarm`, `condenser_alarm_rate_bounds` | A | Table 3.5 synthetic fit passes but 99% FAR upper is 0.3500; V1/V2 worst-case bounds and industrial Tables 3.6-3.7 pending |
 | Binary RCA | lagged TE + surrogate threshold | `TransferEntropyRanker` | A | first-order discrete TE; indirect pruning pending |
 | Alarm NTE/NDTE | OR histories + normalization + Bernoulli surrogates | `NormalizedTransferEntropyGraph` | A | industrial paper score pending |
 | IGTE/IGDTE | information granules + OPTICS + conditional TE | `information_granulation_transfer_entropy` | A | paper two-tank/TEP score pending |

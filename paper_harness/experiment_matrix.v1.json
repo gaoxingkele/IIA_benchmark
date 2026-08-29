@@ -10,9 +10,18 @@
     "tep_alarm_dataport": "runnable",
     "npp_alarm_dataport": "runnable",
     "fcc_alarm": "runnable",
+    "book_equation_condenser_synthetic": "runnable",
     "comopi": "adapter_pending",
     "enas": "adapter_pending",
     "imaks": "adapter_pending"
+  },
+  "generated_dataset_status": {
+    "book_equation_condenser_synthetic": {
+      "adapter_status": "runnable",
+      "generator": "experiments/paper_harness/chapter3_multidataset/experiment.py:generate_condenser_samples",
+      "reportable": "equation_and_mechanism_only",
+      "reason": "Book Section 3.4.2.2 fully specifies the Pc, T2-T1 and terminal-temperature-difference operating ranges."
+    }
   },
   "dataset_sets": {
     "continuous_alarm_design": [
@@ -25,17 +34,19 @@
       {"dataset_family": "tep_classic", "match": "M3", "protocol": "P1", "role": "primary"},
       {"dataset_family": "pronto", "match": "M3", "protocol": "P1", "role": "primary"},
       {"dataset_family": "skab", "match": "M3", "protocol": "P1", "role": "primary"},
-      {"dataset_family": "smd10towfgr", "match": "M2", "protocol": "P1", "role": "transfer"}
+      {"dataset_family": "smd10towfgr", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"}
     ],
     "pump_transfer": [
+      {"dataset_family": "tep_classic", "match": "M2", "protocol": "P1", "role": "statistical_transfer"},
       {"dataset_family": "pronto", "match": "M2", "protocol": "P1", "role": "transfer"},
       {"dataset_family": "skab", "match": "M2", "protocol": "P1", "role": "transfer"},
-      {"dataset_family": "smd10towfgr", "match": "M2", "protocol": "P1", "role": "transfer"}
+      {"dataset_family": "smd10towfgr", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"}
     ],
     "condenser_transfer": [
-      {"dataset_family": "tep_classic", "match": "M2", "protocol": "P1", "role": "transfer"},
-      {"dataset_family": "pronto", "match": "M2", "protocol": "P1", "role": "transfer"},
-      {"dataset_family": "skab", "match": "M2", "protocol": "P1", "role": "transfer"}
+      {"dataset_family": "book_equation_condenser_synthetic", "match": "M3", "protocol": "P2", "role": "equation_defined"},
+      {"dataset_family": "tep_classic", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"},
+      {"dataset_family": "pronto", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"},
+      {"dataset_family": "skab", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"}
     ],
     "binary_alarm_rca": [
       {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
@@ -113,11 +124,11 @@
     {"algorithm_id": "book_2_2_non_iid_delay_timer", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["wang2022_delay_pmf"], "current_evidence": "E2"},
     {"algorithm_id": "book_2_3_non_iid_deadband", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["wang2023_deadband"], "current_evidence": "E2"},
     {"algorithm_id": "book_2_4_alarm_probability_plot", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["yu2017_alarm_probability_plot"], "current_evidence": "E3"},
-    {"algorithm_id": "book_3_1_convex_noz", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["yu2020_convex_noz"], "current_evidence": "E0"},
-    {"algorithm_id": "book_3_1_nonconvex_noz", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["wang2024_search_cones"], "current_evidence": "E2"},
-    {"algorithm_id": "book_3_2_variation_direction", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["chen2017_variation_directions"], "current_evidence": "E0"},
-    {"algorithm_id": "book_3_3_electrical_pump", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "pump_transfer", "paper_ids": ["xiong2018_bayesian_pumps"], "current_evidence": "E0"},
-    {"algorithm_id": "book_3_4_condenser", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "condenser_transfer", "paper_ids": ["wang2024_condenser_noz"], "current_evidence": "E0"},
+    {"algorithm_id": "book_3_1_convex_noz", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["yu2020_convex_noz"], "current_evidence": "E3"},
+    {"algorithm_id": "book_3_1_nonconvex_noz", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["wang2024_search_cones"], "current_evidence": "E3"},
+    {"algorithm_id": "book_3_2_variation_direction", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["chen2017_variation_directions"], "current_evidence": "E2"},
+    {"algorithm_id": "book_3_3_electrical_pump", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "pump_transfer", "paper_ids": ["xiong2018_bayesian_pumps"], "current_evidence": "E2"},
+    {"algorithm_id": "book_3_4_condenser", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "condenser_transfer", "paper_ids": ["wang2024_condenser_noz"], "current_evidence": "E2", "minimum_valid_targets": 1, "minimum_target_exception": "No acquired payload exposes verified condenser Pc/Dc/T1/T2 identities and units; one equation-defined target plus three M1 mismatch sentinels is the maximum valid current scope."},
     {"algorithm_id": "book_4_1_nte", "lane": "L3_root_cause", "task": "T3", "dataset_set": "binary_alarm_rca", "paper_ids": ["hu2017_alarm_transfer_entropy"], "current_evidence": "E2"},
     {"algorithm_id": "book_4_1_ndte", "lane": "L3_root_cause", "task": "T3", "dataset_set": "binary_alarm_rca", "paper_ids": ["hu2017_alarm_transfer_entropy"], "current_evidence": "E2"},
     {"algorithm_id": "book_4_2_igte", "lane": "L3_root_cause", "task": "T3", "dataset_set": "continuous_rca", "paper_ids": ["zhang2022_igte", "zhang2023_igdte"], "current_evidence": "E2"},

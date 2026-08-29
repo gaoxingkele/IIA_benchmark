@@ -37,7 +37,9 @@ def build_audit() -> tuple[dict[str, Any], list[str]]:
     matrix_rows = matrix.get("algorithms", [])
     matrix_ids = [item.get("algorithm_id") for item in matrix_rows]
     matrix_id_set = set(matrix_ids)
-    registered_datasets = {item["dataset_family"] for item in sources}
+    public_datasets = {item["dataset_family"] for item in sources}
+    generated_datasets = set(matrix.get("generated_dataset_status", {}))
+    registered_datasets = public_datasets | generated_datasets
     registered_tasks = {item["id"] for item in tasks}
     registered_papers = {item["id"] for item in papers}
     reference_rows = references.get("papers", [])
@@ -69,6 +71,8 @@ def build_audit() -> tuple[dict[str, Any], list[str]]:
     runnable_valid_pair_count = 0
     pending_targets_by_family: dict[str, int] = {}
     algorithms_below_three_valid_datasets: list[str] = []
+    algorithms_below_required_datasets: list[str] = []
+    target_requirement_exceptions: list[str] = []
     used_papers: set[str] = set()
     for row in matrix_rows:
         algorithm_id = row.get("algorithm_id", "?")
@@ -116,13 +120,26 @@ def build_audit() -> tuple[dict[str, Any], list[str]]:
                 pending_targets_by_family[family] = (
                     pending_targets_by_family.get(family, 0) + 1
                 )
+        minimum_valid_targets = int(row.get("minimum_valid_targets", 3))
+        exception_reason = row.get("minimum_target_exception")
+        if not 1 <= minimum_valid_targets <= 3:
+            issues.append(f"{algorithm_id}: minimum_valid_targets must be in [1, 3]")
+        if minimum_valid_targets < 3:
+            if not exception_reason:
+                issues.append(f"{algorithm_id}: reduced target requirement lacks a reason")
+            else:
+                target_requirement_exceptions.append(algorithm_id)
+        elif exception_reason:
+            issues.append(f"{algorithm_id}: unnecessary minimum_target_exception")
+        if valid_for_algorithm < minimum_valid_targets:
+            algorithms_below_required_datasets.append(algorithm_id)
         if valid_for_algorithm < 3:
             algorithms_below_three_valid_datasets.append(algorithm_id)
 
-    if algorithms_below_three_valid_datasets:
+    if algorithms_below_required_datasets:
         issues.append(
-            "algorithms with fewer than three M2/M3 dataset targets: "
-            f"{sorted(algorithms_below_three_valid_datasets)}"
+            "algorithms below their declared M2/M3 dataset target requirement: "
+            f"{sorted(algorithms_below_required_datasets)}"
         )
 
     if len(reference_ids) != len(reference_id_set):
@@ -197,9 +214,15 @@ def build_audit() -> tuple[dict[str, Any], list[str]]:
             "three_or_more_valid_dataset_targets": (
                 len(matrix_rows) - len(algorithms_below_three_valid_datasets)
             ),
+            "target_requirement_satisfied": (
+                len(matrix_rows) - len(algorithms_below_required_datasets)
+            ),
+            "target_requirement_exceptions": len(target_requirement_exceptions),
         },
         "datasets": {
             "families": len(registered_datasets),
+            "public_families": len(public_datasets),
+            "generated_families": len(generated_datasets),
             "adapter_runnable": sum(value == "runnable" for value in adapter_status.values()),
             "adapter_pending": sum(value != "runnable" for value in adapter_status.values()),
             "pending_targets_by_family": dict(

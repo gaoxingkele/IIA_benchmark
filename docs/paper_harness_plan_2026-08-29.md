@@ -257,3 +257,38 @@ but is negative transfer (TEP FAR 0.6472, PRONTO MAR 0.8496, SKAB FAR 0.5586).
 
 Machine-readable report:
 `experiments/reports/book_ch2_multidataset_validation.json`.
+
+## Chapter 3 five-method three-dataset validation
+
+The Chapter 3 wave freezes seeds 1103/2207/3301 over three episodes each from
+TEP, PRONTO, and SKAB. Abnormal calibration chooses four features; all reported
+normal/fault samples are held out. Each unit records finite/constant checks,
+normal train/evaluation KS, standardized median drift, feature quantiles, split
+policy, source hashes, execution, mechanism activation, and paper-domain
+activation separately. SMD10TOWFGR is now M1/P0 because it contains alarm
+events rather than a continuous process matrix.
+
+Figure 3.2 is reproduced exactly at `eta=9/13`; Section 3.2 change direction and
+Tables 3.2-3.4 tuning selections pass all seeds. Table 3.4 also contains a
+retained arithmetic discrepancy: `0.3216-0.1225` equals `0.1991`, not the
+printed `0.1902`. The convex and search-cone implementations now include the
+Eq. 3.15 outside-point projection and corrected Eq. 3.18 spherical angle.
+
+The acquired-data result is negative. On TEP, mean F1 is 0.8921 for the
+Mahalanobis baseline versus 0.7210/0.6385 for convex/search-cone NOZ. On SKAB,
+normal-regime drift is severe (median KS 0.4635; maximum standardized median
+shift 2.2467), and NOZ FAR reaches 0.9744/0.9862. Variation direction misses
+90.93%, 98.48%, and 99.53% of TEP/PRONTO/SKAB faults. Bayesian regression
+passes the frozen R2 plus residual-normality gate in 4/27 units, all on TEP,
+and 0/27 units have verified electrical-pump variable semantics.
+
+The condenser pressure unit is corrected to kPa and the `d2^(9/4)` term is
+source-checked. Table 3.5 equation-defined samples yield mean fit 0.9999883 and
+synthetic pressure-bias F1 0.8694, but the mean 99% FAR upper bound is 0.3500,
+well above the book's approximately 0.075 target. Original Tables 3.6-3.7 and alarm times remain
+blocked by the unavailable 300-MW plant payload. Per-model 99% Beta-binomial
+FAR/MAR intervals execute, but the V1/V2 ensemble worst-case search cannot be
+validated without daily parameter sets, so no industrial score credit is granted.
+
+Machine-readable report:
+`experiments/reports/book_ch3_multidataset_validation.json`.

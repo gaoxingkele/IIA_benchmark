@@ -1,0 +1,33 @@
+Book Chapter 3 multi-dataset validation
+=======================================
+
+The frozen protocol uses seeds 1103/2207/3301 and three fault episodes each
+from TEP, PRONTO, and SKAB. Feature selection uses abnormal calibration only;
+normal and abnormal evaluation samples remain held out. Every episode records
+finite/constant checks, normal train/evaluation KS statistics, standardized
+median drift, quantiles, split policy, source hashes, and activation gates.
+
+The convex and search-cone NOZ methods execute and activate in all 27
+episode-seed units, but do not beat the Mahalanobis baseline on TEP and raise
+near-continuous alarms on SKAB. This coincides with strong normal
+train/evaluation distribution shift and is retained as negative transfer. The
+variation-direction rule matrices also activate everywhere, but miss nearly all
+held-out faults. Bayesian regression passes its R2 plus residual-normality gate
+only on a subset of TEP units; no real unit receives electrical-pump paper-domain
+credit because differential-pressure/speed/flow identities are not established.
+
+Book Figure 3.2 is reproduced exactly at eta=9/13. The Section 3.2 numerical
+change direction and the Tables 3.2-3.4 tuning selections are recovered for all
+three seeds. The audit also preserves a source discrepancy: Table 3.4 prints
+0.3216-0.1225=0.1902, whereas direct subtraction is 0.1991.
+
+The condenser implementation now returns equation (3.90) pressure in kPa and
+uses the book's d2^(9/4) term. Table 3.5 parameters generate equation-defined
+normal operating samples; three bounded parameter fits exceed 0.99998 goodness
+and synthetic pressure-bias F1 is about 0.87. However, the mean 99% posterior
+FAR upper bound is about 0.3500, far above the book's approximately 0.075 target;
+physical-model fit does not close the operating-zone alarm design. This is not the industrial paper
+score: per-model 99% Beta-binomial FAR/MAR intervals execute, but the 300-MW
+plant daily payload, V1/V2 model-ensemble search, 100-day parameter ensemble,
+Tables 3.6-3.7, and alarm times remain blocked. SMD10TOWFGR is explicitly denied
+because it is an alarm-event workbook rather than a continuous process matrix.

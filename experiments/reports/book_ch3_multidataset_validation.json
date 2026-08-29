@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "config": "configs/experiments/book_chapter3_multidataset.json",
+  "algorithm_ids": [
+    "book_3_1_convex_noz",
+    "book_3_1_nonconvex_noz",
+    "book_3_2_variation_direction",
+    "book_3_3_electrical_pump",
+    "book_3_4_condenser"
+  ],
+  "paper_ids": [
+    "yu2020_convex_noz",
+    "wang2024_search_cones",
+    "chen2017_variation_directions",
+    "xiong2018_bayesian_pumps",
+    "wang2024_condenser_noz"
+  ],
+  "seeds": [
+    1103,
+    2207,
+    3301
+  ],
+  "dataset_families": [
+    "tep_classic",
+    "pronto",
+    "skab"
+  ],
+  "named_reproduction": {
+    "figure_3_2_fitness_passed_all_seeds": true,
+    "atg_change_direction_recovered_all_seeds": true,
+    "pump_table_selection_passed_all_seeds": true,
+    "table_3_4_arithmetic_discrepancy": "Table 3.4 reports 0.3216-0.1225=0.1902 for kp=0.74; direct subtraction is 0.1991.",
+    "blocked_original_items": [
+      "Section 3.1.3 CSTR alpha_opt=1.4 degrees and detection at t=1395: original generated input sequence/initial conditions unavailable",
+      "Section 3.2 industrial variable-frequency-pump scores: raw industrial data unavailable",
+      "Section 3.3 pump Figures 3.33-3.47: raw four-case pump data unavailable",
+      "Section 3.4 Tables 3.6-3.7 and 100-day uncertainty validation: raw 300-MW condenser data unavailable"
+    ]
+  },
+  "prior_gate": {
+    "passed_all_runs": true,
+    "episode_seed_units": 27,
+    "finite": true,
+    "partition_overlap": 0,
+    "normal_train_evaluation_distribution": {
+      "tep_classic": {
+        "median_ks": 0.06454166666666666,
+        "maximum_ks": 0.2087916666666667,
+        "maximum_standardized_median_shift": 0.6075089408703872
+      },
+      "pronto": {
+        "median_ks": 0.270599364151261,
+        "maximum_ks": 0.5,
+        "maximum_standardized_median_shift": 0.779927394246623
+      },
+      "skab": {
+        "median_ks": 0.4635026892614857,
+        "maximum_ks": 0.9581102607610028,
+        "maximum_standardized_median_shift": 2.246717620399952
+      }
+    },
+    "smd10towfgr_denied": "event log has no continuous process matrix",
+    "real_condenser_denied": "required pressure/steam-flow/inlet/outlet-temperature payload is unavailable"
+  },
+  "aggregate_metrics": {
+    "tep_classic": {
+      "book_3_1_convex_noz": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.34699074074074077,
+        "mar": 0.04398148148148148,
+        "aad": 0.0,
+        "f1": 0.7209659051423979,
+        "f1_std": 0.02715290307355789
+      },
+      "book_3_1_nonconvex_noz": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.5385416666666667,
+        "mar": 0.027777777777777776,
+        "aad": 0.0,
+        "f1": 0.6384809778155758,
+        "f1_std": 0.037873762121668514
+      },
+      "book_3_2_variation_direction": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.059953703703703703,
+        "mar": 0.9092592592592593,
+        "aad": 13.88888888888889,
+        "f1": 0.14547234967880057,
+        "f1_std": 0.07687778298760266
+      },
+      "book_3_3_electrical_pump": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 0.4444444444444444,
+        "far": 0.09363425925925926,
+        "mar": 0.549074074074074,
+        "aad": 57.22222222222222,
+        "f1": 0.465531182694254,
+        "f1_std": 0.373961792768839
+      },
+      "baseline_mahalanobis": {
+        "units": 9,
+        "far": 0.06921296296296296,
+        "mar": 0.07662037037037037,
+        "aad": 0.0,
+        "f1": 0.8920888368194461,
+        "f1_std": 0.05524629928129652
+      }
+    },
+    "pronto": {
+      "book_3_1_convex_noz": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.8068801048765164,
+        "mar": 0.05015432098765433,
+        "aad": 0.0,
+        "f1": 0.6765980820964554,
+        "f1_std": 0.19420597227014572
+      },
+      "book_3_1_nonconvex_noz": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.559981494005643,
+        "mar": 0.08249916583249917,
+        "aad": 0.0,
+        "f1": 0.6660606278368233,
+        "f1_std": 0.19566432643461745
+      },
+      "book_3_2_variation_direction": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.010466498786375183,
+        "mar": 0.9848102995032819,
+        "aad": 536.2222222222222,
+        "f1": 0.029392782596562764,
+        "f1_std": 0.021181183072321936
+      },
+      "book_3_3_electrical_pump": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 0.0,
+        "far": 0.4208569031341423,
+        "mar": 0.1114852682835139,
+        "aad": 7.333333333333333,
+        "f1": 0.7036912096941554,
+        "f1_std": 0.1425308570464674
+      },
+      "baseline_mahalanobis": {
+        "units": 9,
+        "far": 0.460414261197413,
+        "mar": 0.09015265265265265,
+        "aad": 8.88888888888889,
+        "f1": 0.7229174542298455,
+        "f1_std": 0.20613230203745722
+      }
+    },
+    "skab": {
+      "book_3_1_convex_noz": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.9743898693505327,
+        "mar": 0.0,
+        "aad": 0.0,
+        "f1": 0.09503913914003509,
+        "f1_std": 0.005389111769725476
+      },
+      "book_3_1_nonconvex_noz": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.9862262858222883,
+        "mar": 0.0,
+        "aad": 0.0,
+        "f1": 0.09385257429641189,
+        "f1_std": 0.0030803791493038777
+      },
+      "book_3_2_variation_direction": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 1.0,
+        "far": 0.006260779171687103,
+        "mar": 0.9953370164921574,
+        "aad": 167.88888888888889,
+        "f1": 0.007689572292192052,
+        "f1_std": 0.013377950960611142
+      },
+      "book_3_3_electrical_pump": {
+        "units": 9,
+        "execution_rate": 1.0,
+        "activation_rate": 0.0,
+        "far": 0.7649727124530442,
+        "mar": 0.0,
+        "aad": 0.0,
+        "f1": 0.12711477884753747,
+        "f1_std": 0.03970077012292753
+      },
+      "baseline_mahalanobis": {
+        "units": 9,
+        "far": 0.8965199518038133,
+        "mar": 0.0,
+        "aad": 0.0,
+        "f1": 0.10489464657282298,
+        "f1_std": 0.0193970843026469
+      }
+    }
+  },
+  "mechanism_gates": {
+    "pump_statistical_activation_units": 4,
+    "pump_total_units": 27,
+    "pump_paper_domain_activation_units": 0,
+    "variation_direction_execution_units": 27,
+    "variation_direction_note": "rule matrices activate, but high held-out MAR is retained as negative transfer rather than treated as an implementation failure"
+  },
+  "condenser_synthetic": {
+    "fit_goodness_mean": 0.9999883268926778,
+    "fit_goodness_minimum": 0.9999881011483805,
+    "f1_mean": 0.8694254039291011,
+    "f1_std": 0.009594665327205749,
+    "activation_seeds": 0,
+    "false_alarm_upper_99pct_mean": 0.3499961085767409,
+    "missed_alarm_upper_99pct_mean": 0.007633890862404809,
+    "industrial_score_reproduction": false
+  },
+  "evidence_tiers": {
+    "book_3_1_convex_noz": "E3_named_item_plus_negative_multi_dataset_transfer",
+    "book_3_1_nonconvex_noz": "E3_negative_multi_dataset_transfer",
+    "book_3_2_variation_direction": "E2_partial_ATG_and_negative_transfer",
+    "book_3_3_electrical_pump": "E2_partial_statistical_activation_pump_domain_denied",
+    "book_3_4_condenser": "E2_equation_synthetic_only_industrial_data_blocked"
+  },
+  "paper_score_closure": {
+    "book_3_1_convex_noz": false,
+    "book_3_1_nonconvex_noz": false,
+    "book_3_2_variation_direction": false,
+    "book_3_3_electrical_pump": false,
+    "book_3_4_condenser": false
+  },
+  "competitive_credit": "deny_cross_dataset_superiority_and_all_original_paper_scores",
+  "evidence": "experiments/paper_harness/chapter3_multidataset"
+}

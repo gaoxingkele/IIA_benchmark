@@ -9,6 +9,8 @@ import numpy as np
 from scipy.optimize import differential_evolution
 from scipy.stats import binom
 
+from .univariate_book import BetaPosterior, beta_binomial_posterior
+
 
 def _matrix(values: Iterable[Iterable[float]], *, minimum_rows: int = 3) -> np.ndarray:
     matrix = np.asarray(list(values), dtype=float)
@@ -38,16 +40,17 @@ class SearchConeNOZAlarm:
 
     def _keys(self, directions: np.ndarray) -> np.ndarray:
         if directions.shape[1] == 2:
-            angles = np.arctan2(directions[:, 1], directions[:, 0])[:, None]
+            angles = np.mod(np.arctan2(directions[:, 1], directions[:, 0]), 2.0 * np.pi)[:, None]
             steps = np.deg2rad(self.angular_resolution_degrees)
-            return np.floor((angles + np.pi) / steps).astype(int)
+            return np.floor(angles / steps).astype(int)
         angles = []
         for row in directions:
             coordinates = []
-            for index in range(len(row) - 1):
-                tail = np.linalg.norm(row[index + 1 :])
-                coordinates.append(np.arctan2(tail, row[index]))
-            coordinates[-1] = np.arctan2(row[-1], row[-2]) + np.pi
+            for index in range(len(row) - 2):
+                denominator = np.linalg.norm(row[index:])
+                ratio = row[index] / denominator if denominator > 1e-12 else 1.0
+                coordinates.append(np.arccos(np.clip(ratio, -1.0, 1.0)))
+            coordinates.append(np.mod(np.arctan2(row[-1], row[-2]), 2.0 * np.pi))
             angles.append(coordinates)
         return np.floor(np.asarray(angles) / np.deg2rad(self.angular_resolution_degrees)).astype(int)
 
@@ -75,6 +78,7 @@ class SearchConeNOZAlarm:
         for index, key in enumerate(keys):
             groups.setdefault(tuple(key), []).append(index)
         self.cone_keys_ = list(groups)
+        self.cone_index_ = {key: index for index, key in enumerate(self.cone_keys_)}
         self.cone_directions_ = np.asarray(
             [np.mean(directions[indices], axis=0) for indices in groups.values()]
         )
@@ -93,10 +97,19 @@ class SearchConeNOZAlarm:
             raise ValueError("values have the wrong shape")
         directions, radii = _unit_directions((matrix - self.mean_) / self.scale_)
         nearest = np.empty(len(directions), dtype=int)
-        for start in range(0, len(directions), self.inference_batch_size):
-            stop = min(len(directions), start + self.inference_batch_size)
-            similarity = directions[start:stop] @ self.cone_directions_.T
-            nearest[start:stop] = np.argmax(similarity, axis=1)
+        keys = self._keys(directions)
+        unresolved = []
+        for index, key in enumerate(keys):
+            direct = self.cone_index_.get(tuple(key))
+            if direct is None:
+                unresolved.append(index)
+            else:
+                nearest[index] = direct
+        for start in range(0, len(unresolved), self.inference_batch_size):
+            indices = np.asarray(unresolved[start : start + self.inference_batch_size], dtype=int)
+            if len(indices):
+                similarity = directions[indices] @ self.cone_directions_.T
+                nearest[indices] = np.argmax(similarity, axis=1)
         return radii - self.cone_radii_[nearest]
 
     def predict(self, values: Iterable[Iterable[float]]) -> np.ndarray:
@@ -278,6 +291,30 @@ class CondenserParameters:
     outer_diameter: float
 
 
+@dataclass(frozen=True)
+class CondenserAlarmRateBounds:
+    """Bayesian FAR/MAR intervals in Book equations (3.119) and (3.127)."""
+
+    false_alarm: BetaPosterior
+    missed_alarm: BetaPosterior
+
+
+def condenser_alarm_rate_bounds(
+    normal_alarm: Iterable[int | bool],
+    abnormal_alarm: Iterable[int | bool],
+    *,
+    confidence: float = 0.99,
+) -> CondenserAlarmRateBounds:
+    normal = np.asarray(list(normal_alarm), dtype=bool)
+    abnormal = np.asarray(list(abnormal_alarm), dtype=bool)
+    if normal.ndim != 1 or abnormal.ndim != 1 or not len(normal) or not len(abnormal):
+        raise ValueError("normal_alarm and abnormal_alarm must be non-empty vectors")
+    return CondenserAlarmRateBounds(
+        beta_binomial_posterior(int(np.sum(normal)), len(normal), confidence=confidence),
+        beta_binomial_posterior(int(np.sum(~abnormal)), len(abnormal), confidence=confidence),
+    )
+
+
 @dataclass
 class CondenserPhysicalModel:
     """Book equations (3.90)-(3.103) for condenser pressure."""
@@ -287,8 +324,10 @@ class CondenserPhysicalModel:
 
     @staticmethod
     def saturation_pressure(steam_temperature: np.ndarray | float) -> np.ndarray:
+        """Return saturation pressure in kPa for Book equation (3.90)."""
+
         temperature = np.asarray(steam_temperature, dtype=float)
-        return 9.8 * ((temperature + 100.0) / 57.66) ** 7.46
+        return 9.8e-3 * ((temperature + 100.0) / 57.66) ** 7.46
 
     def predict_pressure(
         self,

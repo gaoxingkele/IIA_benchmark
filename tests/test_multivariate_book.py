@@ -9,6 +9,7 @@ from iia_benchmark.models import (
     CondenserPhysicalModel,
     SearchConeNOZAlarm,
     VariationDirectionAlarm,
+    condenser_alarm_rate_bounds,
     weighted_time_gradient,
 )
 
@@ -23,6 +24,20 @@ def test_search_cone_preserves_nonconvex_radial_boundary() -> None:
     ).fit(normal)
     prediction = model.predict([[1.0, 0.0], [0.0, 1.0], [-4.0, -4.0]])
     np.testing.assert_array_equal(prediction, [0, 0, 1])
+
+
+def test_search_cone_uses_book_spherical_coordinate_quadrants() -> None:
+    model = SearchConeNOZAlarm(angular_resolution_degrees=90)
+    directions = np.asarray(
+        [
+            [1.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0],
+            [0.0, 0.0, 1.0],
+            [0.0, 0.0, -1.0],
+        ]
+    )
+    keys = model._keys(directions)
+    np.testing.assert_array_equal(keys[:, -1], [0, 0, 1, 3])
 
 
 def test_weighted_and_adaptive_time_gradient_track_ramp() -> None:
@@ -74,3 +89,27 @@ def test_condenser_equations_are_self_consistent_and_monitor_residual() -> None:
     fault = normal[-1:].copy()
     fault[:, 0] += 20.0
     assert monitor.predict(fault)[0] == 1
+
+
+def test_condenser_table_3_5_parameters_have_kpa_scale() -> None:
+    params = CondenserParameters(2152.7, 24613.0, 14.6996, 12.8538, 0.0182, 0.0247)
+    model = CondenserPhysicalModel()
+    # The industrial point uses the book's declared process-data unit convention.
+    predicted = model.predict_pressure(
+        [906.81], [36.08], [44.95], params
+    )[0]
+    assert 6.0 < predicted < 11.0
+
+
+def test_condenser_bayesian_far_mar_bounds_count_the_correct_events() -> None:
+    bounds = condenser_alarm_rate_bounds(
+        [0] * 95 + [1] * 5,
+        [1] * 92 + [0] * 8,
+        confidence=0.99,
+    )
+    assert bounds.false_alarm.successes == 5
+    assert bounds.false_alarm.trials == 100
+    assert bounds.missed_alarm.successes == 8
+    assert bounds.missed_alarm.trials == 100
+    assert bounds.false_alarm.lower < 0.05 < bounds.false_alarm.upper
+    assert bounds.missed_alarm.lower < 0.08 < bounds.missed_alarm.upper

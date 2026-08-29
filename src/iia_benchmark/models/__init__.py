@@ -73,15 +73,22 @@ from .flood_book import (
     priority_match_score,
     representative_alarm_patterns,
 )
-from .multivariate import ConvexHullNOZAlarm, MahalanobisAlarm
+from .multivariate import (
+    ConvexHullFitness,
+    ConvexHullNOZAlarm,
+    MahalanobisAlarm,
+    convex_hull_fitness_index,
+)
 from .multivariate_book import (
     AdaptiveTimeGradient,
     BayesianWindowRegressionAlarm,
+    CondenserAlarmRateBounds,
     CondenserNOZAlarm,
     CondenserParameters,
     CondenserPhysicalModel,
     SearchConeNOZAlarm,
     VariationDirectionAlarm,
+    condenser_alarm_rate_bounds,
     weighted_time_gradient,
 )
 from .root_cause import TransferEntropyRanker, transfer_entropy
@@ -170,8 +177,10 @@ __all__ = [
     "CASIMFeatureTransformer",
     "CASIMKernel",
     "ClosedAlarmPattern",
+    "ConvexHullFitness",
     "ConvexHullNOZAlarm",
     "CondenserNOZAlarm",
+    "CondenserAlarmRateBounds",
     "CondenserParameters",
     "CondenserPhysicalModel",
     "ConEAFCCalibrator",
@@ -230,6 +239,8 @@ __all__ = [
     "cluster_information_granules",
     "clustered_surrogate_threshold",
     "conditional_entropy",
+    "condenser_alarm_rate_bounds",
+    "convex_hull_fitness_index",
     "discrete_direct_transfer_entropy",
     "discrete_transfer_entropy",
     "combinatorial_temporal_fingerprints",

@@ -1,0 +1,95 @@
+{
+  "id": "book_chapter3_multidataset",
+  "task": "real_multivariate_alarm_monitoring",
+  "downstream_tasks": ["T2"],
+  "validated_algorithms": [
+    "book_3_1_convex_noz",
+    "book_3_1_nonconvex_noz",
+    "book_3_2_variation_direction",
+    "book_3_3_electrical_pump",
+    "book_3_4_condenser"
+  ],
+  "real_data_validated_algorithms": [
+    "book_3_1_convex_noz",
+    "book_3_1_nonconvex_noz",
+    "book_3_2_variation_direction",
+    "book_3_3_electrical_pump"
+  ],
+  "book_sections": ["3.1.2", "3.1.3", "3.2", "3.3", "3.4"],
+  "runs": {
+    "run_1": {"seed": 1103},
+    "run_2": {"seed": 2207},
+    "run_3": {"seed": 3301}
+  },
+  "protocol": {
+    "abnormal_calibration_fraction": 0.4,
+    "normal_train_fraction": 0.5,
+    "normal_fit_fraction": 0.8,
+    "normal_purge_samples": 60,
+    "selected_features": 4,
+    "maximum_normal_fit_samples": 800,
+    "convex_false_alarm_fraction": 0.01,
+    "search_cone_angle_degrees": 10.0,
+    "search_cone_radial_quantile": 0.99,
+    "atg_minimum_scale": 10,
+    "atg_maximum_scale": 40,
+    "pump_predictors": 3,
+    "pump_minimum_normal_validation_r2": 0.5,
+    "pump_normality_significance": 0.05,
+    "condenser_synthetic_train_samples": 1200,
+    "condenser_synthetic_evaluation_samples": 600,
+    "condenser_fit_maxiter": 20,
+    "condenser_far_upper_target": 0.075,
+    "condenser_mar_upper_target": 0.055
+  },
+  "datasets": {
+    "tep_classic": {
+      "match": "M3",
+      "protocol": "P1",
+      "normal_train": "data/public_datasets/tep_classic/data/d00.dat",
+      "normal_evaluation": "data/public_datasets/tep_classic/data/d00_te.dat",
+      "fault_start": 160,
+      "fault_runs": [
+        "data/public_datasets/tep_classic/data/d01_te.dat",
+        "data/public_datasets/tep_classic/data/d04_te.dat",
+        "data/public_datasets/tep_classic/data/d11_te.dat"
+      ]
+    },
+    "pronto": {
+      "match": "M3",
+      "protocol": "P1",
+      "paths": [
+        "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday2_merged.csv",
+        "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday3_merged.csv",
+        "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday4_merged.csv"
+      ],
+      "selected_fault_segments": [
+        {"path_index": 0, "label": "Air blockage", "occurrence": 0},
+        {"path_index": 1, "label": "Air leakage", "occurrence": 0},
+        {"path_index": 2, "label": "Slugging", "occurrence": 0}
+      ]
+    },
+    "skab": {
+      "match": "M3",
+      "protocol": "P1",
+      "normal_train": "data/public_datasets/skab/data/anomaly-free/anomaly-free.csv",
+      "fault_runs": [
+        "data/public_datasets/skab/data/valve1/0.csv",
+        "data/public_datasets/skab/data/valve1/1.csv",
+        "data/public_datasets/skab/data/valve2/0.csv"
+      ]
+    },
+    "smd10towfgr": {
+      "match": "M1",
+      "protocol": "P0",
+      "status": "denied_alarm_event_log_has_no_continuous_process_matrix",
+      "evidence": "configs/datasets/smd10towfgr_public.json"
+    },
+    "condenser_industrial": {
+      "match": "M3",
+      "protocol": "P0",
+      "status": "blocked_original_pressure_steam_flow_temperature_data_unavailable"
+    }
+  },
+  "reporting_boundary": "TEP, PRONTO, and SKAB provide multi-sensor fault/anomaly labels and support M3/P1 NOZ and direction-transfer validation. Pump regression receives engineering activation only when held-out normal R2 and residual-normality gates pass; none is claimed as the original electrical-pump paper domain. Condenser equations are validated on book-parameter synthetic data only, while all real datasets are denied condenser activation because required variable identities and units are absent. SMD10TOWFGR is an event log, not a continuous multivariate process matrix."
+}

@@ -72,7 +72,10 @@ def main() -> int:
             algorithm
             for config in validation_configs
             if str(config.get("task", "")).startswith("real_")
-            for algorithm in config.get("validated_algorithms", [])
+            for algorithm in config.get(
+                "real_data_validated_algorithms",
+                config.get("validated_algorithms", []),
+            )
             if algorithm in registered_algorithm_ids
         }
     )

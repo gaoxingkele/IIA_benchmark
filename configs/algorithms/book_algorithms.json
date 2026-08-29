@@ -68,7 +68,11 @@
       "printed_pages": "131-137",
       "physical_pages": "142-148",
       "required_components": ["robust normal-point selection", "Quickhull", "point-in-hull test", "conditional dynamic bounds"],
-      "implementation": "iia_benchmark.models.multivariate.ConvexHullNOZAlarm",
+      "implementation": [
+        "iia_benchmark.models.multivariate.ConvexHullNOZAlarm",
+        "iia_benchmark.models.multivariate.convex_hull_fitness_index",
+        "iia_benchmark.models.multivariate.closest_normal_point"
+      ],
       "status": "partial"
     },
     {
@@ -113,7 +117,8 @@
       "required_components": ["condenser equations 3.90-3.103", "parameter estimation", "search-cone zone", "Bayesian worst-case FAR bound", "Bayesian worst-case MAR bound"],
       "implementation": [
         "iia_benchmark.models.multivariate_book.CondenserPhysicalModel",
-        "iia_benchmark.models.multivariate_book.CondenserNOZAlarm"
+        "iia_benchmark.models.multivariate_book.CondenserNOZAlarm",
+        "iia_benchmark.models.multivariate_book.condenser_alarm_rate_bounds"
       ],
       "status": "partial"
     },

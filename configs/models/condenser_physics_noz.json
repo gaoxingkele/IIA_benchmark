@@ -3,7 +3,9 @@
   "family": "book_chapter_3_4",
   "physics_entrypoint": "iia_benchmark.models.CondenserPhysicalModel",
   "alarm_entrypoint": "iia_benchmark.models.CondenserNOZAlarm",
-  "parameters": {"angular_resolution_degrees": 10.0, "residual_quantile": 0.99},
-  "equations": ["3.90-3.106"],
-  "source": "Book printed pages 192-217; DOI 10.1109/TCST.2024.3370036"
+  "rate_bound_entrypoint": "iia_benchmark.models.condenser_alarm_rate_bounds",
+  "parameters": {"angular_resolution_degrees": 10.0, "residual_quantile": 0.99, "pressure_unit": "kPa", "inner_diameter_exponent": 2.25},
+  "equations": ["3.90-3.106", "3.119", "3.127"],
+  "source": "Book printed pages 192-217; DOI 10.1109/TCST.2024.3370036",
+  "validation_note": "Table 3.5 parameters and equation-defined operating samples reproduce the physical model at greater than 0.99998 goodness across three seeds. Per-model Beta-binomial rate intervals execute; the V1/V2 model-ensemble worst-case search and industrial Tables 3.6-3.7 require the unavailable plant payload."
 }
