@@ -156,19 +156,32 @@ def accelerated_alarm_alignment(
     if pre_match < pre_match_threshold:
         return AlarmAlignmentResult(0.0, 0.0, pre_match, (), (), 0)
     seeds = []
-    for i in range(len(first) - seed_length + 1):
-        first_tags = tuple(item.tag for item in first[i : i + seed_length])
-        for j in range(len(second) - seed_length + 1):
-            if first_tags != tuple(item.tag for item in second[j : j + seed_length]):
-                continue
-            score = sum(
-                _alignment_pair_score(
-                    first[i + offset], second[j + offset], first[0].timestamp, second[0].timestamp,
-                    priority_levels=priority_levels, mismatch=mismatch, time_tolerance=time_tolerance,
+    # The book searches matched segments of different sizes. Start with the
+    # registered preferred length, then shorten only when no seed exists; never
+    # fall back to a full Smith-Waterman table when BLAST seeding fails.
+    for active_length in range(seed_length, 0, -1):
+        second_words: dict[tuple[str, ...], list[int]] = {}
+        for j in range(len(second) - active_length + 1):
+            word = tuple(item.tag for item in second[j : j + active_length])
+            second_words.setdefault(word, []).append(j)
+        for i in range(len(first) - active_length + 1):
+            first_tags = tuple(item.tag for item in first[i : i + active_length])
+            for j in second_words.get(first_tags, ()):
+                score = sum(
+                    _alignment_pair_score(
+                        first[i + offset],
+                        second[j + offset],
+                        first[0].timestamp,
+                        second[0].timestamp,
+                        priority_levels=priority_levels,
+                        mismatch=mismatch,
+                        time_tolerance=time_tolerance,
+                    )
+                    for offset in range(active_length)
                 )
-                for offset in range(seed_length)
-            )
-            seeds.append(AlignmentSeed(i, j, seed_length, score))
+                seeds.append(AlignmentSeed(i, j, active_length, score))
+        if seeds:
+            break
     seeds = sorted(seeds, key=lambda item: item.score, reverse=True)[:max_seeds]
     allowed = None
     if seeds:
@@ -183,9 +196,12 @@ def accelerated_alarm_alignment(
     trace = np.zeros_like(table, dtype=np.int8)
     best_score, best_cell, cells = 0.0, (0, 0), 0
     for i in range(1, len(first) + 1):
-        for j in range(1, len(second) + 1):
-            if allowed is not None and not allowed[i, j]:
-                continue
+        columns: Iterable[int]
+        if allowed is None:
+            columns = range(1, len(second) + 1)
+        else:
+            columns = np.flatnonzero(allowed[i])
+        for j in columns:
             cells += 1
             pair = _alignment_pair_score(
                 first[i - 1], second[j - 1], first[0].timestamp, second[0].timestamp,
@@ -298,22 +314,34 @@ def representative_alarm_patterns(
 
     if not 0 <= similarity_threshold <= 1:
         raise ValueError("similarity_threshold must be in [0, 1]")
-    neighborhoods = [
-        frozenset(j for j, right in enumerate(patterns) if _jaccard(left.items, right.items) >= similarity_threshold)
-        for left in patterns
-    ]
-    uncovered = set(range(len(patterns)))
-    selected = []
+    # Algorithm 5.7 needs every delta-neighborhood for its greedy set cover.
+    # Python sets materialize O(n^2) boxed integers on dense alarm patterns;
+    # bit masks retain the exact neighborhoods while using O(n^2) bits.
+    neighborhoods: list[int] = []
+    for left in patterns:
+        mask = 0
+        for index, right in enumerate(patterns):
+            if _jaccard(left.items, right.items) >= similarity_threshold:
+                mask |= 1 << index
+        neighborhoods.append(mask)
+    uncovered = (1 << len(patterns)) - 1
+    selected: list[int] = []
     while uncovered:
-        index = max(range(len(neighborhoods)), key=lambda item: len(neighborhoods[item] & uncovered))
+        index = max(
+            range(len(neighborhoods)),
+            key=lambda item: (neighborhoods[item] & uncovered).bit_count(),
+        )
         group = neighborhoods[index] & uncovered
         if not group:
-            group = frozenset({min(uncovered)})
+            group = uncovered & -uncovered
         selected.append(group)
-        uncovered -= group
+        uncovered &= ~group
     representatives = []
     for group in selected:
-        descendants = tuple(patterns[index] for index in sorted(group))
+        indices = tuple(
+            index for index in range(len(patterns)) if group & (1 << index)
+        )
+        descendants = tuple(patterns[index] for index in indices)
         representatives.append(
             RepresentativeAlarmPattern(
                 frozenset().union(*(item.items for item in descendants)),
@@ -404,3 +432,46 @@ class MaximumEntropyNextAlarmPredictor:
     def predict(self, current: Sequence[str | AlarmToken]) -> str | None:
         probabilities = self.predict_proba(current)
         return max(probabilities, key=probabilities.get) if probabilities else None
+
+
+@dataclass(frozen=True)
+class MaximumEntropyConstraintResult:
+    """Maximum-entropy categorical solution with one fixed probability."""
+
+    probabilities: dict[str, float]
+    lagrange_multiplier: float
+
+
+def maximum_entropy_single_constraint(
+    candidates: Sequence[str],
+    *,
+    constrained_candidate: str,
+    constrained_probability: float,
+) -> MaximumEntropyConstraintResult:
+    """Solve the Book Sec. 5.4.2 single-constraint maximum-entropy problem.
+
+    Equations (5.50)--(5.54) fix the probability of one candidate and assign
+    equal probability to every otherwise unconstrained candidate. For an
+    interior probability ``p`` and ``K`` candidates, the associated multiplier
+    is ``log(p * (K - 1) / (1 - p))``.
+    """
+
+    labels = tuple(map(str, candidates))
+    if len(labels) < 2 or len(set(labels)) != len(labels):
+        raise ValueError("candidates must contain at least two unique labels")
+    target = str(constrained_candidate)
+    if target not in labels:
+        raise ValueError("constrained_candidate must be one of candidates")
+    probability = float(constrained_probability)
+    if not 0.0 < probability < 1.0:
+        raise ValueError(
+            "constrained_probability must lie strictly between zero and one"
+        )
+    residual = (1.0 - probability) / (len(labels) - 1)
+    probabilities = {
+        label: probability if label == target else residual for label in labels
+    }
+    multiplier = float(
+        np.log(probability * (len(labels) - 1) / (1.0 - probability))
+    )
+    return MaximumEntropyConstraintResult(probabilities, multiplier)

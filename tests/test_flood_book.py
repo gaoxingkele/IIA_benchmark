@@ -1,12 +1,16 @@
 import numpy as np
+import pytest
 from itertools import combinations
 
 from iia_benchmark.models import (
     AlarmToken,
+    ClosedAlarmPattern,
     MaximumEntropyNextAlarmPredictor,
     accelerated_alarm_alignment,
     charm_closed_alarm_patterns,
     criterion_c_alarm_flood_detection,
+    maximum_entropy_single_constraint,
+    priority_match_score,
     representative_alarm_patterns,
 )
 
@@ -123,3 +127,78 @@ def test_maximum_entropy_predictor_learns_dominant_next_alarm() -> None:
     assert abs(sum(probabilities.values()) - 1.0) < 1e-10
     assert model.predict(("A", "B")) == "D"
     assert probabilities["D"] > probabilities["C"]
+
+
+def test_book_table_5_5_and_equation_5_16_alignment() -> None:
+    assert [priority_match_score(level, 3) for level in (1, 2, 3)] == [6.0, 4.5, 3.0]
+    first = [
+        AlarmToken(str(tag), index)
+        for index, tag in enumerate((3, 2, 1, 4, 3, 2, 2))
+    ]
+    second = [
+        AlarmToken(str(tag), index)
+        for index, tag in enumerate((3, 4, 2, 1, 4, 2))
+    ]
+    result = accelerated_alarm_alignment(
+        first,
+        second,
+        seed_length=3,
+        max_seeds=7,
+        extension_band=10,
+    )
+    assert [(first[i].tag, second[j].tag) for i, j in result.aligned_pairs] == [
+        ("3", "3"),
+        ("2", "2"),
+        ("1", "1"),
+        ("4", "4"),
+        ("2", "2"),
+    ]
+
+
+def test_book_section_5_3_representative_pattern_example() -> None:
+    patterns = tuple(
+        ClosedAlarmPattern(
+            frozenset(map(str, items)), frozenset({index}), 0.2
+        )
+        for index, items in enumerate(
+            (
+                {2, 3, 4, 5},
+                {1, 3, 4, 5},
+                {1, 2, 4, 5},
+                {1, 2, 3, 5},
+                {1, 2, 3, 4},
+            )
+        )
+    )
+    representatives = representative_alarm_patterns(
+        patterns, similarity_threshold=1 / 3
+    )
+    assert len(representatives) == 1
+    assert representatives[0].items == frozenset({"1", "2", "3", "4", "5"})
+    assert len(representatives[0].descendants) == 5
+
+
+def test_book_table_5_15_maximum_entropy_constraints() -> None:
+    candidates = ("x3", "x4", "x5")
+    x1 = maximum_entropy_single_constraint(
+        candidates,
+        constrained_candidate="x3",
+        constrained_probability=3 / 20,
+    )
+    pair = maximum_entropy_single_constraint(
+        candidates,
+        constrained_candidate="x4",
+        constrained_probability=4 / 5,
+    )
+    x2 = maximum_entropy_single_constraint(
+        candidates,
+        constrained_candidate="x5",
+        constrained_probability=1 / 20,
+    )
+    assert np.allclose(
+        [x1.lagrange_multiplier, pair.lagrange_multiplier, x2.lagrange_multiplier],
+        [-1.0414, 2.0794, -2.2513],
+        atol=5e-5,
+    )
+    assert pair.probabilities["x4"] == pytest.approx(0.8)
+    assert max(pair.probabilities, key=pair.probabilities.get) == "x4"

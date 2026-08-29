@@ -1,0 +1,23 @@
+Book Chapter 5 multi-dataset validation notes
+
+Three grouped seeds (1103, 2207, 3301) are evaluated on TEP Alarm, NPP Alarm,
+and FCC Alarm. Exact rising-edge trajectory hashes are forbidden from crossing
+train/calibration/test. FCC is deduplicated before splitting; NPP source conflicts
+are reported and excluded by the registered connected-component split.
+
+Named book checks cover Criterion-C inheritance/long-standing exclusion,
+Table 5.5 priority scores, the five matches in Eq. 5.16, the five-pattern
+representative compression example, and Table 5.15's three maximum-entropy
+multipliers plus P(x4)=0.7999 (0.8 analytically). These checks are not substitutes
+for the unavailable original industrial payloads.
+
+Negative evidence is retained. Accelerated alignment can underperform its simple
+set-Jaccard pre-match baseline, especially on NPP. The maximum-entropy predictor
+does not approach the book's eta >= 0.8 effectiveness threshold on any public
+transfer dataset and can underperform a global-frequency baseline. Criterion C
+produces candidates, but no public payload has expert-confirmed flood intervals,
+so false-alarm, missed-alarm, and delay scores are not reportable.
+
+CHARM plus representative-pattern compression is the most stable Chapter 5
+method on these public datasets. This is engineering transfer evidence only; the
+paper's 921-to-207 industrial pattern result remains blocked by missing raw data.

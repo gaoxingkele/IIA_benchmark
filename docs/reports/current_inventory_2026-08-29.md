@@ -75,10 +75,10 @@
 | `book_4_2_igdte` | 4.2 | Information-granulation Direct Transfer Entropy | 印刷页 239-261 / PDF 250-272 | `iia_benchmark.models.root_cause_book.information_granulation_direct_transfer_entropy` | `partial` |
 | `book_4_3_recursive_bn` | 4.3 | Recursive Bayesian-network alarm root-cause analysis | 印刷页 262-276 / PDF 273-287 | `iia_benchmark.models.root_cause_book.RecursiveBayesianAlarmRCA` | `partial` |
 | `book_4_4_plr_rca` | 4.4 | Piecewise-linear trend and non-negative-regression root-cause analysis | 印刷页 277-298 / PDF 288-309 | `iia_benchmark.models.root_cause_book.PLRContributionRCA` | `partial` |
-| `book_5_1_flood_detection` | 5.1 | Online/offline alarm flood detection using newly appearing tags | 印刷页 303-321 / PDF 314-332 | `iia_benchmark.models.flood_book.criterion_c_alarm_flood_detection` | `partial` |
-| `book_5_2_alarm_alignment` | 5.2 | Priority/time-aware BLAST-like alarm flood alignment | 印刷页 322-343 / PDF 333-354 | `iia_benchmark.models.flood_book.accelerated_alarm_alignment` | `partial` |
-| `book_5_3_closed_patterns` | 5.3 | CHARM closed alarm patterns and representative clustering | 印刷页 344-355 / PDF 355-366 | `iia_benchmark.models.flood_book.charm_closed_alarm_patterns`<br>`iia_benchmark.models.flood_book.representative_alarm_patterns` | `partial` |
-| `book_5_4_max_entropy_prediction` | 5.4 | Maximum-entropy next-alarm prediction | 印刷页 356-376 / PDF 367-387 | `iia_benchmark.models.flood_book.MaximumEntropyNextAlarmPredictor` | `partial` |
+| `book_5_1_flood_detection` | 5.1 | Online/offline alarm flood detection using newly appearing tags | 印刷页 303-321 / PDF 314-332 | `criterion_c_alarm_flood_detection` | `partial`；三数据集机制验证完成，专家洪泛区间真值缺失 |
+| `book_5_2_alarm_alignment` | 5.2 | Priority/time-aware BLAST-like alarm flood alignment | 印刷页 322-343 / PDF 333-354 | `accelerated_alarm_alignment` | `partial`；Table 5.5/Eq. 5.16 通过，多数据集未胜过集合 Jaccard |
+| `book_5_3_closed_patterns` | 5.3 | CHARM closed alarm patterns and representative clustering | 印刷页 344-355 / PDF 355-366 | `charm_closed_alarm_patterns`<br>`representative_alarm_patterns` | `partial`；三数据集分类稳定但与核心集合基线持平，921→207 原始条目缺数据 |
+| `book_5_4_max_entropy_prediction` | 5.4 | Maximum-entropy next-alarm prediction | 印刷页 356-376 / PDF 367-387 | `MaximumEntropyNextAlarmPredictor`<br>`maximum_entropy_single_constraint` | `partial`；Table 5.15 精确通过，三数据集 η 代理均未达到 0.8 |
 | `book_6_visual_analytics` | 6 | Alarm visual analytics verification suite | 印刷页 381-417 / PDF 392-428 | `iia_benchmark.visualization.build_alarm_visual_analytics`<br>`iia_benchmark.visualization.export_alarm_visual_report` | `partial` |
 
 ### 3.2 SOTA 算法（10 项）
@@ -104,14 +104,14 @@
 |---|---|---|---|---|---|
 | `comopi` | 8 台包装设备、150,650 个十分钟 bin、123 类报警 | `comopi_alarm_counts` | public/acquired | `alarm_forecasting`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 | `enas` | 219,893 条离散传感器、执行器和人工错误状态记录 | `enas_event_log` | public/acquired | `alarm_sequence_modeling`, `anomaly_detection`, `root_cause_analysis` | 已取得；正式榜单仍需冻结 split 与参考分数 |
-| `fcc_alarm` | 1,600 个 FCC 仿真 run、16 类异常、57 个报警位及 4,800 个配套时序 CSV | `fcc_alarm_series`, `fcc_alarm_timeseries` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `robustness`, `root_cause_analysis` | alarm/process adapter、G0、grouped split 与首批 9 个实验已完成；多 seed/论文协议待补 |
+| `fcc_alarm` | 1,600 个 FCC 仿真 run、16 类异常、57 个报警位及 4,800 个配套时序 CSV | `fcc_alarm_series`, `fcc_alarm_timeseries` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `robustness`, `root_cause_analysis` | adapter、G0 与多 seed 已完成；完整轨迹去重发现旧固定划分有 24 条跨分区重复，论文 exact protocol 待补 |
 | `imaks` | 211,200 条带异常和因果真值的合成 MQTT/传感器记录 | `imaks_synthetic` | synthetic | `alarm_sequence_modeling`, `robustness`, `root_cause_analysis` | 仅用于合成因果/鲁棒性验证，不得作为真实工业性能 |
-| `npp_alarm_dataport` | 101 个阈值层；每层 1,212 个 run、12 类事故/扰动加 Normal、192 个二值报警位 | `npp_alarm_dataport_archive` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `root_cause_analysis` | 原始载荷已取得；专用 adapter、grouped split 和正式实验待完成 |
+| `npp_alarm_dataport` | 101 个阈值层；每层 1,212 个 run、12 类事故/扰动加 Normal、192 个二值报警位 | `npp_alarm_dataport_archive` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `root_cause_analysis` | alpha=0.50 adapter、冲突轨迹剔除、grouped split 与 Chapter 5 三 seed 已完成；跨 alpha 鲁棒性待补 |
 | `piade` | 5 台包装设备；429,394 行原始记录及 23,376 行小时序列 | `piade_sequences`, `piade_raw` | public/acquired | `alarm_forecasting`, `alarm_sequence_modeling`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 | `pronto` | 1.72 GB 多相流实验设施数据；过程、报警和故障标签 | `pronto_full` | public/acquired | `alarm_flood_analysis`, `alarm_generation`, `root_cause_analysis` | T4 使用故障窗代理，不是专家洪泛类别 |
 | `skab` | 35 个水循环异常实验 CSV | `skab` | public/acquired | `alarm_generation`, `anomaly_detection`, `robustness` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 | `smd10towfgr` | 10 台风机 SCADA；230,618 条日志、167 个事件代码 | `smd10towfgr` | public/acquired | `alarm_forecasting`, `alarm_sequence_modeling`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
-| `tep_alarm_dataport` | 16.98 GB；100 个 Tests run、1,000 条五类报警序列及异常场景变体 | `tep_alarm_dataport_archive` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `root_cause_analysis` | 五类 ZIP adapter、G0、seeded split 与首批 6 个实验已完成；100-run/异常变体及论文 exact protocol 待补 |
+| `tep_alarm_dataport` | 16.98 GB；100 个 Tests run、1,000 条五类报警序列及异常场景变体 | `tep_alarm_dataport_archive` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `root_cause_analysis` | 五类 ZIP adapter、G0、seeded split 与 Chapter 5 三 seed 已完成；100-run/异常变体及论文 exact protocol 待补 |
 | `tep_classic` | TEP 经典过程仿真；44 个 run、52 个变量 | `tep_classic` | public/acquired | `alarm_generation`, `fault_detection`, `root_cause_analysis` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 
 另有 4 个不可报告成绩的 smoke 生成器：`synthetic_step_fault`、`synthetic_multivariate`、`synthetic_root_cause`、`synthetic_alarm_floods`。

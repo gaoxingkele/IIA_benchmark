@@ -260,7 +260,7 @@
       "landing_url": "https://doi.org/10.1109/TCST.2017.2723578",
       "method_summary": "Detects alarm floods using newly appearing alarm tags, with online and offline interval logic.",
       "local_implementation": ["src/iia_benchmark/models/flood_book.py:criterion_c_alarm_flood_detection"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_flood_book.py", "scope": "I1/I2/I3 inheritance, long-standing exclusion, and delay tests; industrial score pending"},
+      "local_validation": {"status": "multidataset_descriptive", "command": "python -m pytest -q tests/test_flood_book.py", "scope": "named Criterion-C invariants and three-seed TEP/NPP/FCC candidates pass; expert interval truth and original industrial scores remain unavailable"},
       "claims": [
         {"id": "C1", "statement": "Newly appearing tags are more robust to chattering and standing alarms than raw event counts.", "support": "book_chapter_5_and_publisher_metadata", "status": "explicit"}
       ]
@@ -276,7 +276,7 @@
       "landing_url": "https://doi.org/10.1016/j.conengprac.2016.05.021",
       "method_summary": "Adapts local sequence alignment to compare industrial alarm flood episodes.",
       "local_implementation": ["src/iia_benchmark/models/flood_book.py:accelerated_alarm_alignment"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_flood_book.py", "scope": "priority/time/seeded alignment invariants; industrial score pending"},
+      "local_validation": {"status": "negative_multi_dataset", "command": "python -m pytest -q tests/test_flood_book.py", "scope": "Table 5.5 and Eq. 5.16 pass; grouped TEP/NPP/FCC transfer loses to set Jaccard in all nine seed-dataset units; original Table 5.12 remains unavailable"},
       "claims": [
         {"id": "C1", "statement": "Local alignment permits partial matches between alarm sequences.", "support": "book_chapter_5_and_publisher_metadata", "status": "explicit"}
       ]
@@ -292,7 +292,7 @@
       "landing_url": "https://doi.org/10.1109/TIE.2018.2795573",
       "method_summary": "Mines closed frequent alarm itemsets with vertical transaction IDs, then compresses similar patterns by modified delta clustering and greedy cover.",
       "local_implementation": ["src/iia_benchmark/models/flood_book.py:charm_closed_alarm_patterns", "src/iia_benchmark/models/flood_book.py:representative_alarm_patterns"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_flood_book.py", "scope": "closedness and representative-cover invariants; industrial 921-to-207 pattern score pending"},
+      "local_validation": {"status": "multidataset_pattern_validated", "command": "python -m pytest -q tests/test_flood_book.py", "scope": "closedness, representative compression and grouped TEP/NPP/FCC transfer pass; classification equals the class-core baseline and the industrial 921-to-207 item remains unavailable"},
       "claims": [
         {"id": "C1", "statement": "Closed patterns preserve support information while representative delta clustering compresses redundant alarm sets.", "support": "book_chapter_5_and_publisher_metadata", "status": "explicit"}
       ]
@@ -307,8 +307,8 @@
       "access": "gated",
       "landing_url": "https://doi.org/10.1016/j.jprocont.2021.10.002",
       "method_summary": "Uses characteristic functions and maximum-entropy constraints to predict the next alarm from historical floods.",
-      "local_implementation": ["src/iia_benchmark/models/flood_book.py:MaximumEntropyNextAlarmPredictor"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_flood_book.py", "scope": "log-linear probability normalization and dominant-next-alarm recovery; paper Monte Carlo score pending"},
+      "local_implementation": ["src/iia_benchmark/models/flood_book.py:MaximumEntropyNextAlarmPredictor", "src/iia_benchmark/models/flood_book.py:maximum_entropy_single_constraint"],
+      "local_validation": {"status": "named_item_exact_negative_multi_dataset", "command": "python -m pytest -q tests/test_flood_book.py", "scope": "Table 5.15 multipliers and x4 probability reproduce; grouped TEP/NPP/FCC eta surrogates fail 0.8 in all nine units; original Monte Carlo payload remains unavailable"},
       "claims": [
         {"id": "C1", "statement": "The next-alarm distribution is obtained under maximum-entropy constraints.", "support": "book_chapter_5_and_publisher_metadata", "status": "explicit"}
       ]

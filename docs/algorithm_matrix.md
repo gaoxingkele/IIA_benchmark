@@ -27,10 +27,10 @@ reproduced merely because a related baseline below is callable.
 | Flood detection | newly activated unique tags in window | `detect_alarm_floods` | A | activation-only logs cannot recover standing alarms |
 | Flood similarity | local sequence alignment | `smith_waterman_similarity` | A | priority/time-aware BLAST acceleration pending |
 | Next alarm | all-current-tag context + distance decay | `EmpiricalNextAlarmPredictor` | A | transparent empirical approximation, not exact max-entropy solver |
-| Criterion C | I1/I2/I3 inheritance + delayed flood state | `criterion_c_alarm_flood_detection` | A | SMD10TOWFGR six-month event-log candidates executed; expert flood truth and original year-scale score pending |
-| Accelerated alignment | priority/time-aware seeds + banded local alignment | `accelerated_alarm_alignment` | A | paper runtime/accuracy table pending |
-| Closed patterns | vertical TID closedness + delta representative cover | `charm_closed_alarm_patterns` | A | industrial 921-to-207 result pending |
-| Maximum entropy | learned log-linear f1/f2 next-alarm distribution | `MaximumEntropyNextAlarmPredictor` | A | paper Monte Carlo score pending |
+| Criterion C | I1/I2/I3 inheritance + delayed flood state | `criterion_c_alarm_flood_detection` | A | TEP/NPP/FCC mechanism activates, but no expert flood intervals permit FAR/MAR/delay scoring; original plant data pending |
+| Accelerated alignment | priority/time-aware lookup seeds + banded local alignment | `accelerated_alarm_alignment` | A | Table 5.5/Eq. 5.16 pass; multi-data BA 0.7300/0.1485/0.7736 and 0/9 competitive wins versus set Jaccard; paper Table 5.12 pending |
+| Closed patterns | vertical TID closedness + bit-mask delta representative cover | `charm_closed_alarm_patterns`, `representative_alarm_patterns` | A | multi-data BA 0.9667/0.7182/0.9347 but equals class-core Jaccard; original industrial 921-to-207 result pending |
+| Maximum entropy | learned log-linear f1/f2 next-alarm distribution + exact single-constraint solver | `MaximumEntropyNextAlarmPredictor`, `maximum_entropy_single_constraint` | A | Table 5.15 passes; all three transfer eta surrogates fail 0.8, original Tables 5.18-5.22/Monte Carlo pending |
 | AFC-RobustBench | missing/spurious/timing/detector-delay/mixed perturbations, progress/severity profiles, Monte-Carlo intervals and robustness AUC | `run_afc_robustness_benchmark` | B | full protocol is callable; paper-score comparison pending preprint PDF/data |
 | CASIM | MultiRocket + ridge ensemble + LoOP | independent callable reproduction + official Code Ocean comparison slot | B | mechanics/invariants tested; official TEP score reproduction pending capsule/data |
 | ConE-AFC | class- and stepwise inductive conformal prediction | independent callable wrapper + official Code Ocean comparison slot | B | Eqs. 1-5/Algorithms 1-2 tested; official synthetic-data tables pending capsule/data |

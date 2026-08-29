@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "id": "book_chapter5_multidataset",
+  "book_chapter": 5,
+  "seeds": [1103, 2207, 3301],
+  "algorithms": [
+    "book_5_1_flood_detection",
+    "book_5_2_alarm_alignment",
+    "book_5_3_closed_patterns",
+    "book_5_4_max_entropy_prediction"
+  ],
+  "datasets": {
+    "tep_alarm_dataport": {
+      "path": "data/public_datasets/tep_alarm_dataport/payload/2nd_Alarm_Dataset_5Classes.zip",
+      "match": "M2",
+      "protocol": "P1",
+      "train_per_class": 120,
+      "calibration_per_class": 40,
+      "test_per_class": 40,
+      "criterion_c": {
+        "attention_window": 10,
+        "long_standing_window": 30,
+        "update_step": 1,
+        "threshold": 10,
+        "delay_samples": 2
+      },
+      "boundary": "Five-class TEP alarm trajectories; related process family for Sec. 5.4, but not the paper's 26 historical floods."
+    },
+    "npp_alarm_dataport": {
+      "path": "data/public_datasets/npp_alarm_dataport/payload/alpha_050",
+      "match": "M2",
+      "protocol": "P1",
+      "train_per_class": 28,
+      "calibration_per_class": 10,
+      "test_per_class": 10,
+      "criterion_c": {
+        "attention_window": 60,
+        "long_standing_window": 180,
+        "update_step": 6,
+        "threshold": 40,
+        "delay_samples": 2
+      },
+      "boundary": "The fixed 160-sample horizon is shorter than the book's 30-minute long-standing window, so Criterion C is descriptive only."
+    },
+    "fcc_alarm": {
+      "path": "data/public_datasets/fcc_alarm/alarmseriesdata.zip",
+      "match": "M2",
+      "protocol": "P1-grouped-unique-trajectory",
+      "train_per_class": 45,
+      "calibration_per_class": 15,
+      "test_per_class": 15,
+      "criterion_c": {
+        "attention_window": 10,
+        "long_standing_window": 30,
+        "update_step": 1,
+        "threshold": 5,
+        "delay_samples": 2
+      },
+      "boundary": "Complete FCC simulation runs are deduplicated by exact rising-edge trajectory before splitting; no expert flood intervals exist."
+    }
+  },
+  "alignment": {
+    "priority_levels": 3,
+    "mismatch": -2.5,
+    "gap": -1.0,
+    "pre_match_threshold": 0.0,
+    "seed_length": 3,
+    "max_seeds": 7,
+    "extension_band": 10,
+    "time_tolerance_seconds": 120.0,
+    "prototypes_per_class": 3,
+    "priority_boundary": "The public payloads have no alarm-priority metadata; all events are encoded at p3. Priority weighting is tested only by the named Table 5.5 item."
+  },
+  "closed_patterns": {
+    "minimum_support": 0.5,
+    "similarity_threshold": 0.3333333333333333,
+    "boundary": "Pre-registered engineering support chosen before test scoring; the paper's minimum count two remains an original-data reproduction gate."
+  },
+  "maximum_entropy": {
+    "time_scale_seconds": 60.0,
+    "regularization": 1e-6,
+    "max_iterations": 500,
+    "unique_first_activation": true
+  },
+  "reporting_boundary": "Fault/scenario labels are used for transfer classification only. Criterion-C candidates are not relabelled as expert-confirmed alarm floods, and no paper score is claimed."
+}

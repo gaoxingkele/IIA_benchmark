@@ -14,3 +14,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Registered parameters (10-minute attention, 30-minute long-standing suppression, threshold 10, delay 2) produce 4,692 descriptive candidate intervals in 807/1,000 samples.
 - Evidence: `configs/models/criterion_c_tep_five_class.json` and `experiments/reports/tep_alarm_five_class_prior_validation.json`.
 - Boundary: class labels identify disturbances, not expert interval boundaries; no flood-detection precision/recall or paper-table claim is permitted.
+
+## Three-dataset grouped validation (E2/P1)
+
+- Seeds: 1103, 2207, and 3301 on TEP Alarm, NPP Alarm, and grouped-unique FCC Alarm.
+- Result: the mean fractions of held-out runs containing Criterion-C candidates are 0.8000, 0.9364, and 0.8653. Mechanism activation passes all nine dataset-seed units.
+- Gate: performance activation and competitive credit are undefined because none of the payloads supplies expert flood start/end intervals.
+- Evidence: `experiments/reports/book_ch5_multidataset_validation.json`.
+- Boundary: the 2,226-variable plant history, year-scale comparison, and paper FAR/MAR/delay scores remain unavailable.

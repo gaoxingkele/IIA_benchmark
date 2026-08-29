@@ -292,3 +292,34 @@ validated without daily parameter sets, so no industrial score credit is granted
 
 Machine-readable report:
 `experiments/reports/book_ch3_multidataset_validation.json`.
+
+## Chapter 5 four-method three-dataset validation
+
+The Chapter 5 wave uses grouped seeds 1103/2207/3301 on TEP Alarm, NPP Alarm,
+and FCC Alarm. G0 hashes complete rising-edge trajectories before fitting. TEP's
+1,000 trajectories are unique; NPP source conflicts are excluded by connected
+components; FCC is reduced from 1,600 runs to independent trajectory groups before
+the 45/15/15 per-class split. This removes 24 FCC duplicate trajectories that crossed
+the older fixed partition.
+
+Criterion-C inheritance, Table 5.5 priority scores, Eq. 5.16's five matches, the
+five-pattern compression example, and Table 5.15's three multipliers plus
+`P(x4)=0.7999` pass all seeds. The lookup seed and bit-mask neighborhood repairs
+preserve tests while eliminating full-grid fallback and O(n^2) boxed-set memory.
+
+The transfer results separate mechanism, performance, and competitive gates.
+Alignment mean balanced accuracy is 0.7300/0.1485/0.7736 on TEP/NPP/FCC,
+versus 0.9500/0.6061/0.8806 for set Jaccard, so it receives 0/9 competitive
+wins. CHARM reaches 0.9667/0.7182/0.9347, but exactly matches the class-core
+Jaccard control; its evidence is pattern discovery/compression rather than a
+classification advantage. Maximum-entropy Top-1 is 0.1109/0.0881/0.2209 and
+all macro-F1 eta surrogates remain far below the book's 0.8 effectiveness gate.
+Criterion C yields candidates in about 0.80/0.94/0.87 of test runs, but no public
+payload supplies expert flood intervals, so FAR/MAR/delay scores are prohibited.
+
+The old FCC alignment balanced accuracy 0.8875 falls to a grouped-unique
+three-seed mean 0.7736. The optimistic difference is retained as leakage evidence.
+All four original paper scores remain blocked by their industrial payloads.
+
+Machine-readable report:
+`experiments/reports/book_ch5_multidataset_validation.json`.

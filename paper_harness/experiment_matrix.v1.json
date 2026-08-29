@@ -73,15 +73,16 @@
       {"dataset_family": "fcc_alarm", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"}
     ],
     "alarm_flood_methods": [
-      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
-      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
-      {"dataset_family": "npp_alarm_dataport", "match": "M3", "protocol": "P1", "role": "transfer"},
+      {"dataset_family": "tep_alarm_dataport", "match": "M2", "protocol": "P1", "role": "grouped_transfer"},
+      {"dataset_family": "fcc_alarm", "match": "M2", "protocol": "P1", "role": "grouped_unique_transfer"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M2", "protocol": "P1", "role": "grouped_unique_transfer"},
       {"dataset_family": "smd10towfgr", "match": "M2", "protocol": "P0", "role": "detection_only"},
       {"dataset_family": "pronto", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"}
     ],
     "alarm_forecasting": [
-      {"dataset_family": "tep_alarm_dataport", "match": "M3", "protocol": "P2", "role": "primary"},
-      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "primary"},
+      {"dataset_family": "tep_alarm_dataport", "match": "M2", "protocol": "P1", "role": "grouped_transfer"},
+      {"dataset_family": "fcc_alarm", "match": "M2", "protocol": "P1", "role": "grouped_unique_transfer"},
+      {"dataset_family": "npp_alarm_dataport", "match": "M2", "protocol": "P1", "role": "grouped_unique_transfer"},
       {"dataset_family": "piade", "match": "M3", "protocol": "P1", "role": "primary"},
       {"dataset_family": "enas", "match": "M2", "protocol": "P1", "role": "transfer"},
       {"dataset_family": "smd10towfgr", "match": "M2", "protocol": "P1", "role": "transfer"}
@@ -136,9 +137,9 @@
     {"algorithm_id": "book_4_3_recursive_bn", "lane": "L3_root_cause", "task": "T3", "dataset_set": "bayesian_rca", "paper_ids": ["wang2018_recursive_bn_rca"], "current_evidence": "E1"},
     {"algorithm_id": "book_4_4_plr_rca", "lane": "L3_root_cause", "task": "T3", "dataset_set": "plr_rca", "paper_ids": ["hu2022_qualitative_trend_rca"], "current_evidence": "E1"},
     {"algorithm_id": "book_5_1_flood_detection", "lane": "L4_flood", "task": "T4", "dataset_set": "alarm_flood_methods", "paper_ids": ["wang2018_flood_detection"], "current_evidence": "E2"},
-    {"algorithm_id": "book_5_2_alarm_alignment", "lane": "L4_flood", "task": "T4", "dataset_set": "alarm_flood_methods", "paper_ids": ["hu2016_local_alignment"], "current_evidence": "E0"},
-    {"algorithm_id": "book_5_3_closed_patterns", "lane": "L4_flood", "task": "T4", "dataset_set": "alarm_flood_methods", "paper_ids": ["hu2018_closed_alarm_patterns"], "current_evidence": "E0"},
-    {"algorithm_id": "book_5_4_max_entropy_prediction", "lane": "L5_forecasting", "task": "T5", "dataset_set": "alarm_forecasting", "paper_ids": ["xu2021_max_entropy"], "current_evidence": "E0"},
+    {"algorithm_id": "book_5_2_alarm_alignment", "lane": "L4_flood", "task": "T4", "dataset_set": "alarm_flood_methods", "paper_ids": ["hu2016_local_alignment"], "current_evidence": "E3"},
+    {"algorithm_id": "book_5_3_closed_patterns", "lane": "L4_flood", "task": "T4", "dataset_set": "alarm_flood_methods", "paper_ids": ["hu2018_closed_alarm_patterns"], "current_evidence": "E3"},
+    {"algorithm_id": "book_5_4_max_entropy_prediction", "lane": "L5_forecasting", "task": "T5", "dataset_set": "alarm_forecasting", "paper_ids": ["xu2021_max_entropy"], "current_evidence": "E3"},
     {"algorithm_id": "book_6_visual_analytics", "lane": "L6_visual_analytics", "task": "T6", "dataset_set": "visual_analytics", "paper_ids": [], "current_evidence": "E2"},
     {"algorithm_id": "casim_2024", "lane": "L4_flood", "task": "T4", "dataset_set": "tep_afc_sota", "paper_ids": ["faulwasser2024_casim"], "current_evidence": "E2"},
     {"algorithm_id": "cone_afc_2024", "lane": "L4_flood", "task": "T4", "dataset_set": "tep_afc_sota", "paper_ids": ["faulwasser2024_cone_afc"], "current_evidence": "E2"},
