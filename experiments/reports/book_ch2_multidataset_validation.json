@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "config": "configs/experiments/book_chapter2_multidataset.json",
+  "algorithm_ids": [
+    "book_2_1_iid_delay_timer",
+    "book_2_2_non_iid_delay_timer",
+    "book_2_3_non_iid_deadband",
+    "book_2_4_alarm_probability_plot"
+  ],
+  "paper_ids": [
+    "xu2012_far_mar_aad",
+    "wang2022_delay_pmf",
+    "wang2023_deadband",
+    "yu2017_alarm_probability_plot"
+  ],
+  "seeds": [1103, 2207, 3301],
+  "dataset_families": ["tep_classic", "pronto", "skab"],
+  "named_reproduction": {
+    "paper": "xu2012_far_mar_aad",
+    "items": ["Example 1", "Example 2", "Table VII"],
+    "examples_monte_carlo_passed_all_seeds": true,
+    "maximum_monte_carlo_absolute_error": 0.04638589721101516,
+    "table_vii_passed_all_seeds_at_1e_4": true,
+    "maximum_table_vii_absolute_error": 0.00005938895229995467,
+    "evidence": "E4/P2 equation-defined and rounded-table reproduction; industrial source payload remains unavailable"
+  },
+  "prior_gate": {
+    "passed": true,
+    "episode_seed_units": 27,
+    "finite": true,
+    "selected_feature_nonconstant": true,
+    "partition_overlap": 0,
+    "fcc_alarm_denied": true,
+    "fcc_reason": "all 16 scenarios are abnormal and no normal-operation class exists"
+  },
+  "aggregate_metrics": {
+    "tep_classic": {
+      "book_2_1_iid_delay_timer": {"activation_rate": 1.0, "far": 0.006712962962962963, "mar": 0.1840277777777778, "aad": 3.222222222222222, "f1": 0.8678394529765218, "f1_std": 0.0036239167864227676},
+      "book_2_2_non_iid_delay_timer": {"activation_rate": 0.3333333333333333, "far": 0.21898148148148147, "mar": 0.19930555555555554, "aad": 1.5555555555555554, "f1": 0.7231472240438263, "f1_std": 0.03406055266092784},
+      "book_2_3_non_iid_deadband": {"activation_rate": 0.0, "far": 0.004398148148148148, "mar": 0.20486111111111113, "aad": 1.3333333333333333, "f1": 0.8480478518624447, "f1_std": 0.0004857574037178658},
+      "book_2_4_alarm_probability_plot": {"activation_rate": 1.0, "far": 0.6472222222222223, "mar": 0.15787037037037036, "aad": 0.6666666666666666, "f1": 0.5779837439852799, "f1_std": 0.05607250960419391}
+    },
+    "pronto": {
+      "book_2_1_iid_delay_timer": {"activation_rate": 1.0, "far": 0.11190722516230889, "mar": 0.7904644933153705, "aad": 2.888888888888889, "f1": 0.30109483665707604, "f1_std": 0.013459779898785988},
+      "book_2_2_non_iid_delay_timer": {"activation_rate": 0.5555555555555555, "far": 0.12143524868922018, "mar": 0.7210624326852396, "aad": 106.44444444444444, "f1": 0.333238733287552, "f1_std": 0.10077167573804888},
+      "book_2_3_non_iid_deadband": {"activation_rate": 0.0, "far": 0.1206525482093664, "mar": 0.9730449313782646, "aad": 350.0, "f1": 0.04792403811050994, "f1_std": 0.02911315814839725},
+      "book_2_4_alarm_probability_plot": {"activation_rate": 1.0, "far": 0.11605093542945048, "mar": 0.8495601105250228, "aad": 25.333333333333332, "f1": 0.2310533114583592, "f1_std": 0.044827804875121176}
+    },
+    "skab": {
+      "book_2_1_iid_delay_timer": {"activation_rate": 1.0, "far": 0.5949157748009545, "mar": 0.012501018281020094, "aad": 3.0, "f1": 0.14477110379628044, "f1_std": 0.00025512046402961493},
+      "book_2_2_non_iid_delay_timer": {"activation_rate": 0.0, "far": 0.8276513809152551, "mar": 0.012967936402608772, "aad": 3.111111111111111, "f1": 0.10925020130288231, "f1_std": 0.007793975968814243},
+      "book_2_3_non_iid_deadband": {"activation_rate": 0.7777777777777777, "far": 0.22831762232144967, "mar": 0.0, "aad": 0.0, "f1": 0.30952305886633985, "f1_std": 0.010172882228523535},
+      "book_2_4_alarm_probability_plot": {"activation_rate": 1.0, "far": 0.5585560044416094, "mar": 0.0, "aad": 0.0, "f1": 0.15451696455074038, "f1_std": 0.00021546951424264432}
+    }
+  },
+  "mechanism_gates": {
+    "non_iid_zero_event_fallback_units": 19,
+    "non_iid_total_units": 27,
+    "deadband_suitable_units": 7,
+    "deadband_total_units": 27,
+    "decision": "retain all executable counterfactual metrics but deny activation credit where the duration-PMF or 45-degree suitability prerequisite is absent"
+  },
+  "evidence_tiers": {
+    "book_2_1_iid_delay_timer": "E4",
+    "book_2_2_non_iid_delay_timer": "E2_partial_activation",
+    "book_2_3_non_iid_deadband": "E2_SKAB_only",
+    "book_2_4_alarm_probability_plot": "E3_negative_transfer"
+  },
+  "competitive_credit": "deny_cross_dataset_superiority; admit named Xu 2012 equation/table reproduction only",
+  "evidence": "experiments/paper_harness/chapter2_multidataset"
+}

@@ -8,11 +8,11 @@ this report.
 
 | Scope | Registered | Callable | Verified | Partial | Missing |
 |---|---:|---:|---:|---:|---:|
-| Book deliverables | 20 | 20 | 0 | 20 | 0 |
+| Book deliverables | 20 | 20 | 1 | 19 | 0 |
 | Selected SOTA | 10 | 10 | 0 | 10 | 0 |
 
 - Callable method families in the algorithm matrix: **34**.
-- Strict score-closed reproductions: **0**.
+- Strict score-closed reproductions: **1**.
 - A callable implementation is not considered verified until the cited split,
   metric, seed protocol, and reference score have all been reproduced.
 
@@ -30,7 +30,7 @@ this report.
 | Tasks runnable on available real data | 6 |
 | Tasks with the primary payload gated | 0 |
 | Leaderboard-eligible splits | 0 |
-| Real-data validation reports | 42 |
+| Real-data validation reports | 43 |
 
 Locally available public main payloads: `comopi`, `enas`, `fcc_alarm`, `imaks`, `npp_alarm_dataport`, `piade`, `pronto`, `skab`, `smd10towfgr`, `tep_alarm_dataport`, `tep_classic`.
 
@@ -42,7 +42,7 @@ Locally available public main payloads: `comopi`, `enas`, `fcc_alarm`, `imaks`, 
 | Paper PDFs downloaded | 5 |
 | DOI records marked open by Unpaywall | 5 |
 | Direct PDF candidates reported by Unpaywall | 2 |
-| Registered algorithms with real-data execution | 15 |
+| Registered algorithms with real-data execution | 19 |
 | Tasks with executed real-data validation | T1, T2, T3, T4, T5, T6 |
 | ARA paper packages with fresh local validation | 28 |
 

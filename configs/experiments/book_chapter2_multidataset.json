@@ -1,0 +1,74 @@
+{
+  "id": "book_chapter2_multidataset",
+  "task": "real_univariate_alarm_design",
+  "downstream_tasks": ["T1"],
+  "validated_algorithms": [
+    "book_2_1_iid_delay_timer",
+    "book_2_2_non_iid_delay_timer",
+    "book_2_3_non_iid_deadband",
+    "book_2_4_alarm_probability_plot"
+  ],
+  "book_sections": ["2.1.2", "2.1.3", "2.2.3", "2.3.2", "2.3.3", "2.4.2", "2.4.3"],
+  "runs": {
+    "run_1": {"seed": 1103},
+    "run_2": {"seed": 2207},
+    "run_3": {"seed": 3301}
+  },
+  "protocol": {
+    "abnormal_calibration_fraction": 0.4,
+    "normal_train_fraction": 0.5,
+    "normal_purge_samples": 60,
+    "threshold_candidates": 13,
+    "delays": [1, 2, 3, 4, 5],
+    "targets": [0.05, 0.05, 10.0],
+    "weights": [1.0, 1.0, 0.25],
+    "posterior_confidence": 0.95,
+    "app_probability_weight": 0.5,
+    "bootstrap": true
+  },
+  "datasets": {
+    "tep_classic": {
+      "match": "M2",
+      "protocol": "P1",
+      "normal_train": "data/public_datasets/tep_classic/data/d00.dat",
+      "normal_evaluation": "data/public_datasets/tep_classic/data/d00_te.dat",
+      "fault_start": 160,
+      "fault_runs": [
+        "data/public_datasets/tep_classic/data/d01_te.dat",
+        "data/public_datasets/tep_classic/data/d04_te.dat",
+        "data/public_datasets/tep_classic/data/d11_te.dat"
+      ]
+    },
+    "pronto": {
+      "match": "M2",
+      "protocol": "P1",
+      "paths": [
+        "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday2_merged.csv",
+        "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday3_merged.csv",
+        "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday4_merged.csv"
+      ],
+      "selected_fault_segments": [
+        {"path_index": 0, "label": "Air blockage", "occurrence": 0},
+        {"path_index": 1, "label": "Air leakage", "occurrence": 0},
+        {"path_index": 2, "label": "Slugging", "occurrence": 0}
+      ]
+    },
+    "skab": {
+      "match": "M2",
+      "protocol": "P1",
+      "normal_train": "data/public_datasets/skab/data/anomaly-free/anomaly-free.csv",
+      "fault_runs": [
+        "data/public_datasets/skab/data/valve1/0.csv",
+        "data/public_datasets/skab/data/valve1/1.csv",
+        "data/public_datasets/skab/data/valve2/0.csv"
+      ]
+    },
+    "fcc_alarm": {
+      "match": "M1",
+      "protocol": "P0",
+      "status": "denied_no_normal_operation_class",
+      "evidence": "experiments/reports/fcc_alarm_prior_validation.json"
+    }
+  },
+  "reporting_boundary": "TEP, PRONTO, and SKAB provide system fault/anomaly labels rather than expert-validated per-variable alarm truth, so results are M2/P1 engineering design-transfer evidence. Feature and direction selection use calibration only; evaluation samples remain untouched. FCC has no normal-operation class and is retained only as an M1/P0 applicability denial."
+}

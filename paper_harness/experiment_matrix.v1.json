@@ -16,10 +16,10 @@
   },
   "dataset_sets": {
     "continuous_alarm_design": [
-      {"dataset_family": "tep_classic", "match": "M3", "protocol": "P1", "role": "primary"},
-      {"dataset_family": "pronto", "match": "M3", "protocol": "P1", "role": "primary"},
-      {"dataset_family": "skab", "match": "M3", "protocol": "P1", "role": "primary"},
-      {"dataset_family": "fcc_alarm", "match": "M3", "protocol": "P1", "role": "alarm_state_reproduction"}
+      {"dataset_family": "tep_classic", "match": "M2", "protocol": "P1", "role": "label_derived_transfer"},
+      {"dataset_family": "pronto", "match": "M2", "protocol": "P1", "role": "label_derived_transfer"},
+      {"dataset_family": "skab", "match": "M2", "protocol": "P1", "role": "label_derived_transfer"},
+      {"dataset_family": "fcc_alarm", "match": "M1", "protocol": "P0", "role": "mismatch_sentinel"}
     ],
     "continuous_multivariate": [
       {"dataset_family": "tep_classic", "match": "M3", "protocol": "P1", "role": "primary"},
@@ -109,10 +109,10 @@
     ]
   },
   "algorithms": [
-    {"algorithm_id": "book_2_1_iid_delay_timer", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["xu2012_far_mar_aad"], "current_evidence": "E0"},
-    {"algorithm_id": "book_2_2_non_iid_delay_timer", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["wang2022_delay_pmf"], "current_evidence": "E0"},
-    {"algorithm_id": "book_2_3_non_iid_deadband", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["wang2023_deadband"], "current_evidence": "E0"},
-    {"algorithm_id": "book_2_4_alarm_probability_plot", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["yu2017_alarm_probability_plot"], "current_evidence": "E0"},
+    {"algorithm_id": "book_2_1_iid_delay_timer", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["xu2012_far_mar_aad"], "current_evidence": "E4"},
+    {"algorithm_id": "book_2_2_non_iid_delay_timer", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["wang2022_delay_pmf"], "current_evidence": "E2"},
+    {"algorithm_id": "book_2_3_non_iid_deadband", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["wang2023_deadband"], "current_evidence": "E2"},
+    {"algorithm_id": "book_2_4_alarm_probability_plot", "lane": "L1_alarm_design", "task": "T1", "dataset_set": "continuous_alarm_design", "paper_ids": ["yu2017_alarm_probability_plot"], "current_evidence": "E3"},
     {"algorithm_id": "book_3_1_convex_noz", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["yu2020_convex_noz"], "current_evidence": "E0"},
     {"algorithm_id": "book_3_1_nonconvex_noz", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["wang2024_search_cones"], "current_evidence": "E2"},
     {"algorithm_id": "book_3_2_variation_direction", "lane": "L2_multivariate_limits", "task": "T2", "dataset_set": "continuous_multivariate", "paper_ids": ["chen2017_variation_directions"], "current_evidence": "E0"},

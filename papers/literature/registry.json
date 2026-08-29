@@ -18,8 +18,8 @@
       "pdf_url": "https://www.ece.ualberta.ca/~tchen/papers/Xu_Wang_Izadi_TASE12n4.pdf",
       "access_note": "Author-hosted manuscript on the University of Alberta ECE domain; discovered and HTTP-validated on 2026-08-28.",
       "method_summary": "Finite-state Markov expressions for false-alarm rate, missed-alarm rate, and average alarm delay, followed by alarm parameter design.",
-      "local_implementation": ["src/iia_benchmark/models/univariate_book.py:iid_delay_timer_performance"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_univariate_book.py", "scope": "closed-form and invariant tests; not a paper-score reproduction"},
+      "local_implementation": ["src/iia_benchmark/models/univariate_book.py:AlarmOnOffDelay", "src/iia_benchmark/models/univariate_book.py:iid_delay_timer_performance", "src/iia_benchmark/models/univariate_book.py:design_iid_delay_timer"],
+      "local_validation": {"status": "named_items_reproduced", "command": "python experiments/paper_harness/chapter2_multidataset/experiment.py --out_dir experiments/paper_harness/chapter2_multidataset/run_1", "scope": "Xu 2012 Examples 1-2 Monte Carlo checks and industrial Table VII reproduced; three-seed TEP/PRONTO/SKAB transfer completed, original industrial payload unavailable"},
       "claims": [
         {"id": "C1", "statement": "FAR, MAR, and AAD jointly define alarm-system performance.", "support": "book_chapter_2_and_publisher_metadata", "status": "explicit"}
       ]
@@ -35,7 +35,7 @@
       "landing_url": "https://doi.org/10.1016/j.jprocont.2022.01.002",
       "method_summary": "Estimates duration PMFs from non-IID alarm data and uses them to design delay timers.",
       "local_implementation": ["src/iia_benchmark/models/univariate_book.py:design_non_iid_delay_timer"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_univariate_book.py", "scope": "synthetic duration-tail recovery; not a paper-score reproduction"},
+      "local_validation": {"status": "negative_partial_activation", "command": "python experiments/paper_harness/chapter2_multidataset/experiment.py --out_dir experiments/paper_harness/chapter2_multidataset/run_1", "scope": "three-seed TEP/PRONTO/SKAB transfer; duration-PMF mechanism is absent in 19/27 episode-seed units and exact paper data remain unavailable"},
       "claims": [
         {"id": "C1", "statement": "Duration distributions provide a non-IID route to delay-timer design.", "support": "book_chapter_2_and_publisher_metadata", "status": "explicit"}
       ]
@@ -53,7 +53,7 @@
       "manual_copy_note": "ResearchGate marks a public author-uploaded full text; authenticated browser acquisition is required.",
       "method_summary": "Uses alarm-duration/deviation geometry to decide whether deadband is appropriate and a Bayesian amplitude-tail estimate to choose its width.",
       "local_implementation": ["src/iia_benchmark/models/univariate_book.py:deadband_index", "src/iia_benchmark/models/univariate_book.py:design_deadband_width"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_univariate_book.py", "scope": "equation and synthetic episode tests; not a paper-score reproduction"},
+      "local_validation": {"status": "negative_partial_activation", "command": "python experiments/paper_harness/chapter2_multidataset/experiment.py --out_dir experiments/paper_harness/chapter2_multidataset/run_1", "scope": "three-seed TEP/PRONTO/SKAB transfer; the 45-degree suitability gate passes in 7/27 units and exact paper data remain unavailable"},
       "claims": [
         {"id": "C1", "statement": "Maximum alarm deviations determine the remaining false-alarm probability after a deadband is applied.", "support": "book_chapter_2_and_publisher_metadata", "status": "explicit"}
       ]
@@ -71,7 +71,7 @@
       "manual_copy_note": "ResearchGate exposes the paper text; authenticated browser acquisition is required.",
       "method_summary": "Quantizes a process variable into Markov states and uses transition probability/time statistics to select a trippoint.",
       "local_implementation": ["src/iia_benchmark/models/univariate_book.py:build_alarm_probability_plot", "src/iia_benchmark/models/univariate_book.py:select_alarm_probability_threshold"],
-      "local_validation": {"status": "passed", "command": "python -m pytest -q tests/test_univariate_book.py", "scope": "state-quantization and Markov-statistic invariants; not a paper-score reproduction"},
+      "local_validation": {"status": "negative_multi_dataset", "command": "python experiments/paper_harness/chapter2_multidataset/experiment.py --out_dir experiments/paper_harness/chapter2_multidataset/run_1", "scope": "three-seed TEP/PRONTO/SKAB transfer activates APP but yields TEP FAR 0.6472, PRONTO MAR 0.8496, and SKAB FAR 0.5586; exact paper data remain unavailable"},
       "claims": [
         {"id": "C1", "statement": "APP threshold selection combines transition probability with available transition time.", "support": "book_chapter_2_and_publisher_metadata", "status": "explicit"}
       ]

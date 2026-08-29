@@ -1,0 +1,30 @@
+Book Chapter 2 multi-dataset validation
+========================================
+
+This wave validates the four Chapter 2 methods on TEP classic, PRONTO, and
+SKAB with seeds 1103/2207/3301. Every episode has disjoint calibration and
+evaluation samples. Feature and alarm direction are selected only from
+bootstrapped calibration data. The system fault/anomaly labels are not
+expert-validated per-variable alarm truth, so all acquired-data results are
+M2/P1 engineering transfer evidence.
+
+The audit repaired two implementation gaps before formal scoring. First, the
+IID method now includes the book's threshold-by-delay search. Second, the book
+requires symmetric n-sample activation and clearance; the generic on-delay
+state machine cleared on one sample and could not reproduce Example 2. The new
+AlarmOnOffDelay closes that gap. Xu 2012 Examples 1-2 pass the frozen Monte
+Carlo tolerance for all seeds, and industrial Table VII is reproduced to a
+maximum absolute error of 5.94e-5 (publication rounding).
+
+Acquired-data transfer is mixed and mostly negative outside TEP. Mean held-out
+F1 for IID/non-IID/deadband/APP is 0.8678/0.7231/0.8480/0.5780 on TEP,
+0.3011/0.3332/0.0479/0.2311 on PRONTO, and
+0.1448/0.1093/0.3095/0.1545 on SKAB. PRONTO deadband has MAR 0.9730;
+SKAB IID/non-IID has FAR 0.5949/0.8277; TEP APP has FAR 0.6472.
+
+Execution and method activation are separate. Non-IID duration PMFs require
+observed normal-alarm and abnormal-no-alarm runs; 19/27 episode-seed units lack
+one or both and use a declared zero-event posterior only for diagnostic output.
+Deadband requires the chapter's 45-degree suitability test, which passes in
+only 7/27 units. These rows remain visible but do not receive activation credit.
+FCC is denied at G0 because its 16 abnormal scenarios contain no normal class.

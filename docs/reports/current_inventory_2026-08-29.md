@@ -60,7 +60,7 @@
 
 | ID | 章节 | 算法/方法 | 页码 | 本地入口 | 状态 |
 |---|---|---|---|---|---|
-| `book_2_1_iid_delay_timer` | 2.1 | IID threshold and delay-timer design by FAR/MAR/AAD | 印刷页 49-67 / PDF 60-78 | `iia_benchmark.models.univariate_book.iid_delay_timer_performance` | `partial` |
+| `book_2_1_iid_delay_timer` | 2.1 | IID threshold and delay-timer design by FAR/MAR/AAD | 印刷页 49-67 / PDF 60-78 | `AlarmOnOffDelay`、`iid_delay_timer_performance`、`design_iid_delay_timer` | `verified`；Xu 2012 Examples 1-2 与 Table VII 已复现，工业原始载荷仍缺 |
 | `book_2_2_non_iid_delay_timer` | 2.2 | Non-IID delay-timer design from alarm durations and intervals | 印刷页 68-84 / PDF 79-95 | `iia_benchmark.models.univariate_book.design_non_iid_delay_timer` | `partial` |
 | `book_2_3_non_iid_deadband` | 2.3 | Deadband design by maximum amplitude deviations and Bayesian estimation | 印刷页 85-107 / PDF 96-118 | `iia_benchmark.models.univariate_book.deadband_index`<br>`iia_benchmark.models.univariate_book.design_deadband_width` | `partial` |
 | `book_2_4_alarm_probability_plot` | 2.4 | Alarm Probability Plot threshold design | 印刷页 108-125 / PDF 119-136 | `iia_benchmark.models.univariate_book.build_alarm_probability_plot`<br>`iia_benchmark.models.univariate_book.select_alarm_probability_threshold` | `partial` |

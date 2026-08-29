@@ -9,10 +9,10 @@ reproduced merely because a related baseline below is callable.
 |---|---|---|---|---|
 | Fixed alarm | threshold + on-delay + deadband | `ThresholdDelayDeadband` | A | sample-based delay only |
 | Alarm design | FAR/MAR/AAD weighted search | `design_alarm` | A | plug-in estimates; Bayesian CI pending |
-| IID delay design | Markov FAR/MAR/AAD equations 2.8/2.15/2.16 | `iid_delay_timer_performance` | A | paper industrial score pending |
-| Non-IID delay design | duration tails + Bayesian interval + grid search | `design_non_iid_delay_timer` | A | paper industrial score pending |
-| Deadband design | angle suitability index + Bayesian width | `deadband_index`, `design_deadband_width` | A | paper industrial score pending |
-| Alarm probability plot | equal-count Markov states + four statistics | `build_alarm_probability_plot` | A | paper industrial score pending |
+| IID delay design | symmetric on/off Markov chain + FAR/MAR/AAD + joint search | `AlarmOnOffDelay`, `iid_delay_timer_performance`, `design_iid_delay_timer` | A | Xu 2012 Examples 1-2 and Table VII reproduced; source industrial payload pending |
+| Non-IID delay design | duration tails + Bayesian interval + grid search | `design_non_iid_delay_timer` | A | three-dataset negative/partial activation; exact paper payload pending |
+| Deadband design | angle suitability index + Bayesian width | `deadband_index`, `design_deadband_width` | A | suitability passes 7/27 units; exact paper payload pending |
+| Alarm probability plot | equal-count Markov states + four statistics | `build_alarm_probability_plot`, `select_alarm_probability_threshold` | A | three-dataset negative transfer; exact paper payload pending |
 | MSPC | covariance normal zone | `MahalanobisAlarm` | A | unimodal elliptical zone |
 | Multivariate NOZ | convex operating polytope + conditional bound | `ConvexHullNOZAlarm` | A | robust center trimming approximates full book search |
 | Non-convex NOZ | angular search cones + radial boundaries | `SearchConeNOZAlarm` | A | exact paper cone-facet tuning pending |

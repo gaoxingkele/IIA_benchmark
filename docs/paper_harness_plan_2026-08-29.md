@@ -230,3 +230,30 @@ TEP realization.
 
 Machine-readable report:
 `experiments/reports/book_ch4_igte_igdte_multidataset_validation.json`.
+
+## Chapter 2 four-method three-dataset validation
+
+The Chapter 2 wave uses TEP, PRONTO, and SKAB with bootstrap seeds
+1103/2207/3301 and disjoint calibration/evaluation samples. Feature and alarm
+direction selection are calibration-only. Because native labels describe
+system faults/anomalies rather than expert-confirmed per-variable alarm truth,
+all acquired-data rows are M2/P1. FCC is downgraded to an M1/P0 mismatch
+sentinel because it contains 16 abnormal scenarios and no normal-operation
+class.
+
+The implementation audit added the missing threshold-by-delay IID search and a
+symmetric `AlarmOnOffDelay`; the old generic state machine required n samples
+to activate but only one to clear. Xu 2012 Examples 1-2 now pass the three-seed
+Monte Carlo tolerance, and industrial Table VII is reproduced with maximum
+absolute error 5.94e-5 against a 1e-4 rounding tolerance. This gives IID E4/P2
+named-item credit while the original steam-pressure payload remains missing.
+
+Held-out mean F1 for IID/non-IID/deadband/APP is
+0.8678/0.7231/0.8480/0.5780 on TEP, 0.3011/0.3332/0.0479/0.2311 on PRONTO,
+and 0.1448/0.1093/0.3095/0.1545 on SKAB. These values are not all method
+activations: 19/27 non-IID units require a zero-event fallback, and only 7/27
+deadband units pass the 45-degree suitability test. APP activates everywhere
+but is negative transfer (TEP FAR 0.6472, PRONTO MAR 0.8496, SKAB FAR 0.5586).
+
+Machine-readable report:
+`experiments/reports/book_ch2_multidataset_validation.json`.

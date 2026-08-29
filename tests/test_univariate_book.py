@@ -2,6 +2,7 @@ import numpy as np
 import pytest
 
 from iia_benchmark.models import (
+    AlarmOnOffDelay,
     alarm_episode_metrics,
     bayesian_duration_tail,
     beta_binomial_posterior,
@@ -9,6 +10,7 @@ from iia_benchmark.models import (
     build_alarm_probability_plot,
     deadband_index,
     design_deadband_width,
+    design_iid_delay_timer,
     design_non_iid_delay_timer,
     iid_delay_timer_performance,
     pettitt_test,
@@ -22,6 +24,17 @@ def test_iid_delay_equations_reduce_to_basic_alarm_at_n_one() -> None:
     assert result.false_alarm_rate == pytest.approx(0.02)
     assert result.missed_alarm_rate == pytest.approx(0.1)
     assert result.average_alarm_delay == pytest.approx(2.0 * 0.1 / 0.9)
+    np.testing.assert_array_equal(
+        AlarmOnOffDelay(1.0, delay=1).predict([0.0, 1.0, 2.0, 0.0]),
+        [0, 1, 1, 0],
+    )
+
+
+def test_symmetric_alarm_on_off_delay_requires_n_samples_both_ways() -> None:
+    prediction = AlarmOnOffDelay(1.0, delay=2).predict(
+        [0.0, 1.1, 0.9, 1.1, 1.2, 0.8, 1.1, 0.7, 0.6]
+    )
+    np.testing.assert_array_equal(prediction, [0, 0, 0, 0, 1, 1, 1, 1, 0])
 
 
 def test_iid_delay_reduces_far_and_increases_delay() -> None:
@@ -29,6 +42,36 @@ def test_iid_delay_reduces_far_and_increases_delay() -> None:
     delayed = iid_delay_timer_performance(0.05, 0.8, 3)
     assert delayed.false_alarm_rate < basic.false_alarm_rate
     assert delayed.average_alarm_delay > basic.average_alarm_delay
+
+
+def test_iid_joint_design_and_xu2012_table_vii() -> None:
+    table = {
+        2: (0.0468, 0.0305, 1.4294),
+        3: (0.0116, 0.0060, 2.8988),
+        4: (0.0025, 0.0010, 4.5694),
+    }
+    for delay, expected in table.items():
+        result = iid_delay_timer_performance(0.1486, 1.0 - 0.1204, delay)
+        np.testing.assert_allclose(
+            (
+                result.false_alarm_rate,
+                result.missed_alarm_rate,
+                result.average_alarm_delay,
+            ),
+            expected,
+            atol=1e-4,
+        )
+    normal = np.tile([0.0, 0.0, 0.0, 2.0], 100)
+    abnormal = np.tile([0.0, 2.0, 2.0, 2.0], 100)
+    design = design_iid_delay_timer(
+        normal,
+        abnormal,
+        thresholds=[0.5, 1.0, 1.5],
+        delays=[1, 2, 3],
+    )
+    assert design.threshold in {0.5, 1.0, 1.5}
+    assert design.delay in {1, 2, 3}
+    assert np.isfinite(design.loss)
 
 
 def test_pettitt_detects_and_recursively_segments_mean_shift() -> None:
@@ -61,6 +104,20 @@ def test_non_iid_delay_design_is_finite_and_reproducible() -> None:
     assert result.threshold in {1.0, 1.25}
     assert result.delay in {1, 2, 3}
     assert np.isfinite(result.loss)
+
+
+def test_non_iid_delay_design_retains_zero_event_uncertainty() -> None:
+    result = design_non_iid_delay_timer(
+        np.zeros(200),
+        np.ones(200),
+        thresholds=[0.5],
+        delays=[1, 2],
+    )
+    assert result.zero_event_fallback
+    assert result.normal_alarm_runs == 0
+    assert result.abnormal_no_alarm_runs == 0
+    assert 0 < result.false_alarm.upper < 0.05
+    assert 0 < result.missed_alarm.upper < 0.05
 
 
 def test_deadband_episode_index_and_width_design() -> None:

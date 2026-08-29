@@ -28,10 +28,48 @@ def _geometric_sum(probability: float, terms: int) -> float:
 
 
 @dataclass(frozen=True)
+class AlarmOnOffDelay:
+    """Symmetric n-sample alarm on/off delay from Book equation (2.4)."""
+
+    threshold: float
+    direction: Direction = "high"
+    delay: int = 1
+
+    def __post_init__(self) -> None:
+        if self.direction not in ("high", "low") or self.delay < 1:
+            raise ValueError("direction must be high/low and delay must be positive")
+
+    def predict(self, values: Iterable[float]) -> np.ndarray:
+        samples = np.asarray(list(values), dtype=float)
+        beyond = threshold_states(samples, self.threshold, self.direction)
+        result = np.zeros(len(samples), dtype=np.int8)
+        active = False
+        counter = 0
+        for index, current in enumerate(beyond):
+            evidence_for_change = bool(current) if not active else not bool(current)
+            counter = counter + 1 if evidence_for_change else 0
+            if counter >= self.delay:
+                active = not active
+                counter = 0
+            result[index] = int(active)
+        return result
+
+
+@dataclass(frozen=True)
 class IIDAlarmPerformance:
     false_alarm_rate: float
     missed_alarm_rate: float
     average_alarm_delay: float
+
+
+@dataclass(frozen=True)
+class IIDDelayDesignResult:
+    threshold: float
+    delay: int
+    performance: IIDAlarmPerformance
+    normal_exceedance_probability: float
+    abnormal_exceedance_probability: float
+    loss: float
 
 
 def iid_delay_timer_performance(
@@ -61,6 +99,77 @@ def iid_delay_timer_performance(
     else:
         aad = sample_period * (1.0 - p1**n - p2 * p1**n) / (p2 * p1**n)
     return IIDAlarmPerformance(float(far), float(mar), float(aad))
+
+
+def design_iid_delay_timer(
+    normal_values: Iterable[float],
+    abnormal_values: Iterable[float],
+    *,
+    thresholds: Sequence[float],
+    delays: Sequence[int],
+    direction: Direction = "high",
+    targets: tuple[float, float, float] = (0.05, 0.05, 10.0),
+    weights: tuple[float, float, float] = (1.0, 1.0, 0.25),
+    sample_period: float = 1.0,
+) -> IIDDelayDesignResult:
+    """Book Section 2.1 threshold-delay grid search using empirical PDFs."""
+
+    normal = np.asarray(list(normal_values), dtype=float)
+    abnormal = np.asarray(list(abnormal_values), dtype=float)
+    target = np.asarray(targets, dtype=float)
+    weight = np.asarray(weights, dtype=float)
+    if (
+        normal.ndim != 1
+        or abnormal.ndim != 1
+        or not len(normal)
+        or not len(abnormal)
+        or target.shape != (3,)
+        or weight.shape != (3,)
+        or np.any(target <= 0)
+        or np.any(weight < 0)
+        or sample_period <= 0
+    ):
+        raise ValueError("valid data, three positive targets, and non-negative weights are required")
+    candidates: list[IIDDelayDesignResult] = []
+    for threshold in thresholds:
+        q1 = float(np.mean(threshold_states(normal, float(threshold), direction)))
+        p1 = float(np.mean(threshold_states(abnormal, float(threshold), direction)))
+        for delay in delays:
+            performance = iid_delay_timer_performance(
+                q1, p1, int(delay), sample_period=sample_period
+            )
+            observed = np.asarray(
+                (
+                    performance.false_alarm_rate,
+                    performance.missed_alarm_rate,
+                    performance.average_alarm_delay,
+                ),
+                dtype=float,
+            )
+            if not np.isfinite(observed).all():
+                continue
+            loss = float(np.sum(weight * observed / target))
+            candidates.append(
+                IIDDelayDesignResult(
+                    float(threshold),
+                    int(delay),
+                    performance,
+                    q1,
+                    p1,
+                    loss,
+                )
+            )
+    if not candidates:
+        raise ValueError("threshold-delay grid produced no finite candidate")
+    return min(
+        candidates,
+        key=lambda result: (
+            result.loss,
+            result.performance.missed_alarm_rate,
+            result.performance.false_alarm_rate,
+            result.performance.average_alarm_delay,
+        ),
+    )
 
 
 @dataclass(frozen=True)
@@ -188,6 +297,9 @@ class NonIIDDelayDesignResult:
     delay: int
     false_alarm: BetaPosterior
     missed_alarm: BetaPosterior
+    normal_alarm_runs: int
+    abnormal_no_alarm_runs: int
+    zero_event_fallback: bool
     loss: float
 
 
@@ -213,15 +325,32 @@ def design_non_iid_delay_timer(
     for threshold in thresholds:
         high_runs = binary_run_lengths(threshold_states(normal, threshold, direction), 1)
         low_runs = binary_run_lengths(threshold_states(abnormal, threshold, direction), 0)
-        if not len(high_runs) or not len(low_runs):
-            continue
         for delay in delays:
-            far = bayesian_duration_tail(high_runs, int(delay), confidence=confidence)
-            mar = bayesian_duration_tail(low_runs, int(delay), confidence=confidence)
+            far = (
+                bayesian_duration_tail(high_runs, int(delay), confidence=confidence)
+                if len(high_runs)
+                else beta_binomial_posterior(0, len(normal), confidence=confidence)
+            )
+            mar = (
+                bayesian_duration_tail(low_runs, int(delay), confidence=confidence)
+                if len(low_runs)
+                else beta_binomial_posterior(0, len(abnormal), confidence=confidence)
+            )
             loss = far_weight * abs(far.mean - target_far) + (1.0 - far_weight) * abs(mar.mean - target_mar)
-            candidates.append(NonIIDDelayDesignResult(float(threshold), int(delay), far, mar, float(loss)))
+            candidates.append(
+                NonIIDDelayDesignResult(
+                    float(threshold),
+                    int(delay),
+                    far,
+                    mar,
+                    int(len(high_runs)),
+                    int(len(low_runs)),
+                    bool(not len(high_runs) or not len(low_runs)),
+                    float(loss),
+                )
+            )
     if not candidates:
-        raise ValueError("candidate thresholds produced no normal and abnormal runs")
+        raise ValueError("candidate thresholds produced no finite duration design")
     return min(candidates, key=lambda x: (x.loss, -min(x.false_alarm.credibility, x.missed_alarm.credibility), x.delay))
 
 

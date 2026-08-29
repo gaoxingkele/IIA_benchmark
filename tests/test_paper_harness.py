@@ -25,15 +25,15 @@ def test_paper_harness_matrix_is_closed() -> None:
         "book": 20,
         "sota": 10,
         "matrix_covered": 30,
-        "current_E2_or_higher": 11,
+        "current_E2_or_higher": 15,
         "three_or_more_valid_dataset_targets": 30,
     }
     assert audit["algorithm_dataset_targets"] == {
         "all": 123,
-        "M2_M3": 113,
-        "M1_sentinels": 10,
+        "M2_M3": 109,
+        "M1_sentinels": 14,
         "adapter_runnable_all": 120,
-        "adapter_runnable_M2_M3": 110,
+        "adapter_runnable_M2_M3": 106,
         "adapter_pending": 3,
     }
     assert audit["references"]["registered_papers"] == 28
