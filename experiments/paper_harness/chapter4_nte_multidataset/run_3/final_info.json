@@ -1,0 +1,5967 @@
+{
+  "schema_version": 1,
+  "run_name": "run_3",
+  "config": "configs/experiments/npp_alarm_nte_ndte_structural_validation.json",
+  "config_sha256": "6da9ebf588b408819ef134f01371d415c6e3ef713ea01525749fcd1d744a2d33",
+  "git_revision": "6d030cb4208156067d3b9d0859d9b76be5824913",
+  "execution_provenance": {
+    "git_worktree_dirty": true,
+    "git_status_porcelain": [
+      " M configs/tasks/downstream_tasks.json",
+      " M docs/dataset_registry.md",
+      " M docs/paper_harness_plan_2026-08-29.md",
+      " M docs/reports/current_inventory_2026-08-29.md",
+      " M docs/status_audit.json",
+      " M docs/status_audit.md",
+      " M experiments/reports/ara_algorithm_validation.json",
+      " M paper_harness/experiment_matrix.v1.json",
+      " M paper_harness/gate_ledger.seed.jsonl",
+      " M paper_harness/semantic_gene_bank.md",
+      " M papers/literature/ara/hu2017_alarm_transfer_entropy/logic/experiments.md",
+      " M src/iia_benchmark/runner.py",
+      " M tests/test_paper_harness.py",
+      " M tests/test_root_cause_book.py",
+      "?? configs/experiments/fcc_alarm_nte_ndte_structural_validation.json",
+      "?? configs/experiments/npp_alarm_nte_ndte_structural_validation.json",
+      "?? configs/experiments/tep_alarm_nte_ndte_structural_validation.json",
+      "?? configs/metrics/causal_graph_structural.json",
+      "?? configs/models/normalized_transfer_entropy_alarm_transfer.json",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/Figure_1.png",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/Figure_2.png",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/experiment.py",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/notes.txt",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/plot.py",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/run_1/final_info.json",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/run_2/final_info.json",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/run_3/final_info.json",
+      "?? experiments/reports/fcc_alarm_nte_ndte_structural_validation.json",
+      "?? experiments/reports/fcc_plr_applicability_gate.json",
+      "?? experiments/reports/npp_alarm_nte_ndte_structural_validation.json",
+      "?? experiments/reports/tep_alarm_nte_ndte_structural_validation.json",
+      "?? scripts/data_acquisition/profile_fcc_plr_applicability.py"
+    ],
+    "tracked_diff_sha256": "f9fc328206fb0802e085f376e5bb4f2338ef3f4d0319309c6ab8e8e6e4c4fa25",
+    "source_sha256": {
+      "src/iia_benchmark/models/root_cause_book.py": "5ff02e0e8c409032d4f37d9abd787704e79d1279aa8ed59bde02474ddf4fa6c9",
+      "src/iia_benchmark/runner.py": "b58b459c9150f6d3b2989e27ef4e258d8f422f287a580a10f9980276ca3ba331",
+      "src/iia_benchmark/data/fcc.py": "6e99235377161502eb55e042b453a03fc12448e150f13108cad465f4bbb3a444",
+      "src/iia_benchmark/data/tep_alarm.py": "1cf8564527fadff6fa03298d0e58c772ba1ff7b52a9478120bb3d67aaf520e12",
+      "src/iia_benchmark/data/npp_alarm.py": "92bf5cd228e371c933bddcc8a865cb8440b510df8711b5f7bc3bf821924faa4b"
+    }
+  },
+  "started_at_utc": "2026-08-29T15:58:50.463308+00:00",
+  "finished_at_utc": "2026-08-29T15:59:19.102306+00:00",
+  "wall_clock_seconds": 28.497279900009744,
+  "result": {
+    "experiment_id": "npp_alarm_nte_ndte_structural_validation",
+    "task": "real_alarm_causal_graph",
+    "result": {
+      "metrics": {
+        "graph_activation_rate": 1.0,
+        "mean_significant_edges_per_run": 23.863636363636363,
+        "direct_edge_fraction": 0.6171428571428571,
+        "indirect_pruning_fraction": 0.38285714285714284,
+        "within_class_direct_edge_jaccard": 0.44320336229427143,
+        "cross_class_direct_edge_jaccard": 0.03127815560560943
+      },
+      "activation": {
+        "passed": true,
+        "beacon": "at least one surrogate-significant NTE edge and one NDTE-pruned indirect edge",
+        "nte_significant_edges": 525,
+        "ndte_pruned_edges": 201,
+        "runs_with_nte_edges": 22,
+        "analysis_runs": 22
+      },
+      "runs": [
+        {
+          "run_id": "FLB_run+4_alpha0_50",
+          "class_label": "FLB",
+          "samples": 160,
+          "eligible_alarm_variables": 22,
+          "selected_alarm_variables": [
+            {
+              "tag": "STRB_HI",
+              "ones": 138,
+              "zeros": 22,
+              "binary_entropy": 0.577653903353563
+            },
+            {
+              "tag": "DTHY_LO",
+              "ones": 11,
+              "zeros": 149,
+              "binary_entropy": 0.3612414864256602
+            },
+            {
+              "tag": "DWB_LO",
+              "ones": 11,
+              "zeros": 149,
+              "binary_entropy": 0.3612414864256602
+            },
+            {
+              "tag": "STRB_LO",
+              "ones": 11,
+              "zeros": 149,
+              "binary_entropy": 0.3612414864256602
+            },
+            {
+              "tag": "LWRB_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "MBK_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            }
+          ],
+          "significant_nte_edges": 28,
+          "direct_ndte_edges": 20,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "STRB_HI",
+              "target": "DTHY_LO",
+              "score": 0.6098740111474859,
+              "lag": 0,
+              "threshold": 0.07081086483080837,
+              "direct": true
+            },
+            {
+              "source": "STRB_HI",
+              "target": "DWB_LO",
+              "score": 0.6098740111474859,
+              "lag": 0,
+              "threshold": 0.08312109824938133,
+              "direct": true
+            },
+            {
+              "source": "STRB_HI",
+              "target": "STRB_LO",
+              "score": 0.6098740111474859,
+              "lag": 0,
+              "threshold": 0.051255331555664106,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "STRB_HI",
+              "score": 0.6630113852709054,
+              "lag": 0,
+              "threshold": 0.04168367358958038,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "DWB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03831121100600808,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "STRB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09270179645607814,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "LWRB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.11270657004244582,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "MBK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08839469733265878,
+              "direct": true
+            },
+            {
+              "source": "DWB_LO",
+              "target": "STRB_HI",
+              "score": 0.6630113852709054,
+              "lag": 0,
+              "threshold": 0.03642818459279638,
+              "direct": true
+            },
+            {
+              "source": "DWB_LO",
+              "target": "DTHY_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04078180645868586,
+              "direct": true
+            },
+            {
+              "source": "DWB_LO",
+              "target": "STRB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04222742662982314,
+              "direct": true
+            },
+            {
+              "source": "DWB_LO",
+              "target": "LWRB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.14187350753745154,
+              "direct": true
+            },
+            {
+              "source": "DWB_LO",
+              "target": "MBK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09150895888351183,
+              "direct": true
+            },
+            {
+              "source": "STRB_LO",
+              "target": "STRB_HI",
+              "score": 0.6630113852709054,
+              "lag": 0,
+              "threshold": 0.06049682998194657,
+              "direct": true
+            },
+            {
+              "source": "STRB_LO",
+              "target": "DTHY_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.10743677243171577,
+              "direct": true
+            },
+            {
+              "source": "STRB_LO",
+              "target": "DWB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05381968879212971,
+              "direct": true
+            },
+            {
+              "source": "STRB_LO",
+              "target": "LWRB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.045627284429683494,
+              "direct": true
+            },
+            {
+              "source": "STRB_LO",
+              "target": "MBK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.0465099022147709,
+              "direct": true
+            },
+            {
+              "source": "LWRB_HI",
+              "target": "STRB_HI",
+              "score": 0.09180599759846464,
+              "lag": 3,
+              "threshold": 0.045101906453004006,
+              "direct": false
+            },
+            {
+              "source": "LWRB_HI",
+              "target": "DTHY_LO",
+              "score": 0.12684318842475872,
+              "lag": 3,
+              "threshold": 0.04220175361503365,
+              "direct": false
+            },
+            {
+              "source": "LWRB_HI",
+              "target": "DWB_LO",
+              "score": 0.12684318842475872,
+              "lag": 3,
+              "threshold": 0.07767462930583452,
+              "direct": false
+            },
+            {
+              "source": "LWRB_HI",
+              "target": "STRB_LO",
+              "score": 0.12684318842475872,
+              "lag": 3,
+              "threshold": 0.06483332508602711,
+              "direct": false
+            },
+            {
+              "source": "LWRB_HI",
+              "target": "MBK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05041168071515313,
+              "direct": true
+            },
+            {
+              "source": "MBK_HI",
+              "target": "STRB_HI",
+              "score": 0.09180599759846464,
+              "lag": 3,
+              "threshold": 0.05674625807246556,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "DTHY_LO",
+              "score": 0.12684318842475872,
+              "lag": 3,
+              "threshold": 0.06934630423457502,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "DWB_LO",
+              "score": 0.12684318842475872,
+              "lag": 3,
+              "threshold": 0.04581752366940953,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "STRB_LO",
+              "score": 0.12684318842475872,
+              "lag": 3,
+              "threshold": 0.04751756427031234,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "LWRB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09083127125504546,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "DTHY_LO",
+              "outgoing_direct_score": 4.663011385270906
+            },
+            {
+              "tag": "DWB_LO",
+              "outgoing_direct_score": 4.663011385270906
+            },
+            {
+              "tag": "STRB_LO",
+              "outgoing_direct_score": 4.663011385270906
+            },
+            {
+              "tag": "STRB_HI",
+              "outgoing_direct_score": 1.8296220334424576
+            },
+            {
+              "tag": "LWRB_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "MBK_HI",
+              "outgoing_direct_score": 1.0
+            }
+          ]
+        },
+        {
+          "run_id": "FLB_run+20_alpha0_50",
+          "class_label": "FLB",
+          "samples": 160,
+          "eligible_alarm_variables": 93,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM3_HI",
+              "ones": 85,
+              "zeros": 75,
+              "binary_entropy": 0.9971803988942642
+            },
+            {
+              "tag": "STTB_HI",
+              "ones": 85,
+              "zeros": 75,
+              "binary_entropy": 0.9971803988942642
+            },
+            {
+              "tag": "DTHY_LO",
+              "ones": 71,
+              "zeros": 89,
+              "binary_entropy": 0.990851089632101
+            },
+            {
+              "tag": "LVPZ_HI",
+              "ones": 109,
+              "zeros": 51,
+              "binary_entropy": 0.9030169458796671
+            },
+            {
+              "tag": "PSGA_LO",
+              "ones": 51,
+              "zeros": 109,
+              "binary_entropy": 0.9030169458796671
+            },
+            {
+              "tag": "PSGB_LO",
+              "ones": 51,
+              "zeros": 109,
+              "binary_entropy": 0.9030169458796671
+            }
+          ],
+          "significant_nte_edges": 30,
+          "direct_ndte_edges": 24,
+          "indirect_edges_pruned": 6,
+          "directed_edges": [
+            {
+              "source": "RM3_HI",
+              "target": "STTB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.029766736792096498,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "DTHY_LO",
+              "score": 0.15689555892498563,
+              "lag": 3,
+              "threshold": 0.022363580045100112,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "LVPZ_HI",
+              "score": 0.21322703673309995,
+              "lag": 3,
+              "threshold": 0.030966385231794916,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "PSGA_LO",
+              "score": 0.13685506792686275,
+              "lag": 0,
+              "threshold": 0.04467692930040539,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "PSGB_LO",
+              "score": 0.13685506792686275,
+              "lag": 0,
+              "threshold": 0.035945647334587896,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM3_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.033534889441446426,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "DTHY_LO",
+              "score": 0.15689555892498563,
+              "lag": 3,
+              "threshold": 0.028296585132937424,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "LVPZ_HI",
+              "score": 0.21322703673309995,
+              "lag": 3,
+              "threshold": 0.03700526443480219,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "PSGA_LO",
+              "score": 0.13685506792686275,
+              "lag": 0,
+              "threshold": 0.042974918520334235,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "PSGB_LO",
+              "score": 0.13685506792686275,
+              "lag": 0,
+              "threshold": 0.035137842210544744,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "RM3_HI",
+              "score": 0.15219096056968795,
+              "lag": 0,
+              "threshold": 0.018517715247619006,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "STTB_HI",
+              "score": 0.15219096056968795,
+              "lag": 0,
+              "threshold": 0.024753458270642816,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "LVPZ_HI",
+              "score": 0.16106338563566125,
+              "lag": 0,
+              "threshold": 0.02811664248640544,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "PSGA_LO",
+              "score": 0.07304354371283506,
+              "lag": 0,
+              "threshold": 0.02558268059257112,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "PSGB_LO",
+              "score": 0.07304354371283506,
+              "lag": 0,
+              "threshold": 0.03201684565099492,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "RM3_HI",
+              "score": 0.115538208330356,
+              "lag": 3,
+              "threshold": 0.026619442221541667,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "STTB_HI",
+              "score": 0.115538208330356,
+              "lag": 3,
+              "threshold": 0.030972943778101628,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "DTHY_LO",
+              "score": 0.15618670103705945,
+              "lag": 3,
+              "threshold": 0.02469138115671259,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "PSGA_LO",
+              "score": 0.09658944954726723,
+              "lag": 2,
+              "threshold": 0.030294239132797118,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "PSGB_LO",
+              "score": 0.09658944954726723,
+              "lag": 2,
+              "threshold": 0.043096591847823044,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "RM3_HI",
+              "score": 0.38286440039576,
+              "lag": 0,
+              "threshold": 0.028347799213349737,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "STTB_HI",
+              "score": 0.38286440039576,
+              "lag": 0,
+              "threshold": 0.017611267035849188,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "DTHY_LO",
+              "score": 0.18009009978899715,
+              "lag": 3,
+              "threshold": 0.026827053790005606,
+              "direct": false
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "LVPZ_HI",
+              "score": 0.1258939493112886,
+              "lag": 3,
+              "threshold": 0.03913684309366614,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "PSGB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.033572863072558225,
+              "direct": true
+            },
+            {
+              "source": "PSGB_LO",
+              "target": "RM3_HI",
+              "score": 0.38286440039576,
+              "lag": 0,
+              "threshold": 0.025112073777388867,
+              "direct": true
+            },
+            {
+              "source": "PSGB_LO",
+              "target": "STTB_HI",
+              "score": 0.38286440039576,
+              "lag": 0,
+              "threshold": 0.033547462435054645,
+              "direct": true
+            },
+            {
+              "source": "PSGB_LO",
+              "target": "DTHY_LO",
+              "score": 0.18009009978899715,
+              "lag": 3,
+              "threshold": 0.04788468439374274,
+              "direct": false
+            },
+            {
+              "source": "PSGB_LO",
+              "target": "LVPZ_HI",
+              "score": 0.1258939493112886,
+              "lag": 3,
+              "threshold": 0.0428949790577835,
+              "direct": true
+            },
+            {
+              "source": "PSGB_LO",
+              "target": "PSGA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03545849740526342,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "PSGA_LO",
+              "outgoing_direct_score": 1.8916227501028087
+            },
+            {
+              "tag": "PSGB_LO",
+              "outgoing_direct_score": 1.8916227501028087
+            },
+            {
+              "tag": "RM3_HI",
+              "outgoing_direct_score": 1.4869371725868255
+            },
+            {
+              "tag": "STTB_HI",
+              "outgoing_direct_score": 1.4869371725868255
+            },
+            {
+              "tag": "DTHY_LO",
+              "outgoing_direct_score": 0.6115323942007073
+            },
+            {
+              "tag": "LVPZ_HI",
+              "outgoing_direct_score": 0.3493656001315939
+            }
+          ]
+        },
+        {
+          "run_id": "LLB_run+1_alpha0_50",
+          "class_label": "LLB",
+          "samples": 160,
+          "eligible_alarm_variables": 6,
+          "selected_alarm_variables": [
+            {
+              "tag": "DTHY_HI",
+              "ones": 147,
+              "zeros": 13,
+              "binary_entropy": 0.40656840096998903
+            },
+            {
+              "tag": "DWB_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "RM4_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "WLD_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "SCMA_LO",
+              "ones": 5,
+              "zeros": 155,
+              "binary_entropy": 0.20062232431271465
+            },
+            {
+              "tag": "SCMB_LO",
+              "ones": 5,
+              "zeros": 155,
+              "binary_entropy": 0.20062232431271465
+            }
+          ],
+          "significant_nte_edges": 27,
+          "direct_ndte_edges": 19,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "DTHY_HI",
+              "target": "SCMA_LO",
+              "score": 0.37054729261976105,
+              "lag": 0,
+              "threshold": 0.04487062054436833,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "SCMB_LO",
+              "score": 0.37054729261976105,
+              "lag": 0,
+              "threshold": 0.10774922088078535,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "DTHY_HI",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.04838706491825602,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "RM4_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09270179645607814,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "WLD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.11270657004244582,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "SCMA_LO",
+              "score": 0.41375425147091094,
+              "lag": 0,
+              "threshold": 0.16813758046607785,
+              "direct": false
+            },
+            {
+              "source": "DWB_HI",
+              "target": "SCMB_LO",
+              "score": 0.41375425147091094,
+              "lag": 0,
+              "threshold": 0.06637601585858816,
+              "direct": false
+            },
+            {
+              "source": "RM4_HI",
+              "target": "DTHY_HI",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.036824140234990456,
+              "direct": true
+            },
+            {
+              "source": "RM4_HI",
+              "target": "DWB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04222742662982314,
+              "direct": true
+            },
+            {
+              "source": "RM4_HI",
+              "target": "WLD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.14187350753745154,
+              "direct": true
+            },
+            {
+              "source": "RM4_HI",
+              "target": "SCMA_LO",
+              "score": 0.41375425147091094,
+              "lag": 0,
+              "threshold": 0.14507289979316304,
+              "direct": false
+            },
+            {
+              "source": "RM4_HI",
+              "target": "SCMB_LO",
+              "score": 0.41375425147091094,
+              "lag": 0,
+              "threshold": 0.07309719887051117,
+              "direct": false
+            },
+            {
+              "source": "WLD_HI",
+              "target": "DTHY_HI",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.07613598080550431,
+              "direct": true
+            },
+            {
+              "source": "WLD_HI",
+              "target": "DWB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05381968879212971,
+              "direct": true
+            },
+            {
+              "source": "WLD_HI",
+              "target": "RM4_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.045627284429683494,
+              "direct": true
+            },
+            {
+              "source": "WLD_HI",
+              "target": "SCMA_LO",
+              "score": 0.41375425147091094,
+              "lag": 0,
+              "threshold": 0.122972675558492,
+              "direct": false
+            },
+            {
+              "source": "WLD_HI",
+              "target": "SCMB_LO",
+              "score": 0.41375425147091094,
+              "lag": 0,
+              "threshold": 0.07171243508917041,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "DTHY_HI",
+              "score": 0.19326481162251086,
+              "lag": 3,
+              "threshold": 0.030973615959109527,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "DWB_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.06701608902577577,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "RM4_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.03005662213948923,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "WLD_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.0442355176577933,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "SCMB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06743745011197882,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "DTHY_HI",
+              "score": 0.19326481162251086,
+              "lag": 3,
+              "threshold": 0.04590369768316212,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "DWB_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.05190447771017226,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "RM4_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.037883219213971336,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "WLD_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.059963297552000035,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "SCMA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.02548965938120571,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "DWB_HI",
+              "outgoing_direct_score": 3.0
+            },
+            {
+              "tag": "RM4_HI",
+              "outgoing_direct_score": 3.0
+            },
+            {
+              "tag": "WLD_HI",
+              "outgoing_direct_score": 3.0
+            },
+            {
+              "tag": "SCMA_LO",
+              "outgoing_direct_score": 1.8505986067220568
+            },
+            {
+              "tag": "SCMB_LO",
+              "outgoing_direct_score": 1.8505986067220568
+            },
+            {
+              "tag": "DTHY_HI",
+              "outgoing_direct_score": 0.7410945852395221
+            }
+          ]
+        },
+        {
+          "run_id": "LLB_run+3_alpha0_50",
+          "class_label": "LLB",
+          "samples": 160,
+          "eligible_alarm_variables": 6,
+          "selected_alarm_variables": [
+            {
+              "tag": "SCMA_LO",
+              "ones": 64,
+              "zeros": 96,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "SCMB_LO",
+              "ones": 64,
+              "zeros": 96,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "DTHY_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "DWB_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "RM4_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "WLD_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            }
+          ],
+          "significant_nte_edges": 30,
+          "direct_ndte_edges": 30,
+          "indirect_edges_pruned": 0,
+          "directed_edges": [
+            {
+              "source": "SCMA_LO",
+              "target": "SCMB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.037506101692923476,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "DTHY_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.06414832689640736,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "DWB_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.12199910668153845,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "RM4_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.14664649883227898,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "WLD_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.08168911965228981,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "SCMA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.034508498999353335,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "DTHY_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.06264309439921106,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "DWB_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.13114844426227243,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "RM4_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.0714188680247943,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "WLD_HI",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.09747793237622454,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "SCMA_LO",
+              "score": 0.2878404115275872,
+              "lag": 3,
+              "threshold": 0.037112346680686574,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "SCMB_LO",
+              "score": 0.2878404115275872,
+              "lag": 3,
+              "threshold": 0.04244748621379104,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "DWB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05381968879212971,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "RM4_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.045627284429683494,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "WLD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.0465099022147709,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "SCMA_LO",
+              "score": 0.2878404115275872,
+              "lag": 3,
+              "threshold": 0.04139726810548885,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "SCMB_LO",
+              "score": 0.2878404115275872,
+              "lag": 3,
+              "threshold": 0.041013786679612085,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "DTHY_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.07767462930583452,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "RM4_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06483332508602711,
+              "direct": true
+            },
+            {
+              "source": "DWB_HI",
+              "target": "WLD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05041168071515313,
+              "direct": true
+            },
+            {
+              "source": "RM4_HI",
+              "target": "SCMA_LO",
+              "score": 0.2878404115275872,
+              "lag": 3,
+              "threshold": 0.030840076902557436,
+              "direct": true
+            },
+            {
+              "source": "RM4_HI",
+              "target": "SCMB_LO",
+              "score": 0.2878404115275872,
+              "lag": 3,
+              "threshold": 0.03209625218194567,
+              "direct": true
+            },
+            {
+              "source": "RM4_HI",
+              "target": "DTHY_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04581752366940953,
+              "direct": true
+            },
+            {
+              "source": "RM4_HI",
+              "target": "DWB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04751756427031234,
+              "direct": true
+            },
+            {
+              "source": "RM4_HI",
+              "target": "WLD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09083127125504546,
+              "direct": true
+            },
+            {
+              "source": "WLD_HI",
+              "target": "SCMA_LO",
+              "score": 0.2878404115275872,
+              "lag": 3,
+              "threshold": 0.031314345817474165,
+              "direct": true
+            },
+            {
+              "source": "WLD_HI",
+              "target": "SCMB_LO",
+              "score": 0.2878404115275872,
+              "lag": 3,
+              "threshold": 0.033549599676427413,
+              "direct": true
+            },
+            {
+              "source": "WLD_HI",
+              "target": "DTHY_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05586639998903015,
+              "direct": true
+            },
+            {
+              "source": "WLD_HI",
+              "target": "DWB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03614034780840136,
+              "direct": true
+            },
+            {
+              "source": "WLD_HI",
+              "target": "RM4_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.07225061147158236,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "DTHY_HI",
+              "outgoing_direct_score": 3.5756808230551744
+            },
+            {
+              "tag": "DWB_HI",
+              "outgoing_direct_score": 3.5756808230551744
+            },
+            {
+              "tag": "RM4_HI",
+              "outgoing_direct_score": 3.5756808230551744
+            },
+            {
+              "tag": "WLD_HI",
+              "outgoing_direct_score": 3.5756808230551744
+            },
+            {
+              "tag": "SCMA_LO",
+              "outgoing_direct_score": 2.134131475629409
+            },
+            {
+              "tag": "SCMB_LO",
+              "outgoing_direct_score": 2.134131475629409
+            }
+          ]
+        },
+        {
+          "run_id": "LOCA_run+10_alpha0_50",
+          "class_label": "LOCA",
+          "samples": 160,
+          "eligible_alarm_variables": 97,
+          "selected_alarm_variables": [
+            {
+              "tag": "RRCB_LO",
+              "ones": 83,
+              "zeros": 77,
+              "binary_entropy": 0.9989853671667239
+            },
+            {
+              "tag": "WRCB_LO",
+              "ones": 83,
+              "zeros": 77,
+              "binary_entropy": 0.9989853671667239
+            },
+            {
+              "tag": "RRCO_LO",
+              "ones": 84,
+              "zeros": 76,
+              "binary_entropy": 0.99819587904281
+            },
+            {
+              "tag": "RRCA_LO",
+              "ones": 85,
+              "zeros": 75,
+              "binary_entropy": 0.9971803988942642
+            },
+            {
+              "tag": "WRCA_LO",
+              "ones": 85,
+              "zeros": 75,
+              "binary_entropy": 0.9971803988942642
+            },
+            {
+              "tag": "TCA_LO",
+              "ones": 72,
+              "zeros": 88,
+              "binary_entropy": 0.9927744539878083
+            }
+          ],
+          "significant_nte_edges": 22,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 14,
+          "directed_edges": [
+            {
+              "source": "RRCB_LO",
+              "target": "WRCB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.026704647937822037,
+              "direct": true
+            },
+            {
+              "source": "RRCB_LO",
+              "target": "TCA_LO",
+              "score": 0.10470002121862887,
+              "lag": 1,
+              "threshold": 0.022338578734408567,
+              "direct": false
+            },
+            {
+              "source": "WRCB_LO",
+              "target": "RRCB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.038918854131372194,
+              "direct": true
+            },
+            {
+              "source": "WRCB_LO",
+              "target": "TCA_LO",
+              "score": 0.10470002121862887,
+              "lag": 1,
+              "threshold": 0.026972677019440727,
+              "direct": false
+            },
+            {
+              "source": "RRCO_LO",
+              "target": "RRCB_LO",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.028424881763146663,
+              "direct": true
+            },
+            {
+              "source": "RRCO_LO",
+              "target": "WRCB_LO",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.032737900676162446,
+              "direct": true
+            },
+            {
+              "source": "RRCO_LO",
+              "target": "TCA_LO",
+              "score": 0.10611950006809157,
+              "lag": 2,
+              "threshold": 0.028612854018599764,
+              "direct": false
+            },
+            {
+              "source": "RRCA_LO",
+              "target": "RRCB_LO",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.02458861030092361,
+              "direct": false
+            },
+            {
+              "source": "RRCA_LO",
+              "target": "WRCB_LO",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.029031393918434414,
+              "direct": false
+            },
+            {
+              "source": "RRCA_LO",
+              "target": "RRCO_LO",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.02734590538051327,
+              "direct": false
+            },
+            {
+              "source": "RRCA_LO",
+              "target": "WRCA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.023831385718380105,
+              "direct": true
+            },
+            {
+              "source": "RRCA_LO",
+              "target": "TCA_LO",
+              "score": 0.1076499613269748,
+              "lag": 3,
+              "threshold": 0.024320626334481756,
+              "direct": false
+            },
+            {
+              "source": "WRCA_LO",
+              "target": "RRCB_LO",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.03850898439280688,
+              "direct": false
+            },
+            {
+              "source": "WRCA_LO",
+              "target": "WRCB_LO",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.02427932952338323,
+              "direct": false
+            },
+            {
+              "source": "WRCA_LO",
+              "target": "RRCO_LO",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.02172585976060151,
+              "direct": false
+            },
+            {
+              "source": "WRCA_LO",
+              "target": "RRCA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.037314970336103315,
+              "direct": true
+            },
+            {
+              "source": "WRCA_LO",
+              "target": "TCA_LO",
+              "score": 0.1076499613269748,
+              "lag": 3,
+              "threshold": 0.028646642444786524,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "RRCB_LO",
+              "score": 0.07698211180676162,
+              "lag": 3,
+              "threshold": 0.045744762848978104,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "WRCB_LO",
+              "score": 0.07698211180676162,
+              "lag": 3,
+              "threshold": 0.013437202026590002,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "RRCO_LO",
+              "score": 0.07848023711533325,
+              "lag": 3,
+              "threshold": 0.038927778260229244,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "RRCA_LO",
+              "score": 0.08003427614292458,
+              "lag": 3,
+              "threshold": 0.022866912540843276,
+              "direct": true
+            },
+            {
+              "source": "TCA_LO",
+              "target": "WRCA_LO",
+              "score": 0.08003427614292458,
+              "lag": 3,
+              "threshold": 0.02789249387524446,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "RRCO_LO",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "RRCA_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "RRCB_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "WRCA_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "WRCB_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TCA_LO",
+              "outgoing_direct_score": 0.16006855228584915
+            }
+          ]
+        },
+        {
+          "run_id": "LOCA_run+14_alpha0_50",
+          "class_label": "LOCA",
+          "samples": 160,
+          "eligible_alarm_variables": 95,
+          "selected_alarm_variables": [
+            {
+              "tag": "DTHY_LO",
+              "ones": 65,
+              "zeros": 95,
+              "binary_entropy": 0.9744894033980523
+            },
+            {
+              "tag": "RM3_HI",
+              "ones": 96,
+              "zeros": 64,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "STTB_HI",
+              "ones": 96,
+              "zeros": 64,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "TCA_LO",
+              "ones": 104,
+              "zeros": 56,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "TCB_LO",
+              "ones": 104,
+              "zeros": 56,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "RRCB_LO",
+              "ones": 113,
+              "zeros": 47,
+              "binary_entropy": 0.87351622750133
+            }
+          ],
+          "significant_nte_edges": 28,
+          "direct_ndte_edges": 13,
+          "indirect_edges_pruned": 15,
+          "directed_edges": [
+            {
+              "source": "DTHY_LO",
+              "target": "RM3_HI",
+              "score": 0.1261807438694862,
+              "lag": 3,
+              "threshold": 0.025582010067257712,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "STTB_HI",
+              "score": 0.1261807438694862,
+              "lag": 3,
+              "threshold": 0.03948882676984471,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "TCA_LO",
+              "score": 0.08821240376113826,
+              "lag": 3,
+              "threshold": 0.03655586606110994,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "TCB_LO",
+              "score": 0.08821240376113826,
+              "lag": 3,
+              "threshold": 0.04020624865750462,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "RRCB_LO",
+              "score": 0.12446427242927172,
+              "lag": 3,
+              "threshold": 0.04118497055732884,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "DTHY_LO",
+              "score": 0.27176620636011894,
+              "lag": 3,
+              "threshold": 0.021810208089835206,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "STTB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03190855241975941,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "TCA_LO",
+              "score": 0.10164361142360001,
+              "lag": 2,
+              "threshold": 0.03254717446114144,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "TCB_LO",
+              "score": 0.10164361142360001,
+              "lag": 2,
+              "threshold": 0.025331508743198384,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "RRCB_LO",
+              "score": 0.03569137365500141,
+              "lag": 3,
+              "threshold": 0.028262695639828465,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "DTHY_LO",
+              "score": 0.27176620636011894,
+              "lag": 3,
+              "threshold": 0.023450102300968712,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM3_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.02982770831089583,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "TCA_LO",
+              "score": 0.10164361142360001,
+              "lag": 2,
+              "threshold": 0.03270349838365383,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "TCB_LO",
+              "score": 0.10164361142360001,
+              "lag": 2,
+              "threshold": 0.037362586904448825,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RRCB_LO",
+              "score": 0.03569137365500141,
+              "lag": 3,
+              "threshold": 0.031208366018105105,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "DTHY_LO",
+              "score": 0.23476788353419187,
+              "lag": 0,
+              "threshold": 0.04201252762597501,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "RM3_HI",
+              "score": 0.05345635482486433,
+              "lag": 3,
+              "threshold": 0.04247017982182817,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "STTB_HI",
+              "score": 0.05345635482486433,
+              "lag": 3,
+              "threshold": 0.022850288702323356,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "TCB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.026240037336291922,
+              "direct": true
+            },
+            {
+              "source": "TCA_LO",
+              "target": "RRCB_LO",
+              "score": 0.1331555472108339,
+              "lag": 3,
+              "threshold": 0.030241478044577285,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "DTHY_LO",
+              "score": 0.23476788353419187,
+              "lag": 0,
+              "threshold": 0.02803930245481146,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "RM3_HI",
+              "score": 0.05345635482486433,
+              "lag": 3,
+              "threshold": 0.03680270212703329,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "STTB_HI",
+              "score": 0.05345635482486433,
+              "lag": 3,
+              "threshold": 0.03398621605353656,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "TCA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03578660665701663,
+              "direct": true
+            },
+            {
+              "source": "TCB_LO",
+              "target": "RRCB_LO",
+              "score": 0.1331555472108339,
+              "lag": 3,
+              "threshold": 0.025356327337677988,
+              "direct": false
+            },
+            {
+              "source": "RRCB_LO",
+              "target": "DTHY_LO",
+              "score": 0.21074857750818776,
+              "lag": 3,
+              "threshold": 0.031062444943234294,
+              "direct": true
+            },
+            {
+              "source": "RRCB_LO",
+              "target": "RM3_HI",
+              "score": 0.19249971318800863,
+              "lag": 3,
+              "threshold": 0.04090774036808005,
+              "direct": true
+            },
+            {
+              "source": "RRCB_LO",
+              "target": "STTB_HI",
+              "score": 0.19249971318800863,
+              "lag": 3,
+              "threshold": 0.03472911439121447,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "RM3_HI",
+              "outgoing_direct_score": 1.271766206360119
+            },
+            {
+              "tag": "STTB_HI",
+              "outgoing_direct_score": 1.271766206360119
+            },
+            {
+              "tag": "TCA_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TCB_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "RRCB_LO",
+              "outgoing_direct_score": 0.595748003884205
+            },
+            {
+              "tag": "DTHY_LO",
+              "outgoing_direct_score": 0.4287862952612489
+            }
+          ]
+        },
+        {
+          "run_id": "LOCAC_run+6_alpha0_50",
+          "class_label": "LOCAC",
+          "samples": 160,
+          "eligible_alarm_variables": 92,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM3_HI",
+              "ones": 81,
+              "zeros": 79,
+              "binary_entropy": 0.9998872865145765
+            },
+            {
+              "tag": "STTB_HI",
+              "ones": 81,
+              "zeros": 79,
+              "binary_entropy": 0.9998872865145765
+            },
+            {
+              "tag": "WCSP_HI",
+              "ones": 95,
+              "zeros": 65,
+              "binary_entropy": 0.9744894033980523
+            },
+            {
+              "tag": "DTHY_LO",
+              "ones": 64,
+              "zeros": 96,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "TCA_LO",
+              "ones": 50,
+              "zeros": 110,
+              "binary_entropy": 0.8960382325345574
+            },
+            {
+              "tag": "TCB_LO",
+              "ones": 50,
+              "zeros": 110,
+              "binary_entropy": 0.8960382325345574
+            }
+          ],
+          "significant_nte_edges": 28,
+          "direct_ndte_edges": 16,
+          "indirect_edges_pruned": 12,
+          "directed_edges": [
+            {
+              "source": "RM3_HI",
+              "target": "STTB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03254548369930524,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "DTHY_LO",
+              "score": 0.21062248814019913,
+              "lag": 3,
+              "threshold": 0.03053716817517589,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "TCA_LO",
+              "score": 0.24505042856641968,
+              "lag": 2,
+              "threshold": 0.03507705813345263,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "TCB_LO",
+              "score": 0.24505042856641968,
+              "lag": 2,
+              "threshold": 0.038990571800469054,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM3_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03478894852846386,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "DTHY_LO",
+              "score": 0.21062248814019913,
+              "lag": 3,
+              "threshold": 0.026850122347059545,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "TCA_LO",
+              "score": 0.24505042856641968,
+              "lag": 2,
+              "threshold": 0.04272485774048007,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "TCB_LO",
+              "score": 0.24505042856641968,
+              "lag": 2,
+              "threshold": 0.03369870495187801,
+              "direct": false
+            },
+            {
+              "source": "WCSP_HI",
+              "target": "RM3_HI",
+              "score": 0.205886710648032,
+              "lag": 3,
+              "threshold": 0.025824636568292036,
+              "direct": true
+            },
+            {
+              "source": "WCSP_HI",
+              "target": "STTB_HI",
+              "score": 0.205886710648032,
+              "lag": 3,
+              "threshold": 0.019899727141839584,
+              "direct": true
+            },
+            {
+              "source": "WCSP_HI",
+              "target": "DTHY_LO",
+              "score": 0.1578467472050582,
+              "lag": 3,
+              "threshold": 0.03380531316997,
+              "direct": true
+            },
+            {
+              "source": "WCSP_HI",
+              "target": "TCA_LO",
+              "score": 0.19478229936773916,
+              "lag": 3,
+              "threshold": 0.04512827479105817,
+              "direct": true
+            },
+            {
+              "source": "WCSP_HI",
+              "target": "TCB_LO",
+              "score": 0.19478229936773916,
+              "lag": 3,
+              "threshold": 0.03930263797742208,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "RM3_HI",
+              "score": 0.0973744969091096,
+              "lag": 3,
+              "threshold": 0.034512876896818326,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "STTB_HI",
+              "score": 0.0973744969091096,
+              "lag": 3,
+              "threshold": 0.02184112475626421,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "WCSP_HI",
+              "score": 0.16709726339663444,
+              "lag": 3,
+              "threshold": 0.02853768043871521,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "TCA_LO",
+              "score": 0.19684051995965868,
+              "lag": 0,
+              "threshold": 0.027806158979544394,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "TCB_LO",
+              "score": 0.19684051995965868,
+              "lag": 0,
+              "threshold": 0.03314479390976477,
+              "direct": true
+            },
+            {
+              "source": "TCA_LO",
+              "target": "RM3_HI",
+              "score": 0.18384977401103186,
+              "lag": 3,
+              "threshold": 0.022661815035496535,
+              "direct": true
+            },
+            {
+              "source": "TCA_LO",
+              "target": "STTB_HI",
+              "score": 0.18384977401103186,
+              "lag": 3,
+              "threshold": 0.021998861214481625,
+              "direct": true
+            },
+            {
+              "source": "TCA_LO",
+              "target": "WCSP_HI",
+              "score": 0.17458895937040686,
+              "lag": 3,
+              "threshold": 0.036710418592669304,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "DTHY_LO",
+              "score": 0.14502104930684034,
+              "lag": 3,
+              "threshold": 0.03944246409120516,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "TCB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.02924027145272572,
+              "direct": true
+            },
+            {
+              "source": "TCB_LO",
+              "target": "RM3_HI",
+              "score": 0.18384977401103186,
+              "lag": 3,
+              "threshold": 0.030244379876544825,
+              "direct": true
+            },
+            {
+              "source": "TCB_LO",
+              "target": "STTB_HI",
+              "score": 0.18384977401103186,
+              "lag": 3,
+              "threshold": 0.03831581317835122,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "WCSP_HI",
+              "score": 0.17458895937040686,
+              "lag": 3,
+              "threshold": 0.036588852748666016,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "DTHY_LO",
+              "score": 0.14502104930684034,
+              "lag": 3,
+              "threshold": 0.04097018395688421,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "TCA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03296071976252047,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TCA_LO",
+              "outgoing_direct_score": 1.3676995480220637
+            },
+            {
+              "tag": "RM3_HI",
+              "outgoing_direct_score": 1.2106224881401992
+            },
+            {
+              "tag": "STTB_HI",
+              "outgoing_direct_score": 1.2106224881401992
+            },
+            {
+              "tag": "TCB_LO",
+              "outgoing_direct_score": 1.1838497740110319
+            },
+            {
+              "tag": "WCSP_HI",
+              "outgoing_direct_score": 0.9591847672366005
+            },
+            {
+              "tag": "DTHY_LO",
+              "outgoing_direct_score": 0.39368103991931735
+            }
+          ]
+        },
+        {
+          "run_id": "LOCAC_run+9_alpha0_50",
+          "class_label": "LOCAC",
+          "samples": 160,
+          "eligible_alarm_variables": 97,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM3_HI",
+              "ones": 89,
+              "zeros": 71,
+              "binary_entropy": 0.990851089632101
+            },
+            {
+              "tag": "STTB_HI",
+              "ones": 89,
+              "zeros": 71,
+              "binary_entropy": 0.990851089632101
+            },
+            {
+              "tag": "TCA_LO",
+              "ones": 68,
+              "zeros": 92,
+              "binary_entropy": 0.9837082626231859
+            },
+            {
+              "tag": "TCB_LO",
+              "ones": 68,
+              "zeros": 92,
+              "binary_entropy": 0.9837082626231859
+            },
+            {
+              "tag": "RRCA_LO",
+              "ones": 67,
+              "zeros": 93,
+              "binary_entropy": 0.9808671874266268
+            },
+            {
+              "tag": "WRCA_LO",
+              "ones": 67,
+              "zeros": 93,
+              "binary_entropy": 0.9808671874266268
+            }
+          ],
+          "significant_nte_edges": 26,
+          "direct_ndte_edges": 10,
+          "indirect_edges_pruned": 16,
+          "directed_edges": [
+            {
+              "source": "RM3_HI",
+              "target": "STTB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.02728299622842343,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "TCA_LO",
+              "score": 0.12340922122588316,
+              "lag": 2,
+              "threshold": 0.03093155544952695,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "TCB_LO",
+              "score": 0.12340922122588316,
+              "lag": 2,
+              "threshold": 0.03712147383130418,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "RRCA_LO",
+              "score": 0.2788272056315805,
+              "lag": 3,
+              "threshold": 0.022861948099783213,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "WRCA_LO",
+              "score": 0.2788272056315805,
+              "lag": 3,
+              "threshold": 0.027323923617835467,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM3_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.030656297699595304,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "TCA_LO",
+              "score": 0.12340922122588316,
+              "lag": 2,
+              "threshold": 0.0220203832255093,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "TCB_LO",
+              "score": 0.12340922122588316,
+              "lag": 2,
+              "threshold": 0.027038057606643264,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RRCA_LO",
+              "score": 0.2788272056315805,
+              "lag": 3,
+              "threshold": 0.018374742159739377,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "WRCA_LO",
+              "score": 0.2788272056315805,
+              "lag": 3,
+              "threshold": 0.03425501329358627,
+              "direct": true
+            },
+            {
+              "source": "TCA_LO",
+              "target": "RM3_HI",
+              "score": 0.11535910134096561,
+              "lag": 3,
+              "threshold": 0.0354246213371491,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "STTB_HI",
+              "score": 0.11535910134096561,
+              "lag": 3,
+              "threshold": 0.03794578115734426,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "TCB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.029675531613587516,
+              "direct": true
+            },
+            {
+              "source": "TCA_LO",
+              "target": "RRCA_LO",
+              "score": 0.1552517908691582,
+              "lag": 3,
+              "threshold": 0.03487860823800764,
+              "direct": false
+            },
+            {
+              "source": "TCA_LO",
+              "target": "WRCA_LO",
+              "score": 0.1552517908691582,
+              "lag": 3,
+              "threshold": 0.03291241905167761,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "RM3_HI",
+              "score": 0.11535910134096561,
+              "lag": 3,
+              "threshold": 0.01940099794395387,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "STTB_HI",
+              "score": 0.11535910134096561,
+              "lag": 3,
+              "threshold": 0.04092326102323853,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "TCA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.023175922260463257,
+              "direct": true
+            },
+            {
+              "source": "TCB_LO",
+              "target": "RRCA_LO",
+              "score": 0.1552517908691582,
+              "lag": 3,
+              "threshold": 0.04794706327804765,
+              "direct": false
+            },
+            {
+              "source": "TCB_LO",
+              "target": "WRCA_LO",
+              "score": 0.1552517908691582,
+              "lag": 3,
+              "threshold": 0.02039002243658623,
+              "direct": false
+            },
+            {
+              "source": "RRCA_LO",
+              "target": "RM3_HI",
+              "score": 0.09952555272174712,
+              "lag": 0,
+              "threshold": 0.030194665413820345,
+              "direct": false
+            },
+            {
+              "source": "RRCA_LO",
+              "target": "STTB_HI",
+              "score": 0.09952555272174712,
+              "lag": 0,
+              "threshold": 0.04876729906735677,
+              "direct": false
+            },
+            {
+              "source": "RRCA_LO",
+              "target": "WRCA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03430447525056562,
+              "direct": true
+            },
+            {
+              "source": "WRCA_LO",
+              "target": "RM3_HI",
+              "score": 0.09952555272174712,
+              "lag": 0,
+              "threshold": 0.022531463716004743,
+              "direct": false
+            },
+            {
+              "source": "WRCA_LO",
+              "target": "STTB_HI",
+              "score": 0.09952555272174712,
+              "lag": 0,
+              "threshold": 0.032704443886808175,
+              "direct": false
+            },
+            {
+              "source": "WRCA_LO",
+              "target": "RRCA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05582160082660308,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "RM3_HI",
+              "outgoing_direct_score": 1.557654411263161
+            },
+            {
+              "tag": "STTB_HI",
+              "outgoing_direct_score": 1.557654411263161
+            },
+            {
+              "tag": "RRCA_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TCA_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TCB_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "WRCA_LO",
+              "outgoing_direct_score": 1.0
+            }
+          ]
+        },
+        {
+          "run_id": "LR_run+12_alpha0_50",
+          "class_label": "LR",
+          "samples": 160,
+          "eligible_alarm_variables": 16,
+          "selected_alarm_variables": [
+            {
+              "tag": "TAVG_HI",
+              "ones": 18,
+              "zeros": 142,
+              "binary_entropy": 0.507410963664697
+            },
+            {
+              "tag": "QMGA_HI",
+              "ones": 11,
+              "zeros": 149,
+              "binary_entropy": 0.3612414864256602
+            },
+            {
+              "tag": "QMGB_HI",
+              "ones": 11,
+              "zeros": 149,
+              "binary_entropy": 0.3612414864256602
+            },
+            {
+              "tag": "RHRD_HI",
+              "ones": 11,
+              "zeros": 149,
+              "binary_entropy": 0.3612414864256602
+            },
+            {
+              "tag": "THA_HI",
+              "ones": 11,
+              "zeros": 149,
+              "binary_entropy": 0.3612414864256602
+            },
+            {
+              "tag": "THB_HI",
+              "ones": 11,
+              "zeros": 149,
+              "binary_entropy": 0.3612414864256602
+            }
+          ],
+          "significant_nte_edges": 25,
+          "direct_ndte_edges": 25,
+          "indirect_edges_pruned": 0,
+          "directed_edges": [
+            {
+              "source": "QMGA_HI",
+              "target": "TAVG_HI",
+              "score": 0.331132007784659,
+              "lag": 3,
+              "threshold": 0.03158177905771129,
+              "direct": true
+            },
+            {
+              "source": "QMGA_HI",
+              "target": "QMGB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04078180645868586,
+              "direct": true
+            },
+            {
+              "source": "QMGA_HI",
+              "target": "RHRD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04222742662982314,
+              "direct": true
+            },
+            {
+              "source": "QMGA_HI",
+              "target": "THA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.14187350753745154,
+              "direct": true
+            },
+            {
+              "source": "QMGA_HI",
+              "target": "THB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09150895888351183,
+              "direct": true
+            },
+            {
+              "source": "QMGB_HI",
+              "target": "TAVG_HI",
+              "score": 0.331132007784659,
+              "lag": 3,
+              "threshold": 0.06920754450960308,
+              "direct": true
+            },
+            {
+              "source": "QMGB_HI",
+              "target": "QMGA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.10743677243171577,
+              "direct": true
+            },
+            {
+              "source": "QMGB_HI",
+              "target": "RHRD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05381968879212971,
+              "direct": true
+            },
+            {
+              "source": "QMGB_HI",
+              "target": "THA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.045627284429683494,
+              "direct": true
+            },
+            {
+              "source": "QMGB_HI",
+              "target": "THB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.0465099022147709,
+              "direct": true
+            },
+            {
+              "source": "RHRD_HI",
+              "target": "TAVG_HI",
+              "score": 0.331132007784659,
+              "lag": 3,
+              "threshold": 0.04548728656995667,
+              "direct": true
+            },
+            {
+              "source": "RHRD_HI",
+              "target": "QMGA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04220175361503365,
+              "direct": true
+            },
+            {
+              "source": "RHRD_HI",
+              "target": "QMGB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.07767462930583452,
+              "direct": true
+            },
+            {
+              "source": "RHRD_HI",
+              "target": "THA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06483332508602711,
+              "direct": true
+            },
+            {
+              "source": "RHRD_HI",
+              "target": "THB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05041168071515313,
+              "direct": true
+            },
+            {
+              "source": "THA_HI",
+              "target": "TAVG_HI",
+              "score": 0.331132007784659,
+              "lag": 3,
+              "threshold": 0.07578894776621568,
+              "direct": true
+            },
+            {
+              "source": "THA_HI",
+              "target": "QMGA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06934630423457502,
+              "direct": true
+            },
+            {
+              "source": "THA_HI",
+              "target": "QMGB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04581752366940953,
+              "direct": true
+            },
+            {
+              "source": "THA_HI",
+              "target": "RHRD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04751756427031234,
+              "direct": true
+            },
+            {
+              "source": "THA_HI",
+              "target": "THB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09083127125504546,
+              "direct": true
+            },
+            {
+              "source": "THB_HI",
+              "target": "TAVG_HI",
+              "score": 0.331132007784659,
+              "lag": 3,
+              "threshold": 0.07787174271569429,
+              "direct": true
+            },
+            {
+              "source": "THB_HI",
+              "target": "QMGA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06253350485021444,
+              "direct": true
+            },
+            {
+              "source": "THB_HI",
+              "target": "QMGB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05586639998903015,
+              "direct": true
+            },
+            {
+              "source": "THB_HI",
+              "target": "RHRD_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03614034780840136,
+              "direct": true
+            },
+            {
+              "source": "THB_HI",
+              "target": "THA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.07225061147158236,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "QMGA_HI",
+              "outgoing_direct_score": 4.331132007784659
+            },
+            {
+              "tag": "QMGB_HI",
+              "outgoing_direct_score": 4.331132007784659
+            },
+            {
+              "tag": "RHRD_HI",
+              "outgoing_direct_score": 4.331132007784659
+            },
+            {
+              "tag": "THA_HI",
+              "outgoing_direct_score": 4.331132007784659
+            },
+            {
+              "tag": "THB_HI",
+              "outgoing_direct_score": 4.331132007784659
+            },
+            {
+              "tag": "TAVG_HI",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "LR_run+53_alpha0_50",
+          "class_label": "LR",
+          "samples": 160,
+          "eligible_alarm_variables": 27,
+          "selected_alarm_variables": [
+            {
+              "tag": "PWNT_HI",
+              "ones": 74,
+              "zeros": 86,
+              "binary_entropy": 0.9959386076315955
+            },
+            {
+              "tag": "TFSB_HI",
+              "ones": 72,
+              "zeros": 88,
+              "binary_entropy": 0.9927744539878083
+            },
+            {
+              "tag": "HTR_HI",
+              "ones": 71,
+              "zeros": 89,
+              "binary_entropy": 0.990851089632101
+            },
+            {
+              "tag": "TFPK_HI",
+              "ones": 67,
+              "zeros": 93,
+              "binary_entropy": 0.9808671874266268
+            },
+            {
+              "tag": "TF_HI",
+              "ones": 67,
+              "zeros": 93,
+              "binary_entropy": 0.9808671874266268
+            },
+            {
+              "tag": "WSTA_HI",
+              "ones": 67,
+              "zeros": 93,
+              "binary_entropy": 0.9808671874266268
+            }
+          ],
+          "significant_nte_edges": 23,
+          "direct_ndte_edges": 14,
+          "indirect_edges_pruned": 9,
+          "directed_edges": [
+            {
+              "source": "PWNT_HI",
+              "target": "HTR_HI",
+              "score": 0.32118363946198814,
+              "lag": 3,
+              "threshold": 0.04107272821362691,
+              "direct": true
+            },
+            {
+              "source": "TFSB_HI",
+              "target": "PWNT_HI",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.033887282024393214,
+              "direct": true
+            },
+            {
+              "source": "TFSB_HI",
+              "target": "HTR_HI",
+              "score": 0.3073115395882996,
+              "lag": 3,
+              "threshold": 0.026168900488683988,
+              "direct": false
+            },
+            {
+              "source": "HTR_HI",
+              "target": "PWNT_HI",
+              "score": 0.05503592081928088,
+              "lag": 3,
+              "threshold": 0.027317944445610136,
+              "direct": false
+            },
+            {
+              "source": "HTR_HI",
+              "target": "TFSB_HI",
+              "score": 0.05719019943660841,
+              "lag": 3,
+              "threshold": 0.021459405426569256,
+              "direct": false
+            },
+            {
+              "source": "HTR_HI",
+              "target": "TFPK_HI",
+              "score": 0.06333346297307663,
+              "lag": 3,
+              "threshold": 0.023487730831398903,
+              "direct": true
+            },
+            {
+              "source": "HTR_HI",
+              "target": "TF_HI",
+              "score": 0.06333346297307663,
+              "lag": 3,
+              "threshold": 0.018374742159739377,
+              "direct": true
+            },
+            {
+              "source": "HTR_HI",
+              "target": "WSTA_HI",
+              "score": 0.06333346297307663,
+              "lag": 3,
+              "threshold": 0.03425501329358627,
+              "direct": true
+            },
+            {
+              "source": "TFPK_HI",
+              "target": "PWNT_HI",
+              "score": 0.5252069001373476,
+              "lag": 3,
+              "threshold": 0.03340384826622593,
+              "direct": false
+            },
+            {
+              "source": "TFPK_HI",
+              "target": "TFSB_HI",
+              "score": 0.6356751376484832,
+              "lag": 3,
+              "threshold": 0.04129020655161697,
+              "direct": true
+            },
+            {
+              "source": "TFPK_HI",
+              "target": "HTR_HI",
+              "score": 0.2796255081017307,
+              "lag": 3,
+              "threshold": 0.028865879153661858,
+              "direct": false
+            },
+            {
+              "source": "TFPK_HI",
+              "target": "TF_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03203940411888682,
+              "direct": true
+            },
+            {
+              "source": "TFPK_HI",
+              "target": "WSTA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03387418515434355,
+              "direct": true
+            },
+            {
+              "source": "TF_HI",
+              "target": "PWNT_HI",
+              "score": 0.5252069001373476,
+              "lag": 3,
+              "threshold": 0.015581564070873478,
+              "direct": false
+            },
+            {
+              "source": "TF_HI",
+              "target": "TFSB_HI",
+              "score": 0.6356751376484832,
+              "lag": 3,
+              "threshold": 0.041395195435974384,
+              "direct": true
+            },
+            {
+              "source": "TF_HI",
+              "target": "HTR_HI",
+              "score": 0.2796255081017307,
+              "lag": 3,
+              "threshold": 0.024944839768651316,
+              "direct": false
+            },
+            {
+              "source": "TF_HI",
+              "target": "TFPK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.050048831092192915,
+              "direct": true
+            },
+            {
+              "source": "TF_HI",
+              "target": "WSTA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.019023437315437253,
+              "direct": true
+            },
+            {
+              "source": "WSTA_HI",
+              "target": "PWNT_HI",
+              "score": 0.5252069001373476,
+              "lag": 3,
+              "threshold": 0.02944173962617671,
+              "direct": false
+            },
+            {
+              "source": "WSTA_HI",
+              "target": "TFSB_HI",
+              "score": 0.6356751376484832,
+              "lag": 3,
+              "threshold": 0.0511252498013907,
+              "direct": true
+            },
+            {
+              "source": "WSTA_HI",
+              "target": "HTR_HI",
+              "score": 0.2796255081017307,
+              "lag": 3,
+              "threshold": 0.032649228369862573,
+              "direct": false
+            },
+            {
+              "source": "WSTA_HI",
+              "target": "TFPK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.02516264207368957,
+              "direct": true
+            },
+            {
+              "source": "WSTA_HI",
+              "target": "TF_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03524957179532671,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TFPK_HI",
+              "outgoing_direct_score": 2.6356751376484833
+            },
+            {
+              "tag": "TF_HI",
+              "outgoing_direct_score": 2.6356751376484833
+            },
+            {
+              "tag": "WSTA_HI",
+              "outgoing_direct_score": 2.6356751376484833
+            },
+            {
+              "tag": "TFSB_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "PWNT_HI",
+              "outgoing_direct_score": 0.32118363946198814
+            },
+            {
+              "tag": "HTR_HI",
+              "outgoing_direct_score": 0.19000038891922988
+            }
+          ]
+        },
+        {
+          "run_id": "RI_run-82_alpha0_50",
+          "class_label": "RI",
+          "samples": 160,
+          "eligible_alarm_variables": 85,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM3_HI",
+              "ones": 99,
+              "zeros": 61,
+              "binary_entropy": 0.9589200762672536
+            },
+            {
+              "tag": "STTB_HI",
+              "ones": 99,
+              "zeros": 61,
+              "binary_entropy": 0.9589200762672536
+            },
+            {
+              "tag": "DTHY_LO",
+              "ones": 59,
+              "zeros": 101,
+              "binary_entropy": 0.949707471948113
+            },
+            {
+              "tag": "HLW_LO",
+              "ones": 59,
+              "zeros": 101,
+              "binary_entropy": 0.949707471948113
+            },
+            {
+              "tag": "LVPZ_HI",
+              "ones": 107,
+              "zeros": 53,
+              "binary_entropy": 0.9161983971575356
+            },
+            {
+              "tag": "VOL_HI",
+              "ones": 107,
+              "zeros": 53,
+              "binary_entropy": 0.9161983971575356
+            }
+          ],
+          "significant_nte_edges": 25,
+          "direct_ndte_edges": 17,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "RM3_HI",
+              "target": "STTB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.02254212195857195,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "DTHY_LO",
+              "score": 0.3904996060800353,
+              "lag": 3,
+              "threshold": 0.041674345786178325,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "HLW_LO",
+              "score": 0.5248912968673477,
+              "lag": 0,
+              "threshold": 0.02727120130544658,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "LVPZ_HI",
+              "score": 0.7038320253091421,
+              "lag": 3,
+              "threshold": 0.028608439554240927,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "VOL_HI",
+              "score": 0.7038320253091421,
+              "lag": 3,
+              "threshold": 0.028152923369434847,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM3_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.022351405678116647,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "DTHY_LO",
+              "score": 0.3904996060800353,
+              "lag": 3,
+              "threshold": 0.026399863392751022,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "HLW_LO",
+              "score": 0.5248912968673477,
+              "lag": 0,
+              "threshold": 0.04463879618182074,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "LVPZ_HI",
+              "score": 0.7038320253091421,
+              "lag": 3,
+              "threshold": 0.03603783013869691,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "VOL_HI",
+              "score": 0.7038320253091421,
+              "lag": 3,
+              "threshold": 0.02829940352823646,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "RM3_HI",
+              "score": 0.04958012568457837,
+              "lag": 3,
+              "threshold": 0.04274271257672309,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "STTB_HI",
+              "score": 0.04958012568457837,
+              "lag": 3,
+              "threshold": 0.03425728797528103,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "HLW_LO",
+              "score": 0.05073550040502195,
+              "lag": 3,
+              "threshold": 0.025248193182274142,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "RM3_HI",
+              "score": 0.7283177845835181,
+              "lag": 0,
+              "threshold": 0.02684342148785812,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "STTB_HI",
+              "score": 0.7283177845835181,
+              "lag": 0,
+              "threshold": 0.030994444996062787,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "DTHY_LO",
+              "score": 0.3894503358577185,
+              "lag": 3,
+              "threshold": 0.032568989784947044,
+              "direct": false
+            },
+            {
+              "source": "HLW_LO",
+              "target": "LVPZ_HI",
+              "score": 0.5848769991015904,
+              "lag": 3,
+              "threshold": 0.02892612233849699,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "VOL_HI",
+              "score": 0.5848769991015904,
+              "lag": 3,
+              "threshold": 0.027235993861474066,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "DTHY_LO",
+              "score": 0.7306692721631992,
+              "lag": 2,
+              "threshold": 0.043020351647376186,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "HLW_LO",
+              "score": 0.0420326350322523,
+              "lag": 3,
+              "threshold": 0.04124509415479885,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "VOL_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03392019998495866,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "RM3_HI",
+              "score": 0.04109345757507732,
+              "lag": 3,
+              "threshold": 0.026167564546334777,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "DTHY_LO",
+              "score": 0.7306692721631992,
+              "lag": 2,
+              "threshold": 0.04830644945503022,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "HLW_LO",
+              "score": 0.0420326350322523,
+              "lag": 3,
+              "threshold": 0.038660559890599445,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "LVPZ_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.0393162832895486,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "RM3_HI",
+              "outgoing_direct_score": 2.932555347485632
+            },
+            {
+              "tag": "STTB_HI",
+              "outgoing_direct_score": 2.932555347485632
+            },
+            {
+              "tag": "HLW_LO",
+              "outgoing_direct_score": 2.626389567370217
+            },
+            {
+              "tag": "LVPZ_HI",
+              "outgoing_direct_score": 1.7306692721631993
+            },
+            {
+              "tag": "VOL_HI",
+              "outgoing_direct_score": 1.7306692721631993
+            },
+            {
+              "tag": "DTHY_LO",
+              "outgoing_direct_score": 0.05073550040502195
+            }
+          ]
+        },
+        {
+          "run_id": "RI_run-52_alpha0_50",
+          "class_label": "RI",
+          "samples": 160,
+          "eligible_alarm_variables": 86,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM3_HI",
+              "ones": 100,
+              "zeros": 60,
+              "binary_entropy": 0.954434002924965
+            },
+            {
+              "tag": "STTB_HI",
+              "ones": 100,
+              "zeros": 60,
+              "binary_entropy": 0.954434002924965
+            },
+            {
+              "tag": "HLW_LO",
+              "ones": 58,
+              "zeros": 102,
+              "binary_entropy": 0.9447388286467892
+            },
+            {
+              "tag": "DTHY_LO",
+              "ones": 57,
+              "zeros": 103,
+              "binary_entropy": 0.9395263129669762
+            },
+            {
+              "tag": "LVPZ_HI",
+              "ones": 107,
+              "zeros": 53,
+              "binary_entropy": 0.9161983971575356
+            },
+            {
+              "tag": "VOL_HI",
+              "ones": 107,
+              "zeros": 53,
+              "binary_entropy": 0.9161983971575356
+            }
+          ],
+          "significant_nte_edges": 23,
+          "direct_ndte_edges": 17,
+          "indirect_edges_pruned": 6,
+          "directed_edges": [
+            {
+              "source": "RM3_HI",
+              "target": "STTB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04234639431493366,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "HLW_LO",
+              "score": 0.5261857594864228,
+              "lag": 0,
+              "threshold": 0.03310571249037164,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "DTHY_LO",
+              "score": 0.3811091923135701,
+              "lag": 3,
+              "threshold": 0.03085697831537313,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "LVPZ_HI",
+              "score": 0.5730540511774311,
+              "lag": 3,
+              "threshold": 0.027238942117853982,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "VOL_HI",
+              "score": 0.5730540511774311,
+              "lag": 3,
+              "threshold": 0.019167903018197374,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM3_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.025046528365822752,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "HLW_LO",
+              "score": 0.5261857594864228,
+              "lag": 0,
+              "threshold": 0.04344201603026145,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "DTHY_LO",
+              "score": 0.3811091923135701,
+              "lag": 3,
+              "threshold": 0.0327945216672745,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "LVPZ_HI",
+              "score": 0.5730540511774311,
+              "lag": 3,
+              "threshold": 0.02802903011719944,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "VOL_HI",
+              "score": 0.5730540511774311,
+              "lag": 3,
+              "threshold": 0.04591853483245996,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "RM3_HI",
+              "score": 0.727427442832203,
+              "lag": 0,
+              "threshold": 0.04060543724073917,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "STTB_HI",
+              "score": 0.727427442832203,
+              "lag": 0,
+              "threshold": 0.027714887533390468,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "DTHY_LO",
+              "score": 0.3791997115967325,
+              "lag": 3,
+              "threshold": 0.02422132465478437,
+              "direct": false
+            },
+            {
+              "source": "HLW_LO",
+              "target": "LVPZ_HI",
+              "score": 0.5355156699864474,
+              "lag": 3,
+              "threshold": 0.028306060942159195,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "VOL_HI",
+              "score": 0.5355156699864474,
+              "lag": 3,
+              "threshold": 0.030970213446511193,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "RM3_HI",
+              "score": 0.0552347589083344,
+              "lag": 3,
+              "threshold": 0.031209305497826904,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "STTB_HI",
+              "score": 0.0552347589083344,
+              "lag": 3,
+              "threshold": 0.03105329538656363,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "HLW_LO",
+              "score": 0.056562118745890344,
+              "lag": 3,
+              "threshold": 0.040220683087967044,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "HLW_LO",
+              "score": 0.04301263359546281,
+              "lag": 3,
+              "threshold": 0.04065730588945209,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "DTHY_LO",
+              "score": 0.7647242361565727,
+              "lag": 3,
+              "threshold": 0.023726208660057105,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "VOL_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.0258305079714392,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "DTHY_LO",
+              "score": 0.7647242361565727,
+              "lag": 3,
+              "threshold": 0.056641497641263076,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "LVPZ_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03141525693115535,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "RM3_HI",
+              "outgoing_direct_score": 2.6722938618412853
+            },
+            {
+              "tag": "STTB_HI",
+              "outgoing_direct_score": 2.6722938618412853
+            },
+            {
+              "tag": "HLW_LO",
+              "outgoing_direct_score": 2.5258862256373007
+            },
+            {
+              "tag": "LVPZ_HI",
+              "outgoing_direct_score": 1.7647242361565727
+            },
+            {
+              "tag": "VOL_HI",
+              "outgoing_direct_score": 1.7647242361565727
+            },
+            {
+              "tag": "DTHY_LO",
+              "outgoing_direct_score": 0.056562118745890344
+            }
+          ]
+        },
+        {
+          "run_id": "RW_run+8_alpha0_50",
+          "class_label": "RW",
+          "samples": 160,
+          "eligible_alarm_variables": 86,
+          "selected_alarm_variables": [
+            {
+              "tag": "LVPZ_HI",
+              "ones": 104,
+              "zeros": 56,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "VOL_HI",
+              "ones": 104,
+              "zeros": 56,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "DTHY_LO",
+              "ones": 50,
+              "zeros": 110,
+              "binary_entropy": 0.8960382325345574
+            },
+            {
+              "tag": "HLW_LO",
+              "ones": 48,
+              "zeros": 112,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "NSGA_HI",
+              "ones": 113,
+              "zeros": 47,
+              "binary_entropy": 0.87351622750133
+            },
+            {
+              "tag": "NSGB_HI",
+              "ones": 113,
+              "zeros": 47,
+              "binary_entropy": 0.87351622750133
+            }
+          ],
+          "significant_nte_edges": 29,
+          "direct_ndte_edges": 13,
+          "indirect_edges_pruned": 16,
+          "directed_edges": [
+            {
+              "source": "LVPZ_HI",
+              "target": "VOL_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.028261490695965442,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "DTHY_LO",
+              "score": 0.7288795031395132,
+              "lag": 0,
+              "threshold": 0.03661968704017178,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "HLW_LO",
+              "score": 0.05805602178712932,
+              "lag": 0,
+              "threshold": 0.024850655844244996,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "NSGA_HI",
+              "score": 0.27388869973261576,
+              "lag": 3,
+              "threshold": 0.02976857012809371,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "NSGB_HI",
+              "score": 0.27388869973261576,
+              "lag": 3,
+              "threshold": 0.0319921812040197,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "LVPZ_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.028565262402240266,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "DTHY_LO",
+              "score": 0.7288795031395132,
+              "lag": 0,
+              "threshold": 0.030024058361510564,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "HLW_LO",
+              "score": 0.05805602178712932,
+              "lag": 0,
+              "threshold": 0.03377122452746384,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "NSGA_HI",
+              "score": 0.27388869973261576,
+              "lag": 3,
+              "threshold": 0.057569631532516916,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "NSGB_HI",
+              "score": 0.27388869973261576,
+              "lag": 3,
+              "threshold": 0.03796923480798475,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "LVPZ_HI",
+              "score": 0.2172602511752758,
+              "lag": 0,
+              "threshold": 0.03365538379710636,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "VOL_HI",
+              "score": 0.2172602511752758,
+              "lag": 0,
+              "threshold": 0.02855531146803596,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "NSGA_HI",
+              "score": 0.5113172888648282,
+              "lag": 1,
+              "threshold": 0.047678320064539606,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "NSGB_HI",
+              "score": 0.5113172888648282,
+              "lag": 1,
+              "threshold": 0.0345781631329134,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "LVPZ_HI",
+              "score": 0.3466634294880516,
+              "lag": 3,
+              "threshold": 0.04130393926475844,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "VOL_HI",
+              "score": 0.3466634294880516,
+              "lag": 3,
+              "threshold": 0.02242654625428571,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "DTHY_LO",
+              "score": 0.318888722768645,
+              "lag": 3,
+              "threshold": 0.028391422520030064,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "NSGA_HI",
+              "score": 0.1457870977889988,
+              "lag": 3,
+              "threshold": 0.030384525610390203,
+              "direct": false
+            },
+            {
+              "source": "HLW_LO",
+              "target": "NSGB_HI",
+              "score": 0.1457870977889988,
+              "lag": 3,
+              "threshold": 0.041676770475490905,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "LVPZ_HI",
+              "score": 0.11726937656674463,
+              "lag": 3,
+              "threshold": 0.03954158389685736,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "VOL_HI",
+              "score": 0.11726937656674463,
+              "lag": 3,
+              "threshold": 0.04192784089886399,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "DTHY_LO",
+              "score": 0.0973867473232084,
+              "lag": 3,
+              "threshold": 0.02808507594243173,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "HLW_LO",
+              "score": 0.15222072537316422,
+              "lag": 1,
+              "threshold": 0.034549007783880016,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "NSGB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05012911417672082,
+              "direct": true
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "LVPZ_HI",
+              "score": 0.11726937656674463,
+              "lag": 3,
+              "threshold": 0.027817434619849757,
+              "direct": false
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "VOL_HI",
+              "score": 0.11726937656674463,
+              "lag": 3,
+              "threshold": 0.02989257374026,
+              "direct": false
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "DTHY_LO",
+              "score": 0.0973867473232084,
+              "lag": 3,
+              "threshold": 0.04474792195610855,
+              "direct": false
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "HLW_LO",
+              "score": 0.15222072537316422,
+              "lag": 1,
+              "threshold": 0.05457931356840702,
+              "direct": false
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "NSGA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.029101509682727112,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "LVPZ_HI",
+              "outgoing_direct_score": 1.7288795031395132
+            },
+            {
+              "tag": "VOL_HI",
+              "outgoing_direct_score": 1.7288795031395132
+            },
+            {
+              "tag": "DTHY_LO",
+              "outgoing_direct_score": 1.457155080080208
+            },
+            {
+              "tag": "HLW_LO",
+              "outgoing_direct_score": 1.0122155817447482
+            },
+            {
+              "tag": "NSGA_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "NSGB_HI",
+              "outgoing_direct_score": 1.0
+            }
+          ]
+        },
+        {
+          "run_id": "RW_run+26_alpha0_50",
+          "class_label": "RW",
+          "samples": 160,
+          "eligible_alarm_variables": 85,
+          "selected_alarm_variables": [
+            {
+              "tag": "LVPZ_HI",
+              "ones": 104,
+              "zeros": 56,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "VOL_HI",
+              "ones": 104,
+              "zeros": 56,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "DTHY_LO",
+              "ones": 51,
+              "zeros": 109,
+              "binary_entropy": 0.9030169458796671
+            },
+            {
+              "tag": "HLW_LO",
+              "ones": 48,
+              "zeros": 112,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "NSGA_HI",
+              "ones": 112,
+              "zeros": 48,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "NSGB_HI",
+              "ones": 112,
+              "zeros": 48,
+              "binary_entropy": 0.8812908992306927
+            }
+          ],
+          "significant_nte_edges": 27,
+          "direct_ndte_edges": 9,
+          "indirect_edges_pruned": 18,
+          "directed_edges": [
+            {
+              "source": "LVPZ_HI",
+              "target": "VOL_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03787422615078915,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "DTHY_LO",
+              "score": 0.7449519812447304,
+              "lag": 1,
+              "threshold": 0.026905845214471837,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "HLW_LO",
+              "score": 0.16221287054539624,
+              "lag": 2,
+              "threshold": 0.02647348500770279,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "NSGA_HI",
+              "score": 0.25568282876199366,
+              "lag": 3,
+              "threshold": 0.02839960691320458,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "NSGB_HI",
+              "score": 0.25568282876199366,
+              "lag": 3,
+              "threshold": 0.04086327417693554,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "LVPZ_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03187098942133031,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "DTHY_LO",
+              "score": 0.7449519812447304,
+              "lag": 1,
+              "threshold": 0.03727629164292001,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "HLW_LO",
+              "score": 0.16221287054539624,
+              "lag": 2,
+              "threshold": 0.04675356289129898,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "NSGA_HI",
+              "score": 0.25568282876199366,
+              "lag": 3,
+              "threshold": 0.03649050933766307,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "NSGB_HI",
+              "score": 0.25568282876199366,
+              "lag": 3,
+              "threshold": 0.05724883181312483,
+              "direct": false
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "NSGA_HI",
+              "score": 0.513941754278203,
+              "lag": 2,
+              "threshold": 0.04281202877647716,
+              "direct": true
+            },
+            {
+              "source": "DTHY_LO",
+              "target": "NSGB_HI",
+              "score": 0.513941754278203,
+              "lag": 2,
+              "threshold": 0.042989588832487845,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "LVPZ_HI",
+              "score": 0.3643426200062051,
+              "lag": 3,
+              "threshold": 0.02333341695350102,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "VOL_HI",
+              "score": 0.3643426200062051,
+              "lag": 3,
+              "threshold": 0.04130393926475844,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "DTHY_LO",
+              "score": 0.32745411257155266,
+              "lag": 3,
+              "threshold": 0.020206843197761136,
+              "direct": true
+            },
+            {
+              "source": "HLW_LO",
+              "target": "NSGA_HI",
+              "score": 0.148128739913178,
+              "lag": 3,
+              "threshold": 0.028118386221101344,
+              "direct": false
+            },
+            {
+              "source": "HLW_LO",
+              "target": "NSGB_HI",
+              "score": 0.148128739913178,
+              "lag": 3,
+              "threshold": 0.03537413069319189,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "LVPZ_HI",
+              "score": 0.11931528027814098,
+              "lag": 3,
+              "threshold": 0.030506297174248225,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "VOL_HI",
+              "score": 0.11931528027814098,
+              "lag": 3,
+              "threshold": 0.030356012166739093,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "DTHY_LO",
+              "score": 0.0982882146475681,
+              "lag": 3,
+              "threshold": 0.04736516012066983,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "HLW_LO",
+              "score": 0.14851997811491746,
+              "lag": 1,
+              "threshold": 0.04333852559197947,
+              "direct": false
+            },
+            {
+              "source": "NSGA_HI",
+              "target": "NSGB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03360307668646217,
+              "direct": true
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "LVPZ_HI",
+              "score": 0.11931528027814098,
+              "lag": 3,
+              "threshold": 0.03648735094160338,
+              "direct": false
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "VOL_HI",
+              "score": 0.11931528027814098,
+              "lag": 3,
+              "threshold": 0.0307157171856564,
+              "direct": false
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "DTHY_LO",
+              "score": 0.0982882146475681,
+              "lag": 3,
+              "threshold": 0.026911195221189746,
+              "direct": false
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "HLW_LO",
+              "score": 0.14851997811491746,
+              "lag": 1,
+              "threshold": 0.04260500400754021,
+              "direct": false
+            },
+            {
+              "source": "NSGB_HI",
+              "target": "NSGA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.05547022221815308,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "HLW_LO",
+              "outgoing_direct_score": 1.0561393525839629
+            },
+            {
+              "tag": "DTHY_LO",
+              "outgoing_direct_score": 1.027883508556406
+            },
+            {
+              "tag": "LVPZ_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "NSGA_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "NSGB_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "VOL_HI",
+              "outgoing_direct_score": 1.0
+            }
+          ]
+        },
+        {
+          "run_id": "SGATR_run+19_alpha0_50",
+          "class_label": "SGATR",
+          "samples": 160,
+          "eligible_alarm_variables": 10,
+          "selected_alarm_variables": [
+            {
+              "tag": "SCMA_LO",
+              "ones": 53,
+              "zeros": 107,
+              "binary_entropy": 0.9161983971575356
+            },
+            {
+              "tag": "SCMB_LO",
+              "ones": 53,
+              "zeros": 107,
+              "binary_entropy": 0.9161983971575356
+            },
+            {
+              "tag": "PSGA_LO",
+              "ones": 137,
+              "zeros": 23,
+              "binary_entropy": 0.5939760926692159
+            },
+            {
+              "tag": "QMGA_HI",
+              "ones": 140,
+              "zeros": 20,
+              "binary_entropy": 0.5435644431995964
+            },
+            {
+              "tag": "THA_HI",
+              "ones": 141,
+              "zeros": 19,
+              "binary_entropy": 0.5257570733644998
+            },
+            {
+              "tag": "DTHY_HI",
+              "ones": 145,
+              "zeros": 15,
+              "binary_entropy": 0.4488644887230294
+            }
+          ],
+          "significant_nte_edges": 20,
+          "direct_ndte_edges": 12,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "SCMA_LO",
+              "target": "SCMB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.02491114051575709,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "PSGA_LO",
+              "score": 0.33205310209931993,
+              "lag": 0,
+              "threshold": 0.06335719753390703,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "QMGA_HI",
+              "score": 0.14641371397954783,
+              "lag": 0,
+              "threshold": 0.04668010990209373,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "THA_HI",
+              "score": 0.12227881327431778,
+              "lag": 3,
+              "threshold": 0.06916018783484934,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "DTHY_HI",
+              "score": 0.18569130782390664,
+              "lag": 3,
+              "threshold": 0.06845398847972614,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "SCMA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03706487700762589,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "PSGA_LO",
+              "score": 0.33205310209931993,
+              "lag": 0,
+              "threshold": 0.06684935403264114,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "QMGA_HI",
+              "score": 0.14641371397954783,
+              "lag": 0,
+              "threshold": 0.058474571240467954,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "THA_HI",
+              "score": 0.12227881327431778,
+              "lag": 3,
+              "threshold": 0.05300696013809099,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "DTHY_HI",
+              "score": 0.18569130782390664,
+              "lag": 3,
+              "threshold": 0.05676435391119934,
+              "direct": false
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "SCMA_LO",
+              "score": 0.29118663764920516,
+              "lag": 2,
+              "threshold": 0.030093971664693166,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "SCMB_LO",
+              "score": 0.29118663764920516,
+              "lag": 2,
+              "threshold": 0.029944378898380246,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "QMGA_HI",
+              "score": 0.28024168181320686,
+              "lag": 3,
+              "threshold": 0.05523949401125992,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "DTHY_HI",
+              "score": 0.6226692770823491,
+              "lag": 0,
+              "threshold": 0.05655497320328156,
+              "direct": true
+            },
+            {
+              "source": "QMGA_HI",
+              "target": "SCMA_LO",
+              "score": 0.06860997671037528,
+              "lag": 3,
+              "threshold": 0.05202362699010379,
+              "direct": true
+            },
+            {
+              "source": "QMGA_HI",
+              "target": "SCMB_LO",
+              "score": 0.06860997671037528,
+              "lag": 3,
+              "threshold": 0.04732585621142367,
+              "direct": true
+            },
+            {
+              "source": "QMGA_HI",
+              "target": "PSGA_LO",
+              "score": 0.19512205131070948,
+              "lag": 3,
+              "threshold": 0.056097146000435076,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "SCMA_LO",
+              "score": 0.38293819899734705,
+              "lag": 2,
+              "threshold": 0.030308110271687318,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "SCMB_LO",
+              "score": 0.38293819899734705,
+              "lag": 2,
+              "threshold": 0.03459527746606106,
+              "direct": true
+            },
+            {
+              "source": "DTHY_HI",
+              "target": "PSGA_LO",
+              "score": 0.40228413708036226,
+              "lag": 0,
+              "threshold": 0.05679548111499472,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "PSGA_LO",
+              "outgoing_direct_score": 1.4852842341939663
+            },
+            {
+              "tag": "DTHY_HI",
+              "outgoing_direct_score": 1.1681605350750563
+            },
+            {
+              "tag": "SCMA_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "SCMB_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "QMGA_HI",
+              "outgoing_direct_score": 0.33234200473146003
+            },
+            {
+              "tag": "THA_HI",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "SGATR_run+24_alpha0_50",
+          "class_label": "SGATR",
+          "samples": 160,
+          "eligible_alarm_variables": 16,
+          "selected_alarm_variables": [
+            {
+              "tag": "LVPZ_HI",
+              "ones": 63,
+              "zeros": 97,
+              "binary_entropy": 0.9671769644333241
+            },
+            {
+              "tag": "VOL_HI",
+              "ones": 63,
+              "zeros": 97,
+              "binary_entropy": 0.9671769644333241
+            },
+            {
+              "tag": "WECS_HI",
+              "ones": 49,
+              "zeros": 111,
+              "binary_entropy": 0.8887971978466939
+            },
+            {
+              "tag": "PSGA_LO",
+              "ones": 117,
+              "zeros": 43,
+              "binary_entropy": 0.8396652408658091
+            },
+            {
+              "tag": "WCHG_HI",
+              "ones": 43,
+              "zeros": 117,
+              "binary_entropy": 0.839665240865809
+            },
+            {
+              "tag": "SCMA_LO",
+              "ones": 42,
+              "zeros": 118,
+              "binary_entropy": 0.8304955225035797
+            }
+          ],
+          "significant_nte_edges": 26,
+          "direct_ndte_edges": 14,
+          "indirect_edges_pruned": 12,
+          "directed_edges": [
+            {
+              "source": "LVPZ_HI",
+              "target": "VOL_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.024896234099994242,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "WECS_HI",
+              "score": 0.3571581477108976,
+              "lag": 3,
+              "threshold": 0.02916669723129666,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "PSGA_LO",
+              "score": 0.1650550972230268,
+              "lag": 2,
+              "threshold": 0.05058190005294608,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "WCHG_HI",
+              "score": 0.3619407066310648,
+              "lag": 3,
+              "threshold": 0.04014349097815633,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "SCMA_LO",
+              "score": 0.19927865273439127,
+              "lag": 0,
+              "threshold": 0.05098818975655217,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "LVPZ_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.045184204381954717,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "WECS_HI",
+              "score": 0.3571581477108976,
+              "lag": 3,
+              "threshold": 0.03174962325091593,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "PSGA_LO",
+              "score": 0.1650550972230268,
+              "lag": 2,
+              "threshold": 0.03199320277500295,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "WCHG_HI",
+              "score": 0.3619407066310648,
+              "lag": 3,
+              "threshold": 0.03646192378307236,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "SCMA_LO",
+              "score": 0.19927865273439127,
+              "lag": 0,
+              "threshold": 0.04594249523300209,
+              "direct": false
+            },
+            {
+              "source": "WECS_HI",
+              "target": "PSGA_LO",
+              "score": 0.05127944657477812,
+              "lag": 2,
+              "threshold": 0.03263810360158559,
+              "direct": false
+            },
+            {
+              "source": "WECS_HI",
+              "target": "WCHG_HI",
+              "score": 0.8112881665686906,
+              "lag": 0,
+              "threshold": 0.032264186536238,
+              "direct": true
+            },
+            {
+              "source": "WECS_HI",
+              "target": "SCMA_LO",
+              "score": 0.06044896424826207,
+              "lag": 0,
+              "threshold": 0.020314377475647818,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "LVPZ_HI",
+              "score": 0.2431229986074238,
+              "lag": 3,
+              "threshold": 0.04319363496109259,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "VOL_HI",
+              "score": 0.2431229986074238,
+              "lag": 3,
+              "threshold": 0.04363742415390704,
+              "direct": true
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "WECS_HI",
+              "score": 0.19365623917012942,
+              "lag": 3,
+              "threshold": 0.03518261816089814,
+              "direct": false
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "WCHG_HI",
+              "score": 0.20117558849218864,
+              "lag": 3,
+              "threshold": 0.028079911263300696,
+              "direct": false
+            },
+            {
+              "source": "PSGA_LO",
+              "target": "SCMA_LO",
+              "score": 0.11247723747737692,
+              "lag": 2,
+              "threshold": 0.03880501928581469,
+              "direct": true
+            },
+            {
+              "source": "WCHG_HI",
+              "target": "WECS_HI",
+              "score": 0.7639163653064582,
+              "lag": 0,
+              "threshold": 0.04301620000540667,
+              "direct": true
+            },
+            {
+              "source": "WCHG_HI",
+              "target": "PSGA_LO",
+              "score": 0.04314963697062002,
+              "lag": 2,
+              "threshold": 0.031566214571820496,
+              "direct": false
+            },
+            {
+              "source": "WCHG_HI",
+              "target": "SCMA_LO",
+              "score": 0.05100342121210555,
+              "lag": 0,
+              "threshold": 0.03803652542528058,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "LVPZ_HI",
+              "score": 0.23222976369250015,
+              "lag": 3,
+              "threshold": 0.06088506940687286,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "VOL_HI",
+              "score": 0.23222976369250015,
+              "lag": 3,
+              "threshold": 0.023889218138195247,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "WECS_HI",
+              "score": 0.18743027102603993,
+              "lag": 3,
+              "threshold": 0.043863557831828874,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "PSGA_LO",
+              "score": 0.5020094682514018,
+              "lag": 1,
+              "threshold": 0.03577124522911817,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "WCHG_HI",
+              "score": 0.19485662720874297,
+              "lag": 3,
+              "threshold": 0.0358344973943507,
+              "direct": false
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "LVPZ_HI",
+              "outgoing_direct_score": 1.3571581477108976
+            },
+            {
+              "tag": "VOL_HI",
+              "outgoing_direct_score": 1.3571581477108976
+            },
+            {
+              "tag": "SCMA_LO",
+              "outgoing_direct_score": 0.9664689956364021
+            },
+            {
+              "tag": "WECS_HI",
+              "outgoing_direct_score": 0.8717371308169527
+            },
+            {
+              "tag": "WCHG_HI",
+              "outgoing_direct_score": 0.8149197865185638
+            },
+            {
+              "tag": "PSGA_LO",
+              "outgoing_direct_score": 0.5987232346922245
+            }
+          ]
+        },
+        {
+          "run_id": "SGBTR_run+24_alpha0_50",
+          "class_label": "SGBTR",
+          "samples": 160,
+          "eligible_alarm_variables": 14,
+          "selected_alarm_variables": [
+            {
+              "tag": "LVPZ_HI",
+              "ones": 63,
+              "zeros": 97,
+              "binary_entropy": 0.9671769644333241
+            },
+            {
+              "tag": "VOL_HI",
+              "ones": 63,
+              "zeros": 97,
+              "binary_entropy": 0.9671769644333241
+            },
+            {
+              "tag": "WECS_HI",
+              "ones": 50,
+              "zeros": 110,
+              "binary_entropy": 0.8960382325345574
+            },
+            {
+              "tag": "WCHG_HI",
+              "ones": 45,
+              "zeros": 115,
+              "binary_entropy": 0.8571484374283715
+            },
+            {
+              "tag": "SCMA_LO",
+              "ones": 42,
+              "zeros": 118,
+              "binary_entropy": 0.8304955225035797
+            },
+            {
+              "tag": "SCMB_LO",
+              "ones": 42,
+              "zeros": 118,
+              "binary_entropy": 0.8304955225035797
+            }
+          ],
+          "significant_nte_edges": 26,
+          "direct_ndte_edges": 14,
+          "indirect_edges_pruned": 12,
+          "directed_edges": [
+            {
+              "source": "LVPZ_HI",
+              "target": "VOL_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.030782933436675243,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "WECS_HI",
+              "score": 0.3627645800816156,
+              "lag": 3,
+              "threshold": 0.04626777747206428,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "WCHG_HI",
+              "score": 0.36864414294585457,
+              "lag": 3,
+              "threshold": 0.037969772095631286,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "SCMA_LO",
+              "score": 0.19927865273439127,
+              "lag": 0,
+              "threshold": 0.05098818975655217,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "SCMB_LO",
+              "score": 0.19927865273439127,
+              "lag": 0,
+              "threshold": 0.05224690402029267,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "LVPZ_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.030229403115673948,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "WECS_HI",
+              "score": 0.3627645800816156,
+              "lag": 3,
+              "threshold": 0.03334758254408554,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "WCHG_HI",
+              "score": 0.36864414294585457,
+              "lag": 3,
+              "threshold": 0.039361033791063926,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "SCMA_LO",
+              "score": 0.19927865273439127,
+              "lag": 0,
+              "threshold": 0.04594249523300209,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "SCMB_LO",
+              "score": 0.19927865273439127,
+              "lag": 0,
+              "threshold": 0.03586000237385867,
+              "direct": false
+            },
+            {
+              "source": "WECS_HI",
+              "target": "WCHG_HI",
+              "score": 0.8381558588670617,
+              "lag": 0,
+              "threshold": 0.04118170267211065,
+              "direct": true
+            },
+            {
+              "source": "WECS_HI",
+              "target": "SCMA_LO",
+              "score": 0.06210510505355471,
+              "lag": 0,
+              "threshold": 0.02000215497030691,
+              "direct": true
+            },
+            {
+              "source": "WECS_HI",
+              "target": "SCMB_LO",
+              "score": 0.06210510505355471,
+              "lag": 0,
+              "threshold": 0.048051469791897006,
+              "direct": true
+            },
+            {
+              "source": "WCHG_HI",
+              "target": "WECS_HI",
+              "score": 0.8016279246960136,
+              "lag": 0,
+              "threshold": 0.03704662964940482,
+              "direct": true
+            },
+            {
+              "source": "WCHG_HI",
+              "target": "SCMA_LO",
+              "score": 0.05406278654130925,
+              "lag": 0,
+              "threshold": 0.03961773747931457,
+              "direct": true
+            },
+            {
+              "source": "WCHG_HI",
+              "target": "SCMB_LO",
+              "score": 0.05406278654130925,
+              "lag": 0,
+              "threshold": 0.044458043744570235,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "LVPZ_HI",
+              "score": 0.23222976369250015,
+              "lag": 3,
+              "threshold": 0.03426072110235341,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "VOL_HI",
+              "score": 0.23222976369250015,
+              "lag": 3,
+              "threshold": 0.038959245899886176,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "WECS_HI",
+              "score": 0.18914389332401005,
+              "lag": 3,
+              "threshold": 0.03830690473324483,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "WCHG_HI",
+              "score": 0.19642325176784292,
+              "lag": 3,
+              "threshold": 0.05175949471007991,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "SCMB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.042138170782251315,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "LVPZ_HI",
+              "score": 0.23222976369250015,
+              "lag": 3,
+              "threshold": 0.023889218138195247,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "VOL_HI",
+              "score": 0.23222976369250015,
+              "lag": 3,
+              "threshold": 0.038518286166402585,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "WECS_HI",
+              "score": 0.18914389332401005,
+              "lag": 3,
+              "threshold": 0.036487416210991594,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "WCHG_HI",
+              "score": 0.19642325176784292,
+              "lag": 3,
+              "threshold": 0.04227315251539261,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "SCMA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.031745834510704805,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "SCMA_LO",
+              "outgoing_direct_score": 1.4644595273850003
+            },
+            {
+              "tag": "SCMB_LO",
+              "outgoing_direct_score": 1.4644595273850003
+            },
+            {
+              "tag": "LVPZ_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "VOL_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "WECS_HI",
+              "outgoing_direct_score": 0.9623660689741711
+            },
+            {
+              "tag": "WCHG_HI",
+              "outgoing_direct_score": 0.9097534977786321
+            }
+          ]
+        },
+        {
+          "run_id": "SGBTR_run+31_alpha0_50",
+          "class_label": "SGBTR",
+          "samples": 160,
+          "eligible_alarm_variables": 16,
+          "selected_alarm_variables": [
+            {
+              "tag": "WCHG_HI",
+              "ones": 94,
+              "zeros": 66,
+              "binary_entropy": 0.9777945702913884
+            },
+            {
+              "tag": "WECS_HI",
+              "ones": 95,
+              "zeros": 65,
+              "binary_entropy": 0.9744894033980523
+            },
+            {
+              "tag": "SCMA_LO",
+              "ones": 40,
+              "zeros": 120,
+              "binary_entropy": 0.8112781244591328
+            },
+            {
+              "tag": "LVPZ_HI",
+              "ones": 39,
+              "zeros": 121,
+              "binary_entropy": 0.8012209808507772
+            },
+            {
+              "tag": "SCMB_LO",
+              "ones": 39,
+              "zeros": 121,
+              "binary_entropy": 0.8012209808507772
+            },
+            {
+              "tag": "VOL_HI",
+              "ones": 39,
+              "zeros": 121,
+              "binary_entropy": 0.8012209808507772
+            }
+          ],
+          "significant_nte_edges": 23,
+          "direct_ndte_edges": 17,
+          "indirect_edges_pruned": 6,
+          "directed_edges": [
+            {
+              "source": "WCHG_HI",
+              "target": "WECS_HI",
+              "score": 0.9431862140505446,
+              "lag": 0,
+              "threshold": 0.04958608601793795,
+              "direct": true
+            },
+            {
+              "source": "WCHG_HI",
+              "target": "SCMA_LO",
+              "score": 0.17605417727746364,
+              "lag": 0,
+              "threshold": 0.034973321175891914,
+              "direct": true
+            },
+            {
+              "source": "WCHG_HI",
+              "target": "SCMB_LO",
+              "score": 0.17280763137080857,
+              "lag": 0,
+              "threshold": 0.04925646199887175,
+              "direct": true
+            },
+            {
+              "source": "WECS_HI",
+              "target": "WCHG_HI",
+              "score": 0.9534599301491512,
+              "lag": 0,
+              "threshold": 0.03585391116814525,
+              "direct": true
+            },
+            {
+              "source": "WECS_HI",
+              "target": "SCMA_LO",
+              "score": 0.18076086924993195,
+              "lag": 0,
+              "threshold": 0.059231456026780614,
+              "direct": true
+            },
+            {
+              "source": "WECS_HI",
+              "target": "SCMB_LO",
+              "score": 0.17733070993531386,
+              "lag": 0,
+              "threshold": 0.04396324690222626,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "WCHG_HI",
+              "score": 0.30007409220891934,
+              "lag": 2,
+              "threshold": 0.02764587039133908,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "WECS_HI",
+              "score": 0.29932080764088465,
+              "lag": 0,
+              "threshold": 0.03128802063271928,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "LVPZ_HI",
+              "score": 0.03906637312127215,
+              "lag": 3,
+              "threshold": 0.03452637976613424,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "SCMB_LO",
+              "score": 0.7439554938970467,
+              "lag": 0,
+              "threshold": 0.0346339886300564,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "WCHG_HI",
+              "score": 0.29718760495803676,
+              "lag": 3,
+              "threshold": 0.03807706981918577,
+              "direct": true
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "WECS_HI",
+              "score": 0.3111773088176102,
+              "lag": 3,
+              "threshold": 0.051407852405545906,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "SCMA_LO",
+              "score": 0.41478260833693503,
+              "lag": 2,
+              "threshold": 0.03532146942125978,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "SCMB_LO",
+              "score": 0.42480866444403464,
+              "lag": 2,
+              "threshold": 0.04263763349301373,
+              "direct": false
+            },
+            {
+              "source": "LVPZ_HI",
+              "target": "VOL_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04420602100452029,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "WCHG_HI",
+              "score": 0.29718760495803676,
+              "lag": 3,
+              "threshold": 0.033374051691360346,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "WECS_HI",
+              "score": 0.2964384975213552,
+              "lag": 2,
+              "threshold": 0.03888117347028197,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "SCMA_LO",
+              "score": 0.8944751154169868,
+              "lag": 0,
+              "threshold": 0.033124167826317774,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "WCHG_HI",
+              "score": 0.29718760495803676,
+              "lag": 3,
+              "threshold": 0.03386562178710486,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "WECS_HI",
+              "score": 0.3111773088176102,
+              "lag": 3,
+              "threshold": 0.04640039592370076,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "SCMA_LO",
+              "score": 0.41478260833693503,
+              "lag": 2,
+              "threshold": 0.042384677620236566,
+              "direct": false
+            },
+            {
+              "source": "VOL_HI",
+              "target": "LVPZ_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06515332783864612,
+              "direct": true
+            },
+            {
+              "source": "VOL_HI",
+              "target": "SCMB_LO",
+              "score": 0.42480866444403464,
+              "lag": 2,
+              "threshold": 0.025977542990697634,
+              "direct": false
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "VOL_HI",
+              "outgoing_direct_score": 1.608364913775647
+            },
+            {
+              "tag": "SCMA_LO",
+              "outgoing_direct_score": 1.3824167668681229
+            },
+            {
+              "tag": "WECS_HI",
+              "outgoing_direct_score": 1.311551509334397
+            },
+            {
+              "tag": "LVPZ_HI",
+              "outgoing_direct_score": 1.2971876049580366
+            },
+            {
+              "tag": "WCHG_HI",
+              "outgoing_direct_score": 1.292048022698817
+            },
+            {
+              "tag": "SCMB_LO",
+              "outgoing_direct_score": 1.1916627203750236
+            }
+          ]
+        },
+        {
+          "run_id": "SLBIC_run+7_alpha0_50",
+          "class_label": "SLBIC",
+          "samples": 160,
+          "eligible_alarm_variables": 8,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM2_HI",
+              "ones": 60,
+              "zeros": 100,
+              "binary_entropy": 0.954434002924965
+            },
+            {
+              "tag": "TPCT_HI",
+              "ones": 147,
+              "zeros": 13,
+              "binary_entropy": 0.40656840096998903
+            },
+            {
+              "tag": "RM1_HI",
+              "ones": 148,
+              "zeros": 12,
+              "binary_entropy": 0.38431154412649693
+            },
+            {
+              "tag": "MBK_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "PRBA_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "PRB_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            }
+          ],
+          "significant_nte_edges": 16,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "RM1_HI",
+              "target": "RM2_HI",
+              "score": 0.04633624207452014,
+              "lag": 3,
+              "threshold": 0.04550461942921742,
+              "direct": true
+            },
+            {
+              "source": "RM1_HI",
+              "target": "TPCT_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.0489191801373921,
+              "direct": true
+            },
+            {
+              "source": "MBK_HI",
+              "target": "RM2_HI",
+              "score": 0.0420326350322523,
+              "lag": 3,
+              "threshold": 0.0329024344283305,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "TPCT_HI",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.0644277516918954,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "RM1_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.04708107787632375,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "PRBA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.07432205810484765,
+              "direct": true
+            },
+            {
+              "source": "MBK_HI",
+              "target": "PRB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06934630423457502,
+              "direct": true
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "TPCT_HI",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.088982213561975,
+              "direct": false
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "RM1_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.07904068704916377,
+              "direct": false
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "MBK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09083127125504546,
+              "direct": true
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "PRB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08577709843512012,
+              "direct": true
+            },
+            {
+              "source": "PRB_HI",
+              "target": "RM2_HI",
+              "score": 0.0420326350322523,
+              "lag": 3,
+              "threshold": 0.03460686109464069,
+              "direct": false
+            },
+            {
+              "source": "PRB_HI",
+              "target": "TPCT_HI",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.04644875302166989,
+              "direct": false
+            },
+            {
+              "source": "PRB_HI",
+              "target": "RM1_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.03691789154586864,
+              "direct": false
+            },
+            {
+              "source": "PRB_HI",
+              "target": "MBK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.07225061147158236,
+              "direct": true
+            },
+            {
+              "source": "PRB_HI",
+              "target": "PRBA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06566879353931099,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "MBK_HI",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "PRBA_HI",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "PRB_HI",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "RM1_HI",
+              "outgoing_direct_score": 1.0463362420745201
+            },
+            {
+              "tag": "RM2_HI",
+              "outgoing_direct_score": 0.0
+            },
+            {
+              "tag": "TPCT_HI",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "SLBIC_run+8_alpha0_50",
+          "class_label": "SLBIC",
+          "samples": 160,
+          "eligible_alarm_variables": 8,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM2_HI",
+              "ones": 54,
+              "zeros": 106,
+              "binary_entropy": 0.9224062617590723
+            },
+            {
+              "tag": "RM1_HI",
+              "ones": 148,
+              "zeros": 12,
+              "binary_entropy": 0.38431154412649693
+            },
+            {
+              "tag": "TPCT_HI",
+              "ones": 148,
+              "zeros": 12,
+              "binary_entropy": 0.38431154412649693
+            },
+            {
+              "tag": "MBK_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "PRBA_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            },
+            {
+              "tag": "PRB_HI",
+              "ones": 149,
+              "zeros": 11,
+              "binary_entropy": 0.3612414864256601
+            }
+          ],
+          "significant_nte_edges": 19,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 11,
+          "directed_edges": [
+            {
+              "source": "RM1_HI",
+              "target": "RM2_HI",
+              "score": 0.0536858410004194,
+              "lag": 3,
+              "threshold": 0.04390339114048379,
+              "direct": false
+            },
+            {
+              "source": "RM1_HI",
+              "target": "TPCT_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06850185864338838,
+              "direct": true
+            },
+            {
+              "source": "TPCT_HI",
+              "target": "RM2_HI",
+              "score": 0.0536858410004194,
+              "lag": 3,
+              "threshold": 0.05000364622049047,
+              "direct": false
+            },
+            {
+              "source": "TPCT_HI",
+              "target": "RM1_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04708107787632375,
+              "direct": true
+            },
+            {
+              "source": "MBK_HI",
+              "target": "RM2_HI",
+              "score": 0.04862618899422255,
+              "lag": 3,
+              "threshold": 0.04214758274294694,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "RM1_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.05374320408838576,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "TPCT_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.0910104324903172,
+              "direct": false
+            },
+            {
+              "source": "MBK_HI",
+              "target": "PRBA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04751756427031234,
+              "direct": true
+            },
+            {
+              "source": "MBK_HI",
+              "target": "PRB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09083127125504546,
+              "direct": true
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "RM2_HI",
+              "score": 0.04862618899422255,
+              "lag": 3,
+              "threshold": 0.035956440376429935,
+              "direct": false
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "RM1_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.06253350485021444,
+              "direct": false
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "TPCT_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.04985150594811401,
+              "direct": false
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "MBK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.03614034780840136,
+              "direct": true
+            },
+            {
+              "source": "PRBA_HI",
+              "target": "PRB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.07225061147158236,
+              "direct": true
+            },
+            {
+              "source": "PRB_HI",
+              "target": "RM2_HI",
+              "score": 0.04862618899422255,
+              "lag": 3,
+              "threshold": 0.03668179195921928,
+              "direct": false
+            },
+            {
+              "source": "PRB_HI",
+              "target": "RM1_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.039730497054505556,
+              "direct": false
+            },
+            {
+              "source": "PRB_HI",
+              "target": "TPCT_HI",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.04957003058333167,
+              "direct": false
+            },
+            {
+              "source": "PRB_HI",
+              "target": "MBK_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06199686913962806,
+              "direct": true
+            },
+            {
+              "source": "PRB_HI",
+              "target": "PRBA_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09884477979934424,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "MBK_HI",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "PRBA_HI",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "PRB_HI",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "RM1_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TPCT_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "RM2_HI",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "SLBOC_run+15_alpha0_50",
+          "class_label": "SLBOC",
+          "samples": 160,
+          "eligible_alarm_variables": 6,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM2_HI",
+              "ones": 34,
+              "zeros": 126,
+              "binary_entropy": 0.7462343013654811
+            },
+            {
+              "tag": "RM3_HI",
+              "ones": 7,
+              "zeros": 153,
+              "binary_entropy": 0.2592291924724938
+            },
+            {
+              "tag": "STTB_HI",
+              "ones": 7,
+              "zeros": 153,
+              "binary_entropy": 0.2592291924724938
+            },
+            {
+              "tag": "RM2_LO",
+              "ones": 6,
+              "zeros": 154,
+              "binary_entropy": 0.2307099556914764
+            },
+            {
+              "tag": "SCMA_LO",
+              "ones": 5,
+              "zeros": 155,
+              "binary_entropy": 0.20062232431271465
+            },
+            {
+              "tag": "SCMB_LO",
+              "ones": 5,
+              "zeros": 155,
+              "binary_entropy": 0.20062232431271465
+            }
+          ],
+          "significant_nte_edges": 12,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 4,
+          "directed_edges": [
+            {
+              "source": "RM2_HI",
+              "target": "RM3_HI",
+              "score": 0.200414989317929,
+              "lag": 0,
+              "threshold": 0.08963140664078423,
+              "direct": true
+            },
+            {
+              "source": "RM2_HI",
+              "target": "STTB_HI",
+              "score": 0.200414989317929,
+              "lag": 0,
+              "threshold": 0.09184399598060956,
+              "direct": true
+            },
+            {
+              "source": "RM2_HI",
+              "target": "SCMA_LO",
+              "score": 0.2014557325944808,
+              "lag": 0,
+              "threshold": 0.08172505791635125,
+              "direct": true
+            },
+            {
+              "source": "RM2_HI",
+              "target": "SCMB_LO",
+              "score": 0.2014557325944808,
+              "lag": 0,
+              "threshold": 0.10268718731832234,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "RM2_HI",
+              "score": 0.05648200732843334,
+              "lag": 3,
+              "threshold": 0.043674371526513454,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "STTB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.11420488639295748,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM2_HI",
+              "score": 0.05648200732843334,
+              "lag": 3,
+              "threshold": 0.04128031046546095,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM3_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06339587896387305,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "RM2_HI",
+              "score": 0.03884545440605014,
+              "lag": 3,
+              "threshold": 0.024801480966498438,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "SCMB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.053215125715799075,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "RM2_HI",
+              "score": 0.03884545440605014,
+              "lag": 3,
+              "threshold": 0.03274430570792704,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "SCMA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.02795670194585396,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "RM3_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "SCMA_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "SCMB_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "STTB_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "RM2_HI",
+              "outgoing_direct_score": 0.8037414438248196
+            },
+            {
+              "tag": "RM2_LO",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "SLBOC_run+17_alpha0_50",
+          "class_label": "SLBOC",
+          "samples": 160,
+          "eligible_alarm_variables": 6,
+          "selected_alarm_variables": [
+            {
+              "tag": "RM2_HI",
+              "ones": 31,
+              "zeros": 129,
+              "binary_entropy": 0.7092505850649067
+            },
+            {
+              "tag": "RM2_LO",
+              "ones": 23,
+              "zeros": 137,
+              "binary_entropy": 0.5939760926692158
+            },
+            {
+              "tag": "RM3_HI",
+              "ones": 7,
+              "zeros": 153,
+              "binary_entropy": 0.2592291924724938
+            },
+            {
+              "tag": "STTB_HI",
+              "ones": 7,
+              "zeros": 153,
+              "binary_entropy": 0.2592291924724938
+            },
+            {
+              "tag": "SCMA_LO",
+              "ones": 5,
+              "zeros": 155,
+              "binary_entropy": 0.20062232431271465
+            },
+            {
+              "tag": "SCMB_LO",
+              "ones": 5,
+              "zeros": 155,
+              "binary_entropy": 0.20062232431271465
+            }
+          ],
+          "significant_nte_edges": 12,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 4,
+          "directed_edges": [
+            {
+              "source": "RM2_HI",
+              "target": "RM3_HI",
+              "score": 0.2144939197444673,
+              "lag": 0,
+              "threshold": 0.09521694748042836,
+              "direct": true
+            },
+            {
+              "source": "RM2_HI",
+              "target": "STTB_HI",
+              "score": 0.2144939197444673,
+              "lag": 0,
+              "threshold": 0.11557648897195238,
+              "direct": true
+            },
+            {
+              "source": "RM2_HI",
+              "target": "SCMA_LO",
+              "score": 0.21499030640639938,
+              "lag": 0,
+              "threshold": 0.07214293006836886,
+              "direct": true
+            },
+            {
+              "source": "RM2_HI",
+              "target": "SCMB_LO",
+              "score": 0.21499030640639938,
+              "lag": 0,
+              "threshold": 0.13682707158863766,
+              "direct": true
+            },
+            {
+              "source": "RM3_HI",
+              "target": "RM2_HI",
+              "score": 0.06480449269509703,
+              "lag": 3,
+              "threshold": 0.05131869186313747,
+              "direct": false
+            },
+            {
+              "source": "RM3_HI",
+              "target": "STTB_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06448592905752355,
+              "direct": true
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM2_HI",
+              "score": 0.06480449269509703,
+              "lag": 3,
+              "threshold": 0.04348248227001905,
+              "direct": false
+            },
+            {
+              "source": "STTB_HI",
+              "target": "RM3_HI",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.04337709773836307,
+              "direct": true
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "RM2_HI",
+              "score": 0.04435272462559903,
+              "lag": 3,
+              "threshold": 0.03942628167454976,
+              "direct": false
+            },
+            {
+              "source": "SCMA_LO",
+              "target": "SCMB_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.13937797425244056,
+              "direct": true
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "RM2_HI",
+              "score": 0.04435272462559903,
+              "lag": 3,
+              "threshold": 0.039089970510145386,
+              "direct": false
+            },
+            {
+              "source": "SCMB_LO",
+              "target": "SCMA_LO",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.0346234746049761,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "RM3_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "SCMA_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "SCMB_LO",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "STTB_HI",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "RM2_HI",
+              "outgoing_direct_score": 0.8589684523017334
+            },
+            {
+              "tag": "RM2_LO",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        }
+      ],
+      "analysis_runs_per_class": 2,
+      "class_count": 11,
+      "selection_policy": {
+        "partition": "test",
+        "split_identity": "npp_alarm_alpha050_unique_seed1103:1103",
+        "run_choice": "lowest source run/sample numbers in the frozen test partition",
+        "alarm_variable_choice": "highest binary entropy after occurrence and clearance guards",
+        "minimum_occurrences": 3,
+        "minimum_clear_samples": 3,
+        "max_features": 6
+      },
+      "lag_histogram": {
+        "0": 220,
+        "1": 25,
+        "2": 47,
+        "3": 233
+      },
+      "stability_pairs": {
+        "within_class_evaluable": 11,
+        "cross_class_evaluable": 220
+      },
+      "data_evidence": {
+        "files": [
+          {
+            "path": "data/public_datasets/alipan_anomaly_archives/Industrial-Alarm-Datasets.rar",
+            "bytes": 199576419,
+            "sha256": "5ce297029e075d1c47f4af59cb0757bc6cdc0bf187489e31acc6b1d2e8daefd1"
+          }
+        ],
+        "combined_sha256": "d0ef9694fd9fdaf74afd2c896a6401e702d45c24cefd8f8adfba77bb30f3ce1a"
+      },
+      "reporting_status": "Book Chapter 4.1 structural transfer validation; alarm-tag causal ground truth is unavailable, so no root-cause top-k accuracy is claimed",
+      "limitations": [
+        "Fault-family labels group stability comparisons but do not identify a root alarm tag.",
+        "Feature selection uses binary entropy inside each fixed evaluation episode and is descriptive, not trained.",
+        "The unavailable industrial source records prevent exact paper-table reproduction."
+      ]
+    },
+    "config": "configs/experiments/npp_alarm_nte_ndte_structural_validation.json"
+  }
+}

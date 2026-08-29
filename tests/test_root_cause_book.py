@@ -1,3 +1,6 @@
+from pathlib import Path
+from zipfile import ZipFile
+
 import numpy as np
 
 from iia_benchmark.models import (
@@ -12,6 +15,7 @@ from iia_benchmark.models import (
     normalized_transfer_entropy,
     piecewise_linear_representation,
 )
+from iia_benchmark.runner import _run_real_alarm_causal_graph
 
 
 def _binary_chain(length: int = 2500, lag: int = 3) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -91,3 +95,49 @@ def test_plr_delay_and_nonnegative_contributions_rank_driver() -> None:
     changing = [result for result in results if result.target_trend != 0]
     assert changing
     assert max(result.factors[0] for result in changing) > 0.8
+
+
+def test_grouped_alarm_nte_runner_activates_and_prunes(tmp_path: Path) -> None:
+    archive = tmp_path / "alarms.zip"
+    with ZipFile(archive, "w") as destination:
+        for label in ("A", "B"):
+            for run_number in (1, 2):
+                root, middle, target = _binary_chain(length=500, lag=3)
+                if label == "B":
+                    root, target = target.copy(), root.copy()
+                noise = np.random.default_rng(run_number).binomial(1, 0.08, len(root))
+                matrix = np.column_stack([root, middle, target, noise])
+                rows = ["ROOT,MIDDLE,TARGET,NOISE"] + [
+                    ",".join(map(str, row)) for row in matrix
+                ]
+                destination.writestr(
+                    f"alarmseriesdata/{label}/{label}_run{run_number}_alarm.csv",
+                    "\n".join(rows) + "\n",
+                )
+    result = _run_real_alarm_causal_graph(
+        tmp_path,
+        {
+            "dataset": {
+                "loader": "fcc_alarm_zip",
+                "alarm_archive": "alarms.zip",
+                "alarm_representation": "state",
+                "scenarios": ["A", "B"],
+            },
+            "split": {"id": "synthetic_grouped", "test_run_numbers": [1, 2]},
+            "model": {
+                "analysis_runs_per_class": 2,
+                "minimum_occurrences": 3,
+                "minimum_clear_samples": 3,
+                "max_features": 4,
+                "max_lag": 6,
+                "simulations": 5,
+                "significance": 0.1,
+                "seed": 17,
+            },
+        },
+    )
+    assert result["activation"]["passed"]
+    assert result["activation"]["analysis_runs"] == 4
+    assert result["activation"]["nte_significant_edges"] > 0
+    assert result["activation"]["ndte_pruned_edges"] > 0
+    assert result["reporting_status"].startswith("Book Chapter 4.1")

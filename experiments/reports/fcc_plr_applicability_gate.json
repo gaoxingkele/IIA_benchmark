@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "dataset_family": "fcc_alarm",
+  "target_algorithm": "book_4_4_plr_rca",
+  "source": {
+    "path": "data/public_datasets/fcc_alarm/timeseriesdata.zip",
+    "bytes": 18732740,
+    "sha256": "8a67269306c4c52898400d977473689b8a0b9133145d395d329bf44f998f6669",
+    "citation_doi": "10.60517/2v23vv393"
+  },
+  "schema": {
+    "runs": 1600,
+    "scenarios": 16,
+    "runs_per_scenario": {
+      "V2_high": 100,
+      "V2_low": 100,
+      "V3_high": 100,
+      "V3_low": 100,
+      "V4_high": 100,
+      "V4_low": 100,
+      "V6_high": 100,
+      "V6_low": 100,
+      "V7_high": 100,
+      "V7_low": 100,
+      "V8_high": 100,
+      "V8_low": 100,
+      "catalyst_deactivation": 100,
+      "cyclone_damage": 100,
+      "preheater_shutdown": 100,
+      "preheater_temp_increase": 100
+    },
+    "samples_per_run": [
+      60
+    ],
+    "process_variables": 24,
+    "valve_variables": 10,
+    "disturbance_variables": 14,
+    "missing_root_disturbance_columns": []
+  },
+  "temporal_cause_audit": {
+    "runs_with_any_within_run_disturbance_change": 0,
+    "runs_with_root_disturbance_change": 0,
+    "root_disturbance_peak_to_peak": {
+      "min": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "interpretation": "Injected disturbance columns encode a run-level constant setting; they do not contain within-episode transitions for PLR lag recovery."
+  },
+  "g0": {
+    "data_integrity_passed": true,
+    "plr_temporal_admission": false,
+    "decision": "deny temporal PLR score on FCC",
+    "reason": "PLR lag and contribution factors require time-varying candidate causes. A constant injected-disturbance vector makes lag undefined and all within-run cause trends zero."
+  },
+  "allowed_use": "FCC remains valid for alarm classification and process response analysis; PLR requires a dataset exposing time-varying causal driver signals."
+}

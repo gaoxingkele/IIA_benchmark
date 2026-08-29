@@ -446,6 +446,249 @@ def _run_real_causal_graph(
     }
 
 
+def _run_real_alarm_causal_graph(
+    root: Path, references: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    """Run Book 4.1 NTE/NDTE on grouped, task-matched alarm episodes."""
+
+    dataset = references["dataset"]
+    split_config = references["split"]
+    model = references["model"]
+    loader = str(dataset["loader"])
+    evidence_paths: list[Path]
+    if loader == "fcc_alarm_zip":
+        archive = _resolve(root, dataset["alarm_archive"])
+        all_runs = load_fcc_alarm_runs(
+            archive,
+            scenarios=tuple(dataset["scenarios"]),
+            run_numbers=tuple(split_config["test_run_numbers"]),
+        )
+        split_identity = str(split_config["id"])
+        evidence_paths = [archive]
+    elif loader == "tep_five_class_alarm_zip":
+        archive = _resolve(root, dataset["alarm_archive"])
+        loaded = load_tep_five_class_alarm_runs(
+            archive, disturbances=tuple(dataset["disturbances"])
+        )
+        split = build_tep_five_class_split(
+            loaded,
+            train_per_class=int(split_config["train_per_class"]),
+            calibration_per_class=int(split_config["calibration_per_class"]),
+            test_per_class=int(split_config["test_per_class"]),
+            random_state=int(split_config["random_state"]),
+            representation=str(dataset.get("alarm_representation", "state")),
+        )
+        test_ids = set(split.test_run_ids)
+        all_runs = tuple(run for run in loaded if run.run_id in test_ids)
+        split_identity = f"{split_config['id']}:{split.random_state}"
+        evidence_paths = [archive]
+    elif loader == "npp_alarm_extracted_alpha_slice":
+        extracted_root = _resolve(root, dataset["extracted_root"])
+        archive = _resolve(root, dataset["source_archive"])
+        loaded = load_npp_alarm_runs(
+            extracted_root,
+            alpha=float(dataset["alpha"]),
+            fault_families=tuple(dataset["fault_families"]),
+            minimum_samples=int(dataset["minimum_samples"]),
+            horizon_samples=int(dataset["horizon_samples"]),
+            include_normal=bool(dataset.get("include_normal", False)),
+        )
+        split = build_npp_alarm_split(
+            loaded,
+            train_per_class=int(split_config["train_per_class"]),
+            calibration_per_class=int(split_config["calibration_per_class"]),
+            test_per_class=int(split_config["test_per_class"]),
+            random_state=int(split_config["random_state"]),
+            representation=str(dataset.get("alarm_representation", "state")),
+        )
+        test_ids = set(split.test_run_ids)
+        all_runs = tuple(run for run in loaded if run.run_id in test_ids)
+        split_identity = f"{split_config['id']}:{split.random_state}"
+        evidence_paths = [archive]
+    else:
+        raise ValueError(f"Unsupported grouped alarm graph loader: {loader}")
+
+    def label_of(run: object) -> str:
+        for name in ("scenario", "disturbance", "fault_family"):
+            value = getattr(run, name, None)
+            if value is not None:
+                return str(value)
+        raise ValueError("alarm graph run has no class label")
+
+    per_class = int(model["analysis_runs_per_class"])
+    selected_runs = []
+    for label in sorted({label_of(run) for run in all_runs}):
+        class_runs = sorted(
+            (run for run in all_runs if label_of(run) == label),
+            key=lambda run: (
+                int(getattr(run, "run_number", getattr(run, "sample_number", 0))),
+                str(run.run_id),
+            ),
+        )
+        if len(class_runs) < per_class:
+            raise ValueError(
+                f"{label} has {len(class_runs)} evaluation runs; {per_class} required"
+            )
+        selected_runs.extend(class_runs[:per_class])
+
+    minimum_ones = int(model["minimum_occurrences"])
+    minimum_zeros = int(model.get("minimum_clear_samples", minimum_ones))
+    max_features = int(model["max_features"])
+    run_results = []
+    edge_sets: dict[str, set[tuple[str, str]]] = {}
+    labels_by_run: dict[str, str] = {}
+    for run_index, run in enumerate(selected_runs):
+        matrix = np.asarray(
+            run.representation(str(dataset.get("alarm_representation", "state"))),
+            dtype=np.int8,
+        )
+        names = tuple(run.alarm_names)
+        ones = matrix.sum(axis=0)
+        zeros = len(matrix) - ones
+        eligible = np.flatnonzero((ones >= minimum_ones) & (zeros >= minimum_zeros))
+        probability = ones / len(matrix)
+        entropy = np.zeros_like(probability, dtype=float)
+        interior = (probability > 0) & (probability < 1)
+        entropy[interior] = -(
+            probability[interior] * np.log2(probability[interior])
+            + (1.0 - probability[interior])
+            * np.log2(1.0 - probability[interior])
+        )
+        selected = sorted(
+            map(int, eligible), key=lambda index: (-entropy[index], names[index])
+        )[:max_features]
+        series = {names[index]: matrix[:, index] for index in selected}
+        edges = []
+        if len(series) >= 2:
+            graph = NormalizedTransferEntropyGraph(
+                max_lag=int(model["max_lag"]),
+                simulations=int(model["simulations"]),
+                significance=float(model["significance"]),
+                minimum_occurrences=minimum_ones,
+                seed=int(model.get("seed", 0)) + run_index,
+            )
+            edges = graph.infer(series)
+        direct_edges = {
+            (edge.source, edge.target) for edge in edges if edge.direct
+        }
+        run_id = str(run.run_id)
+        label = label_of(run)
+        edge_sets[run_id] = direct_edges
+        labels_by_run[run_id] = label
+        outgoing = {
+            name: float(
+                sum(edge.score for edge in edges if edge.direct and edge.source == name)
+            )
+            for name in series
+        }
+        ranking = sorted(outgoing, key=lambda name: (-outgoing[name], name))
+        run_results.append(
+            {
+                "run_id": run_id,
+                "class_label": label,
+                "samples": len(matrix),
+                "eligible_alarm_variables": len(eligible),
+                "selected_alarm_variables": [
+                    {
+                        "tag": names[index],
+                        "ones": int(ones[index]),
+                        "zeros": int(zeros[index]),
+                        "binary_entropy": float(entropy[index]),
+                    }
+                    for index in selected
+                ],
+                "significant_nte_edges": len(edges),
+                "direct_ndte_edges": sum(edge.direct for edge in edges),
+                "indirect_edges_pruned": sum(not edge.direct for edge in edges),
+                "directed_edges": [
+                    {
+                        "source": edge.source,
+                        "target": edge.target,
+                        "score": edge.score,
+                        "lag": edge.lag,
+                        "threshold": edge.threshold,
+                        "direct": edge.direct,
+                    }
+                    for edge in edges
+                ],
+                "candidate_root_alarm_ranking": [
+                    {"tag": name, "outgoing_direct_score": outgoing[name]}
+                    for name in ranking
+                ],
+            }
+        )
+
+    within, cross = [], []
+    run_ids = sorted(edge_sets)
+    for left_index, left in enumerate(run_ids):
+        for right in run_ids[left_index + 1 :]:
+            union = edge_sets[left] | edge_sets[right]
+            if not union:
+                continue
+            score = len(edge_sets[left] & edge_sets[right]) / len(union)
+            target = within if labels_by_run[left] == labels_by_run[right] else cross
+            target.append(float(score))
+    significant = sum(row["significant_nte_edges"] for row in run_results)
+    direct = sum(row["direct_ndte_edges"] for row in run_results)
+    pruned = sum(row["indirect_edges_pruned"] for row in run_results)
+    lags = Counter(
+        edge["lag"] for row in run_results for edge in row["directed_edges"]
+    )
+    activation = {
+        "passed": bool(significant and pruned),
+        "beacon": "at least one surrogate-significant NTE edge and one NDTE-pruned indirect edge",
+        "nte_significant_edges": significant,
+        "ndte_pruned_edges": pruned,
+        "runs_with_nte_edges": sum(
+            row["significant_nte_edges"] > 0 for row in run_results
+        ),
+        "analysis_runs": len(run_results),
+    }
+    return {
+        "metrics": {
+            "graph_activation_rate": activation["runs_with_nte_edges"]
+            / len(run_results),
+            "mean_significant_edges_per_run": significant / len(run_results),
+            "direct_edge_fraction": direct / significant if significant else 0.0,
+            "indirect_pruning_fraction": pruned / significant if significant else 0.0,
+            "within_class_direct_edge_jaccard": (
+                float(np.mean(within)) if within else None
+            ),
+            "cross_class_direct_edge_jaccard": (
+                float(np.mean(cross)) if cross else None
+            ),
+        },
+        "activation": activation,
+        "runs": run_results,
+        "analysis_runs_per_class": per_class,
+        "class_count": len({row["class_label"] for row in run_results}),
+        "selection_policy": {
+            "partition": "test",
+            "split_identity": split_identity,
+            "run_choice": "lowest source run/sample numbers in the frozen test partition",
+            "alarm_variable_choice": "highest binary entropy after occurrence and clearance guards",
+            "minimum_occurrences": minimum_ones,
+            "minimum_clear_samples": minimum_zeros,
+            "max_features": max_features,
+        },
+        "lag_histogram": {str(key): value for key, value in sorted(lags.items())},
+        "stability_pairs": {
+            "within_class_evaluable": len(within),
+            "cross_class_evaluable": len(cross),
+        },
+        "data_evidence": _data_evidence(evidence_paths, root),
+        "reporting_status": (
+            "Book Chapter 4.1 structural transfer validation; alarm-tag causal "
+            "ground truth is unavailable, so no root-cause top-k accuracy is claimed"
+        ),
+        "limitations": [
+            "Fault-family labels group stability comparisons but do not identify a root alarm tag.",
+            "Feature selection uses binary entropy inside each fixed evaluation episode and is descriptive, not trained.",
+            "The unavailable industrial source records prevent exact paper-table reproduction.",
+        ],
+    }
+
+
 def _run_real_visual_analytics(
     root: Path,
     run_dir: Path,
@@ -1822,6 +2065,8 @@ def run_experiment(config_path: str | Path) -> dict[str, Any]:
         result = _run_real_next_alarm(root, references)
     elif task == "real_causal_graph":
         result = _run_real_causal_graph(root, references)
+    elif task == "real_alarm_causal_graph":
+        result = _run_real_alarm_causal_graph(root, references)
     elif task == "real_visual_analytics":
         result = _run_real_visual_analytics(root, run_dir, references)
     elif task == "real_pronto_alarm_classification":

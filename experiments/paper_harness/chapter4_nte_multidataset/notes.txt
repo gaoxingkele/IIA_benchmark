@@ -1,0 +1,45 @@
+Book Chapter 4.1 NTE/NDTE multi-dataset plan
+=============================================
+
+Scope
+-----
+This wave executes the book's lagged normalized transfer-entropy network,
+Bernoulli surrogate significance test, occurrence guard, and NDTE indirect-edge
+pruning on fixed complete alarm episodes from FCC, TEP Alarm, and NPP. Two
+frozen test episodes per class are evaluated. Six variables per episode are
+selected by binary entropy after requiring at least three ones and three zeros.
+
+Runs
+----
+run_1: FCC, 16 classes, 32 complete 60-minute test episodes.
+run_2: TEP Alarm, 5 classes, 10 complete 300-minute test episodes.
+run_3: NPP alpha=0.50, 11 classes, 22 duplicate-safe 160-sample test episodes.
+
+Evidence boundary
+-----------------
+The public payloads provide fault/scenario class labels but no alarm-tag causal
+ground truth. Therefore graph activation, surrogate-significant edges, NDTE
+pruning, lag distributions, and within/cross-class graph stability are valid;
+root-alarm top-k accuracy is prohibited. The source paper's industrial alarm
+records are unavailable, so this is P1/P2 structural transfer evidence rather
+than exact paper-table reproduction.
+
+Observed results
+----------------
+run_1 completed in 12.40 s. FCC activated on 30/32 episodes, produced 394
+       surrogate-significant NTE edges, and NDTE pruned 182. Mean edges/run
+       was 12.3125; within/cross-class direct-edge Jaccard was 0.1709/0.0165.
+run_2 completed in 21.42 s. TEP activated on 10/10 episodes, produced 193
+       edges, and pruned 87. Mean edges/run was 19.3; within/cross Jaccard was
+       0.4550/0.0378.
+run_3 completed in 28.50 s. NPP activated on 22/22 episodes, produced 525
+       edges, and pruned 201. Mean edges/run was 23.8636; within/cross Jaccard
+       was 0.4432/0.0313.
+
+PLR applicability gate
+----------------------
+FCC exposes injected-disturbance columns and exact scenario identities, but its
+disturbance values are run-level constants. Book Chapter 4.4 PLR requires
+time-varying candidate causes to estimate lag and segment contribution. The
+FCC PLR score is therefore denied by G0 and the negative evidence is retained
+in experiments/reports/fcc_plr_applicability_gate.json.

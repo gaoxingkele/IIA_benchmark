@@ -1,0 +1,5457 @@
+{
+  "schema_version": 1,
+  "run_name": "run_1",
+  "config": "configs/experiments/fcc_alarm_nte_ndte_structural_validation.json",
+  "config_sha256": "8aa60378d79e5640e6d0f3f3fc7b4e0942a7d4e92538095f345af64b84fa42a8",
+  "git_revision": "6d030cb4208156067d3b9d0859d9b76be5824913",
+  "execution_provenance": {
+    "git_worktree_dirty": true,
+    "git_status_porcelain": [
+      " M configs/tasks/downstream_tasks.json",
+      " M docs/dataset_registry.md",
+      " M docs/paper_harness_plan_2026-08-29.md",
+      " M docs/reports/current_inventory_2026-08-29.md",
+      " M docs/status_audit.json",
+      " M docs/status_audit.md",
+      " M experiments/reports/ara_algorithm_validation.json",
+      " M paper_harness/experiment_matrix.v1.json",
+      " M paper_harness/gate_ledger.seed.jsonl",
+      " M paper_harness/semantic_gene_bank.md",
+      " M papers/literature/ara/hu2017_alarm_transfer_entropy/logic/experiments.md",
+      " M src/iia_benchmark/runner.py",
+      " M tests/test_paper_harness.py",
+      " M tests/test_root_cause_book.py",
+      "?? configs/experiments/fcc_alarm_nte_ndte_structural_validation.json",
+      "?? configs/experiments/npp_alarm_nte_ndte_structural_validation.json",
+      "?? configs/experiments/tep_alarm_nte_ndte_structural_validation.json",
+      "?? configs/metrics/causal_graph_structural.json",
+      "?? configs/models/normalized_transfer_entropy_alarm_transfer.json",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/Figure_1.png",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/Figure_2.png",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/experiment.py",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/notes.txt",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/plot.py",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/run_1/final_info.json",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/run_2/final_info.json",
+      "?? experiments/paper_harness/chapter4_nte_multidataset/run_3/final_info.json",
+      "?? experiments/reports/fcc_alarm_nte_ndte_structural_validation.json",
+      "?? experiments/reports/fcc_plr_applicability_gate.json",
+      "?? experiments/reports/npp_alarm_nte_ndte_structural_validation.json",
+      "?? experiments/reports/tep_alarm_nte_ndte_structural_validation.json",
+      "?? scripts/data_acquisition/profile_fcc_plr_applicability.py"
+    ],
+    "tracked_diff_sha256": "f9fc328206fb0802e085f376e5bb4f2338ef3f4d0319309c6ab8e8e6e4c4fa25",
+    "source_sha256": {
+      "src/iia_benchmark/models/root_cause_book.py": "5ff02e0e8c409032d4f37d9abd787704e79d1279aa8ed59bde02474ddf4fa6c9",
+      "src/iia_benchmark/runner.py": "b58b459c9150f6d3b2989e27ef4e258d8f422f287a580a10f9980276ca3ba331",
+      "src/iia_benchmark/data/fcc.py": "6e99235377161502eb55e042b453a03fc12448e150f13108cad465f4bbb3a444",
+      "src/iia_benchmark/data/tep_alarm.py": "1cf8564527fadff6fa03298d0e58c772ba1ff7b52a9478120bb3d67aaf520e12",
+      "src/iia_benchmark/data/npp_alarm.py": "92bf5cd228e371c933bddcc8a865cb8440b510df8711b5f7bc3bf821924faa4b"
+    }
+  },
+  "started_at_utc": "2026-08-29T15:58:08.486765+00:00",
+  "finished_at_utc": "2026-08-29T15:58:21.036221+00:00",
+  "wall_clock_seconds": 12.396538799977861,
+  "result": {
+    "experiment_id": "fcc_alarm_nte_ndte_structural_validation",
+    "task": "real_alarm_causal_graph",
+    "result": {
+      "metrics": {
+        "graph_activation_rate": 0.9375,
+        "mean_significant_edges_per_run": 12.3125,
+        "direct_edge_fraction": 0.5380710659898477,
+        "indirect_pruning_fraction": 0.4619289340101523,
+        "within_class_direct_edge_jaccard": 0.17091540124821855,
+        "cross_class_direct_edge_jaccard": 0.01654449948199948
+      },
+      "activation": {
+        "passed": true,
+        "beacon": "at least one surrogate-significant NTE edge and one NDTE-pruned indirect edge",
+        "nte_significant_edges": 394,
+        "ndte_pruned_edges": 182,
+        "runs_with_nte_edges": 30,
+        "analysis_runs": 32
+      },
+      "runs": [
+        {
+          "run_id": "V2_high_run81",
+          "class_label": "V2_high",
+          "samples": 60,
+          "eligible_alarm_variables": 15,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR121_high_alarm",
+              "ones": 37,
+              "zeros": 23,
+              "binary_entropy": 0.9603622703154779
+            },
+            {
+              "tag": "TIR121_highhigh_alarm",
+              "ones": 37,
+              "zeros": 23,
+              "binary_entropy": 0.9603622703154779
+            },
+            {
+              "tag": "TIR121_high_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "FIR124_low_alarm",
+              "ones": 17,
+              "zeros": 43,
+              "binary_entropy": 0.8599530497177521
+            },
+            {
+              "tag": "TIR122_high_alarm",
+              "ones": 43,
+              "zeros": 17,
+              "binary_entropy": 0.8599530497177521
+            },
+            {
+              "tag": "TIR122_highhigh_alarm",
+              "ones": 43,
+              "zeros": 17,
+              "binary_entropy": 0.8599530497177521
+            }
+          ],
+          "significant_nte_edges": 13,
+          "direct_ndte_edges": 9,
+          "indirect_edges_pruned": 4,
+          "directed_edges": [
+            {
+              "source": "FIR121_high_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.11808701975461736,
+              "direct": true
+            },
+            {
+              "source": "TIR121_highhigh_alarm",
+              "target": "FIR121_high_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08710721348908157,
+              "direct": true
+            },
+            {
+              "source": "TIR121_highhigh_alarm",
+              "target": "FIR124_low_alarm",
+              "score": 0.10296227395921076,
+              "lag": 3,
+              "threshold": 0.09116828253681492,
+              "direct": true
+            },
+            {
+              "source": "TIR121_high_alarm",
+              "target": "FIR121_high_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.08764617138374974,
+              "direct": true
+            },
+            {
+              "source": "TIR121_high_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.1301424737468373,
+              "direct": true
+            },
+            {
+              "source": "TIR122_high_alarm",
+              "target": "FIR121_high_alarm",
+              "score": 0.4405078756024171,
+              "lag": 3,
+              "threshold": 0.128761008663861,
+              "direct": false
+            },
+            {
+              "source": "TIR122_high_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 0.4405078756024171,
+              "lag": 3,
+              "threshold": 0.10267523447697276,
+              "direct": false
+            },
+            {
+              "source": "TIR122_high_alarm",
+              "target": "TIR121_high_alarm",
+              "score": 0.5190438596301021,
+              "lag": 3,
+              "threshold": 0.09855914170743497,
+              "direct": true
+            },
+            {
+              "source": "TIR122_high_alarm",
+              "target": "TIR122_highhigh_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.1688606700608459,
+              "direct": true
+            },
+            {
+              "source": "TIR122_highhigh_alarm",
+              "target": "FIR121_high_alarm",
+              "score": 0.4405078756024171,
+              "lag": 3,
+              "threshold": 0.1137649739040551,
+              "direct": false
+            },
+            {
+              "source": "TIR122_highhigh_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 0.4405078756024171,
+              "lag": 3,
+              "threshold": 0.1036410288869041,
+              "direct": false
+            },
+            {
+              "source": "TIR122_highhigh_alarm",
+              "target": "TIR121_high_alarm",
+              "score": 0.5190438596301021,
+              "lag": 3,
+              "threshold": 0.08391622041098779,
+              "direct": true
+            },
+            {
+              "source": "TIR122_highhigh_alarm",
+              "target": "TIR122_high_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.13333417710694287,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR121_high_alarm",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "TIR122_high_alarm",
+              "outgoing_direct_score": 1.5190438596301021
+            },
+            {
+              "tag": "TIR122_highhigh_alarm",
+              "outgoing_direct_score": 1.5190438596301021
+            },
+            {
+              "tag": "TIR121_highhigh_alarm",
+              "outgoing_direct_score": 1.1029622739592106
+            },
+            {
+              "tag": "FIR121_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR124_low_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V2_high_run82",
+          "class_label": "V2_high",
+          "samples": 60,
+          "eligible_alarm_variables": 14,
+          "selected_alarm_variables": [
+            {
+              "tag": "TIR121_highhigh_alarm",
+              "ones": 31,
+              "zeros": 29,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "TIR121_high_alarm",
+              "ones": 32,
+              "zeros": 28,
+              "binary_entropy": 0.9967916319816366
+            },
+            {
+              "tag": "TIR110_low_alarm",
+              "ones": 35,
+              "zeros": 25,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "TIR122_high_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "TIR122_highhigh_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            }
+          ],
+          "significant_nte_edges": 16,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "TIR121_high_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.08516450282171749,
+              "direct": true
+            },
+            {
+              "source": "TIR110_low_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 0.6758787273202995,
+              "lag": 3,
+              "threshold": 0.08647089012838481,
+              "direct": false
+            },
+            {
+              "source": "TIR110_low_alarm",
+              "target": "TIR121_high_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.1139567758819249,
+              "direct": true
+            },
+            {
+              "source": "TIR122_high_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 0.4150193677546915,
+              "lag": 3,
+              "threshold": 0.09576272725359761,
+              "direct": false
+            },
+            {
+              "source": "TIR122_high_alarm",
+              "target": "TIR121_high_alarm",
+              "score": 0.46932172078088685,
+              "lag": 3,
+              "threshold": 0.07801964483006978,
+              "direct": false
+            },
+            {
+              "source": "TIR122_high_alarm",
+              "target": "TIR110_low_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.10138394473442046,
+              "direct": true
+            },
+            {
+              "source": "TIR122_high_alarm",
+              "target": "TIR122_highhigh_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.10929107369800854,
+              "direct": true
+            },
+            {
+              "source": "TIR122_highhigh_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 0.4150193677546915,
+              "lag": 3,
+              "threshold": 0.06863172436457438,
+              "direct": false
+            },
+            {
+              "source": "TIR122_highhigh_alarm",
+              "target": "TIR121_high_alarm",
+              "score": 0.46932172078088685,
+              "lag": 3,
+              "threshold": 0.07604927153082837,
+              "direct": false
+            },
+            {
+              "source": "TIR122_highhigh_alarm",
+              "target": "TIR110_low_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.05823200768414237,
+              "direct": true
+            },
+            {
+              "source": "TIR122_highhigh_alarm",
+              "target": "TIR122_high_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.16689295345238706,
+              "direct": true
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "TIR121_highhigh_alarm",
+              "score": 0.26597470620632935,
+              "lag": 3,
+              "threshold": 0.06392914957531116,
+              "direct": false
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "TIR121_high_alarm",
+              "score": 0.288880509247879,
+              "lag": 3,
+              "threshold": 0.11457833505709057,
+              "direct": false
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "TIR110_low_alarm",
+              "score": 0.39174598874943356,
+              "lag": 3,
+              "threshold": 0.10188866949230452,
+              "direct": false
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "TIR122_high_alarm",
+              "score": 0.6508342790823993,
+              "lag": 3,
+              "threshold": 0.08369679621354285,
+              "direct": true
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "TIR122_highhigh_alarm",
+              "score": 0.6508342790823993,
+              "lag": 3,
+              "threshold": 0.12425015245462039,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR122_high_alarm",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "TIR122_highhigh_alarm",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "outgoing_direct_score": 1.3016685581647987
+            },
+            {
+              "tag": "TIR110_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR121_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR121_highhigh_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V2_low_run81",
+          "class_label": "V2_low",
+          "samples": 60,
+          "eligible_alarm_variables": 14,
+          "selected_alarm_variables": [
+            {
+              "tag": "IIR110_high_alarm",
+              "ones": 29,
+              "zeros": 31,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "FIR120_low_alarm",
+              "ones": 25,
+              "zeros": 35,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 35,
+              "zeros": 25,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "TIR110_high_alarm",
+              "ones": 22,
+              "zeros": 38,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "FIR121_low_alarm",
+              "ones": 39,
+              "zeros": 21,
+              "binary_entropy": 0.934068055375491
+            }
+          ],
+          "significant_nte_edges": 18,
+          "direct_ndte_edges": 6,
+          "indirect_edges_pruned": 12,
+          "directed_edges": [
+            {
+              "source": "IIR110_high_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.6906422022000076,
+              "lag": 3,
+              "threshold": 0.07411937266879598,
+              "direct": true
+            },
+            {
+              "source": "IIR110_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.1384084529289047,
+              "lag": 3,
+              "threshold": 0.06287635650392248,
+              "direct": false
+            },
+            {
+              "source": "IIR110_high_alarm",
+              "target": "TIR110_high_alarm",
+              "score": 0.452453809163172,
+              "lag": 3,
+              "threshold": 0.10567161018592171,
+              "direct": false
+            },
+            {
+              "source": "FIR120_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.16693803543524222,
+              "lag": 3,
+              "threshold": 0.09320025625856639,
+              "direct": false
+            },
+            {
+              "source": "FIR120_low_alarm",
+              "target": "TIR110_high_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.09871499010348919,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "IIR110_high_alarm",
+              "score": 0.48289271159108593,
+              "lag": 3,
+              "threshold": 0.138618577843745,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.32737640355757525,
+              "lag": 3,
+              "threshold": 0.1369808726060569,
+              "direct": false
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "TIR110_high_alarm",
+              "score": 0.2666599539341865,
+              "lag": 3,
+              "threshold": 0.10626308559296757,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "IIR110_high_alarm",
+              "score": 0.15538511674684286,
+              "lag": 3,
+              "threshold": 0.1017272426694301,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.12575908159331517,
+              "lag": 3,
+              "threshold": 0.12276314564813809,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.23677160456459478,
+              "lag": 3,
+              "threshold": 0.11841714453169111,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.36134856850635766,
+              "lag": 3,
+              "threshold": 0.1350752504943214,
+              "direct": true
+            },
+            {
+              "source": "TIR110_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.19408854867615621,
+              "lag": 3,
+              "threshold": 0.10022452624861529,
+              "direct": true
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "IIR110_high_alarm",
+              "score": 0.30706590791946453,
+              "lag": 3,
+              "threshold": 0.06203571584474082,
+              "direct": false
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.2318951829852326,
+              "lag": 3,
+              "threshold": 0.07528686221050107,
+              "direct": false
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.6629836042906914,
+              "lag": 3,
+              "threshold": 0.1195449303550544,
+              "direct": true
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.08781072016932001,
+              "lag": 3,
+              "threshold": 0.08506264120135609,
+              "direct": false
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "TIR110_high_alarm",
+              "score": 0.19598409069617395,
+              "lag": 3,
+              "threshold": 0.10709600334411605,
+              "direct": false
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR120_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "IIR110_high_alarm",
+              "outgoing_direct_score": 0.6906422022000076
+            },
+            {
+              "tag": "FIR121_low_alarm",
+              "outgoing_direct_score": 0.6629836042906914
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.48289271159108593
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.36134856850635766
+            },
+            {
+              "tag": "TIR110_high_alarm",
+              "outgoing_direct_score": 0.19408854867615621
+            }
+          ]
+        },
+        {
+          "run_id": "V2_low_run82",
+          "class_label": "V2_low",
+          "samples": 60,
+          "eligible_alarm_variables": 13,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR120_low_alarm",
+              "ones": 26,
+              "zeros": 34,
+              "binary_entropy": 0.9871377743721863
+            },
+            {
+              "tag": "FIR121_low_alarm",
+              "ones": 36,
+              "zeros": 24,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 37,
+              "zeros": 23,
+              "binary_entropy": 0.9603622703154779
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "IIR110_high_alarm",
+              "ones": 43,
+              "zeros": 17,
+              "binary_entropy": 0.8599530497177521
+            }
+          ],
+          "significant_nte_edges": 18,
+          "direct_ndte_edges": 6,
+          "indirect_edges_pruned": 12,
+          "directed_edges": [
+            {
+              "source": "FIR120_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.209078064482488,
+              "lag": 3,
+              "threshold": 0.06544619004308005,
+              "direct": true
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.32265209634356296,
+              "lag": 3,
+              "threshold": 0.08368527558936743,
+              "direct": true
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.14045066427725816,
+              "lag": 3,
+              "threshold": 0.11293064224152308,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.200870335258303,
+              "lag": 3,
+              "threshold": 0.10091169056547632,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.24082371730015495,
+              "lag": 3,
+              "threshold": 0.10842473501689687,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3986792046707952,
+              "lag": 3,
+              "threshold": 0.16798314816848733,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "IIR110_high_alarm",
+              "score": 0.4802481536259283,
+              "lag": 3,
+              "threshold": 0.12505911494696026,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.2694675256169291,
+              "lag": 3,
+              "threshold": 0.05589254271717848,
+              "direct": false
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.1409648303381071,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.1305096257683167,
+              "lag": 3,
+              "threshold": 0.09691732312432212,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.19044830398722523,
+              "lag": 3,
+              "threshold": 0.08198087372865978,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.4470596956788835,
+              "lag": 3,
+              "threshold": 0.09406043777087157,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.11285598400856489,
+              "lag": 3,
+              "threshold": 0.09816939233017175,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.6508342790823993,
+              "lag": 3,
+              "threshold": 0.12425015245462039,
+              "direct": true
+            },
+            {
+              "source": "IIR110_high_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.17438306599863362,
+              "lag": 3,
+              "threshold": 0.16273285583967498,
+              "direct": false
+            },
+            {
+              "source": "IIR110_high_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.38494714628366267,
+              "lag": 3,
+              "threshold": 0.08302644650420275,
+              "direct": false
+            },
+            {
+              "source": "IIR110_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.5190438596301021,
+              "lag": 3,
+              "threshold": 0.17678193160427552,
+              "direct": false
+            },
+            {
+              "source": "IIR110_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.09398084689035867,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "IIR110_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 0.6508342790823993
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.4802481536259283
+            },
+            {
+              "tag": "FIR121_low_alarm",
+              "outgoing_direct_score": 0.32265209634356296
+            },
+            {
+              "tag": "FIR120_low_alarm",
+              "outgoing_direct_score": 0.209078064482488
+            }
+          ]
+        },
+        {
+          "run_id": "V3_high_run81",
+          "class_label": "V3_high",
+          "samples": 60,
+          "eligible_alarm_variables": 8,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR122_low_alarm",
+              "ones": 29,
+              "zeros": 31,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "ones": 33,
+              "zeros": 27,
+              "binary_entropy": 0.9927744539878083
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "ones": 25,
+              "zeros": 35,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "ones": 46,
+              "zeros": 14,
+              "binary_entropy": 0.7837769474847008
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 11,
+              "zeros": 49,
+              "binary_entropy": 0.6873150928309273
+            },
+            {
+              "tag": "FIR112_high_alarm",
+              "ones": 8,
+              "zeros": 52,
+              "binary_entropy": 0.5665095065529053
+            }
+          ],
+          "significant_nte_edges": 18,
+          "direct_ndte_edges": 12,
+          "indirect_edges_pruned": 6,
+          "directed_edges": [
+            {
+              "source": "FIR122_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.3372152606836649,
+              "lag": 2,
+              "threshold": 0.066247800573505,
+              "direct": true
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.16598013602114914,
+              "lag": 3,
+              "threshold": 0.09795070722572936,
+              "direct": true
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.11702297084777524,
+              "lag": 3,
+              "threshold": 0.10586423365349151,
+              "direct": false
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.1594133555538393,
+              "lag": 3,
+              "threshold": 0.11490102706091573,
+              "direct": false
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR122_low_alarm",
+              "score": 0.09761086606376801,
+              "lag": 3,
+              "threshold": 0.09675996978505837,
+              "direct": true
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.15865526525615914,
+              "lag": 3,
+              "threshold": 0.10960514701698243,
+              "direct": false
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.17011196197471368,
+              "lag": 3,
+              "threshold": 0.11016929093417112,
+              "direct": false
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.1500175832799001,
+              "lag": 3,
+              "threshold": 0.14944652451425922,
+              "direct": true
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR122_low_alarm",
+              "score": 0.09008464360885282,
+              "lag": 1,
+              "threshold": 0.05438845460137061,
+              "direct": true
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.27000040144820414,
+              "lag": 3,
+              "threshold": 0.13378079117478056,
+              "direct": true
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.09761253628314126,
+              "lag": 3,
+              "threshold": 0.0626313697270862,
+              "direct": false
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.1594133555538393,
+              "lag": 3,
+              "threshold": 0.08867015738480158,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.41419643602070033,
+              "lag": 3,
+              "threshold": 0.11870247242620567,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR112_high_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.156194558331651,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.21611118570963728,
+              "lag": 3,
+              "threshold": 0.11098327804501584,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.5239987285052838,
+              "lag": 3,
+              "threshold": 0.11799918575416428,
+              "direct": true
+            },
+            {
+              "source": "FIR112_high_alarm",
+              "target": "FIR122_low_alarm",
+              "score": 0.11441494723772216,
+              "lag": 3,
+              "threshold": 0.09445143063413582,
+              "direct": true
+            },
+            {
+              "source": "FIR112_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.11228192367015666,
+              "lag": 3,
+              "threshold": 0.09212376110695404,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR125_low_alarm",
+              "outgoing_direct_score": 1.4141964360207004
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.5239987285052838
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "outgoing_direct_score": 0.5194984006108962
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "outgoing_direct_score": 0.5031953967048141
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "outgoing_direct_score": 0.24762844934366812
+            },
+            {
+              "tag": "FIR112_high_alarm",
+              "outgoing_direct_score": 0.22669687090787882
+            }
+          ]
+        },
+        {
+          "run_id": "V3_high_run82",
+          "class_label": "V3_high",
+          "samples": 60,
+          "eligible_alarm_variables": 10,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR125_low_alarm",
+              "ones": 27,
+              "zeros": 33,
+              "binary_entropy": 0.9927744539878083
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "ones": 26,
+              "zeros": 34,
+              "binary_entropy": 0.9871377743721863
+            },
+            {
+              "tag": "FIR110_high_alarm",
+              "ones": 24,
+              "zeros": 36,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "FIR112_high_alarm",
+              "ones": 15,
+              "zeros": 45,
+              "binary_entropy": 0.8112781244591328
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "ones": 15,
+              "zeros": 45,
+              "binary_entropy": 0.8112781244591328
+            },
+            {
+              "tag": "FIR111_high_alarm",
+              "ones": 13,
+              "zeros": 47,
+              "binary_entropy": 0.7540340561971326
+            }
+          ],
+          "significant_nte_edges": 18,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 10,
+          "directed_edges": [
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.1765620530612484,
+              "lag": 3,
+              "threshold": 0.0762742399246216,
+              "direct": false
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR112_high_alarm",
+              "score": 0.3619727926523467,
+              "lag": 3,
+              "threshold": 0.1460500723518465,
+              "direct": false
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.5826220527129875,
+              "lag": 0,
+              "threshold": 0.11152707222725303,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR111_high_alarm",
+              "score": 0.5863039173675804,
+              "lag": 3,
+              "threshold": 0.1325221912363694,
+              "direct": true
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.23050207354030505,
+              "lag": 3,
+              "threshold": 0.12106971041247387,
+              "direct": false
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.4760688333477092,
+              "lag": 3,
+              "threshold": 0.05592723619040454,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.5510778845762894,
+              "lag": 3,
+              "threshold": 0.08842186089156737,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.09518234722637253,
+              "lag": 3,
+              "threshold": 0.08205706317944268,
+              "direct": false
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR112_high_alarm",
+              "score": 0.14503080200927898,
+              "lag": 3,
+              "threshold": 0.09403993584469153,
+              "direct": false
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.2732441050177383,
+              "lag": 3,
+              "threshold": 0.061831062425581146,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR111_high_alarm",
+              "score": 0.19326481162251108,
+              "lag": 3,
+              "threshold": 0.0679568257370408,
+              "direct": false
+            },
+            {
+              "source": "FIR112_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.21624201375057794,
+              "lag": 3,
+              "threshold": 0.0939225954494357,
+              "direct": false
+            },
+            {
+              "source": "FIR112_high_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.3804704227647062,
+              "lag": 3,
+              "threshold": 0.06989284511777383,
+              "direct": true
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.43257993194915934,
+              "lag": 3,
+              "threshold": 0.09001744796506031,
+              "direct": true
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.20581240280225255,
+              "lag": 3,
+              "threshold": 0.1286455354804496,
+              "direct": false
+            },
+            {
+              "source": "FIR111_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.20438752950595196,
+              "lag": 3,
+              "threshold": 0.10928352039395046,
+              "direct": false
+            },
+            {
+              "source": "FIR111_high_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.36189820254540594,
+              "lag": 3,
+              "threshold": 0.09221845848230675,
+              "direct": false
+            },
+            {
+              "source": "FIR111_high_alarm",
+              "target": "FIR112_high_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.11191824416245649,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR125_low_alarm",
+              "outgoing_direct_score": 1.1689259700805679
+            },
+            {
+              "tag": "FIR111_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR110_high_alarm",
+              "outgoing_direct_score": 0.8243219895940277
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "outgoing_direct_score": 0.4760688333477092
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "outgoing_direct_score": 0.43257993194915934
+            },
+            {
+              "tag": "FIR112_high_alarm",
+              "outgoing_direct_score": 0.3804704227647062
+            }
+          ]
+        },
+        {
+          "run_id": "V3_low_run81",
+          "class_label": "V3_low",
+          "samples": 60,
+          "eligible_alarm_variables": 11,
+          "selected_alarm_variables": [
+            {
+              "tag": "TIR120_low_alarm",
+              "ones": 29,
+              "zeros": 31,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 32,
+              "zeros": 28,
+              "binary_entropy": 0.9967916319816366
+            },
+            {
+              "tag": "FIR120_low_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "IIR120_low_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "LIR120_high_alarm",
+              "ones": 17,
+              "zeros": 43,
+              "binary_entropy": 0.8599530497177521
+            }
+          ],
+          "significant_nte_edges": 19,
+          "direct_ndte_edges": 11,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "TIR120_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.3195418847598004,
+              "lag": 3,
+              "threshold": 0.14994277040450804,
+              "direct": true
+            },
+            {
+              "source": "TIR120_low_alarm",
+              "target": "LIR120_high_alarm",
+              "score": 0.3085219120189341,
+              "lag": 3,
+              "threshold": 0.11367178336086572,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.15598494746240077,
+              "lag": 3,
+              "threshold": 0.10974572383511647,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "IIR120_low_alarm",
+              "score": 0.23253938894175907,
+              "lag": 3,
+              "threshold": 0.12120531625983315,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.23253938894175907,
+              "lag": 3,
+              "threshold": 0.05495025978778346,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "LIR120_high_alarm",
+              "score": 0.3120911401931402,
+              "lag": 2,
+              "threshold": 0.11932231459713219,
+              "direct": true
+            },
+            {
+              "source": "FIR120_low_alarm",
+              "target": "TIR120_low_alarm",
+              "score": 0.34002037077778635,
+              "lag": 3,
+              "threshold": 0.05742551826722336,
+              "direct": true
+            },
+            {
+              "source": "FIR120_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.2283073920356411,
+              "lag": 3,
+              "threshold": 0.0757390158478768,
+              "direct": false
+            },
+            {
+              "source": "FIR120_low_alarm",
+              "target": "LIR120_high_alarm",
+              "score": 0.16668400519873328,
+              "lag": 3,
+              "threshold": 0.07829021574902593,
+              "direct": false
+            },
+            {
+              "source": "IIR120_low_alarm",
+              "target": "TIR120_low_alarm",
+              "score": 0.22962977445427224,
+              "lag": 3,
+              "threshold": 0.0660588724379814,
+              "direct": false
+            },
+            {
+              "source": "IIR120_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.20320278525481283,
+              "lag": 3,
+              "threshold": 0.11207605731681872,
+              "direct": false
+            },
+            {
+              "source": "IIR120_low_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.6508342790823993,
+              "lag": 3,
+              "threshold": 0.09739524989813035,
+              "direct": true
+            },
+            {
+              "source": "IIR120_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08408794116658443,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "TIR120_low_alarm",
+              "score": 0.22962977445427224,
+              "lag": 3,
+              "threshold": 0.1293228578581581,
+              "direct": false
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.20320278525481283,
+              "lag": 3,
+              "threshold": 0.10665045502216922,
+              "direct": false
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.6508342790823993,
+              "lag": 3,
+              "threshold": 0.09620957476836352,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "IIR120_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.1808290321613796,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "LIR120_high_alarm",
+              "score": 0.1250391396972772,
+              "lag": 3,
+              "threshold": 0.09533169409300606,
+              "direct": false
+            },
+            {
+              "source": "LIR120_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.11759505222523559,
+              "lag": 0,
+              "threshold": 0.08362360032608429,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "IIR120_low_alarm",
+              "outgoing_direct_score": 1.6508342790823993
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 1.6508342790823993
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.7771699180766584
+            },
+            {
+              "tag": "TIR120_low_alarm",
+              "outgoing_direct_score": 0.6280637967787345
+            },
+            {
+              "tag": "FIR120_low_alarm",
+              "outgoing_direct_score": 0.34002037077778635
+            },
+            {
+              "tag": "LIR120_high_alarm",
+              "outgoing_direct_score": 0.11759505222523559
+            }
+          ]
+        },
+        {
+          "run_id": "V3_low_run82",
+          "class_label": "V3_low",
+          "samples": 60,
+          "eligible_alarm_variables": 10,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR120_low_alarm",
+              "ones": 26,
+              "zeros": 34,
+              "binary_entropy": 0.9871377743721863
+            },
+            {
+              "tag": "FIR121_low_alarm",
+              "ones": 26,
+              "zeros": 34,
+              "binary_entropy": 0.9871377743721863
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 36,
+              "zeros": 24,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 41,
+              "zeros": 19,
+              "binary_entropy": 0.9007196798623593
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 44,
+              "zeros": 16,
+              "binary_entropy": 0.8366407419411672
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "ones": 50,
+              "zeros": 10,
+              "binary_entropy": 0.6500224216483541
+            }
+          ],
+          "significant_nte_edges": 20,
+          "direct_ndte_edges": 7,
+          "indirect_edges_pruned": 13,
+          "directed_edges": [
+            {
+              "source": "FIR120_low_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.16596134266528664,
+              "direct": true
+            },
+            {
+              "source": "FIR120_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.2706497785214773,
+              "lag": 3,
+              "threshold": 0.13127646886845398,
+              "direct": false
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.09734249392401684,
+              "direct": true
+            },
+            {
+              "source": "FIR121_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.2706497785214773,
+              "lag": 3,
+              "threshold": 0.05592723619040454,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.085839874785275,
+              "lag": 3,
+              "threshold": 0.07694717749103258,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.085839874785275,
+              "lag": 3,
+              "threshold": 0.08205706317944268,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.24515967530542226,
+              "lag": 3,
+              "threshold": 0.09835389573550747,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3756100069655297,
+              "lag": 3,
+              "threshold": 0.06329427966548644,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08755136639447532,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.2077516883084386,
+              "lag": 3,
+              "threshold": 0.09014728203840473,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.2077516883084386,
+              "lag": 3,
+              "threshold": 0.16782190430309363,
+              "direct": false
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.16031296485571223,
+              "lag": 3,
+              "threshold": 0.062158473095993164,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.15939049212870238,
+              "lag": 3,
+              "threshold": 0.13996351107831237,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.15939049212870238,
+              "lag": 3,
+              "threshold": 0.08468424770530915,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.14686365655414824,
+              "lag": 3,
+              "threshold": 0.08044739122404312,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.15541803909291052,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.085839874785275,
+              "lag": 3,
+              "threshold": 0.06984524956971426,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.12388561012755472,
+              "lag": 3,
+              "threshold": 0.09687237086340743,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.24515967530542226,
+              "lag": 3,
+              "threshold": 0.0851773621592049,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3756100069655297,
+              "lag": 3,
+              "threshold": 0.10319200642066262,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 1.3756100069655297
+            },
+            {
+              "tag": "FIR120_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR121_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "outgoing_direct_score": 0.3756100069655297
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.2077516883084386
+            }
+          ]
+        },
+        {
+          "run_id": "V4_high_run81",
+          "class_label": "V4_high",
+          "samples": 60,
+          "eligible_alarm_variables": 1,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 3,
+              "zeros": 57,
+              "binary_entropy": 0.28639695711595625
+            }
+          ],
+          "significant_nte_edges": 0,
+          "direct_ndte_edges": 0,
+          "indirect_edges_pruned": 0,
+          "directed_edges": [],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V4_high_run82",
+          "class_label": "V4_high",
+          "samples": 60,
+          "eligible_alarm_variables": 1,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 7,
+              "zeros": 53,
+              "binary_entropy": 0.5197027865043055
+            }
+          ],
+          "significant_nte_edges": 0,
+          "direct_ndte_edges": 0,
+          "indirect_edges_pruned": 0,
+          "directed_edges": [],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V4_low_run81",
+          "class_label": "V4_low",
+          "samples": 60,
+          "eligible_alarm_variables": 6,
+          "selected_alarm_variables": [
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "ones": 28,
+              "zeros": 32,
+              "binary_entropy": 0.9967916319816366
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 34,
+              "zeros": 26,
+              "binary_entropy": 0.9871377743721863
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "ones": 48,
+              "zeros": 12,
+              "binary_entropy": 0.7219280948873623
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "ones": 50,
+              "zeros": 10,
+              "binary_entropy": 0.6500224216483541
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 50,
+              "zeros": 10,
+              "binary_entropy": 0.6500224216483541
+            }
+          ],
+          "significant_nte_edges": 13,
+          "direct_ndte_edges": 7,
+          "indirect_edges_pruned": 6,
+          "directed_edges": [
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.5406358011392194,
+              "lag": 3,
+              "threshold": 0.07112142481974285,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.1152882726802189,
+              "lag": 3,
+              "threshold": 0.0722104722520853,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.3496713849965639,
+              "lag": 3,
+              "threshold": 0.11075807597868786,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.17197644216453845,
+              "lag": 3,
+              "threshold": 0.10509818381266658,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3986792046707952,
+              "lag": 3,
+              "threshold": 0.07448478939276992,
+              "direct": true
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.13338320980960794,
+              "lag": 3,
+              "threshold": 0.07543866364902466,
+              "direct": false
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.27730332955546066,
+              "lag": 3,
+              "threshold": 0.10899518879475206,
+              "direct": false
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "TIR122_low_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.11907636838058043,
+              "direct": true
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.14157549157812466,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.13338320980960794,
+              "lag": 3,
+              "threshold": 0.12235191125825207,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.27730332955546066,
+              "lag": 3,
+              "threshold": 0.07544405619649466,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_low_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.11405675626592807,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR122_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.11156115555561687,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR122_low_alarm",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "outgoing_direct_score": 0.5406358011392194
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "outgoing_direct_score": 0.3986792046707952
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 0.1152882726802189
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V4_low_run82",
+          "class_label": "V4_low",
+          "samples": 60,
+          "eligible_alarm_variables": 4,
+          "selected_alarm_variables": [
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 36,
+              "zeros": 24,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "ones": 18,
+              "zeros": 42,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 15,
+              "zeros": 45,
+              "binary_entropy": 0.8112781244591328
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 48,
+              "zeros": 12,
+              "binary_entropy": 0.7219280948873623
+            }
+          ],
+          "significant_nte_edges": 4,
+          "direct_ndte_edges": 4,
+          "indirect_edges_pruned": 0,
+          "directed_edges": [
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.17514167204333075,
+              "lag": 3,
+              "threshold": 0.1654949753821356,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.13928633311557845,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.11598684419720062,
+              "lag": 3,
+              "threshold": 0.10239062959580748,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.200870335258303,
+              "lag": 3,
+              "threshold": 0.07806675588995986,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR122_low_alarm",
+              "outgoing_direct_score": 1.1159868441972005
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.200870335258303
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 0.17514167204333075
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V6_high_run81",
+          "class_label": "V6_high",
+          "samples": 60,
+          "eligible_alarm_variables": 9,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR112_low_alarm",
+              "ones": 30,
+              "zeros": 30,
+              "binary_entropy": 1.0
+            },
+            {
+              "tag": "FIR111_low_alarm",
+              "ones": 31,
+              "zeros": 29,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "ones": 28,
+              "zeros": 32,
+              "binary_entropy": 0.9967916319816366
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "ones": 24,
+              "zeros": 36,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "ones": 44,
+              "zeros": 16,
+              "binary_entropy": 0.8366407419411672
+            },
+            {
+              "tag": "LIR100_low_alarm",
+              "ones": 46,
+              "zeros": 14,
+              "binary_entropy": 0.7837769474847008
+            }
+          ],
+          "significant_nte_edges": 16,
+          "direct_ndte_edges": 6,
+          "indirect_edges_pruned": 10,
+          "directed_edges": [
+            {
+              "source": "FIR112_low_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.15245367814818644,
+              "lag": 3,
+              "threshold": 0.04962840605490133,
+              "direct": false
+            },
+            {
+              "source": "FIR112_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.5014216034558605,
+              "lag": 3,
+              "threshold": 0.10137449788011053,
+              "direct": true
+            },
+            {
+              "source": "FIR111_low_alarm",
+              "target": "FIR112_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.10290637256930237,
+              "direct": true
+            },
+            {
+              "source": "FIR111_low_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.14420234286357547,
+              "lag": 3,
+              "threshold": 0.07759535704312606,
+              "direct": false
+            },
+            {
+              "source": "FIR111_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.44541560237268873,
+              "lag": 3,
+              "threshold": 0.10628478903729935,
+              "direct": false
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR112_low_alarm",
+              "score": 0.24646938000582752,
+              "lag": 3,
+              "threshold": 0.09471786931202537,
+              "direct": false
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR111_low_alarm",
+              "score": 0.26597470620632935,
+              "lag": 3,
+              "threshold": 0.09470540649340607,
+              "direct": true
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.1708612101612368,
+              "lag": 3,
+              "threshold": 0.1078711733888184,
+              "direct": false
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.2203554308271003,
+              "lag": 3,
+              "threshold": 0.13140678073716527,
+              "direct": true
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR112_low_alarm",
+              "score": 0.2021494307349685,
+              "lag": 3,
+              "threshold": 0.07740473269640108,
+              "direct": false
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR111_low_alarm",
+              "score": 0.21652322493057996,
+              "lag": 3,
+              "threshold": 0.10146502531853416,
+              "direct": true
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.14395263644948664,
+              "lag": 3,
+              "threshold": 0.07721862174029503,
+              "direct": false
+            },
+            {
+              "source": "LIR100_low_alarm",
+              "target": "FIR112_low_alarm",
+              "score": 0.16496252691709712,
+              "lag": 3,
+              "threshold": 0.10771790786832705,
+              "direct": false
+            },
+            {
+              "source": "LIR100_low_alarm",
+              "target": "FIR111_low_alarm",
+              "score": 0.17573264848683823,
+              "lag": 3,
+              "threshold": 0.06740781418569744,
+              "direct": false
+            },
+            {
+              "source": "LIR100_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.1199606438963765,
+              "lag": 3,
+              "threshold": 0.09422112959856593,
+              "direct": false
+            },
+            {
+              "source": "LIR100_low_alarm",
+              "target": "LIR100_lowlow_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.13126778102381043,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR111_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "LIR100_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR112_low_alarm",
+              "outgoing_direct_score": 0.5014216034558605
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "outgoing_direct_score": 0.26597470620632935
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "outgoing_direct_score": 0.2203554308271003
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "outgoing_direct_score": 0.21652322493057996
+            }
+          ]
+        },
+        {
+          "run_id": "V6_high_run82",
+          "class_label": "V6_high",
+          "samples": 60,
+          "eligible_alarm_variables": 8,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR123_low_alarm",
+              "ones": 30,
+              "zeros": 30,
+              "binary_entropy": 1.0
+            },
+            {
+              "tag": "FIR111_low_alarm",
+              "ones": 27,
+              "zeros": 33,
+              "binary_entropy": 0.9927744539878083
+            },
+            {
+              "tag": "FIR112_low_alarm",
+              "ones": 26,
+              "zeros": 34,
+              "binary_entropy": 0.9871377743721863
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "LIR100_low_alarm",
+              "ones": 46,
+              "zeros": 14,
+              "binary_entropy": 0.7837769474847008
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "ones": 50,
+              "zeros": 10,
+              "binary_entropy": 0.6500224216483541
+            }
+          ],
+          "significant_nte_edges": 13,
+          "direct_ndte_edges": 6,
+          "indirect_edges_pruned": 7,
+          "directed_edges": [
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR111_low_alarm",
+              "score": 0.22085114251700322,
+              "lag": 3,
+              "threshold": 0.10629932175118277,
+              "direct": true
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR112_low_alarm",
+              "score": 0.2077516883084386,
+              "lag": 3,
+              "threshold": 0.07892883338882657,
+              "direct": false
+            },
+            {
+              "source": "FIR111_low_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.14498296884478934,
+              "lag": 3,
+              "threshold": 0.08769013524885974,
+              "direct": false
+            },
+            {
+              "source": "FIR111_low_alarm",
+              "target": "FIR112_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.10138365877723816,
+              "direct": true
+            },
+            {
+              "source": "FIR112_low_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.15387285629526815,
+              "lag": 3,
+              "threshold": 0.09251437906988368,
+              "direct": true
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.11436150612568896,
+              "lag": 1,
+              "threshold": 0.08216549253912404,
+              "direct": true
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR111_low_alarm",
+              "score": 0.2019656602747253,
+              "lag": 3,
+              "threshold": 0.16802736506579266,
+              "direct": false
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR112_low_alarm",
+              "score": 0.19044830398722523,
+              "lag": 3,
+              "threshold": 0.09027304075524492,
+              "direct": false
+            },
+            {
+              "source": "LIR100_low_alarm",
+              "target": "FIR111_low_alarm",
+              "score": 0.1390943511712358,
+              "lag": 3,
+              "threshold": 0.08514579483320912,
+              "direct": false
+            },
+            {
+              "source": "LIR100_low_alarm",
+              "target": "FIR112_low_alarm",
+              "score": 0.13210965183687207,
+              "lag": 3,
+              "threshold": 0.1149547072605761,
+              "direct": false
+            },
+            {
+              "source": "LIR100_low_alarm",
+              "target": "LIR100_lowlow_alarm",
+              "score": 0.6293991066688157,
+              "lag": 3,
+              "threshold": 0.1277121464786509,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "LIR100_lowlow_alarm",
+              "score": 0.27730332955546066,
+              "lag": 3,
+              "threshold": 0.12007913208803979,
+              "direct": false
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "LIR100_low_alarm",
+              "score": 0.5972453356010594,
+              "lag": 3,
+              "threshold": 0.08030857976650643,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR111_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "LIR100_low_alarm",
+              "outgoing_direct_score": 0.6293991066688157
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "outgoing_direct_score": 0.5972453356010594
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "outgoing_direct_score": 0.22085114251700322
+            },
+            {
+              "tag": "FIR112_low_alarm",
+              "outgoing_direct_score": 0.15387285629526815
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "outgoing_direct_score": 0.11436150612568896
+            }
+          ]
+        },
+        {
+          "run_id": "V6_low_run81",
+          "class_label": "V6_low",
+          "samples": 60,
+          "eligible_alarm_variables": 12,
+          "selected_alarm_variables": [
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 31,
+              "zeros": 29,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 25,
+              "zeros": 35,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "ones": 35,
+              "zeros": 25,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 40,
+              "zeros": 20,
+              "binary_entropy": 0.9182958340544896
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "ones": 40,
+              "zeros": 20,
+              "binary_entropy": 0.9182958340544896
+            },
+            {
+              "tag": "IIR120_high_alarm",
+              "ones": 44,
+              "zeros": 16,
+              "binary_entropy": 0.8366407419411672
+            }
+          ],
+          "significant_nte_edges": 16,
+          "direct_ndte_edges": 7,
+          "indirect_edges_pruned": 9,
+          "directed_edges": [
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.498049572028029,
+              "lag": 3,
+              "threshold": 0.0792799991176134,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.3746232707698789,
+              "lag": 3,
+              "threshold": 0.11435172121387445,
+              "direct": false
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.4291182432305496,
+              "lag": 3,
+              "threshold": 0.10237515991530477,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.6758787273202995,
+              "lag": 3,
+              "threshold": 0.08237937158092996,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.32737640355757525,
+              "lag": 3,
+              "threshold": 0.07342204803284891,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.348458752209052,
+              "lag": 3,
+              "threshold": 0.06736227236087321,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3287919309858651,
+              "lag": 3,
+              "threshold": 0.1310166497222166,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.21327739288950998,
+              "lag": 3,
+              "threshold": 0.08781977376184713,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.5357788717181238,
+              "lag": 3,
+              "threshold": 0.11353241316394878,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.11557061885900019,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.3221532129882775,
+              "lag": 3,
+              "threshold": 0.10440293689297989,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3287919309858651,
+              "lag": 3,
+              "threshold": 0.09156037239453599,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.21327739288950998,
+              "lag": 3,
+              "threshold": 0.06530446556183267,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.5357788717181238,
+              "lag": 3,
+              "threshold": 0.0979059675380296,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.1348861076356709,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.3221532129882775,
+              "lag": 3,
+              "threshold": 0.1044708604079029,
+              "direct": false
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 1.5357788717181238
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "outgoing_direct_score": 1.5357788717181238
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "outgoing_direct_score": 0.6758787273202995
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 0.498049572028029
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.4291182432305496
+            },
+            {
+              "tag": "IIR120_high_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V6_low_run82",
+          "class_label": "V6_low",
+          "samples": 60,
+          "eligible_alarm_variables": 11,
+          "selected_alarm_variables": [
+            {
+              "tag": "LIR100_high_alarm",
+              "ones": 30,
+              "zeros": 30,
+              "binary_entropy": 1.0
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 31,
+              "zeros": 29,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 25,
+              "zeros": 35,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "ones": 35,
+              "zeros": 25,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 40,
+              "zeros": 20,
+              "binary_entropy": 0.9182958340544896
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "ones": 40,
+              "zeros": 20,
+              "binary_entropy": 0.9182958340544896
+            }
+          ],
+          "significant_nte_edges": 16,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "LIR100_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.5738770345719937,
+              "lag": 3,
+              "threshold": 0.09367041946887227,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.08023474433556006,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.498049572028029,
+              "lag": 3,
+              "threshold": 0.10008528736605106,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.5573749272072308,
+              "lag": 3,
+              "threshold": 0.10504307407271414,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.6758787273202995,
+              "lag": 3,
+              "threshold": 0.05821780633554897,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.32737640355757525,
+              "lag": 3,
+              "threshold": 0.13408182662995033,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.3013282726068832,
+              "lag": 3,
+              "threshold": 0.08945196767201434,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3287919309858651,
+              "lag": 3,
+              "threshold": 0.0974507607117877,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.21327739288950998,
+              "lag": 3,
+              "threshold": 0.10823073559997022,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.5357788717181238,
+              "lag": 3,
+              "threshold": 0.10132464630318512,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08507619716523065,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.3013282726068832,
+              "lag": 3,
+              "threshold": 0.06938245674733619,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3287919309858651,
+              "lag": 3,
+              "threshold": 0.07659184951429136,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.21327739288950998,
+              "lag": 3,
+              "threshold": 0.08395108599868402,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.5357788717181238,
+              "lag": 3,
+              "threshold": 0.14626585326755237,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08906149854405776,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 1.5357788717181238
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "outgoing_direct_score": 1.5357788717181238
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 1.498049572028029
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "outgoing_direct_score": 0.6758787273202995
+            },
+            {
+              "tag": "LIR100_high_alarm",
+              "outgoing_direct_score": 0.5738770345719937
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V7_high_run81",
+          "class_label": "V7_high",
+          "samples": 60,
+          "eligible_alarm_variables": 5,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR123_low_alarm",
+              "ones": 25,
+              "zeros": 35,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "ones": 44,
+              "zeros": 16,
+              "binary_entropy": 0.8366407419411672
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 8,
+              "zeros": 52,
+              "binary_entropy": 0.5665095065529053
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "ones": 54,
+              "zeros": 6,
+              "binary_entropy": 0.4689955935892811
+            },
+            {
+              "tag": "LIR100_low_alarm",
+              "ones": 55,
+              "zeros": 5,
+              "binary_entropy": 0.41381685030363385
+            }
+          ],
+          "significant_nte_edges": 5,
+          "direct_ndte_edges": 5,
+          "indirect_edges_pruned": 0,
+          "directed_edges": [
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.10304522384377435,
+              "lag": 3,
+              "threshold": 0.10237515991530477,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.3900392647378964,
+              "lag": 0,
+              "threshold": 0.12916532367463654,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.6431547111490097,
+              "lag": 0,
+              "threshold": 0.14297999795477942,
+              "direct": true
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.09906901741918683,
+              "lag": 3,
+              "threshold": 0.08563123144667342,
+              "direct": true
+            },
+            {
+              "source": "LIR100_low_alarm",
+              "target": "LIR100_lowlow_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.08152200465183888,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "LIR100_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.6431547111490097
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "outgoing_direct_score": 0.3900392647378964
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "outgoing_direct_score": 0.10304522384377435
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "outgoing_direct_score": 0.09906901741918683
+            }
+          ]
+        },
+        {
+          "run_id": "V7_high_run82",
+          "class_label": "V7_high",
+          "samples": 60,
+          "eligible_alarm_variables": 9,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR123_low_alarm",
+              "ones": 28,
+              "zeros": 32,
+              "binary_entropy": 0.9967916319816366
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "ones": 46,
+              "zeros": 14,
+              "binary_entropy": 0.7837769474847008
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 9,
+              "zeros": 51,
+              "binary_entropy": 0.6098403047164004
+            },
+            {
+              "tag": "FIR110_high_alarm",
+              "ones": 5,
+              "zeros": 55,
+              "binary_entropy": 0.41381685030363374
+            },
+            {
+              "tag": "TIR101_high_alarm",
+              "ones": 4,
+              "zeros": 56,
+              "binary_entropy": 0.35335933502142136
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "ones": 56,
+              "zeros": 4,
+              "binary_entropy": 0.3533593350214213
+            }
+          ],
+          "significant_nte_edges": 9,
+          "direct_ndte_edges": 6,
+          "indirect_edges_pruned": 3,
+          "directed_edges": [
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.11698662712098007,
+              "lag": 3,
+              "threshold": 0.11529358563560814,
+              "direct": false
+            },
+            {
+              "source": "FIR123_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.1764236878927642,
+              "lag": 3,
+              "threshold": 0.14459049224523207,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.6759777851970254,
+              "lag": 1,
+              "threshold": 0.11687523293790843,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.13758395096648102,
+              "lag": 3,
+              "threshold": 0.08217945362652308,
+              "direct": true
+            },
+            {
+              "source": "TIR101_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.13486331233776216,
+              "lag": 3,
+              "threshold": 0.07649089689871973,
+              "direct": true
+            },
+            {
+              "source": "TIR101_high_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.11658612551201608,
+              "direct": false
+            },
+            {
+              "source": "TIR101_high_alarm",
+              "target": "LIR100_lowlow_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.1387860714909739,
+              "direct": true
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.20006069766417112,
+              "direct": false
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "TIR101_high_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.1347736400044432,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR101_high_alarm",
+              "outgoing_direct_score": 1.134863312337762
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.6759777851970254
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "outgoing_direct_score": 0.1764236878927642
+            },
+            {
+              "tag": "FIR110_high_alarm",
+              "outgoing_direct_score": 0.13758395096648102
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V7_low_run81",
+          "class_label": "V7_low",
+          "samples": 60,
+          "eligible_alarm_variables": 9,
+          "selected_alarm_variables": [
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 37,
+              "zeros": 23,
+              "binary_entropy": 0.9603622703154779
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 41,
+              "zeros": 19,
+              "binary_entropy": 0.9007196798623593
+            },
+            {
+              "tag": "IIR120_high_alarm",
+              "ones": 18,
+              "zeros": 42,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 46,
+              "zeros": 14,
+              "binary_entropy": 0.7837769474847008
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "ones": 46,
+              "zeros": 14,
+              "binary_entropy": 0.7837769474847008
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "ones": 49,
+              "zeros": 11,
+              "binary_entropy": 0.6873150928309273
+            }
+          ],
+          "significant_nte_edges": 17,
+          "direct_ndte_edges": 9,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.707822914971366,
+              "lag": 0,
+              "threshold": 0.09109832115965688,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.6551785956446268,
+              "lag": 3,
+              "threshold": 0.10843854203906217,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.612832728535451,
+              "lag": 3,
+              "threshold": 0.093486619558096,
+              "direct": true
+            },
+            {
+              "source": "IIR120_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.39174598874943356,
+              "lag": 0,
+              "threshold": 0.1094881667855257,
+              "direct": true
+            },
+            {
+              "source": "IIR120_high_alarm",
+              "target": "TIR122_low_alarm",
+              "score": 0.2835328689073523,
+              "lag": 3,
+              "threshold": 0.16707061590166303,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.21909589412101882,
+              "lag": 3,
+              "threshold": 0.10037769950596179,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3421310160459511,
+              "lag": 3,
+              "threshold": 0.07598552547038753,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.40688214327402294,
+              "lag": 3,
+              "threshold": 0.08350394013427034,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.08130975106625782,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.28592496549638635,
+              "lag": 3,
+              "threshold": 0.1265256309020016,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.497912588583006,
+              "lag": 3,
+              "threshold": 0.136549836060431,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.4384437858572925,
+              "lag": 3,
+              "threshold": 0.13879831947804255,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.19140140391031102,
+              "lag": 3,
+              "threshold": 0.06153868714603712,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.28918750810958815,
+              "lag": 3,
+              "threshold": 0.09495259048097283,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "IIR120_high_alarm",
+              "score": 0.3938027515726684,
+              "lag": 3,
+              "threshold": 0.16943885595569913,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.2563979372812818,
+              "lag": 1,
+              "threshold": 0.14529308795874032,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.09208654163311146,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 1.268011324180078
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "outgoing_direct_score": 1.2563979372812817
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.707822914971366
+            },
+            {
+              "tag": "IIR120_high_alarm",
+              "outgoing_direct_score": 0.6752788576567859
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "outgoing_direct_score": 0.497912588583006
+            }
+          ]
+        },
+        {
+          "run_id": "V7_low_run82",
+          "class_label": "V7_low",
+          "samples": 60,
+          "eligible_alarm_variables": 10,
+          "selected_alarm_variables": [
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 35,
+              "zeros": 25,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 39,
+              "zeros": 21,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "LIR100_high_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "FIR110_low_alarm",
+              "ones": 15,
+              "zeros": 45,
+              "binary_entropy": 0.8112781244591328
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "ones": 45,
+              "zeros": 15,
+              "binary_entropy": 0.8112781244591328
+            }
+          ],
+          "significant_nte_edges": 16,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "FIR122_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.12422033513297948,
+              "lag": 3,
+              "threshold": 0.08897269510098767,
+              "direct": false
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.17020902959390216,
+              "lag": 3,
+              "threshold": 0.12449992215399716,
+              "direct": false
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.23253938894175907,
+              "lag": 3,
+              "threshold": 0.10361263160105345,
+              "direct": false
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "FIR110_low_alarm",
+              "score": 0.3619727926523467,
+              "lag": 3,
+              "threshold": 0.1521285042290334,
+              "direct": true
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.3619727926523467,
+              "lag": 3,
+              "threshold": 0.12830701916812975,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.6629836042906914,
+              "lag": 3,
+              "threshold": 0.08552129941999387,
+              "direct": true
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.39174598874943356,
+              "lag": 3,
+              "threshold": 0.07838320701463433,
+              "direct": false
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.08102671822505084,
+              "direct": true
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.2672394820685393,
+              "lag": 3,
+              "threshold": 0.09988520860988102,
+              "direct": false
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.4258442754123406,
+              "lag": 3,
+              "threshold": 0.1033823268284496,
+              "direct": false
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.15613790318171095,
+              "direct": true
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.06838539788553682,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.2672394820685393,
+              "lag": 3,
+              "threshold": 0.12552304107165327,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.4258442754123406,
+              "lag": 3,
+              "threshold": 0.12241942795521654,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.10009493512432907,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "FIR110_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.14405173557639045,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR110_low_alarm",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "LIR100_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "outgoing_direct_score": 0.7239455853046934
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 0.6629836042906914
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V8_high_run81",
+          "class_label": "V8_high",
+          "samples": 60,
+          "eligible_alarm_variables": 6,
+          "selected_alarm_variables": [
+            {
+              "tag": "TIR120_low_alarm",
+              "ones": 30,
+              "zeros": 30,
+              "binary_entropy": 1.0
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 39,
+              "zeros": 21,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 21,
+              "zeros": 39,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 48,
+              "zeros": 12,
+              "binary_entropy": 0.7219280948873623
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "ones": 55,
+              "zeros": 5,
+              "binary_entropy": 0.41381685030363385
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 5,
+              "zeros": 55,
+              "binary_entropy": 0.41381685030363374
+            }
+          ],
+          "significant_nte_edges": 7,
+          "direct_ndte_edges": 4,
+          "indirect_edges_pruned": 3,
+          "directed_edges": [
+            {
+              "source": "TIR120_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3755408385141825,
+              "lag": 3,
+              "threshold": 0.08413532615334775,
+              "direct": true
+            },
+            {
+              "source": "TIR120_low_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.22355634504655642,
+              "lag": 3,
+              "threshold": 0.06726884880974977,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR120_low_alarm",
+              "score": 0.33455560512476445,
+              "lag": 3,
+              "threshold": 0.0906121429208454,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.18633066962907807,
+              "lag": 3,
+              "threshold": 0.09487398857126131,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.4041100781171362,
+              "lag": 3,
+              "threshold": 0.13339580432041315,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.27381422709985803,
+              "lag": 3,
+              "threshold": 0.16561079972003212,
+              "direct": false
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.49564322283428064,
+              "lag": 3,
+              "threshold": 0.10054173858692768,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.49564322283428064
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 0.4041100781171362
+            },
+            {
+              "tag": "TIR120_low_alarm",
+              "outgoing_direct_score": 0.3755408385141825
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.33455560512476445
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "outgoing_direct_score": 0.0
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V8_high_run82",
+          "class_label": "V8_high",
+          "samples": 60,
+          "eligible_alarm_variables": 6,
+          "selected_alarm_variables": [
+            {
+              "tag": "LIR100_high_alarm",
+              "ones": 33,
+              "zeros": 27,
+              "binary_entropy": 0.9927744539878083
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 22,
+              "zeros": 38,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 39,
+              "zeros": 21,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "ones": 48,
+              "zeros": 12,
+              "binary_entropy": 0.7219280948873623
+            },
+            {
+              "tag": "TIR120_low_alarm",
+              "ones": 49,
+              "zeros": 11,
+              "binary_entropy": 0.6873150928309273
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 4,
+              "zeros": 56,
+              "binary_entropy": 0.35335933502142136
+            }
+          ],
+          "significant_nte_edges": 12,
+          "direct_ndte_edges": 6,
+          "indirect_edges_pruned": 6,
+          "directed_edges": [
+            {
+              "source": "LIR100_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.4589438395431461,
+              "lag": 0,
+              "threshold": 0.1034922887360689,
+              "direct": true
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.19265170875112503,
+              "lag": 3,
+              "threshold": 0.18788603174515442,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.22813256784552627,
+              "lag": 0,
+              "threshold": 0.11804805642354535,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR122_low_alarm",
+              "score": 0.16658723523436436,
+              "lag": 3,
+              "threshold": 0.13339580432041315,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.24881192516833406,
+              "lag": 3,
+              "threshold": 0.16660469553716337,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.42247247154157885,
+              "lag": 3,
+              "threshold": 0.09961980170168325,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.19598409069617395,
+              "lag": 3,
+              "threshold": 0.09975449167307078,
+              "direct": true
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.25354821522331183,
+              "lag": 3,
+              "threshold": 0.08583033453373622,
+              "direct": false
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.19862935831816375,
+              "lag": 3,
+              "threshold": 0.11045390924256168,
+              "direct": false
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "TIR120_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.15244811145071205,
+              "direct": true
+            },
+            {
+              "source": "TIR120_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.35828447289562737,
+              "lag": 3,
+              "threshold": 0.08866878624247698,
+              "direct": false
+            },
+            {
+              "source": "TIR120_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.23061986429519932,
+              "lag": 3,
+              "threshold": 0.10577771934674668,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR122_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.6184565622377528
+            },
+            {
+              "tag": "LIR100_high_alarm",
+              "outgoing_direct_score": 0.4589438395431461
+            },
+            {
+              "tag": "TIR120_low_alarm",
+              "outgoing_direct_score": 0.23061986429519932
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 0.16658723523436436
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V8_low_run81",
+          "class_label": "V8_low",
+          "samples": 60,
+          "eligible_alarm_variables": 3,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR123_low_alarm",
+              "ones": 35,
+              "zeros": 25,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "TIR120_high_alarm",
+              "ones": 40,
+              "zeros": 20,
+              "binary_entropy": 0.9182958340544896
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 5,
+              "zeros": 55,
+              "binary_entropy": 0.41381685030363374
+            }
+          ],
+          "significant_nte_edges": 1,
+          "direct_ndte_edges": 1,
+          "indirect_edges_pruned": 0,
+          "directed_edges": [
+            {
+              "source": "TIR120_high_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.5357788717181238,
+              "lag": 3,
+              "threshold": 0.11353241316394878,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR120_high_alarm",
+              "outgoing_direct_score": 0.5357788717181238
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "outgoing_direct_score": 0.0
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "V8_low_run82",
+          "class_label": "V8_low",
+          "samples": 60,
+          "eligible_alarm_variables": 3,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR123_low_alarm",
+              "ones": 36,
+              "zeros": 24,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "TIR120_high_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 7,
+              "zeros": 53,
+              "binary_entropy": 0.5197027865043055
+            }
+          ],
+          "significant_nte_edges": 2,
+          "direct_ndte_edges": 2,
+          "indirect_edges_pruned": 0,
+          "directed_edges": [
+            {
+              "source": "TIR120_high_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.11478063657101008,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR123_low_alarm",
+              "score": 0.09685742001989084,
+              "lag": 3,
+              "threshold": 0.0896069520059954,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR120_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.09685742001989084
+            },
+            {
+              "tag": "FIR123_low_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "catalyst_deactivation_run81",
+          "class_label": "catalyst_deactivation",
+          "samples": 60,
+          "eligible_alarm_variables": 6,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR121_low_alarm",
+              "ones": 35,
+              "zeros": 25,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 36,
+              "zeros": 24,
+              "binary_entropy": 0.9709505944546686
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "ones": 47,
+              "zeros": 13,
+              "binary_entropy": 0.7540340561971326
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 49,
+              "zeros": 11,
+              "binary_entropy": 0.6873150928309273
+            }
+          ],
+          "significant_nte_edges": 16,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 8,
+          "directed_edges": [
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.08407324012905737,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.39174598874943356,
+              "lag": 3,
+              "threshold": 0.07838320701463433,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.4470596956788835,
+              "lag": 3,
+              "threshold": 0.090538639079851,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.11793974511040027,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.39174598874943356,
+              "lag": 3,
+              "threshold": 0.06837393453872806,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.4470596956788835,
+              "lag": 3,
+              "threshold": 0.12026212869060393,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08408021116975715,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.2097039772249638,
+              "lag": 3,
+              "threshold": 0.12552304107165327,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.22824051470741535,
+              "lag": 3,
+              "threshold": 0.08295400748213333,
+              "direct": false
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.4895181153356517,
+              "lag": 3,
+              "threshold": 0.09071696571620128,
+              "direct": true
+            },
+            {
+              "source": "TIR122_low_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.4895181153356517,
+              "lag": 3,
+              "threshold": 0.13260369317117746,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR121_low_alarm",
+              "score": 0.1632216197613452,
+              "lag": 3,
+              "threshold": 0.11034004542084902,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.17624687081119284,
+              "lag": 3,
+              "threshold": 0.09186309066916246,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3311320077846588,
+              "lag": 3,
+              "threshold": 0.11192684949030103,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.3311320077846588,
+              "lag": 3,
+              "threshold": 0.13734455806364107,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_low_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.1259661914437756,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 1.4470596956788835
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "outgoing_direct_score": 1.4470596956788835
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR122_low_alarm",
+              "outgoing_direct_score": 0.9790362306713034
+            },
+            {
+              "tag": "FIR121_low_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "catalyst_deactivation_run82",
+          "class_label": "catalyst_deactivation",
+          "samples": 60,
+          "eligible_alarm_variables": 9,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR120_low_alarm",
+              "ones": 31,
+              "zeros": 29,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "ones": 38,
+              "zeros": 22,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "LIR120_high_alarm",
+              "ones": 19,
+              "zeros": 41,
+              "binary_entropy": 0.9007196798623593
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 42,
+              "zeros": 18,
+              "binary_entropy": 0.8812908992306927
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "ones": 43,
+              "zeros": 17,
+              "binary_entropy": 0.8599530497177521
+            },
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "ones": 44,
+              "zeros": 16,
+              "binary_entropy": 0.8366407419411672
+            }
+          ],
+          "significant_nte_edges": 16,
+          "direct_ndte_edges": 6,
+          "indirect_edges_pruned": 10,
+          "directed_edges": [
+            {
+              "source": "FIR120_low_alarm",
+              "target": "LIR120_high_alarm",
+              "score": 0.300991555246202,
+              "lag": 3,
+              "threshold": 0.13751486643481356,
+              "direct": true
+            },
+            {
+              "source": "FIR120_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.16252314784607036,
+              "lag": 3,
+              "threshold": 0.0986465264363243,
+              "direct": false
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.4150193677546915,
+              "lag": 3,
+              "threshold": 0.06725352464303877,
+              "direct": true
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "LIR120_high_alarm",
+              "score": 0.18221677767222288,
+              "lag": 3,
+              "threshold": 0.104965419746976,
+              "direct": false
+            },
+            {
+              "source": "TIR121_lowlow_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.12754475662767972,
+              "lag": 3,
+              "threshold": 0.11732639331529758,
+              "direct": false
+            },
+            {
+              "source": "LIR120_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.26738942713094305,
+              "lag": 3,
+              "threshold": 0.09001421279888595,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.11079463158553704,
+              "lag": 3,
+              "threshold": 0.10690585352006969,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.18121407728610306,
+              "lag": 3,
+              "threshold": 0.09920438380001215,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 0.3189858751539727,
+              "lag": 3,
+              "threshold": 0.11201583481621914,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR122_lowlow_alarm",
+              "score": 0.3756100069655297,
+              "lag": 3,
+              "threshold": 0.12059261462475879,
+              "direct": true
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.2399427566233533,
+              "lag": 3,
+              "threshold": 0.10644644226458878,
+              "direct": false
+            },
+            {
+              "source": "TIR121_low_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.5190438596301021,
+              "lag": 3,
+              "threshold": 0.08032948912223961,
+              "direct": true
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "FIR120_low_alarm",
+              "score": 0.21652322493057996,
+              "lag": 3,
+              "threshold": 0.08339798896940456,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_lowlow_alarm",
+              "score": 0.43345897761709595,
+              "lag": 3,
+              "threshold": 0.11166874302532946,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "LIR120_high_alarm",
+              "score": 0.11551061297346799,
+              "lag": 3,
+              "threshold": 0.10275625438176038,
+              "direct": false
+            },
+            {
+              "source": "TIR122_lowlow_alarm",
+              "target": "TIR121_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.10670767129957709,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "TIR122_lowlow_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR121_low_alarm",
+              "outgoing_direct_score": 0.5190438596301021
+            },
+            {
+              "tag": "TIR121_lowlow_alarm",
+              "outgoing_direct_score": 0.4150193677546915
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.3756100069655297
+            },
+            {
+              "tag": "FIR120_low_alarm",
+              "outgoing_direct_score": 0.300991555246202
+            },
+            {
+              "tag": "LIR120_high_alarm",
+              "outgoing_direct_score": 0.26738942713094305
+            }
+          ]
+        },
+        {
+          "run_id": "cyclone_damage_run81",
+          "class_label": "cyclone_damage",
+          "samples": 60,
+          "eligible_alarm_variables": 11,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR110_high_alarm",
+              "ones": 30,
+              "zeros": 30,
+              "binary_entropy": 1.0
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "ones": 25,
+              "zeros": 35,
+              "binary_entropy": 0.9798687566511528
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 23,
+              "zeros": 37,
+              "binary_entropy": 0.9603622703154779
+            },
+            {
+              "tag": "LIR100_high_alarm",
+              "ones": 39,
+              "zeros": 21,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "ones": 19,
+              "zeros": 41,
+              "binary_entropy": 0.9007196798623593
+            },
+            {
+              "tag": "FIR100_low_alarm",
+              "ones": 8,
+              "zeros": 52,
+              "binary_entropy": 0.5665095065529053
+            }
+          ],
+          "significant_nte_edges": 26,
+          "direct_ndte_edges": 19,
+          "indirect_edges_pruned": 7,
+          "directed_edges": [
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 0.7347286590261594,
+              "lag": 0,
+              "threshold": 0.132833065171129,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.08409888241613604,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.5004767263890537,
+              "lag": 0,
+              "threshold": 0.11811128044612151,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.18221677767222288,
+              "lag": 3,
+              "threshold": 0.11985187499973347,
+              "direct": false
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR100_low_alarm",
+              "score": 0.4178779707745194,
+              "lag": 0,
+              "threshold": 0.14468957711904873,
+              "direct": true
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.5821524474381619,
+              "lag": 0,
+              "threshold": 0.11834582292680301,
+              "direct": true
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.4290090634314029,
+              "lag": 0,
+              "threshold": 0.10274288724614844,
+              "direct": true
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.2598784033856578,
+              "lag": 3,
+              "threshold": 0.0953209652251246,
+              "direct": false
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "FIR100_low_alarm",
+              "score": 0.3761197614934758,
+              "lag": 0,
+              "threshold": 0.10955370586514093,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.13111464774917014,
+              "lag": 3,
+              "threshold": 0.09819554228666696,
+              "direct": false
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 0.25485469588572973,
+              "lag": 3,
+              "threshold": 0.09914616665298166,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.19566457981407448,
+              "lag": 3,
+              "threshold": 0.19266956833508272,
+              "direct": false
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR100_low_alarm",
+              "score": 0.13956098058061783,
+              "lag": 3,
+              "threshold": 0.12224646310510953,
+              "direct": false
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.6573037753331903,
+              "lag": 0,
+              "threshold": 0.09545052936904652,
+              "direct": true
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 0.590906162635217,
+              "lag": 0,
+              "threshold": 0.08450619360057705,
+              "direct": true
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.25026938135307475,
+              "lag": 3,
+              "threshold": 0.10337326644978329,
+              "direct": false
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 0.23372707099232148,
+              "lag": 0,
+              "threshold": 0.11647444738337175,
+              "direct": false
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "FIR100_low_alarm",
+              "score": 0.5235004212727629,
+              "lag": 0,
+              "threshold": 0.13958327489112612,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.26544400762347775,
+              "lag": 3,
+              "threshold": 0.09534002911036776,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 0.26949546154301873,
+              "lag": 3,
+              "threshold": 0.10284755928986336,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.2476164270285578,
+              "lag": 3,
+              "threshold": 0.11243900162724586,
+              "direct": true
+            },
+            {
+              "source": "FIR125_low_alarm",
+              "target": "FIR100_low_alarm",
+              "score": 0.27230083181856923,
+              "lag": 3,
+              "threshold": 0.1162778878366521,
+              "direct": true
+            },
+            {
+              "source": "FIR100_low_alarm",
+              "target": "FIR110_high_alarm",
+              "score": 0.5305629285002695,
+              "lag": 0,
+              "threshold": 0.08849359087067951,
+              "direct": true
+            },
+            {
+              "source": "FIR100_low_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 0.4945603653526228,
+              "lag": 0,
+              "threshold": 0.0765233853429829,
+              "direct": true
+            },
+            {
+              "source": "FIR100_low_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.6071808704419117,
+              "lag": 0,
+              "threshold": 0.10768281503737659,
+              "direct": true
+            },
+            {
+              "source": "FIR100_low_alarm",
+              "target": "FIR125_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.08016878329723306,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR110_high_alarm",
+              "outgoing_direct_score": 2.6530833561897325
+            },
+            {
+              "tag": "FIR100_low_alarm",
+              "outgoing_direct_score": 2.632304164294804
+            },
+            {
+              "tag": "LIR100_high_alarm",
+              "outgoing_direct_score": 1.7717103592411703
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "outgoing_direct_score": 1.3872812723630406
+            },
+            {
+              "tag": "FIR125_low_alarm",
+              "outgoing_direct_score": 1.0548567280136236
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.25485469588572973
+            }
+          ]
+        },
+        {
+          "run_id": "cyclone_damage_run82",
+          "class_label": "cyclone_damage",
+          "samples": 60,
+          "eligible_alarm_variables": 4,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR113_high_alarm",
+              "ones": 33,
+              "zeros": 27,
+              "binary_entropy": 0.9927744539878083
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 23,
+              "zeros": 37,
+              "binary_entropy": 0.9603622703154779
+            },
+            {
+              "tag": "FIR110_high_alarm",
+              "ones": 39,
+              "zeros": 21,
+              "binary_entropy": 0.934068055375491
+            },
+            {
+              "tag": "LIR100_high_alarm",
+              "ones": 47,
+              "zeros": 13,
+              "binary_entropy": 0.7540340561971326
+            }
+          ],
+          "significant_nte_edges": 7,
+          "direct_ndte_edges": 4,
+          "indirect_edges_pruned": 3,
+          "directed_edges": [
+            {
+              "source": "FIR113_high_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.17176784033545822,
+              "lag": 3,
+              "threshold": 0.12729076830203404,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 0.6698201444174979,
+              "lag": 3,
+              "threshold": 0.09786415745052666,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.15307263901266022,
+              "lag": 3,
+              "threshold": 0.14829914736686373,
+              "direct": false
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 0.46426461205768077,
+              "lag": 3,
+              "threshold": 0.0687997341666891,
+              "direct": false
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.11701669765390457,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "LIR100_high_alarm",
+              "score": 0.1446885968186511,
+              "lag": 3,
+              "threshold": 0.11480119088277728,
+              "direct": false
+            },
+            {
+              "source": "LIR100_high_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.10393803449906447,
+              "lag": 3,
+              "threshold": 0.09923604301252067,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR110_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.6698201444174979
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "outgoing_direct_score": 0.17176784033545822
+            },
+            {
+              "tag": "LIR100_high_alarm",
+              "outgoing_direct_score": 0.10393803449906447
+            }
+          ]
+        },
+        {
+          "run_id": "preheater_shutdown_run81",
+          "class_label": "preheater_shutdown",
+          "samples": 60,
+          "eligible_alarm_variables": 10,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 28,
+              "zeros": 32,
+              "binary_entropy": 0.9967916319816366
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "ones": 44,
+              "zeros": 16,
+              "binary_entropy": 0.8366407419411672
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "ones": 51,
+              "zeros": 9,
+              "binary_entropy": 0.6098403047164005
+            },
+            {
+              "tag": "TIR110_low_alarm",
+              "ones": 51,
+              "zeros": 9,
+              "binary_entropy": 0.6098403047164005
+            },
+            {
+              "tag": "TIR101_low_alarm",
+              "ones": 7,
+              "zeros": 53,
+              "binary_entropy": 0.5197027865043055
+            },
+            {
+              "tag": "FIR110_high_alarm",
+              "ones": 54,
+              "zeros": 6,
+              "binary_entropy": 0.4689955935892811
+            }
+          ],
+          "significant_nte_edges": 9,
+          "direct_ndte_edges": 7,
+          "indirect_edges_pruned": 2,
+          "directed_edges": [
+            {
+              "source": "FIR123_high_alarm",
+              "target": "TIR101_low_alarm",
+              "score": 0.20404648720117358,
+              "lag": 3,
+              "threshold": 0.19517310670923066,
+              "direct": true
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.17833493482720553,
+              "lag": 3,
+              "threshold": 0.13282728141769934,
+              "direct": true
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.3054714151841782,
+              "lag": 3,
+              "threshold": 0.09526563251076411,
+              "direct": true
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "TIR110_low_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.08332975273454456,
+              "direct": true
+            },
+            {
+              "source": "TIR110_low_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.3054714151841782,
+              "lag": 3,
+              "threshold": 0.1632865499894806,
+              "direct": false
+            },
+            {
+              "source": "TIR110_low_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 1.0,
+              "lag": 0,
+              "threshold": 0.10900356596906013,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.16330494149721553,
+              "lag": 3,
+              "threshold": 0.14052217130105052,
+              "direct": false
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.1191315823837388,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "TIR110_low_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.097232372525348,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR110_high_alarm",
+              "outgoing_direct_score": 2.0
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "outgoing_direct_score": 1.3054714151841782
+            },
+            {
+              "tag": "TIR110_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.20404648720117358
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "outgoing_direct_score": 0.17833493482720553
+            },
+            {
+              "tag": "TIR101_low_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "preheater_shutdown_run82",
+          "class_label": "preheater_shutdown",
+          "samples": 60,
+          "eligible_alarm_variables": 7,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 31,
+              "zeros": 29,
+              "binary_entropy": 0.9991983542636398
+            },
+            {
+              "tag": "TIR110_low_alarm",
+              "ones": 51,
+              "zeros": 9,
+              "binary_entropy": 0.6098403047164005
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "ones": 52,
+              "zeros": 8,
+              "binary_entropy": 0.5665095065529052
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "ones": 53,
+              "zeros": 7,
+              "binary_entropy": 0.5197027865043056
+            },
+            {
+              "tag": "TIR101_low_alarm",
+              "ones": 7,
+              "zeros": 53,
+              "binary_entropy": 0.5197027865043055
+            },
+            {
+              "tag": "FIR110_high_alarm",
+              "ones": 55,
+              "zeros": 5,
+              "binary_entropy": 0.41381685030363385
+            }
+          ],
+          "significant_nte_edges": 7,
+          "direct_ndte_edges": 4,
+          "indirect_edges_pruned": 3,
+          "directed_edges": [
+            {
+              "source": "TIR110_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.09703350814742151,
+              "lag": 3,
+              "threshold": 0.09119023542515396,
+              "direct": true
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "TIR110_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.12122758053122906,
+              "direct": true
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "TIR110_low_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.12003292114606494,
+              "direct": false
+            },
+            {
+              "source": "FIR113_high_alarm",
+              "target": "FIR122_low_alarm",
+              "score": 1.0,
+              "lag": 1,
+              "threshold": 0.1281605071820267,
+              "direct": true
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "TIR110_low_alarm",
+              "score": 0.517107603971795,
+              "lag": 3,
+              "threshold": 0.13176787549340885,
+              "direct": false
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR122_low_alarm",
+              "score": 1.0,
+              "lag": 3,
+              "threshold": 0.06736247241804541,
+              "direct": false
+            },
+            {
+              "source": "FIR110_high_alarm",
+              "target": "FIR113_high_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.14079855004249225,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR110_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR113_high_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "TIR110_low_alarm",
+              "outgoing_direct_score": 0.09703350814742151
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.0
+            },
+            {
+              "tag": "TIR101_low_alarm",
+              "outgoing_direct_score": 0.0
+            }
+          ]
+        },
+        {
+          "run_id": "preheater_temp_increase_run81",
+          "class_label": "preheater_temp_increase",
+          "samples": 60,
+          "eligible_alarm_variables": 9,
+          "selected_alarm_variables": [
+            {
+              "tag": "IIR110_high_alarm",
+              "ones": 26,
+              "zeros": 34,
+              "binary_entropy": 0.9871377743721863
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 20,
+              "zeros": 40,
+              "binary_entropy": 0.9182958340544896
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "ones": 15,
+              "zeros": 45,
+              "binary_entropy": 0.8112781244591328
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 13,
+              "zeros": 47,
+              "binary_entropy": 0.7540340561971326
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "ones": 51,
+              "zeros": 9,
+              "binary_entropy": 0.6098403047164005
+            },
+            {
+              "tag": "FIR110_low_alarm",
+              "ones": 53,
+              "zeros": 7,
+              "binary_entropy": 0.5197027865043056
+            }
+          ],
+          "significant_nte_edges": 12,
+          "direct_ndte_edges": 8,
+          "indirect_edges_pruned": 4,
+          "directed_edges": [
+            {
+              "source": "IIR110_high_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.39953240419849956,
+              "lag": 1,
+              "threshold": 0.12586729570972538,
+              "direct": true
+            },
+            {
+              "source": "IIR110_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.248778042729506,
+              "lag": 3,
+              "threshold": 0.16765444879842953,
+              "direct": false
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR120_high_alarm",
+              "score": 0.32575759369897417,
+              "lag": 3,
+              "threshold": 0.11714999577269836,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.478254877134352,
+              "lag": 3,
+              "threshold": 0.170732409464578,
+              "direct": true
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "IIR110_high_alarm",
+              "score": 0.6052632086298559,
+              "lag": 1,
+              "threshold": 0.09021165403206577,
+              "direct": true
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.32493258436009487,
+              "lag": 3,
+              "threshold": 0.10024724046544356,
+              "direct": false
+            },
+            {
+              "source": "FIR120_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.23387033567973203,
+              "lag": 3,
+              "threshold": 0.1370555959342434,
+              "direct": false
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "IIR110_high_alarm",
+              "score": 0.14928811850390278,
+              "lag": 3,
+              "threshold": 0.07976036042539483,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.14129539199651675,
+              "lag": 0,
+              "threshold": 0.10665199129089241,
+              "direct": true
+            },
+            {
+              "source": "FIR122_low_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.4821985735646672,
+              "lag": 1,
+              "threshold": 0.09813139962857022,
+              "direct": true
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.4750350513265642,
+              "lag": 1,
+              "threshold": 0.12342747387863688,
+              "direct": false
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "FIR122_low_alarm",
+              "score": 1.0,
+              "lag": 2,
+              "threshold": 0.15408694181673366,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "FIR110_low_alarm",
+              "outgoing_direct_score": 1.0
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.8040124708333262
+            },
+            {
+              "tag": "FIR120_high_alarm",
+              "outgoing_direct_score": 0.6052632086298559
+            },
+            {
+              "tag": "FIR122_low_alarm",
+              "outgoing_direct_score": 0.4821985735646672
+            },
+            {
+              "tag": "IIR110_high_alarm",
+              "outgoing_direct_score": 0.39953240419849956
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.29058351050041953
+            }
+          ]
+        },
+        {
+          "run_id": "preheater_temp_increase_run82",
+          "class_label": "preheater_temp_increase",
+          "samples": 60,
+          "eligible_alarm_variables": 7,
+          "selected_alarm_variables": [
+            {
+              "tag": "FIR113_low_alarm",
+              "ones": 28,
+              "zeros": 32,
+              "binary_entropy": 0.9967916319816366
+            },
+            {
+              "tag": "FIR110_low_alarm",
+              "ones": 34,
+              "zeros": 26,
+              "binary_entropy": 0.9871377743721863
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "ones": 22,
+              "zeros": 38,
+              "binary_entropy": 0.9480782435939055
+            },
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "ones": 53,
+              "zeros": 7,
+              "binary_entropy": 0.5197027865043056
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "ones": 7,
+              "zeros": 53,
+              "binary_entropy": 0.5197027865043055
+            },
+            {
+              "tag": "FIR111_low_alarm",
+              "ones": 54,
+              "zeros": 6,
+              "binary_entropy": 0.4689955935892811
+            }
+          ],
+          "significant_nte_edges": 14,
+          "direct_ndte_edges": 10,
+          "indirect_edges_pruned": 4,
+          "directed_edges": [
+            {
+              "source": "FIR113_low_alarm",
+              "target": "FIR110_low_alarm",
+              "score": 0.20964096939872834,
+              "lag": 3,
+              "threshold": 0.11438885574831237,
+              "direct": true
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "FIR113_low_alarm",
+              "score": 0.19632975154423937,
+              "lag": 0,
+              "threshold": 0.10677068226167204,
+              "direct": true
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.12595172498496943,
+              "lag": 3,
+              "threshold": 0.11093684180138175,
+              "direct": false
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "LIR100_lowlow_alarm",
+              "score": 0.19717319840268355,
+              "lag": 3,
+              "threshold": 0.1060996744852632,
+              "direct": false
+            },
+            {
+              "source": "FIR110_low_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.2272977405074469,
+              "lag": 3,
+              "threshold": 0.17620572074838703,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR113_low_alarm",
+              "score": 0.4776325317600095,
+              "lag": 3,
+              "threshold": 0.09935201530277382,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR110_low_alarm",
+              "score": 0.3537136907189701,
+              "lag": 3,
+              "threshold": 0.06918541382645556,
+              "direct": true
+            },
+            {
+              "source": "FIR125_high_alarm",
+              "target": "FIR123_high_alarm",
+              "score": 0.20404648720117358,
+              "lag": 3,
+              "threshold": 0.18569863823458185,
+              "direct": false
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.6034081311244199,
+              "lag": 0,
+              "threshold": 0.15995840555796936,
+              "direct": true
+            },
+            {
+              "source": "LIR100_lowlow_alarm",
+              "target": "FIR111_low_alarm",
+              "score": 0.3836885465963443,
+              "lag": 3,
+              "threshold": 0.07438647162855526,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.2503703841277046,
+              "lag": 1,
+              "threshold": 0.08201771705042778,
+              "direct": true
+            },
+            {
+              "source": "FIR123_high_alarm",
+              "target": "LIR100_lowlow_alarm",
+              "score": 0.7052623174057615,
+              "lag": 1,
+              "threshold": 0.17394781433526638,
+              "direct": true
+            },
+            {
+              "source": "FIR111_low_alarm",
+              "target": "FIR110_low_alarm",
+              "score": 0.19034663393605233,
+              "lag": 3,
+              "threshold": 0.12066392249556193,
+              "direct": false
+            },
+            {
+              "source": "FIR111_low_alarm",
+              "target": "FIR125_high_alarm",
+              "score": 0.2503703841277046,
+              "lag": 1,
+              "threshold": 0.11205805938755098,
+              "direct": true
+            }
+          ],
+          "candidate_root_alarm_ranking": [
+            {
+              "tag": "LIR100_lowlow_alarm",
+              "outgoing_direct_score": 0.9870966777207643
+            },
+            {
+              "tag": "FIR123_high_alarm",
+              "outgoing_direct_score": 0.9556327015334661
+            },
+            {
+              "tag": "FIR125_high_alarm",
+              "outgoing_direct_score": 0.8313462224789796
+            },
+            {
+              "tag": "FIR110_low_alarm",
+              "outgoing_direct_score": 0.42362749205168626
+            },
+            {
+              "tag": "FIR111_low_alarm",
+              "outgoing_direct_score": 0.2503703841277046
+            },
+            {
+              "tag": "FIR113_low_alarm",
+              "outgoing_direct_score": 0.20964096939872834
+            }
+          ]
+        }
+      ],
+      "analysis_runs_per_class": 2,
+      "class_count": 16,
+      "selection_policy": {
+        "partition": "test",
+        "split_identity": "fcc_grouped_runs_60_20_20",
+        "run_choice": "lowest source run/sample numbers in the frozen test partition",
+        "alarm_variable_choice": "highest binary entropy after occurrence and clearance guards",
+        "minimum_occurrences": 3,
+        "minimum_clear_samples": 3,
+        "max_features": 6
+      },
+      "lag_histogram": {
+        "0": 49,
+        "1": 30,
+        "2": 14,
+        "3": 301
+      },
+      "stability_pairs": {
+        "within_class_evaluable": 15,
+        "cross_class_evaluable": 480
+      },
+      "data_evidence": {
+        "files": [
+          {
+            "path": "data/public_datasets/fcc_alarm/alarmseriesdata.zip",
+            "bytes": 828104,
+            "sha256": "c62157d28e643dabd2a72d695e0df84aa39ad40b68b140d13db07a2243e2d28d"
+          }
+        ],
+        "combined_sha256": "96ee8e39ae5c0336781052ea91166acfb1766c701c0875b8e2703f7adc9e10d1"
+      },
+      "reporting_status": "Book Chapter 4.1 structural transfer validation; alarm-tag causal ground truth is unavailable, so no root-cause top-k accuracy is claimed",
+      "limitations": [
+        "Fault-family labels group stability comparisons but do not identify a root alarm tag.",
+        "Feature selection uses binary entropy inside each fixed evaluation episode and is descriptive, not trained.",
+        "The unavailable industrial source records prevent exact paper-table reproduction."
+      ]
+    },
+    "config": "configs/experiments/fcc_alarm_nte_ndte_structural_validation.json"
+  }
+}

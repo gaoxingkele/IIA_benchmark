@@ -30,10 +30,10 @@ def test_paper_harness_matrix_is_closed() -> None:
     }
     assert audit["algorithm_dataset_targets"] == {
         "all": 121,
-        "M2_M3": 112,
-        "M1_sentinels": 9,
+        "M2_M3": 111,
+        "M1_sentinels": 10,
         "adapter_runnable_all": 118,
-        "adapter_runnable_M2_M3": 109,
+        "adapter_runnable_M2_M3": 108,
         "adapter_pending": 3,
     }
     assert audit["references"]["registered_papers"] == 28
