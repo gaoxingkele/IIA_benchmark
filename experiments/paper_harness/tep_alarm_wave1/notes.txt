@@ -1,0 +1,52 @@
+TEP Alarm Wave 1 experiment plan
+================================
+
+Dataset and boundary
+--------------------
+Official IEEE DataPort five-class payload DOI 10.21227/326k-qr90: 1,000
+complete 300-minute samples, 200 per IDV1, IDV2, IDV6, IDV14, and IDV1+IDV5,
+with 50 binary alarm variables. Seed 1103 assigns 120/40/40 complete samples
+per class to train/calibration/test. No sample is windowed across partitions.
+
+Runs
+----
+run_1: CTFH on persistent alarm states.
+run_2: CTFH on rising edges.
+run_3: structured HDAM on persistent alarm states.
+run_4: full registered CASIM (672 features, 10 classifiers) on alarm states.
+run_5: ConE-AFC with CTFH and explicit calibration samples.
+run_6: Cross-Conformal AFC with five stratified folds.
+
+Runtime parent retained
+-----------------------
+The first run_3 parent used the PRONTO 12-bin HDAM template on a 60-bin TEP
+episode. It was terminated after 482.6 wall seconds (473.9 CPU seconds,
+316,768,256 B observed working set) before any prediction result was produced.
+The registered repair uses the same HDAM equations with a full 60-bin episode
+template, chosen only from input dimensions and runtime. See
+run_3_initial_runtime_failure.json.
+
+Evidence policy
+---------------
+These are exact-payload, locally registered split engineering results. They are
+not paper-score reproductions until the cited split, repetition grid, parameters,
+and tables are independently matched. Criterion-C intervals are descriptive
+candidates because the five-class payload has no expert flood-interval labels.
+
+Observed results
+----------------
+run_1 completed in 27.68 s. CTFH/state produced 996 consensus hashes and
+       balanced accuracy 0.725000 / macro-F1 0.655143. IDV14 recall was zero.
+run_2 completed in 20.25 s. CTFH/rising-edge produced 995 consensus hashes and
+       balanced accuracy 0.750000 / macro-F1 0.683298. IDV14 recall remained zero.
+run_3 completed in 9.67 s after the runtime-only repair. HDAM predicted all five
+       classes with balanced accuracy 0.975000 / macro-F1 0.974902; minimum
+       template stability was 0.196923.
+run_4 completed in 191.38 s. Full registered CASIM predicted all five classes
+       with balanced accuracy and macro-F1 1.000000.
+run_5 completed in 30.98 s. ConE coverage was 0.890000, mean set size 1.080000,
+       empty rate 0.095000, singleton rate 0.730000, and singleton accuracy
+       0.979452. Efficient but slightly below nominal 0.90 coverage.
+run_6 completed in 132.59 s. Cross-Conformal coverage was 0.965000, mean set
+       size 1.260000, empty rate 0, singleton rate 0.740000, and singleton
+       accuracy 0.952703.

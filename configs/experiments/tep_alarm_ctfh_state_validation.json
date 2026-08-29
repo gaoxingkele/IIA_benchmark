@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "tep_alarm_ctfh_state_validation",
+  "task": "real_tep_alarm_classification",
+  "downstream_tasks": ["T4"],
+  "validated_algorithms": ["ctfh_fingerprinting_2025"],
+  "domain": "intelligent_industrial_alarm",
+  "system": "configs/systems/tep_alarm_simulator.json",
+  "dataset": "configs/datasets/tep_alarm_five_class_state.json",
+  "split": "configs/splits/tep_alarm_five_class_seed1103_60_20_20.json",
+  "model": "configs/models/ctfh_fingerprinting.json",
+  "flood_detector": "configs/models/criterion_c_tep_five_class.json",
+  "metrics": "configs/metrics/alarm_flood_core.json",
+  "outputs": {
+    "run_dir": "experiments/runs/tep_alarm_ctfh_state_validation",
+    "summary": "experiments/reports/tep_alarm_ctfh_state_validation.json"
+  }
+}

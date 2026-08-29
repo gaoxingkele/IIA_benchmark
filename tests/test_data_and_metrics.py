@@ -1,5 +1,6 @@
 from pathlib import Path
 import zipfile
+from io import BytesIO
 
 import pytest
 
@@ -12,6 +13,7 @@ from iia_benchmark.data import (
     audit_pronto_archive,
     build_pronto_fault_window_split,
     build_fcc_alarm_split,
+    build_tep_five_class_split,
     extract_pronto_members,
     load_piade_alarm_events,
     load_piade_alarm_intervals,
@@ -19,6 +21,7 @@ from iia_benchmark.data import (
     load_pronto_merged_csv,
     load_fcc_alarm_runs,
     load_fcc_timeseries_runs,
+    load_tep_five_class_alarm_runs,
     pronto_normal_train_evaluation_masks,
     load_skab_csv,
     load_smd_alarm_events,
@@ -300,6 +303,63 @@ def test_fcc_adapters_and_complete_run_split(tmp_path: Path) -> None:
     assert series[0].process_names == ("P1",)
     assert series[0].timestamps.tolist() == [0.0, 1.0]
     assert series[0].root_disturbance == "Dist_fault"
+
+
+def test_tep_five_class_adapter_and_seeded_group_split(tmp_path: Path) -> None:
+    source = tmp_path / "tep_alarm.zip"
+    workbook = Workbook()
+    sheet = workbook.active
+    sheet.append(
+        ["sample ID", "class label", "disturbance name", "min. scaling", "max. scaling"]
+    )
+    for class_label, disturbance in ((0, "IDV1"), (1, "IDV2")):
+        for class_position in range(1, 7):
+            sample_number = class_label * 6 + class_position
+            sheet.append(
+                [f"sample_{sample_number}", class_label, disturbance, 0.6, 1.0]
+            )
+    workbook_bytes = BytesIO()
+    workbook.save(workbook_bytes)
+    with zipfile.ZipFile(source, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("root/ground_truth.xlsx", workbook_bytes.getvalue())
+        for class_label in (0, 1):
+            for class_position in range(1, 7):
+                sample_number = class_label * 6 + class_position
+                archive.writestr(
+                    f"root/class_{class_label}/alarm_timeseries_{sample_number}.csv",
+                    "Timestamp,Minutes,A_HI,A_LO\n"
+                    + "\n".join(
+                        f"{minute / 60:.4f},{minute},{int((minute + class_label) % 2 == 0)},{int((minute + class_label) % 2 == 1)}"
+                        for minute in range(4)
+                    )
+                    + "\n",
+                )
+    runs = load_tep_five_class_alarm_runs(source)
+    assert len(runs) == 12
+    assert runs[0].disturbance == "IDV1"
+    assert runs[-1].class_position == 6
+    assert runs[0].representation("rising_edge").shape == (4, 2)
+    assert runs[0].to_episode().root_cause == "IDV1"
+    split = build_tep_five_class_split(
+        runs,
+        train_per_class=2,
+        calibration_per_class=2,
+        test_per_class=2,
+        random_state=1103,
+        representation="rising_edge",
+    )
+    assert split.X_train.shape == (4, 2, 4)
+    assert set(split.y_test) == {"IDV1", "IDV2"}
+    assert not set(split.train_run_ids) & set(split.test_run_ids)
+    repeated = build_tep_five_class_split(
+        runs,
+        train_per_class=2,
+        calibration_per_class=2,
+        test_per_class=2,
+        random_state=1103,
+        representation="rising_edge",
+    )
+    assert repeated.train_run_ids == split.train_run_ids
 
 
 def test_pronto_normal_split_is_purged_and_keeps_all_faults() -> None:

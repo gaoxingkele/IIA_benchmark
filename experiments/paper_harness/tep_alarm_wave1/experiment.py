@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute one pre-registered FCC Wave-1 run selected by its output directory."""
+"""Execute one registered TEP Alarm Wave-1 experiment."""
 
 from __future__ import annotations
 
@@ -21,15 +21,12 @@ from iia_benchmark.runner import run_experiment  # noqa: E402
 
 
 RUN_PLAN = {
-    "run_1": "configs/experiments/fcc_ctfh_state_validation.json",
-    "run_2": "configs/experiments/fcc_ctfh_rising_edge_validation.json",
-    "run_3": "configs/experiments/fcc_hdam_state_validation.json",
-    "run_4": "configs/experiments/fcc_casim_state_validation.json",
-    "run_5": "configs/experiments/fcc_cone_ctfh_uncertainty_validation.json",
-    "run_6": "configs/experiments/fcc_cross_conformal_ctfh_uncertainty_validation.json",
-    "run_7": "configs/experiments/fcc_accelerated_alignment_validation.json",
-    "run_8": "configs/experiments/fcc_charm_patterns_validation.json",
-    "run_9": "configs/experiments/fcc_max_entropy_next_alarm_validation.json",
+    "run_1": "configs/experiments/tep_alarm_ctfh_state_validation.json",
+    "run_2": "configs/experiments/tep_alarm_ctfh_rising_edge_validation.json",
+    "run_3": "configs/experiments/tep_alarm_hdam_state_validation.json",
+    "run_4": "configs/experiments/tep_alarm_casim_state_validation.json",
+    "run_5": "configs/experiments/tep_alarm_cone_ctfh_validation.json",
+    "run_6": "configs/experiments/tep_alarm_cross_conformal_ctfh_validation.json",
 }
 
 
@@ -42,7 +39,6 @@ def sha256_file(path: Path) -> str:
 
 
 def execution_provenance() -> dict[str, object]:
-    """Capture the exact mutable worktree state used by future runs."""
     status = subprocess.run(
         ["git", "status", "--porcelain", "--untracked-files=all"],
         cwd=ROOT,
@@ -57,7 +53,7 @@ def execution_provenance() -> dict[str, object]:
         capture_output=True,
     ).stdout
     source_paths = [
-        ROOT / "src/iia_benchmark/data/fcc.py",
+        ROOT / "src/iia_benchmark/data/tep_alarm.py",
         ROOT / "src/iia_benchmark/models/flood_book.py",
         ROOT / "src/iia_benchmark/runner.py",
     ]
@@ -82,10 +78,6 @@ def main() -> int:
         raise ValueError(f"out_dir basename must be one of {sorted(RUN_PLAN)}")
     config = ROOT / RUN_PLAN[run_name]
     started = datetime.now(timezone.utc)
-    print(
-        f"{run_name} tests whether {config.stem} activates and discriminates all 16 "
-        "FCC abnormal situations under complete-run train/calibration/test separation."
-    )
     provenance = execution_provenance()
     before = time.perf_counter()
     payload = run_experiment(config)
@@ -110,19 +102,28 @@ def main() -> int:
         "wall_clock_seconds": duration,
         "result": payload,
     }
-    (out_dir / "final_info.json").write_text(
+    out_dir.mkdir(parents=True, exist_ok=True)
+    final_path = out_dir / "final_info.json"
+    final_path.write_text(
         json.dumps(final, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
         encoding="utf-8",
     )
-    compact = {
-        "run_name": run_name,
-        "wall_clock_seconds": duration,
-        "experiment_id": payload["experiment_id"],
-        "metrics": payload["result"]["metrics"],
-        "activation": payload["result"]["activation"],
-        "final_info": (out_dir / "final_info.json").relative_to(ROOT).as_posix(),
-    }
-    print(json.dumps(compact, ensure_ascii=False, indent=2, allow_nan=False))
+    result = payload["result"]
+    print(
+        json.dumps(
+            {
+                "run_name": run_name,
+                "wall_clock_seconds": duration,
+                "experiment_id": payload["experiment_id"],
+                "metrics": result["metrics"],
+                "activation": result["activation"],
+                "final_info": final_path.relative_to(ROOT).as_posix(),
+            },
+            ensure_ascii=False,
+            indent=2,
+            allow_nan=False,
+        )
+    )
     return 0
 
 

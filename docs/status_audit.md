@@ -30,7 +30,7 @@ this report.
 | Tasks runnable on available real data | 6 |
 | Tasks with the primary payload gated | 0 |
 | Leaderboard-eligible splits | 0 |
-| Real-data validation reports | 26 |
+| Real-data validation reports | 32 |
 
 Locally available public main payloads: `comopi`, `enas`, `fcc_alarm`, `imaks`, `npp_alarm_dataport`, `piade`, `pronto`, `skab`, `smd10towfgr`, `tep_alarm_dataport`, `tep_classic`.
 

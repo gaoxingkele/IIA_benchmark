@@ -28,12 +28,13 @@ class FCCAlarmRun:
     sample_minutes: float = 1.0
 
     def __post_init__(self) -> None:
-        values = np.asarray(self.alarm_states, dtype=np.int8)
-        object.__setattr__(self, "alarm_states", values)
+        raw_values = np.asarray(self.alarm_states)
+        values = raw_values.astype(np.int8)
         if values.ndim != 2 or values.shape[0] == 0 or values.shape[1] == 0:
             raise ValueError("FCC alarm states must be a nonempty matrix")
-        if not np.isin(values, [0, 1]).all():
+        if not np.isfinite(raw_values).all() or not np.isin(raw_values, [0, 1]).all():
             raise ValueError("FCC alarm states must be binary")
+        object.__setattr__(self, "alarm_states", values)
         if len(self.alarm_names) != values.shape[1]:
             raise ValueError("FCC alarm names must match state columns")
         if not self.scenario or self.run_number < 1 or self.sample_minutes <= 0:

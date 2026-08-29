@@ -9,3 +9,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Rising-edge representation: 45 hashes, 10 predicted classes, balanced accuracy 0.365625, macro-F1 0.324116.
 - Evidence: `experiments/reports/fcc_ctfh_state_validation.json` and `experiments/reports/fcc_ctfh_rising_edge_validation.json`.
 - Interpretation/boundary: both activate, unlike PRONTO's zero hashes, but edge conversion loses useful duration information. These transfer results do not reproduce the paper's private protocol or score.
+
+## TEP five-class payload validation (E2/P2)
+
+- Exact public payload: 1,000 complete 300-minute samples, 200 per IDV1/IDV2/IDV6/IDV14/IDV1+IDV5; seeded 120/40/40 split per class.
+- State: 996 consensus hashes, balanced accuracy 0.725000, macro-F1 0.655143. Rising edge: 995 hashes, balanced accuracy 0.750000, macro-F1 0.683298.
+- Both representations give IDV14 recall 0; the algorithm activates but fails this class distinction.
+- Evidence: `experiments/reports/tep_alarm_ctfh_state_validation.json` and `experiments/reports/tep_alarm_ctfh_rising_edge_validation.json`.
+- Boundary: the payload is exact and task-matched, but the paper split, parameters, repetitions, and target table are not yet closed.

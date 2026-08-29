@@ -175,7 +175,14 @@ def build_report(cutoff: str) -> str:
         ]
         task_names = sorted({task for item in mains for task in item.get("tasks", [])})
         synthetic = any(item.get("synthetic", False) for item in mains)
-        if family in {"tep_alarm_dataport", "npp_alarm_dataport", "fcc_alarm"}:
+        if family == "tep_alarm_dataport":
+            boundary = (
+                "五类 ZIP adapter、G0、seeded split 与首批 6 个实验已完成；"
+                "100-run/异常变体及论文 exact protocol 待补"
+            )
+        elif family == "fcc_alarm":
+            boundary = "alarm/process adapter、G0、grouped split 与首批 9 个实验已完成；多 seed/论文协议待补"
+        elif family == "npp_alarm_dataport":
             boundary = "原始载荷已取得；专用 adapter、grouped split 和正式实验待完成"
         elif family == "imaks":
             boundary = "仅用于合成因果/鲁棒性验证，不得作为真实工业性能"
@@ -201,8 +208,8 @@ def build_report(cutoff: str) -> str:
     for task in tasks:
         if task["id"] == "T4":
             note = (
-                "TEP、NPP、FCC 专用报警载荷均已取得并完成完整性审计；"
-                "adapter、grouped split 和论文分数实验待完成，当前已执行结果仍为 PRONTO 代理实验。"
+                "TEP 五类与 FCC 专用 adapter、G0、grouped split 和首批实验已完成；"
+                "NPP adapter、多 seed 与论文 exact protocol 待完成；PRONTO 仅保留为错配哨兵。"
             )
         else:
             note = "已有真实或已取得数据入口；正式榜单仍需统一 split。"
@@ -216,9 +223,9 @@ def build_report(cutoff: str) -> str:
             "## 6. 当前主要缺口与优先顺序",
             "",
             "1. 补齐 23 篇论文全文，更新 PDF SHA-256、页码证据和 ARA evidence；其中 22 篇访问受限、1 篇自动下载遭遇 HTTP 403。",
-            "2. 为 TEP Alarm、NPP Alarm、FCC Alarm 建立只读 adapter，并按 run/事故族/异常族生成稳定样本 ID。",
+            "2. 为 NPP Alarm 建立只读 adapter；补齐 TEP 100-run/异常变体入口，并按 run/事故族/异常族生成稳定样本 ID。",
             "3. 建立首个 leaderboard-eligible grouped split；训练期确定全部超参，测试期冻结，报告多 seed 与 95% CI。",
-            "4. 在专用报警载荷上重跑 CASIM、CTFH、HDAM、ConE-AFC、Cross-Conformal 和时间直方图方法，保留 PRONTO 上的退化负结果作为域错配证据。",
+            "4. TEP/FCC 已重跑 CASIM、CTFH、HDAM、ConE-AFC、Cross-Conformal；下一步补书籍序列方法、NPP、时间直方图与多 seed，保留 PRONTO 退化证据。",
             "5. 合法取得 CASIM、ConE-AFC 等官方 Code Ocean 工件，并复跑论文代表表格；在此之前 30 项算法均保持 `partial`。",
             "6. 完成 open-set 类别留一、prefix 早期分类、missing/spurious/jitter/delay 鲁棒性矩阵和跨数据集迁移实验。",
             "",

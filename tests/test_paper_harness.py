@@ -32,9 +32,9 @@ def test_paper_harness_matrix_is_closed() -> None:
         "all": 121,
         "M2_M3": 112,
         "M1_sentinels": 9,
-        "adapter_runnable_all": 83,
-        "adapter_runnable_M2_M3": 74,
-        "adapter_pending": 38,
+        "adapter_runnable_all": 101,
+        "adapter_runnable_M2_M3": 92,
+        "adapter_pending": 20,
     }
     assert audit["references"]["registered_papers"] == 28
     assert audit["references"]["backlog_covered"] == 28

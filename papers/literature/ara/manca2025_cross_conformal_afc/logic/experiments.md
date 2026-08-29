@@ -9,3 +9,11 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Result: coverage 0.965625, mean set size 7.671875/16, singleton rate 0.0. Prefix sets are smaller than the label space but do not yield singleton early decisions.
 - Evidence: `configs/experiments/fcc_cross_conformal_ctfh_uncertainty_validation.json` and `experiments/reports/fcc_cross_conformal_ctfh_uncertainty_validation.json`.
 - Boundary: one transfer split, not a source-paper score reproduction or clean multi-seed E3 result.
+
+## TEP five-class payload validation (E2/P2)
+
+- Five stratified train/calibration folds with untouched complete-sample test runs; CTFH rising-edge base and alpha 0.10.
+- Coverage 0.965000, mean set size 1.260000/5, empty rate 0, singleton rate 0.740000, singleton accuracy 0.952703.
+- Relative to split ConE on the same registered split, coverage and empty-set behavior improve at a 0.18-label mean set-size cost; no paired superiority claim is made from one seed.
+- Evidence: `experiments/reports/tep_alarm_cross_conformal_ctfh_validation.json`.
+- Boundary: the full paper equations/repetition protocol and exact reference table remain unclosed.

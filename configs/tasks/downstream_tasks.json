@@ -25,9 +25,9 @@
     {
       "id": "T4",
       "name": "alarm_flood_detection_clustering_and_classification",
-      "status": "runnable_real_data_surrogate",
-      "primary_payload_status": "raw_payload_acquired_adapter_pending",
-      "validation_scope": "Dedicated TEP, NPP, and FCC alarm payloads are locally acquired and integrity-audited, but their adapters, grouped splits, and paper-score experiments are pending; existing executed scores remain PRONTO surrogate results",
+      "status": "runnable_real_data_primary_partial",
+      "primary_payload_status": "tep_five_class_and_fcc_adapters_runnable_npp_pending",
+      "validation_scope": "TEP five-class and FCC dedicated alarm adapters, grouped splits, G0 priors, and engineering experiments are executed; NPP adapter and paper-exact repeated protocols remain pending, while PRONTO is retained only as a mismatch sentinel",
       "dataset_families": ["pronto", "smd10towfgr", "tep_alarm_dataport", "npp_alarm_dataport", "fcc_alarm"],
       "outputs": ["flood_intervals", "class_label", "open_set_label", "prefix_prediction_set"]
     },
@@ -35,7 +35,7 @@
       "id": "T5",
       "name": "next_alarm_and_flood_forecasting",
       "status": "runnable_real_data",
-      "dataset_families": ["piade", "pronto", "comopi", "smd10towfgr", "enas"],
+      "dataset_families": ["piade", "pronto", "comopi", "smd10towfgr", "enas", "tep_alarm_dataport", "fcc_alarm"],
       "outputs": ["next_tag", "future_alarm_set", "early_warning"]
     },
     {

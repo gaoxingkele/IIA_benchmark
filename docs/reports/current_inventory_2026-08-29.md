@@ -1,6 +1,6 @@
 # IIA Benchmark 当前清单与完备性说明（2026-08-29）
 
-仓库：<https://github.com/gaoxingkele/IIA_benchmark>；生成基线 revision：`448f5b6`。
+仓库：<https://github.com/gaoxingkele/IIA_benchmark>；生成基线 revision：`e95cb09`。
 
 ## 1. 总体结论
 
@@ -9,11 +9,11 @@
 | 登记参考论文 | 28 | 本地全文 5，缺 23 |
 | 书籍算法交付项 | 20 | 可调用 20；verified 0，partial 20 |
 | SOTA 算法交付项 | 10 | 可调用 10；verified 0，partial 10 |
-| 可调用方法族 / 模型配置 | 34 / 31 | 机制与单元测试可运行，不等于论文分数复现 |
+| 可调用方法族 / 模型配置 | 34 / 34 | 机制与单元测试可运行，不等于论文分数复现 |
 | 逻辑数据集族 | 11 | 有效主载荷 11/11 |
 | 下游任务 | 6 | 6/6 有真实或已取得数据入口；T4 正式专用数据实验仍待 adapter |
 | 正式排行榜切分 | 0 | 尚无 leaderboard-eligible split |
-| 真实数据验证报告 | 17 | 覆盖 10 个登记算法；严格分数闭环仍为 0 |
+| 真实数据验证报告 | 26 | 覆盖 13 个登记算法；严格分数闭环仍为 0 |
 
 这里的‘可调用’表示本地实现有明确入口并通过机制/不变量测试；只有在论文原始数据、预处理、grouped split、指标、随机种子和参考分数均闭合后，才能升级为 `verified`。
 
@@ -104,14 +104,14 @@
 |---|---|---|---|---|---|
 | `comopi` | 8 台包装设备、150,650 个十分钟 bin、123 类报警 | `comopi_alarm_counts` | public/acquired | `alarm_forecasting`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 | `enas` | 219,893 条离散传感器、执行器和人工错误状态记录 | `enas_event_log` | public/acquired | `alarm_sequence_modeling`, `anomaly_detection`, `root_cause_analysis` | 已取得；正式榜单仍需冻结 split 与参考分数 |
-| `fcc_alarm` | 1,600 个 FCC 仿真 run、16 类异常、57 个报警位及 4,800 个配套时序 CSV | `fcc_alarm_series`, `fcc_alarm_timeseries` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `robustness`, `root_cause_analysis` | 原始载荷已取得；专用 adapter、grouped split 和正式实验待完成 |
+| `fcc_alarm` | 1,600 个 FCC 仿真 run、16 类异常、57 个报警位及 4,800 个配套时序 CSV | `fcc_alarm_series`, `fcc_alarm_timeseries` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `robustness`, `root_cause_analysis` | alarm/process adapter、G0、grouped split 与首批 9 个实验已完成；多 seed/论文协议待补 |
 | `imaks` | 211,200 条带异常和因果真值的合成 MQTT/传感器记录 | `imaks_synthetic` | synthetic | `alarm_sequence_modeling`, `robustness`, `root_cause_analysis` | 仅用于合成因果/鲁棒性验证，不得作为真实工业性能 |
 | `npp_alarm_dataport` | 101 个 run/组、12 类事故/扰动加 Normal、122,510 个 CSV | `npp_alarm_dataport_archive` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `root_cause_analysis` | 原始载荷已取得；专用 adapter、grouped split 和正式实验待完成 |
 | `piade` | 5 台包装设备；429,394 行原始记录及 23,376 行小时序列 | `piade_sequences`, `piade_raw` | public/acquired | `alarm_forecasting`, `alarm_sequence_modeling`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 | `pronto` | 1.72 GB 多相流实验设施数据；过程、报警和故障标签 | `pronto_full` | public/acquired | `alarm_flood_analysis`, `alarm_generation`, `root_cause_analysis` | T4 使用故障窗代理，不是专家洪泛类别 |
 | `skab` | 35 个水循环异常实验 CSV | `skab` | public/acquired | `alarm_generation`, `anomaly_detection`, `robustness` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 | `smd10towfgr` | 10 台风机 SCADA；230,618 条日志、167 个事件代码 | `smd10towfgr` | public/acquired | `alarm_forecasting`, `alarm_sequence_modeling`, `bad_actor_analysis`, `machine_state_classification` | 已取得；正式榜单仍需冻结 split 与参考分数 |
-| `tep_alarm_dataport` | 16.98 GB；100 个 Tests run、1,000 条五类报警序列及异常场景变体 | `tep_alarm_dataport_archive` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `root_cause_analysis` | 原始载荷已取得；专用 adapter、grouped split 和正式实验待完成 |
+| `tep_alarm_dataport` | 16.98 GB；100 个 Tests run、1,000 条五类报警序列及异常场景变体 | `tep_alarm_dataport_archive` | public/acquired | `alarm_flood_classification`, `alarm_sequence_modeling`, `open_set_classification`, `root_cause_analysis` | 五类 ZIP adapter、G0、seeded split 与首批 6 个实验已完成；100-run/异常变体及论文 exact protocol 待补 |
 | `tep_classic` | TEP 经典过程仿真；44 个 run、52 个变量 | `tep_classic` | public/acquired | `alarm_generation`, `fault_detection`, `root_cause_analysis` | 已取得；正式榜单仍需冻结 split 与参考分数 |
 
 另有 4 个不可报告成绩的 smoke 生成器：`synthetic_step_fault`、`synthetic_multivariate`、`synthetic_root_cause`、`synthetic_alarm_floods`。
@@ -123,16 +123,16 @@
 | `T1` | 报警生成与参数设计 | `runnable_real_data` | `tep_classic`, `skab`, `pronto` | `binary_alarm`, `FAR`, `MAR`, `AAD` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 | `T2` | 多变量动态报警限 | `runnable_real_data` | `tep_classic`, `skab`, `pronto` | `normal_operating_zone`, `dynamic_limit`, `alarm_state` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 | `T3` | 因果图与根因排序 | `runnable_real_data` | `tep_classic`, `pronto`, `enas`, `imaks`, `tep_alarm_dataport`, `npp_alarm_dataport`, `fcc_alarm` | `directed_edges`, `root_cause_ranking` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
-| `T4` | 报警洪泛检测、聚类与分类 | `runnable_real_data_surrogate` | `pronto`, `smd10towfgr`, `tep_alarm_dataport`, `npp_alarm_dataport`, `fcc_alarm` | `flood_intervals`, `class_label`, `open_set_label`, `prefix_prediction_set` | TEP、NPP、FCC 专用报警载荷均已取得并完成完整性审计；adapter、grouped split 和论文分数实验待完成，当前已执行结果仍为 PRONTO 代理实验。 |
-| `T5` | next-alarm 与洪泛预测 | `runnable_real_data` | `piade`, `pronto`, `comopi`, `smd10towfgr`, `enas` | `next_tag`, `future_alarm_set`, `early_warning` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
+| `T4` | 报警洪泛检测、聚类与分类 | `runnable_real_data_primary_partial` | `pronto`, `smd10towfgr`, `tep_alarm_dataport`, `npp_alarm_dataport`, `fcc_alarm` | `flood_intervals`, `class_label`, `open_set_label`, `prefix_prediction_set` | TEP 五类与 FCC 专用 adapter、G0、grouped split 和首批实验已完成；NPP adapter、多 seed 与论文 exact protocol 待完成；PRONTO 仅保留为错配哨兵。 |
+| `T5` | next-alarm 与洪泛预测 | `runnable_real_data` | `piade`, `pronto`, `comopi`, `smd10towfgr`, `enas`, `tep_alarm_dataport`, `fcc_alarm` | `next_tag`, `future_alarm_set`, `early_warning` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 | `T6` | 运维可视分析 | `runnable_real_data` | `piade`, `pronto`, `comopi`, `smd10towfgr`, `tep_alarm_dataport` | `KPI`, `bad_actor`, `correlation_graph`, `flood_visual_report` | 已有真实或已取得数据入口；正式榜单仍需统一 split。 |
 
 ## 6. 当前主要缺口与优先顺序
 
 1. 补齐 23 篇论文全文，更新 PDF SHA-256、页码证据和 ARA evidence；其中 22 篇访问受限、1 篇自动下载遭遇 HTTP 403。
-2. 为 TEP Alarm、NPP Alarm、FCC Alarm 建立只读 adapter，并按 run/事故族/异常族生成稳定样本 ID。
+2. 为 NPP Alarm 建立只读 adapter；补齐 TEP 100-run/异常变体入口，并按 run/事故族/异常族生成稳定样本 ID。
 3. 建立首个 leaderboard-eligible grouped split；训练期确定全部超参，测试期冻结，报告多 seed 与 95% CI。
-4. 在专用报警载荷上重跑 CASIM、CTFH、HDAM、ConE-AFC、Cross-Conformal 和时间直方图方法，保留 PRONTO 上的退化负结果作为域错配证据。
+4. TEP/FCC 已重跑 CASIM、CTFH、HDAM、ConE-AFC、Cross-Conformal；下一步补书籍序列方法、NPP、时间直方图与多 seed，保留 PRONTO 退化证据。
 5. 合法取得 CASIM、ConE-AFC 等官方 Code Ocean 工件，并复跑论文代表表格；在此之前 30 项算法均保持 `partial`。
 6. 完成 open-set 类别留一、prefix 早期分类、missing/spurious/jitter/delay 鲁棒性矩阵和跨数据集迁移实验。
 

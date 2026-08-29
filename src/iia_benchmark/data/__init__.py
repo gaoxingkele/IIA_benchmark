@@ -31,6 +31,12 @@ from .synthetic import (
     make_synthetic_multivariate_run,
 )
 from .tep import TEP_FEATURE_NAMES, load_tep_ascii
+from .tep_alarm import (
+    TEPAlarmRun,
+    TEPAlarmSplit,
+    build_tep_five_class_split,
+    load_tep_five_class_alarm_runs,
+)
 
 __all__ = [
     "AlarmEvent",
@@ -44,6 +50,10 @@ __all__ = [
     "load_fcc_alarm_runs",
     "load_fcc_timeseries_runs",
     "TEP_FEATURE_NAMES",
+    "TEPAlarmRun",
+    "TEPAlarmSplit",
+    "build_tep_five_class_split",
+    "load_tep_five_class_alarm_runs",
     "load_piade_alarm_events",
     "load_piade_alarm_intervals",
     "load_piade_alarm_sequences",

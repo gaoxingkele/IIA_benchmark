@@ -9,3 +9,11 @@ The paper's public synthetic dataset contains 18,750 binary alarm subsequences: 
 - Result: coverage 0.940625, mean set size 8.009375/16, singleton rate 0.0. Sets are non-vacuous at every tested prefix but not decision-efficient.
 - Evidence: `configs/experiments/fcc_cone_ctfh_uncertainty_validation.json` and `experiments/reports/fcc_cone_ctfh_uncertainty_validation.json`.
 - Boundary: this is a transfer diagnostic, not the paper's 50-test synthetic-data reproduction.
+
+## TEP five-class payload validation (E2/P2)
+
+- Seeded complete-sample 120/40/40 split per class; CTFH rising-edge base; alpha 0.10 from the registered model.
+- Full-prefix coverage 0.890000, mean set size 1.080000/5, empty rate 0.095000, singleton rate 0.730000, singleton accuracy 0.979452.
+- The sets are efficient but coverage misses the nominal 0.90 target by 0.01; the deficit is retained rather than rounded into a pass.
+- Evidence: `experiments/reports/tep_alarm_cone_ctfh_validation.json`.
+- Boundary: this is not the paper's 18,750-subsequence, 50-test calibration-size grid; Code Ocean access remains gated.
