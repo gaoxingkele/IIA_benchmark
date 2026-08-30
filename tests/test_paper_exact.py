@@ -225,3 +225,33 @@ def test_casim_open_set_equality_boundary_is_rejected_as_novel() -> None:
     assert result["mean_TPR"][0] == 1.0
     assert result["mean_TNR"][0] == 1.0
     assert result["mean_balanced_accuracy"][0] == 1.0
+
+
+def test_casim_open_set_full_random_grid_and_envelope_are_complete() -> None:
+    root = ROOT / "experiments/paper_harness/p0_paper_exact/run_1/paper_grid/repetitions_10"
+    summary = load(root / "summary.json")
+    rows = [
+        json.loads(line)
+        for line in (root / "seed_results.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    assert len(rows) == 700
+    assert {row["task_id"] for row in rows} == set(range(700))
+    assert {row["random_seed"] for row in rows} == set(range(42, 52))
+    assert all(
+        sum(row["random_seed"] == seed for row in rows) == 70
+        for seed in range(42, 52)
+    )
+    assert summary["complete_requested_grid"] is True
+    assert summary["complete_paper_grid"] is True
+    assert len(summary["random_instance_summaries"]) == 10
+    envelope = summary["balanced_accuracy_random_instance_envelope"]
+    assert all(len(envelope[key]) == 1000 for key in ("minimum", "q25", "q75", "maximum"))
+    assert summary["maximum"]["balanced_accuracy"] > 0.94
+    assert abs(summary["paper_deltas"]["maximum_balanced_accuracy"]) <= 0.02
+    assert abs(summary["paper_deltas"]["mean_balanced_accuracy_over_thresholds"]) > 0.02
+
+    status = load(CARD_ROOT / "status.v1.json")["papers"][0]["paper_exact_result"]
+    assert status["open_set"]["completed_model_fit_tasks"] == 700
+    assert status["open_set"]["complete_paper_grid"] is True
+    assert status["P3_closed"] is False

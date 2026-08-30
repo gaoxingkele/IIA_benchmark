@@ -43,7 +43,7 @@ def main() -> None:
     names = ["CASIM", "ConE-AFC", "BiP-AFC"]
     acquired = [1, 1, 1]
     author_default = [1, 1, 0]
-    full_paper_grid = [0.1, 0, 0]
+    full_paper_grid = [1, 0, 0]
     fig, ax = plt.subplots(figsize=(7.4, 4.2))
     y = range(len(names))
     ax.barh(y, acquired, color="#90cdf4", label="Capsule acquired")
@@ -52,20 +52,39 @@ def main() -> None:
     ax.set_yticks(list(y), names)
     ax.set_xlim(0, 1.05)
     ax.set_xticks([0, 0.5, 1], ["0%", "50%", "100%"])
-    ax.set_title("P0 Paper-Exact protocol progress")
+    ax.set_title("P0 artifact and paper-grid compute coverage (not P3)")
     ax.legend(loc="lower right")
     fig.tight_layout()
     fig.savefig(PROJECT / "Figure_2.png", dpi=180)
     plt.close(fig)
 
-    open_set = load(PROJECT / "run_1/paper_grid/repetitions_1/summary.json")
+    open_set = load(PROJECT / "run_1/paper_grid/repetitions_10/summary.json")
+    envelope = open_set["balanced_accuracy_random_instance_envelope"]
     fig, ax = plt.subplots(figsize=(7.4, 4.4))
+    ax.fill_between(
+        open_set["thresholds"],
+        envelope["minimum"],
+        envelope["maximum"],
+        color="#90cdf4",
+        alpha=0.3,
+        linewidth=0,
+        label="10-instance range",
+    )
+    ax.fill_between(
+        open_set["thresholds"],
+        envelope["q25"],
+        envelope["q75"],
+        color="#4299e1",
+        alpha=0.4,
+        linewidth=0,
+        label="10-instance IQR",
+    )
     ax.plot(
         open_set["thresholds"],
         open_set["mean_balanced_accuracy"],
         color="#2b6cb0",
         linewidth=1.8,
-        label="Local random instance 1/10",
+        label="Local 10-instance mean",
     )
     ax.scatter(
         [open_set["maximum"]["threshold"]],
@@ -78,7 +97,7 @@ def main() -> None:
     ax.set_xlabel("Novelty threshold")
     ax.set_ylabel("Balanced accuracy")
     ax.set_ylim(0.45, 1.0)
-    ax.set_title("CASIM open-set threshold curve: partial paper-exact run")
+    ax.set_title("CASIM open-set threshold curve and random-instance envelope")
     ax.legend(loc="lower center")
     fig.tight_layout()
     fig.savefig(PROJECT / "Figure_3.png", dpi=180)

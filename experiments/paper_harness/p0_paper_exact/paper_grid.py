@@ -38,6 +38,12 @@ CASIM_PAPER_REPETITIONS = 10
 CASIM_TASKS_PER_REPETITION = 14 * 5
 
 
+def atomic_write_text(path: Path, payload: str) -> None:
+    temporary = path.with_name(f".{path.name}.tmp")
+    temporary.write_text(payload, encoding="utf-8")
+    os.replace(temporary, path)
+
+
 def prepare_casim_cache() -> dict[str, Any]:
     CASIM_CACHE.mkdir(parents=True, exist_ok=True)
     x_path = CASIM_CACHE / "X.npy"
@@ -173,9 +179,30 @@ def summarize_casim_open_set(rows: list[dict[str, Any]], repetitions: int) -> di
         bacc_rows.append((tpr + tnr) / 2.0)
     mean_tpr = np.mean(np.vstack(tpr_rows), axis=0)
     mean_tnr = np.mean(np.vstack(tnr_rows), axis=0)
-    mean_bacc = np.mean(np.vstack(bacc_rows), axis=0)
+    bacc_matrix = np.vstack(bacc_rows)
+    mean_bacc = np.mean(bacc_matrix, axis=0)
+    instance_curves = []
+    instance_summaries = []
+    for repetition in range(repetitions):
+        positions = [
+            index for index, row in enumerate(rows) if int(row.get("repetition", 0)) == repetition
+        ]
+        if len(positions) != CASIM_TASKS_PER_REPETITION:
+            continue
+        curve = np.mean(bacc_matrix[positions], axis=0)
+        instance_curves.append(curve)
+        instance_best = int(np.argmax(curve))
+        instance_summaries.append(
+            {
+                "repetition": repetition,
+                "random_seed": int(rows[positions[0]].get("random_seed", 42 + repetition)),
+                "maximum_threshold": float(threshold_values[instance_best]),
+                "maximum_balanced_accuracy": float(curve[instance_best]),
+                "mean_balanced_accuracy_over_thresholds": float(np.mean(curve)),
+            }
+        )
     best = int(np.argmax(mean_bacc))
-    return {
+    report = {
         "schema_version": 1,
         "paper_id": "faulwasser2024_casim",
         "protocol": "14 leave-one-class-out settings x five stratified folds; the held-out class is relabeled -1 and the published get_train_test(..., open_set=True) splitter assigns every novel sample to exactly one test fold",
@@ -205,6 +232,16 @@ def summarize_casim_open_set(rows: list[dict[str, Any]], repetitions: int) -> di
         "construction_status": "paper_text_reconstruction_not_capsule_default",
         "construction_uncertainty": "The Capsule omits the 14-class outer loop. This wrapper supplies only that loop and reuses the published open-set splitter unchanged; the relabel-before-split operation is inferred from the paper wording and remains a protocol uncertainty until confirmed by the authors.",
     }
+    if instance_curves:
+        curves = np.vstack(instance_curves)
+        report["balanced_accuracy_random_instance_envelope"] = {
+            "minimum": [float(value) for value in np.min(curves, axis=0)],
+            "q25": [float(value) for value in np.quantile(curves, 0.25, axis=0)],
+            "q75": [float(value) for value in np.quantile(curves, 0.75, axis=0)],
+            "maximum": [float(value) for value in np.max(curves, axis=0)],
+        }
+        report["random_instance_summaries"] = instance_summaries
+    return report
 
 
 def _load_casim_rows(path: Path) -> dict[int, dict[str, Any]]:
@@ -261,15 +298,15 @@ def run_casim(workers: int, repetitions: int, max_tasks: int | None) -> None:
             row = future.result()
             completed[int(row["task_id"])] = row
             ordered = [completed[index] for index in sorted(completed)]
-            seed_path.write_text(
+            atomic_write_text(
+                seed_path,
                 "".join(json.dumps(item, ensure_ascii=False) + "\n" for item in ordered),
-                encoding="utf-8",
             )
             print(f"completed CASIM open-set task {row['task_id'] + 1}/{target_count}", flush=True)
     rows = [completed[index] for index in range(target_count)]
     # Canonicalize migrated checkpoints even when there were no pending tasks.
     seed_payload = "".join(json.dumps(item, ensure_ascii=False) + "\n" for item in rows)
-    seed_path.write_text(seed_payload, encoding="utf-8")
+    atomic_write_text(seed_path, seed_payload)
     report = summarize_casim_open_set(rows, repetitions)
     report["cache"] = metadata
     report["random_seeds"] = sorted({int(row["random_seed"]) for row in rows})
@@ -280,8 +317,9 @@ def run_casim(workers: int, repetitions: int, max_tasks: int | None) -> None:
     report["complete_paper_grid"] = (
         target_count == total and repetitions == CASIM_PAPER_REPETITIONS
     )
-    (output / "summary.json").write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    atomic_write_text(
+        output / "summary.json",
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
     )
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
