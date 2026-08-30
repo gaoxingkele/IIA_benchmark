@@ -33,3 +33,12 @@ Paused checkpoint (2026-08-30 14:32 Asia/Shanghai):
   powershell -ExecutionPolicy Bypass -File scripts/resume_p0_checkpoint.ps1 -Target all
 
 See checkpoint_2026-08-30.json for hashes and per-experiment resume semantics.
+
+Resumed 2026-08-30 18:05 Asia/Shanghai:
+  - Completed task IDs 48-69, yielding all 70 held-out-class/fold combinations
+    for random seed 42.
+  - Paper Section 4.2 requires ten randomly instantiated CASIM tests. Therefore
+    this is 70/700 model fits (random instance 1/10), not a complete paper grid.
+  - The runner now counts p_out == tau as novel per O2.4, records every seed,
+    bootstraps lower-repetition checkpoints, and marks P3 completeness only at
+    ten repetitions. Resume with --repetitions 10.

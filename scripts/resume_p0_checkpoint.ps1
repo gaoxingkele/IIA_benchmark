@@ -15,7 +15,7 @@ python -m pytest -q tests\test_paper_exact.py
 if ($Target -in @("casim", "all")) {
     & .\tmp\codeocean_envs\casim\Scripts\python.exe `
         experiments\paper_harness\p0_paper_exact\paper_grid.py `
-        run-casim --workers 4 --repetitions 1
+        run-casim --workers 8 --repetitions 10
 }
 
 if ($Target -in @("cone", "all")) {

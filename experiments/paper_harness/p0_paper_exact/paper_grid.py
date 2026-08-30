@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ProcessPoolExecutor, as_completed
+import hashlib
 import json
 import math
 import os
@@ -33,6 +34,8 @@ ALPHAS = (0.01, 0.05, 0.10)
 CALIBRATION_SIZES = (22, 102, 2491)
 PREFIXES = tuple(range(10, 61))
 MODEL_NAMES = ("WDI_1NN", "MBW_LR", "EAC_1NN", "ACM_SVM", "CASIM")
+CASIM_PAPER_REPETITIONS = 10
+CASIM_TASKS_PER_REPETITION = 14 * 5
 
 
 def prepare_casim_cache() -> dict[str, Any]:
@@ -117,6 +120,7 @@ def casim_open_set_worker(task_id: int, repetitions: int) -> dict[str, Any]:
     return {
         "task_id": task_id,
         "repetition": repetition,
+        "random_seed": params["random_state"],
         "held_out_class": held_out,
         "fold": fold,
         "train_samples": int(len(y_train)),
@@ -159,7 +163,9 @@ def summarize_casim_open_set(rows: list[dict[str, Any]], repetitions: int) -> di
                     )
                 )
             )
-            split_tnr.append(float(np.mean(novelty[novel] > threshold)))
+            # O2.4 rejects every sample that is not accepted, including the
+            # equality boundary p_out == tau.
+            split_tnr.append(float(np.mean(~accepted[novel])))
         tpr = np.asarray(split_tpr)
         tnr = np.asarray(split_tnr)
         tpr_rows.append(tpr)
@@ -201,18 +207,49 @@ def summarize_casim_open_set(rows: list[dict[str, Any]], repetitions: int) -> di
     }
 
 
+def _load_casim_rows(path: Path) -> dict[int, dict[str, Any]]:
+    completed: dict[int, dict[str, Any]] = {}
+    if not path.is_file():
+        return completed
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        task_id = int(row["task_id"])
+        repetition = task_id // CASIM_TASKS_PER_REPETITION
+        row.setdefault("repetition", repetition)
+        row.setdefault("random_seed", 42 + repetition)
+        completed[task_id] = row
+    return completed
+
+
+def _bootstrap_casim_rows(output: Path, repetitions: int) -> tuple[dict[int, dict[str, Any]], list[str]]:
+    """Reuse completed lower-repetition checkpoints without recomputation."""
+
+    completed = _load_casim_rows(output / "seed_results.jsonl")
+    sources: list[str] = []
+    for prior_repetitions in range(1, repetitions):
+        prior = PROJECT / f"run_1/paper_grid/repetitions_{prior_repetitions}/seed_results.jsonl"
+        imported = _load_casim_rows(prior)
+        added = 0
+        for task_id, row in imported.items():
+            if task_id < repetitions * CASIM_TASKS_PER_REPETITION and task_id not in completed:
+                completed[task_id] = row
+                added += 1
+        if added:
+            sources.append(str(prior.relative_to(ROOT)).replace("\\", "/"))
+    return completed, sources
+
+
 def run_casim(workers: int, repetitions: int, max_tasks: int | None) -> None:
+    if repetitions < 1 or repetitions > CASIM_PAPER_REPETITIONS:
+        raise ValueError(f"CASIM repetitions must be in [1, {CASIM_PAPER_REPETITIONS}]")
     metadata = prepare_casim_cache()
     output = PROJECT / f"run_1/paper_grid/repetitions_{repetitions}"
     output.mkdir(parents=True, exist_ok=True)
     seed_path = output / "seed_results.jsonl"
-    completed: dict[int, dict[str, Any]] = {}
-    if seed_path.is_file():
-        for line in seed_path.read_text(encoding="utf-8").splitlines():
-            if line.strip():
-                row = json.loads(line)
-                completed[int(row["task_id"])] = row
-    total = repetitions * 14 * 5
+    completed, bootstrap_sources = _bootstrap_casim_rows(output, repetitions)
+    total = repetitions * CASIM_TASKS_PER_REPETITION
     target_count = total if max_tasks is None else min(total, max_tasks)
     pending = [index for index in range(target_count) if index not in completed]
     with ProcessPoolExecutor(max_workers=workers) as executor:
@@ -230,9 +267,19 @@ def run_casim(workers: int, repetitions: int, max_tasks: int | None) -> None:
             )
             print(f"completed CASIM open-set task {row['task_id'] + 1}/{target_count}", flush=True)
     rows = [completed[index] for index in range(target_count)]
+    # Canonicalize migrated checkpoints even when there were no pending tasks.
+    seed_payload = "".join(json.dumps(item, ensure_ascii=False) + "\n" for item in rows)
+    seed_path.write_text(seed_payload, encoding="utf-8")
     report = summarize_casim_open_set(rows, repetitions)
     report["cache"] = metadata
-    report["complete_paper_grid"] = target_count == total
+    report["random_seeds"] = sorted({int(row["random_seed"]) for row in rows})
+    report["checkpoint_bootstrap_sources"] = bootstrap_sources
+    report["seed_results_sha256"] = hashlib.sha256(seed_payload.encode("utf-8")).hexdigest()
+    report["complete_requested_grid"] = target_count == total
+    report["paper_required_repetitions"] = CASIM_PAPER_REPETITIONS
+    report["complete_paper_grid"] = (
+        target_count == total and repetitions == CASIM_PAPER_REPETITIONS
+    )
     (output / "summary.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

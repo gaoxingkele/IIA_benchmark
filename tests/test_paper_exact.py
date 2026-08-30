@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 from pathlib import Path
 import subprocess
 import sys
@@ -12,6 +13,15 @@ CARD_ROOT = ROOT / "paper_harness" / "paper_exact"
 
 def load(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_paper_grid_module():
+    path = ROOT / "experiments/paper_harness/p0_paper_exact/paper_grid.py"
+    spec = importlib.util.spec_from_file_location("p0_paper_grid", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_p0_protocol_cards_and_capsule_manifest_are_closed() -> None:
@@ -44,6 +54,8 @@ def test_p0_protocol_cards_and_capsule_manifest_are_closed() -> None:
         "independent_same_fold",
     ]
     assert experiment["paper_grid"]["faulwasser2024_casim"]["train_test_sets"] == 70
+    assert experiment["paper_grid"]["faulwasser2024_casim"]["random_instances"] == 10
+    assert experiment["paper_grid"]["faulwasser2024_casim"]["total_model_fit_tasks"] == 700
     assert experiment["paper_grid"]["faulwasser2024_cone_afc"][
         "calibration_per_class"
     ] == [22, 102, 2491]
@@ -56,6 +68,7 @@ def test_protocol_cards_freeze_required_experiment_details() -> None:
     bip = load(CARD_ROOT / "faulwasser2025_uncertainty_reduction.v1.json")
 
     assert casim["split_protocol"]["open_set_train_test_sets"] == 70
+    assert casim["randomness"]["multirocket_repetitions_in_paper"] == 10
     assert casim["hyperparameters"]["casim"]["num_features"] == 672
     assert len(casim["paper_targets"]) == 4
 
@@ -176,3 +189,39 @@ def test_p0_pause_checkpoint_is_explicit_and_resumable() -> None:
     ] == ["tep/MBW_LR", "tep/EAC_1NN"]
     assert rows["faulwasser2025_uncertainty_reduction"]["limitations"]
     assert (ROOT / "scripts/resume_p0_checkpoint.ps1").is_file()
+
+
+def test_casim_open_set_partial_grid_is_seeded_and_not_mislabeled_complete() -> None:
+    root = ROOT / "experiments/paper_harness/p0_paper_exact/run_1/paper_grid/repetitions_1"
+    summary = load(root / "summary.json")
+    rows = [
+        json.loads(line)
+        for line in (root / "seed_results.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    assert len(rows) == 70
+    assert len({row["task_id"] for row in rows}) == 70
+    assert {(row["held_out_class"], row["fold"]) for row in rows} == {
+        (held_out, fold) for held_out in range(14) for fold in range(5)
+    }
+    assert {row["random_seed"] for row in rows} == {42}
+    assert summary["complete_requested_grid"] is True
+    assert summary["paper_required_repetitions"] == 10
+    assert summary["complete_paper_grid"] is False
+
+
+def test_casim_open_set_equality_boundary_is_rejected_as_novel() -> None:
+    module = load_paper_grid_module()
+    result = module.summarize_casim_open_set(
+        [
+            {
+                "y_true": [0, -1],
+                "point_prediction": [0, 0],
+                "novelty_score": [0.0, 0.001],
+            }
+        ],
+        repetitions=1,
+    )
+    assert result["mean_TPR"][0] == 1.0
+    assert result["mean_TNR"][0] == 1.0
+    assert result["mean_balanced_accuracy"][0] == 1.0
