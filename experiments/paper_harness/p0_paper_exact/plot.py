@@ -43,7 +43,7 @@ def main() -> None:
     names = ["CASIM", "ConE-AFC", "BiP-AFC"]
     acquired = [1, 1, 1]
     author_default = [1, 1, 0]
-    full_paper_grid = [1, 0, 0]
+    full_paper_grid = [1, 1, 0]
     fig, ax = plt.subplots(figsize=(7.4, 4.2))
     y = range(len(names))
     ax.barh(y, acquired, color="#90cdf4", label="Capsule acquired")

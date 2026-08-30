@@ -1,6 +1,14 @@
 # Experiments
 
-The paper's public synthetic dataset contains 18,750 binary alarm subsequences: 3,750 per class, five classes, ten alarm variables, and a 1/min sampling rate. Evaluation uses training/calibration/test partitions inside 10 repetitions of stratified 5-fold cross-validation (50 tests), expanding windows starting at 10 minutes with 1-minute steps, alpha in {0.1, 0.05, 0.01}, and class-balanced calibration sizes 22, 102, or 2491. Metrics are accuracy, coverage, and average prediction-set size. The complete Code Ocean v2 capsule is now acquired and hash-verified. Its unchanged default five-fold alpha=.05/ncal=22 run is in progress; the full 50-test 3x3 table grid remains a separate P3 gate.
+The paper's public synthetic dataset contains 18,750 binary alarm subsequences: 3,750 per class, five classes, ten alarm variables, and a 1/min sampling rate. Evaluation uses training/calibration/test partitions inside 10 repetitions of stratified 5-fold cross-validation (50 tests), expanding windows starting at 10 minutes with 1-minute steps, alpha in {0.1, 0.05, 0.01}, and class-balanced calibration sizes 22, 102, or 2491. Metrics are accuracy, coverage, and average prediction-set size. The complete Code Ocean v2 capsule is acquired and hash-verified.
+
+## Author-code paper-grid reproduction (P2)
+
+- The complete 250-task `split x model` grid was executed on the official 18,750-sequence payload and assembled into all 50 folds.
+- All 95 named means from Tables I-II are within the frozen absolute tolerance 0.02; the largest absolute mean delta is 0.002271.
+- The five reproduced original-accuracy means for WDI/MBW/EAC/ACM/CASIM are 0.312874/0.665364/0.684437/0.628891/0.706494.
+- Evidence: `experiments/paper_harness/p0_paper_exact/run_2/paper_grid/summary.json` and `docs/reports/p0_cone_paper_grid_complete_2026-08-31.md`.
+- Boundary: P3 remains open until archived-Docker execution and the independent local implementation are evaluated on the identical 50 folds.
 
 ## Local FCC engineering validation (E2/P1)
 
@@ -16,14 +24,14 @@ The paper's public synthetic dataset contains 18,750 binary alarm subsequences: 
 - Full-prefix coverage 0.890000, mean set size 1.080000/5, empty rate 0.095000, singleton rate 0.730000, singleton accuracy 0.979452.
 - The sets are efficient but coverage misses the nominal 0.90 target by 0.01; the deficit is retained rather than rounded into a pass.
 - Evidence: `experiments/reports/tep_alarm_cone_ctfh_validation.json`.
-- Boundary: this is not the paper's 18,750-subsequence, 50-test calibration-size grid; the official payload is now available, but the full grid has not yet completed.
+- Boundary: this transfer result is not interchangeable with the now-complete official 18,750-subsequence, 50-test paper grid.
 
 ## NPP alpha-0.50 transfer validation (E2/P1)
 
 - Unique-trajectory grouped 28/10/10 split per 11 classes; rising-edge CTFH base; explicit calibration; alpha 0.10.
 - Full-prefix coverage 0.900000, mean set size 1.300000/11, empty rate 0.063636, singleton rate 0.572727, singleton accuracy 0.936508.
 - Evidence: `experiments/reports/npp_alarm_cone_ctfh_validation.json`.
-- Boundary: efficiency is non-degenerate and nominal coverage is met on this split, but the paper's synthetic payload, 50-test grid, and calibration-size ablation remain blocked.
+- Boundary: efficiency is non-degenerate and nominal coverage is met on this split, but it remains a cross-domain transfer result rather than the now-complete synthetic paper grid.
 
 ## SOTA Wave 2 grouped prefix validation (E2/P1)
 

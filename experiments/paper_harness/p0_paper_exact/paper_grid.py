@@ -595,6 +595,26 @@ def _write_cone_model_tasks(
     return payload
 
 
+def _write_cone_progress(
+    payload: str,
+    completed: dict[tuple[int, str], dict[str, Any]],
+    requested_tasks: list[tuple[int, str]],
+) -> None:
+    progress = {
+        "checkpoint_unit": "split_and_model",
+        "tasks_completed_total": len(completed),
+        "requested_tasks_completed": sum(
+            task in completed for task in requested_tasks
+        ),
+        "requested_tasks_total": len(requested_tasks),
+        "checkpoint_sha256": hashlib.sha256(payload.encode("utf-8")).hexdigest(),
+    }
+    atomic_write_text(
+        CONE_OUTPUT / "progress.json",
+        json.dumps(progress, ensure_ascii=False, indent=2) + "\n",
+    )
+
+
 def _assemble_cone_splits(
     completed: dict[tuple[int, str], dict[str, Any]],
     target_count: int,
@@ -729,12 +749,14 @@ def run_cone(workers: int, max_splits: int | None, selected_models: tuple[str, .
             row = future.result()
             model_name = next(iter(row["models"]))
             completed[(int(row["split_id"]), model_name)] = row
-            _write_cone_model_tasks(task_path, completed)
+            task_payload = _write_cone_model_tasks(task_path, completed)
+            _write_cone_progress(task_payload, completed, requested_tasks)
             print(
                 f"completed ConE split {row['split_id'] + 1}/{target_count} model {model_name}",
                 flush=True,
             )
     task_payload = _write_cone_model_tasks(task_path, completed)
+    _write_cone_progress(task_payload, completed, requested_tasks)
     rows = _assemble_cone_splits(completed, target_count, selected_models)
     seed_payload = "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows)
     atomic_write_text(seed_path, seed_payload)

@@ -356,10 +356,23 @@ def test_cone_model_split_checkpoint_is_granular_and_hash_stable() -> None:
     assert len({row["task_id"] for row in tasks}) == len(tasks)
     assert all(len(row["models"]) == 1 for row in tasks)
     assert any(row["task_id"] == "split=0|model=WDI_1NN" for row in tasks)
+    assert len(tasks) == 250
+    assert len({row["task_id"] for row in tasks}) == 250
     summary = load(root / "summary.json")
-    assert summary["model_split_tasks_completed"] == 1
+    assert summary["model_split_tasks_completed"] == 250
     assert summary["model_split_tasks_required"] == 250
-    assert summary["complete_paper_grid"] is False
+    assert summary["splits"] == 50
+    assert summary["complete_paper_grid"] is True
+    assert summary["numeric_rows_within_tolerance"] == 95
+    assert summary["numeric_rows_total"] == 95
     assert hashlib.sha256((root / "model_split_results.jsonl").read_bytes()).hexdigest() == summary[
         "task_checkpoint_sha256"
     ]
+    assert hashlib.sha256((root / "seed_results.jsonl").read_bytes()).hexdigest() == summary[
+        "split_results_sha256"
+    ]
+    progress = load(root / "progress.json")
+    assert progress["checkpoint_unit"] == "split_and_model"
+    assert progress["requested_tasks_completed"] == 250
+    assert progress["requested_tasks_total"] == 250
+    assert progress["checkpoint_sha256"] == summary["task_checkpoint_sha256"]
