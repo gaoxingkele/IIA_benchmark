@@ -45,7 +45,8 @@
     "closed_set": "stratified 5-fold cross-validation",
     "open_set": "repeat stratified 5-fold 14 times, leaving one complete class out of training each time",
     "open_set_train_test_sets": 70,
-    "official_capsule_default": "closed-set only: get_train_test(..., open_set=False), five folds"
+    "official_capsule_default": "closed-set only: get_train_test(..., open_set=False), five folds",
+    "paper_grid_reconstruction": "for each known class, relabel it -1 and invoke the published get_train_test(..., open_set=True); the author utility removes all -1 rows from training and assigns each novel row to exactly one test fold"
   },
   "randomness": {
     "author_capsule_seed": 42,
@@ -86,6 +87,7 @@
   "known_mismatches": [
     "The published v1 capsule default executes only five-fold closed-set evaluation, not the paper's 70 open-set train-test sets or full novelty-threshold sweep.",
     "A capsule-default run can validate author code and data integrity but cannot by itself close Figures 13-14.",
+    "The Capsule does not publish the executable 14-class outer loop. The paper-grid wrapper's relabel-before-split construction follows the paper wording and reuses the author open-set splitter, but requires author confirmation for final protocol closure.",
     "The payload has 308 unique binary trajectories among 310 samples; identical same-label pairs cross train/test in official closed-set folds 3-5 (four crossing group instances), so exact author scores and deduplicated grouped scores must both be retained."
   ],
   "result_tracks": {

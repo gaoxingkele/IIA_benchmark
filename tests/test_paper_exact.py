@@ -37,6 +37,18 @@ def test_p0_protocol_cards_and_capsule_manifest_are_closed() -> None:
     assert all(row["code_license"] == "MIT" for row in manifest["capsules"])
     assert all(row["data_license"] == "CC0-1.0" for row in manifest["capsules"])
 
+    experiment = load(ROOT / "configs/experiments/p0_paper_exact.json")
+    assert [row["id"] for row in experiment["passes"]] == [
+        "author_capsule_default",
+        "author_code_paper_grid",
+        "independent_same_fold",
+    ]
+    assert experiment["paper_grid"]["faulwasser2024_casim"]["train_test_sets"] == 70
+    assert experiment["paper_grid"]["faulwasser2024_cone_afc"][
+        "calibration_per_class"
+    ] == [22, 102, 2491]
+    assert experiment["acceptance"]["docker_image_run_required_for_P3"] is True
+
 
 def test_protocol_cards_freeze_required_experiment_details() -> None:
     casim = load(CARD_ROOT / "faulwasser2024_casim.v1.json")
@@ -51,6 +63,21 @@ def test_protocol_cards_freeze_required_experiment_details() -> None:
     assert cone["split_protocol"]["paper_tests"] == 50
     assert cone["split_protocol"]["calibration_samples_per_class"] == [22, 102, 2491]
     assert len(cone["paper_targets"]) == 19
+    assert set(cone["reference_tables"]["Table_1_accuracy_and_coverage"]) == {
+        "WDI_1NN",
+        "ACM_SVM",
+        "CASIM",
+        "EAC_1NN",
+        "MBW_LR",
+    }
+    assert all(
+        len(row["coverage"]) == 9
+        for row in cone["reference_tables"]["Table_1_accuracy_and_coverage"].values()
+    )
+    assert all(
+        len(row) == 9
+        for row in cone["reference_tables"]["Table_2_average_set_size"].values()
+    )
 
     assert bip["data_protocol"]["synthetic"]["samples"] == 1875
     assert bip["data_protocol"]["tep"]["samples"] == 1000
@@ -72,6 +99,40 @@ def test_casim_author_capsule_default_result_is_retained() -> None:
     sensitivity = result["metrics"]["duplicate_excluded_test_sensitivity"]
     assert sensitivity["excluded_test_instances"] == 4
     assert sensitivity["mean_duplicate_excluded_balanced_accuracy"] > 0.99
+    environment = load(
+        ROOT / "experiments/paper_harness/p0_paper_exact/run_1/environment.json"
+    )
+    assert environment["exact_dependency_match"] is True
+    assert environment["native_compatibility_run"] is True
+    assert environment["authoritative_engine"] == "docker"
+
+
+def test_cone_author_capsule_default_result_is_retained_separately() -> None:
+    result = load(
+        ROOT
+        / "experiments/paper_harness/p0_paper_exact/run_2/final_info.json"
+    )
+    assert result["paper_id"] == "faulwasser2024_cone_afc"
+    assert result["author_code_unchanged"] is True
+    assert result["reproduction_level"] == "P2_author_capsule_default"
+    assert result["paper_exact_closed"] is False
+    assert set(result["metrics"]["models"]) == {
+        "WDI_1NN",
+        "ACM_SVM",
+        "CASIM",
+        "EAC_1NN",
+        "MBW_LR",
+    }
+    assert len(result["paper_comparison"]) == 10
+    assert sum(row["numeric_within_tolerance"] for row in result["paper_comparison"]) == 9
+    assert all(row["protocol_match"] is False for row in result["paper_comparison"])
+    assert result["metrics"]["models"]["CASIM"]["mean_coverage_all_prefixes"] > 0.9
+
+    usage = load(
+        ROOT / "experiments/paper_harness/p0_paper_exact/run_2/resource_usage.json"
+    )
+    assert usage["return_code"] == 0
+    assert usage["wall_time_seconds"] > 0
 
 
 def test_p0_data_priors_are_frozen_before_model_comparison() -> None:

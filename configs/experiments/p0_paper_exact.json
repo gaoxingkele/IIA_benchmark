@@ -1,0 +1,89 @@
+{
+  "experiment_id": "p0_paper_exact",
+  "schema_version": 1,
+  "frozen_at": "2026-08-30",
+  "repository": "https://github.com/gaoxingkele/IIA_benchmark",
+  "protocol_cards": [
+    "paper_harness/paper_exact/faulwasser2024_casim.v1.json",
+    "paper_harness/paper_exact/faulwasser2024_cone_afc.v1.json",
+    "paper_harness/paper_exact/faulwasser2025_uncertainty_reduction.v1.json"
+  ],
+  "capsule_manifest": "configs/reproducibility/codeocean_capsules.v1.json",
+  "data_prior": "experiments/reports/p0_codeocean_data_prior.json",
+  "result_lanes": {
+    "transfer_result": {
+      "mutable": false,
+      "source": "experiments/reports/sota_wave2_multidataset_validation.json",
+      "interpretation": "cross-domain engineering transfer only"
+    },
+    "paper_exact_result": {
+      "mutable": true,
+      "root": "experiments/paper_harness/p0_paper_exact",
+      "interpretation": "original-domain reproduction with named paper table/figure comparisons"
+    }
+  },
+  "passes": [
+    {
+      "id": "author_capsule_default",
+      "source_changes_allowed": false,
+      "goal": "verify that the published artifact, data, and environment execute unchanged",
+      "completion": "raw log, environment snapshot, all generated CSV files, capsule hash, and default-protocol summary"
+    },
+    {
+      "id": "author_code_paper_grid",
+      "source_changes_allowed": false,
+      "wrapper_changes_allowed": true,
+      "goal": "execute every paper condition omitted from the Capsule default without changing author model code",
+      "completion": "one result row for every named paper target and explicit protocol match"
+    },
+    {
+      "id": "independent_same_fold",
+      "source_changes_allowed": true,
+      "test_selection_allowed": false,
+      "goal": "run the local implementation on identical data, preprocessing, fold IDs, prefixes, and metrics",
+      "completion": "author-versus-independent paired deltas with implementation-only attribution"
+    }
+  ],
+  "paper_grid": {
+    "faulwasser2024_casim": {
+      "held_out_known_classes": 14,
+      "folds_per_held_out_class": 5,
+      "train_test_sets": 70,
+      "novelty_threshold": {"start": 0.001, "stop": 1.0, "step": 0.001},
+      "multirocket_repetitions": 10,
+      "prefix_minutes": {"start": 10, "stop": 420, "step": 10}
+    },
+    "faulwasser2024_cone_afc": {
+      "repeated_stratified_folds": {"folds": 5, "repeats": 10, "seed": 42},
+      "alpha": [0.01, 0.05, 0.1],
+      "calibration_per_class": [22, 102, 2491],
+      "prefix_minutes": {"start": 10, "stop": 60, "step": 1}
+    },
+    "faulwasser2025_uncertainty_reduction": {
+      "stratified_folds": {"folds": 5, "repeats": 1, "seed": 42},
+      "datasets": ["synthetic", "tep"],
+      "alpha": {"start": 0.01, "stop": 0.3, "step": 0.01},
+      "delay_timer_minutes": 3,
+      "prefix_minutes": {"start": 10, "stop": 60, "step": 1},
+      "mandatory_split_ablation": ["author_overlapping_calibration_rf", "paper_text_disjoint_calibration_rf"]
+    }
+  },
+  "acceptance": {
+    "classification_mean_absolute": 0.02,
+    "conformal_required_joint_metrics": ["coverage", "average_set_size", "singleton_rate", "empty_rate"],
+    "bifurcation_count_relative": 0.05,
+    "MAE_coverage_absolute": 0.01,
+    "MAE_points_relative": 0.05,
+    "protocol_match_required_for_P3": true,
+    "docker_image_run_required_for_P3": true,
+    "best_seed_selection_forbidden": true,
+    "negative_results_retained": true
+  },
+  "known_data_conditions": {
+    "casim_exact_duplicates": 2,
+    "casim_official_folds_with_duplicate_leakage": [3, 4, 5],
+    "cone_exact_duplicate_trajectories": 0,
+    "bip_synthetic_exact_duplicate_trajectories": 0,
+    "bip_tep_exact_duplicate_trajectories": 0
+  }
+}

@@ -11,3 +11,20 @@ Commands:
   python scripts/paper_exact.py check --require-local --full-hash
   python scripts/paper_exact.py run-author --paper-id faulwasser2024_casim
   python scripts/paper_exact.py summarize --paper-id faulwasser2024_casim
+
+Full ConE paper grid (wrapper only; official model source remains unchanged):
+  python experiments/paper_harness/p0_paper_exact/paper_grid.py prepare-cone
+  python experiments/paper_harness/p0_paper_exact/paper_grid.py run-cone --workers 4
+
+The paper-grid runner reuses a read-only NumPy cache and checkpoints every split.
+It evaluates 10x5 folds, all 51 prefixes, alpha .01/.05/.10, calibration sizes
+22/102/2491, and additionally records singleton/empty rates omitted by the paper.
+
+Full CASIM open-set reconstruction (wrapper adds the omitted 14-class loop;
+the published get_train_test(..., open_set=True) splitter remains unchanged):
+  python experiments/paper_harness/p0_paper_exact/paper_grid.py prepare-casim
+  python experiments/paper_harness/p0_paper_exact/paper_grid.py run-casim --workers 4 --repetitions 1
+
+For each held-out class, the wrapper relabels that class as -1 before the
+published five-fold splitter. Thus every unknown sample appears in exactly one
+test fold, rather than being duplicated across all five folds.

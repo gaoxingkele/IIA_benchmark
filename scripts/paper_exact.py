@@ -5,15 +5,18 @@ from __future__ import annotations
 
 import argparse
 import csv
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
 from pathlib import Path
+import platform
 import re
 import shutil
 import statistics
 import subprocess
 import sys
+import time
 from typing import Any, Iterable
 
 import numpy as np
@@ -136,11 +139,83 @@ def native_python(capsule: dict[str, Any]) -> Path:
     return environment / "bin/python"
 
 
-def link_or_copy(source: Path, destination: Path) -> None:
+def write_environment_snapshot(paper_id: str, engine: str) -> dict[str, Any]:
+    card = cards()[paper_id]
+    capsule = capsules()[paper_id]
+    python = native_python(capsule)
+    expected = card["official_artifact"]["environment"]
+    package_names = {
+        "numpy": "numpy",
+        "pandas": "pandas",
+        "scikit_learn": "scikit-learn",
+        "sktime": "sktime",
+        "imbalanced_learn": "imbalanced-learn",
+        "mapie": "mapie",
+    }
+    query_names = [package_names[key] for key in expected if key != "python"]
+    query = (
+        "import importlib.metadata as m,json,platform,sys;"
+        f"names={query_names!r};"
+        "print(json.dumps({'python':platform.python_version(),"
+        "'executable':sys.executable,'packages':{n:m.version(n) for n in names}}))"
+    )
+    observed = json.loads(
+        subprocess.run(
+            [str(python), "-c", query],
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        ).stdout
+    )
+    expected_packages = {
+        package_names[key]: value for key, value in expected.items() if key != "python"
+    }
+    revision = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    ).stdout.strip()
+    snapshot = {
+        "schema_version": 1,
+        "paper_id": paper_id,
+        "engine": engine,
+        "authoritative_engine": "docker",
+        "native_compatibility_run": engine == "native-windows",
+        "host": {"system": platform.system(), "release": platform.release(), "machine": platform.machine()},
+        "python": observed,
+        "expected": {"python": expected["python"], "packages": expected_packages},
+        "exact_dependency_match": observed["python"].startswith(expected["python"] + ".")
+        and observed["packages"] == expected_packages,
+        "docker_image": capsule["docker_image"],
+        "dockerfile_hash_comment": capsule["dockerfile_hash_comment"],
+        "git_revision_at_snapshot": revision,
+        "capsule_archive_sha256": capsule["archive_sha256"],
+    }
+    output = result_dir(card)
+    output.mkdir(parents=True, exist_ok=True)
+    (output / "environment.json").write_text(
+        json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return snapshot
+
+
+def link_or_copy(source: Path, destination: Path) -> bool:
+    """Link a directory when permitted, otherwise copy it.
+
+    Returns ``True`` for a live symlink and ``False`` for a detached copy.  The
+    distinction matters for the writable ``/results`` mount on Windows: a
+    detached staging copy must be synchronized back after the author process.
+    """
     try:
         destination.symlink_to(source, target_is_directory=True)
+        return True
     except OSError:
         shutil.copytree(source, destination)
+        return False
 
 
 def first_free_drive() -> str:
@@ -162,6 +237,7 @@ def run_author(paper_id: str, engine: str) -> int:
     output.mkdir(parents=True, exist_ok=True)
     author_results.mkdir(exist_ok=True)
     log_path = output / "author_run.log"
+    write_environment_snapshot(paper_id, engine)
 
     if engine == "docker":
         command = [
@@ -186,7 +262,7 @@ def run_author(paper_id: str, engine: str) -> int:
         staging.mkdir(parents=True)
         link_or_copy(export / "code", staging / "code")
         link_or_copy(export / "data", staging / "data")
-        link_or_copy(author_results, staging / "results")
+        results_linked = link_or_copy(author_results, staging / "results")
         drive = first_free_drive()
         subprocess.run(["subst", drive, str(staging)], check=True)
         cwd = Path(f"{drive}\\code")
@@ -195,6 +271,8 @@ def run_author(paper_id: str, engine: str) -> int:
         raise ValueError(f"unsupported engine: {engine}")
 
     try:
+        started_at = datetime.now(timezone.utc)
+        started = time.perf_counter()
         with log_path.open("w", encoding="utf-8", newline="") as log:
             process = subprocess.Popen(
                 command,
@@ -214,6 +292,28 @@ def run_author(paper_id: str, engine: str) -> int:
     finally:
         if drive is not None:
             subprocess.run(["subst", drive, "/d"], check=False)
+    if engine == "native-windows" and not results_linked:
+        # Native Windows may reject directory symlinks. Preserve everything
+        # the unchanged Capsule wrote to its staged absolute /results path.
+        shutil.copytree(staging / "results", author_results, dirs_exist_ok=True)
+    finished_at = datetime.now(timezone.utc)
+    (output / "resource_usage.json").write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "paper_id": paper_id,
+                "engine": engine,
+                "started_at_utc": started_at.isoformat(),
+                "finished_at_utc": finished_at.isoformat(),
+                "wall_time_seconds": time.perf_counter() - started,
+                "return_code": return_code,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     if return_code:
         raise RuntimeError(f"author capsule failed with exit code {return_code}")
     print(f"[PASS] author run completed: {paper_id}")
@@ -332,17 +432,26 @@ def summarize_casim(author_results: Path) -> dict[str, Any]:
 
 
 def summarize_cone(author_results: Path) -> dict[str, Any]:
-    coverage = csv_columns(author_results / "CASIM_coverages.csv")
-    set_size = csv_columns(author_results / "CASIM_avg_set_sizes.csv")
-    coverage_avg = coverage["avg"]
-    size_avg = set_size["avg"]
+    models: dict[str, dict[str, Any]] = {}
+    for model in ("WDI_1NN", "ACM_SVM", "CASIM", "EAC_1NN", "MBW_LR"):
+        coverage = csv_columns(author_results / f"{model}_coverages.csv")
+        set_size = csv_columns(author_results / f"{model}_avg_set_sizes.csv")
+        coverage_avg = coverage["avg"]
+        size_avg = set_size["avg"]
+        models[model] = {
+            "mean_coverage_all_prefixes": mean(coverage_avg),
+            "mean_set_size_all_prefixes": mean(size_avg),
+            "final_prefix_coverage": coverage_avg[-1],
+            "final_prefix_set_size": size_avg[-1],
+            "prefix_count": len(coverage_avg),
+        }
+    casim = models["CASIM"]
     return {
         "capsule_default_protocol": "five folds, alpha=0.05, calibration_per_class=22",
-        "mean_coverage_all_prefixes": mean(coverage_avg),
-        "mean_set_size_all_prefixes": mean(size_avg),
-        "final_prefix_coverage": coverage_avg[-1],
-        "final_prefix_set_size": size_avg[-1],
-        "prefix_count": len(coverage_avg),
+        "models": models,
+        # Retain the original CASIM aliases for schema compatibility with the
+        # first P0 summary and downstream report readers.
+        **casim,
     }
 
 
@@ -403,28 +512,36 @@ def compare_to_paper(paper_id: str, card: dict[str, Any], metrics: dict[str, Any
         return rows
     if paper_id == "faulwasser2024_cone_afc":
         rows = []
-        observed = {
-            "coverage": metrics["mean_coverage_all_prefixes"],
-            "average_set_size": metrics["mean_set_size_all_prefixes"],
-        }
-        for target in card["paper_targets"]:
-            if target.get("model") != "CASIM" or target.get("alpha") != 0.05 or target.get("calibration_per_class") != 22:
-                continue
-            value = observed[target["metric"]]
-            delta = value - target["mean"]
-            rows.append(
-                {
-                    "item": target["item"],
-                    "metric": target["metric"],
-                    "paper_mean": target["mean"],
-                    "paper_std": target["std"],
-                    "author_capsule_default": value,
-                    "delta": delta,
-                    "numeric_within_tolerance": abs(delta) <= card["tolerances"]["mean_absolute"],
-                    "protocol_match": False,
-                    "closed": False,
-                }
-            )
+        table_1 = card["reference_tables"]["Table_1_accuracy_and_coverage"]
+        table_2 = card["reference_tables"]["Table_2_average_set_size"]
+        for model, observed in metrics["models"].items():
+            for item, metric, paper_pair in (
+                ("Table 1", "coverage", table_1[model]["coverage"]["0.05/22"]),
+                ("Table 2", "average_set_size", table_2[model]["0.05/22"]),
+            ):
+                value = observed[
+                    "mean_coverage_all_prefixes"
+                    if metric == "coverage"
+                    else "mean_set_size_all_prefixes"
+                ]
+                delta = value - paper_pair[0]
+                rows.append(
+                    {
+                        "item": item,
+                        "model": model,
+                        "metric": metric,
+                        "alpha": 0.05,
+                        "calibration_per_class": 22,
+                        "paper_mean": paper_pair[0],
+                        "paper_std": paper_pair[1],
+                        "author_capsule_default": value,
+                        "delta": delta,
+                        "numeric_within_tolerance": abs(delta)
+                        <= card["tolerances"]["mean_absolute"],
+                        "protocol_match": False,
+                        "closed": False,
+                    }
+                )
         return rows
     rows = []
     for target in card["paper_targets"]:
@@ -479,6 +596,7 @@ def compare_to_paper(paper_id: str, card: dict[str, Any], metrics: dict[str, Any
 def summarize(paper_id: str) -> dict[str, Any]:
     card = cards()[paper_id]
     capsule = capsules()[paper_id]
+    card_path = CARD_ROOT / f"{paper_id}.v1.json"
     output = result_dir(card)
     author_results = output / "author_results"
     if paper_id == "faulwasser2024_casim":
@@ -492,9 +610,20 @@ def summarize(paper_id: str) -> dict[str, Any]:
         "paper_id": paper_id,
         "reproduction_level": "P2_author_capsule_default",
         "paper_exact_closed": False,
-        "capsule": {"doi": capsule["doi"], "archive_sha256": capsule["archive_sha256"]},
-        "protocol_card": str((CARD_ROOT / f"{paper_id}.v1.json").relative_to(ROOT)).replace("\\", "/"),
+        "capsule": {
+            "doi": capsule["doi"],
+            "archive_sha256": capsule["archive_sha256"],
+            "code_manifest": capsule["code_manifest"],
+            "data_manifest": capsule["data_manifest"],
+        },
+        "protocol_card": str(card_path.relative_to(ROOT)).replace("\\", "/"),
+        "protocol_card_sha256": sha256_file(card_path),
         "author_code_unchanged": True,
+        "environment": {
+            "path": str((output / "environment.json").relative_to(ROOT)).replace("\\", "/"),
+            "exact_dependency_match": read_json(output / "environment.json")["exact_dependency_match"] if (output / "environment.json").is_file() else None,
+            "native_compatibility_run": read_json(output / "environment.json")["native_compatibility_run"] if (output / "environment.json").is_file() else None,
+        },
         "metrics": metrics,
         "paper_comparison": compare_to_paper(paper_id, card, metrics),
         "known_mismatches": card["known_mismatches"],
@@ -525,6 +654,9 @@ def main() -> int:
     author.add_argument("--engine", choices=("docker", "native-windows"), default="native-windows" if os.name == "nt" else "docker")
     summary = subparsers.add_parser("summarize")
     summary.add_argument("--paper-id", required=True, choices=PAPER_IDS)
+    environment = subparsers.add_parser("snapshot-environment")
+    environment.add_argument("--paper-id", required=True, choices=PAPER_IDS)
+    environment.add_argument("--engine", choices=("docker", "native-windows"), default="native-windows" if os.name == "nt" else "docker")
     args = parser.parse_args()
 
     if args.command == "check":
@@ -536,6 +668,9 @@ def main() -> int:
         return 0
     if args.command == "run-author":
         return run_author(args.paper_id, args.engine)
+    if args.command == "snapshot-environment":
+        print(json.dumps(write_environment_snapshot(args.paper_id, args.engine), ensure_ascii=False, indent=2))
+        return 0
     summarize(args.paper_id)
     return 0
 
