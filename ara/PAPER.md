@@ -1,6 +1,7 @@
 # IIA Benchmark Research Artifact
 
-Project: Intelligence Industrial Alarm benchmark  
+Project: Intelligence Industrial Alarm benchmark
+
 Repository: https://github.com/gaoxingkele/IIA_benchmark
 
 ## Layers
