@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import importlib.util
+import hashlib
 from pathlib import Path
 import subprocess
 import sys
@@ -59,6 +60,8 @@ def test_p0_protocol_cards_and_capsule_manifest_are_closed() -> None:
     assert experiment["paper_grid"]["faulwasser2024_cone_afc"][
         "calibration_per_class"
     ] == [22, 102, 2491]
+    assert experiment["paper_grid"]["faulwasser2024_cone_afc"]["model_split_tasks"] == 250
+    assert experiment["paper_grid"]["faulwasser2024_cone_afc"]["checkpoint_unit"] == "split_and_model"
     assert experiment["acceptance"]["docker_image_run_required_for_P3"] is True
 
 
@@ -255,3 +258,28 @@ def test_casim_open_set_full_random_grid_and_envelope_are_complete() -> None:
     assert status["open_set"]["completed_model_fit_tasks"] == 700
     assert status["open_set"]["complete_paper_grid"] is True
     assert status["P3_closed"] is False
+    assert hashlib.sha256((root / "seed_results.jsonl").read_bytes()).hexdigest() == summary[
+        "seed_results_sha256"
+    ]
+
+
+def test_cone_model_split_checkpoint_is_granular_and_hash_stable() -> None:
+    root = ROOT / "experiments/paper_harness/p0_paper_exact/run_2/paper_grid"
+    tasks = [
+        json.loads(line)
+        for line in (root / "model_split_results.jsonl").read_text(
+            encoding="utf-8"
+        ).splitlines()
+        if line.strip()
+    ]
+    assert tasks
+    assert len({row["task_id"] for row in tasks}) == len(tasks)
+    assert all(len(row["models"]) == 1 for row in tasks)
+    assert any(row["task_id"] == "split=0|model=WDI_1NN" for row in tasks)
+    summary = load(root / "summary.json")
+    assert summary["model_split_tasks_completed"] == 1
+    assert summary["model_split_tasks_required"] == 250
+    assert summary["complete_paper_grid"] is False
+    assert hashlib.sha256((root / "model_split_results.jsonl").read_bytes()).hexdigest() == summary[
+        "task_checkpoint_sha256"
+    ]

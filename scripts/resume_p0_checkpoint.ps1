@@ -21,7 +21,7 @@ if ($Target -in @("casim", "all")) {
 if ($Target -in @("cone", "all")) {
     & .\tmp\codeocean_envs\cone\Scripts\python.exe `
         experiments\paper_harness\p0_paper_exact\paper_grid.py `
-        run-cone --workers 6
+        run-cone --workers 8
 }
 
 if ($Target -in @("bip", "all")) {

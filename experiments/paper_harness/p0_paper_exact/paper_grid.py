@@ -40,7 +40,9 @@ CASIM_TASKS_PER_REPETITION = 14 * 5
 
 def atomic_write_text(path: Path, payload: str) -> None:
     temporary = path.with_name(f".{path.name}.tmp")
-    temporary.write_text(payload, encoding="utf-8")
+    # Write bytes so Windows cannot translate LF to CRLF after the payload hash
+    # has been computed. The recorded SHA-256 must identify the actual file.
+    temporary.write_bytes(payload.encode("utf-8"))
     os.replace(temporary, path)
 
 
@@ -232,7 +234,7 @@ def summarize_casim_open_set(rows: list[dict[str, Any]], repetitions: int) -> di
         "construction_status": "paper_text_reconstruction_not_capsule_default",
         "construction_uncertainty": "The Capsule omits the 14-class outer loop. This wrapper supplies only that loop and reuses the published open-set splitter unchanged; the relabel-before-split operation is inferred from the paper wording and remains a protocol uncertainty until confirmed by the authors.",
     }
-    if instance_curves:
+    if len(instance_curves) > 1:
         curves = np.vstack(instance_curves)
         report["balanced_accuracy_random_instance_envelope"] = {
             "minimum": [float(value) for value in np.min(curves, axis=0)],
@@ -484,6 +486,7 @@ def cone_split_worker(split_id: int, selected_models: tuple[str, ...]) -> dict[s
         "split_id": split_id,
         "repeat": split_id // 5,
         "fold": split_id % 5,
+        "random_seed": 42,
         "partition_sizes": {
             "train": int(len(y_train)),
             "calibration": int(len(y_cali)),
@@ -553,6 +556,67 @@ def cone_split_worker(split_id: int, selected_models: tuple[str, ...]) -> dict[s
             },
         }
     return result
+
+
+def cone_model_split_worker(split_id: int, model_name: str) -> dict[str, Any]:
+    result = cone_split_worker(split_id, (model_name,))
+    result["task_id"] = f"split={split_id}|model={model_name}"
+    return result
+
+
+def _load_cone_model_tasks(path: Path) -> dict[tuple[int, str], dict[str, Any]]:
+    completed: dict[tuple[int, str], dict[str, Any]] = {}
+    if not path.is_file():
+        return completed
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        for model_name in row["models"]:
+            if model_name not in MODEL_NAMES:
+                raise RuntimeError(f"unexpected ConE model in checkpoint: {model_name}")
+            model_row = dict(row)
+            model_row["models"] = {model_name: row["models"][model_name]}
+            model_row["task_id"] = f"split={int(row['split_id'])}|model={model_name}"
+            completed[(int(row["split_id"]), model_name)] = model_row
+    return completed
+
+
+def _write_cone_model_tasks(
+    path: Path, completed: dict[tuple[int, str], dict[str, Any]]
+) -> str:
+    model_order = {name: index for index, name in enumerate(MODEL_NAMES)}
+    rows = [
+        completed[key]
+        for key in sorted(completed, key=lambda key: (key[0], model_order[key[1]]))
+    ]
+    payload = "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows)
+    atomic_write_text(path, payload)
+    return payload
+
+
+def _assemble_cone_splits(
+    completed: dict[tuple[int, str], dict[str, Any]],
+    target_count: int,
+    selected_models: tuple[str, ...],
+) -> list[dict[str, Any]]:
+    rows = []
+    for split_id in range(target_count):
+        first = completed[(split_id, selected_models[0])]
+        rows.append(
+            {
+                "split_id": split_id,
+                "repeat": int(first["repeat"]),
+                "fold": int(first["fold"]),
+                "random_seed": int(first.get("random_seed", 42)),
+                "partition_sizes": first["partition_sizes"],
+                "models": {
+                    model_name: completed[(split_id, model_name)]["models"][model_name]
+                    for model_name in selected_models
+                },
+            }
+        )
+    return rows
 
 
 def summarize_cone(rows: list[dict[str, Any]], selected_models: tuple[str, ...]) -> dict[str, Any]:
@@ -640,36 +704,59 @@ def summarize_cone(rows: list[dict[str, Any]], selected_models: tuple[str, ...])
 def run_cone(workers: int, max_splits: int | None, selected_models: tuple[str, ...]) -> None:
     metadata = prepare_cone_cache()
     CONE_OUTPUT.mkdir(parents=True, exist_ok=True)
+    task_path = CONE_OUTPUT / "model_split_results.jsonl"
     seed_path = CONE_OUTPUT / "seed_results.jsonl"
-    completed: dict[int, dict[str, Any]] = {}
+    completed = {}
     if seed_path.is_file():
-        for line in seed_path.read_text(encoding="utf-8").splitlines():
-            if line.strip():
-                row = json.loads(line)
-                if tuple(row["models"]) == selected_models:
-                    completed[int(row["split_id"])] = row
+        completed.update(_load_cone_model_tasks(seed_path))
+    completed.update(_load_cone_model_tasks(task_path))
     target_count = 50 if max_splits is None else min(50, max_splits)
-    pending = [index for index in range(target_count) if index not in completed]
+    requested_tasks = [
+        (split_id, model_name)
+        for split_id in range(target_count)
+        for model_name in selected_models
+    ]
+    pending = [task for task in requested_tasks if task not in completed]
     with ProcessPoolExecutor(max_workers=workers) as executor:
         futures = {
-            executor.submit(cone_split_worker, split_id, selected_models): split_id
-            for split_id in pending
+            executor.submit(cone_model_split_worker, split_id, model_name): (
+                split_id,
+                model_name,
+            )
+            for split_id, model_name in pending
         }
         for future in as_completed(futures):
             row = future.result()
-            completed[int(row["split_id"])] = row
-            ordered = [completed[index] for index in sorted(completed)]
-            seed_path.write_text(
-                "".join(json.dumps(item, ensure_ascii=False) + "\n" for item in ordered),
-                encoding="utf-8",
+            model_name = next(iter(row["models"]))
+            completed[(int(row["split_id"]), model_name)] = row
+            _write_cone_model_tasks(task_path, completed)
+            print(
+                f"completed ConE split {row['split_id'] + 1}/{target_count} model {model_name}",
+                flush=True,
             )
-            print(f"completed ConE split {row['split_id'] + 1}/{target_count}", flush=True)
-    rows = [completed[index] for index in range(target_count)]
+    task_payload = _write_cone_model_tasks(task_path, completed)
+    rows = _assemble_cone_splits(completed, target_count, selected_models)
+    seed_payload = "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows)
+    atomic_write_text(seed_path, seed_payload)
     report = summarize_cone(rows, selected_models)
     report["cache"] = metadata
-    report["complete_paper_grid"] = target_count == 50 and set(selected_models) == set(MODEL_NAMES)
-    (CONE_OUTPUT / "summary.json").write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    report["model_split_tasks_completed"] = sum(
+        task in completed for task in requested_tasks
+    )
+    report["model_split_tasks_required"] = 50 * len(MODEL_NAMES)
+    report["task_checkpoint_sha256"] = hashlib.sha256(
+        task_payload.encode("utf-8")
+    ).hexdigest()
+    report["split_results_sha256"] = hashlib.sha256(
+        seed_payload.encode("utf-8")
+    ).hexdigest()
+    report["complete_requested_grid"] = len(rows) == target_count
+    report["complete_paper_grid"] = (
+        target_count == 50 and set(selected_models) == set(MODEL_NAMES)
+    )
+    atomic_write_text(
+        CONE_OUTPUT / "summary.json",
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
     )
     print(json.dumps(report, ensure_ascii=False, indent=2))
 

@@ -50,3 +50,11 @@ Completed 2026-08-30 20:29 Asia/Shanghai:
     declared +/-0.02 performance tolerance; threshold and full-curve mean fail.
   - Figure 14a-style IQR/range envelopes are stored in repetitions_10/summary.json.
   - complete_paper_grid=true records compute coverage only; P3 remains false.
+
+ConE granular resume validation, 2026-08-30 20:40 Asia/Shanghai:
+  - Replaced split-level checkpoints with 250 atomic (split, model) tasks without
+    changing data partitions, author model code, prefixes, or conformal grid.
+  - Completed split=0|model=WDI_1NN as the first formal paper-grid task.
+  - Re-running the identical task returned in 0.27 s with an unchanged SHA-256,
+    proving zero-retrain resume behavior.
+  - Checkpoints are byte-written with LF so recorded hashes equal file hashes on Windows.
