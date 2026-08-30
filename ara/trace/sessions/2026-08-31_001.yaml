@@ -1,0 +1,65 @@
+session:
+  id: "2026-08-31_001"
+  date: "2026-08-31"
+  started: "2026-08-31T00:05"
+  last_turn: "2026-08-31T02:24"
+  turn_count: 1
+  summary: "Resumed the pause checkpoint, completed all CASIM, ConE, and BiP P0 author grids, retained numeric mismatches, and published a validated P2 checkpoint."
+
+events_logged:
+  - {turn: 1, type: decision, id: N12, routing: direct, provenance: user, summary: "Resume the frozen P0 checkpoint."}
+  - {turn: 1, type: experiment, id: N13, routing: direct, provenance: ai-executed, summary: "Completed CASIM 700-fit open-set grid with two numeric gates still open."}
+  - {turn: 1, type: experiment, id: N14, routing: direct, provenance: ai-executed, summary: "Completed ConE 250-task grid; all 95 named means met tolerance."}
+  - {turn: 1, type: experiment, id: N15, routing: direct, provenance: ai-executed, summary: "Completed BiP 160-task four-lane grid and retained public-v3 mismatch."}
+  - {turn: 1, type: dead_end, id: N16, routing: direct, provenance: ai-executed, summary: "Rejected global NumPy seed as a pure CASIM split control."}
+  - {turn: 1, type: experiment, id: N17, routing: direct, provenance: ai-executed, summary: "Verified hashes/tests and published completed P0 checkpoint."}
+  - {turn: 1, type: observation, id: O04, routing: crystallized, provenance: ai-suggested, summary: "Full computation coverage is insufficient for P3."}
+  - {turn: 1, type: observation, id: O05, routing: crystallized, provenance: ai-suggested, summary: "BiP overlap explains only part of the paper gap."}
+  - {turn: 1, type: observation, id: O06, routing: staged, provenance: ai-suggested, summary: "Explicitly seed Numba RNG for a pure CASIM control."}
+
+ai_actions:
+  - turn: 1
+    action: "Completed and validated the CASIM open-set grid, including 10-instance uncertainty summaries."
+    provenance: ai-executed
+    files_changed: ["experiments/paper_harness/p0_paper_exact/run_1/paper_grid/", "docs/reports/p0_casim_paper_grid_complete_2026-08-30.md"]
+  - turn: 1
+    action: "Implemented granular ConE checkpointing and completed the full 50-fold author grid."
+    provenance: ai-executed
+    files_changed: ["experiments/paper_harness/p0_paper_exact/run_2/paper_grid/", "docs/reports/p0_cone_paper_grid_complete_2026-08-31.md"]
+  - turn: 1
+    action: "Implemented resumable BiP model-fold tasks, ran four split/randomness lanes, and audited paired indices and RNG."
+    provenance: ai-executed
+    files_changed: ["experiments/paper_harness/p0_paper_exact/run_3/paper_grid/", "docs/reports/p0_bip_paper_grid_complete_2026-08-31.md"]
+  - turn: 1
+    action: "Validated all Capsule manifests and tests, wrote the consolidated checkpoint, and pushed coherent commits to canonical main."
+    provenance: ai-executed
+    files_changed: ["docs/reports/p0_paper_exact_checkpoint_2026-08-31.md", "paper_harness/paper_exact/status.v1.json", "ara/"]
+
+claims_touched:
+  - {id: C02, action: crystallized, turn: 1}
+  - {id: C03, action: crystallized, turn: 1}
+
+logic_revisions:
+  - turn: 1
+    entry: experiments
+    field: current_state
+    before: "Current P0 state is bound to `experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json`. Formal completion remains open for the CASIM open-set grid, the ConE-AFC full paper grid, and the complete BiP-AFC author run."
+    after: "All scheduled P0 author-code grids are computationally complete and bound to `paper_harness/paper_exact/status.v1.json`. CASIM, ConE-AFC, and BiP-AFC remain P2: CASIM and BiP retain numeric gaps, while all three still require archived-Docker execution and independent same-fold implementation comparisons before P3 closure."
+    signal: empirical-resolution
+    provenance: ai-suggested
+    note: "The resumed grids completed and replaced the pause checkpoint as current experiment state."
+
+key_context:
+  - turn: 1
+    excerpt: "继续从checkpoint开始完成工作"
+  - turn: 1
+    excerpt: "All P0 author-code compute grids are complete, but computation completion is not P3 closure."
+
+open_threads:
+  - "Run all three complete grids in their archived Docker images and compare file ordering and package behavior."
+  - "Run repository-independent CASIM, ConE, and BiP implementations on the identical frozen folds."
+  - "Confirm the CASIM held-out-class wrapper and reproduce Figure 14b-c ablations."
+  - "Seed CASIM's Numba RNG explicitly, repeat the controlled BiP split ablation, and confirm the paper commit/data ordering with the authors."
+
+ai_suggestions_pending:
+  - "Promote O06 only after an explicit Numba RNG control is implemented or the researcher affirms the rule."

@@ -102,3 +102,59 @@ tree:
     evidence: ["experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json", "experiments/paper_harness/p0_paper_exact/run_3/checkpoint_results"]
     status: resolved
     also_depends_on: [N08]
+  - id: N12
+    type: decision
+    title: Resume the P0 paper-exact checkpoint
+    provenance: user
+    timestamp: "2026-08-31T00:05"
+    choice: "Continue from the frozen checkpoint and finish the outstanding P0 author-code validation work."
+    alternatives: ["Leave the checkpoint paused", "Discard prior partial computation"]
+    evidence: ["experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json"]
+    status: resolved
+    also_depends_on: [N08, N09, N10, N11]
+  - id: N13
+    type: experiment
+    title: Complete the CASIM open-set paper grid
+    provenance: ai-executed
+    timestamp: "2026-08-31T00:40"
+    result: "Finished all 700 model fits across held-out classes, folds, and seeds. Maximum balanced accuracy met tolerance; the best threshold and full-threshold mean retained numeric mismatches, so the result remains P2."
+    evidence: ["docs/reports/p0_casim_paper_grid_complete_2026-08-30.md", "experiments/paper_harness/p0_paper_exact/run_1/paper_grid/repetitions_10/summary.json"]
+    status: resolved
+    also_depends_on: [N06, N09, N12]
+  - id: N14
+    type: experiment
+    title: Complete the ConE-AFC full paper grid
+    provenance: ai-executed
+    timestamp: "2026-08-31T01:24"
+    result: "Finished 250 model-split tasks and 50 full folds; all 95 named paper-table means met the frozen absolute tolerance, while Docker and independent-implementation gates remain open."
+    evidence: ["docs/reports/p0_cone_paper_grid_complete_2026-08-31.md", "experiments/paper_harness/p0_paper_exact/run_2/paper_grid/summary.json"]
+    status: resolved
+    also_depends_on: [N07, N10, N12]
+  - id: N15
+    type: experiment
+    title: Complete BiP-AFC author and split-control grids
+    provenance: ai-executed
+    timestamp: "2026-08-31T02:05"
+    result: "Finished 160 tasks over two datasets, four models, five folds, and four protocol/randomness lanes. Frozen paper-row gates passed 6/16, 7/16, 7/16, and 8/16 by lane; official v3 numeric mismatch was retained."
+    evidence: ["docs/reports/p0_bip_paper_grid_complete_2026-08-31.md", "experiments/paper_harness/p0_paper_exact/run_3/paper_grid/summary.json"]
+    status: resolved
+    also_depends_on: [N11, N12]
+  - id: N16
+    type: dead_end
+    title: Reject global NumPy seeding as a pure CASIM split control
+    provenance: ai-executed
+    timestamp: "2026-08-31T02:10"
+    hypothesis: "Resetting the global NumPy seed before each author-model fit makes paired overlap and disjoint CASIM runs deterministic."
+    failure_mode: "All ten paired CASIM tasks still changed test bifurcation counts because the vendored Numba MultiRocket feature sampler uses an RNG that is not controlled by the model random_state."
+    lesson: "Treat current CASIM split comparisons as descriptive and add explicit Numba RNG seeding before estimating a pure RF-subset effect."
+    status: resolved
+    also_depends_on: [N15]
+  - id: N17
+    type: experiment
+    title: Verify and publish the completed P0 checkpoint
+    provenance: ai-executed
+    timestamp: "2026-08-31T02:24"
+    result: "All three Capsule archive/code/data manifests passed full SHA-256 checks, the full suite passed 131 tests, and the CASIM, ConE, and BiP coherent iterations were pushed to canonical main."
+    evidence: ["docs/reports/p0_paper_exact_checkpoint_2026-08-31.md", "paper_harness/paper_exact/status.v1.json"]
+    status: resolved
+    also_depends_on: [N13, N14, N15, N16]

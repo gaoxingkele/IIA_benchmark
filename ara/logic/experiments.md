@@ -1,3 +1,3 @@
 # Experiments
 
-Current P0 state is bound to `experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json`. Formal completion remains open for the CASIM open-set grid, the ConE-AFC full paper grid, and the complete BiP-AFC author run.
+All scheduled P0 author-code grids are computationally complete and bound to `paper_harness/paper_exact/status.v1.json`. CASIM, ConE-AFC, and BiP-AFC remain P2: CASIM and BiP retain numeric gaps, while all three still require archived-Docker execution and independent same-fold implementation comparisons before P3 closure.
