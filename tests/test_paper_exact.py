@@ -7,6 +7,8 @@ from pathlib import Path
 import subprocess
 import sys
 
+import numpy as np
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CARD_ROOT = ROOT / "paper_harness" / "paper_exact"
@@ -19,6 +21,15 @@ def load(path: Path) -> dict:
 def load_paper_grid_module():
     path = ROOT / "experiments/paper_harness/p0_paper_exact/paper_grid.py"
     spec = importlib.util.spec_from_file_location("p0_paper_grid", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_bip_grid_module():
+    path = ROOT / "experiments/paper_harness/p0_paper_exact/bip_grid.py"
+    spec = importlib.util.spec_from_file_location("p0_bip_grid", path)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -99,6 +110,75 @@ def test_protocol_cards_freeze_required_experiment_details() -> None:
     assert bip["data_protocol"]["tep"]["samples"] == 1000
     assert len(bip["paper_targets"]) == 16
     assert any("overlap" in item for item in bip["known_mismatches"])
+
+
+def test_bip_paper_grid_config_and_split_ablation_are_explicit() -> None:
+    config = load(ROOT / "configs/experiments/p0_bip_paper_grid.json")
+    assert config["checkpoint_unit"] == "split_lane_dataset_model_fold"
+    assert config["folds"] == 5
+    assert set(config["datasets"]) == {"synthetic", "tep"}
+    assert set(config["models"]) == {"MBW_LR", "EAC_1NN", "ACM_SVM", "CASIM"}
+    assert set(config["split_lanes"]) == {"author_overlap", "paper_disjoint"}
+
+    module = load_bip_grid_module()
+    # Five balanced classes, each with six outer-training rows and two test rows.
+    y = np.repeat(np.arange(5), 8)
+    outer_train = np.concatenate(
+        [np.arange(label * 8, label * 8 + 6) for label in range(5)]
+    )
+    test = np.concatenate(
+        [np.arange(label * 8 + 6, label * 8 + 8) for label in range(5)]
+    )
+    sizes = {
+        "cp_calibration_per_class": 2,
+        "afc_train_per_class": 2,
+        "bip_regressor_train_per_class": 2,
+    }
+    overlap = module.partition_from_outer(
+        y, outer_train, test, sizes, "author_overlap"
+    )
+    disjoint = module.partition_from_outer(
+        y, outer_train, test, sizes, "paper_disjoint"
+    )
+    overlap_audit = module.partition_audit(overlap)
+    disjoint_audit = module.partition_audit(disjoint)
+    assert overlap_audit["pairwise_overlap"][
+        "cp_calibration|bip_regressor_train"
+    ] == 10
+    assert disjoint_audit["pairwise_overlap"][
+        "cp_calibration|bip_regressor_train"
+    ] == 0
+    assert all(
+        count == 0
+        for count in disjoint_audit["pairwise_overlap"].values()
+    )
+
+    alpha_rows = [
+        {
+            "alpha": float(alpha),
+            "target_count": 10,
+            "point_mae": 2.0,
+            "point_absolute_error_std": 3.0,
+            "coverage": float(1.0 - alpha),
+            "average_interval_width": 4.0,
+            "interval_width_std": 1.0,
+        }
+        for alpha in module.configured_alphas()
+    ]
+    summary = module.summarize_group(
+        [
+            {
+                "fold": fold,
+                "train_bifurcations": 100 + fold,
+                "test_bifurcations": 50 + fold,
+                "alpha_metrics": alpha_rows,
+            }
+            for fold in range(5)
+        ]
+    )
+    assert summary["coverage_mae"]["mean"] < 1e-12
+    assert summary["point_mae"]["mean"] == 2.0
+    assert summary["point_mae"]["paper_std"] == 3.0
 
 
 def test_casim_author_capsule_default_result_is_retained() -> None:

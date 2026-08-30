@@ -1,0 +1,96 @@
+{
+  "experiment_id": "p0_bip_paper_grid",
+  "schema_version": 1,
+  "paper_id": "faulwasser2025_uncertainty_reduction",
+  "protocol_card": "paper_harness/paper_exact/faulwasser2025_uncertainty_reduction.v1.json",
+  "capsule_export": "data/public_datasets/codeocean/bip_afc_v3/export",
+  "runtime_cache": "tmp/paper_exact_cache/bip_v3",
+  "output_root": "experiments/paper_harness/p0_paper_exact/run_3/paper_grid",
+  "source_manifest_sha256": "f11f64d6615ad08cc5c5a300275c194d5a21097115fc416acc9ffe3701dd9a8d",
+  "random_seed": 42,
+  "folds": 5,
+  "repeats": 1,
+  "prefix_minutes": {
+    "start": 10,
+    "stop": 60,
+    "step": 1
+  },
+  "jackknife_plus_alpha": {
+    "start": 0.01,
+    "stop": 0.30,
+    "step": 0.01
+  },
+  "conformal_alpha": 0.05,
+  "delay_timer_minutes": 3,
+  "checkpoint_unit": "split_lane_dataset_model_fold",
+  "datasets": {
+    "tep": {
+      "data_subdirectory": "data/tep",
+      "expected_shape": [1000, 50, 300],
+      "afc_train_per_class": 60,
+      "cp_calibration_per_class": 50,
+      "bip_regressor_train_per_class": 50
+    },
+    "synthetic": {
+      "data_subdirectory": "data/synthetic",
+      "expected_shape": [1875, 10, 60],
+      "afc_train_per_class": 100,
+      "cp_calibration_per_class": 100,
+      "bip_regressor_train_per_class": 100
+    }
+  },
+  "models": {
+    "MBW_LR": {
+      "module": "MBW_LR",
+      "class": "MBW_LR",
+      "parameters": {
+        "penalty": "none",
+        "fit_intercept": false,
+        "solver": "lbfgs",
+        "multi_class": "ovr",
+        "decision_bounds": true,
+        "confidence_interval": 1.96
+      },
+      "clf_stepwise": true,
+      "input_type": "PROBA"
+    },
+    "EAC_1NN": {
+      "module": "EAC_1NN",
+      "class": "EAC_1NN",
+      "parameters": {
+        "attenuation_coefficient_per_min": 0.0667
+      },
+      "clf_stepwise": true,
+      "input_type": "DIST"
+    },
+    "ACM_SVM": {
+      "module": "ACM_SVM",
+      "class": "ACM_SVM",
+      "parameters": {},
+      "clf_stepwise": false,
+      "input_type": "PROBA"
+    },
+    "CASIM": {
+      "module": "CASIM",
+      "class": "CASIM",
+      "parameters": {
+        "num_features": 672,
+        "n_estimators": 1,
+        "n_jobs_multirocket": 1,
+        "random_state": 42,
+        "ridge_alphas_logspace": [-3, 3, 10]
+      },
+      "clf_stepwise": true,
+      "input_type": "PROBA"
+    }
+  },
+  "split_lanes": {
+    "author_overlap": {
+      "description": "Preserve official v3 main.py: CP-calibration and BiP-regressor subsets use the same leading per-class indices."
+    },
+    "paper_disjoint": {
+      "description": "Protocol-corrected ablation: CP calibration first, AFC training second, and BiP-regressor training last, with no overlap."
+    }
+  },
+  "default_workers": 8
+}
