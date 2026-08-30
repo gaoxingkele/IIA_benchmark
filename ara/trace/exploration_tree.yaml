@@ -1,0 +1,104 @@
+tree:
+  - id: N01
+    type: decision
+    title: Separate transfer and paper-exact evidence
+    provenance: user
+    timestamp: "2026-08-30T13:00"
+    choice: "Freeze transfer results and close the P0 papers with same data, preprocessing, splits, hyperparameters, metrics, and target tables."
+    alternatives: ["Treat transfer scores as paper reproduction", "Tune proxy data until scores look close"]
+    evidence: ["configs/experiments/p0_paper_exact.json"]
+    status: resolved
+    also_depends_on: []
+  - id: N02
+    type: experiment
+    title: Acquire and verify three P0 Code Ocean capsules
+    provenance: ai-executed
+    timestamp: "2026-08-30T13:25"
+    result: "CASIM v1, ConE-AFC v2, and BiP-AFC v3 archives, code, data, metadata, environments, and licenses were acquired and passed archive/code/data SHA-256 verification."
+    evidence: ["configs/reproducibility/codeocean_capsules.v1.json"]
+    status: resolved
+    also_depends_on: [N01]
+  - id: N03
+    type: experiment
+    title: Reproduce CASIM author-default closed-set run
+    provenance: ai-executed
+    timestamp: "2026-08-30T13:35"
+    result: "The unchanged Capsule default completed and produced a near-perfect closed-set score, but omitted the paper open-set grid and therefore remained P2."
+    evidence: ["experiments/paper_harness/p0_paper_exact/run_1/final_info.json", "ara/evidence/tables/p0_checkpoint_2026-08-30.md"]
+    status: resolved
+    also_depends_on: [N01, N02]
+  - id: N04
+    type: experiment
+    title: Audit P0 data priors and CASIM duplicate leakage
+    provenance: ai-executed
+    timestamp: "2026-08-30T13:45"
+    result: "All prior gates passed; two same-label exact duplicate pairs crossed official CASIM closed-set folds, while post-hoc exclusion changed the mean score only slightly."
+    evidence: ["experiments/reports/p0_codeocean_data_prior.json", "experiments/paper_harness/p0_paper_exact/run_1/final_info.json"]
+    status: resolved
+    also_depends_on: [N03]
+  - id: N05
+    type: dead_end
+    title: Reject repeated-all-novel CASIM fold construction
+    provenance: ai-executed
+    timestamp: "2026-08-30T14:16"
+    hypothesis: "Place every held-out-class and outlier sample into every one of the five test folds."
+    failure_mode: "This repeats every unknown sample across folds and does not match the paper wording or the published open-set splitter semantics."
+    lesson: "Relabel the held-out class before the author splitter so each unknown sample is tested once across the folds; preserve the rejected output only in ignored temporary storage."
+    status: resolved
+    also_depends_on: [N03]
+  - id: N06
+    type: decision
+    title: Reuse the author CASIM open-set splitter
+    provenance: ai-suggested
+    timestamp: "2026-08-30T14:18"
+    choice: "Add only the omitted held-out-class outer loop and reuse get_train_test(..., open_set=True) unchanged after relabeling."
+    alternatives: ["Repeat all novel samples in every fold", "Invent an unrelated grouped split"]
+    evidence: ["paper_harness/paper_exact/faulwasser2024_casim.v1.json", "experiments/paper_harness/p0_paper_exact/paper_grid.py"]
+    status: resolved
+    also_depends_on: [N05]
+  - id: N07
+    type: experiment
+    title: Reproduce ConE-AFC author-default run
+    provenance: ai-executed
+    timestamp: "2026-08-30T14:20"
+    result: "The unchanged five-fold default completed. Most directly comparable table rows met tolerance, while one set-size row exceeded it; the omitted full grid kept the result at P2."
+    evidence: ["experiments/paper_harness/p0_paper_exact/run_2/final_info.json", "ara/evidence/tables/p0_checkpoint_2026-08-30.md"]
+    status: resolved
+    also_depends_on: [N01, N02]
+  - id: N08
+    type: decision
+    title: Pause P0 long-running experiments at a checkpoint
+    provenance: user
+    timestamp: "2026-08-30T14:31"
+    choice: "Stop active runs, preserve auditable partial outputs, commit a checkpoint, and resume next time."
+    alternatives: ["Continue all long runs", "Discard partial outputs"]
+    evidence: ["experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json"]
+    status: resolved
+    also_depends_on: [N06, N07]
+  - id: N09
+    type: experiment
+    title: Checkpoint CASIM open-set grid
+    provenance: ai-executed
+    timestamp: "2026-08-30T14:32"
+    result: "A contiguous task-level CASIM checkpoint was hash-frozen and can resume only the remaining tasks."
+    evidence: ["experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json", "experiments/paper_harness/p0_paper_exact/run_1/paper_grid/repetitions_1/seed_results.jsonl"]
+    status: resolved
+    also_depends_on: [N08]
+  - id: N10
+    type: experiment
+    title: Checkpoint ConE-AFC full-grid attempt
+    provenance: ai-executed
+    timestamp: "2026-08-30T14:32"
+    result: "No complete full split had finished; the separately named single-model smoke result was retained but explicitly excluded from paper-grid evidence."
+    evidence: ["experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json"]
+    status: resolved
+    also_depends_on: [N08]
+  - id: N11
+    type: experiment
+    title: Checkpoint interrupted BiP-AFC author run
+    provenance: ai-executed
+    timestamp: "2026-08-30T14:32"
+    result: "Two TEP model CSV families were retained as non-scorable interruption evidence; the monolithic author run must restart for complete tables and logs."
+    evidence: ["experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json", "experiments/paper_harness/p0_paper_exact/run_3/checkpoint_results"]
+    status: resolved
+    also_depends_on: [N08]
