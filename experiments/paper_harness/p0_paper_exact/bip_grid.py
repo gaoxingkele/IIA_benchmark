@@ -157,6 +157,7 @@ def partition_from_outer(
 
     if split_lane not in CONFIG["split_lanes"]:
         raise ValueError(f"unknown split lane: {split_lane}")
+    partition_mode = CONFIG["split_lanes"][split_lane]["partition_mode"]
     y_pool = np.asarray(y[outer_train])
     n_cal = int(sizes["cp_calibration_per_class"])
     n_train = int(sizes["afc_train_per_class"])
@@ -171,7 +172,7 @@ def partition_from_outer(
         prng.shuffle(local)
         calibration.append(outer_train[local[:n_cal]])
         training.append(outer_train[local[n_cal : n_cal + n_train]])
-        if split_lane == "author_overlap":
+        if partition_mode == "author_overlap":
             regressor.append(outer_train[local[:n_rf]])
         else:
             start = n_cal + n_train
@@ -295,6 +296,8 @@ def bip_fold_worker(
 
     warnings.filterwarnings("ignore")
     started = time.perf_counter()
+    if CONFIG["split_lanes"][split_lane].get("seed_global_numpy", False):
+        np.random.seed(CONFIG["random_seed"])
     X = np.load(CACHE / f"{dataset_name}_X.npy", mmap_mode="r")
     y = np.load(CACHE / f"{dataset_name}_y.npy", mmap_mode="r")
     partitions = partition_fold(dataset_name, fold, split_lane)
@@ -521,18 +524,21 @@ def summarize_group(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def compare_paper(groups: dict[str, Any]) -> list[dict[str, Any]]:
+def compare_paper(
+    groups: dict[str, Any], split_lane: str
+) -> list[dict[str, Any]]:
     card = json.loads(CARD_PATH.read_text(encoding="utf-8"))
     tolerance = card["tolerances"]
     comparisons = []
-    author = groups.get("author_overlap", {})
+    lane_groups = groups.get(split_lane, {})
     for target in card["paper_targets"]:
-        observed = author.get(target["dataset"], {}).get(target["model"])
+        observed = lane_groups.get(target["dataset"], {}).get(target["model"])
         comparison: dict[str, Any] = {
             "item": target["item"],
             "dataset": target["dataset"],
             "model": target["model"],
             "metric": target["metric"],
+            "split_lane": split_lane,
             "complete": observed is not None and observed["folds"] == CONFIG["folds"],
         }
         if comparison["complete"] and target["metric"] == "bifurcations":
@@ -586,6 +592,125 @@ def compare_paper(groups: dict[str, Any]) -> list[dict[str, Any]]:
     return comparisons
 
 
+def summarize_split_ablation(
+    groups: dict[str, Any], author_lane: str, disjoint_lane: str
+) -> list[dict[str, Any]]:
+    comparisons = []
+    for dataset_name in CONFIG["datasets"]:
+        for model_name in CONFIG["models"]:
+            author = groups.get(author_lane, {}).get(dataset_name, {}).get(model_name)
+            disjoint = groups.get(disjoint_lane, {}).get(dataset_name, {}).get(model_name)
+            if author is None or disjoint is None:
+                continue
+            comparisons.append(
+                {
+                    "dataset": dataset_name,
+                    "model": model_name,
+                    "author_lane": author_lane,
+                    "disjoint_lane": disjoint_lane,
+                    "author_train_bifurcations": author["train_bifurcations"]["mean"],
+                    "disjoint_train_bifurcations": disjoint["train_bifurcations"]["mean"],
+                    "train_bifurcations_delta": (
+                        disjoint["train_bifurcations"]["mean"]
+                        - author["train_bifurcations"]["mean"]
+                    ),
+                    "author_test_bifurcations": author["test_bifurcations"]["mean"],
+                    "disjoint_test_bifurcations": disjoint["test_bifurcations"]["mean"],
+                    "test_bifurcations_delta": (
+                        disjoint["test_bifurcations"]["mean"]
+                        - author["test_bifurcations"]["mean"]
+                    ),
+                    "author_coverage_mae": author["coverage_mae"]["mean"],
+                    "disjoint_coverage_mae": disjoint["coverage_mae"]["mean"],
+                    "coverage_mae_delta": (
+                        disjoint["coverage_mae"]["mean"]
+                        - author["coverage_mae"]["mean"]
+                    ),
+                    "author_point_mae": author["point_mae"]["mean"],
+                    "disjoint_point_mae": disjoint["point_mae"]["mean"],
+                    "point_mae_delta": (
+                        disjoint["point_mae"]["mean"]
+                        - author["point_mae"]["mean"]
+                    ),
+                    "author_interval_width": author["interval_width"]["mean"],
+                    "disjoint_interval_width": disjoint["interval_width"]["mean"],
+                    "interval_width_delta": (
+                        disjoint["interval_width"]["mean"]
+                        - author["interval_width"]["mean"]
+                    ),
+                }
+            )
+    return comparisons
+
+
+def summarize_paired_protocol_audit(
+    completed: dict[tuple[str, str, str, int], dict[str, Any]],
+    author_lane: str,
+    disjoint_lane: str,
+) -> dict[str, Any]:
+    paired = 0
+    index_mismatches: list[str] = []
+    test_bifurcation_deltas: list[int] = []
+    test_bifurcation_mismatch_tasks: list[str] = []
+    author_overlap_counts: list[int] = []
+    disjoint_overlap_counts: list[int] = []
+    for dataset_name in CONFIG["datasets"]:
+        for model_name in CONFIG["models"]:
+            for fold in range(CONFIG["folds"]):
+                author_key = (author_lane, dataset_name, model_name, fold)
+                disjoint_key = (disjoint_lane, dataset_name, model_name, fold)
+                if author_key not in completed or disjoint_key not in completed:
+                    continue
+                paired += 1
+                author = completed[author_key]
+                disjoint = completed[disjoint_key]
+                for partition in ("afc_train", "cp_calibration", "test"):
+                    if (
+                        author["partition_audit"]["index_sha256"][partition]
+                        != disjoint["partition_audit"]["index_sha256"][partition]
+                    ):
+                        index_mismatches.append(
+                            f"{dataset_name}/{model_name}/fold={fold}/{partition}"
+                        )
+                test_delta = int(disjoint["test_bifurcations"]) - int(
+                    author["test_bifurcations"]
+                )
+                test_bifurcation_deltas.append(test_delta)
+                if test_delta != 0:
+                    test_bifurcation_mismatch_tasks.append(
+                        f"{dataset_name}/{model_name}/fold={fold}"
+                    )
+                overlap_key = "cp_calibration|bip_regressor_train"
+                author_overlap_counts.append(
+                    int(author["partition_audit"]["pairwise_overlap"][overlap_key])
+                )
+                disjoint_overlap_counts.append(
+                    int(disjoint["partition_audit"]["pairwise_overlap"][overlap_key])
+                )
+    return {
+        "author_lane": author_lane,
+        "disjoint_lane": disjoint_lane,
+        "paired_tasks": paired,
+        "afc_calibration_test_index_mismatches": index_mismatches,
+        "afc_calibration_test_indices_identical": not index_mismatches,
+        "author_calibration_rf_overlap_counts": sorted(set(author_overlap_counts)),
+        "disjoint_calibration_rf_overlap_counts": sorted(set(disjoint_overlap_counts)),
+        "test_bifurcation_equal_pairs": sum(delta == 0 for delta in test_bifurcation_deltas),
+        "test_bifurcation_unequal_pairs": sum(delta != 0 for delta in test_bifurcation_deltas),
+        "test_bifurcation_mismatch_tasks": test_bifurcation_mismatch_tasks,
+        "test_bifurcation_max_absolute_delta": (
+            max(abs(delta) for delta in test_bifurcation_deltas)
+            if test_bifurcation_deltas
+            else None
+        ),
+        "interpretation": (
+            "AFC/train/calibration/test indices must be identical across the paired lanes. "
+            "If test bifurcations differ, the split effect is confounded by author-model "
+            "refit randomness because the RF subset cannot change the test conformal sets."
+        ),
+    }
+
+
 def summarize(
     completed: dict[tuple[str, str, str, int], dict[str, Any]],
     requested_tasks: list[tuple[str, str, str, int]],
@@ -605,7 +730,10 @@ def summarize(
                 ]
                 if rows:
                     groups[lane][dataset_name][model_name] = summarize_group(rows)
-    comparisons = compare_paper(groups)
+    author_comparisons = compare_paper(groups, "author_overlap")
+    disjoint_comparisons = compare_paper(groups, "paper_disjoint")
+    seeded_author_comparisons = compare_paper(groups, "seeded_author_overlap")
+    seeded_disjoint_comparisons = compare_paper(groups, "seeded_paper_disjoint")
     all_tasks = [
         (lane, dataset, model, fold)
         for lane in CONFIG["split_lanes"]
@@ -628,17 +756,55 @@ def summarize(
         },
         "cache": cache_metadata,
         "groups": groups,
-        "paper_comparison": comparisons,
-        "numeric_rows_within_tolerance": sum(
-            bool(row["within_tolerance"]) for row in comparisons
+        "paper_comparison": author_comparisons,
+        "paper_comparison_author_overlap": author_comparisons,
+        "paper_comparison_paper_disjoint": disjoint_comparisons,
+        "paper_comparison_seeded_author_overlap": seeded_author_comparisons,
+        "paper_comparison_seeded_paper_disjoint": seeded_disjoint_comparisons,
+        "split_ablation": summarize_split_ablation(
+            groups, "author_overlap", "paper_disjoint"
         ),
-        "numeric_rows_total": len(comparisons),
+        "controlled_split_ablation": summarize_split_ablation(
+            groups, "seeded_author_overlap", "seeded_paper_disjoint"
+        ),
+        "paired_protocol_audit": summarize_paired_protocol_audit(
+            completed, "author_overlap", "paper_disjoint"
+        ),
+        "controlled_paired_protocol_audit": summarize_paired_protocol_audit(
+            completed, "seeded_author_overlap", "seeded_paper_disjoint"
+        ),
+        "numeric_rows_within_tolerance": sum(
+            bool(row["within_tolerance"]) for row in author_comparisons
+        ),
+        "numeric_rows_total": len(author_comparisons),
+        "disjoint_numeric_rows_within_tolerance": sum(
+            bool(row["within_tolerance"]) for row in disjoint_comparisons
+        ),
+        "disjoint_numeric_rows_total": len(disjoint_comparisons),
+        "seeded_author_numeric_rows_within_tolerance": sum(
+            bool(row["within_tolerance"]) for row in seeded_author_comparisons
+        ),
+        "seeded_author_numeric_rows_total": len(seeded_author_comparisons),
+        "seeded_disjoint_numeric_rows_within_tolerance": sum(
+            bool(row["within_tolerance"]) for row in seeded_disjoint_comparisons
+        ),
+        "seeded_disjoint_numeric_rows_total": len(seeded_disjoint_comparisons),
         "tasks_completed": sum(task in completed for task in all_tasks),
         "tasks_required_author_grid": len(author_tasks),
         "tasks_required_with_ablation": len(all_tasks),
         "requested_tasks_completed": sum(task in completed for task in requested_tasks),
         "requested_tasks_total": len(requested_tasks),
         "complete_author_paper_grid": all(task in completed for task in author_tasks),
+        "complete_unseeded_split_ablation": all(
+            task in completed
+            for task in all_tasks
+            if task[0] in {"author_overlap", "paper_disjoint"}
+        ),
+        "complete_controlled_split_ablation": all(
+            task in completed
+            for task in all_tasks
+            if task[0] in {"seeded_author_overlap", "seeded_paper_disjoint"}
+        ),
         "complete_required_ablation": all(task in completed for task in all_tasks),
         "checkpoint_sha256": hashlib.sha256(
             checkpoint_payload.encode("utf-8")

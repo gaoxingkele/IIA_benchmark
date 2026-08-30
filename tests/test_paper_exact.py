@@ -73,6 +73,9 @@ def test_p0_protocol_cards_and_capsule_manifest_are_closed() -> None:
     ] == [22, 102, 2491]
     assert experiment["paper_grid"]["faulwasser2024_cone_afc"]["model_split_tasks"] == 250
     assert experiment["paper_grid"]["faulwasser2024_cone_afc"]["checkpoint_unit"] == "split_and_model"
+    assert experiment["paper_grid"]["faulwasser2025_uncertainty_reduction"][
+        "total_lane_dataset_model_fold_tasks"
+    ] == 160
     assert experiment["acceptance"]["docker_image_run_required_for_P3"] is True
 
 
@@ -118,7 +121,12 @@ def test_bip_paper_grid_config_and_split_ablation_are_explicit() -> None:
     assert config["folds"] == 5
     assert set(config["datasets"]) == {"synthetic", "tep"}
     assert set(config["models"]) == {"MBW_LR", "EAC_1NN", "ACM_SVM", "CASIM"}
-    assert set(config["split_lanes"]) == {"author_overlap", "paper_disjoint"}
+    assert set(config["split_lanes"]) == {
+        "author_overlap",
+        "paper_disjoint",
+        "seeded_author_overlap",
+        "seeded_paper_disjoint",
+    }
 
     module = load_bip_grid_module()
     # Five balanced classes, each with six outer-training rows and two test rows.
@@ -140,6 +148,12 @@ def test_bip_paper_grid_config_and_split_ablation_are_explicit() -> None:
     disjoint = module.partition_from_outer(
         y, outer_train, test, sizes, "paper_disjoint"
     )
+    seeded_overlap = module.partition_from_outer(
+        y, outer_train, test, sizes, "seeded_author_overlap"
+    )
+    seeded_disjoint = module.partition_from_outer(
+        y, outer_train, test, sizes, "seeded_paper_disjoint"
+    )
     overlap_audit = module.partition_audit(overlap)
     disjoint_audit = module.partition_audit(disjoint)
     assert overlap_audit["pairwise_overlap"][
@@ -152,6 +166,12 @@ def test_bip_paper_grid_config_and_split_ablation_are_explicit() -> None:
         count == 0
         for count in disjoint_audit["pairwise_overlap"].values()
     )
+    assert module.partition_audit(seeded_overlap)["index_sha256"] == overlap_audit[
+        "index_sha256"
+    ]
+    assert module.partition_audit(seeded_disjoint)["index_sha256"] == disjoint_audit[
+        "index_sha256"
+    ]
 
     alpha_rows = [
         {
@@ -376,3 +396,58 @@ def test_cone_model_split_checkpoint_is_granular_and_hash_stable() -> None:
     assert progress["requested_tasks_completed"] == 250
     assert progress["requested_tasks_total"] == 250
     assert progress["checkpoint_sha256"] == summary["task_checkpoint_sha256"]
+
+
+def test_bip_author_grid_and_split_controls_are_complete_and_hash_stable() -> None:
+    root = ROOT / "experiments/paper_harness/p0_paper_exact/run_3/paper_grid"
+    tasks = [
+        json.loads(line)
+        for line in (root / "fold_results.jsonl").read_text(
+            encoding="utf-8"
+        ).splitlines()
+        if line.strip()
+    ]
+    assert len(tasks) == 160
+    assert len({row["task_id"] for row in tasks}) == 160
+    assert {
+        lane: sum(row["split_lane"] == lane for row in tasks)
+        for lane in {
+            "author_overlap",
+            "paper_disjoint",
+            "seeded_author_overlap",
+            "seeded_paper_disjoint",
+        }
+    } == {
+        "author_overlap": 40,
+        "paper_disjoint": 40,
+        "seeded_author_overlap": 40,
+        "seeded_paper_disjoint": 40,
+    }
+    assert all(len(row["alpha_metrics"]) == 30 for row in tasks)
+
+    summary = load(root / "summary.json")
+    assert summary["complete_author_paper_grid"] is True
+    assert summary["complete_unseeded_split_ablation"] is True
+    assert summary["complete_controlled_split_ablation"] is True
+    assert summary["complete_required_ablation"] is True
+    assert summary["numeric_rows_within_tolerance"] == 6
+    assert summary["disjoint_numeric_rows_within_tolerance"] == 7
+    assert summary["seeded_author_numeric_rows_within_tolerance"] == 7
+    assert summary["seeded_disjoint_numeric_rows_within_tolerance"] == 8
+    assert summary["numeric_rows_total"] == 16
+    controlled = summary["controlled_paired_protocol_audit"]
+    assert controlled["afc_calibration_test_indices_identical"] is True
+    assert controlled["author_calibration_rf_overlap_counts"] == [250, 500]
+    assert controlled["disjoint_calibration_rf_overlap_counts"] == [0]
+    assert controlled["test_bifurcation_equal_pairs"] == 30
+    assert controlled["test_bifurcation_unequal_pairs"] == 10
+    assert {
+        item.split("/")[1] for item in controlled["test_bifurcation_mismatch_tasks"]
+    } == {"CASIM"}
+
+    checkpoint_hash = hashlib.sha256((root / "fold_results.jsonl").read_bytes()).hexdigest()
+    assert checkpoint_hash == summary["checkpoint_sha256"]
+    progress = load(root / "progress.json")
+    assert progress["requested_tasks_completed"] == 160
+    assert progress["requested_tasks_total"] == 160
+    assert progress["checkpoint_sha256"] == checkpoint_hash

@@ -86,10 +86,24 @@
   },
   "split_lanes": {
     "author_overlap": {
-      "description": "Preserve official v3 main.py: CP-calibration and BiP-regressor subsets use the same leading per-class indices."
+      "description": "Preserve official v3 main.py: CP-calibration and BiP-regressor subsets use the same leading per-class indices.",
+      "partition_mode": "author_overlap",
+      "seed_global_numpy": false
     },
     "paper_disjoint": {
-      "description": "Protocol-corrected ablation: CP calibration first, AFC training second, and BiP-regressor training last, with no overlap."
+      "description": "Protocol-corrected ablation: CP calibration first, AFC training second, and BiP-regressor training last, with no overlap.",
+      "partition_mode": "paper_disjoint",
+      "seed_global_numpy": false
+    },
+    "seeded_author_overlap": {
+      "description": "Controlled author-overlap lane with NumPy global seed 42 set before every author-model fit.",
+      "partition_mode": "author_overlap",
+      "seed_global_numpy": true
+    },
+    "seeded_paper_disjoint": {
+      "description": "Controlled paper-disjoint lane with NumPy global seed 42 set before every author-model fit.",
+      "partition_mode": "paper_disjoint",
+      "seed_global_numpy": true
     }
   },
   "default_workers": 8

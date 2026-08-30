@@ -25,7 +25,7 @@
   "official_artifact": {
     "doi": "10.24433/CO.3008979.v3",
     "url": "https://codeocean.com/capsule/6896356/tree/v3",
-    "status": "complete_capsule_acquired_verified_author_run_queued",
+    "status": "complete_capsule_acquired_verified_author_and_ablation_grids_complete",
     "local_manifest": "configs/reproducibility/codeocean_capsules.v1.json",
     "archive_sha256": "3e33382ebf52a33bc54c2f105c19b1c2ceff16b8d03166890b852c4b48d25b3f"
   },
@@ -36,9 +36,9 @@
   ],
   "local_validation": {
     "status": "passed",
-    "reproduction_type": "independent_reimplementation",
-    "command": "python experiments/paper_harness/sota_wave2_multidataset/plot.py",
-    "scope": "three-seed grouped TEP/NPP/FCC transfer completed; official capsule v3 with synthetic and TEP payloads acquired; author run queued after ConE, with the calibration/regressor index-overlap defect retained for the first pass"
+    "reproduction_type": "author_code_paper_grid_split_ablation_plus_independent_transfer",
+    "command": ".\\tmp\\codeocean_envs\\bip\\Scripts\\python.exe experiments\\paper_harness\\p0_paper_exact\\bip_grid.py run-bip --workers 8 --lanes author_overlap paper_disjoint seeded_author_overlap seeded_paper_disjoint",
+    "scope": "official synthetic/TEP author grid and overlap/disjoint seeded controls complete with 160 tasks; only 6/16 original author-lane paper rows close, while the controlled CASIM lane retains Numba RNG nondeterminism; grouped TEP/NPP/FCC transfer remains separate"
   },
-  "ara_status": "engineering_validated_source_acquired"
+  "ara_status": "author_and_split_control_grids_complete_P2_numeric_gaps_open"
 }

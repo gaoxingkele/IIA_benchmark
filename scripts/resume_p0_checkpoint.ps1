@@ -27,5 +27,6 @@ if ($Target -in @("cone", "all")) {
 if ($Target -in @("bip", "all")) {
     & .\tmp\codeocean_envs\bip\Scripts\python.exe `
         experiments\paper_harness\p0_paper_exact\bip_grid.py `
-        run-bip --workers 8 --lanes author_overlap
+        run-bip --workers 8 `
+        --lanes author_overlap paper_disjoint seeded_author_overlap seeded_paper_disjoint
 }
