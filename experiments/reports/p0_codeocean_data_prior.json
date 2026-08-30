@@ -1,0 +1,388 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-30",
+  "protocol": "streaming read-only pre-model prior; raw files are not modified",
+  "datasets": {
+    "casim_tep": {
+      "expected": {
+        "samples": 310,
+        "classes": 15,
+        "channels": 76,
+        "require_class_balance": false,
+        "note": "14 known labels plus label -1 outliers; class imbalance is an intended paper property"
+      },
+      "checks": {
+        "sample_count": true,
+        "class_count": true,
+        "class_balance_matches_protocol": true,
+        "finite": true,
+        "binary": true,
+        "expected_channel_count": true,
+        "nonempty_episodes": true
+      },
+      "passed": true,
+      "samples": 310,
+      "class_counts": {
+        "-1": 8,
+        "0": 48,
+        "1": 35,
+        "10": 4,
+        "11": 25,
+        "12": 5,
+        "13": 3,
+        "2": 20,
+        "3": 35,
+        "4": 38,
+        "5": 40,
+        "6": 6,
+        "7": 20,
+        "8": 19,
+        "9": 4
+      },
+      "observed_class_balance": false,
+      "channel_counts": {
+        "76": 310
+      },
+      "length_samples": {
+        "minimum": 23.0,
+        "q25": 389.25,
+        "median": 1201.5,
+        "q75": 2693.75,
+        "maximum": 4200.0,
+        "mean": 1459.7870967741935,
+        "standard_deviation": 1303.3910412018029
+      },
+      "active_state_cells": {
+        "minimum": 32.0,
+        "q25": 1281.25,
+        "median": 5750.5,
+        "q75": 10488.25,
+        "maximum": 38443.0,
+        "mean": 8240.51935483871,
+        "standard_deviation": 8564.466786291856
+      },
+      "activation_edges": {
+        "minimum": 2.0,
+        "q25": 7.25,
+        "median": 25.0,
+        "q75": 33.0,
+        "maximum": 79.0,
+        "mean": 23.34516129032258,
+        "standard_deviation": 18.66046949431281
+      },
+      "unique_active_alarm_channels": {
+        "minimum": 1.0,
+        "q25": 5.0,
+        "median": 21.0,
+        "q75": 30.0,
+        "maximum": 57.0,
+        "mean": 20.525806451612905,
+        "standard_deviation": 15.368515527237044
+      },
+      "global_active_state_density": 0.0742765068190282,
+      "canonical_unique_trajectories": 308,
+      "duplicate_episodes_beyond_first": 2,
+      "largest_duplicate_group": 2,
+      "duplicate_groups": [
+        {
+          "trajectory_sha256": "0762621c89be1a3b555321ddebd72837e6efc5c0418ef1d507d1c68ca214ca1e",
+          "members": [
+            {
+              "id": "19_3",
+              "label": "3"
+            },
+            {
+              "id": "2_1",
+              "label": "3"
+            }
+          ]
+        },
+        {
+          "trajectory_sha256": "80ccbbc6474321a261c07d244e294bb8c10f235b64eb6f34c527a6274803b961",
+          "members": [
+            {
+              "id": "61_1",
+              "label": "9"
+            },
+            {
+              "id": "96_1",
+              "label": "9"
+            }
+          ]
+        }
+      ],
+      "empty_episodes": 0,
+      "official_split_duplicate_audit": {
+        "protocol": "official RepeatedStratifiedKFold(5, 1, random_state=42) and os.listdir file order",
+        "folds": [
+          {
+            "fold": 1,
+            "duplicate_groups_crossing_train_test": [],
+            "crossing_group_count": 0
+          },
+          {
+            "fold": 2,
+            "duplicate_groups_crossing_train_test": [],
+            "crossing_group_count": 0
+          },
+          {
+            "fold": 3,
+            "duplicate_groups_crossing_train_test": [
+              [
+                "61_1",
+                "96_1"
+              ]
+            ],
+            "crossing_group_count": 1
+          },
+          {
+            "fold": 4,
+            "duplicate_groups_crossing_train_test": [
+              [
+                "19_3",
+                "2_1"
+              ]
+            ],
+            "crossing_group_count": 1
+          },
+          {
+            "fold": 5,
+            "duplicate_groups_crossing_train_test": [
+              [
+                "19_3",
+                "2_1"
+              ],
+              [
+                "61_1",
+                "96_1"
+              ]
+            ],
+            "crossing_group_count": 2
+          }
+        ],
+        "folds_with_duplicate_leakage": [
+          3,
+          4,
+          5
+        ],
+        "crossing_group_instances": 4,
+        "interpretation": "The author-default split is sample-stratified rather than trajectory-grouped; identical known-class trajectories occur across train/test in folds 3-5."
+      }
+    },
+    "cone_synthetic": {
+      "expected": {
+        "samples": 18750,
+        "classes": 5,
+        "channels": 10
+      },
+      "checks": {
+        "sample_count": true,
+        "class_count": true,
+        "class_balance_matches_protocol": true,
+        "finite": true,
+        "binary": true,
+        "expected_channel_count": true,
+        "nonempty_episodes": true
+      },
+      "passed": true,
+      "samples": 18750,
+      "class_counts": {
+        "AK1": 3750,
+        "AK2": 3750,
+        "AK3": 3750,
+        "AK4": 3750,
+        "AK5": 3750
+      },
+      "observed_class_balance": true,
+      "channel_counts": {
+        "10": 18750
+      },
+      "length_samples": {
+        "minimum": 60.0,
+        "q25": 60.0,
+        "median": 60.0,
+        "q75": 60.0,
+        "maximum": 60.0,
+        "mean": 60.0,
+        "standard_deviation": 0.0
+      },
+      "active_state_cells": {
+        "minimum": 180.0,
+        "q25": 207.0,
+        "median": 231.0,
+        "q75": 288.0,
+        "maximum": 343.0,
+        "mean": 249.98586666666668,
+        "standard_deviation": 47.12091977295105
+      },
+      "activation_edges": {
+        "minimum": 18.0,
+        "q25": 31.0,
+        "median": 35.0,
+        "q75": 40.0,
+        "maximum": 55.0,
+        "mean": 35.43402666666667,
+        "standard_deviation": 5.63991437753762
+      },
+      "unique_active_alarm_channels": {
+        "minimum": 4.0,
+        "q25": 6.0,
+        "median": 7.0,
+        "q75": 7.0,
+        "maximum": 8.0,
+        "mean": 6.37296,
+        "standard_deviation": 1.354713071121212
+      },
+      "global_active_state_density": 0.41664311111111113,
+      "canonical_unique_trajectories": 18750,
+      "duplicate_episodes_beyond_first": 0,
+      "largest_duplicate_group": 1,
+      "duplicate_groups": [],
+      "empty_episodes": 0
+    },
+    "bip_synthetic": {
+      "expected": {
+        "samples": 1875,
+        "classes": 5,
+        "channels": 10
+      },
+      "checks": {
+        "sample_count": true,
+        "class_count": true,
+        "class_balance_matches_protocol": true,
+        "finite": true,
+        "binary": true,
+        "expected_channel_count": true,
+        "nonempty_episodes": true
+      },
+      "passed": true,
+      "samples": 1875,
+      "class_counts": {
+        "class_0": 375,
+        "class_1": 375,
+        "class_2": 375,
+        "class_3": 375,
+        "class_4": 375
+      },
+      "observed_class_balance": true,
+      "channel_counts": {
+        "10": 1875
+      },
+      "length_samples": {
+        "minimum": 60.0,
+        "q25": 60.0,
+        "median": 60.0,
+        "q75": 60.0,
+        "maximum": 60.0,
+        "mean": 60.0,
+        "standard_deviation": 0.0
+      },
+      "active_state_cells": {
+        "minimum": 180.0,
+        "q25": 208.0,
+        "median": 232.0,
+        "q75": 288.0,
+        "maximum": 338.0,
+        "mean": 250.04373333333334,
+        "standard_deviation": 47.11353896771312
+      },
+      "activation_edges": {
+        "minimum": 19.0,
+        "q25": 31.0,
+        "median": 35.0,
+        "q75": 39.0,
+        "maximum": 55.0,
+        "mean": 35.391466666666666,
+        "standard_deviation": 5.687350336394698
+      },
+      "unique_active_alarm_channels": {
+        "minimum": 4.0,
+        "q25": 6.0,
+        "median": 7.0,
+        "q75": 7.0,
+        "maximum": 8.0,
+        "mean": 6.375466666666667,
+        "standard_deviation": 1.3552213037811287
+      },
+      "global_active_state_density": 0.41673955555555553,
+      "canonical_unique_trajectories": 1875,
+      "duplicate_episodes_beyond_first": 0,
+      "largest_duplicate_group": 1,
+      "duplicate_groups": [],
+      "empty_episodes": 0
+    },
+    "bip_tep": {
+      "expected": {
+        "samples": 1000,
+        "classes": 5,
+        "channels": 50,
+        "note": "25 process variables x high/low alarm channels"
+      },
+      "checks": {
+        "sample_count": true,
+        "class_count": true,
+        "class_balance_matches_protocol": true,
+        "finite": true,
+        "binary": true,
+        "expected_channel_count": true,
+        "nonempty_episodes": true
+      },
+      "passed": true,
+      "samples": 1000,
+      "class_counts": {
+        "class_0": 200,
+        "class_1": 200,
+        "class_2": 200,
+        "class_3": 200,
+        "class_4": 200
+      },
+      "observed_class_balance": true,
+      "channel_counts": {
+        "50": 1000
+      },
+      "length_samples": {
+        "minimum": 300.0,
+        "q25": 300.0,
+        "median": 300.0,
+        "q75": 300.0,
+        "maximum": 300.0,
+        "mean": 300.0,
+        "standard_deviation": 0.0
+      },
+      "active_state_cells": {
+        "minimum": 394.0,
+        "q25": 1393.5,
+        "median": 1994.5,
+        "q75": 2213.25,
+        "maximum": 2643.0,
+        "mean": 1695.162,
+        "standard_deviation": 700.4231861924618
+      },
+      "activation_edges": {
+        "minimum": 133.0,
+        "q25": 169.0,
+        "median": 210.5,
+        "q75": 258.0,
+        "maximum": 361.0,
+        "mean": 218.907,
+        "standard_deviation": 55.10947605448631
+      },
+      "unique_active_alarm_channels": {
+        "minimum": 22.0,
+        "q25": 27.0,
+        "median": 29.0,
+        "q75": 35.0,
+        "maximum": 46.0,
+        "mean": 31.629,
+        "standard_deviation": 6.614783367579018
+      },
+      "global_active_state_density": 0.1130108,
+      "canonical_unique_trajectories": 1000,
+      "duplicate_episodes_beyond_first": 0,
+      "largest_duplicate_group": 1,
+      "duplicate_groups": [],
+      "empty_episodes": 0
+    }
+  },
+  "all_prior_gates_passed": true
+}

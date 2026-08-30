@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "paper_id": "faulwasser2024_casim",
+  "reproduction_level": "P2_author_capsule_default",
+  "paper_exact_closed": false,
+  "capsule": {
+    "doi": "10.24433/CO.4874993.v1",
+    "archive_sha256": "7919b08aac9d5d4e530a7cfac2baec335f6e7aeabb4e00a1d6a67376a79a02c7"
+  },
+  "protocol_card": "paper_harness/paper_exact/faulwasser2024_casim.v1.json",
+  "author_code_unchanged": true,
+  "metrics": {
+    "capsule_default_protocol": "five-fold closed-set",
+    "fold_balanced_accuracy": [
+      1.0,
+      1.0,
+      0.989010989010989,
+      0.989010989010989,
+      0.9910714285714286
+    ],
+    "mean_balanced_accuracy": 0.9938186813186813,
+    "median_balanced_accuracy": 0.9910714285714286,
+    "minimum_balanced_accuracy": 0.989010989010989,
+    "maximum_balanced_accuracy": 1.0,
+    "duplicate_excluded_test_sensitivity": {
+      "interpretation": "post-hoc test sensitivity using the unchanged fitted author models; contaminated test rows are excluded, but models are not retrained",
+      "folds": [
+        {
+          "fold": 1,
+          "excluded_test_ids_with_train_twin": [],
+          "original_balanced_accuracy": 1.0,
+          "duplicate_excluded_balanced_accuracy": 1.0
+        },
+        {
+          "fold": 2,
+          "excluded_test_ids_with_train_twin": [],
+          "original_balanced_accuracy": 1.0,
+          "duplicate_excluded_balanced_accuracy": 1.0
+        },
+        {
+          "fold": 3,
+          "excluded_test_ids_with_train_twin": [
+            "61_1"
+          ],
+          "original_balanced_accuracy": 0.989010989010989,
+          "duplicate_excluded_balanced_accuracy": 0.9880952380952381
+        },
+        {
+          "fold": 4,
+          "excluded_test_ids_with_train_twin": [
+            "2_1"
+          ],
+          "original_balanced_accuracy": 0.989010989010989,
+          "duplicate_excluded_balanced_accuracy": 0.989010989010989
+        },
+        {
+          "fold": 5,
+          "excluded_test_ids_with_train_twin": [
+            "19_3",
+            "96_1"
+          ],
+          "original_balanced_accuracy": 0.9910714285714286,
+          "duplicate_excluded_balanced_accuracy": 0.9903846153846154
+        }
+      ],
+      "excluded_test_instances": 4,
+      "mean_duplicate_excluded_balanced_accuracy": 0.9934981684981686
+    }
+  },
+  "paper_comparison": [
+    {
+      "item": "Figure 10",
+      "metric": "CASIM median TPR",
+      "paper_value": 1.0,
+      "author_capsule_default": 0.9910714285714286,
+      "delta": -0.008928571428571397,
+      "numeric_within_tolerance": true,
+      "protocol_match": false,
+      "closed": false
+    },
+    {
+      "item": "Figure 10",
+      "metric": "CASIM TPR range",
+      "paper_value": 0.083,
+      "author_capsule_default": 0.01098901098901095,
+      "delta": -0.07201098901098905,
+      "numeric_within_tolerance": false,
+      "protocol_match": false,
+      "closed": false
+    },
+    {
+      "item": "Figure 13c",
+      "metric": "maximum open-set balanced accuracy",
+      "paper_value": 0.947,
+      "author_capsule_default": null,
+      "delta": null,
+      "numeric_within_tolerance": null,
+      "protocol_match": false,
+      "closed": false
+    },
+    {
+      "item": "Figure 13c",
+      "metric": "mean open-set balanced accuracy over thresholds",
+      "paper_value": 0.879,
+      "author_capsule_default": null,
+      "delta": null,
+      "numeric_within_tolerance": null,
+      "protocol_match": false,
+      "closed": false
+    }
+  ],
+  "known_mismatches": [
+    "The published v1 capsule default executes only five-fold closed-set evaluation, not the paper's 70 open-set train-test sets or full novelty-threshold sweep.",
+    "A capsule-default run can validate author code and data integrity but cannot by itself close Figures 13-14.",
+    "The payload has 308 unique binary trajectories among 310 samples; identical same-label pairs cross train/test in official closed-set folds 3-5 (four crossing group instances), so exact author scores and deduplicated grouped scores must both be retained."
+  ],
+  "next_stage": "parameterize the complete paper grid without changing preprocessing or splits, then compare the independent implementation on identical folds"
+}

@@ -327,7 +327,8 @@
       "official_artifact": {
         "doi": "10.24433/CO.4874993.v1",
         "url": "https://codeocean.com/capsule/4475596/tree/v1",
-        "status": "remote_access_pending"
+        "status": "complete_capsule_acquired_verified",
+        "manifest": "configs/reproducibility/codeocean_capsules.v1.json"
       },
       "method_summary": "CASIM transforms alarm sequences with randomized convolutional kernels, pools the responses, and uses a ridge ensemble plus local outlier probability for open-set decisions.",
       "local_implementation": [
@@ -340,7 +341,7 @@
         "status": "passed",
         "reproduction_type": "independent_reimplementation",
         "command": "python experiments/paper_harness/sota_wave2_multidataset/plot.py",
-        "scope": "three-seed grouped TEP/NPP/FCC classification and robustness transfer completed; paper equations/mechanics and synthetic invariants also pass, while exact official scores remain blocked by the capsule protocol"
+        "scope": "three-seed grouped TEP/NPP/FCC transfer completed; unchanged official v1 capsule-default five-fold closed-set run reached mean balanced accuracy 0.993819; the full open-set paper grid remains pending"
       },
       "claims": [
         {"id": "C1", "statement": "CASIM uses convolutional-kernel features for early alarm-flood classification.", "support": "paper_pdf_method", "status": "explicit"},
@@ -363,11 +364,12 @@
       "official_artifact": {
         "doi": "10.24433/CO.5512337.v2",
         "url": "https://codeocean.com/capsule/9490503/tree/v2",
-        "status": "remote_access_blocked_403"
+        "status": "complete_capsule_acquired_verified_author_run_started",
+        "manifest": "configs/reproducibility/codeocean_capsules.v1.json"
       },
       "method_summary": "ConE-AFC wraps online alarm-flood classifiers with conformal calibration and returns prediction sets at controlled error levels.",
       "method_details": "For every expanding window and class, Algorithm 1 sorts held-out true-class probability scores in descending order (or distance scores ascending) and applies the finite-sample thresholds in Eqs. (2)-(3). Algorithm 2 includes a class when its online score passes the corresponding class/window threshold, as specified by Eqs. (4)-(5). Eq. (1) reports expected finite-calibration coverage from alpha, delta, and epsilon.",
-      "experiment_summary": "The paper's public synthetic dataset contains 18,750 binary alarm subsequences: 3,750 per class, five classes, ten alarm variables, and a 1/min sampling rate. Evaluation uses training/calibration/test partitions inside 10 repetitions of stratified 5-fold cross-validation (50 tests), expanding windows starting at 10 minutes with 1-minute steps, alpha in {0.1, 0.05, 0.01}, and class-balanced calibration sizes 22, 102, or 2491. Metrics are accuracy, coverage, and average prediction-set size. The Code Ocean capsule is currently HTTP 403 from this environment, so its exact data and table reproduction remain gated.",
+      "experiment_summary": "The public synthetic dataset contains 18,750 binary alarm subsequences: 3,750 per class, five classes, ten alarm variables, and a 1/min sampling rate. Evaluation uses training/calibration/test partitions inside 10 repetitions of stratified 5-fold cross-validation (50 tests), expanding windows starting at 10 minutes with 1-minute steps, alpha in {0.1, 0.05, 0.01}, and class-balanced calibration sizes 22, 102, or 2491. The complete v2 Capsule is locally acquired; its default script runs only one five-fold alpha=0.05, ncal=22 subset, so the complete table grid remains pending.",
       "local_implementation": [
         "src/iia_benchmark/models/cone_afc.py:ConEAFCCalibrator",
         "src/iia_benchmark/models/cone_afc.py:ConEAlarmFloodClassifier"
@@ -376,7 +378,7 @@
         "status": "passed",
         "reproduction_type": "independent_reimplementation",
         "command": "python experiments/paper_harness/sota_wave2_multidataset/plot.py",
-        "scope": "three-seed grouped TEP/NPP/FCC prefix coverage and set-efficiency validation completed; Eqs. 1-5, Algorithms 1-2 and local invariants also pass, while exact official tables remain blocked by capsule/data"
+        "scope": "three-seed grouped TEP/NPP/FCC transfer completed; official v2 capsule and 18,750 sequences acquired and its unchanged selected five-fold run started; the full 50-test table grid remains pending"
       },
       "claims": [
         {"id": "C1", "statement": "Conformal prediction exposes uncertainty as label sets for expanding alarm-sequence prefixes.", "support": "paper_pdf_algorithms_1_2_and_equations_1_5", "status": "explicit"},
@@ -396,6 +398,12 @@
       "pdf_url": "https://www.sciencedirect.com/science/article/pii/S2405896325026564/pdfft?isDTMRedir=true&download=true",
       "license": "CC BY-NC-ND 4.0",
       "access_note": "The publisher PDF is open access under CC BY-NC-ND 4.0. An unchanged copy was imported from the public paper-acquisition-chenjingan branch and independently verified on 2026-08-28.",
+      "official_artifact": {
+        "doi": "10.24433/CO.3008979.v3",
+        "url": "https://codeocean.com/capsule/6896356/tree/v3",
+        "status": "complete_capsule_acquired_verified_author_run_started",
+        "manifest": "configs/reproducibility/codeocean_capsules.v1.json"
+      },
       "method_summary": "Predicts when additional alarm observations are expected to reduce classification uncertainty.",
       "local_implementation": [
         "src/iia_benchmark/models/uncertainty_reduction.py:UncertaintyReductionForecaster",
@@ -406,7 +414,7 @@
         "status": "passed",
         "reproduction_type": "independent_reimplementation",
         "command": "python experiments/paper_harness/sota_wave2_multidataset/plot.py",
-        "scope": "three-seed grouped TEP/NPP/FCC next-reduction forecasting completed with jackknife+ interval coverage; local bifurcation and delay-timer invariants also pass, while exact Tables 1-4 remain blocked by the official data/code artifact"
+        "scope": "three-seed grouped TEP/NPP/FCC transfer completed; official v3 capsule with synthetic and TEP data acquired and unchanged author-default run started; Tables 1-4 and the calibration/regressor split discrepancy remain under audit"
       },
       "claims": [
         {"id": "C1", "statement": "Uncertainty-reduction prediction is coupled to online classification delay.", "support": "paper_pdf_sections_2_3", "status": "explicit"}

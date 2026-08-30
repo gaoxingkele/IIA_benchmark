@@ -89,7 +89,7 @@ def test_sota_wave2_multidataset_evidence_is_complete() -> None:
     assert report["strict_paper_score_closure"] == {
         "closed": 0,
         "total": 9,
-        "reason": "Exact paper data/splits/full text or official capsules remain unavailable.",
+        "reason": "Transfer results are frozen separately. The three P0 official capsules are now acquired, but their complete paper grids and exact delta tables remain pending.",
     }
     assert {update["algorithm_id"] for update in report["evidence_updates"]} == {
         "modified_tfidf_afc_2025",

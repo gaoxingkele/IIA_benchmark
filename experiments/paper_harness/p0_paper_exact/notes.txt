@@ -1,0 +1,13 @@
+P0 Paper-Exact harness, frozen 2026-08-30.
+
+run_1 = CASIM capsule v1 (author default is five-fold closed-set, not the paper open-set sweep)
+run_2 = ConE-AFC capsule v2 (author default is five folds at alpha=.05, ncal/class=22)
+run_3 = BiP-AFC capsule v3 (author code overlaps CP-calibration and RF-training indices)
+
+The existing TEP/NPP/FCC Wave-2 report remains the immutable transfer_result lane.
+This directory records author-capsule runs and must not relabel capsule-default subsets as complete P3 closure.
+
+Commands:
+  python scripts/paper_exact.py check --require-local --full-hash
+  python scripts/paper_exact.py run-author --paper-id faulwasser2024_casim
+  python scripts/paper_exact.py summarize --paper-id faulwasser2024_casim

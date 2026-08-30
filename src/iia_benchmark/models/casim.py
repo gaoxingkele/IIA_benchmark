@@ -5,9 +5,10 @@ alarm-series representations, length-nine MultiRocket kernels, four pooling
 operators, an ensemble of calibrated ridge classifiers, and LoOP novelty
 detection on the complete posterior vector plus its top-two probability gap.
 
-This is not copied from the authors' Code Ocean artifact.  The artifact is
-versioned in the literature registry but was not downloadable in the current
-environment, so paper-score equivalence remains a separate validation gate.
+This independent implementation is not copied from the authors' Code Ocean
+artifact.  The official v1 artifact has since been acquired and is evaluated in
+a separate Paper-Exact lane, so implementation and author-code results remain
+distinguishable.
 """
 
 from __future__ import annotations

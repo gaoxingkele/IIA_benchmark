@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "paper_id": "faulwasser2024_cone_afc",
+  "paper": {
+    "title": "Addressing Uncertainty in Online Alarm Flood Classification Using Conformal Prediction",
+    "doi": "10.1109/ACCESS.2024.3492348",
+    "local_pdf": "papers/literature/pdfs/faulwasser2024_cone_afc.pdf",
+    "pdf_sha256": "2cc0f2a7e8f7f61742471dc6b394c66fae7a9de39ecbfa5b5525009e08026f76"
+  },
+  "official_artifact": {
+    "doi": "10.24433/CO.5512337.v2",
+    "capsule_version": "v2",
+    "manifest": "configs/reproducibility/codeocean_capsules.v1.json",
+    "author_command": "python main.py",
+    "environment": {
+      "python": "3.9",
+      "numpy": "1.22.4",
+      "pandas": "1.5.1",
+      "scikit_learn": "1.1.3",
+      "sktime": "0.13.4"
+    }
+  },
+  "data_protocol": {
+    "dataset": "open synthetic alarm-flood subsequences",
+    "samples": 18750,
+    "classes": 5,
+    "samples_per_class": 3750,
+    "alarm_variables": 10,
+    "duration_minutes": 60,
+    "sample_period_minutes": 1,
+    "local_data_root": "data/public_datasets/codeocean/cone_afc_v2/export/data",
+    "data_manifest_sha256": "4a42e6a0ec4759b29486c1c24766c7ee586d6429709241ce170900ece714a1c7"
+  },
+  "representation": {
+    "input": "multivariate binary alarm-state series",
+    "prefix": {"initial_minutes": 10, "interval_minutes": 1, "maximum_minutes": 60}
+  },
+  "split_protocol": {
+    "paper": "10 repetitions of stratified 5-fold cross-validation, with class-balanced train/calibration/test partitions",
+    "paper_tests": 50,
+    "calibration_samples_per_class": [22, 102, 2491],
+    "official_capsule_default": "one repetition of five folds; generate 2491 calibration candidates per class, use 22 per class; alpha=0.05"
+  },
+  "randomness": {
+    "seed": 42,
+    "paper_repetitions": 10,
+    "capsule_default_repetitions": 1,
+    "reporting": "mean and sample standard deviation over tests"
+  },
+  "hyperparameters": {
+    "alpha": [0.01, 0.05, 0.1],
+    "calibration_samples_per_class": [22, 102, 2491],
+    "casim": {"num_features": 672, "n_estimators": 1, "ridge_alphas": "numpy.logspace(-3, 3, 10)"},
+    "WDI_1NN_template_threshold": 0.5,
+    "EAC_1NN_attenuation_per_minute": 0.0667
+  },
+  "metrics": {
+    "accuracy": "fraction of correct singleton point predictions, averaged over all test samples and prefixes",
+    "coverage": "class-balanced fraction of samples whose prediction set contains the true class, averaged over prefixes and tests",
+    "average_set_size": "class-balanced mean cardinality of the conformal prediction set, averaged over prefixes and tests",
+    "required_joint_diagnostics": ["coverage", "average_set_size", "singleton_rate", "empty_rate"]
+  },
+  "paper_targets": [
+    {"item": "Table 1", "model": "CASIM", "metric": "original_accuracy", "mean": 0.706, "std": 0.002},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.01, "calibration_per_class": 22, "mean": 0.957, "std": 0.004},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.01, "calibration_per_class": 102, "mean": 0.98, "std": 0.002},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.01, "calibration_per_class": 2491, "mean": 0.99, "std": 0.0},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.05, "calibration_per_class": 22, "mean": 0.914, "std": 0.007},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.05, "calibration_per_class": 102, "mean": 0.942, "std": 0.003},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.05, "calibration_per_class": 2491, "mean": 0.95, "std": 0.001},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.1, "calibration_per_class": 22, "mean": 0.871, "std": 0.006},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.1, "calibration_per_class": 102, "mean": 0.892, "std": 0.003},
+    {"item": "Table 1", "model": "CASIM", "metric": "coverage", "alpha": 0.1, "calibration_per_class": 2491, "mean": 0.9, "std": 0.001},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.01, "calibration_per_class": 22, "mean": 1.731, "std": 0.011},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.01, "calibration_per_class": 102, "mean": 1.778, "std": 0.008},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.01, "calibration_per_class": 2491, "mean": 1.8, "std": 0.004},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.05, "calibration_per_class": 22, "mean": 1.64, "std": 0.013},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.05, "calibration_per_class": 102, "mean": 1.691, "std": 0.006},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.05, "calibration_per_class": 2491, "mean": 1.705, "std": 0.002},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.1, "calibration_per_class": 22, "mean": 1.559, "std": 0.013},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.1, "calibration_per_class": 102, "mean": 1.599, "std": 0.007},
+    {"item": "Table 2", "model": "CASIM", "metric": "average_set_size", "alpha": 0.1, "calibration_per_class": 2491, "mean": 1.612, "std": 0.002}
+  ],
+  "tolerances": {
+    "mean_absolute": 0.02,
+    "coverage_requires_efficiency_pair": true,
+    "require_confidence_interval_overlap_when_available": true
+  },
+  "known_mismatches": [
+    "The v2 capsule default is a selected five-fold alpha=0.05, calibration=22 run; it does not execute the paper's 50-test 3x3 grid.",
+    "The paper tables report averages across all prefixes and tests; the final-prefix value alone is not comparable."
+  ],
+  "result_tracks": {
+    "transfer_result": "experiments/reports/sota_wave2_multidataset_validation.json",
+    "paper_exact_result": "experiments/paper_harness/p0_paper_exact/run_2/final_info.json"
+  }
+}

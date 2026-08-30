@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "paper_id": "faulwasser2024_casim",
+  "paper": {
+    "title": "Convolutional Kernel-Based Classification of Industrial Alarm Floods",
+    "doi": "10.1017/dce.2024.22",
+    "local_pdf": "papers/literature/pdfs/faulwasser2024_casim.pdf",
+    "pdf_sha256": "28cc29f5106e6863b571cd9a5ca6ed225e5fa50e0ce997c95699f2c0a25c113d"
+  },
+  "official_artifact": {
+    "doi": "10.24433/CO.4874993.v1",
+    "capsule_version": "v1",
+    "manifest": "configs/reproducibility/codeocean_capsules.v1.json",
+    "author_command": "python main.py",
+    "environment": {
+      "python": "3.9",
+      "numpy": "1.22.4",
+      "pandas": "1.5.1",
+      "scikit_learn": "1.1.3",
+      "sktime": "0.13.4",
+      "imbalanced_learn": "0.11.0"
+    }
+  },
+  "data_protocol": {
+    "dataset": "TEP alarm-management dataset",
+    "source_runs": 100,
+    "simulated_abnormal_situations": 300,
+    "disturbance_variations": 29,
+    "alarm_activations": 7343,
+    "detected_subsequences": 310,
+    "known_classes": 14,
+    "class_size_range": [3, 48],
+    "additional_outlier_subsequences": 8,
+    "selected_alarm_variables": 76,
+    "sample_period_minutes": 1,
+    "local_data_root": "data/public_datasets/codeocean/casim_v1/export/data",
+    "data_manifest_sha256": "77643dfb40749472f5dfb752611b1db3c462822453e20d6e4669e9cb14f14dd2"
+  },
+  "representation": {
+    "input": "multivariate binary alarm-state series",
+    "padding": "zero-pad shorter abnormal situations to equal length",
+    "prefix": {"initial_minutes": 10, "interval_minutes": 10, "maximum_minutes": 420}
+  },
+  "split_protocol": {
+    "closed_set": "stratified 5-fold cross-validation",
+    "open_set": "repeat stratified 5-fold 14 times, leaving one complete class out of training each time",
+    "open_set_train_test_sets": 70,
+    "official_capsule_default": "closed-set only: get_train_test(..., open_set=False), five folds"
+  },
+  "randomness": {
+    "author_capsule_seed": 42,
+    "multirocket_repetitions_in_paper": 10,
+    "reporting": "retain all runs; do not select the best seed"
+  },
+  "hyperparameters": {
+    "casim": {
+      "num_features": 672,
+      "n_estimators": 10,
+      "n_neighbors": 10,
+      "loop_extent_lambda": 3,
+      "ridge_alphas": "numpy.logspace(-3, 3, 10)",
+      "novelty_thresholds": {"start": 0.001, "stop": 1.0, "step": 0.001}
+    },
+    "comparators": {
+      "WDI_1NN_template_threshold": 0.5,
+      "EAC_1NN_attenuation_per_minute": 0.0667,
+      "MBW_LR": "penalty=none, fit_intercept=false, solver=lbfgs, multi_class=ovr"
+    }
+  },
+  "metrics": {
+    "TPR": "macro-average of per-known-class true-positive rates",
+    "TNR": "fraction of held-out novel-class samples rejected as unknown",
+    "balanced_accuracy": "(TPR + TNR) / 2 for open set; sklearn balanced_accuracy_score for capsule closed set"
+  },
+  "paper_targets": [
+    {"item": "Figure 10", "metric": "CASIM median TPR", "value": 1.0, "context": "complete known-class subsequences"},
+    {"item": "Figure 10", "metric": "CASIM TPR range", "value": 0.083},
+    {"item": "Figure 13c", "metric": "maximum open-set balanced accuracy", "value": 0.947, "at_threshold": 0.324},
+    {"item": "Figure 13c", "metric": "mean open-set balanced accuracy over thresholds", "value": 0.879}
+  ],
+  "tolerances": {
+    "classification_absolute": 0.02,
+    "reported_rounding_absolute": 0.0005,
+    "require_confidence_interval_overlap_when_available": true
+  },
+  "known_mismatches": [
+    "The published v1 capsule default executes only five-fold closed-set evaluation, not the paper's 70 open-set train-test sets or full novelty-threshold sweep.",
+    "A capsule-default run can validate author code and data integrity but cannot by itself close Figures 13-14.",
+    "The payload has 308 unique binary trajectories among 310 samples; identical same-label pairs cross train/test in official closed-set folds 3-5 (four crossing group instances), so exact author scores and deduplicated grouped scores must both be retained."
+  ],
+  "result_tracks": {
+    "transfer_result": "experiments/reports/sota_wave2_multidataset_validation.json",
+    "paper_exact_result": "experiments/paper_harness/p0_paper_exact/run_1/final_info.json"
+  }
+}

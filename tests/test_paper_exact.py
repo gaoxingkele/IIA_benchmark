@@ -1,0 +1,97 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+
+ROOT = Path(__file__).resolve().parents[1]
+CARD_ROOT = ROOT / "paper_harness" / "paper_exact"
+
+
+def load(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def test_p0_protocol_cards_and_capsule_manifest_are_closed() -> None:
+    completed = subprocess.run(
+        [sys.executable, "scripts/paper_exact.py", "check"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    audit = json.loads(completed.stdout)
+    assert audit["paper_exact_cards"] == 3
+    assert audit["issues"] == []
+
+    manifest = load(ROOT / "configs/reproducibility/codeocean_capsules.v1.json")
+    assert {row["paper_id"] for row in manifest["capsules"]} == {
+        "faulwasser2024_casim",
+        "faulwasser2024_cone_afc",
+        "faulwasser2025_uncertainty_reduction",
+    }
+    assert all(row["acquisition_status"] == "complete_verified" for row in manifest["capsules"])
+    assert all(row["code_license"] == "MIT" for row in manifest["capsules"])
+    assert all(row["data_license"] == "CC0-1.0" for row in manifest["capsules"])
+
+
+def test_protocol_cards_freeze_required_experiment_details() -> None:
+    casim = load(CARD_ROOT / "faulwasser2024_casim.v1.json")
+    cone = load(CARD_ROOT / "faulwasser2024_cone_afc.v1.json")
+    bip = load(CARD_ROOT / "faulwasser2025_uncertainty_reduction.v1.json")
+
+    assert casim["split_protocol"]["open_set_train_test_sets"] == 70
+    assert casim["hyperparameters"]["casim"]["num_features"] == 672
+    assert len(casim["paper_targets"]) == 4
+
+    assert cone["data_protocol"]["samples"] == 18750
+    assert cone["split_protocol"]["paper_tests"] == 50
+    assert cone["split_protocol"]["calibration_samples_per_class"] == [22, 102, 2491]
+    assert len(cone["paper_targets"]) == 19
+
+    assert bip["data_protocol"]["synthetic"]["samples"] == 1875
+    assert bip["data_protocol"]["tep"]["samples"] == 1000
+    assert len(bip["paper_targets"]) == 16
+    assert any("overlap" in item for item in bip["known_mismatches"])
+
+
+def test_casim_author_capsule_default_result_is_retained() -> None:
+    result = load(
+        ROOT
+        / "experiments/paper_harness/p0_paper_exact/run_1/final_info.json"
+    )
+    assert result["paper_id"] == "faulwasser2024_casim"
+    assert result["author_code_unchanged"] is True
+    assert result["reproduction_level"] == "P2_author_capsule_default"
+    assert result["paper_exact_closed"] is False
+    assert len(result["metrics"]["fold_balanced_accuracy"]) == 5
+    assert result["metrics"]["mean_balanced_accuracy"] > 0.99
+    sensitivity = result["metrics"]["duplicate_excluded_test_sensitivity"]
+    assert sensitivity["excluded_test_instances"] == 4
+    assert sensitivity["mean_duplicate_excluded_balanced_accuracy"] > 0.99
+
+
+def test_p0_data_priors_are_frozen_before_model_comparison() -> None:
+    report = load(ROOT / "experiments/reports/p0_codeocean_data_prior.json")
+    assert report["all_prior_gates_passed"] is True
+    datasets = report["datasets"]
+    assert datasets["cone_synthetic"]["canonical_unique_trajectories"] == 18750
+    assert datasets["bip_synthetic"]["canonical_unique_trajectories"] == 1875
+    assert datasets["bip_tep"]["canonical_unique_trajectories"] == 1000
+    assert datasets["bip_tep"]["channel_counts"] == {"50": 1000}
+    assert datasets["casim_tep"]["canonical_unique_trajectories"] == 308
+    assert datasets["casim_tep"]["duplicate_episodes_beyond_first"] == 2
+    assert datasets["casim_tep"]["official_split_duplicate_audit"][
+        "folds_with_duplicate_leakage"
+    ] == [3, 4, 5]
+    assert datasets["casim_tep"]["official_split_duplicate_audit"][
+        "crossing_group_instances"
+    ] == 4
+    assert all(
+        len(group["members"]) == 2
+        and len({member["label"] for member in group["members"]}) == 1
+        for group in datasets["casim_tep"]["duplicate_groups"]
+    )

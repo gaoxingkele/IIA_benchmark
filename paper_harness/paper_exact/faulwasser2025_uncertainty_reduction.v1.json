@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "paper_id": "faulwasser2025_uncertainty_reduction",
+  "paper": {
+    "title": "Predicting Uncertainty Reduction in Online Alarm Flood Classification",
+    "doi": "10.1016/j.ifacol.2025.11.935",
+    "local_pdf": "papers/literature/pdfs/faulwasser2025_uncertainty_reduction.pdf",
+    "pdf_sha256": "5fffdf0f072a4f8c2af1f6ee49968022a0223dfb4aadac18e1d9ddd591ebb2a9"
+  },
+  "official_artifact": {
+    "doi": "10.24433/CO.3008979.v3",
+    "capsule_version": "v3",
+    "manifest": "configs/reproducibility/codeocean_capsules.v1.json",
+    "author_command": "python main.py",
+    "environment": {
+      "python": "3.9",
+      "mapie": "0.9.2",
+      "numpy": "1.22.4",
+      "pandas": "1.5.1",
+      "scikit_learn": "1.1.3",
+      "sktime": "0.13.4"
+    }
+  },
+  "data_protocol": {
+    "synthetic": {"samples": 1875, "classes": 5, "alarm_variables": 10, "duration_minutes": 60, "sample_period_minutes": 1},
+    "tep": {"samples": 1000, "classes": 5, "samples_per_class": 200, "faults": ["IDV1", "IDV2", "IDV6", "IDV14", "IDV1+IDV5"], "process_variables": 25, "high_low_alarm_channels": 50, "stored_duration_minutes": 300, "evaluated_prefix_minutes": [10, 60], "severity_percent_range": [60, 100]},
+    "tep_alarm_generation": "high/low thresholds at +/-2 normal standard deviations with reset deadband at +/-1.5 standard deviations",
+    "local_data_root": "data/public_datasets/codeocean/bip_afc_v3/export/data",
+    "data_manifest_sha256": "f11f64d6615ad08cc5c5a300275c194d5a21097115fc416acc9ffe3701dd9a8d"
+  },
+  "representation": {
+    "input": "multivariate binary alarm-state series",
+    "prefix": {"initial_minutes": 10, "interval_minutes": 1, "maximum_minutes": 60},
+    "target": "minutes until the next strict reduction in conformal set cardinality"
+  },
+  "split_protocol": {
+    "outer": "stratified 5-fold cross-validation",
+    "synthetic_per_class_per_fold": {"afc_train": 100, "cp_calibration": 100, "bip_regressor_train": 100, "test": 75},
+    "tep_per_class_per_fold": {"afc_train": 60, "cp_calibration": 50, "bip_regressor_train": 50, "test": 40},
+    "paper_requirement": "AFC training, CP calibration, and BiP regressor training are separate subsets"
+  },
+  "randomness": {
+    "seed": 42,
+    "outer_repetitions": 1,
+    "reporting": "mean and sample standard deviation over five folds"
+  },
+  "hyperparameters": {
+    "conformal_alpha": 0.05,
+    "delay_timer_candidates_minutes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    "selected_delay_minutes": 3,
+    "jackknife_plus_alpha": {"start": 0.01, "stop": 0.3, "step": 0.01},
+    "casim": {"num_features": 672, "n_estimators": 1, "ridge_alphas": "numpy.logspace(-3, 3, 10)"}
+  },
+  "metrics": {
+    "bifurcation_count": "number of strict prediction-set cardinality reductions in training or test prefixes",
+    "MAE_coverage": "mean absolute difference between observed interval coverage and nominal 1-alpha across alpha values",
+    "MAE_points": "mean absolute error between observed and predicted minutes to next bifurcation",
+    "required_joint_diagnostics": ["MAE_points", "interval_coverage", "interval_width", "delay_timer_emissions"]
+  },
+  "paper_targets": [
+    {"item": "Table 1", "dataset": "synthetic", "model": "ACM_SVM", "metric": "bifurcations", "train_mean": 1853.4, "train_std": 11.88, "test_mean": 1395.6, "test_std": 12.19},
+    {"item": "Table 1", "dataset": "synthetic", "model": "EAC_1NN", "metric": "bifurcations", "train_mean": 1094.2, "train_std": 31.03, "test_mean": 814.0, "test_std": 23.81},
+    {"item": "Table 1", "dataset": "synthetic", "model": "MBW_LR", "metric": "bifurcations", "train_mean": 1747.6, "train_std": 118.04, "test_mean": 1311.2, "test_std": 87.15},
+    {"item": "Table 1", "dataset": "synthetic", "model": "CASIM", "metric": "bifurcations", "train_mean": 1425.0, "train_std": 82.88, "test_mean": 1065.6, "test_std": 48.42},
+    {"item": "Table 2", "dataset": "synthetic", "model": "ACM_SVM", "metric": "MAE", "coverage_mean": 0.0145, "coverage_std": 0.0079, "points_mean": 1.293, "points_std": 2.3687},
+    {"item": "Table 2", "dataset": "synthetic", "model": "EAC_1NN", "metric": "MAE", "coverage_mean": 0.0156, "coverage_std": 0.0066, "points_mean": 0.524, "points_std": 1.2717},
+    {"item": "Table 2", "dataset": "synthetic", "model": "MBW_LR", "metric": "MAE", "coverage_mean": 0.0126, "coverage_std": 0.0026, "points_mean": 0.6475, "points_std": 0.8219},
+    {"item": "Table 2", "dataset": "synthetic", "model": "CASIM", "metric": "MAE", "coverage_mean": 0.0111, "coverage_std": 0.0067, "points_mean": 0.7127, "points_std": 1.57},
+    {"item": "Table 3", "dataset": "tep", "model": "ACM_SVM", "metric": "bifurcations", "train_mean": 603.6, "train_std": 58.02, "test_mean": 471.8, "test_std": 51.92},
+    {"item": "Table 3", "dataset": "tep", "model": "EAC_1NN", "metric": "bifurcations", "train_mean": 227.0, "train_std": 30.46, "test_mean": 178.0, "test_std": 17.24},
+    {"item": "Table 3", "dataset": "tep", "model": "MBW_LR", "metric": "bifurcations", "train_mean": 460.6, "train_std": 122.01, "test_mean": 367.4, "test_std": 78.66},
+    {"item": "Table 3", "dataset": "tep", "model": "CASIM", "metric": "bifurcations", "train_mean": 299.8, "train_std": 32.49, "test_mean": 233.4, "test_std": 27.6},
+    {"item": "Table 4", "dataset": "tep", "model": "ACM_SVM", "metric": "MAE", "coverage_mean": 0.1004, "coverage_std": 0.0069, "points_mean": 3.5827, "points_std": 4.7332},
+    {"item": "Table 4", "dataset": "tep", "model": "EAC_1NN", "metric": "MAE", "coverage_mean": 0.2142, "coverage_std": 0.0284, "points_mean": 4.0613, "points_std": 4.8142},
+    {"item": "Table 4", "dataset": "tep", "model": "MBW_LR", "metric": "MAE", "coverage_mean": 0.0228, "coverage_std": 0.0095, "points_mean": 2.0768, "points_std": 3.0343},
+    {"item": "Table 4", "dataset": "tep", "model": "CASIM", "metric": "MAE", "coverage_mean": 0.0104, "coverage_std": 0.0056, "points_mean": 2.3272, "points_std": 2.2046}
+  ],
+  "tolerances": {
+    "MAE_coverage_absolute": 0.01,
+    "MAE_points_relative": 0.05,
+    "bifurcation_count_relative": 0.05,
+    "require_all_alpha_curves": true
+  },
+  "known_mismatches": [
+    "Official v3 main.py assigns rf_idxs from the same leading indices as cali_idxs, making CP calibration and BiP regressor training fully overlap.",
+    "This contradicts the paper's separate-subset statement; author-exact runs retain the overlap, while independent protocol-corrected runs must report it as an explicit ablation."
+  ],
+  "result_tracks": {
+    "transfer_result": "experiments/reports/sota_wave2_multidataset_validation.json",
+    "paper_exact_result": "experiments/paper_harness/p0_paper_exact/run_3/final_info.json"
+  }
+}

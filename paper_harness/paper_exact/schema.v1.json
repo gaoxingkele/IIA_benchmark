@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/gaoxingkele/IIA_benchmark/paper_harness/paper_exact/schema.v1.json",
+  "title": "IIA Paper-Exact protocol card",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "paper_id",
+    "paper",
+    "official_artifact",
+    "data_protocol",
+    "representation",
+    "split_protocol",
+    "randomness",
+    "hyperparameters",
+    "metrics",
+    "paper_targets",
+    "tolerances",
+    "known_mismatches",
+    "result_tracks"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "paper_id": {"type": "string", "minLength": 1},
+    "paper": {
+      "type": "object",
+      "required": ["title", "doi", "local_pdf", "pdf_sha256"]
+    },
+    "official_artifact": {
+      "type": "object",
+      "required": ["doi", "capsule_version", "manifest"]
+    },
+    "data_protocol": {"type": "object"},
+    "representation": {"type": "object"},
+    "split_protocol": {"type": "object"},
+    "randomness": {"type": "object"},
+    "hyperparameters": {"type": "object"},
+    "metrics": {"type": "object"},
+    "paper_targets": {"type": "array", "minItems": 1},
+    "tolerances": {"type": "object"},
+    "known_mismatches": {"type": "array"},
+    "result_tracks": {
+      "type": "object",
+      "required": ["transfer_result", "paper_exact_result"]
+    }
+  }
+}

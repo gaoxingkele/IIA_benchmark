@@ -2,6 +2,14 @@
 
 No paper-score reproduction is asserted by collection generation alone. Add frozen dataset, grouped split, seeds, hyperparameters, and target metrics here after execution.
 
+## Official Capsule v1 author-default run (P2)
+
+- Complete v1 code/data/environment Capsule acquired and archive/code/data hashes verified.
+- Unchanged `main.py` loaded 310 subsequences with 76 alarm variables and five closed-set folds.
+- CASIM fold balanced accuracies are 1.000000, 1.000000, 0.989011, 0.989011, and 0.991071; mean 0.993819.
+- Evidence: `experiments/paper_harness/p0_paper_exact/run_1/final_info.json`.
+- Boundary: the Capsule default sets `open_set=False`; it does not execute the paper's 70 leave-one-class-out train-test sets or Figures 13-14 threshold sweep, so P3 remains open.
+
 ## Local FCC engineering validation (E2/P1)
 
 - Dataset/split: official FCC alarm states; complete runs 1-60 train and 81-100 test for all 16 abnormal-situation classes.
@@ -31,4 +39,4 @@ No paper-score reproduction is asserted by collection generation alone. Add froz
 - Mean balanced accuracy is 1.0000/0.8182/0.9922; classification paired credit passes 8/9 dataset-seeds.
 - Full-progress five-regime robustness AUC is 0.9733/0.7379/0.8318; robustness paired credit passes 3/9.
 - Evidence: `experiments/reports/sota_wave2_multidataset_validation.json`.
-- Boundary: local 128-feature/3-classifier bounded configuration; LoOP open-set leave-one-class-out and official capsule/table reproduction remain open.
+- Boundary: local 128-feature/3-classifier bounded configuration; the official closed-set default is now reproduced separately, while LoOP open-set leave-one-class-out and Figures 13-14 remain open.
