@@ -335,6 +335,11 @@ def mean(values: Iterable[float]) -> float:
     return float(statistics.fmean(rows))
 
 
+def sample_std(values: Iterable[float]) -> float:
+    rows = list(values)
+    return float(statistics.stdev(rows)) if len(rows) > 1 else 0.0
+
+
 def numpy_vector_cells(path: Path) -> list[np.ndarray]:
     vectors = []
     with path.open(encoding="utf-8-sig", newline="") as stream:
@@ -464,24 +469,39 @@ def summarize_bip(author_results: Path, log_path: Path) -> dict[str, Any]:
             mae = csv_columns(author_results / dataset / f"{model}_mae_results.csv")
             coverage = csv_columns(author_results / dataset / f"{model}_coverage_results.csv")
             fold_keys = [key for key in mae if key.startswith("Fold_")]
-            point_values = [value for key in fold_keys for value in mae[key]]
-            coverage_errors: list[float] = []
+            point_fold_mae = [mean(mae[key]) for key in fold_keys]
+            coverage_errors_by_fold = {key: [] for key in fold_keys}
             with (author_results / dataset / f"{model}_coverage_results.csv").open(encoding="utf-8-sig", newline="") as stream:
                 for row in csv.DictReader(stream):
                     alpha = float(row["Alpha"])
-                    coverage_errors.extend(abs(float(row[key]) - (1.0 - alpha)) for key in fold_keys)
-            counts = [
-                int(value)
-                for value in re.findall(
-                    rf"\[{dataset} - {model}\] Fold.*?Number of bifurcations in test data:\s+(\d+)",
+                    for key in fold_keys:
+                        coverage_errors_by_fold[key].append(
+                            abs(float(row[key]) - (1.0 - alpha))
+                        )
+            coverage_fold_mae = [
+                mean(coverage_errors_by_fold[key]) for key in fold_keys
+            ]
+            bifurcation_pairs = [
+                (int(train), int(test))
+                for train, test in re.findall(
+                    rf"\[{dataset} - {model}\] Fold.*?"
+                    rf"Number of bifurcations in training data:\s+(\d+).*?"
+                    rf"Number of bifurcations in test data:\s+(\d+)",
                     log_text,
                     flags=re.DOTALL,
                 )
             ]
+            train_counts = [row[0] for row in bifurcation_pairs]
+            test_counts = [row[1] for row in bifurcation_pairs]
             output[dataset][model] = {
-                "mean_MAE_points": mean(point_values),
-                "mean_MAE_coverage": mean(coverage_errors),
-                "mean_test_bifurcations": mean(counts) if counts else None,
+                "mean_MAE_points": mean(point_fold_mae),
+                "std_MAE_points": sample_std(point_fold_mae),
+                "mean_MAE_coverage": mean(coverage_fold_mae),
+                "std_MAE_coverage": sample_std(coverage_fold_mae),
+                "mean_train_bifurcations": mean(train_counts) if train_counts else None,
+                "std_train_bifurcations": sample_std(train_counts),
+                "mean_test_bifurcations": mean(test_counts) if test_counts else None,
+                "std_test_bifurcations": sample_std(test_counts),
                 "folds": len(fold_keys),
                 "alpha_points": len(coverage.get("Fold_1", [])),
             }
@@ -565,7 +585,13 @@ def compare_to_paper(paper_id: str, card: dict[str, Any], metrics: dict[str, Any
                         "model": model,
                         "metric": metric,
                         "paper_mean": paper_value,
+                        "paper_std": target[
+                            "coverage_std" if metric == "MAE_coverage" else "points_std"
+                        ],
                         "author_capsule_default": value,
+                        "author_capsule_default_std": observed[
+                            "std_MAE_coverage" if metric == "MAE_coverage" else "std_MAE_points"
+                        ],
                         "delta": delta,
                         "numeric_within_tolerance": within,
                         "protocol_match": False,
@@ -573,23 +599,30 @@ def compare_to_paper(paper_id: str, card: dict[str, Any], metrics: dict[str, Any
                     }
                 )
         elif observed["mean_test_bifurcations"] is not None:
-            value = observed["mean_test_bifurcations"]
-            paper_value = target["test_mean"]
-            delta = value - paper_value
-            rows.append(
-                {
-                    "item": target["item"],
-                    "dataset": dataset,
-                    "model": model,
-                    "metric": "test_bifurcations",
-                    "paper_mean": paper_value,
-                    "author_capsule_default": value,
-                    "delta": delta,
-                    "numeric_within_tolerance": abs(delta) <= card["tolerances"]["bifurcation_count_relative"] * paper_value,
-                    "protocol_match": False,
-                    "closed": False,
-                }
-            )
+            for partition in ("train", "test"):
+                value = observed[f"mean_{partition}_bifurcations"]
+                paper_value = target[f"{partition}_mean"]
+                delta = value - paper_value
+                rows.append(
+                    {
+                        "item": target["item"],
+                        "dataset": dataset,
+                        "model": model,
+                        "metric": f"{partition}_bifurcations",
+                        "paper_mean": paper_value,
+                        "paper_std": target[f"{partition}_std"],
+                        "author_capsule_default": value,
+                        "author_capsule_default_std": observed[
+                            f"std_{partition}_bifurcations"
+                        ],
+                        "delta": delta,
+                        "numeric_within_tolerance": abs(delta)
+                        <= card["tolerances"]["bifurcation_count_relative"]
+                        * paper_value,
+                        "protocol_match": False,
+                        "closed": False,
+                    }
+                )
     return rows
 
 

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "p0-paper-exact-2026-08-30T063259Z",
+  "paused_at_utc": "2026-08-30T06:32:59.6700380Z",
+  "paused_at_local": "2026-08-30T14:32:59.6700380+08:00",
+  "base_commit": "81d8ba6bdafd1e2934b7f1ce10327f320f12e889",
+  "active_experiment_processes_after_pause": 0,
+  "experiments": {
+    "faulwasser2024_casim": {
+      "status": "paused_resumable",
+      "completed_tasks": 48,
+      "total_tasks": 70,
+      "next_task_id_zero_based": 48,
+      "completed_task_ids_zero_based": {"start": 0, "stop_inclusive": 47},
+      "completed_held_out_classes": 9,
+      "partially_completed_held_out_class": 9,
+      "checkpoint": "experiments/paper_harness/p0_paper_exact/run_1/paper_grid/repetitions_1/seed_results.jsonl",
+      "checkpoint_sha256": "2dfd73afa41176296f06ee9b13778e3be03e655ad3ba7b93348b57541900f827",
+      "resume_behavior": "the runner loads task IDs 0-47 and submits only the remaining 22 tasks",
+      "resume_command": ".\\tmp\\codeocean_envs\\casim\\Scripts\\python.exe experiments\\paper_harness\\p0_paper_exact\\paper_grid.py run-casim --workers 4 --repetitions 1"
+    },
+    "faulwasser2024_cone_afc": {
+      "status": "paused_no_complete_full_split",
+      "completed_full_splits": 0,
+      "total_full_splits": 50,
+      "discarded_in_flight_full_splits": 6,
+      "smoke_result": {
+        "scope": "WDI_1NN, split 0 only",
+        "rows": 1,
+        "seed_path": "experiments/paper_harness/p0_paper_exact/run_2/paper_grid/smoke_wdi1nn_split0.jsonl",
+        "seed_sha256": "ff8d2f3c3cfd241eb0aca70eeeba1af5cb77b3547470d9cec00c95f18d80930d",
+        "summary_path": "experiments/paper_harness/p0_paper_exact/run_2/paper_grid/smoke_wdi1nn_split0_summary.json",
+        "summary_sha256": "2991538f4718e611fa7f51ed33e84862cc5f904b7a4f08ff43cf7eacf3079550",
+        "paper_grid_evidence": false
+      },
+      "resume_behavior": "the full 50-split grid restarts at split 0; the smoke files use separate names and cannot be mistaken for full-grid checkpoints",
+      "resume_command": ".\\tmp\\codeocean_envs\\cone\\Scripts\\python.exe experiments\\paper_harness\\p0_paper_exact\\paper_grid.py run-cone --workers 6"
+    },
+    "faulwasser2025_uncertainty_reduction": {
+      "status": "paused_partial_author_run_not_scorable",
+      "completed_dataset_model_groups": ["tep/MBW_LR", "tep/EAC_1NN"],
+      "completed_groups": 2,
+      "total_dataset_model_groups": 8,
+      "interrupted_stage_inference": "tep/ACM_SVM, because the two preceding model groups produced complete CSV families and no ACM_SVM file was finalized",
+      "checkpoint": "experiments/paper_harness/p0_paper_exact/run_3/checkpoint_results",
+      "checkpoint_manifest": {
+        "files": 16,
+        "bytes": 34570,
+        "sha256": "24ccd43ede38497e75b5dbb4350455e8d5e3f9496bdcab58d05af611cbbb7fdb"
+      },
+      "limitations": [
+        "the unchanged Capsule buffers stdout, so the interrupted run did not preserve the bifurcation-count log",
+        "partial CSV groups are interruption evidence only and must not be summarized as Tables 1-4",
+        "the official main.py is monolithic and has no model-level resume switch"
+      ],
+      "resume_behavior": "the unchanged author command restarts from the beginning; checkpoint_results remains immutable evidence and formal author_results stays empty until a complete run succeeds",
+      "resume_command": "python scripts\\paper_exact.py run-author --paper-id faulwasser2025_uncertainty_reduction --engine native-windows"
+    }
+  },
+  "pre_resume_checks": [
+    "python scripts/paper_exact.py check --require-local --full-hash",
+    "python -m pytest -q tests/test_paper_exact.py"
+  ],
+  "orchestrated_resume": "powershell -ExecutionPolicy Bypass -File scripts/resume_p0_checkpoint.ps1 -Target all"
+}

@@ -20,3 +20,13 @@
 - Identified a BiP v3 artifact defect: calibration and random-forest training use
   the same leading per-class indices. Preserve it in author-exact pass one and test
   a disjoint correction only in the independent implementation pass.
+- Completed the unchanged ConE-AFC v2 default run. Nine of ten directly comparable
+  Table 1/2 rows are within the frozen 0.02 tolerance; EAC-1NN average set size is
+  0.02447 above the paper value. This remains P2 because the Capsule default has
+  five rather than 50 tests.
+- Paused the long-running P0 experiments at a repository checkpoint: CASIM has
+  48/70 open-set tasks persisted; the ConE full grid has no complete split (one
+  separately named smoke row only); BiP has 16 partial TEP CSVs for MBW-LR and
+  EAC-1NN, retained as non-scorable interruption evidence.
+- Added `scripts/resume_p0_checkpoint.ps1` and a hash-frozen checkpoint manifest;
+  verified that no experiment processes remained after the pause.

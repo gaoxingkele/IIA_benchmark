@@ -156,3 +156,23 @@ def test_p0_data_priors_are_frozen_before_model_comparison() -> None:
         and len({member["label"] for member in group["members"]}) == 1
         for group in datasets["casim_tep"]["duplicate_groups"]
     )
+
+
+def test_p0_pause_checkpoint_is_explicit_and_resumable() -> None:
+    checkpoint = load(
+        ROOT
+        / "experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json"
+    )
+    assert checkpoint["active_experiment_processes_after_pause"] == 0
+    rows = checkpoint["experiments"]
+    assert rows["faulwasser2024_casim"]["completed_tasks"] == 48
+    assert rows["faulwasser2024_casim"]["total_tasks"] == 70
+    assert rows["faulwasser2024_cone_afc"]["completed_full_splits"] == 0
+    assert rows["faulwasser2024_cone_afc"]["smoke_result"][
+        "paper_grid_evidence"
+    ] is False
+    assert rows["faulwasser2025_uncertainty_reduction"][
+        "completed_dataset_model_groups"
+    ] == ["tep/MBW_LR", "tep/EAC_1NN"]
+    assert rows["faulwasser2025_uncertainty_reduction"]["limitations"]
+    assert (ROOT / "scripts/resume_p0_checkpoint.ps1").is_file()
