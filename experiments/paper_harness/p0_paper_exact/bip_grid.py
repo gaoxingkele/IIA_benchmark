@@ -37,6 +37,7 @@ RUNTIME_CACHE = ROOT / "tmp/paper_exact_runtime_cache"
 RUNTIME_CACHE.mkdir(parents=True, exist_ok=True)
 sys.pycache_prefix = str(RUNTIME_CACHE / "pycache")
 os.environ.setdefault("NUMBA_CACHE_DIR", str(RUNTIME_CACHE / "numba"))
+_NUMBA_SEEDER: Any | None = None
 
 
 def atomic_write_text(path: Path, payload: str) -> None:
@@ -222,6 +223,28 @@ def _model_parameters(model_name: str) -> dict[str, Any]:
     return parameters
 
 
+def configured_lane_models(split_lane: str) -> tuple[str, ...]:
+    """Return the models intentionally assigned to one protocol lane."""
+
+    lane = CONFIG["split_lanes"][split_lane]
+    return tuple(lane.get("models", CONFIG["models"]))
+
+
+def seed_numba_random(seed: int) -> None:
+    """Reset Numba's process-local NumPy RNG without editing Capsule code."""
+
+    global _NUMBA_SEEDER
+    if _NUMBA_SEEDER is None:
+        from numba import njit
+
+        @njit(cache=False)
+        def _seed(value: int) -> None:
+            np.random.seed(value)
+
+        _NUMBA_SEEDER = _seed
+    _NUMBA_SEEDER(int(seed))
+
+
 def _model_classes(model_name: str) -> tuple[type, type]:
     if str(CODE) not in sys.path:
         sys.path.insert(0, str(CODE))
@@ -296,7 +319,8 @@ def bip_fold_worker(
 
     warnings.filterwarnings("ignore")
     started = time.perf_counter()
-    if CONFIG["split_lanes"][split_lane].get("seed_global_numpy", False):
+    lane_config = CONFIG["split_lanes"][split_lane]
+    if lane_config.get("seed_global_numpy", False):
         np.random.seed(CONFIG["random_seed"])
     X = np.load(CACHE / f"{dataset_name}_X.npy", mmap_mode="r")
     y = np.load(CACHE / f"{dataset_name}_y.npy", mmap_mode="r")
@@ -309,6 +333,15 @@ def bip_fold_worker(
     X_test = np.asarray(X[partitions["test"]])
 
     bip_class, model_class = _model_classes(model_name)
+    # Importing CASIM materializes the cached Numba dispatchers. Reset both RNG
+    # states after that import and immediately before fit so paired lanes differ
+    # only in their regressor-training subset.
+    if lane_config.get("seed_global_numpy", False):
+        np.random.seed(CONFIG["random_seed"])
+    if lane_config.get("seed_numba_numpy", False):
+        if model_name != "CASIM":
+            raise RuntimeError("Numba RNG control is frozen as a CASIM-only lane")
+        seed_numba_random(CONFIG["random_seed"])
     model_cfg = CONFIG["models"][model_name]
     prefixes = configured_prefixes()
     classifier = bip_class(
@@ -394,6 +427,10 @@ def bip_fold_worker(
         "model": model_name,
         "fold": fold,
         "random_seed": CONFIG["random_seed"],
+        "rng_control": {
+            "seed_global_numpy": bool(lane_config.get("seed_global_numpy", False)),
+            "seed_numba_numpy": bool(lane_config.get("seed_numba_numpy", False)),
+        },
         "partition_audit": partition_audit(partitions),
         "train_bifurcations": train_bifurcations,
         "test_bifurcations": test_bifurcations,
@@ -734,11 +771,17 @@ def summarize(
     disjoint_comparisons = compare_paper(groups, "paper_disjoint")
     seeded_author_comparisons = compare_paper(groups, "seeded_author_overlap")
     seeded_disjoint_comparisons = compare_paper(groups, "seeded_paper_disjoint")
+    numba_seeded_author_comparisons = compare_paper(
+        groups, "numba_seeded_author_overlap"
+    )
+    numba_seeded_disjoint_comparisons = compare_paper(
+        groups, "numba_seeded_paper_disjoint"
+    )
     all_tasks = [
         (lane, dataset, model, fold)
         for lane in CONFIG["split_lanes"]
         for dataset in CONFIG["datasets"]
-        for model in CONFIG["models"]
+        for model in configured_lane_models(lane)
         for fold in range(CONFIG["folds"])
     ]
     author_tasks = [task for task in all_tasks if task[0] == "author_overlap"]
@@ -761,17 +804,33 @@ def summarize(
         "paper_comparison_paper_disjoint": disjoint_comparisons,
         "paper_comparison_seeded_author_overlap": seeded_author_comparisons,
         "paper_comparison_seeded_paper_disjoint": seeded_disjoint_comparisons,
+        "paper_comparison_numba_seeded_author_overlap": (
+            numba_seeded_author_comparisons
+        ),
+        "paper_comparison_numba_seeded_paper_disjoint": (
+            numba_seeded_disjoint_comparisons
+        ),
         "split_ablation": summarize_split_ablation(
             groups, "author_overlap", "paper_disjoint"
         ),
         "controlled_split_ablation": summarize_split_ablation(
             groups, "seeded_author_overlap", "seeded_paper_disjoint"
         ),
+        "numba_controlled_split_ablation": summarize_split_ablation(
+            groups,
+            "numba_seeded_author_overlap",
+            "numba_seeded_paper_disjoint",
+        ),
         "paired_protocol_audit": summarize_paired_protocol_audit(
             completed, "author_overlap", "paper_disjoint"
         ),
         "controlled_paired_protocol_audit": summarize_paired_protocol_audit(
             completed, "seeded_author_overlap", "seeded_paper_disjoint"
+        ),
+        "numba_controlled_paired_protocol_audit": summarize_paired_protocol_audit(
+            completed,
+            "numba_seeded_author_overlap",
+            "numba_seeded_paper_disjoint",
         ),
         "numeric_rows_within_tolerance": sum(
             bool(row["within_tolerance"]) for row in author_comparisons
@@ -789,6 +848,20 @@ def summarize(
             bool(row["within_tolerance"]) for row in seeded_disjoint_comparisons
         ),
         "seeded_disjoint_numeric_rows_total": len(seeded_disjoint_comparisons),
+        "numba_seeded_author_numeric_rows_within_tolerance": sum(
+            bool(row["within_tolerance"])
+            for row in numba_seeded_author_comparisons
+        ),
+        "numba_seeded_author_numeric_rows_total": len(
+            numba_seeded_author_comparisons
+        ),
+        "numba_seeded_disjoint_numeric_rows_within_tolerance": sum(
+            bool(row["within_tolerance"])
+            for row in numba_seeded_disjoint_comparisons
+        ),
+        "numba_seeded_disjoint_numeric_rows_total": len(
+            numba_seeded_disjoint_comparisons
+        ),
         "tasks_completed": sum(task in completed for task in all_tasks),
         "tasks_required_author_grid": len(author_tasks),
         "tasks_required_with_ablation": len(all_tasks),
@@ -804,6 +877,12 @@ def summarize(
             task in completed
             for task in all_tasks
             if task[0] in {"seeded_author_overlap", "seeded_paper_disjoint"}
+        ),
+        "complete_numba_controlled_split_ablation": all(
+            task in completed
+            for task in all_tasks
+            if task[0]
+            in {"numba_seeded_author_overlap", "numba_seeded_paper_disjoint"}
         ),
         "complete_required_ablation": all(task in completed for task in all_tasks),
         "checkpoint_sha256": hashlib.sha256(
@@ -828,11 +907,18 @@ def run_bip(
         for lane in lanes
         for dataset in datasets
         for model in models
+        if model in configured_lane_models(lane)
         for fold in range(CONFIG["folds"])
     ]
     if max_tasks is not None:
         requested = requested[:max_tasks]
     pending = [task for task in requested if task not in completed]
+    print(
+        "Experiment purpose: determine whether explicit Numba RNG seeding makes "
+        "paired CASIM overlap/disjoint folds identical before attributing changes "
+        "to the BiP regressor-training subset.",
+        flush=True,
+    )
     with ProcessPoolExecutor(max_workers=workers) as executor:
         futures = {
             executor.submit(bip_fold_worker, *task): task for task in pending

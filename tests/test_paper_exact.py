@@ -126,7 +126,15 @@ def test_bip_paper_grid_config_and_split_ablation_are_explicit() -> None:
         "paper_disjoint",
         "seeded_author_overlap",
         "seeded_paper_disjoint",
+        "numba_seeded_author_overlap",
+        "numba_seeded_paper_disjoint",
     }
+    assert config["split_lanes"]["numba_seeded_author_overlap"]["models"] == [
+        "CASIM"
+    ]
+    assert config["split_lanes"]["numba_seeded_paper_disjoint"][
+        "seed_numba_numpy"
+    ] is True
 
     module = load_bip_grid_module()
     # Five balanced classes, each with six outer-training rows and two test rows.
@@ -154,6 +162,12 @@ def test_bip_paper_grid_config_and_split_ablation_are_explicit() -> None:
     seeded_disjoint = module.partition_from_outer(
         y, outer_train, test, sizes, "seeded_paper_disjoint"
     )
+    numba_overlap = module.partition_from_outer(
+        y, outer_train, test, sizes, "numba_seeded_author_overlap"
+    )
+    numba_disjoint = module.partition_from_outer(
+        y, outer_train, test, sizes, "numba_seeded_paper_disjoint"
+    )
     overlap_audit = module.partition_audit(overlap)
     disjoint_audit = module.partition_audit(disjoint)
     assert overlap_audit["pairwise_overlap"][
@@ -172,6 +186,13 @@ def test_bip_paper_grid_config_and_split_ablation_are_explicit() -> None:
     assert module.partition_audit(seeded_disjoint)["index_sha256"] == disjoint_audit[
         "index_sha256"
     ]
+    assert module.partition_audit(numba_overlap)["index_sha256"] == overlap_audit[
+        "index_sha256"
+    ]
+    assert module.partition_audit(numba_disjoint)["index_sha256"] == disjoint_audit[
+        "index_sha256"
+    ]
+    assert module.configured_lane_models("numba_seeded_author_overlap") == ("CASIM",)
 
     alpha_rows = [
         {

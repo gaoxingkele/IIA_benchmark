@@ -104,6 +104,20 @@
       "description": "Controlled paper-disjoint lane with NumPy global seed 42 set before every author-model fit.",
       "partition_mode": "paper_disjoint",
       "seed_global_numpy": true
+    },
+    "numba_seeded_author_overlap": {
+      "description": "CASIM-only author-overlap control with both Python-level NumPy and Numba RNG state reset to seed 42 immediately before fit.",
+      "partition_mode": "author_overlap",
+      "seed_global_numpy": true,
+      "seed_numba_numpy": true,
+      "models": ["CASIM"]
+    },
+    "numba_seeded_paper_disjoint": {
+      "description": "CASIM-only paper-disjoint control with both Python-level NumPy and Numba RNG state reset to seed 42 immediately before fit.",
+      "partition_mode": "paper_disjoint",
+      "seed_global_numpy": true,
+      "seed_numba_numpy": true,
+      "models": ["CASIM"]
     }
   },
   "default_workers": 8
