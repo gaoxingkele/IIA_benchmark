@@ -222,6 +222,33 @@ def test_bip_paper_grid_config_and_split_ablation_are_explicit() -> None:
     assert summary["point_mae"]["paper_std"] == 3.0
 
 
+def test_cone_independent_same_fold_config_and_balanced_metrics() -> None:
+    config = load(ROOT / "configs/experiments/p0_cone_independent_same_fold.json")
+    assert config["validation_scope"] == (
+        "independent_conformal_layer_with_author_base_classifier_scores"
+    )
+    assert config["model"] == "MBW_LR"
+    assert config["folds"] * config["repeats"] == 50
+    assert config["alpha"] == [0.01, 0.05, 0.1]
+    assert config["calibration_per_class"] == [22, 102, 2491]
+
+    path = ROOT / "experiments/paper_harness/p0_paper_exact/cone_independent.py"
+    spec = importlib.util.spec_from_file_location("cone_independent_test", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    prediction_sets = [frozenset({0}), frozenset({0, 1}), frozenset(), frozenset({1})]
+    metrics = module.class_balanced_metrics(
+        prediction_sets, np.asarray([0, 0, 1, 1]), np.asarray([0, 1])
+    )
+    assert metrics == {
+        "coverage": 0.75,
+        "average_set_size": 1.0,
+        "singleton_rate": 0.5,
+        "empty_rate": 0.25,
+    }
+
+
 def test_casim_author_capsule_default_result_is_retained() -> None:
     result = load(
         ROOT
