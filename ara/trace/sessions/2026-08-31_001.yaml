@@ -2,9 +2,9 @@ session:
   id: "2026-08-31_001"
   date: "2026-08-31"
   started: "2026-08-31T00:05"
-  last_turn: "2026-08-31T02:24"
-  turn_count: 1
-  summary: "Resumed the pause checkpoint, completed all CASIM, ConE, and BiP P0 author grids, retained numeric mismatches, and published a validated P2 checkpoint."
+  last_turn: "2026-08-31T11:10"
+  turn_count: 2
+  summary: "Completed all P0 author grids, closed deterministic CASIM split attribution and the independent ConE conformal-layer same-fold lane, and retained the remaining P3 boundaries."
 
 events_logged:
   - {turn: 1, type: decision, id: N12, routing: direct, provenance: user, summary: "Resume the frozen P0 checkpoint."}
@@ -16,6 +16,15 @@ events_logged:
   - {turn: 1, type: observation, id: O04, routing: crystallized, provenance: ai-suggested, summary: "Full computation coverage is insufficient for P3."}
   - {turn: 1, type: observation, id: O05, routing: crystallized, provenance: ai-suggested, summary: "BiP overlap explains only part of the paper gap."}
   - {turn: 1, type: observation, id: O06, routing: staged, provenance: ai-suggested, summary: "Explicitly seed Numba RNG for a pure CASIM control."}
+  - {turn: 2, type: decision, id: N18, routing: direct, provenance: user, summary: "Continue P3 validation after the P2 author-grid checkpoint."}
+  - {turn: 2, type: experiment, id: N19, routing: direct, provenance: ai-executed, summary: "Docker gate unavailable on the current host."}
+  - {turn: 2, type: experiment, id: N20, routing: direct, provenance: ai-executed, summary: "Located and controlled the CASIM Numba RNG."}
+  - {turn: 2, type: experiment, id: N21, routing: direct, provenance: ai-executed, summary: "Completed deterministic CASIM overlap controls."}
+  - {turn: 2, type: experiment, id: N22, routing: direct, provenance: ai-executed, summary: "Completed 50-fold independent ConE conformal-layer grid."}
+  - {turn: 2, type: experiment, id: N23, routing: direct, provenance: ai-executed, summary: "Verified and published continued validation artifacts."}
+  - {turn: 2, type: observation, id: O06, routing: crystallized, provenance: ai-suggested, summary: "Explicit Numba seeding promoted to an active heuristic."}
+  - {turn: 2, type: observation, id: O07, routing: crystallized, provenance: ai-suggested, summary: "Score-controlled same-fold comparison localizes conformal-layer error."}
+  - {turn: 2, type: observation, id: O08, routing: staged, provenance: ai-suggested, summary: "Docker-compatible engine is an execution constraint."}
 
 ai_actions:
   - turn: 1
@@ -34,10 +43,24 @@ ai_actions:
     action: "Validated all Capsule manifests and tests, wrote the consolidated checkpoint, and pushed coherent commits to canonical main."
     provenance: ai-executed
     files_changed: ["docs/reports/p0_paper_exact_checkpoint_2026-08-31.md", "paper_harness/paper_exact/status.v1.json", "ara/"]
+  - turn: 2
+    action: "Added explicit Numba RNG control lanes and completed 20 CASIM same-fold split tasks on real Capsule data."
+    provenance: ai-executed
+    files_changed: ["experiments/paper_harness/p0_paper_exact/run_3/paper_grid/", "docs/reports/p0_bip_casim_numba_control_2026-08-31.md"]
+  - turn: 2
+    action: "Added a resumable independent ConE conformal-layer harness and completed all 50 MBW-LR folds."
+    provenance: ai-executed
+    files_changed: ["experiments/paper_harness/p0_paper_exact/run_2/independent_same_fold/mbw_lr/", "docs/reports/p0_cone_independent_same_fold_2026-08-31.md"]
+  - turn: 2
+    action: "Validated 133 tests and Capsule manifests, generated Figures 4-5, and pushed four coherent commits."
+    provenance: ai-executed
+    files_changed: ["experiments/paper_harness/p0_paper_exact/Figure_4.png", "experiments/paper_harness/p0_paper_exact/Figure_5.png", "paper_harness/paper_exact/status.v1.json"]
 
 claims_touched:
   - {id: C02, action: crystallized, turn: 1}
   - {id: C03, action: crystallized, turn: 1}
+  - {id: C03, action: revised, turn: 2}
+  - {id: C04, action: crystallized, turn: 2}
 
 logic_revisions:
   - turn: 1
@@ -48,12 +71,38 @@ logic_revisions:
     signal: empirical-resolution
     provenance: ai-suggested
     note: "The resumed grids completed and replaced the pause checkpoint as current experiment state."
+  - turn: 2
+    entry: C03
+    field: Conditions
+    before: "Supported for paired TEP and synthetic runs of MBW, EAC, and ACM under fixed Python-level randomness; CASIM is excluded from causal attribution until its Numba feature-sampling RNG is controlled."
+    after: "Supported for paired TEP and synthetic runs of MBW, EAC, and ACM under fixed Python-level randomness, and for CASIM when both Python-level and Numba RNG states are reset immediately before the single-estimator, single-process fit."
+    signal: empirical-resolution
+    provenance: ai-suggested
+    note: "The deterministic CASIM pair removed the prior RNG-confounded boundary."
+  - turn: 2
+    entry: C03
+    field: Sources
+    before: "BiP four-lane report lines 72 and 74; CASIM excluded because 10 paired bifurcation rows differed."
+    after: "BiP Numba-control report lines 5 and 7; CASIM included under the explicitly seeded single-process condition."
+    signal: empirical-resolution
+    provenance: ai-suggested
+  - turn: 2
+    entry: experiments
+    field: current_state
+    before: "All scheduled P0 author-code grids are computationally complete and bound to `paper_harness/paper_exact/status.v1.json`. CASIM, ConE-AFC, and BiP-AFC remain P2: CASIM and BiP retain numeric gaps, while all three still require archived-Docker execution and independent same-fold implementation comparisons before P3 closure."
+    after: "All scheduled P0 author-code grids are computationally complete and bound to `paper_harness/paper_exact/status.v1.json`. CASIM, ConE-AFC, and BiP-AFC remain P2. BiP now has a deterministic CASIM overlap/disjoint control, and ConE has an exact independent MBW-LR score-controlled conformal-layer comparison; CASIM/BiP numeric gaps, archived-Docker execution, and independent base-model/end-to-end same-fold comparisons remain open."
+    signal: empirical-resolution
+    provenance: ai-suggested
 
 key_context:
   - turn: 1
     excerpt: "继续从checkpoint开始完成工作"
   - turn: 1
     excerpt: "All P0 author-code compute grids are complete, but computation completion is not P3 closure."
+  - turn: 2
+    excerpt: "继续完成验证"
+  - turn: 2
+    excerpt: "Deterministic split attribution and a score-controlled independent layer can close bounded sub-gates without claiming full P3."
 
 open_threads:
   - "Run all three complete grids in their archived Docker images and compare file ordering and package behavior."
@@ -63,3 +112,5 @@ open_threads:
 
 ai_suggestions_pending:
   - "Promote O06 only after an explicit Numba RNG control is implemented or the researcher affirms the rule."
+  - "Resolved turn 2: O06 promoted after the explicit Numba RNG control was implemented and committed."
+  - "Extend the independent ConE lane to repository base classifiers and the end-to-end wrapper before P3."

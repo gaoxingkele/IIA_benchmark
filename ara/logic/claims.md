@@ -24,11 +24,23 @@
 
 ## C03: Calibration/training overlap explains only part of the public BiP discrepancy
 - **Statement**: In the public BiP artifact, removing calibration/random-forest training overlap changes prediction error and interval width without a uniform benefit, so overlap alone does not explain the paper-to-artifact discrepancy.
-- **Conditions**: Supported for paired TEP and synthetic runs of MBW, EAC, and ACM under fixed Python-level randomness; CASIM is excluded from causal attribution until its Numba feature-sampling RNG is controlled.
-- **Sources**: [docs/reports/p0_bip_paper_grid_complete_2026-08-31.md:72 «因此，无重叠修正使 TEP MBW 的 point MAE 和区间宽度改善，并使 Table 4 MBW 进入容差，但会使 TEP EAC 的 point/coverage MAE 变差；不存在统一收益。» [result], docs/reports/p0_bip_paper_grid_complete_2026-08-31.md:74 «CASIM 的 10/10 受控配对仍出现 test bifurcation 差异，最大单折差为 32。根因证据位于 vendored `CASIM_multirocket.py`：`_fit_multi` 和 bias 采样调用 Numba `np.random`，而 `MultiRocketMultivariate` 构造器不接收 Arsenal 传入的 `random_state`。因此 CASIM 的 overlap/disjoint 数值只能作描述性比较，不能作纯切分因果估计。» [result]]
+- **Conditions**: Supported for paired TEP and synthetic runs of MBW, EAC, and ACM under fixed Python-level randomness, and for CASIM when both Python-level and Numba RNG states are reset immediately before the single-estimator, single-process fit.
+- **Sources**: [docs/reports/p0_bip_casim_numba_control_2026-08-31.md:5 «CASIM 的 Numba 随机性混杂已经闭合。在真实 Code Ocean TEP 与 synthetic 数据、相同五折索引和相同作者模型参数下，同时重置 Python-level NumPy 与 Numba RNG 后，overlap/disjoint 两条通道的 **10/10 test bifurcation 完全一致，最大绝对差由 32 降为 0**。» [result], docs/reports/p0_bip_casim_numba_control_2026-08-31.md:7 «这使 RF 训练子集效应可以在当前 `n_estimators=1`、`n_jobs_multirocket=1` 条件下作受控归因。结果不支持“删除 calibration/RF 重叠会统一改善性能”：TEP 的 point MAE 和区间宽度小幅改善，synthetic 的两项均变差；两者 coverage MAE 均仅小幅改善。» [result]]
 - **Status**: testing
 - **Provenance**: ai-suggested
 - **Falsification**: Under controlled paired folds and controlled model randomness, show that removing overlap uniformly closes the frozen BiP paper gaps across the scoped models and datasets.
-- **Proof**: [N15, N16, experiments/paper_harness/p0_paper_exact/run_3/paper_grid/summary.json]
+- **Proof**: [N15, N16, N20, N21, experiments/paper_harness/p0_paper_exact/run_3/paper_grid/summary.json]
 - **Dependencies**: [C02]
 - **Tags**: BiP, split-overlap, conformal, reproducibility
+- **Last revised**: 2026-08-31 (2026-08-31_001#2)
+
+## C04: Score-controlled same-fold comparison localizes conformal-layer error
+- **Statement**: Holding base-classifier scores and folds fixed permits an independent conformal-layer comparison; exact paired agreement then localizes remaining implementation risk to score generation or end-to-end integration rather than conformal calibration.
+- **Conditions**: Demonstrated for the official ConE-AFC synthetic protocol with author MBW-LR scores and the repository ConE calibrator; independent base classifiers, the full wrapper, and the archived container remain outside this claim.
+- **Sources**: [docs/reports/p0_cone_independent_same_fold_2026-08-31.md:5 «本仓库独立 `ConEAFCCalibrator` 已在官方 18,750 条 synthetic alarm-flood 数据的完整 50 折上完成同折验证。使用与作者网格完全相同的 MBW-LR 基础分数、51 个时间前缀、3 个 alpha、3 个每类校准量时，coverage、average set size、singleton rate 和 empty rate 共 **1,800/1,800 个配对指标逐项完全一致，最大绝对差为 0**。» [result], docs/reports/p0_cone_independent_same_fold_2026-08-31.md:7 «这闭合了独立 conformal 校准与集合生成子门槛，但不是完整 P3：基础 MBW-LR 分数仍由作者实现生成，其余四个基础分类器和端到端独立 wrapper 尚未完成；本机也没有 Docker CLI。» [result]]
+- **Status**: testing
+- **Provenance**: ai-suggested
+- **Falsification**: With identical finite base scores, class order, calibration rows, folds, and metric definitions, observe a nonzero paired discrepancy attributable to the independent conformal threshold or set-generation layer.
+- **Proof**: [N22, ara/evidence/tables/p0_validation_continuation_2026-08-31.md, experiments/paper_harness/p0_paper_exact/run_2/independent_same_fold/mbw_lr/summary.json]
+- **Dependencies**: [C01, C02]
+- **Tags**: ConE, conformal, same-fold, implementation-attribution

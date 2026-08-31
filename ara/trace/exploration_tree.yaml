@@ -158,3 +158,58 @@ tree:
     evidence: ["docs/reports/p0_paper_exact_checkpoint_2026-08-31.md", "paper_harness/paper_exact/status.v1.json"]
     status: resolved
     also_depends_on: [N13, N14, N15, N16]
+  - id: N18
+    type: decision
+    title: Continue from P2 into controlled and independent validation
+    provenance: user
+    timestamp: "2026-08-31T02:30"
+    choice: "Continue the validation work after the completed P0 author-code checkpoint."
+    alternatives: ["Stop at author-code P2", "Treat compute coverage as P3"]
+    evidence: ["paper_harness/paper_exact/status.v1.json"]
+    status: resolved
+    also_depends_on: [N17]
+  - id: N19
+    type: experiment
+    title: Audit archived-container feasibility
+    provenance: ai-executed
+    timestamp: "2026-08-31T02:35"
+    result: "All three archived image identifiers are registered, but this host has no Docker CLI; authoritative container execution cannot proceed in the current environment."
+    evidence: ["configs/reproducibility/codeocean_capsules.v1.json", "docs/reports/p0_cone_independent_same_fold_2026-08-31.md"]
+    status: resolved
+    also_depends_on: [N18]
+  - id: N20
+    type: experiment
+    title: Locate and control the CASIM Numba RNG
+    provenance: ai-executed
+    timestamp: "2026-08-31T02:45"
+    result: "On real Capsule synthetic data, resetting only Python-level NumPy did not reproduce MultiRocket biases, while resetting Python-level and Numba RNG states made every fitted parameter array byte-identical."
+    evidence: ["experiments/paper_harness/p0_paper_exact/bip_grid.py", "docs/reports/p0_bip_casim_numba_control_2026-08-31.md"]
+    status: resolved
+    also_depends_on: [N16, N18]
+  - id: N21
+    type: experiment
+    title: Complete deterministic CASIM overlap controls
+    provenance: ai-executed
+    timestamp: "2026-08-31T03:05"
+    result: "Completed 20 CASIM-only tasks on TEP and synthetic data. All 10 same-fold overlap/disjoint pairs had identical test bifurcations and maximum paired delta zero; the RF-subset effect was non-uniform across datasets."
+    evidence: ["docs/reports/p0_bip_casim_numba_control_2026-08-31.md", "experiments/paper_harness/p0_paper_exact/run_3/paper_grid/summary.json"]
+    status: resolved
+    also_depends_on: [N15, N20]
+  - id: N22
+    type: experiment
+    title: Complete independent ConE conformal same-fold grid
+    provenance: ai-executed
+    timestamp: "2026-08-31T11:00"
+    result: "Completed all 50 frozen MBW-LR folds with the repository-independent ConE calibrator. All 1,800 paired coverage, set-size, singleton, and empty-rate rows matched the author-grid values exactly; maximum absolute delta was zero."
+    evidence: ["docs/reports/p0_cone_independent_same_fold_2026-08-31.md", "experiments/paper_harness/p0_paper_exact/run_2/independent_same_fold/mbw_lr/summary.json"]
+    status: resolved
+    also_depends_on: [N14, N18]
+  - id: N23
+    type: experiment
+    title: Verify and publish continued P0 validation
+    provenance: ai-executed
+    timestamp: "2026-08-31T11:10"
+    result: "The suite passed 133 tests, all three Capsule archive/code/data manifests retained full hash integrity, and the deterministic CASIM plus independent ConE iterations were pushed to canonical main."
+    evidence: ["paper_harness/paper_exact/status.v1.json", "docs/reports/p0_paper_exact_checkpoint_2026-08-31.md"]
+    status: resolved
+    also_depends_on: [N19, N21, N22]
