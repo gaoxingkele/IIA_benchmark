@@ -4,12 +4,12 @@
 
 CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完成，共形成 **1,130 个可审计原子任务**：CASIM 700 个 model fit、ConE 250 个 `split × model` 任务、BiP 180 个 `lane × dataset × model × fold` 任务。三者的任务粒度不同，因此总数只表示恢复与审计覆盖量，不用于比较算法复杂度。
 
-当前均为 **P2**，还不能标记为 P3：ConE 已实现论文数值闭合；CASIM 和 BiP 保留了未通过容差的负结果；三项都还缺归档 Docker 镜像内复跑以及本仓库独立实现的同折对照。
+当前均为 **P2**，还不能标记为 P3：ConE 已实现论文数值闭合，并闭合了 MBW-LR 作者分数上的独立 conformal 层同折对照；CASIM 和 BiP 保留了未通过容差的负结果；三项仍缺归档 Docker 镜像内复跑，ConE 也仍缺独立基础分类器与端到端同折对照。
 
 | 论文/方法 | 原域数据 | 完整计算 | 冻结数值门槛 | 当前等级 | 核心结论 |
 |---|---|---:|---:|---|---|
 | CASIM | Code Ocean v1 TEP，310 条序列、16 报警变量 | 700/700 model fits | 1/3 通过 | P2 | 最大 BA 接近论文；最佳阈值和全阈值均值未闭合 |
-| ConE-AFC | Code Ocean synthetic，18,750 条五类洪泛 | 250/250 原子任务、50/50 folds | 95/95 通过 | P2 | 作者代码原域表格在冻结绝对误差 0.02 内闭合 |
+| ConE-AFC | Code Ocean synthetic，18,750 条五类洪泛 | 作者 250/250；独立层 50/50 folds | 作者表 95/95；独立层 1,800/1,800 | P2 | 作者表格闭合；独立 conformal 层精确闭合，base/end-to-end 仍开放 |
 | BiP-AFC / uncertainty reduction | Code Ocean v3 TEP + synthetic | 180/180 六通道任务 | 原四通道 6/16、7/16、7/16、8/16；CASIM 控制 2/4、2/4 | P2 | 官方 v3 不能完整复现论文；Numba 控制闭合，切分重叠只解释部分差距 |
 
 `transfer_result` 与 `paper_exact_result` 始终分开保存。现有 TEP/NPP/FCC 的 E2 迁移结果没有被原域复现结果覆盖，也没有被描述为论文精确复现。
@@ -31,6 +31,7 @@ CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完�
 - 10 次重复、每次 5 folds、5 个分类器、3 个 alpha、3 个校准量、51 个时间前缀。
 - 250/250 `split × model` 任务组装为 50/50 完整 folds；论文 Tables 1–2 的 95/95 个命名均值全部通过 ±0.02。
 - 最大均值绝对差为 `0.002271`；原子 checkpoint SHA-256 为 `db63065f2b8703737782c891a04911e6ff334ac6de9b99e7990fe941f5509a6d`；完整 split SHA-256 为 `850beca912aa28c5550d396d9c2fa130b1aa9a0f7fb61262d18e6022988ef135`。
+- 独立 `ConEAFCCalibrator` 在相同 MBW-LR 分数和 50 折上完成 1,800 个指标对照，1,800/1,800 精确一致，最大绝对差 0；checkpoint SHA-256 为 `8c046c07cdf767cd76126330914baefdb2b335e47f641dbca9f4ca95fdce308e`。
 
 结论：这是本轮唯一实现完整论文表格数值闭合的作者代码实验。尚缺归档 Docker 环境与独立实现对照，因此仍为 P2。
 
@@ -60,6 +61,7 @@ CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完�
 
 - CASIM：`experiments/paper_harness/p0_paper_exact/run_1/paper_grid/repetitions_10/`
 - ConE：`experiments/paper_harness/p0_paper_exact/run_2/paper_grid/`
+- ConE 独立层：`experiments/paper_harness/p0_paper_exact/run_2/independent_same_fold/mbw_lr/`
 - BiP：`experiments/paper_harness/p0_paper_exact/run_3/paper_grid/`
 - 协议状态：`paper_harness/paper_exact/status.v1.json`
 - 冻结总配置：`configs/experiments/p0_paper_exact.json`
@@ -81,7 +83,7 @@ CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完�
 2. **本仓库独立实现同折运行（三项）**：把作者代码复现误差与本地算法实现误差分离，避免“作者代码能跑”等同于“算法已完整落地”。
 3. **CASIM 外层协议与 Figure 14b–c**：需要作者确认 held-out-class wrapper，并复现 `nclf`、`nfeat` 消融，解释全阈值均值差距。
 4. **BiP 文件顺序和版本**：需要在 Docker 中核对 `os.listdir` 顺序，并向作者确认论文 commit、数据生成次序和 Mapie 版本；Numba RNG 控制已经闭合，不再列为阻塞项。
-5. **ConE 独立实现对照**：数值已闭合，但只有相同 folds 上的独立实现才能证明仓库模型而非单纯归档作者代码具备复现能力。
+5. **ConE 独立基础模型与端到端对照**：独立 conformal 层已在 MBW-LR 作者分数上精确闭合；还需把五个基础分类器换成本仓库实现，并运行完整 `ConEAlarmFloodClassifier`，才能闭合实现链路。
 
 P3 完成标准保持不变：同一数据、预处理、分组切分、超参数、种子、指标和目标表格；作者代码与本地实现都在可复现环境中运行，并对差值作逐表审计。
 

@@ -8,7 +8,8 @@ The paper's public synthetic dataset contains 18,750 binary alarm subsequences: 
 - All 95 named means from Tables I-II are within the frozen absolute tolerance 0.02; the largest absolute mean delta is 0.002271.
 - The five reproduced original-accuracy means for WDI/MBW/EAC/ACM/CASIM are 0.312874/0.665364/0.684437/0.628891/0.706494.
 - Evidence: `experiments/paper_harness/p0_paper_exact/run_2/paper_grid/summary.json` and `docs/reports/p0_cone_paper_grid_complete_2026-08-31.md`.
-- Boundary: P3 remains open until archived-Docker execution and the independent local implementation are evaluated on the identical 50 folds.
+- Independent same-fold conformal-layer validation uses the author MBW-LR base scores but the repository `ConEAFCCalibrator` for thresholds and prediction sets. Across all 50 folds, 3 alpha values, 3 calibration sizes, and 4 set metrics, 1,800/1,800 paired rows match exactly with maximum absolute delta zero.
+- Boundary: P3 remains open until archived-Docker execution and independent base-classifier/end-to-end wrapper implementations are evaluated on the identical 50 folds; the closed conformal-layer lane alone is not full P3.
 
 ## Local FCC engineering validation (E2/P1)
 

@@ -75,3 +75,16 @@ Run 4 — BiP CASIM explicit Numba RNG control (2026-08-31):
     Removing overlap therefore has no uniform benefit.
   - Evidence: run_3/paper_grid/fold_results.jsonl, summary.json, Figure_4.png;
     checkpoint SHA-256 46d054efd950cfa77dd749f688ba3858b04cd27e636252f5e0b829772f462ffd.
+
+Run 5 — ConE independent same-fold conformal layer (2026-08-31):
+  - Scope: retain the author MBW-LR base classifier and frozen score-generation
+    protocol, but calculate thresholds and prediction sets with the repository
+    ConEAFCCalibrator on the identical 50 folds.
+  - The grid preserves all 51 prefixes, alpha .01/.05/.10, calibration sizes
+    22/102/2491, and class-balanced coverage/set-size/singleton/empty metrics.
+  - All 50 folds completed without selection or retry. All 1,800 paired metric
+    rows match exactly; maximum absolute delta and original-accuracy delta are 0.
+  - This closes the independent conformal-layer sub-gate only. Independent base
+    classifiers, the end-to-end wrapper, and archived Docker execution remain open.
+  - Evidence: run_2/independent_same_fold/mbw_lr/; checkpoint SHA-256
+    8c046c07cdf767cd76126330914baefdb2b335e47f641dbca9f4ca95fdce308e.

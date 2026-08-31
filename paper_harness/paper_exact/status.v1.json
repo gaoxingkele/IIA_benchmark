@@ -53,7 +53,7 @@
         }
       },
       "paper_exact_result": {
-        "status": "P2_author_code_paper_grid_complete_95_of_95_numeric_rows_within_tolerance",
+        "status": "P2_author_grid_complete_and_independent_mbw_conformal_layer_exact_1800_of_1800",
         "source": "experiments/paper_harness/p0_paper_exact/run_2/paper_grid/summary.json",
         "default_condition": {"folds": 5, "alpha": 0.05, "calibration_per_class": 22},
         "author_default_named_table_rows_within_tolerance": 9,
@@ -70,9 +70,20 @@
           "split_results_sha256": "850beca912aa28c5550d396d9c2fa130b1aa9a0f7fb61262d18e6022988ef135",
           "complete_paper_grid": true
         },
+        "independent_same_fold": {
+          "scope": "independent_conformal_layer_with_author_base_classifier_scores",
+          "model": "MBW_LR",
+          "completed_splits": 50,
+          "required_splits": 50,
+          "comparison_rows_within_tolerance": 1800,
+          "comparison_rows_total": 1800,
+          "maximum_absolute_delta": 0.0,
+          "checkpoint_sha256": "8c046c07cdf767cd76126330914baefdb2b335e47f641dbca9f4ca95fdce308e",
+          "complete": true
+        },
         "P3_closed": false,
         "checkpoint": "experiments/paper_harness/p0_paper_exact/checkpoint_2026-08-30.json",
-        "remaining": "rerun the complete grid in the archived Docker image and execute the independent local implementation on the identical 50 folds before assigning P3"
+        "remaining": "rerun the complete grid in the archived Docker image and extend independent same-fold execution from the MBW-LR conformal layer to the five independent base-classifier implementations and end-to-end wrapper before assigning P3"
       }
     },
     {

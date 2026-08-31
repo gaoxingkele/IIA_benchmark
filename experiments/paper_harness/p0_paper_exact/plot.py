@@ -151,6 +151,44 @@ def main() -> None:
     fig.savefig(PROJECT / "Figure_4.png", dpi=180)
     plt.close(fig)
 
+    cone_independent = load(
+        PROJECT / "run_2/independent_same_fold/mbw_lr/summary.json"
+    )
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.2))
+    matched = cone_independent["comparison_rows_within_tolerance"]
+    total = cone_independent["comparison_rows_total"]
+    bars = axes[0].bar(
+        ["Exact match", "Mismatch"],
+        [matched, total - matched],
+        color=["#2f855a", "#c53030"],
+    )
+    axes[0].set_ylabel("Same-fold metric rows")
+    axes[0].set_title("Independent ConE conformal layer")
+    axes[0].set_ylim(0, total * 1.1)
+    for bar, value in zip(bars, [matched, total - matched]):
+        axes[0].text(
+            bar.get_x() + bar.get_width() / 2,
+            value + total * 0.015,
+            str(value),
+            ha="center",
+            fontsize=9,
+        )
+
+    gates = ["Author grid", "Conformal layer", "Base models", "Docker"]
+    gate_values = [1, 1, 0, 0]
+    axes[1].barh(
+        gates,
+        gate_values,
+        color=["#2f855a", "#2f855a", "#a0aec0", "#a0aec0"],
+    )
+    axes[1].set_xlim(0, 1.05)
+    axes[1].set_xticks([0, 1], ["Open", "Closed"])
+    axes[1].set_title("ConE P3 gate scope")
+    fig.suptitle("ConE independent same-fold validation (MBW-LR scores)")
+    fig.tight_layout()
+    fig.savefig(PROJECT / "Figure_5.png", dpi=180)
+    plt.close(fig)
+
 
 if __name__ == "__main__":
     main()

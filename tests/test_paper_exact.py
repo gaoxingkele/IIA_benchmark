@@ -249,6 +249,41 @@ def test_cone_independent_same_fold_config_and_balanced_metrics() -> None:
     }
 
 
+def test_cone_independent_mbw_same_fold_grid_is_complete_and_exact() -> None:
+    root = (
+        ROOT
+        / "experiments/paper_harness/p0_paper_exact/run_2/independent_same_fold/mbw_lr"
+    )
+    rows = [
+        json.loads(line)
+        for line in (root / "fold_results.jsonl").read_text(
+            encoding="utf-8"
+        ).splitlines()
+        if line.strip()
+    ]
+    assert len(rows) == 50
+    assert {row["split_id"] for row in rows} == set(range(50))
+    assert all(row["rows_within_tolerance"] == 36 for row in rows)
+    assert all(row["rows_total"] == 36 for row in rows)
+    assert all(row["maximum_absolute_delta"] == 0.0 for row in rows)
+    assert all(row["original_accuracy_delta"] == 0.0 for row in rows)
+    assert all(row["partition_audit"]["test_size"] == 3750 for row in rows)
+
+    summary = load(root / "summary.json")
+    assert summary["complete"] is True
+    assert summary["splits_completed"] == 50
+    assert summary["comparison_rows_within_tolerance"] == 1800
+    assert summary["comparison_rows_total"] == 1800
+    assert summary["maximum_absolute_delta"] == 0.0
+    assert summary["accuracy_delta_max_absolute"] == 0.0
+    checkpoint_hash = hashlib.sha256((root / "fold_results.jsonl").read_bytes()).hexdigest()
+    assert checkpoint_hash == summary["checkpoint_sha256"]
+    progress = load(root / "progress.json")
+    assert progress["requested_splits_completed"] == 50
+    assert progress["requested_splits_total"] == 50
+    assert progress["checkpoint_sha256"] == checkpoint_hash
+
+
 def test_casim_author_capsule_default_result_is_retained() -> None:
     result = load(
         ROOT
