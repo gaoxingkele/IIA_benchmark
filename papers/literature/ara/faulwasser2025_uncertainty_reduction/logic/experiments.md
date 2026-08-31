@@ -7,9 +7,10 @@ No paper-score reproduction is asserted by collection generation alone.
 - Both official datasets, four classifiers, five folds, 30 jackknife+ alpha values, and all 10–60 minute prefixes were executed.
 - The original v3 overlap lane completes 40/40 tasks but closes only 6/16 paper rows under the frozen joint tolerances.
 - The paper-text disjoint lane closes 7/16; adding a global NumPy seed gives 7/16 overlap and 8/16 disjoint.
-- Across the seeded pair, AFC/train/calibration/test indices are identical and CP-calibration/RF overlap changes from 250 or 500 samples to zero. Test bifurcations are identical for 30/40 paired tasks; all 10 remaining mismatches are CASIM, whose vendored MultiRocket transformer calls Numba `np.random` without receiving the declared model random state.
+- Across the Python-seeded pair, AFC/train/calibration/test indices are identical and CP-calibration/RF overlap changes from 250 or 500 samples to zero. Test bifurcations are identical for 30/40 paired tasks; all 10 remaining mismatches are CASIM, whose vendored MultiRocket transformer calls Numba `np.random` without receiving the declared model random state.
+- A CASIM-only lane resets both Python-level NumPy and Numba RNG state immediately before each fit. All 10 TEP/synthetic same-fold pairs then have identical test bifurcations and maximum absolute pair delta zero, so the remaining metric changes can be attributed to the RF training subset under the single-process `n_jobs=1` condition.
 - Evidence: `experiments/paper_harness/p0_paper_exact/run_3/paper_grid/summary.json` and `docs/reports/p0_bip_paper_grid_complete_2026-08-31.md`.
-- Boundary: the split correction improves some rows but does not explain the full paper gap; Docker file-order/data parity, a Numba-RNG control, and independent same-fold execution remain open.
+- Boundary: the split correction improves some rows but does not explain the full paper gap; Docker file-order/data parity and independent same-fold execution remain open.
 
 ## SOTA Wave 2 next-reduction forecasting (E2/P1)
 

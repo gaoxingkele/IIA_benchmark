@@ -2,7 +2,7 @@
 
 ## 当前结论
 
-CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完成，共形成 **1,110 个可审计原子任务**：CASIM 700 个 model fit、ConE 250 个 `split × model` 任务、BiP 160 个 `lane × dataset × model × fold` 任务。三者的任务粒度不同，因此总数只表示恢复与审计覆盖量，不用于比较算法复杂度。
+CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完成，共形成 **1,130 个可审计原子任务**：CASIM 700 个 model fit、ConE 250 个 `split × model` 任务、BiP 180 个 `lane × dataset × model × fold` 任务。三者的任务粒度不同，因此总数只表示恢复与审计覆盖量，不用于比较算法复杂度。
 
 当前均为 **P2**，还不能标记为 P3：ConE 已实现论文数值闭合；CASIM 和 BiP 保留了未通过容差的负结果；三项都还缺归档 Docker 镜像内复跑以及本仓库独立实现的同折对照。
 
@@ -10,7 +10,7 @@ CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完�
 |---|---|---:|---:|---|---|
 | CASIM | Code Ocean v1 TEP，310 条序列、16 报警变量 | 700/700 model fits | 1/3 通过 | P2 | 最大 BA 接近论文；最佳阈值和全阈值均值未闭合 |
 | ConE-AFC | Code Ocean synthetic，18,750 条五类洪泛 | 250/250 原子任务、50/50 folds | 95/95 通过 | P2 | 作者代码原域表格在冻结绝对误差 0.02 内闭合 |
-| BiP-AFC / uncertainty reduction | Code Ocean v3 TEP + synthetic | 160/160 四通道任务 | 6/16、7/16、7/16、8/16 | P2 | 官方 v3 不能完整复现论文；切分重叠只解释部分差距 |
+| BiP-AFC / uncertainty reduction | Code Ocean v3 TEP + synthetic | 180/180 六通道任务 | 原四通道 6/16、7/16、7/16、8/16；CASIM 控制 2/4、2/4 | P2 | 官方 v3 不能完整复现论文；Numba 控制闭合，切分重叠只解释部分差距 |
 
 `transfer_result` 与 `paper_exact_result` 始终分开保存。现有 TEP/NPP/FCC 的 E2 迁移结果没有被原域复现结果覆盖，也没有被描述为论文精确复现。
 
@@ -37,14 +37,15 @@ CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完�
 ### BiP-AFC / uncertainty reduction
 
 - TEP 数据形状为 `1,000 × 50 × 300`，synthetic 为 `1,875 × 10 × 60`；缓存和作者 CSV 逐值一致，原始数据未覆盖。
-- 四条冻结通道：`author_overlap`、`paper_disjoint`、`seeded_author_overlap`、`seeded_paper_disjoint`。
-- 每条通道有 2 数据集 × 4 模型 × 5 folds，共 40 个任务；合计 160/160。
+- 四条完整模型通道：`author_overlap`、`paper_disjoint`、`seeded_author_overlap`、`seeded_paper_disjoint`；另有两条 CASIM-only Numba 控制通道。
+- 完整模型通道各有 2 数据集 × 4 模型 × 5 folds，共 160 个任务；CASIM 控制新增 20 个任务，合计 180/180。
 - 16 个论文条目的联合门槛通过数依次为 `6/16`、`7/16`、`7/16`、`8/16`。
 - 作者通道的 calibration/RF 交叉量为 TEP 250、synthetic 500；disjoint 通道均为 0。
-- 固定 NumPy seed 后，MBW、EAC、ACM 的 30/30 配对 test bifurcation 完全一致；CASIM 的 10/10 仍不一致。根因定位到 vendored MultiRocket 的 Numba `np.random` 未被模型 `random_state` 控制。
-- checkpoint SHA-256：`427ebb056602e105f998c8f11948caea5eceb070f1172e408fcfd38a4ca32b7f`。
+- 只固定 Python-level NumPy seed 时，MBW、EAC、ACM 的 30/30 配对 test bifurcation 完全一致，而 CASIM 的 10/10 仍不一致；根因定位到 vendored MultiRocket 的 Numba `np.random`。
+- 同时显式播种 Numba RNG 后，CASIM 的 10/10 配对 test bifurcation 完全一致，最大绝对差由 32 降为 0。TEP point MAE 改善 0.017131，synthetic 则变差 0.031906，证明删除重叠没有统一收益。
+- checkpoint SHA-256：`46d054efd950cfa77dd749f688ba3858b04cd27e636252f5e0b829772f462ffd`。
 
-结论：切分重叠会改变部分点预测误差和区间宽度，但不存在统一收益，不能解释全部论文差距。CASIM 的切分消融目前只能作描述性比较，不能作纯切分因果估计。
+结论：切分重叠会改变部分点预测误差和区间宽度，但不存在统一收益，不能解释全部论文差距。CASIM 的切分消融已经在单进程、`n_jobs_multirocket=1` 条件下具备纯 RF 子集归因能力。
 
 ## 完整性与验证
 
@@ -79,7 +80,7 @@ CASIM、ConE-AFC 和 BiP-AFC 三项 P0 作者代码计算网格已经全部完�
 1. **归档 Docker 复跑（三项）**：隔离 Windows/Linux 文件顺序、NumPy/Numba/Mapie/sklearn 版本差异，满足 P3 环境等价门槛。
 2. **本仓库独立实现同折运行（三项）**：把作者代码复现误差与本地算法实现误差分离，避免“作者代码能跑”等同于“算法已完整落地”。
 3. **CASIM 外层协议与 Figure 14b–c**：需要作者确认 held-out-class wrapper，并复现 `nclf`、`nfeat` 消融，解释全阈值均值差距。
-4. **BiP 文件顺序、版本和 RNG**：需要在 Docker 中核对 `os.listdir` 顺序，向作者确认论文 commit/Mapie 版本，并对 Numba RNG 显式播种后重做 CASIM 受控切分消融。
+4. **BiP 文件顺序和版本**：需要在 Docker 中核对 `os.listdir` 顺序，并向作者确认论文 commit、数据生成次序和 Mapie 版本；Numba RNG 控制已经闭合，不再列为阻塞项。
 5. **ConE 独立实现对照**：数值已闭合，但只有相同 folds 上的独立实现才能证明仓库模型而非单纯归档作者代码具备复现能力。
 
 P3 完成标准保持不变：同一数据、预处理、分组切分、超参数、种子、指标和目标表格；作者代码与本地实现都在可复现环境中运行，并对差值作逐表审计。

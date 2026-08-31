@@ -103,6 +103,54 @@ def main() -> None:
     fig.savefig(PROJECT / "Figure_3.png", dpi=180)
     plt.close(fig)
 
+    bip = load(PROJECT / "run_3/paper_grid/summary.json")
+    controlled = bip["numba_controlled_split_ablation"]
+    dataset_labels = [row["dataset"].upper() for row in controlled]
+    x = range(len(controlled))
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.2))
+    width = 0.34
+    axes[0].bar(
+        [value - width / 2 for value in x],
+        [row["point_mae_delta"] for row in controlled],
+        width,
+        color="#2b6cb0",
+        label="Point MAE delta",
+    )
+    axes[0].bar(
+        [value + width / 2 for value in x],
+        [row["interval_width_delta"] for row in controlled],
+        width,
+        color="#d69e2e",
+        label="Interval-width delta",
+    )
+    axes[0].axhline(0, color="#4a5568", linewidth=0.8)
+    axes[0].set_xticks(list(x), dataset_labels)
+    axes[0].set_ylabel("Disjoint minus overlap")
+    axes[0].set_title("Pure RF-subset effect")
+    axes[0].legend(fontsize=8)
+
+    audits = [
+        bip["controlled_paired_protocol_audit"],
+        bip["numba_controlled_paired_protocol_audit"],
+    ]
+    audit_labels = ["Python seed", "Python + Numba seed"]
+    values = [item["test_bifurcation_max_absolute_delta"] for item in audits]
+    bars = axes[1].bar(audit_labels, values, color=["#c53030", "#2f855a"])
+    axes[1].set_ylabel("Max paired test-bifurcation delta")
+    axes[1].set_title("CASIM randomness confound")
+    for bar, value in zip(bars, values):
+        axes[1].text(
+            bar.get_x() + bar.get_width() / 2,
+            value + 0.6,
+            str(value),
+            ha="center",
+            fontsize=9,
+        )
+    fig.suptitle("BiP CASIM deterministic split control")
+    fig.tight_layout()
+    fig.savefig(PROJECT / "Figure_4.png", dpi=180)
+    plt.close(fig)
+
 
 if __name__ == "__main__":
     main()

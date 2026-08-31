@@ -75,7 +75,7 @@ def test_p0_protocol_cards_and_capsule_manifest_are_closed() -> None:
     assert experiment["paper_grid"]["faulwasser2024_cone_afc"]["checkpoint_unit"] == "split_and_model"
     assert experiment["paper_grid"]["faulwasser2025_uncertainty_reduction"][
         "total_lane_dataset_model_fold_tasks"
-    ] == 160
+    ] == 180
     assert experiment["acceptance"]["docker_image_run_required_for_P3"] is True
 
 
@@ -428,8 +428,8 @@ def test_bip_author_grid_and_split_controls_are_complete_and_hash_stable() -> No
         ).splitlines()
         if line.strip()
     ]
-    assert len(tasks) == 160
-    assert len({row["task_id"] for row in tasks}) == 160
+    assert len(tasks) == 180
+    assert len({row["task_id"] for row in tasks}) == 180
     assert {
         lane: sum(row["split_lane"] == lane for row in tasks)
         for lane in {
@@ -437,12 +437,16 @@ def test_bip_author_grid_and_split_controls_are_complete_and_hash_stable() -> No
             "paper_disjoint",
             "seeded_author_overlap",
             "seeded_paper_disjoint",
+            "numba_seeded_author_overlap",
+            "numba_seeded_paper_disjoint",
         }
     } == {
         "author_overlap": 40,
         "paper_disjoint": 40,
         "seeded_author_overlap": 40,
         "seeded_paper_disjoint": 40,
+        "numba_seeded_author_overlap": 10,
+        "numba_seeded_paper_disjoint": 10,
     }
     assert all(len(row["alpha_metrics"]) == 30 for row in tasks)
 
@@ -450,6 +454,7 @@ def test_bip_author_grid_and_split_controls_are_complete_and_hash_stable() -> No
     assert summary["complete_author_paper_grid"] is True
     assert summary["complete_unseeded_split_ablation"] is True
     assert summary["complete_controlled_split_ablation"] is True
+    assert summary["complete_numba_controlled_split_ablation"] is True
     assert summary["complete_required_ablation"] is True
     assert summary["numeric_rows_within_tolerance"] == 6
     assert summary["disjoint_numeric_rows_within_tolerance"] == 7
@@ -465,10 +470,18 @@ def test_bip_author_grid_and_split_controls_are_complete_and_hash_stable() -> No
     assert {
         item.split("/")[1] for item in controlled["test_bifurcation_mismatch_tasks"]
     } == {"CASIM"}
+    numba_controlled = summary["numba_controlled_paired_protocol_audit"]
+    assert numba_controlled["afc_calibration_test_indices_identical"] is True
+    assert numba_controlled["paired_tasks"] == 10
+    assert numba_controlled["test_bifurcation_equal_pairs"] == 10
+    assert numba_controlled["test_bifurcation_unequal_pairs"] == 0
+    assert numba_controlled["test_bifurcation_max_absolute_delta"] == 0
+    assert summary["numba_seeded_author_numeric_rows_total"] == 4
+    assert summary["numba_seeded_disjoint_numeric_rows_total"] == 4
 
     checkpoint_hash = hashlib.sha256((root / "fold_results.jsonl").read_bytes()).hexdigest()
     assert checkpoint_hash == summary["checkpoint_sha256"]
     progress = load(root / "progress.json")
-    assert progress["requested_tasks_completed"] == 160
-    assert progress["requested_tasks_total"] == 160
+    assert progress["requested_tasks_completed"] == 20
+    assert progress["requested_tasks_total"] == 20
     assert progress["checkpoint_sha256"] == checkpoint_hash

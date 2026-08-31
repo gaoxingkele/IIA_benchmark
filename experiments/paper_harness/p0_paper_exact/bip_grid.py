@@ -568,7 +568,10 @@ def compare_paper(
     tolerance = card["tolerances"]
     comparisons = []
     lane_groups = groups.get(split_lane, {})
+    allowed_models = set(configured_lane_models(split_lane))
     for target in card["paper_targets"]:
+        if target["model"] not in allowed_models:
+            continue
         observed = lane_groups.get(target["dataset"], {}).get(target["model"])
         comparison: dict[str, Any] = {
             "item": target["item"],

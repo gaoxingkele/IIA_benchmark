@@ -58,3 +58,20 @@ ConE granular resume validation, 2026-08-30 20:40 Asia/Shanghai:
   - Re-running the identical task returned in 0.27 s with an unchanged SHA-256,
     proving zero-retrain resume behavior.
   - Checkpoints are byte-written with LF so recorded hashes equal file hashes on Windows.
+
+Run 4 — BiP CASIM explicit Numba RNG control (2026-08-31):
+  - Purpose: isolate calibration/RF overlap effects from vendored MultiRocket
+    feature-sampling randomness on real Code Ocean TEP and synthetic data.
+  - Protocol: preserve the five folds, AFC/calibration/test indices, prefixes
+    10-60, all 30 jackknife+ alpha values, and author code. Reset Python-level
+    NumPy and Numba RNG to seed 42 immediately before each CASIM fit.
+  - A real-data parameter probe showed global NumPy seeding alone did not
+    reproduce MultiRocket biases; adding Numba seeding made every parameter
+    array byte-identical.
+  - All 20 tasks completed. The 10 paired test-bifurcation counts are identical;
+    maximum absolute delta fell from 32 to zero.
+  - TEP point MAE delta is -0.017131 and interval-width delta -0.044184;
+    synthetic point MAE delta is +0.031906 and interval-width delta +0.255507.
+    Removing overlap therefore has no uniform benefit.
+  - Evidence: run_3/paper_grid/fold_results.jsonl, summary.json, Figure_4.png;
+    checkpoint SHA-256 46d054efd950cfa77dd749f688ba3858b04cd27e636252f5e0b829772f462ffd.
