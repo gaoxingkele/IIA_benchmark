@@ -114,6 +114,9 @@ def test_registered_real_data_audit_preserves_mechanism_findings() -> None:
     )
     assert "Only calibration_applicability" in report["routing_boundary"]
     assert report["stage_acceptance"]["tep_performance_retention"]["passed"]
+    assert report["stage_acceptance"]["adapted_book_suite_coverage"]["passed"]
+    assert report["stage_acceptance"]["router_d11_univariate_denial"]["passed"]
+    assert not report["stage_acceptance"]["router_pronto_far_constraint"]["passed"]
     assert report["stage_acceptance"]["skab_false_alarm_reduction"]["passed"]
     assert not report["stage_acceptance"][
         "pronto_missed_alarm_reduction_with_far_constraint"
@@ -130,3 +133,12 @@ def test_registered_real_data_audit_preserves_mechanism_findings() -> None:
             "safe_rolling_two_sided",
         }
         assert all(0.0 <= row["f1"]["mean"] <= 1.0 for row in adapters.values())
+        book_suite = datasets[dataset]["adapted_book_suite_metrics"]
+        assert set(book_suite) == {
+            "book_2_1_iid_delay_timer",
+            "book_2_2_non_iid_delay_timer",
+            "book_2_3_non_iid_deadband",
+            "book_2_4_alarm_probability_plot",
+        }
+        assert datasets[dataset]["automatic_router"]["scored_episodes"] > 0
+        assert datasets[dataset]["automatic_router"]["denied_episodes"] >= 0

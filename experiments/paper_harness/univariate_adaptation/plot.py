@@ -56,6 +56,9 @@ def summary(runs: list[dict[str, object]]) -> dict[str, object]:
         )
         statuses = [row["calibration_applicability"]["status"] for row in rows]
         adapter_names = tuple(rows[0]["initial_adapter_results"])
+        book_ids = tuple(rows[0]["adapted_book_suite"])
+        router_rows = [row["automatic_router"] for row in rows]
+        router_scored = [row for row in router_rows if row["empirical"] is not None]
         result[dataset] = {
             "records": len(rows),
             "features": sorted({row["feature"] for row in rows}),
@@ -117,6 +120,47 @@ def summary(runs: list[dict[str, object]]) -> dict[str, object]:
                     for metric in ("false_alarm_rate", "missed_alarm_rate", "f1")
                 }
                 for adapter in adapter_names
+            },
+            "adapted_book_suite_metrics": {
+                algorithm_id: {
+                    metric: {
+                        "mean": float(
+                            np.mean(
+                                [
+                                    row["adapted_book_suite"][algorithm_id]["empirical"][metric]
+                                    for row in rows
+                                ]
+                            )
+                        ),
+                        "standard_deviation_across_seeds_and_episodes": float(
+                            np.std(
+                                [
+                                    row["adapted_book_suite"][algorithm_id]["empirical"][metric]
+                                    for row in rows
+                                ],
+                                ddof=1,
+                            )
+                        ),
+                    }
+                    for metric in ("false_alarm_rate", "missed_alarm_rate", "f1")
+                }
+                for algorithm_id in book_ids
+            },
+            "automatic_router": {
+                "status_counts": {
+                    status: sum(row["status"] == status for row in router_rows)
+                    for status in ("static", "adapt", "reject_univariate")
+                },
+                "scored_episodes": len(router_scored),
+                "denied_episodes": len(router_rows) - len(router_scored),
+                "scored_mean_metrics": {
+                    metric: (
+                        float(np.mean([row["empirical"][metric] for row in router_scored]))
+                        if router_scored
+                        else None
+                    )
+                    for metric in ("false_alarm_rate", "missed_alarm_rate", "f1")
+                },
             },
         }
     return result
@@ -197,6 +241,13 @@ def write_notes(report: dict[str, object]) -> None:
                     for name, values in item["initial_adapter_metrics"].items()
                 )
                 + ".",
+                "Adapted Chapter 2 suite mean F1: "
+                + ", ".join(
+                    f"{name}={values['f1']['mean']:.4f}"
+                    for name, values in item["adapted_book_suite_metrics"].items()
+                )
+                + ".",
+                f"Automatic router: {item['automatic_router']}.",
                 "",
             ]
         )
@@ -244,6 +295,45 @@ def main() -> int:
             "skab": "normal baseline drift and low abnormal prevalence dominate false alarms despite perfect ranking",
         },
         "stage_acceptance": {
+            "adapted_book_suite_coverage": {
+                "algorithms": list(
+                    dataset_summary["tep_classic"]["adapted_book_suite_metrics"]
+                ),
+                "datasets": list(DATASETS),
+                "seeds": [1103, 2207, 3301],
+                "passed": bool(
+                    all(
+                        len(dataset_summary[dataset]["adapted_book_suite_metrics"])
+                        == 4
+                        for dataset in DATASETS
+                    )
+                ),
+            },
+            "router_d11_univariate_denial": {
+                "denied_tep_episode_seed_units": dataset_summary["tep_classic"][
+                    "automatic_router"
+                ]["denied_episodes"],
+                "expected": 3,
+                "passed": bool(
+                    dataset_summary["tep_classic"]["automatic_router"][
+                        "denied_episodes"
+                    ]
+                    == 3
+                ),
+            },
+            "router_pronto_far_constraint": {
+                "candidate_far": dataset_summary["pronto"]["automatic_router"][
+                    "scored_mean_metrics"
+                ]["false_alarm_rate"],
+                "maximum_far": 0.15,
+                "passed": bool(
+                    dataset_summary["pronto"]["automatic_router"][
+                        "scored_mean_metrics"
+                    ]["false_alarm_rate"]
+                    <= 0.15
+                ),
+                "limitation": "calibration-only routing cannot anticipate the observed PRONTO abnormal evaluation-phase drift; a future-event guarantee is not claimed",
+            },
             "tep_performance_retention": {
                 "candidate": "ecdf_two_sided",
                 "baseline_f1": baseline_iid["tep_classic"]["f1"],

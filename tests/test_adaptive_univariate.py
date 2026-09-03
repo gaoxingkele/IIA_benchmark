@@ -2,6 +2,8 @@ import numpy as np
 import pytest
 
 from iia_benchmark.models import (
+    AdaptedBookUnivariateSuite,
+    AdaptiveUnivariateAlarmRouter,
     BlockCalibratedECDFAlarm,
     EmpiricalCDFAlarm,
     EmpiricalCDFNormalizer,
@@ -128,3 +130,46 @@ def test_safe_rolling_alarm_updates_central_values_and_freezes_extremes() -> Non
     assert model.last_update_count_ > 200
     assert model.last_frozen_count_ >= 30
     assert np.mean(prediction[-30:]) > 0.95
+
+
+def test_adapted_book_suite_runs_all_four_chapter2_mechanisms() -> None:
+    rng = np.random.default_rng(73)
+    normal = rng.normal(0.0, 1.0, 1000)
+    abnormal = rng.normal(4.0, 1.0, 500)
+    suite = AdaptedBookUnivariateSuite(tail="two_sided").fit(normal, abnormal)
+    prediction = suite.predict(np.r_[normal[:100], abnormal[:100]])
+    assert set(prediction) == {
+        "book_2_1_iid_delay_timer",
+        "book_2_2_non_iid_delay_timer",
+        "book_2_3_non_iid_deadband",
+        "book_2_4_alarm_probability_plot",
+    }
+    assert set(suite.design_summary_) == set(prediction)
+    assert all(values.shape == (200,) for values in prediction.values())
+    assert max(float(np.mean(values[100:])) for values in prediction.values()) > 0.9
+
+
+def test_adapted_book_suite_falls_back_to_discrete_score_support() -> None:
+    normal = np.r_[np.zeros(990), np.ones(10)]
+    abnormal = np.ones(500)
+    suite = AdaptedBookUnivariateSuite(tail="two_sided").fit(normal, abnormal)
+    assert len(suite.predict([0.0, 1.0])) == 4
+
+
+def test_router_predicts_stationary_feature_and_denies_unseparable_feature() -> None:
+    rng = np.random.default_rng(79)
+    normal = rng.normal(0.0, 1.0, (1200, 2))
+    abnormal = normal[:600].copy()
+    abnormal[:, 1] += 5.0
+    router = AdaptiveUnivariateAlarmRouter().fit(
+        normal, abnormal, feature_names=("noise", "fault_signal")
+    )
+    assert router.decision_.status in {"static", "adapt"}
+    assert router.decision_.feature_name == "fault_signal"
+    assert np.mean(router.predict(abnormal)) > 0.9
+
+    weak = rng.normal(0.0, 1.0, (600, 2))
+    denied = AdaptiveUnivariateAlarmRouter().fit(normal, weak)
+    assert denied.decision_.status == "reject_univariate"
+    with pytest.raises(RuntimeError, match="denied"):
+        denied.predict(weak)

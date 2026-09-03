@@ -118,6 +118,9 @@ from .root_cause_book import (
 )
 from .univariate import AlarmDesignResult, ThresholdDelayDeadband, design_alarm
 from .adaptive_univariate import (
+    AdaptedBookUnivariateSuite,
+    AdaptiveRouterDecision,
+    AdaptiveUnivariateAlarmRouter,
     BlockCalibratedECDFAlarm,
     BlockCalibrationCandidate,
     EmpiricalCDFAlarm,
@@ -176,6 +179,9 @@ __all__ = [
     "AlarmToken",
     "AlignmentSeed",
     "AdaptiveTimeGradient",
+    "AdaptedBookUnivariateSuite",
+    "AdaptiveRouterDecision",
+    "AdaptiveUnivariateAlarmRouter",
     "AEMPeak",
     "AlarmEvolutionMatrix",
     "AlertThresholdResult",

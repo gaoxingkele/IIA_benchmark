@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 from datetime import datetime, timezone
 import hashlib
 import importlib.util
@@ -27,6 +28,8 @@ from iia_benchmark.evaluation import (  # noqa: E402
     binary_alarm_metrics,
 )
 from iia_benchmark.models import (  # noqa: E402
+    AdaptedBookUnivariateSuite,
+    AdaptiveUnivariateAlarmRouter,
     BlockCalibratedECDFAlarm,
     EmpiricalCDFAlarm,
     FeatureStabilitySelector,
@@ -124,6 +127,8 @@ def summarize(rows: list[dict[str, object]]) -> dict[str, object]:
         return float(np.median(values))
 
     adapters = tuple(rows[0]["initial_adapter_results"])
+    book_ids = tuple(rows[0]["adapted_book_suite"])
+    router_scored = [row["automatic_router"] for row in rows if row["automatic_router"]["empirical"] is not None]
     return {
         "episodes": len(rows),
         "median_normal_train_evaluation_ks": median(
@@ -162,6 +167,41 @@ def summarize(rows: list[dict[str, object]]) -> dict[str, object]:
                 )
             }
             for adapter in adapters
+        },
+        "adapted_book_suite_metrics": {
+            algorithm_id: {
+                metric: float(
+                    np.mean(
+                        [
+                            row["adapted_book_suite"][algorithm_id]["empirical"][metric]
+                            for row in rows
+                        ]
+                    )
+                )
+                for metric in (
+                    "false_alarm_rate",
+                    "missed_alarm_rate",
+                    "average_alarm_delay",
+                    "f1",
+                )
+            }
+            for algorithm_id in book_ids
+        },
+        "automatic_router": {
+            "status_counts": {
+                status: sum(row["automatic_router"]["status"] == status for row in rows)
+                for status in ("static", "adapt", "reject_univariate")
+            },
+            "scored_episodes": len(router_scored),
+            "denied_episodes": len(rows) - len(router_scored),
+            "scored_mean_metrics": {
+                metric: (
+                    float(np.mean([row["empirical"][metric] for row in router_scored]))
+                    if router_scored
+                    else None
+                )
+                for metric in ("false_alarm_rate", "missed_alarm_rate", "f1")
+            },
         },
     }
 
@@ -391,6 +431,59 @@ def main() -> int:
                     },
                 },
             }
+            chapter2_protocol = chapter2_config["protocol"]
+            adapted_suite = AdaptedBookUnivariateSuite(
+                tail="two_sided",
+                threshold_candidates=int(chapter2_protocol["threshold_candidates"]),
+                delays=tuple(int(value) for value in chapter2_protocol["delays"]),
+                targets=tuple(float(value) for value in chapter2_protocol["targets"]),
+                weights=tuple(float(value) for value in chapter2_protocol["weights"]),
+                posterior_confidence=float(
+                    chapter2_protocol["posterior_confidence"]
+                ),
+                app_probability_weight=float(
+                    chapter2_protocol["app_probability_weight"]
+                ),
+            ).fit(normal_train, abnormal_calibration)
+            suite_normal = adapted_suite.predict(normal_evaluation)
+            suite_abnormal = adapted_suite.predict(abnormal_evaluation)
+            adapted_book_results = {
+                algorithm_id: {
+                    "design": adapted_suite.design_summary_[algorithm_id],
+                    "empirical": binary_alarm_metrics(
+                        np.r_[
+                            np.zeros(len(normal_evaluation), dtype=bool),
+                            np.ones(len(abnormal_evaluation), dtype=bool),
+                        ],
+                        np.r_[suite_normal[algorithm_id], suite_abnormal[algorithm_id]],
+                    ),
+                }
+                for algorithm_id in suite_normal
+            }
+            router = AdaptiveUnivariateAlarmRouter(
+                applicability_thresholds=policy,
+                reference_windows=tuple(
+                    int(value) for value in temporal["reference_windows"]
+                ),
+                delays=tuple(int(value) for value in temporal["delays"]),
+                block_size=int(temporal["block_size"]),
+            ).fit(
+                np.asarray(episode["normal_train"]),
+                np.asarray(episode["abnormal_calibration"]),
+                feature_names=tuple(episode["feature_names"]),
+            )
+            router_metrics = None
+            if router.decision_.status != "reject_univariate":
+                router_metrics = binary_alarm_metrics(
+                    np.r_[
+                        np.zeros(len(episode["normal_evaluation"]), dtype=bool),
+                        np.ones(len(episode["abnormal_evaluation"]), dtype=bool),
+                    ],
+                    np.r_[
+                        router.predict(np.asarray(episode["normal_evaluation"])),
+                        router.predict(np.asarray(episode["abnormal_evaluation"])),
+                    ],
+                )
             results[dataset].append(
                 {
                     "dataset": dataset,
@@ -402,6 +495,18 @@ def main() -> int:
                     "calibration_applicability": calibration_gate.as_dict(),
                     "held_out_posthoc_audit": held_out.as_dict(),
                     "initial_adapter_results": initial_adapters,
+                    "adapted_book_suite": adapted_book_results,
+                    "automatic_router": {
+                        "status": router.decision_.status,
+                        "feature": router.decision_.feature_name,
+                        "direction": router.decision_.direction,
+                        "selected_model": router.decision_.selected_model,
+                        "reason": router.decision_.reason,
+                        "calibration_applicability": asdict(
+                            router.decision_.calibration_applicability
+                        ),
+                        "empirical": router_metrics,
+                    },
                     "frozen_iid_baseline": {
                         "threshold": threshold,
                         "delay": delay,

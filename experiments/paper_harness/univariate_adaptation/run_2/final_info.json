@@ -3,13 +3,13 @@
   "run_name": "run_2",
   "config": "configs/experiments/univariate_adaptation_benchmark.json",
   "config_sha256": "e670935cc3e28b30ded3e099a59d893b07cd117c9347163960f6addb4d1d3e7d",
-  "git_revision": "76c75558cbc0e7955563e950b279a4be4bac1f29",
+  "git_revision": "6dba286c15a7cf076cc03cb76fb202f76b491f32",
   "execution_provenance": {
     "git_worktree_dirty": true,
     "git_status_porcelain": [
-      " M configs/experiments/univariate_adaptation_benchmark.json",
       " M configs/models/adaptive_univariate_router.json",
       " M experiments/paper_harness/univariate_adaptation/experiment.py",
+      " M experiments/paper_harness/univariate_adaptation/plot.py",
       " M experiments/paper_harness/univariate_adaptation/run_1/final_info.json",
       " M src/iia_benchmark/models/__init__.py",
       " M src/iia_benchmark/models/adaptive_univariate.py",
@@ -21,13 +21,13 @@
       "configs/experiments/book_chapter2_multidataset.json": "5a19fa0bba7c6f109b598a965ca35afff0c8c50fe6886cf9de80c641ce6c19bf",
       "experiments/paper_harness/chapter2_multidataset/experiment.py": "713682f35f1be97d73eef67bfe8b45b7f03a493eba1a4bf333a0b91ff951b835",
       "src/iia_benchmark/evaluation/distribution_audit.py": "fb21d0cec50c32fd003f104d783f9404859626d8d91907e7ccc9d27227df9c13",
-      "experiments/paper_harness/univariate_adaptation/experiment.py": "30b03059e6d2939fd3985ecc9be8a61971bba6fce8ca88278836d068550e41ca",
+      "experiments/paper_harness/univariate_adaptation/experiment.py": "63acdbd4aef9635e90a0bc7cb8468bc25eb1beabc4cec7b16d26b4c699876a16",
       "experiments/paper_harness/chapter2_multidataset/run_2/final_info.json": "b85a5187eb343686d665d82c0264bfee83d21345f97e4a9897c13b488f50e0ee"
     }
   },
-  "started_at_utc": "2026-09-03T06:01:29.174992+00:00",
-  "finished_at_utc": "2026-09-03T06:01:30.937621+00:00",
-  "wall_clock_seconds": 1.7632986000098754,
+  "started_at_utc": "2026-09-03T06:06:53.839266+00:00",
+  "finished_at_utc": "2026-09-03T06:06:57.929889+00:00",
+  "wall_clock_seconds": 4.09111269999994,
   "result": {
     "seed": 2207,
     "datasets": {
@@ -895,6 +895,107 @@
                 "updates": 0,
                 "frozen": 480
               }
+            }
+          },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.998003992015968,
+                "delay": 2,
+                "design_loss": 0.0522438055984107
+              },
+              "empirical": {
+                "precision": 0.9676767676767677,
+                "recall": 0.9979166666666667,
+                "f1": 0.9825641025641026,
+                "false_alarm_rate": 0.016666666666666666,
+                "missed_alarm_rate": 0.0020833333333333333,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.7125748502994012,
+                "delay": 5,
+                "design_loss": 0.12954545454545455,
+                "zero_event_fallback": false
+              },
+              "empirical": {
+                "precision": 0.7147147147147147,
+                "recall": 0.9916666666666667,
+                "f1": 0.830715532286213,
+                "false_alarm_rate": 0.19791666666666666,
+                "missed_alarm_rate": 0.008333333333333333,
+                "average_alarm_delay": 4.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.9481037924151696,
+                "activation_threshold": 0.9960079840319361,
+                "width": 0.04790419161676651,
+                "suitable": false,
+                "status": "designed"
+              },
+              "empirical": {
+                "precision": 0.967741935483871,
+                "recall": 1.0,
+                "f1": 0.9836065573770492,
+                "false_alarm_rate": 0.016666666666666666,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.2455089820359282,
+                "score": 0.458346892580864,
+                "states": 13
+              },
+              "empirical": {
+                "precision": 0.3976801988400994,
+                "recall": 1.0,
+                "f1": 0.5690574985180795,
+                "false_alarm_rate": 0.7572916666666667,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "static",
+            "feature": "XMEAS_01",
+            "direction": "high",
+            "selected_model": "static_ecdf",
+            "reason": "calibration distribution supports static transfer",
+            "calibration_applicability": {
+              "status": "static",
+              "direction": "high",
+              "normal_internal_shift": {
+                "ks": 0.096,
+                "wasserstein": 0.004492559999999999,
+                "wasserstein_over_reference_iqr": 0.1291893601725377,
+                "standardized_median_shift": 0.03887762558944144
+              },
+              "normal_lag_one_autocorrelation": 0.6104129324292404,
+              "calibration_auc": 0.9836,
+              "abnormal_block_auc": [
+                0.9509532710280374,
+                1.0,
+                1.0
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [],
+              "reasons": [],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": {
+              "precision": 0.8955223880597015,
+              "recall": 1.0,
+              "f1": 0.9448818897637796,
+              "false_alarm_rate": 0.058333333333333334,
+              "missed_alarm_rate": 0.0,
+              "average_alarm_delay": 0.0
             }
           },
           "frozen_iid_baseline": {
@@ -1773,6 +1874,107 @@
                 "updates": 0,
                 "frozen": 480
               }
+            }
+          },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.998003992015968,
+                "delay": 1,
+                "design_loss": 0.0
+              },
+              "empirical": {
+                "precision": 0.9896907216494846,
+                "recall": 1.0,
+                "f1": 0.9948186528497409,
+                "false_alarm_rate": 0.005208333333333333,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.8183632734530938,
+                "delay": 4,
+                "design_loss": 0.027018633540372674,
+                "zero_event_fallback": true
+              },
+              "empirical": {
+                "precision": 1.0,
+                "recall": 0.99375,
+                "f1": 0.9968652037617556,
+                "false_alarm_rate": 0.0,
+                "missed_alarm_rate": 0.00625,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.9481037924151696,
+                "activation_threshold": 0.9960079840319361,
+                "width": 0.04790419161676651,
+                "suitable": false,
+                "status": "designed"
+              },
+              "empirical": {
+                "precision": 0.9896907216494846,
+                "recall": 1.0,
+                "f1": 0.9948186528497409,
+                "false_alarm_rate": 0.005208333333333333,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.2455089820359282,
+                "score": 0.47141325742489754,
+                "states": 13
+              },
+              "empirical": {
+                "precision": 0.3818615751789976,
+                "recall": 1.0,
+                "f1": 0.5526770293609672,
+                "false_alarm_rate": 0.809375,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "static",
+            "feature": "XMV_10",
+            "direction": "high",
+            "selected_model": "static_ecdf",
+            "reason": "calibration distribution supports static transfer",
+            "calibration_applicability": {
+              "status": "static",
+              "direction": "high",
+              "normal_internal_shift": {
+                "ks": 0.06799999999999999,
+                "wasserstein": 0.06497999999999961,
+                "wasserstein_over_reference_iqr": 0.10409291149379252,
+                "standardized_median_shift": 0.01014416725609766
+              },
+              "normal_lag_one_autocorrelation": -0.2552426624088894,
+              "calibration_auc": 1.0,
+              "abnormal_block_auc": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [],
+              "reasons": [],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": {
+              "precision": 0.9142857142857143,
+              "recall": 1.0,
+              "f1": 0.955223880597015,
+              "false_alarm_rate": 0.046875,
+              "missed_alarm_rate": 0.0,
+              "average_alarm_delay": 0.0
             }
           },
           "frozen_iid_baseline": {
@@ -2659,6 +2861,104 @@
               }
             }
           },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.8174650698602791,
+                "delay": 5,
+                "design_loss": 0.22392694440190433
+              },
+              "empirical": {
+                "precision": 1.0,
+                "recall": 0.9666666666666667,
+                "f1": 0.983050847457627,
+                "false_alarm_rate": 0.0,
+                "missed_alarm_rate": 0.03333333333333333,
+                "average_alarm_delay": 8.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.7455089820359282,
+                "delay": 4,
+                "design_loss": 0.009503459503459506,
+                "zero_event_fallback": false
+              },
+              "empirical": {
+                "precision": 0.9334677419354839,
+                "recall": 0.9645833333333333,
+                "f1": 0.9487704918032788,
+                "false_alarm_rate": 0.034375,
+                "missed_alarm_rate": 0.035416666666666666,
+                "average_alarm_delay": 7.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.9481037924151696,
+                "activation_threshold": 0.9960079840319361,
+                "width": 0.04790419161676651,
+                "suitable": false,
+                "status": "designed"
+              },
+              "empirical": {
+                "precision": 0.9860724233983287,
+                "recall": 0.7375,
+                "f1": 0.8438617401668653,
+                "false_alarm_rate": 0.005208333333333333,
+                "missed_alarm_rate": 0.2625,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.22894211576846302,
+                "score": 0.3966699647532874,
+                "states": 16
+              },
+              "empirical": {
+                "precision": 0.37292161520190026,
+                "recall": 0.98125,
+                "f1": 0.5404475043029261,
+                "false_alarm_rate": 0.825,
+                "missed_alarm_rate": 0.01875,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "reject_univariate",
+            "feature": "XMEAS_29",
+            "direction": "low",
+            "selected_model": null,
+            "reason": "calibration gate requires multivariate fallback",
+            "calibration_applicability": {
+              "status": "reject_univariate",
+              "direction": "low",
+              "normal_internal_shift": {
+                "ks": 0.08000000000000007,
+                "wasserstein": 0.04738399999999971,
+                "wasserstein_over_reference_iqr": 0.11417831325301159,
+                "standardized_median_shift": 0.09070494947581051
+              },
+              "normal_lag_one_autocorrelation": 0.6034032883690083,
+              "calibration_auc": 0.5875,
+              "abnormal_block_auc": [
+                0.6152523364485981,
+                0.5356261682242991,
+                0.6118490566037735
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [
+                "multivariate_fallback"
+              ],
+              "reasons": [
+                "insufficient_worst_block_separability"
+              ],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": null
+          },
           "frozen_iid_baseline": {
             "threshold": 41.469,
             "delay": 5,
@@ -3090,6 +3390,115 @@
                 "updates": 276,
                 "frozen": 5052
               }
+            }
+          },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.997229916897507,
+                "delay": 1,
+                "design_loss": 0.0
+              },
+              "empirical": {
+                "precision": 0.9765866873065016,
+                "recall": 0.9472597597597597,
+                "f1": 0.9616996951219512,
+                "false_alarm_rate": 0.5,
+                "missed_alarm_rate": 0.05274024024024024,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.997229916897507,
+                "delay": 1,
+                "design_loss": 0.04847809798002096,
+                "zero_event_fallback": true
+              },
+              "empirical": {
+                "precision": 0.9765866873065016,
+                "recall": 0.9472597597597597,
+                "f1": 0.9616996951219512,
+                "false_alarm_rate": 0.5,
+                "missed_alarm_rate": 0.05274024024024024,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.9448753462603878,
+                "activation_threshold": 0.9448753462603878,
+                "width": 0.0,
+                "suitable": false,
+                "status": "denied_fewer_than_two_normal_alarm_episodes"
+              },
+              "empirical": {
+                "precision": 0.9765957446808511,
+                "recall": 0.9476351351351351,
+                "f1": 0.9618975042865308,
+                "false_alarm_rate": 0.5,
+                "missed_alarm_rate": 0.052364864864864864,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.9141274238227146,
+                "score": 0.8642361111111094,
+                "states": 3
+              },
+              "empirical": {
+                "precision": 0.9766002707406691,
+                "recall": 0.9478228228228228,
+                "f1": 0.9619963806076768,
+                "false_alarm_rate": 0.5,
+                "missed_alarm_rate": 0.052177177177177174,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "adapt",
+            "feature": "Water.T",
+            "direction": "low",
+            "selected_model": "block_calibrated_ecdf",
+            "reason": "distribution or temporal adaptation required",
+            "calibration_applicability": {
+              "status": "adapt",
+              "direction": "low",
+              "normal_internal_shift": {
+                "ks": 1.0,
+                "wasserstein": 1.6835397937222223,
+                "wasserstein_over_reference_iqr": 8.933169657349163,
+                "standardized_median_shift": -14.006565651879859
+              },
+              "normal_lag_one_autocorrelation": 0.991166161321056,
+              "calibration_auc": 0.9462431181181181,
+              "abnormal_block_auc": [
+                0.8669599286786787,
+                0.9773120777027027,
+                0.994457347972973
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [
+                "robust_ecdf",
+                "regime_conditional_threshold",
+                "block_calibration",
+                "event_level_metrics"
+              ],
+              "reasons": [
+                "internal_normal_distribution_shift",
+                "strong_temporal_dependence"
+              ],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": {
+              "precision": 0.9626334519572953,
+              "recall": 0.6092342342342343,
+              "f1": 0.7462068965517241,
+              "false_alarm_rate": 0.5206611570247934,
+              "missed_alarm_rate": 0.39076576576576577,
+              "average_alarm_delay": 0.0
             }
           },
           "frozen_iid_baseline": {
@@ -3628,6 +4037,115 @@
               }
             }
           },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.7075428042572882,
+                "delay": 5,
+                "design_loss": 0.901183504017483
+              },
+              "empirical": {
+                "precision": 0.48951911220715166,
+                "recall": 0.2296124927703875,
+                "f1": 0.3125984251968504,
+                "false_alarm_rate": 0.215625,
+                "missed_alarm_rate": 0.7703875072296125,
+                "average_alarm_delay": 4.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.23056455344747798,
+                "delay": 5,
+                "design_loss": 0.3632030880731054,
+                "zero_event_fallback": true
+              },
+              "empirical": {
+                "precision": 0.6059009483667018,
+                "recall": 0.9976865240023135,
+                "f1": 0.7539335664335665,
+                "false_alarm_rate": 0.584375,
+                "missed_alarm_rate": 0.002313475997686524,
+                "average_alarm_delay": 4.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.949143914854234,
+                "activation_threshold": 0.999074502545118,
+                "width": 0.04993058769088399,
+                "suitable": false,
+                "status": "designed"
+              },
+              "empirical": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "false_alarm_rate": 0.0026041666666666665,
+                "missed_alarm_rate": 1.0,
+                "average_alarm_delay": 1729.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.3221309578898657,
+                "score": 0.37097016507166725,
+                "states": 19
+              },
+              "empirical": {
+                "precision": 0.7100616016427105,
+                "recall": 1.0,
+                "f1": 0.83045148895293,
+                "false_alarm_rate": 0.36770833333333336,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "adapt",
+            "feature": "Water.T",
+            "direction": "low",
+            "selected_model": "block_calibrated_ecdf",
+            "reason": "distribution or temporal adaptation required",
+            "calibration_applicability": {
+              "status": "adapt",
+              "direction": "low",
+              "normal_internal_shift": {
+                "ks": 0.6879629629629629,
+                "wasserstein": 3.5803877781388884,
+                "wasserstein_over_reference_iqr": 0.8477194504759682,
+                "standardized_median_shift": -2.4438277502249965
+              },
+              "normal_lag_one_autocorrelation": 0.99953208757036,
+              "calibration_auc": 0.887108169367284,
+              "abnormal_block_auc": [
+                0.8943835599922839,
+                0.8887526523919753,
+                0.8781882957175926
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [
+                "robust_ecdf",
+                "regime_conditional_threshold",
+                "block_calibration",
+                "event_level_metrics"
+              ],
+              "reasons": [
+                "internal_normal_distribution_shift",
+                "strong_temporal_dependence"
+              ],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": {
+              "precision": 0.8159509202453987,
+              "recall": 1.0,
+              "f1": 0.8986486486486486,
+              "false_alarm_rate": 0.203125,
+              "missed_alarm_rate": 0.0,
+              "average_alarm_delay": 0.0
+            }
+          },
           "frozen_iid_baseline": {
             "threshold": 19.38907051,
             "delay": 5,
@@ -4161,6 +4679,112 @@
               }
             }
           },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.9337999416739574,
+                "delay": 3,
+                "design_loss": 0.06941292034565662
+              },
+              "empirical": {
+                "precision": 0.9444444444444444,
+                "recall": 0.05448717948717949,
+                "f1": 0.10303030303030303,
+                "false_alarm_rate": 0.0009233610341643582,
+                "missed_alarm_rate": 0.9455128205128205,
+                "average_alarm_delay": 373.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.7282006415864684,
+                "delay": 5,
+                "design_loss": 0.030064197530864197,
+                "zero_event_fallback": true
+              },
+              "empirical": {
+                "precision": 0.48794063079777367,
+                "recall": 0.280982905982906,
+                "f1": 0.3566101694915254,
+                "false_alarm_rate": 0.08494921514312095,
+                "missed_alarm_rate": 0.719017094017094,
+                "average_alarm_delay": 4.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.9496354622338872,
+                "activation_threshold": 0.99941673957422,
+                "width": 0.049781277340332775,
+                "suitable": false,
+                "status": "designed"
+              },
+              "empirical": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0,
+                "false_alarm_rate": 0.0,
+                "missed_alarm_rate": 1.0,
+                "average_alarm_delay": 936.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.17731116943715375,
+                "score": 0.3173098872346081,
+                "states": 20
+              },
+              "empirical": {
+                "precision": 0.25337096268422704,
+                "recall": 0.8632478632478633,
+                "f1": 0.39175757575757575,
+                "false_alarm_rate": 0.7328408741151123,
+                "missed_alarm_rate": 0.13675213675213677,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "adapt",
+            "feature": "Water.level",
+            "direction": "low",
+            "selected_model": "block_calibrated_ecdf",
+            "reason": "distribution or temporal adaptation required",
+            "calibration_applicability": {
+              "status": "adapt",
+              "direction": "low",
+              "normal_internal_shift": {
+                "ks": 0.047257876312718786,
+                "wasserstein": 0.12846117661610257,
+                "wasserstein_over_reference_iqr": 0.2378759615827578,
+                "standardized_median_shift": -0.029524488240697914
+              },
+              "normal_lag_one_autocorrelation": 0.9080404770631152,
+              "calibration_auc": 0.9948956848613346,
+              "abnormal_block_auc": [
+                1.0,
+                0.9992307411812225,
+                0.985410712574479
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [
+                "block_calibration",
+                "event_level_metrics"
+              ],
+              "reasons": [
+                "strong_temporal_dependence"
+              ],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": {
+              "precision": 0.35159235668789807,
+              "recall": 0.2948717948717949,
+              "f1": 0.3207437536316095,
+              "false_alarm_rate": 0.1566635887965528,
+              "missed_alarm_rate": 0.7051282051282052,
+              "average_alarm_delay": 0.0
+            }
+          },
           "frozen_iid_baseline": {
             "threshold": 61.16579056,
             "delay": 3,
@@ -4591,6 +5215,115 @@
               }
             }
           },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.8787369763980436,
+                "delay": 4,
+                "design_loss": 0.096173774142416
+              },
+              "empirical": {
+                "precision": 0.12513144058885384,
+                "recall": 0.9875518672199171,
+                "f1": 0.22211852543163788,
+                "false_alarm_rate": 0.35381671273655113,
+                "missed_alarm_rate": 0.012448132780082987,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.8787369763980436,
+                "delay": 4,
+                "design_loss": 0.022399017140117463,
+                "zero_event_fallback": true
+              },
+              "empirical": {
+                "precision": 0.12513144058885384,
+                "recall": 0.9875518672199171,
+                "f1": 0.22211852543163788,
+                "false_alarm_rate": 0.35381671273655113,
+                "missed_alarm_rate": 0.012448132780082987,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.9497980012757813,
+                "activation_threshold": 0.9978736976398044,
+                "width": 0.04807569636402309,
+                "suitable": true,
+                "status": "designed"
+              },
+              "empirical": {
+                "precision": 0.23420796890184645,
+                "recall": 1.0,
+                "f1": 0.37952755905511815,
+                "false_alarm_rate": 0.16755262598341483,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.15507123112906662,
+                "score": 0.3440411750332923,
+                "states": 20
+              },
+              "empirical": {
+                "precision": 0.05401165396683102,
+                "recall": 1.0,
+                "f1": 0.10248777376142888,
+                "false_alarm_rate": 0.8975122262385711,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "adapt",
+            "feature": "Accelerometer2RMS",
+            "direction": "low",
+            "selected_model": "block_calibrated_ecdf",
+            "reason": "distribution or temporal adaptation required",
+            "calibration_applicability": {
+              "status": "adapt",
+              "direction": "low",
+              "normal_internal_shift": {
+                "ks": 0.9366227137388347,
+                "wasserstein": 0.006671029349213098,
+                "wasserstein_over_reference_iqr": 2.648810541676853,
+                "standardized_median_shift": 3.3906483431570513
+              },
+              "normal_lag_one_autocorrelation": 0.8740080356202632,
+              "calibration_auc": 1.0,
+              "abnormal_block_auc": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [
+                "robust_ecdf",
+                "regime_conditional_threshold",
+                "block_calibration",
+                "event_level_metrics"
+              ],
+              "reasons": [
+                "internal_normal_distribution_shift",
+                "strong_temporal_dependence"
+              ],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": {
+              "precision": 0.2608695652173913,
+              "recall": 0.995850622406639,
+              "f1": 0.4134366925064599,
+              "false_alarm_rate": 0.14458856049330215,
+              "missed_alarm_rate": 0.004149377593360996,
+              "average_alarm_delay": 1.0
+            }
+          },
           "frozen_iid_baseline": {
             "threshold": 0.2662387,
             "delay": 4,
@@ -5017,6 +5750,115 @@
                 "updates": 0,
                 "frozen": 242
               }
+            }
+          },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.8787369763980436,
+                "delay": 4,
+                "design_loss": 0.096173774142416
+              },
+              "empirical": {
+                "precision": 0.1255911718339464,
+                "recall": 0.987603305785124,
+                "f1": 0.22284382284382284,
+                "false_alarm_rate": 0.35381671273655113,
+                "missed_alarm_rate": 0.012396694214876033,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.8787369763980436,
+                "delay": 4,
+                "design_loss": 0.022399017140117463,
+                "zero_event_fallback": true
+              },
+              "empirical": {
+                "precision": 0.1255911718339464,
+                "recall": 0.987603305785124,
+                "f1": 0.22284382284382284,
+                "false_alarm_rate": 0.35381671273655113,
+                "missed_alarm_rate": 0.012396694214876033,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.9497980012757813,
+                "activation_threshold": 0.9978736976398044,
+                "width": 0.04807569636402309,
+                "suitable": true,
+                "status": "designed"
+              },
+              "empirical": {
+                "precision": 0.23495145631067962,
+                "recall": 1.0,
+                "f1": 0.3805031446540881,
+                "false_alarm_rate": 0.16755262598341483,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.15507123112906662,
+                "score": 0.3440411750332923,
+                "states": 20
+              },
+              "empirical": {
+                "precision": 0.054223616401523636,
+                "recall": 1.0,
+                "f1": 0.10286928799149839,
+                "false_alarm_rate": 0.8975122262385711,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "adapt",
+            "feature": "Accelerometer2RMS",
+            "direction": "low",
+            "selected_model": "block_calibrated_ecdf",
+            "reason": "distribution or temporal adaptation required",
+            "calibration_applicability": {
+              "status": "adapt",
+              "direction": "low",
+              "normal_internal_shift": {
+                "ks": 0.9366227137388347,
+                "wasserstein": 0.006671029349213098,
+                "wasserstein_over_reference_iqr": 2.648810541676853,
+                "standardized_median_shift": 3.3906483431570513
+              },
+              "normal_lag_one_autocorrelation": 0.8740080356202632,
+              "calibration_auc": 1.0,
+              "abnormal_block_auc": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [
+                "robust_ecdf",
+                "regime_conditional_threshold",
+                "block_calibration",
+                "event_level_metrics"
+              ],
+              "reasons": [
+                "internal_normal_distribution_shift",
+                "strong_temporal_dependence"
+              ],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": {
+              "precision": 0.26167209554831705,
+              "recall": 0.9958677685950413,
+              "f1": 0.41444539982803097,
+              "false_alarm_rate": 0.14458856049330215,
+              "missed_alarm_rate": 0.004132231404958678,
+              "average_alarm_delay": 1.0
             }
           },
           "frozen_iid_baseline": {
@@ -5447,6 +6289,115 @@
               }
             }
           },
+          "adapted_book_suite": {
+            "book_2_1_iid_delay_timer": {
+              "design": {
+                "threshold": 0.8780778226663831,
+                "delay": 4,
+                "design_loss": 0.09648951864418301
+              },
+              "empirical": {
+                "precision": 0.1232876712328767,
+                "recall": 0.9873417721518988,
+                "f1": 0.21920374707259954,
+                "false_alarm_rate": 0.35381671273655113,
+                "missed_alarm_rate": 0.012658227848101266,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "book_2_2_non_iid_delay_timer": {
+              "design": {
+                "threshold": 0.8780778226663831,
+                "delay": 4,
+                "design_loss": 0.02240279116742414,
+                "zero_event_fallback": true
+              },
+              "empirical": {
+                "precision": 0.1232876712328767,
+                "recall": 0.9873417721518988,
+                "f1": 0.21920374707259954,
+                "false_alarm_rate": 0.35381671273655113,
+                "missed_alarm_rate": 0.012658227848101266,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "book_2_3_non_iid_deadband": {
+              "design": {
+                "base_threshold": 0.9497980012757813,
+                "activation_threshold": 0.9978736976398044,
+                "width": 0.04807569636402309,
+                "suitable": true,
+                "status": "designed"
+              },
+              "empirical": {
+                "precision": 0.23121951219512196,
+                "recall": 1.0,
+                "f1": 0.37559429477020606,
+                "false_alarm_rate": 0.16755262598341483,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "book_2_4_alarm_probability_plot": {
+              "design": {
+                "threshold": 0.15500744205826075,
+                "score": 0.344377440422222,
+                "states": 20
+              },
+              "empirical": {
+                "precision": 0.0531628532974428,
+                "recall": 1.0,
+                "f1": 0.10095846645367412,
+                "false_alarm_rate": 0.8975122262385711,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            }
+          },
+          "automatic_router": {
+            "status": "adapt",
+            "feature": "Accelerometer2RMS",
+            "direction": "low",
+            "selected_model": "block_calibrated_ecdf",
+            "reason": "distribution or temporal adaptation required",
+            "calibration_applicability": {
+              "status": "adapt",
+              "direction": "low",
+              "normal_internal_shift": {
+                "ks": 0.9366227137388347,
+                "wasserstein": 0.006671029349213098,
+                "wasserstein_over_reference_iqr": 2.648810541676853,
+                "standardized_median_shift": 3.3906483431570513
+              },
+              "normal_lag_one_autocorrelation": 0.8740080356202632,
+              "calibration_auc": 1.0,
+              "abnormal_block_auc": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "abnormal_direction_consistency": 1.0,
+              "recommended_adapters": [
+                "robust_ecdf",
+                "regime_conditional_threshold",
+                "block_calibration",
+                "event_level_metrics"
+              ],
+              "reasons": [
+                "internal_normal_distribution_shift",
+                "strong_temporal_dependence"
+              ],
+              "scope": "training_and_calibration_only"
+            },
+            "empirical": {
+              "precision": 0.2576419213973799,
+              "recall": 0.9957805907172996,
+              "f1": 0.40936686903729397,
+              "false_alarm_rate": 0.14458856049330215,
+              "missed_alarm_rate": 0.004219409282700422,
+              "average_alarm_delay": 1.0
+            }
+          },
           "frozen_iid_baseline": {
             "threshold": 0.2661607,
             "delay": 4,
@@ -5516,6 +6467,46 @@
             "average_alarm_delay": 3.6666666666666665,
             "f1": 0.777764678869754
           }
+        },
+        "adapted_book_suite_metrics": {
+          "book_2_1_iid_delay_timer": {
+            "false_alarm_rate": 0.007291666666666666,
+            "missed_alarm_rate": 0.011805555555555555,
+            "average_alarm_delay": 3.0,
+            "f1": 0.9868112009571569
+          },
+          "book_2_2_non_iid_delay_timer": {
+            "false_alarm_rate": 0.07743055555555556,
+            "missed_alarm_rate": 0.016666666666666666,
+            "average_alarm_delay": 4.666666666666667,
+            "f1": 0.9254504092837491
+          },
+          "book_2_3_non_iid_deadband": {
+            "false_alarm_rate": 0.009027777777777777,
+            "missed_alarm_rate": 0.08750000000000001,
+            "average_alarm_delay": 0.0,
+            "f1": 0.9407623167978851
+          },
+          "book_2_4_alarm_probability_plot": {
+            "false_alarm_rate": 0.7972222222222222,
+            "missed_alarm_rate": 0.0062499999999999995,
+            "average_alarm_delay": 0.0,
+            "f1": 0.5540606773939909
+          }
+        },
+        "automatic_router": {
+          "status_counts": {
+            "static": 2,
+            "adapt": 0,
+            "reject_univariate": 1
+          },
+          "scored_episodes": 2,
+          "denied_episodes": 1,
+          "scored_mean_metrics": {
+            "false_alarm_rate": 0.05260416666666667,
+            "missed_alarm_rate": 0.0,
+            "f1": 0.9500528851803973
+          }
         }
       },
       "pronto": {
@@ -5572,6 +6563,46 @@
             "average_alarm_delay": 2.6666666666666665,
             "f1": 0.6365237311112933
           }
+        },
+        "adapted_book_suite_metrics": {
+          "book_2_1_iid_delay_timer": {
+            "false_alarm_rate": 0.23884945367805477,
+            "missed_alarm_rate": 0.5895468559942244,
+            "average_alarm_delay": 125.66666666666667,
+            "f1": 0.4591094744497015
+          },
+          "book_2_2_non_iid_delay_timer": {
+            "false_alarm_rate": 0.3897747383810404,
+            "missed_alarm_rate": 0.25802360341834024,
+            "average_alarm_delay": 2.6666666666666665,
+            "f1": 0.6907478103490144
+          },
+          "book_2_3_non_iid_deadband": {
+            "false_alarm_rate": 0.1675347222222222,
+            "missed_alarm_rate": 0.6841216216216216,
+            "average_alarm_delay": 888.3333333333334,
+            "f1": 0.3206325014288436
+          },
+          "book_2_4_alarm_probability_plot": {
+            "false_alarm_rate": 0.5335164024828152,
+            "missed_alarm_rate": 0.06297643797643798,
+            "average_alarm_delay": 0.0,
+            "f1": 0.7280684817727275
+          }
+        },
+        "automatic_router": {
+          "status_counts": {
+            "static": 0,
+            "adapt": 3,
+            "reject_univariate": 0
+          },
+          "scored_episodes": 3,
+          "denied_episodes": 0,
+          "scored_mean_metrics": {
+            "false_alarm_rate": 0.29348324860711544,
+            "missed_alarm_rate": 0.3652979902979903,
+            "f1": 0.6551997662773273
+          }
         }
       },
       "skab": {
@@ -5625,6 +6656,46 @@
             "missed_alarm_rate": 0.012501018281020094,
             "average_alarm_delay": 3.0,
             "f1": 0.10658786769847689
+          }
+        },
+        "adapted_book_suite_metrics": {
+          "book_2_1_iid_delay_timer": {
+            "false_alarm_rate": 0.3538167127365511,
+            "missed_alarm_rate": 0.012501018281020094,
+            "average_alarm_delay": 3.0,
+            "f1": 0.2213886984493534
+          },
+          "book_2_2_non_iid_delay_timer": {
+            "false_alarm_rate": 0.3538167127365511,
+            "missed_alarm_rate": 0.012501018281020094,
+            "average_alarm_delay": 3.0,
+            "f1": 0.2213886984493534
+          },
+          "book_2_3_non_iid_deadband": {
+            "false_alarm_rate": 0.16755262598341483,
+            "missed_alarm_rate": 0.0,
+            "average_alarm_delay": 0.0,
+            "f1": 0.37854166615980406
+          },
+          "book_2_4_alarm_probability_plot": {
+            "false_alarm_rate": 0.8975122262385712,
+            "missed_alarm_rate": 0.0,
+            "average_alarm_delay": 0.0,
+            "f1": 0.10210517606886714
+          }
+        },
+        "automatic_router": {
+          "status_counts": {
+            "static": 0,
+            "adapt": 3,
+            "reject_univariate": 0
+          },
+          "scored_episodes": 3,
+          "denied_episodes": 0,
+          "scored_mean_metrics": {
+            "false_alarm_rate": 0.14458856049330215,
+            "missed_alarm_rate": 0.004167006093673365,
+            "f1": 0.4124163204572617
           }
         }
       }

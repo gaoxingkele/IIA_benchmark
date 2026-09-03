@@ -12,7 +12,21 @@ from typing import Literal, Sequence
 import numpy as np
 from scipy.stats import ks_2samp, rankdata
 
-from .univariate_book import AlarmOnOffDelay
+from ..evaluation.distribution_audit import (
+    ApplicabilityThresholds,
+    CalibrationApplicability,
+    assess_univariate_calibration,
+)
+from .univariate import ThresholdDelayDeadband
+from .univariate_book import (
+    AlarmOnOffDelay,
+    alarm_episode_metrics,
+    deadband_index,
+    design_deadband_width,
+    design_iid_delay_timer,
+    design_non_iid_delay_timer,
+    select_alarm_probability_threshold,
+)
 
 
 Tail = Literal["high", "low", "two_sided"]
@@ -404,6 +418,273 @@ class SafeRollingECDFAlarm:
         return AlarmOnOffDelay(
             1.0 - self.tail_probability, "high", self.delay
         ).predict(scores)
+
+
+class AdaptedBookUnivariateSuite:
+    """Run all four Chapter 2 mechanisms on an empirical-CDF alarm score."""
+
+    def __init__(
+        self,
+        *,
+        tail: Tail = "two_sided",
+        threshold_candidates: int = 13,
+        delays: Sequence[int] = (1, 2, 3, 4, 5),
+        targets: tuple[float, float, float] = (0.05, 0.05, 10.0),
+        weights: tuple[float, float, float] = (1.0, 1.0, 0.25),
+        posterior_confidence: float = 0.95,
+        app_probability_weight: float = 0.5,
+    ) -> None:
+        if threshold_candidates < 3:
+            raise ValueError("threshold_candidates must be at least three")
+        if not delays:
+            raise ValueError("delays must not be empty")
+        self.tail = tail
+        self.threshold_candidates = int(threshold_candidates)
+        self.delays = tuple(int(value) for value in delays)
+        self.targets = tuple(float(value) for value in targets)
+        self.weights = tuple(float(value) for value in weights)
+        self.posterior_confidence = float(posterior_confidence)
+        self.app_probability_weight = float(app_probability_weight)
+
+    def _score(self, values: Sequence[float] | np.ndarray) -> np.ndarray:
+        probabilities = self.normalizer_.transform(values)
+        if self.tail == "high":
+            return probabilities
+        if self.tail == "low":
+            return 1.0 - probabilities
+        if self.tail == "two_sided":
+            return 2.0 * np.abs(probabilities - 0.5)
+        raise ValueError("tail must be high, low, or two_sided")
+
+    def fit(
+        self,
+        normal: Sequence[float] | np.ndarray,
+        abnormal_calibration: Sequence[float] | np.ndarray,
+    ) -> "AdaptedBookUnivariateSuite":
+        normal_values = _one_dimensional(normal, "normal")
+        abnormal_values = _one_dimensional(
+            abnormal_calibration, "abnormal_calibration"
+        )
+        self.normalizer_ = EmpiricalCDFNormalizer().fit(normal_values)
+        normal_score = self._score(normal_values)
+        abnormal_score = self._score(abnormal_values)
+        thresholds = np.unique(
+            np.quantile(
+                np.r_[normal_score, abnormal_score],
+                np.linspace(0.15, 0.85, self.threshold_candidates),
+            )
+        )
+        if len(thresholds) < 2:
+            support = np.unique(np.r_[normal_score, abnormal_score])
+            if len(support) >= 2:
+                indices = np.unique(
+                    np.linspace(0, len(support) - 1, self.threshold_candidates).astype(int)
+                )
+                thresholds = support[indices]
+        if len(thresholds) < 2:
+            raise ValueError("adapted score has fewer than two observed support points")
+
+        iid = design_iid_delay_timer(
+            normal_score,
+            abnormal_score,
+            thresholds=thresholds,
+            delays=self.delays,
+            direction="high",
+            targets=self.targets,
+            weights=self.weights,
+        )
+        non_iid = design_non_iid_delay_timer(
+            normal_score,
+            abnormal_score,
+            thresholds=thresholds,
+            delays=self.delays,
+            direction="high",
+            target_far=self.targets[0],
+            target_mar=self.targets[1],
+            far_weight=self.weights[0] / max(self.weights[0] + self.weights[1], 1e-12),
+            confidence=self.posterior_confidence,
+        )
+        base_threshold = float(np.quantile(normal_score, 0.95))
+        episodes = alarm_episode_metrics(normal_score, base_threshold, "high")
+        if len(episodes.durations) >= 2:
+            deadband_shape = deadband_index(
+                normal_score, base_threshold, direction="high"
+            )
+            maximum_width = max(
+                float(np.max(episodes.deviations)), np.finfo(float).eps
+            )
+            deadband = design_deadband_width(
+                episodes.deviations,
+                maximum_width=maximum_width,
+                target_remaining_probability=self.targets[0],
+                confidence=self.posterior_confidence,
+            )
+            deadband_width = deadband.width
+            deadband_suitable = deadband_shape.suitable
+            deadband_status = "designed"
+        else:
+            deadband_width = 0.0
+            deadband_suitable = False
+            deadband_status = "denied_fewer_than_two_normal_alarm_episodes"
+        activation_threshold = base_threshold + deadband_width
+        combined = np.r_[normal_score, abnormal_score]
+        minimum_state_samples = max(20, len(combined) // 20)
+        app_thresholds = thresholds[
+            (thresholds > float(np.min(combined)))
+            & (thresholds < float(np.max(combined)))
+        ]
+        if not len(app_thresholds):
+            support = np.unique(combined)
+            app_thresholds = (support[:-1] + support[1:]) / 2.0
+        app = select_alarm_probability_threshold(
+            combined,
+            app_thresholds,
+            minimum_state_samples=minimum_state_samples,
+            probability_weight=self.app_probability_weight,
+        )
+        self.models_ = {
+            "book_2_1_iid_delay_timer": AlarmOnOffDelay(
+                iid.threshold, "high", iid.delay
+            ),
+            "book_2_2_non_iid_delay_timer": AlarmOnOffDelay(
+                non_iid.threshold, "high", non_iid.delay
+            ),
+            "book_2_3_non_iid_deadband": ThresholdDelayDeadband(
+                activation_threshold, "high", delay=1, deadband=deadband_width
+            ),
+            "book_2_4_alarm_probability_plot": ThresholdDelayDeadband(
+                app.threshold, "high"
+            ),
+        }
+        self.design_summary_ = {
+            "book_2_1_iid_delay_timer": {
+                "threshold": iid.threshold,
+                "delay": iid.delay,
+                "design_loss": iid.loss,
+            },
+            "book_2_2_non_iid_delay_timer": {
+                "threshold": non_iid.threshold,
+                "delay": non_iid.delay,
+                "design_loss": non_iid.loss,
+                "zero_event_fallback": non_iid.zero_event_fallback,
+            },
+            "book_2_3_non_iid_deadband": {
+                "base_threshold": base_threshold,
+                "activation_threshold": activation_threshold,
+                "width": deadband_width,
+                "suitable": deadband_suitable,
+                "status": deadband_status,
+            },
+            "book_2_4_alarm_probability_plot": {
+                "threshold": app.threshold,
+                "score": app.score,
+                "states": len(app.plot.transition_matrix),
+            },
+        }
+        return self
+
+    def predict(
+        self, values: Sequence[float] | np.ndarray
+    ) -> dict[str, np.ndarray]:
+        if not hasattr(self, "models_"):
+            raise RuntimeError("AdaptedBookUnivariateSuite is not fitted")
+        score = self._score(values)
+        return {name: model.predict(score) for name, model in self.models_.items()}
+
+
+@dataclass(frozen=True)
+class AdaptiveRouterDecision:
+    status: Literal["static", "adapt", "reject_univariate"]
+    feature_index: int
+    feature_name: str
+    direction: Literal["high", "low"]
+    selected_model: str | None
+    calibration_applicability: CalibrationApplicability
+    reason: str
+
+
+class AdaptiveUnivariateAlarmRouter:
+    """Select a leakage-safe adapter or explicitly deny univariate scoring."""
+
+    def __init__(
+        self,
+        *,
+        applicability_thresholds: ApplicabilityThresholds | None = None,
+        reference_windows: Sequence[int] = (128, 256, 512, 1024),
+        delays: Sequence[int] = (1, 2, 3, 4, 5),
+        block_size: int = 60,
+        tail_probability: float = 0.05,
+    ) -> None:
+        self.applicability_thresholds = (
+            applicability_thresholds or ApplicabilityThresholds()
+        )
+        self.reference_windows = tuple(int(value) for value in reference_windows)
+        self.delays = tuple(int(value) for value in delays)
+        self.block_size = int(block_size)
+        self.tail_probability = float(tail_probability)
+
+    def fit(
+        self,
+        normal: Sequence[Sequence[float]] | np.ndarray,
+        abnormal_calibration: Sequence[Sequence[float]] | np.ndarray,
+        *,
+        feature_names: Sequence[str] | None = None,
+    ) -> "AdaptiveUnivariateAlarmRouter":
+        normal_values = _matrix(normal, "normal")
+        abnormal_values = _matrix(abnormal_calibration, "abnormal_calibration")
+        selector = FeatureStabilitySelector(
+            chronological_blocks=self.applicability_thresholds.chronological_blocks
+        ).fit(normal_values, abnormal_values, feature_names=feature_names)
+        normal_feature = selector.transform(normal_values)
+        abnormal_feature = selector.transform(abnormal_values)
+        applicability = assess_univariate_calibration(
+            normal_feature,
+            abnormal_feature,
+            thresholds=self.applicability_thresholds,
+        )
+        selected_model: str | None = None
+        reason: str
+        self.model_ = None
+        if applicability.status == "reject_univariate":
+            reason = "calibration gate requires multivariate fallback"
+        elif applicability.status == "adapt":
+            self.model_ = BlockCalibratedECDFAlarm(
+                tail_probability=self.tail_probability,
+                tail=selector.direction_,
+                reference_windows=self.reference_windows,
+                delays=self.delays,
+                block_size=self.block_size,
+            ).fit(normal_feature)
+            selected_model = "block_calibrated_ecdf"
+            reason = "distribution or temporal adaptation required"
+        else:
+            self.model_ = EmpiricalCDFAlarm(
+                tail_probability=self.tail_probability,
+                tail=selector.direction_,
+                delay=1,
+            ).fit(normal_feature)
+            selected_model = "static_ecdf"
+            reason = "calibration distribution supports static transfer"
+        self.selector_ = selector
+        self.decision_ = AdaptiveRouterDecision(
+            status=applicability.status,
+            feature_index=selector.feature_index_,
+            feature_name=selector.feature_name_,
+            direction=selector.direction_,
+            selected_model=selected_model,
+            calibration_applicability=applicability,
+            reason=reason,
+        )
+        return self
+
+    def predict(
+        self, values: Sequence[Sequence[float]] | np.ndarray
+    ) -> np.ndarray:
+        if not hasattr(self, "decision_"):
+            raise RuntimeError("AdaptiveUnivariateAlarmRouter is not fitted")
+        if self.model_ is None:
+            raise RuntimeError("univariate prediction denied by calibration gate")
+        return self.model_.predict(self.selector_.transform(values))
 
 
 @dataclass(frozen=True)
