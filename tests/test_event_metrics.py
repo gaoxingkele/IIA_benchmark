@@ -3,6 +3,7 @@ import pytest
 
 from iia_benchmark.evaluation import (
     alarm_event_metrics,
+    block_event_rate_posterior,
     block_bootstrap_alarm_metrics,
 )
 
@@ -40,3 +41,13 @@ def test_event_uncertainty_validates_arguments() -> None:
         alarm_event_metrics([0, 1], [1, 1], sample_period_seconds=0.0)
     with pytest.raises(ValueError, match="draws"):
         block_bootstrap_alarm_metrics([0, 1], [1, 1], draws=10)
+
+
+def test_block_event_posterior_is_finite_for_zero_events() -> None:
+    posterior = block_event_rate_posterior(
+        np.zeros(120, dtype=int), block_size=30, confidence=0.90
+    )
+    assert posterior.events == 0
+    assert posterior.blocks == 4
+    assert posterior.posterior_mean == pytest.approx(1.0 / 6.0)
+    assert 0.0 < posterior.lower < posterior.upper < 1.0

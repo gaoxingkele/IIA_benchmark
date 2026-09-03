@@ -167,6 +167,96 @@ class EmpiricalCDFAlarm:
         return AlarmOnOffDelay(self.threshold_, "high", self.delay).predict(score)
 
 
+def delay_samples_from_seconds(
+    activation_duration_seconds: float, sample_period_seconds: float
+) -> int:
+    """Convert an engineering duration to a conservative integer sample delay."""
+
+    if activation_duration_seconds <= 0:
+        raise ValueError("activation_duration_seconds must be positive")
+    if sample_period_seconds <= 0:
+        raise ValueError("sample_period_seconds must be positive")
+    return max(1, int(np.ceil(activation_duration_seconds / sample_period_seconds)))
+
+
+class TimeBasedEmpiricalCDFAlarm(EmpiricalCDFAlarm):
+    """ECDF alarm whose activation delay is configured in physical time."""
+
+    def __init__(
+        self,
+        *,
+        activation_duration_seconds: float,
+        sample_period_seconds: float,
+        tail_probability: float = 0.05,
+        tail: Tail = "high",
+    ) -> None:
+        self.activation_duration_seconds = float(activation_duration_seconds)
+        self.sample_period_seconds = float(sample_period_seconds)
+        super().__init__(
+            tail_probability=tail_probability,
+            tail=tail,
+            delay=delay_samples_from_seconds(
+                self.activation_duration_seconds, self.sample_period_seconds
+            ),
+        )
+
+
+class PageHinkleyChangeAlarm:
+    """Two-sided Page-Hinkley/CUSUM change-event detector on a robust scale.
+
+    ``predict`` returns change events rather than a latched alarm state. The baseline
+    location and scale are learned only from the supplied normal reference.
+    """
+
+    def __init__(
+        self,
+        *,
+        tail: Tail = "two_sided",
+        delta: float = 0.05,
+        threshold: float = 8.0,
+        minimum_samples: int = 20,
+        reset_on_alarm: bool = True,
+    ) -> None:
+        if tail not in ("high", "low", "two_sided"):
+            raise ValueError("tail must be high, low, or two_sided")
+        if delta < 0:
+            raise ValueError("delta must be non-negative")
+        if threshold <= 0:
+            raise ValueError("threshold must be positive")
+        if minimum_samples < 1:
+            raise ValueError("minimum_samples must be positive")
+        self.tail = tail
+        self.delta = float(delta)
+        self.threshold = float(threshold)
+        self.minimum_samples = int(minimum_samples)
+        self.reset_on_alarm = bool(reset_on_alarm)
+
+    def fit(self, normal: Sequence[float] | np.ndarray) -> "PageHinkleyChangeAlarm":
+        samples = _one_dimensional(normal, "normal")
+        self.scaler_ = RobustMedianScaler().fit(samples)
+        self.baseline_mean_ = float(np.mean(self.scaler_.transform(samples)))
+        return self
+
+    def predict(self, values: Sequence[float] | np.ndarray) -> np.ndarray:
+        if not hasattr(self, "scaler_"):
+            raise RuntimeError("PageHinkleyChangeAlarm is not fitted")
+        samples = self.scaler_.transform(values) - self.baseline_mean_
+        alarms = np.zeros(len(samples), dtype=bool)
+        high_sum = 0.0
+        low_sum = 0.0
+        for index, sample in enumerate(samples):
+            high_sum = max(0.0, high_sum + float(sample) - self.delta)
+            low_sum = max(0.0, low_sum - float(sample) - self.delta)
+            high_alarm = self.tail in ("high", "two_sided") and high_sum > self.threshold
+            low_alarm = self.tail in ("low", "two_sided") and low_sum > self.threshold
+            if index + 1 >= self.minimum_samples and (high_alarm or low_alarm):
+                alarms[index] = True
+                if self.reset_on_alarm:
+                    high_sum = 0.0
+                    low_sum = 0.0
+        return alarms
+
+
 @dataclass(frozen=True)
 class BlockCalibrationCandidate:
     reference_window: int

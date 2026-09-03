@@ -8,9 +8,12 @@ from iia_benchmark.models import (
     EmpiricalCDFAlarm,
     EmpiricalCDFNormalizer,
     FeatureStabilitySelector,
+    PageHinkleyChangeAlarm,
     RobustMedianScaler,
     RegimeConditionalECDFAlarm,
     SafeRollingECDFAlarm,
+    TimeBasedEmpiricalCDFAlarm,
+    delay_samples_from_seconds,
 )
 
 
@@ -130,6 +133,32 @@ def test_safe_rolling_alarm_updates_central_values_and_freezes_extremes() -> Non
     assert model.last_update_count_ > 200
     assert model.last_frozen_count_ >= 30
     assert np.mean(prediction[-30:]) > 0.95
+
+
+def test_time_based_delay_uses_physical_duration_and_detects_shift() -> None:
+    rng = np.random.default_rng(72)
+    normal = rng.normal(0.0, 1.0, 1000)
+    assert delay_samples_from_seconds(10.1, 2.0) == 6
+    model = TimeBasedEmpiricalCDFAlarm(
+        activation_duration_seconds=10.1,
+        sample_period_seconds=2.0,
+        tail="high",
+    ).fit(normal)
+    prediction = model.predict(np.r_[np.zeros(10), np.full(10, 8.0)])
+    assert model.delay == 6
+    assert np.flatnonzero(prediction)[0] == 15
+
+
+def test_page_hinkley_detects_positive_and_negative_change_events() -> None:
+    rng = np.random.default_rng(74)
+    normal = rng.normal(0.0, 0.2, 1000)
+    model = PageHinkleyChangeAlarm(
+        tail="two_sided", threshold=10.0, minimum_samples=10
+    ).fit(normal)
+    values = np.r_[rng.normal(0.0, 0.2, 100), np.full(20, 2.0), np.full(20, -2.0)]
+    prediction = model.predict(values)
+    assert np.any(prediction[100:120])
+    assert np.any(prediction[120:])
 
 
 def test_adapted_book_suite_runs_all_four_chapter2_mechanisms() -> None:

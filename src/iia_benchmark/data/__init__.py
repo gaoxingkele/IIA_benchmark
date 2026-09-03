@@ -50,6 +50,10 @@ from .tep_alarm import (
     build_tep_five_class_split,
     load_tep_five_class_alarm_runs,
 )
+from .univariate_partition import (
+    UnivariateTransferBundle,
+    load_univariate_transfer_config,
+)
 
 __all__ = [
     "AlarmEvent",
@@ -96,4 +100,6 @@ __all__ = [
     "make_synthetic_causal_alarm_series",
     "make_synthetic_floods",
     "make_synthetic_multivariate_run",
+    "UnivariateTransferBundle",
+    "load_univariate_transfer_config",
 ]

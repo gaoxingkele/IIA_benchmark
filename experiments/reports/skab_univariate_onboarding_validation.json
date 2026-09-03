@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "config": "configs/experiments/skab_univariate_adapter_onboarding.json",
+  "config_sha256": "944863bf070306a24b322da61a2dc18a528fa0c2e1e07b1529d272440e54ed2f",
+  "git_revision": "4134e2c48141eca9159dcdc9d48e8bd5d4bd4f73",
+  "created_at_utc": "2026-09-03T06:21:02.653113+00:00",
+  "result": {
+    "dataset_id": "skab_accelerometer2rms_onboarding",
+    "feature_name": "Accelerometer2RMS",
+    "sample_period_seconds": 1.0,
+    "leaderboard_eligible": false,
+    "citation": {
+      "title": "SKAB: Skoltech Anomaly Benchmark",
+      "doi": "10.1007/s41060-022-00355-4",
+      "dataset_config": "configs/datasets/skab_public.json"
+    },
+    "partition_sources": {
+      "normal_train": {
+        "path": "D:/aicoding/IIA_benchmark/data/public_datasets/skab/data/anomaly-free/anomaly-free.csv",
+        "group_id": "skab_anomaly_free_early",
+        "filters": {},
+        "delimiter": ";",
+        "filtered_row_start": 0,
+        "filtered_row_stop": 4702,
+        "samples": 4702
+      },
+      "normal_evaluation": {
+        "path": "D:/aicoding/IIA_benchmark/data/public_datasets/skab/data/anomaly-free/anomaly-free.csv",
+        "group_id": "skab_anomaly_free_late",
+        "filters": {},
+        "delimiter": ";",
+        "filtered_row_start": 4702,
+        "filtered_row_stop": 9405,
+        "samples": 4703
+      },
+      "abnormal_calibration": {
+        "path": "D:/aicoding/IIA_benchmark/data/public_datasets/skab/data/valve1/0.csv",
+        "group_id": "skab_valve1_0_fault_calibration",
+        "filters": {
+          "anomaly": 1
+        },
+        "delimiter": ";",
+        "filtered_row_start": 0,
+        "filtered_row_stop": 160,
+        "samples": 160
+      },
+      "abnormal_evaluation": {
+        "path": "D:/aicoding/IIA_benchmark/data/public_datasets/skab/data/valve1/0.csv",
+        "group_id": "skab_valve1_0_fault_evaluation",
+        "filters": {
+          "anomaly": 1
+        },
+        "delimiter": ";",
+        "filtered_row_start": 160,
+        "filtered_row_stop": 401,
+        "samples": 241
+      }
+    },
+    "calibration_applicability": {
+      "status": "adapt",
+      "direction": "low",
+      "normal_internal_shift": {
+        "ks": 0.9366227137388347,
+        "wasserstein": 0.006671029349213098,
+        "wasserstein_over_reference_iqr": 2.648810541676853,
+        "standardized_median_shift": 3.3906483431570513
+      },
+      "normal_lag_one_autocorrelation": 0.8740080356202632,
+      "calibration_auc": 1.0,
+      "abnormal_block_auc": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "abnormal_direction_consistency": 1.0,
+      "recommended_adapters": [
+        "robust_ecdf",
+        "regime_conditional_threshold",
+        "block_calibration",
+        "event_level_metrics"
+      ],
+      "reasons": [
+        "internal_normal_distribution_shift",
+        "strong_temporal_dependence"
+      ],
+      "scope": "training_and_calibration_only"
+    },
+    "held_out_posthoc_audit": {
+      "direction": "low",
+      "samples": {
+        "normal_train": 4702,
+        "normal_evaluation": 4703,
+        "abnormal_calibration": 160,
+        "abnormal_evaluation": 241
+      },
+      "normal_train_to_evaluation": {
+        "ks": 0.47773555220054204,
+        "wasserstein": 0.0044292683527433424,
+        "wasserstein_over_reference_iqr": 0.6672845998634092,
+        "standardized_median_shift": 1.231254064235817
+      },
+      "abnormal_calibration_to_evaluation": {
+        "ks": 0.11159232365145233,
+        "wasserstein": 0.00015319035529045644,
+        "wasserstein_over_reference_iqr": 0.16046755909543534,
+        "standardized_median_shift": -0.2002529383020355
+      },
+      "calibration_separation_sd": 60.88707779088837,
+      "evaluation_separation_sd": 59.62023392331623,
+      "calibration_auc": 1.0,
+      "evaluation_auc": 1.0,
+      "alarm_direction_consistent": true,
+      "normal_train_temporal": {
+        "samples": 4702,
+        "lag_one_autocorrelation": 0.8740080356202632,
+        "skewness": 0.14061403192753089,
+        "excess_kurtosis": -1.1914620784455414
+      },
+      "normal_evaluation_temporal": {
+        "samples": 4703,
+        "lag_one_autocorrelation": 0.7659732968785374,
+        "skewness": 0.34897640529065277,
+        "excess_kurtosis": 2.4356538070185207
+      },
+      "evaluation_abnormal_prevalence": 0.04874595469255663,
+      "threshold_transfer": null,
+      "scope": "held_out_posthoc_diagnostic_not_for_routing"
+    },
+    "status": "scored",
+    "selected_model": "block_calibrated_ecdf",
+    "model_parameters": {
+      "reference_window": 1024,
+      "delay": 2
+    },
+    "empirical": {
+      "precision": 0.2608695652173913,
+      "recall": 0.995850622406639,
+      "f1": 0.4134366925064599,
+      "false_alarm_rate": 0.14458856049330215,
+      "missed_alarm_rate": 0.004149377593360996,
+      "average_alarm_delay": 1.0
+    },
+    "event_metrics": {
+      "false_alarm_events": 72,
+      "false_alarm_events_per_hour": 55.11375717627047,
+      "normal_alarm_mean_duration_samples": 9.444444444444445,
+      "normal_alarm_maximum_duration_samples": 214,
+      "abnormal_event_recall": 1.0,
+      "detection_delay_samples": 1,
+      "detection_delay_seconds": 1.0
+    },
+    "block_bootstrap": {
+      "block_size": 60,
+      "draws": 500,
+      "confidence": 0.95,
+      "seed": 1103,
+      "metrics": {
+        "false_alarm_rate": {
+          "point_estimate": 0.14458856049330215,
+          "bootstrap_mean": 0.14651456517116737,
+          "standard_error": 0.03029876586175353,
+          "lower": 0.09008079948968746,
+          "upper": 0.2096640442270891
+        },
+        "missed_alarm_rate": {
+          "point_estimate": 0.004149377593360996,
+          "bootstrap_mean": 0.0001244813278008299,
+          "standard_error": 0.000708539687225973,
+          "lower": 0.0,
+          "upper": 0.004149377593360996
+        },
+        "precision": {
+          "point_estimate": 0.2608695652173913,
+          "bootstrap_mean": 0.2653631956699917,
+          "standard_error": 0.04210823660061184,
+          "lower": 0.19640614455526567,
+          "upper": 0.36263693642350536
+        },
+        "recall": {
+          "point_estimate": 0.995850622406639,
+          "bootstrap_mean": 0.9998755186721991,
+          "standard_error": 0.0007085396872259702,
+          "lower": 0.995850622406639,
+          "upper": 1.0
+        },
+        "f1": {
+          "point_estimate": 0.4134366925064599,
+          "bootstrap_mean": 0.41770623143387764,
+          "standard_error": 0.05153869520510294,
+          "lower": 0.32832684384342997,
+          "upper": 0.5322461247558743
+        }
+      },
+      "resampling_policy": "moving blocks sampled separately within normal and abnormal partitions"
+    },
+    "block_event_rate_posterior": {
+      "normal_false_alarm_blocks": {
+        "events": 32,
+        "blocks": 79,
+        "block_size": 60,
+        "prior_alpha": 1.0,
+        "prior_beta": 1.0,
+        "posterior_mean": 0.4074074074074074,
+        "lower": 0.3035245929375941,
+        "upper": 0.5156230595045106,
+        "confidence": 0.95
+      },
+      "abnormal_detection_blocks": {
+        "events": 5,
+        "blocks": 5,
+        "block_size": 60,
+        "prior_alpha": 1.0,
+        "prior_beta": 1.0,
+        "posterior_mean": 0.8571428571428571,
+        "lower": 0.5407418735600996,
+        "upper": 0.9957892554855106,
+        "confidence": 0.95
+      }
+    },
+    "input_files": [
+      {
+        "path": "data/public_datasets/skab/data/anomaly-free/anomaly-free.csv",
+        "bytes": 814703,
+        "sha256": "7641a8742957100ef424dd97adfb3eeab27d4d180645fe2b3c49b7f7146ae9a6"
+      },
+      {
+        "path": "data/public_datasets/skab/data/valve1/0.csv",
+        "bytes": 110346,
+        "sha256": "16af3f71313a23dd33d9b7b8065d836d05c3f9257588881cc7fbe07c076d9dc8"
+      }
+    ]
+  },
+  "reporting_boundary": "This is a P1/M2 onboarding demonstration. The normal file and the valve1/0 fault run are chronologically subdivided, so it is not leaderboard-eligible and does not represent independent grouped generalization."
+}

@@ -1,0 +1,85 @@
+{
+  "id": "skab_accelerometer2rms_onboarding",
+  "task": "univariate_alarm_transfer",
+  "feature_name": "Accelerometer2RMS",
+  "sample_period_seconds": 1.0,
+  "leaderboard_eligible": false,
+  "seed": 1103,
+  "citation": {
+    "title": "SKAB: Skoltech Anomaly Benchmark",
+    "doi": "10.1007/s41060-022-00355-4",
+    "dataset_config": "configs/datasets/skab_public.json"
+  },
+  "partitions": {
+    "normal_train": {
+      "loader": "csv",
+      "delimiter": ";",
+      "path": "data/public_datasets/skab/data/anomaly-free/anomaly-free.csv",
+      "value_column": "Accelerometer2RMS",
+      "filters": {},
+      "row_start": 0,
+      "row_stop": 4702,
+      "group_id": "skab_anomaly_free_early"
+    },
+    "normal_evaluation": {
+      "loader": "csv",
+      "delimiter": ";",
+      "path": "data/public_datasets/skab/data/anomaly-free/anomaly-free.csv",
+      "value_column": "Accelerometer2RMS",
+      "filters": {},
+      "row_start": 4702,
+      "row_stop": 9405,
+      "group_id": "skab_anomaly_free_late"
+    },
+    "abnormal_calibration": {
+      "loader": "csv",
+      "delimiter": ";",
+      "path": "data/public_datasets/skab/data/valve1/0.csv",
+      "value_column": "Accelerometer2RMS",
+      "filters": {"anomaly": 1},
+      "row_start": 0,
+      "row_stop": 160,
+      "group_id": "skab_valve1_0_fault_calibration"
+    },
+    "abnormal_evaluation": {
+      "loader": "csv",
+      "delimiter": ";",
+      "path": "data/public_datasets/skab/data/valve1/0.csv",
+      "value_column": "Accelerometer2RMS",
+      "filters": {"anomaly": 1},
+      "row_start": 160,
+      "row_stop": 401,
+      "group_id": "skab_valve1_0_fault_evaluation"
+    }
+  },
+  "adaptation": {
+    "applicability_thresholds": {
+      "normal_ks_adaptation": 0.2,
+      "normal_median_shift_sd_adaptation": 0.5,
+      "autocorrelation_block_calibration": 0.8,
+      "minimum_block_auc": 0.6,
+      "minimum_direction_consistency": 0.6666666666666666,
+      "chronological_blocks": 3
+    },
+    "model": {
+      "tail_probability": 0.05,
+      "static_delay": 1,
+      "reference_windows": [128, 256, 512, 1024],
+      "delays": [1, 2, 3, 4, 5],
+      "validation_fraction": 0.3,
+      "block_size": 60,
+      "target_point_false_alarm_rate": 0.05,
+      "target_block_alarm_rate": 0.2,
+      "block_weight": 0.25
+    },
+    "uncertainty": {
+      "block_size": 60,
+      "draws": 500,
+      "confidence": 0.95,
+      "event_prior_alpha": 1.0,
+      "event_prior_beta": 1.0
+    }
+  },
+  "output": "experiments/reports/skab_univariate_onboarding_validation.json",
+  "reporting_boundary": "This is a P1/M2 onboarding demonstration. The normal file and the valve1/0 fault run are chronologically subdivided, so it is not leaderboard-eligible and does not represent independent grouped generalization."
+}

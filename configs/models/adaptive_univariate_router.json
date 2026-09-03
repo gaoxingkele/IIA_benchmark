@@ -9,6 +9,8 @@
     "block_calibrated_alarm": "iia_benchmark.models.BlockCalibratedECDFAlarm",
     "regime_conditional_alarm": "iia_benchmark.models.RegimeConditionalECDFAlarm",
     "safe_rolling_alarm": "iia_benchmark.models.SafeRollingECDFAlarm",
+    "change_event_alarm": "iia_benchmark.models.PageHinkleyChangeAlarm",
+    "physical_time_delay_alarm": "iia_benchmark.models.TimeBasedEmpiricalCDFAlarm",
     "adapted_book_suite": "iia_benchmark.models.AdaptedBookUnivariateSuite",
     "automatic_router": "iia_benchmark.models.AdaptiveUnivariateAlarmRouter",
     "applicability_gate": "iia_benchmark.evaluation.assess_univariate_calibration"
@@ -44,6 +46,11 @@
       "method": "dependent-data block calibration",
       "citation": "Kunsch, The Jackknife and the Bootstrap for General Stationary Observations, Annals of Statistics 1989",
       "doi": "10.1214/aos/1176347265"
+    },
+    {
+      "method": "sequential change-event detection",
+      "citation": "Page, Continuous Inspection Schemes, Biometrika 1954",
+      "doi": "10.1093/biomet/41.1-2.100"
     }
   ],
   "validation_evidence": "tests/test_adaptive_univariate.py; real-data ablation is registered in configs/experiments/univariate_adaptation_benchmark.json"

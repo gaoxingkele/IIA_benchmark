@@ -6,6 +6,7 @@ from dataclasses import asdict, dataclass
 from typing import Sequence
 
 import numpy as np
+from scipy.stats import beta as beta_distribution
 
 from .metrics import binary_alarm_metrics
 
@@ -67,6 +68,24 @@ class BlockBootstrapAlarmReport:
             "metrics": {name: value.as_dict() for name, value in self.metrics.items()},
             "resampling_policy": self.resampling_policy,
         }
+
+
+@dataclass(frozen=True)
+class BlockEventRatePosterior:
+    """Beta posterior for the probability that a time block contains an alarm."""
+
+    events: int
+    blocks: int
+    block_size: int
+    prior_alpha: float
+    prior_beta: float
+    posterior_mean: float
+    lower: float
+    upper: float
+    confidence: float
+
+    def as_dict(self) -> dict[str, object]:
+        return asdict(self)
 
 
 def alarm_event_metrics(
@@ -160,4 +179,42 @@ def block_bootstrap_alarm_metrics(
         confidence=float(confidence),
         seed=int(seed),
         metrics=intervals,
+    )
+
+
+def block_event_rate_posterior(
+    alarm: Sequence[int] | np.ndarray,
+    *,
+    block_size: int = 60,
+    confidence: float = 0.95,
+    prior_alpha: float = 1.0,
+    prior_beta: float = 1.0,
+) -> BlockEventRatePosterior:
+    """Estimate a block alarm-event probability, including the zero-event case."""
+
+    values = _binary(alarm, "alarm")
+    if block_size < 1:
+        raise ValueError("block_size must be positive")
+    if not 0.0 < confidence < 1.0:
+        raise ValueError("confidence must be between zero and one")
+    if prior_alpha <= 0 or prior_beta <= 0:
+        raise ValueError("prior_alpha and prior_beta must be positive")
+    blocks = tuple(
+        values[start : start + block_size]
+        for start in range(0, len(values), block_size)
+    )
+    events = int(sum(bool(np.any(block)) for block in blocks))
+    posterior_alpha = prior_alpha + events
+    posterior_beta = prior_beta + len(blocks) - events
+    tail = (1.0 - confidence) / 2.0
+    return BlockEventRatePosterior(
+        events=events,
+        blocks=len(blocks),
+        block_size=int(block_size),
+        prior_alpha=float(prior_alpha),
+        prior_beta=float(prior_beta),
+        posterior_mean=float(posterior_alpha / (posterior_alpha + posterior_beta)),
+        lower=float(beta_distribution.ppf(tail, posterior_alpha, posterior_beta)),
+        upper=float(beta_distribution.ppf(1.0 - tail, posterior_alpha, posterior_beta)),
+        confidence=float(confidence),
     )
