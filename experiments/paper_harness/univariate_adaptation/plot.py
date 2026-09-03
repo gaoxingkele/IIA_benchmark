@@ -59,6 +59,7 @@ def summary(runs: list[dict[str, object]]) -> dict[str, object]:
         book_ids = tuple(rows[0]["adapted_book_suite"])
         router_rows = [row["automatic_router"] for row in rows]
         router_scored = [row for row in router_rows if row["empirical"] is not None]
+        ablation_ids = tuple(rows[0]["ablation"])
         result[dataset] = {
             "records": len(rows),
             "features": sorted({row["feature"] for row in rows}),
@@ -162,6 +163,71 @@ def summary(runs: list[dict[str, object]]) -> dict[str, object]:
                     for metric in ("false_alarm_rate", "missed_alarm_rate", "f1")
                 },
             },
+            "ablation": {
+                variant: {
+                    "name": rows[0]["ablation"][variant]["name"],
+                    "scored_records": len(
+                        scored := [
+                            row["ablation"][variant]
+                            for row in rows
+                            if row["ablation"][variant]["status"] == "scored"
+                        ]
+                    ),
+                    "denied_records": len(rows) - len(scored),
+                    "metrics": {
+                        metric: {
+                            "mean": (
+                                float(np.mean([row["empirical"][metric] for row in scored]))
+                                if scored
+                                else None
+                            ),
+                            "standard_deviation_across_seed_episode_records": (
+                                float(np.std([row["empirical"][metric] for row in scored], ddof=1))
+                                if len(scored) > 1
+                                else 0.0
+                            ),
+                            "median_episode_block_bootstrap_lower": (
+                                float(
+                                    np.median(
+                                        [
+                                            row["block_bootstrap"]["metrics"][metric]["lower"]
+                                            for row in scored
+                                        ]
+                                    )
+                                )
+                                if scored
+                                else None
+                            ),
+                            "median_episode_block_bootstrap_upper": (
+                                float(
+                                    np.median(
+                                        [
+                                            row["block_bootstrap"]["metrics"][metric]["upper"]
+                                            for row in scored
+                                        ]
+                                    )
+                                )
+                                if scored
+                                else None
+                            ),
+                        }
+                        for metric in ("false_alarm_rate", "missed_alarm_rate", "f1")
+                    },
+                    "event_metrics": {
+                        metric: (
+                            float(np.mean([row["event_metrics"][metric] for row in scored]))
+                            if scored
+                            else None
+                        )
+                        for metric in (
+                            "false_alarm_events_per_hour",
+                            "abnormal_event_recall",
+                            "detection_delay_seconds",
+                        )
+                    },
+                }
+                for variant in ablation_ids
+            },
         }
     return result
 
@@ -216,6 +282,54 @@ def plot_portability(runs: list[dict[str, object]]) -> None:
     plt.close(figure)
 
 
+def plot_ablation(summary_values: dict[str, object]) -> None:
+    variants = tuple(summary_values["tep_classic"]["ablation"])
+    x = np.arange(len(variants))
+    figure, axis = plt.subplots(figsize=(9.2, 5.0))
+    for dataset in DATASETS:
+        f1 = [
+            summary_values[dataset]["ablation"][variant]["metrics"]["f1"]["mean"]
+            for variant in variants
+        ]
+        axis.plot(x, f1, marker="o", linewidth=2, label=LABELS[dataset], color=COLORS[dataset])
+    axis.set(
+        xticks=x,
+        xticklabels=variants,
+        ylabel="Mean held-out F1",
+        ylim=(0, 1.04),
+        title="Registered univariate adaptation ablation",
+    )
+    axis.legend(frameon=False)
+    axis.spines[["top", "right"]].set_visible(False)
+    figure.tight_layout()
+    figure.savefig(PROJECT / "Figure_3.png", dpi=180)
+    plt.close(figure)
+
+
+def plot_far_mar(summary_values: dict[str, object]) -> None:
+    variants = tuple(summary_values["tep_classic"]["ablation"])
+    figure, axes = plt.subplots(1, 3, figsize=(13.0, 4.2), sharex=True, sharey=True)
+    for axis, dataset in zip(axes, DATASETS, strict=True):
+        for variant in variants:
+            metrics = summary_values[dataset]["ablation"][variant]["metrics"]
+            far = metrics["false_alarm_rate"]["mean"]
+            mar = metrics["missed_alarm_rate"]["mean"]
+            if far is None or mar is None:
+                continue
+            axis.scatter(far, mar, s=55, color=COLORS[dataset])
+            axis.annotate(variant, (far, mar), xytext=(3, 3), textcoords="offset points", fontsize=8)
+        axis.axvline(0.15, color="#888888", linestyle="--", linewidth=1)
+        axis.axhline(0.20, color="#888888", linestyle="--", linewidth=1)
+        axis.set_title(LABELS[dataset])
+        axis.spines[["top", "right"]].set_visible(False)
+    axes[0].set_ylabel("Missed alarm rate")
+    axes[1].set_xlabel("False alarm rate")
+    figure.suptitle("FAR–MAR trade-off; denied B7 units are excluded from selective risk")
+    figure.tight_layout()
+    figure.savefig(PROJECT / "Figure_4.png", dpi=180)
+    plt.close(figure)
+
+
 def write_notes(report: dict[str, object]) -> None:
     rows = [
         "Univariate adaptation distribution audit",
@@ -248,6 +362,14 @@ def write_notes(report: dict[str, object]) -> None:
                 )
                 + ".",
                 f"Automatic router: {item['automatic_router']}.",
+                "Ablation mean F1: "
+                + ", ".join(
+                    f"{variant}={values['metrics']['f1']['mean']:.4f}"
+                    if values["metrics"]["f1"]["mean"] is not None
+                    else f"{variant}=denied"
+                    for variant, values in item["ablation"].items()
+                )
+                + ".",
                 "",
             ]
         )
@@ -375,6 +497,7 @@ def main() -> int:
             },
         },
         "routing_boundary": "Only calibration_applicability may route adapters. held_out_posthoc_audit is explanatory evidence and cannot tune the benchmark.",
+        "uncertainty_boundary": "Each episode uses a moving-block bootstrap separately within normal and abnormal held-out partitions. Across-seed/episode standard deviations are descriptive because three seeds repeat the same physical episodes.",
     }
     report_path = ROOT / "experiments/reports/univariate_distribution_audit_validation.json"
     report_path.write_text(
@@ -383,6 +506,8 @@ def main() -> int:
     )
     plot_shift(dataset_summary)
     plot_portability(runs)
+    plot_ablation(dataset_summary)
+    plot_far_mar(dataset_summary)
     write_notes(report)
     print(json.dumps(report["datasets"], ensure_ascii=False, indent=2, allow_nan=False))
     return 0

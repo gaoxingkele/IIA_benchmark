@@ -33,6 +33,37 @@
     "safe_rolling_reference_window": 256,
     "safe_rolling_update_guard_score": 0.8
   },
+  "dataset_timing": {
+    "tep_classic": {
+      "sample_period_seconds": 180,
+      "source": "configs/datasets/tep_classic_public.json"
+    },
+    "pronto": {
+      "sample_period_seconds": 1,
+      "source": "configs/datasets/pronto_public.json"
+    },
+    "skab": {
+      "sample_period_seconds": 1,
+      "source": "configs/systems/skab_water_loop.json",
+      "qualification": "approximately one second"
+    }
+  },
+  "uncertainty": {
+    "block_size": 60,
+    "draws": 200,
+    "confidence": 0.95,
+    "policy": "moving blocks sampled separately inside held-out normal and abnormal partitions"
+  },
+  "ablation_variants": {
+    "B0": "frozen_book_iid_baseline",
+    "B1": "ecdf_one_sided",
+    "B2": "ecdf_two_sided",
+    "B3": "stable_feature_ecdf",
+    "B4": "block_recent_one_sided",
+    "B5": "block_recent_two_sided",
+    "B6": "safe_rolling_two_sided",
+    "B7": "automatic_router_with_explicit_denial"
+  },
   "audit_metrics": [
     "ks",
     "wasserstein_over_reference_iqr",

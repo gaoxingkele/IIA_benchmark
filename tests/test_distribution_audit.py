@@ -142,3 +142,17 @@ def test_registered_real_data_audit_preserves_mechanism_findings() -> None:
         }
         assert datasets[dataset]["automatic_router"]["scored_episodes"] > 0
         assert datasets[dataset]["automatic_router"]["denied_episodes"] >= 0
+        ablation = datasets[dataset]["ablation"]
+        assert list(ablation) == [f"B{index}" for index in range(8)]
+        assert ablation["B0"]["scored_records"] == 9
+        assert (
+            0.0
+            <= ablation["B0"]["metrics"]["f1"][
+                "median_episode_block_bootstrap_lower"
+            ]
+            <= ablation["B0"]["metrics"]["f1"][
+                "median_episode_block_bootstrap_upper"
+            ]
+            <= 1.0
+        )
+    assert "moving-block bootstrap" in report["uncertainty_boundary"]

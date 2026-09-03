@@ -27,6 +27,13 @@ from .distribution_audit import (
     distribution_shift,
     temporal_profile,
 )
+from .event_metrics import (
+    AlarmEventMetrics,
+    BlockBootstrapAlarmReport,
+    BootstrapInterval,
+    alarm_event_metrics,
+    block_bootstrap_alarm_metrics,
+)
 
 __all__ = [
     "binary_alarm_metrics",
@@ -52,4 +59,9 @@ __all__ = [
     "audit_univariate_partitions",
     "distribution_shift",
     "temporal_profile",
+    "AlarmEventMetrics",
+    "BlockBootstrapAlarmReport",
+    "BootstrapInterval",
+    "alarm_event_metrics",
+    "block_bootstrap_alarm_metrics",
 ]

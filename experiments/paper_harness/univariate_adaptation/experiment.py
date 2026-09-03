@@ -26,6 +26,8 @@ from iia_benchmark.evaluation import (  # noqa: E402
     assess_univariate_calibration,
     audit_univariate_partitions,
     binary_alarm_metrics,
+    alarm_event_metrics,
+    block_bootstrap_alarm_metrics,
 )
 from iia_benchmark.models import (  # noqa: E402
     AdaptedBookUnivariateSuite,
@@ -34,6 +36,7 @@ from iia_benchmark.models import (  # noqa: E402
     EmpiricalCDFAlarm,
     FeatureStabilitySelector,
     SafeRollingECDFAlarm,
+    AlarmOnOffDelay,
 )
 
 
@@ -216,6 +219,58 @@ def alarm_metrics(
     return binary_alarm_metrics(truth, prediction)
 
 
+def prediction_evidence(
+    normal_alarm: np.ndarray,
+    abnormal_alarm: np.ndarray,
+    *,
+    sample_period_seconds: float,
+    uncertainty: dict[str, object],
+    seed: int,
+) -> dict[str, object]:
+    normal_prediction = np.asarray(normal_alarm, dtype=bool)
+    abnormal_prediction = np.asarray(abnormal_alarm, dtype=bool)
+    truth = np.r_[
+        np.zeros(len(normal_prediction), dtype=bool),
+        np.ones(len(abnormal_prediction), dtype=bool),
+    ]
+    return {
+        "empirical": binary_alarm_metrics(
+            truth, np.r_[normal_prediction, abnormal_prediction]
+        ),
+        "event_metrics": alarm_event_metrics(
+            normal_prediction,
+            abnormal_prediction,
+            sample_period_seconds=sample_period_seconds,
+        ).as_dict(),
+        "block_bootstrap": block_bootstrap_alarm_metrics(
+            normal_prediction,
+            abnormal_prediction,
+            block_size=int(uncertainty["block_size"]),
+            draws=int(uncertainty["draws"]),
+            confidence=float(uncertainty["confidence"]),
+            seed=seed,
+        ).as_dict(),
+    }
+
+
+def model_evidence(
+    model: object,
+    normal: np.ndarray,
+    abnormal: np.ndarray,
+    *,
+    sample_period_seconds: float,
+    uncertainty: dict[str, object],
+    seed: int,
+) -> dict[str, object]:
+    return prediction_evidence(
+        model.predict(normal),
+        model.predict(abnormal),
+        sample_period_seconds=sample_period_seconds,
+        uncertainty=uncertainty,
+        seed=seed,
+    )
+
+
 def block_alarm(
     config: dict[str, object], tail: str
 ) -> BlockCalibratedECDFAlarm:
@@ -260,7 +315,7 @@ def main() -> int:
     before = time.perf_counter()
     datasets, input_paths = chapter2.load_episodes(chapter2_config)
     results: dict[str, list[dict[str, object]]] = {}
-    for dataset, episodes in datasets.items():
+    for dataset_index, (dataset, episodes) in enumerate(datasets.items()):
         results[dataset] = []
         for episode_index, episode in enumerate(episodes):
             rng = np.random.default_rng(seed + 1009 * episode_index)
@@ -473,17 +528,134 @@ def main() -> int:
                 feature_names=tuple(episode["feature_names"]),
             )
             router_metrics = None
+            router_predictions = None
             if router.decision_.status != "reject_univariate":
+                router_predictions = (
+                    router.predict(np.asarray(episode["normal_evaluation"])),
+                    router.predict(np.asarray(episode["abnormal_evaluation"])),
+                )
                 router_metrics = binary_alarm_metrics(
                     np.r_[
-                        np.zeros(len(episode["normal_evaluation"]), dtype=bool),
-                        np.ones(len(episode["abnormal_evaluation"]), dtype=bool),
+                        np.zeros(len(router_predictions[0]), dtype=bool),
+                        np.ones(len(router_predictions[1]), dtype=bool),
                     ],
-                    np.r_[
-                        router.predict(np.asarray(episode["normal_evaluation"])),
-                        router.predict(np.asarray(episode["abnormal_evaluation"])),
-                    ],
+                    np.r_[router_predictions[0], router_predictions[1]],
                 )
+            sample_period_seconds = float(
+                config["dataset_timing"][dataset]["sample_period_seconds"]
+            )
+            uncertainty = config["uncertainty"]
+            base_seed = seed + 1009 * episode_index + 100003 * dataset_index
+            baseline_model = AlarmOnOffDelay(threshold, direction, delay)
+            ablation = {
+                "B0": {
+                    "name": config["ablation_variants"]["B0"],
+                    "status": "scored",
+                    **model_evidence(
+                        baseline_model,
+                        normal_evaluation,
+                        abnormal_evaluation,
+                        sample_period_seconds=sample_period_seconds,
+                        uncertainty=uncertainty,
+                        seed=base_seed,
+                    ),
+                },
+                "B1": {
+                    "name": config["ablation_variants"]["B1"],
+                    "status": "scored",
+                    **model_evidence(
+                        one_sided,
+                        normal_evaluation,
+                        abnormal_evaluation,
+                        sample_period_seconds=sample_period_seconds,
+                        uncertainty=uncertainty,
+                        seed=base_seed + 1,
+                    ),
+                },
+                "B2": {
+                    "name": config["ablation_variants"]["B2"],
+                    "status": "scored",
+                    **model_evidence(
+                        two_sided,
+                        normal_evaluation,
+                        abnormal_evaluation,
+                        sample_period_seconds=sample_period_seconds,
+                        uncertainty=uncertainty,
+                        seed=base_seed + 2,
+                    ),
+                },
+                "B3": {
+                    "name": config["ablation_variants"]["B3"],
+                    "status": "scored",
+                    **model_evidence(
+                        stable_ecdf,
+                        stable_normal_evaluation,
+                        stable_abnormal_evaluation,
+                        sample_period_seconds=sample_period_seconds,
+                        uncertainty=uncertainty,
+                        seed=base_seed + 3,
+                    ),
+                },
+                "B4": {
+                    "name": config["ablation_variants"]["B4"],
+                    "status": "scored",
+                    **model_evidence(
+                        block_one_sided,
+                        normal_evaluation,
+                        abnormal_evaluation,
+                        sample_period_seconds=sample_period_seconds,
+                        uncertainty=uncertainty,
+                        seed=base_seed + 4,
+                    ),
+                },
+                "B5": {
+                    "name": config["ablation_variants"]["B5"],
+                    "status": "scored",
+                    **model_evidence(
+                        block_two_sided,
+                        normal_evaluation,
+                        abnormal_evaluation,
+                        sample_period_seconds=sample_period_seconds,
+                        uncertainty=uncertainty,
+                        seed=base_seed + 5,
+                    ),
+                },
+                "B6": {
+                    "name": config["ablation_variants"]["B6"],
+                    "status": "scored",
+                    **model_evidence(
+                        safe_rolling,
+                        normal_evaluation,
+                        abnormal_evaluation,
+                        sample_period_seconds=sample_period_seconds,
+                        uncertainty=uncertainty,
+                        seed=base_seed + 6,
+                    ),
+                },
+                "B7": {
+                    "name": config["ablation_variants"]["B7"],
+                    "status": (
+                        "denied_univariate"
+                        if router_predictions is None
+                        else "scored"
+                    ),
+                    **(
+                        {
+                            "empirical": None,
+                            "event_metrics": None,
+                            "block_bootstrap": None,
+                        }
+                        if router_predictions is None
+                        else prediction_evidence(
+                            router_predictions[0],
+                            router_predictions[1],
+                            sample_period_seconds=sample_period_seconds,
+                            uncertainty=uncertainty,
+                            seed=base_seed + 7,
+                        )
+                    ),
+                },
+            }
             results[dataset].append(
                 {
                     "dataset": dataset,
@@ -507,6 +679,7 @@ def main() -> int:
                         ),
                         "empirical": router_metrics,
                     },
+                    "ablation": ablation,
                     "frozen_iid_baseline": {
                         "threshold": threshold,
                         "delay": delay,
