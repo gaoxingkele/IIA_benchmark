@@ -6,6 +6,9 @@
     "empirical_cdf": "iia_benchmark.models.EmpiricalCDFNormalizer",
     "distribution_free_alarm": "iia_benchmark.models.EmpiricalCDFAlarm",
     "stable_feature_selector": "iia_benchmark.models.FeatureStabilitySelector",
+    "block_calibrated_alarm": "iia_benchmark.models.BlockCalibratedECDFAlarm",
+    "regime_conditional_alarm": "iia_benchmark.models.RegimeConditionalECDFAlarm",
+    "safe_rolling_alarm": "iia_benchmark.models.SafeRollingECDFAlarm",
     "applicability_gate": "iia_benchmark.evaluation.assess_univariate_calibration"
   },
   "parameters": {
@@ -34,6 +37,11 @@
       "method": "covariate-shift-aware model assessment",
       "citation": "Sugiyama et al., Direct importance estimation with model selection and its application to covariate shift adaptation, Annals of the Institute of Statistical Mathematics 2008",
       "doi": "10.1007/s10463-008-0197-x"
+    },
+    {
+      "method": "dependent-data block calibration",
+      "citation": "Kunsch, The Jackknife and the Bootstrap for General Stationary Observations, Annals of Statistics 1989",
+      "doi": "10.1214/aos/1176347265"
     }
   ],
   "validation_evidence": "tests/test_adaptive_univariate.py; real-data ablation is registered in configs/experiments/univariate_adaptation_benchmark.json"

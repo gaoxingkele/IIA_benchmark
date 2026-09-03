@@ -113,11 +113,20 @@ def test_registered_real_data_audit_preserves_mechanism_findings() -> None:
         > 0.50
     )
     assert "Only calibration_applicability" in report["routing_boundary"]
+    assert report["stage_acceptance"]["tep_performance_retention"]["passed"]
+    assert report["stage_acceptance"]["skab_false_alarm_reduction"]["passed"]
+    assert not report["stage_acceptance"][
+        "pronto_missed_alarm_reduction_with_far_constraint"
+    ]["passed"]
+    assert not report["stage_acceptance"]["safe_rolling_promoted"]["passed"]
     for dataset in ("tep_classic", "pronto", "skab"):
         adapters = datasets[dataset]["initial_adapter_metrics"]
         assert set(adapters) == {
             "ecdf_one_sided",
             "ecdf_two_sided",
             "stable_feature_ecdf",
+            "block_recent_one_sided",
+            "block_recent_two_sided",
+            "safe_rolling_two_sided",
         }
         assert all(0.0 <= row["f1"]["mean"] <= 1.0 for row in adapters.values())

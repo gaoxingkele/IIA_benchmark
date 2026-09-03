@@ -2,33 +2,33 @@
   "schema_version": 1,
   "run_name": "run_3",
   "config": "configs/experiments/univariate_adaptation_benchmark.json",
-  "config_sha256": "43ae521c05eb362b21816b0b4b19918a01e65ffaf4ac34ccf30b107eaa57cee1",
-  "git_revision": "8d07a14195db48e3bf2ce6847f25bfb4f25d31c5",
+  "config_sha256": "e670935cc3e28b30ded3e099a59d893b07cd117c9347163960f6addb4d1d3e7d",
+  "git_revision": "76c75558cbc0e7955563e950b279a4be4bac1f29",
   "execution_provenance": {
     "git_worktree_dirty": true,
     "git_status_porcelain": [
+      " M configs/experiments/univariate_adaptation_benchmark.json",
+      " M configs/models/adaptive_univariate_router.json",
       " M experiments/paper_harness/univariate_adaptation/experiment.py",
-      " M experiments/paper_harness/univariate_adaptation/plot.py",
       " M experiments/paper_harness/univariate_adaptation/run_1/final_info.json",
       " M experiments/paper_harness/univariate_adaptation/run_2/final_info.json",
       " M src/iia_benchmark/models/__init__.py",
-      " M tests/test_distribution_audit.py",
-      "?? configs/models/adaptive_univariate_router.json",
-      "?? src/iia_benchmark/models/adaptive_univariate.py",
-      "?? tests/test_adaptive_univariate.py"
+      " M src/iia_benchmark/models/adaptive_univariate.py",
+      " M tests/test_adaptive_univariate.py",
+      " M tests/test_distribution_audit.py"
     ],
     "source_sha256": {
-      "configs/experiments/univariate_adaptation_benchmark.json": "43ae521c05eb362b21816b0b4b19918a01e65ffaf4ac34ccf30b107eaa57cee1",
+      "configs/experiments/univariate_adaptation_benchmark.json": "e670935cc3e28b30ded3e099a59d893b07cd117c9347163960f6addb4d1d3e7d",
       "configs/experiments/book_chapter2_multidataset.json": "5a19fa0bba7c6f109b598a965ca35afff0c8c50fe6886cf9de80c641ce6c19bf",
       "experiments/paper_harness/chapter2_multidataset/experiment.py": "713682f35f1be97d73eef67bfe8b45b7f03a493eba1a4bf333a0b91ff951b835",
       "src/iia_benchmark/evaluation/distribution_audit.py": "fb21d0cec50c32fd003f104d783f9404859626d8d91907e7ccc9d27227df9c13",
-      "experiments/paper_harness/univariate_adaptation/experiment.py": "9adf7b2da7370b717ddb9ac2691a12ac1a94ec5f5036c3267cd3a39cd9e4d0a8",
+      "experiments/paper_harness/univariate_adaptation/experiment.py": "30b03059e6d2939fd3985ecc9be8a61971bba6fce8ca88278836d068550e41ca",
       "experiments/paper_harness/chapter2_multidataset/run_3/final_info.json": "c2ea9a4513ea2f93338f39240a6edded545263481cc303fa8ed899c60c829b7e"
     }
   },
-  "started_at_utc": "2026-09-03T05:57:51.490973+00:00",
-  "finished_at_utc": "2026-09-03T05:57:52.478496+00:00",
-  "wall_clock_seconds": 0.987503000011202,
+  "started_at_utc": "2026-09-03T06:01:32.121320+00:00",
+  "finished_at_utc": "2026-09-03T06:01:33.878123+00:00",
+  "wall_clock_seconds": 1.7570957000134513,
   "result": {
     "seed": 3301,
     "datasets": {
@@ -770,6 +770,131 @@
                 "false_alarm_rate": 0.05625,
                 "missed_alarm_rate": 0.0020833333333333333,
                 "average_alarm_delay": 1.0
+              }
+            },
+            "block_recent_one_sided": {
+              "feature": "XMEAS_01",
+              "direction": "high",
+              "parameters": {
+                "reference_window": 128,
+                "delay": 3,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.05333333333333334,
+                    "block_alarm_rate": 0.6666666666666666,
+                    "loss": 0.6499999999999999
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.05333333333333334,
+                    "block_alarm_rate": 0.6666666666666666,
+                    "loss": 0.6499999999999999
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.02666666666666667,
+                    "block_alarm_rate": 0.3333333333333333,
+                    "loss": 0.6333333333333333
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.02666666666666667,
+                    "block_alarm_rate": 0.3333333333333333,
+                    "loss": 0.6333333333333333
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.03333333333333333,
+                    "block_alarm_rate": 0.6666666666666666,
+                    "loss": 0.9166666666666666
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.02666666666666667,
+                    "block_alarm_rate": 0.6666666666666666,
+                    "loss": 1.0499999999999998
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.9070208728652751,
+                "recall": 0.9958333333333333,
+                "f1": 0.9493545183714002,
+                "false_alarm_rate": 0.051041666666666666,
+                "missed_alarm_rate": 0.004166666666666667,
+                "average_alarm_delay": 2.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "XMEAS_01",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 1
+              },
+              "empirical": {
+                "precision": 0.8495575221238938,
+                "recall": 1.0,
+                "f1": 0.9186602870813397,
+                "false_alarm_rate": 0.08854166666666667,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "XMEAS_01",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 2,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.5688836104513064,
+                "recall": 0.9979166666666667,
+                "f1": 0.7246596066565809,
+                "false_alarm_rate": 0.378125,
+                "missed_alarm_rate": 0.0020833333333333333,
+                "average_alarm_delay": 1.0
+              },
+              "evaluation_update_audit": {
+                "updates": 0,
+                "frozen": 480
               }
             }
           },
@@ -1523,6 +1648,131 @@
                 "false_alarm_rate": 0.0,
                 "missed_alarm_rate": 0.0020833333333333333,
                 "average_alarm_delay": 1.0
+              }
+            },
+            "block_recent_one_sided": {
+              "feature": "XMV_10",
+              "direction": "high",
+              "parameters": {
+                "reference_window": 128,
+                "delay": 1,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.013333333333333334,
+                    "block_alarm_rate": 0.3333333333333333,
+                    "loss": 0.8999999999999999
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.04,
+                    "block_alarm_rate": 1.0,
+                    "loss": 1.2
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.9213051823416507,
+                "recall": 1.0,
+                "f1": 0.9590409590409591,
+                "false_alarm_rate": 0.042708333333333334,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "XMV_10",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 1
+              },
+              "empirical": {
+                "precision": 0.9108159392789373,
+                "recall": 1.0,
+                "f1": 0.9533267130089375,
+                "false_alarm_rate": 0.04895833333333333,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "XMV_10",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 2,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.6344370860927152,
+                "recall": 0.9979166666666667,
+                "f1": 0.7757085020242915,
+                "false_alarm_rate": 0.2875,
+                "missed_alarm_rate": 0.0020833333333333333,
+                "average_alarm_delay": 1.0
+              },
+              "evaluation_update_audit": {
+                "updates": 0,
+                "frozen": 480
               }
             }
           },
@@ -2283,6 +2533,131 @@
                 "missed_alarm_rate": 0.9833333333333333,
                 "average_alarm_delay": 68.0
               }
+            },
+            "block_recent_one_sided": {
+              "feature": "XMV_10",
+              "direction": "high",
+              "parameters": {
+                "reference_window": 128,
+                "delay": 1,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.013333333333333334,
+                    "block_alarm_rate": 0.3333333333333333,
+                    "loss": 0.8999999999999999
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.04,
+                    "block_alarm_rate": 1.0,
+                    "loss": 1.2
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.8247863247863247,
+                "recall": 0.40208333333333335,
+                "f1": 0.5406162464985994,
+                "false_alarm_rate": 0.042708333333333334,
+                "missed_alarm_rate": 0.5979166666666667,
+                "average_alarm_delay": 4.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "XMV_10",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 1
+              },
+              "empirical": {
+                "precision": 0.8861985472154964,
+                "recall": 0.7625,
+                "f1": 0.8197088465845465,
+                "false_alarm_rate": 0.04895833333333333,
+                "missed_alarm_rate": 0.2375,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "XMV_10",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 5,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.7605118829981719,
+                "recall": 0.8666666666666667,
+                "f1": 0.810126582278481,
+                "false_alarm_rate": 0.13645833333333332,
+                "missed_alarm_rate": 0.13333333333333333,
+                "average_alarm_delay": 8.0
+              },
+              "evaluation_update_audit": {
+                "updates": 80,
+                "frozen": 400
+              }
             }
           },
           "frozen_iid_baseline": {
@@ -2626,6 +3001,96 @@
                 "missed_alarm_rate": 0.8795045045045045,
                 "average_alarm_delay": 2.0
               }
+            },
+            "block_recent_one_sided": {
+              "feature": "Water.Density",
+              "direction": "high",
+              "parameters": {
+                "reference_window": 128,
+                "delay": 1,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.7781851512373968,
+                "recall": 0.15934684684684686,
+                "f1": 0.26452718491976945,
+                "false_alarm_rate": 1.0,
+                "missed_alarm_rate": 0.8406531531531531,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "Water.Density",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 128,
+                "delay": 1
+              },
+              "empirical": {
+                "precision": 0.9563806777217015,
+                "recall": 0.9958708708708709,
+                "f1": 0.9757263699889666,
+                "false_alarm_rate": 1.0,
+                "missed_alarm_rate": 0.004129129129129129,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "Water.Density",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 3,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.9765821559899361,
+                "recall": 0.9470720720720721,
+                "f1": 0.9616007622677465,
+                "false_alarm_rate": 0.5,
+                "missed_alarm_rate": 0.05292792792792793,
+                "average_alarm_delay": 2.0
+              },
+              "evaluation_update_audit": {
+                "updates": 276,
+                "frozen": 5052
+              }
             }
           },
           "frozen_iid_baseline": {
@@ -2967,6 +3432,201 @@
                 "missed_alarm_rate": 0.97165991902834,
                 "average_alarm_delay": 118.0
               }
+            },
+            "block_recent_one_sided": {
+              "feature": "Water.T",
+              "direction": "low",
+              "parameters": {
+                "reference_window": 1024,
+                "delay": 1,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.44290123456790126,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.517115600448935
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.4398148148148148,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.455387205387206
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.4398148148148148,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.455387205387206
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.4398148148148148,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.455387205387206
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.43364197530864196,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.331930415263749
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.44290123456790126,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.517115600448935
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.4398148148148148,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.455387205387206
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.4398148148148148,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.455387205387206
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.4398148148148148,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.455387205387206
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.43364197530864196,
+                    "block_alarm_rate": 0.7272727272727273,
+                    "loss": 8.331930415263749
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.14969135802469136,
+                    "block_alarm_rate": 0.2727272727272727,
+                    "loss": 2.084736251402918
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.14969135802469136,
+                    "block_alarm_rate": 0.2727272727272727,
+                    "loss": 2.084736251402918
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.14969135802469136,
+                    "block_alarm_rate": 0.2727272727272727,
+                    "loss": 2.084736251402918
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.14969135802469136,
+                    "block_alarm_rate": 0.2727272727272727,
+                    "loss": 2.084736251402918
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.14969135802469136,
+                    "block_alarm_rate": 0.2727272727272727,
+                    "loss": 2.084736251402918
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.8159509202453987,
+                "recall": 1.0,
+                "f1": 0.8986486486486486,
+                "false_alarm_rate": 0.203125,
+                "missed_alarm_rate": 0.0,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "Water.T",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 1024,
+                "delay": 5
+              },
+              "empirical": {
+                "precision": 0.8156028368794326,
+                "recall": 0.9976865240023135,
+                "f1": 0.8975026014568159,
+                "false_alarm_rate": 0.203125,
+                "missed_alarm_rate": 0.002313475997686524,
+                "average_alarm_delay": 4.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "Water.T",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 5,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.5708140304434149,
+                "recall": 0.9976865240023135,
+                "f1": 0.7261629130709324,
+                "false_alarm_rate": 0.6755208333333333,
+                "missed_alarm_rate": 0.002313475997686524,
+                "average_alarm_delay": 4.0
+              },
+              "evaluation_update_audit": {
+                "updates": 0,
+                "frozen": 1729
+              }
             }
           },
           "frozen_iid_baseline": {
@@ -3305,6 +3965,201 @@
                 "missed_alarm_rate": 0.8963675213675214,
                 "average_alarm_delay": 2.0
               }
+            },
+            "block_recent_one_sided": {
+              "feature": "Water.level",
+              "direction": "low",
+              "parameters": {
+                "reference_window": 128,
+                "delay": 1,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.012633624878522837,
+                    "block_alarm_rate": 0.16666666666666666,
+                    "loss": 0.7889941690962101
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0058309037900874635,
+                    "block_alarm_rate": 0.1111111111111111,
+                    "loss": 0.9944930353093618
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0029154518950437317,
+                    "block_alarm_rate": 0.1111111111111111,
+                    "loss": 1.0528020732102366
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.0,
+                    "block_alarm_rate": 0.0,
+                    "loss": 1.25
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.35159235668789807,
+                "recall": 0.2948717948717949,
+                "f1": 0.3207437536316095,
+                "false_alarm_rate": 0.1566635887965528,
+                "missed_alarm_rate": 0.7051282051282052,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "Water.level",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 128,
+                "delay": 1
+              },
+              "empirical": {
+                "precision": 0.32362459546925565,
+                "recall": 0.42735042735042733,
+                "f1": 0.3683241252302026,
+                "false_alarm_rate": 0.2573099415204678,
+                "missed_alarm_rate": 0.5726495726495726,
+                "average_alarm_delay": 0.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "Water.level",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 3,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.1477797513321492,
+                "recall": 0.4444444444444444,
+                "f1": 0.22180751799520126,
+                "false_alarm_rate": 0.7383810403200985,
+                "missed_alarm_rate": 0.5555555555555556,
+                "average_alarm_delay": 2.0
+              },
+              "evaluation_update_audit": {
+                "updates": 235,
+                "frozen": 701
+              }
             }
           },
           "frozen_iid_baseline": {
@@ -3540,6 +4395,201 @@
                 "missed_alarm_rate": 0.012448132780082987,
                 "average_alarm_delay": 3.0
               }
+            },
+            "block_recent_one_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "parameters": {
+                "reference_window": 1024,
+                "delay": 2,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0815024805102764,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 1.5779662768721947
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.009922041105598866,
+                    "block_alarm_rate": 0.16666666666666666,
+                    "loss": 0.8432258445546894
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0815024805102764,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 1.5779662768721947
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.009922041105598866,
+                    "block_alarm_rate": 0.16666666666666666,
+                    "loss": 0.8432258445546894
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.10701630049610206,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 2.0882426765887074
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.020552799433026223,
+                    "block_alarm_rate": 0.20833333333333334,
+                    "loss": 0.5993606780061422
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.14953933380581147,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 2.9387033427828957
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.03330970942593905,
+                    "block_alarm_rate": 0.25,
+                    "loss": 0.3963058114812191
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.01913536498936924,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.7631260335459485
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.022678951098511695,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.6922543113630995
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.03543586109142452,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.437116111504843
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.2608695652173913,
+                "recall": 0.995850622406639,
+                "f1": 0.4134366925064599,
+                "false_alarm_rate": 0.14458856049330215,
+                "missed_alarm_rate": 0.004149377593360996,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 512,
+                "delay": 2
+              },
+              "empirical": {
+                "precision": 0.15122873345935728,
+                "recall": 0.995850622406639,
+                "f1": 0.26258205689277897,
+                "false_alarm_rate": 0.28641292791835,
+                "missed_alarm_rate": 0.004149377593360996,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 4,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.05655893536121673,
+                "recall": 0.9875518672199171,
+                "f1": 0.1069903349067206,
+                "false_alarm_rate": 0.8441420369976611,
+                "missed_alarm_rate": 0.012448132780082987,
+                "average_alarm_delay": 3.0
+              },
+              "evaluation_update_audit": {
+                "updates": 0,
+                "frozen": 241
+              }
             }
           },
           "frozen_iid_baseline": {
@@ -3772,6 +4822,201 @@
                 "false_alarm_rate": 0.3159685307250691,
                 "missed_alarm_rate": 0.012396694214876033,
                 "average_alarm_delay": 3.0
+              }
+            },
+            "block_recent_one_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "parameters": {
+                "reference_window": 1024,
+                "delay": 2,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0815024805102764,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 1.5779662768721947
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.009922041105598866,
+                    "block_alarm_rate": 0.16666666666666666,
+                    "loss": 0.8432258445546894
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0815024805102764,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 1.5779662768721947
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.009922041105598866,
+                    "block_alarm_rate": 0.16666666666666666,
+                    "loss": 0.8432258445546894
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.10701630049610206,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 2.0882426765887074
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.020552799433026223,
+                    "block_alarm_rate": 0.20833333333333334,
+                    "loss": 0.5993606780061422
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.14953933380581147,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 2.9387033427828957
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.03330970942593905,
+                    "block_alarm_rate": 0.25,
+                    "loss": 0.3963058114812191
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.01913536498936924,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.7631260335459485
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.022678951098511695,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.6922543113630995
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.03543586109142452,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.437116111504843
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.26167209554831705,
+                "recall": 0.9958677685950413,
+                "f1": 0.41444539982803097,
+                "false_alarm_rate": 0.14458856049330215,
+                "missed_alarm_rate": 0.004132231404958678,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 512,
+                "delay": 2
+              },
+              "empirical": {
+                "precision": 0.1517632241813602,
+                "recall": 0.9958677685950413,
+                "f1": 0.26338797814207654,
+                "false_alarm_rate": 0.28641292791835,
+                "missed_alarm_rate": 0.004132231404958678,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 4,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.056783083867902116,
+                "recall": 0.987603305785124,
+                "f1": 0.10739159739384409,
+                "false_alarm_rate": 0.8441420369976611,
+                "missed_alarm_rate": 0.012396694214876033,
+                "average_alarm_delay": 3.0
+              },
+              "evaluation_update_audit": {
+                "updates": 0,
+                "frozen": 242
               }
             }
           },
@@ -4006,6 +5251,201 @@
                 "missed_alarm_rate": 0.012658227848101266,
                 "average_alarm_delay": 3.0
               }
+            },
+            "block_recent_one_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "parameters": {
+                "reference_window": 1024,
+                "delay": 2,
+                "calibration_candidates": [
+                  {
+                    "reference_window": 128,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0815024805102764,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 1.5779662768721947
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.009922041105598866,
+                    "block_alarm_rate": 0.16666666666666666,
+                    "loss": 0.8432258445546894
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 128,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.0815024805102764,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 1.5779662768721947
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.009922041105598866,
+                    "block_alarm_rate": 0.16666666666666666,
+                    "loss": 0.8432258445546894
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 256,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.005669737774627924,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0845219111741082
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.10701630049610206,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 2.0882426765887074
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.020552799433026223,
+                    "block_alarm_rate": 0.20833333333333334,
+                    "loss": 0.5993606780061422
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 512,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.007795889440113395,
+                    "block_alarm_rate": 0.041666666666666664,
+                    "loss": 1.0419988778643987
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 1,
+                    "point_false_alarm_rate": 0.14953933380581147,
+                    "block_alarm_rate": 0.9583333333333334,
+                    "loss": 2.9387033427828957
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 2,
+                    "point_false_alarm_rate": 0.03330970942593905,
+                    "block_alarm_rate": 0.25,
+                    "loss": 0.3963058114812191
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 3,
+                    "point_false_alarm_rate": 0.01913536498936924,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.7631260335459485
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 4,
+                    "point_false_alarm_rate": 0.022678951098511695,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.6922543113630995
+                  },
+                  {
+                    "reference_window": 1024,
+                    "delay": 5,
+                    "point_false_alarm_rate": 0.03543586109142452,
+                    "block_alarm_rate": 0.08333333333333333,
+                    "loss": 0.437116111504843
+                  }
+                ]
+              },
+              "empirical": {
+                "precision": 0.2576419213973799,
+                "recall": 0.9957805907172996,
+                "f1": 0.40936686903729397,
+                "false_alarm_rate": 0.14458856049330215,
+                "missed_alarm_rate": 0.004219409282700422,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "block_recent_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 512,
+                "delay": 2
+              },
+              "empirical": {
+                "precision": 0.1490840176879343,
+                "recall": 0.9957805907172996,
+                "f1": 0.25934065934065936,
+                "false_alarm_rate": 0.28641292791835,
+                "missed_alarm_rate": 0.004219409282700422,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "safe_rolling_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "parameters": {
+                "reference_window": 256,
+                "delay": 4,
+                "update_guard_score": 0.8
+              },
+              "empirical": {
+                "precision": 0.05566127497621313,
+                "recall": 0.9873417721518988,
+                "f1": 0.105381670794866,
+                "false_alarm_rate": 0.8441420369976611,
+                "missed_alarm_rate": 0.012658227848101266,
+                "average_alarm_delay": 3.0
+              },
+              "evaluation_update_audit": {
+                "updates": 0,
+                "frozen": 237
+              }
             }
           },
           "frozen_iid_baseline": {
@@ -4058,6 +5498,24 @@
             "missed_alarm_rate": 0.32916666666666666,
             "average_alarm_delay": 23.333333333333332,
             "f1": 0.6584774340619881
+          },
+          "block_recent_one_sided": {
+            "false_alarm_rate": 0.045486111111111116,
+            "missed_alarm_rate": 0.20069444444444443,
+            "average_alarm_delay": 2.0,
+            "f1": 0.8163372413036529
+          },
+          "block_recent_two_sided": {
+            "false_alarm_rate": 0.06215277777777778,
+            "missed_alarm_rate": 0.07916666666666666,
+            "average_alarm_delay": 0.0,
+            "f1": 0.897231948891608
+          },
+          "safe_rolling_two_sided": {
+            "false_alarm_rate": 0.2673611111111111,
+            "missed_alarm_rate": 0.04583333333333334,
+            "average_alarm_delay": 3.3333333333333335,
+            "f1": 0.7701648969864512
           }
         }
       },
@@ -4096,6 +5554,24 @@
             "missed_alarm_rate": 0.9158439816334553,
             "average_alarm_delay": 40.666666666666664,
             "f1": 0.15036272980581453
+          },
+          "block_recent_one_sided": {
+            "false_alarm_rate": 0.45326286293218426,
+            "missed_alarm_rate": 0.5152604527604527,
+            "average_alarm_delay": 0.0,
+            "f1": 0.49463986240000923
+          },
+          "block_recent_two_sided": {
+            "false_alarm_rate": 0.4868116471734893,
+            "missed_alarm_rate": 0.19303072592546275,
+            "average_alarm_delay": 1.3333333333333333,
+            "f1": 0.7471843655586617
+          },
+          "safe_rolling_two_sided": {
+            "false_alarm_rate": 0.6379672912178106,
+            "missed_alarm_rate": 0.20359898649372335,
+            "average_alarm_delay": 2.6666666666666665,
+            "f1": 0.6365237311112933
           }
         }
       },
@@ -4132,6 +5608,24 @@
             "missed_alarm_rate": 0.012501018281020094,
             "average_alarm_delay": 3.0,
             "f1": 0.24146346276957883
+          },
+          "block_recent_one_sided": {
+            "false_alarm_rate": 0.14458856049330215,
+            "missed_alarm_rate": 0.004167006093673365,
+            "average_alarm_delay": 1.0,
+            "f1": 0.4124163204572617
+          },
+          "block_recent_two_sided": {
+            "false_alarm_rate": 0.28641292791835,
+            "missed_alarm_rate": 0.004167006093673365,
+            "average_alarm_delay": 1.0,
+            "f1": 0.2617702314585049
+          },
+          "safe_rolling_two_sided": {
+            "false_alarm_rate": 0.8441420369976611,
+            "missed_alarm_rate": 0.012501018281020094,
+            "average_alarm_delay": 3.0,
+            "f1": 0.10658786769847689
           }
         }
       }

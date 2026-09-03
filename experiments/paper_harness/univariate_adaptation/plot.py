@@ -218,6 +218,19 @@ def main() -> int:
     dataset_summary = summary(runs)
     baseline_path = ROOT / "experiments/reports/book_ch2_multidataset_validation.json"
     baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
+    baseline_iid = {
+        dataset: baseline["aggregate_metrics"][dataset]["book_2_1_iid_delay_timer"]
+        for dataset in DATASETS
+    }
+    tep_ecdf = dataset_summary["tep_classic"]["initial_adapter_metrics"][
+        "ecdf_two_sided"
+    ]
+    pronto_block = dataset_summary["pronto"]["initial_adapter_metrics"][
+        "block_recent_two_sided"
+    ]
+    skab_block = dataset_summary["skab"]["initial_adapter_metrics"][
+        "block_recent_one_sided"
+    ]
     report = {
         "schema_version": 1,
         "experiment": "univariate_adaptation_distribution_audit",
@@ -229,6 +242,47 @@ def main() -> int:
             "tep_classic": "mostly stationary normal transfer; d11 is weakly separable in the selected univariate representation",
             "pronto": "abnormal phase drift and strong serial dependence dominate missed alarms",
             "skab": "normal baseline drift and low abnormal prevalence dominate false alarms despite perfect ranking",
+        },
+        "stage_acceptance": {
+            "tep_performance_retention": {
+                "candidate": "ecdf_two_sided",
+                "baseline_f1": baseline_iid["tep_classic"]["f1"],
+                "candidate_f1": tep_ecdf["f1"]["mean"],
+                "passed": bool(
+                    tep_ecdf["f1"]["mean"]
+                    >= baseline_iid["tep_classic"]["f1"] - 0.02
+                ),
+            },
+            "skab_false_alarm_reduction": {
+                "candidate": "block_recent_one_sided",
+                "baseline_far": baseline_iid["skab"]["far"],
+                "candidate_far": skab_block["false_alarm_rate"]["mean"],
+                "baseline_mar": baseline_iid["skab"]["mar"],
+                "candidate_mar": skab_block["missed_alarm_rate"]["mean"],
+                "passed": bool(
+                    skab_block["false_alarm_rate"]["mean"]
+                    <= 0.5 * baseline_iid["skab"]["far"]
+                    and skab_block["missed_alarm_rate"]["mean"]
+                    <= baseline_iid["skab"]["mar"] + 0.03
+                ),
+            },
+            "pronto_missed_alarm_reduction_with_far_constraint": {
+                "candidate": "block_recent_two_sided",
+                "baseline_mar": baseline_iid["pronto"]["mar"],
+                "candidate_mar": pronto_block["missed_alarm_rate"]["mean"],
+                "candidate_far": pronto_block["false_alarm_rate"]["mean"],
+                "maximum_far": 0.15,
+                "passed": bool(
+                    pronto_block["missed_alarm_rate"]["mean"]
+                    <= 0.8 * baseline_iid["pronto"]["mar"]
+                    and pronto_block["false_alarm_rate"]["mean"] <= 0.15
+                ),
+                "failure_interpretation": "recency/block adaptation recovers abnormal recall but produces unacceptable normal false alarms; do not promote without regime/change-point routing",
+            },
+            "safe_rolling_promoted": {
+                "passed": False,
+                "reason": "the contamination guard freezes after large baseline shifts and produces excessive held-out false alarms",
+            },
         },
         "routing_boundary": "Only calibration_applicability may route adapters. held_out_posthoc_audit is explanatory evidence and cannot tune the benchmark.",
     }

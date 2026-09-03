@@ -26,7 +26,12 @@ from iia_benchmark.evaluation import (  # noqa: E402
     audit_univariate_partitions,
     binary_alarm_metrics,
 )
-from iia_benchmark.models import EmpiricalCDFAlarm, FeatureStabilitySelector  # noqa: E402
+from iia_benchmark.models import (  # noqa: E402
+    BlockCalibratedECDFAlarm,
+    EmpiricalCDFAlarm,
+    FeatureStabilitySelector,
+    SafeRollingECDFAlarm,
+)
 
 
 CONFIG = ROOT / "configs/experiments/univariate_adaptation_benchmark.json"
@@ -171,6 +176,25 @@ def alarm_metrics(
     return binary_alarm_metrics(truth, prediction)
 
 
+def block_alarm(
+    config: dict[str, object], tail: str
+) -> BlockCalibratedECDFAlarm:
+    values = config["temporal_adaptation"]
+    return BlockCalibratedECDFAlarm(
+        tail_probability=0.05,
+        tail=tail,
+        reference_windows=tuple(int(value) for value in values["reference_windows"]),
+        delays=tuple(int(value) for value in values["delays"]),
+        validation_fraction=float(values["validation_fraction"]),
+        block_size=int(values["block_size"]),
+        target_point_false_alarm_rate=float(
+            values["target_point_false_alarm_rate"]
+        ),
+        target_block_alarm_rate=float(values["target_block_alarm_rate"]),
+        block_weight=float(values["block_weight"]),
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out_dir", required=True, type=Path)
@@ -274,6 +298,21 @@ def main() -> int:
                 tail=stable_selector.direction_,
                 delay=delay,
             ).fit(stable_normal_train)
+            block_one_sided = block_alarm(config, direction).fit(normal_train)
+            block_two_sided = block_alarm(config, "two_sided").fit(normal_train)
+            temporal = config["temporal_adaptation"]
+            rolling_window = min(
+                int(temporal["safe_rolling_reference_window"]), len(normal_train)
+            )
+            safe_rolling = SafeRollingECDFAlarm(
+                tail_probability=0.05,
+                tail="two_sided",
+                delay=delay,
+                reference_window=rolling_window,
+                update_guard_score=float(
+                    temporal["safe_rolling_update_guard_score"]
+                ),
+            ).fit(normal_train)
             initial_adapters = {
                 "ecdf_one_sided": {
                     "feature": feature_name,
@@ -300,6 +339,56 @@ def main() -> int:
                         stable_normal_evaluation,
                         stable_abnormal_evaluation,
                     ),
+                },
+                "block_recent_one_sided": {
+                    "feature": feature_name,
+                    "direction": direction,
+                    "parameters": {
+                        "reference_window": block_one_sided.selected_reference_window_,
+                        "delay": block_one_sided.selected_delay_,
+                        "calibration_candidates": [
+                            {
+                                "reference_window": item.reference_window,
+                                "delay": item.delay,
+                                "point_false_alarm_rate": item.point_false_alarm_rate,
+                                "block_alarm_rate": item.block_alarm_rate,
+                                "loss": item.loss,
+                            }
+                            for item in block_one_sided.calibration_candidates_
+                        ],
+                    },
+                    "empirical": alarm_metrics(
+                        block_one_sided, normal_evaluation, abnormal_evaluation
+                    ),
+                },
+                "block_recent_two_sided": {
+                    "feature": feature_name,
+                    "direction": "two_sided",
+                    "parameters": {
+                        "reference_window": block_two_sided.selected_reference_window_,
+                        "delay": block_two_sided.selected_delay_,
+                    },
+                    "empirical": alarm_metrics(
+                        block_two_sided, normal_evaluation, abnormal_evaluation
+                    ),
+                },
+                "safe_rolling_two_sided": {
+                    "feature": feature_name,
+                    "direction": "two_sided",
+                    "parameters": {
+                        "reference_window": rolling_window,
+                        "delay": delay,
+                        "update_guard_score": float(
+                            temporal["safe_rolling_update_guard_score"]
+                        ),
+                    },
+                    "empirical": alarm_metrics(
+                        safe_rolling, normal_evaluation, abnormal_evaluation
+                    ),
+                    "evaluation_update_audit": {
+                        "updates": safe_rolling.last_update_count_,
+                        "frozen": safe_rolling.last_frozen_count_,
+                    },
                 },
             }
             results[dataset].append(

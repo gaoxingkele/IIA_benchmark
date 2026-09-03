@@ -118,11 +118,15 @@ from .root_cause_book import (
 )
 from .univariate import AlarmDesignResult, ThresholdDelayDeadband, design_alarm
 from .adaptive_univariate import (
+    BlockCalibratedECDFAlarm,
+    BlockCalibrationCandidate,
     EmpiricalCDFAlarm,
     EmpiricalCDFNormalizer,
     FeatureStabilityDiagnostic,
     FeatureStabilitySelector,
     RobustMedianScaler,
+    RegimeConditionalECDFAlarm,
+    SafeRollingECDFAlarm,
 )
 from .uncertainty_reduction import (
     BifurcationDelayTimer,
@@ -180,6 +184,8 @@ __all__ = [
     "BifurcationDelayTimer",
     "BifurcationForecast",
     "BifurcationTrainingData",
+    "BlockCalibratedECDFAlarm",
+    "BlockCalibrationCandidate",
     "CausalEdge",
     "CASIMClassifier",
     "CASIMExpandingWindowClassifier",
@@ -232,6 +238,8 @@ __all__ = [
     "RecursiveBayesianAlarmRCA",
     "RepresentativeAlarmPattern",
     "RobustMedianScaler",
+    "RegimeConditionalECDFAlarm",
+    "SafeRollingECDFAlarm",
     "SearchConeNOZAlarm",
     "SegmentContribution",
     "SpectralAlarmFloodClusterer",
