@@ -1,0 +1,54 @@
+{
+  "id": "multivariate_adaptation_benchmark",
+  "task": "distribution_aware_multivariate_alarm_transfer",
+  "downstream_tasks": ["T2"],
+  "source_experiment": "configs/experiments/book_chapter3_multidataset.json",
+  "baseline_report": "experiments/reports/book_ch3_multidataset_validation.json",
+  "runs": {
+    "run_1": {"seed": 1103},
+    "run_2": {"seed": 2207},
+    "run_3": {"seed": 3301}
+  },
+  "protocol": {
+    "abnormal_calibration_fraction": 0.4,
+    "normal_train_fraction": 0.5,
+    "normal_fit_fraction": 0.8,
+    "normal_purge_samples": 60,
+    "selected_features": 4,
+    "maximum_normal_fit_samples": 800,
+    "tail_probability": 0.05,
+    "shrinkage": 0.1,
+    "reference_windows": [128, 256, 512],
+    "delays": [1, 2, 3, 4, 5],
+    "validation_fraction": 0.3,
+    "target_point_false_alarm_rate": 0.05,
+    "target_block_alarm_rate": 0.2,
+    "block_weight": 0.25
+  },
+  "applicability_thresholds": {
+    "normal_ks_adaptation": 0.2,
+    "normal_median_shift_adaptation": 0.5,
+    "normal_covariance_shift_adaptation": 0.5,
+    "autocorrelation_block_calibration": 0.8,
+    "minimum_block_auc": 0.6,
+    "chronological_blocks": 3
+  },
+  "uncertainty": {
+    "physical_block_duration_seconds": 600,
+    "draws": 100,
+    "confidence": 0.95,
+    "policy": "moving blocks sampled separately inside held-out normal and abnormal partitions"
+  },
+  "dataset_timing": {
+    "tep_classic": {"sample_period_seconds": 180},
+    "pronto": {"sample_period_seconds": 1},
+    "skab": {"sample_period_seconds": 1}
+  },
+  "variants": {
+    "M0": "classical_mahalanobis_frozen_chapter3_baseline",
+    "M1": "robust_scaling_and_shrinkage_mahalanobis",
+    "M2": "robust_shrinkage_plus_recent_block_calibration",
+    "M3": "automatic_static_adapt_or_reject_router"
+  },
+  "reporting_boundary": "All variants use the same Chapter 3 calibration-selected features and frozen held-out partitions. M3 is selective and its scored means are not directly comparable to full-coverage variants. These are real-data engineering transfer results, not original-paper score reproduction."
+}

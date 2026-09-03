@@ -134,6 +134,13 @@ from .adaptive_univariate import (
     TimeBasedEmpiricalCDFAlarm,
     delay_samples_from_seconds,
 )
+from .adaptive_multivariate import (
+    AdaptiveMultivariateAlarmRouter,
+    AdaptiveMultivariateDecision,
+    BlockCalibratedRobustMahalanobisAlarm,
+    MultivariateBlockCalibrationCandidate,
+    RobustShrinkageMahalanobisAlarm,
+)
 from .uncertainty_reduction import (
     BifurcationDelayTimer,
     BifurcationForecast,
@@ -185,6 +192,8 @@ __all__ = [
     "AdaptedBookUnivariateSuite",
     "AdaptiveRouterDecision",
     "AdaptiveUnivariateAlarmRouter",
+    "AdaptiveMultivariateAlarmRouter",
+    "AdaptiveMultivariateDecision",
     "AEMPeak",
     "AlarmEvolutionMatrix",
     "AlertThresholdResult",
@@ -195,6 +204,7 @@ __all__ = [
     "BifurcationTrainingData",
     "BlockCalibratedECDFAlarm",
     "BlockCalibrationCandidate",
+    "BlockCalibratedRobustMahalanobisAlarm",
     "CausalEdge",
     "CASIMClassifier",
     "CASIMExpandingWindowClassifier",
@@ -236,6 +246,7 @@ __all__ = [
     "LinearSegment",
     "LocalOutlierProbability",
     "MahalanobisAlarm",
+    "MultivariateBlockCalibrationCandidate",
     "MaximumEntropyNextAlarmPredictor",
     "MaximumEntropyConstraintResult",
     "ModifiedTFIDFVectorizer",
@@ -248,6 +259,7 @@ __all__ = [
     "RecursiveBayesianAlarmRCA",
     "RepresentativeAlarmPattern",
     "RobustMedianScaler",
+    "RobustShrinkageMahalanobisAlarm",
     "RegimeConditionalECDFAlarm",
     "SafeRollingECDFAlarm",
     "TimeBasedEmpiricalCDFAlarm",

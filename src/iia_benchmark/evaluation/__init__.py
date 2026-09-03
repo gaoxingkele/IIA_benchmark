@@ -36,6 +36,13 @@ from .event_metrics import (
     block_event_rate_posterior,
     block_bootstrap_alarm_metrics,
 )
+from .multivariate_distribution_audit import (
+    MultivariateApplicability,
+    MultivariateApplicabilityThresholds,
+    MultivariateDistributionShift,
+    assess_multivariate_calibration,
+    multivariate_distribution_shift,
+)
 
 __all__ = [
     "binary_alarm_metrics",
@@ -68,4 +75,9 @@ __all__ = [
     "alarm_event_metrics",
     "block_event_rate_posterior",
     "block_bootstrap_alarm_metrics",
+    "MultivariateApplicability",
+    "MultivariateApplicabilityThresholds",
+    "MultivariateDistributionShift",
+    "assess_multivariate_calibration",
+    "multivariate_distribution_shift",
 ]

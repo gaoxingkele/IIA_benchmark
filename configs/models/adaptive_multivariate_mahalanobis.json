@@ -1,0 +1,29 @@
+{
+  "id": "adaptive_multivariate_mahalanobis",
+  "family": "distribution_aware_multivariate_alarm_transfer",
+  "components": {
+    "static_model": "iia_benchmark.models.RobustShrinkageMahalanobisAlarm",
+    "block_model": "iia_benchmark.models.BlockCalibratedRobustMahalanobisAlarm",
+    "automatic_router": "iia_benchmark.models.AdaptiveMultivariateAlarmRouter",
+    "distribution_gate": "iia_benchmark.evaluation.assess_multivariate_calibration"
+  },
+  "protocol_boundary": "Fit scaling, covariance, calibration thresholds, delays, and routing from normal training plus abnormal calibration only. Held-out normal and abnormal evaluation partitions are diagnostic only.",
+  "references": [
+    {
+      "method": "Mahalanobis distance",
+      "citation": "Mahalanobis, On the generalized distance in statistics, 1936",
+      "url": "https://library.isical.ac.in/jspui/handle/10263/6765"
+    },
+    {
+      "method": "covariance shrinkage",
+      "citation": "Schafer and Strimmer, A Shrinkage Approach to Large-Scale Covariance Matrix Estimation and Implications for Functional Genomics, 2005",
+      "doi": "10.2202/1544-6115.1175"
+    },
+    {
+      "method": "dependent-data block calibration",
+      "citation": "Kunsch, The Jackknife and the Bootstrap for General Stationary Observations, 1989",
+      "doi": "10.1214/aos/1176347265"
+    }
+  ],
+  "validation_evidence": "tests/test_adaptive_multivariate.py; configs/experiments/multivariate_adaptation_benchmark.json"
+}
