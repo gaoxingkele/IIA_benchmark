@@ -55,6 +55,7 @@ def summary(runs: list[dict[str, object]]) -> dict[str, object]:
             [row["threshold_transfer"]["normal_evaluation_exceedance_rate"] for row in audits]
         )
         statuses = [row["calibration_applicability"]["status"] for row in rows]
+        adapter_names = tuple(rows[0]["initial_adapter_results"])
         result[dataset] = {
             "records": len(rows),
             "features": sorted({row["feature"] for row in rows}),
@@ -91,6 +92,31 @@ def summary(runs: list[dict[str, object]]) -> dict[str, object]:
             "calibration_gate_status_counts": {
                 status: statuses.count(status)
                 for status in ("static", "adapt", "reject_univariate")
+            },
+            "initial_adapter_metrics": {
+                adapter: {
+                    metric: {
+                        "mean": float(
+                            np.mean(
+                                [
+                                    row["initial_adapter_results"][adapter]["empirical"][metric]
+                                    for row in rows
+                                ]
+                            )
+                        ),
+                        "standard_deviation_across_seeds_and_episodes": float(
+                            np.std(
+                                [
+                                    row["initial_adapter_results"][adapter]["empirical"][metric]
+                                    for row in rows
+                                ],
+                                ddof=1,
+                            )
+                        ),
+                    }
+                    for metric in ("false_alarm_rate", "missed_alarm_rate", "f1")
+                }
+                for adapter in adapter_names
             },
         }
     return result
@@ -165,6 +191,12 @@ def write_notes(report: dict[str, object]) -> None:
                 f"evaluation AUC median={item['evaluation_auc']['median']:.4f}, "
                 f"lag-1 median={item['normal_lag_one']['median']:.4f}.",
                 f"Calibration gate counts: {item['calibration_gate_status_counts']}.",
+                "Initial ECDF adapter mean F1: "
+                + ", ".join(
+                    f"{name}={values['f1']['mean']:.4f}"
+                    for name, values in item["initial_adapter_metrics"].items()
+                )
+                + ".",
                 "",
             ]
         )

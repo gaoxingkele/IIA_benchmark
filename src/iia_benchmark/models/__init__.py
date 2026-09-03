@@ -117,6 +117,13 @@ from .root_cause_book import (
     piecewise_linear_representation,
 )
 from .univariate import AlarmDesignResult, ThresholdDelayDeadband, design_alarm
+from .adaptive_univariate import (
+    EmpiricalCDFAlarm,
+    EmpiricalCDFNormalizer,
+    FeatureStabilityDiagnostic,
+    FeatureStabilitySelector,
+    RobustMedianScaler,
+)
 from .uncertainty_reduction import (
     BifurcationDelayTimer,
     BifurcationForecast,
@@ -199,6 +206,10 @@ __all__ = [
     "DeadbandDesignResult",
     "DeadbandIndexResult",
     "EmpiricalNextAlarmPredictor",
+    "EmpiricalCDFAlarm",
+    "EmpiricalCDFNormalizer",
+    "FeatureStabilityDiagnostic",
+    "FeatureStabilitySelector",
     "HDAMAlignment",
     "HDAMTemplate",
     "HDAMTemplateMatcher",
@@ -220,6 +231,7 @@ __all__ = [
     "PettittResult",
     "RecursiveBayesianAlarmRCA",
     "RepresentativeAlarmPattern",
+    "RobustMedianScaler",
     "SearchConeNOZAlarm",
     "SegmentContribution",
     "SpectralAlarmFloodClusterer",

@@ -3,28 +3,31 @@
   "run_name": "run_2",
   "config": "configs/experiments/univariate_adaptation_benchmark.json",
   "config_sha256": "43ae521c05eb362b21816b0b4b19918a01e65ffaf4ac34ccf30b107eaa57cee1",
-  "git_revision": "e63da9cc46b72a4fbda24c346ff1082528b72750",
+  "git_revision": "8d07a14195db48e3bf2ce6847f25bfb4f25d31c5",
   "execution_provenance": {
     "git_worktree_dirty": true,
     "git_status_porcelain": [
-      " M src/iia_benchmark/evaluation/__init__.py",
-      "?? configs/experiments/univariate_adaptation_benchmark.json",
-      "?? experiments/paper_harness/univariate_adaptation/",
-      "?? src/iia_benchmark/evaluation/distribution_audit.py",
-      "?? tests/test_distribution_audit.py"
+      " M experiments/paper_harness/univariate_adaptation/experiment.py",
+      " M experiments/paper_harness/univariate_adaptation/plot.py",
+      " M experiments/paper_harness/univariate_adaptation/run_1/final_info.json",
+      " M src/iia_benchmark/models/__init__.py",
+      " M tests/test_distribution_audit.py",
+      "?? configs/models/adaptive_univariate_router.json",
+      "?? src/iia_benchmark/models/adaptive_univariate.py",
+      "?? tests/test_adaptive_univariate.py"
     ],
     "source_sha256": {
       "configs/experiments/univariate_adaptation_benchmark.json": "43ae521c05eb362b21816b0b4b19918a01e65ffaf4ac34ccf30b107eaa57cee1",
       "configs/experiments/book_chapter2_multidataset.json": "5a19fa0bba7c6f109b598a965ca35afff0c8c50fe6886cf9de80c641ce6c19bf",
       "experiments/paper_harness/chapter2_multidataset/experiment.py": "713682f35f1be97d73eef67bfe8b45b7f03a493eba1a4bf333a0b91ff951b835",
       "src/iia_benchmark/evaluation/distribution_audit.py": "fb21d0cec50c32fd003f104d783f9404859626d8d91907e7ccc9d27227df9c13",
-      "experiments/paper_harness/univariate_adaptation/experiment.py": "64be224c494066f3337e7173009c8e314642bd319996e2a4d8384ada781e4ffa",
+      "experiments/paper_harness/univariate_adaptation/experiment.py": "9adf7b2da7370b717ddb9ac2691a12ac1a94ec5f5036c3267cd3a39cd9e4d0a8",
       "experiments/paper_harness/chapter2_multidataset/run_2/final_info.json": "b85a5187eb343686d665d82c0264bfee83d21345f97e4a9897c13b488f50e0ee"
     }
   },
-  "started_at_utc": "2026-09-03T05:52:42.298732+00:00",
-  "finished_at_utc": "2026-09-03T05:52:42.970251+00:00",
-  "wall_clock_seconds": 0.6708445000112988,
+  "started_at_utc": "2026-09-03T05:57:49.338586+00:00",
+  "finished_at_utc": "2026-09-03T05:57:50.325550+00:00",
+  "wall_clock_seconds": 0.9870845999976154,
   "result": {
     "seed": 2207,
     "datasets": {
@@ -104,6 +107,670 @@
               "normal_evaluation_maximum_run_length": 2
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "XMEAS_01",
+              "direction": "high",
+              "empirical": {
+                "precision": 0.9227799227799228,
+                "recall": 0.9958333333333333,
+                "f1": 0.9579158316633267,
+                "false_alarm_rate": 0.041666666666666664,
+                "missed_alarm_rate": 0.004166666666666667,
+                "average_alarm_delay": 2.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "XMEAS_01",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 0.9122137404580153,
+                "recall": 0.9958333333333333,
+                "f1": 0.952191235059761,
+                "false_alarm_rate": 0.04791666666666667,
+                "missed_alarm_rate": 0.004166666666666667,
+                "average_alarm_delay": 2.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "XMEAS_01",
+              "direction": "high",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "XMEAS_01",
+                  "direction": "high",
+                  "score": 16.947933795657114,
+                  "minimum_block_separation_sd": 17.071537028764425,
+                  "minimum_block_auc": 0.9509532710280374,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.096,
+                  "absolute_lag_one": 0.6104129324292404,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "XMEAS_02",
+                  "direction": "low",
+                  "score": 0.24711855949872144,
+                  "minimum_block_separation_sd": 0.3231185594987214,
+                  "minimum_block_auc": 0.5626355140186916,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07599999999999998,
+                  "absolute_lag_one": 0.3271308924866209,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "XMEAS_03",
+                  "direction": "low",
+                  "score": -1.1096405616466085,
+                  "minimum_block_separation_sd": -0.33097389497994184,
+                  "minimum_block_auc": 0.48138317757009347,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.2971509990522076,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "XMEAS_04",
+                  "direction": "low",
+                  "score": 5.909663263541882,
+                  "minimum_block_separation_sd": 5.961663263541882,
+                  "minimum_block_auc": 0.8834766355140187,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.052000000000000046,
+                  "absolute_lag_one": 0.1751781263113358,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "XMEAS_05",
+                  "direction": "low",
+                  "score": -1.4692382738639445,
+                  "minimum_block_separation_sd": -0.059904940530610976,
+                  "minimum_block_auc": 0.4929719626168224,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.07600000000000001,
+                  "absolute_lag_one": 0.03628447992387253,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "XMEAS_06",
+                  "direction": "low",
+                  "score": 0.016770705074870676,
+                  "minimum_block_separation_sd": 0.09277070507487069,
+                  "minimum_block_auc": 0.5287663551401869,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07600000000000001,
+                  "absolute_lag_one": 0.009610518085537563,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "XMEAS_07",
+                  "direction": "high",
+                  "score": 1.113107523954301,
+                  "minimum_block_separation_sd": 1.3394422509076747,
+                  "minimum_block_auc": 0.5975283018867924,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.11599999999999999,
+                  "absolute_lag_one": 0.9413389078134945,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "XMEAS_08",
+                  "direction": "high",
+                  "score": 0.1575043326425726,
+                  "minimum_block_separation_sd": 0.22150433264257266,
+                  "minimum_block_auc": 0.5384859813084112,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.06400000000000006,
+                  "absolute_lag_one": 0.03524452680869054,
+                  "valid": true
+                },
+                {
+                  "index": 8,
+                  "name": "XMEAS_09",
+                  "direction": "high",
+                  "score": -2.64406985054648,
+                  "minimum_block_separation_sd": -0.53606985054648,
+                  "minimum_block_auc": 0.47889719626168226,
+                  "direction_consistency": 0.0,
+                  "internal_normal_ks": 0.10800000000000001,
+                  "absolute_lag_one": 0.23622250438725007,
+                  "valid": true
+                },
+                {
+                  "index": 9,
+                  "name": "XMEAS_10",
+                  "direction": "low",
+                  "score": 1.2900175484536947,
+                  "minimum_block_separation_sd": 1.3912064237101307,
+                  "minimum_block_auc": 0.6458411214953271,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.08799999999999997,
+                  "absolute_lag_one": 0.5527555010257443,
+                  "valid": true
+                },
+                {
+                  "index": 10,
+                  "name": "XMEAS_11",
+                  "direction": "low",
+                  "score": 0.37831684501453644,
+                  "minimum_block_separation_sd": 0.5328667149605907,
+                  "minimum_block_auc": 0.5840754716981132,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.10799999999999998,
+                  "absolute_lag_one": 0.686199479784217,
+                  "valid": true
+                },
+                {
+                  "index": 11,
+                  "name": "XMEAS_12",
+                  "direction": "low",
+                  "score": -0.00285741818537133,
+                  "minimum_block_separation_sd": 0.06914258181462873,
+                  "minimum_block_auc": 0.5080093457943925,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.03647545104659269,
+                  "valid": true
+                },
+                {
+                  "index": 12,
+                  "name": "XMEAS_13",
+                  "direction": "high",
+                  "score": 0.9734960977192912,
+                  "minimum_block_separation_sd": 1.1927956423751467,
+                  "minimum_block_auc": 0.5980660377358491,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.9291981786234211,
+                  "valid": true
+                },
+                {
+                  "index": 13,
+                  "name": "XMEAS_14",
+                  "direction": "high",
+                  "score": -1.5326752129656798,
+                  "minimum_block_separation_sd": -0.13534187963234626,
+                  "minimum_block_auc": 0.4987196261682243,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.06399999999999995,
+                  "absolute_lag_one": 0.029823111615726428,
+                  "valid": true
+                },
+                {
+                  "index": 14,
+                  "name": "XMEAS_15",
+                  "direction": "low",
+                  "score": -0.8678098526829746,
+                  "minimum_block_separation_sd": -0.07714318601630785,
+                  "minimum_block_auc": 0.47664485981308413,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.124,
+                  "absolute_lag_one": 0.009673530077806667,
+                  "valid": true
+                },
+                {
+                  "index": 15,
+                  "name": "XMEAS_16",
+                  "direction": "high",
+                  "score": 0.828973432476298,
+                  "minimum_block_separation_sd": 1.0451514680026337,
+                  "minimum_block_auc": 0.5811603773584906,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.10800000000000001,
+                  "absolute_lag_one": 0.9327121421053431,
+                  "valid": true
+                },
+                {
+                  "index": 16,
+                  "name": "XMEAS_17",
+                  "direction": "high",
+                  "score": -0.054531351955182876,
+                  "minimum_block_separation_sd": 0.04546864804481716,
+                  "minimum_block_auc": 0.5083457943925234,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.10000000000000003,
+                  "absolute_lag_one": 0.007743283197004909,
+                  "valid": true
+                },
+                {
+                  "index": 17,
+                  "name": "XMEAS_18",
+                  "direction": "high",
+                  "score": 5.307195580123014,
+                  "minimum_block_separation_sd": 5.617997345020157,
+                  "minimum_block_auc": 0.6794485981308411,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.18800000000000006,
+                  "absolute_lag_one": 0.9912070595885751,
+                  "valid": true
+                },
+                {
+                  "index": 18,
+                  "name": "XMEAS_19",
+                  "direction": "high",
+                  "score": 3.9713287191089885,
+                  "minimum_block_separation_sd": 4.318582305960339,
+                  "minimum_block_auc": 0.8683271028037384,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.22799999999999998,
+                  "absolute_lag_one": 0.9770143474054034,
+                  "valid": true
+                },
+                {
+                  "index": 19,
+                  "name": "XMEAS_20",
+                  "direction": "low",
+                  "score": -3.7595333742861086,
+                  "minimum_block_separation_sd": -2.8205574788731456,
+                  "minimum_block_auc": 0.41225233644859816,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.16,
+                  "absolute_lag_one": 0.9492369149851841,
+                  "valid": true
+                },
+                {
+                  "index": 20,
+                  "name": "XMEAS_21",
+                  "direction": "high",
+                  "score": -1.2631303540696792,
+                  "minimum_block_separation_sd": -0.5364636874030125,
+                  "minimum_block_auc": 0.48090654205607475,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.06,
+                  "absolute_lag_one": 0.2212665908566121,
+                  "valid": true
+                },
+                {
+                  "index": 21,
+                  "name": "XMEAS_22",
+                  "direction": "low",
+                  "score": 0.1793982762210565,
+                  "minimum_block_separation_sd": 0.23539827622105655,
+                  "minimum_block_auc": 0.5542990654205607,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.05600000000000005,
+                  "absolute_lag_one": 0.19589875223253944,
+                  "valid": true
+                },
+                {
+                  "index": 22,
+                  "name": "XMEAS_23",
+                  "direction": "low",
+                  "score": -2.0395927116586834,
+                  "minimum_block_separation_sd": -1.2596431028324755,
+                  "minimum_block_auc": 0.42882242990654207,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09600000000000003,
+                  "absolute_lag_one": 0.5691317686381636,
+                  "valid": true
+                },
+                {
+                  "index": 23,
+                  "name": "XMEAS_24",
+                  "direction": "low",
+                  "score": -1.728259782151585,
+                  "minimum_block_separation_sd": -0.22365976299296308,
+                  "minimum_block_auc": 0.48041121495327105,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.15199999999999997,
+                  "absolute_lag_one": 0.5770667433011542,
+                  "valid": true
+                },
+                {
+                  "index": 24,
+                  "name": "XMEAS_25",
+                  "direction": "high",
+                  "score": -1.2700644806198047,
+                  "minimum_block_separation_sd": -0.4606883260134054,
+                  "minimum_block_auc": 0.4967924528301887,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.6228379517589298,
+                  "valid": true
+                },
+                {
+                  "index": 25,
+                  "name": "XMEAS_26",
+                  "direction": "low",
+                  "score": -1.004949061753093,
+                  "minimum_block_separation_sd": -0.27428239508642627,
+                  "minimum_block_auc": 0.46274766355140184,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.06399999999999995,
+                  "absolute_lag_one": 0.4824592621854875,
+                  "valid": true
+                },
+                {
+                  "index": 26,
+                  "name": "XMEAS_27",
+                  "direction": "low",
+                  "score": -0.8183869016519849,
+                  "minimum_block_separation_sd": -0.07220747875052774,
+                  "minimum_block_auc": 0.42983177570093456,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.5300510249391612,
+                  "valid": true
+                },
+                {
+                  "index": 27,
+                  "name": "XMEAS_28",
+                  "direction": "high",
+                  "score": -0.8738580297078101,
+                  "minimum_block_separation_sd": -0.04362683502719775,
+                  "minimum_block_auc": 0.49244859813084113,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.136,
+                  "absolute_lag_one": 0.6102581120557824,
+                  "valid": true
+                },
+                {
+                  "index": 28,
+                  "name": "XMEAS_29",
+                  "direction": "low",
+                  "score": -2.2833329767412507,
+                  "minimum_block_separation_sd": -0.8441488213156649,
+                  "minimum_block_auc": 0.4313644859813084,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.08000000000000007,
+                  "absolute_lag_one": 0.6034032883690083,
+                  "valid": true
+                },
+                {
+                  "index": 29,
+                  "name": "XMEAS_30",
+                  "direction": "low",
+                  "score": -0.8238489261377971,
+                  "minimum_block_separation_sd": -0.053996776344268485,
+                  "minimum_block_auc": 0.5021308411214953,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.5287419325074478,
+                  "valid": true
+                },
+                {
+                  "index": 30,
+                  "name": "XMEAS_31",
+                  "direction": "high",
+                  "score": 0.21574851295895,
+                  "minimum_block_separation_sd": 0.3613666039901861,
+                  "minimum_block_auc": 0.5203396226415095,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.10400000000000001,
+                  "absolute_lag_one": 0.6664723641249443,
+                  "valid": true
+                },
+                {
+                  "index": 31,
+                  "name": "XMEAS_32",
+                  "direction": "high",
+                  "score": -0.9520665345341847,
+                  "minimum_block_separation_sd": -0.18939986786751795,
+                  "minimum_block_auc": 0.46654205607476634,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.44482421285425067,
+                  "valid": true
+                },
+                {
+                  "index": 32,
+                  "name": "XMEAS_33",
+                  "direction": "low",
+                  "score": -0.0032314421893047673,
+                  "minimum_block_separation_sd": 0.11227631038868699,
+                  "minimum_block_auc": 0.4637757009345794,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.6740310103119668,
+                  "valid": true
+                },
+                {
+                  "index": 33,
+                  "name": "XMEAS_34",
+                  "direction": "high",
+                  "score": -1.5546725468794538,
+                  "minimum_block_separation_sd": -0.7751335611637102,
+                  "minimum_block_auc": 0.468392523364486,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.5674892761963072,
+                  "valid": true
+                },
+                {
+                  "index": 34,
+                  "name": "XMEAS_35",
+                  "direction": "low",
+                  "score": 0.19517853388570147,
+                  "minimum_block_separation_sd": 0.3509104677978828,
+                  "minimum_block_auc": 0.5526792452830188,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.14400000000000002,
+                  "absolute_lag_one": 0.5469277356487253,
+                  "valid": true
+                },
+                {
+                  "index": 35,
+                  "name": "XMEAS_36",
+                  "direction": "low",
+                  "score": 0.334895891161856,
+                  "minimum_block_separation_sd": 0.4423927540449107,
+                  "minimum_block_auc": 0.5453584905660377,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.545987451532219,
+                  "valid": true
+                },
+                {
+                  "index": 36,
+                  "name": "XMEAS_37",
+                  "direction": "high",
+                  "score": -1.1761692258923078,
+                  "minimum_block_separation_sd": -0.14757514939398747,
+                  "minimum_block_auc": 0.4158878504672897,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.28,
+                  "absolute_lag_one": 0.827709639326614,
+                  "valid": true
+                },
+                {
+                  "index": 37,
+                  "name": "XMEAS_38",
+                  "direction": "low",
+                  "score": -5.100701251321016,
+                  "minimum_block_separation_sd": -4.191153651633736,
+                  "minimum_block_auc": 0.3294392523364486,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.14,
+                  "absolute_lag_one": 0.9115237320824535,
+                  "valid": true
+                },
+                {
+                  "index": 38,
+                  "name": "XMEAS_39",
+                  "direction": "high",
+                  "score": -0.9097479780731208,
+                  "minimum_block_separation_sd": -0.03544529748981514,
+                  "minimum_block_auc": 0.5042990654205608,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.14,
+                  "absolute_lag_one": 0.7705440556665556,
+                  "valid": true
+                },
+                {
+                  "index": 39,
+                  "name": "XMEAS_40",
+                  "direction": "low",
+                  "score": -0.9290530064212579,
+                  "minimum_block_separation_sd": -0.06346869695667567,
+                  "minimum_block_auc": 0.41971698113207545,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.12000000000000005,
+                  "absolute_lag_one": 0.815670571191662,
+                  "valid": true
+                },
+                {
+                  "index": 40,
+                  "name": "XMEAS_41",
+                  "direction": "high",
+                  "score": -1.679984048564026,
+                  "minimum_block_separation_sd": -0.7421622407682787,
+                  "minimum_block_auc": 0.4029906542056075,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.2,
+                  "absolute_lag_one": 0.7846205645163219,
+                  "valid": true
+                },
+                {
+                  "index": 41,
+                  "name": "XMV_01",
+                  "direction": "low",
+                  "score": 0.1770294854148276,
+                  "minimum_block_separation_sd": 0.2490294854148276,
+                  "minimum_block_auc": 0.5852924528301887,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07200000000000001,
+                  "absolute_lag_one": 0.34343491349360006,
+                  "valid": true
+                },
+                {
+                  "index": 42,
+                  "name": "XMV_02",
+                  "direction": "low",
+                  "score": -0.7835246382510627,
+                  "minimum_block_separation_sd": -0.012857971584395929,
+                  "minimum_block_auc": 0.4839906542056075,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10399999999999998,
+                  "absolute_lag_one": 0.32422579735525575,
+                  "valid": true
+                },
+                {
+                  "index": 43,
+                  "name": "XMV_03",
+                  "direction": "high",
+                  "score": 16.87564430674949,
+                  "minimum_block_separation_sd": 16.9948703262556,
+                  "minimum_block_auc": 0.9510280373831775,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.092,
+                  "absolute_lag_one": 0.6089040780244508,
+                  "valid": true
+                },
+                {
+                  "index": 44,
+                  "name": "XMV_04",
+                  "direction": "low",
+                  "score": 3.1346077861299415,
+                  "minimum_block_separation_sd": 3.2266077861299416,
+                  "minimum_block_auc": 0.8553644859813084,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.09199999999999997,
+                  "absolute_lag_one": 0.07769934347517278,
+                  "valid": true
+                },
+                {
+                  "index": 45,
+                  "name": "XMV_05",
+                  "direction": "low",
+                  "score": -4.663608436717171,
+                  "minimum_block_separation_sd": -3.1581757008436164,
+                  "minimum_block_auc": 0.3896915887850467,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.11599999999999999,
+                  "absolute_lag_one": 0.7243976101608862,
+                  "valid": true
+                },
+                {
+                  "index": 46,
+                  "name": "XMV_06",
+                  "direction": "low",
+                  "score": 1.2973970184643107,
+                  "minimum_block_separation_sd": 1.404353405232929,
+                  "minimum_block_auc": 0.6122710280373832,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.09200000000000008,
+                  "absolute_lag_one": 0.5598255470744725,
+                  "valid": true
+                },
+                {
+                  "index": 47,
+                  "name": "XMV_07",
+                  "direction": "low",
+                  "score": -0.0029925999622578137,
+                  "minimum_block_separation_sd": 0.06900740003774225,
+                  "minimum_block_auc": 0.5079813084112149,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.036467974935334456,
+                  "valid": true
+                },
+                {
+                  "index": 48,
+                  "name": "XMV_08",
+                  "direction": "low",
+                  "score": -0.867523990041678,
+                  "minimum_block_separation_sd": -0.07685732337501126,
+                  "minimum_block_auc": 0.476607476635514,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.124,
+                  "absolute_lag_one": 0.009661332018908684,
+                  "valid": true
+                },
+                {
+                  "index": 49,
+                  "name": "XMV_09",
+                  "direction": "high",
+                  "score": 4.429702482097677,
+                  "minimum_block_separation_sd": 4.82939321833671,
+                  "minimum_block_auc": 0.833803738317757,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.276,
+                  "absolute_lag_one": 0.9947629449561327,
+                  "valid": true
+                },
+                {
+                  "index": 50,
+                  "name": "XMV_10",
+                  "direction": "low",
+                  "score": -0.7470344849049056,
+                  "minimum_block_separation_sd": -0.01236781823823893,
+                  "minimum_block_auc": 0.5012523364485981,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.06799999999999999,
+                  "absolute_lag_one": 0.2552426624088894,
+                  "valid": true
+                },
+                {
+                  "index": 51,
+                  "name": "XMV_11",
+                  "direction": "low",
+                  "score": -0.9374234628634692,
+                  "minimum_block_separation_sd": -0.17875679619680251,
+                  "minimum_block_auc": 0.44457943925233645,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09200000000000003,
+                  "absolute_lag_one": 0.009322674757818809,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 0.9227799227799228,
+                "recall": 0.9958333333333333,
+                "f1": 0.9579158316633267,
+                "false_alarm_rate": 0.041666666666666664,
+                "missed_alarm_rate": 0.004166666666666667,
+                "average_alarm_delay": 2.0
+              }
+            }
           },
           "frozen_iid_baseline": {
             "threshold": 0.34074,
@@ -193,6 +860,670 @@
               "normal_evaluation_maximum_run_length": 0
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "XMV_10",
+              "direction": "high",
+              "empirical": {
+                "precision": 1.0,
+                "recall": 0.9979166666666667,
+                "f1": 0.9989572471324296,
+                "false_alarm_rate": 0.0,
+                "missed_alarm_rate": 0.0020833333333333333,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "XMV_10",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 0.9835728952772074,
+                "recall": 0.9979166666666667,
+                "f1": 0.9906928645294726,
+                "false_alarm_rate": 0.008333333333333333,
+                "missed_alarm_rate": 0.0020833333333333333,
+                "average_alarm_delay": 1.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "XMV_10",
+              "direction": "high",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "XMEAS_01",
+                  "direction": "low",
+                  "score": -0.9932377138168147,
+                  "minimum_block_separation_sd": -0.20296781404283773,
+                  "minimum_block_auc": 0.45578504672897197,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.096,
+                  "absolute_lag_one": 0.6104129324292404,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "XMEAS_02",
+                  "direction": "low",
+                  "score": -0.8253975055721579,
+                  "minimum_block_separation_sd": -0.08273083890549113,
+                  "minimum_block_auc": 0.45449056603773585,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07599999999999998,
+                  "absolute_lag_one": 0.3271308924866209,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "XMEAS_03",
+                  "direction": "high",
+                  "score": -1.059206444316349,
+                  "minimum_block_separation_sd": -0.2805397776496822,
+                  "minimum_block_auc": 0.4291698113207547,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.2971509990522076,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "XMEAS_04",
+                  "direction": "high",
+                  "score": -1.4892360472326296,
+                  "minimum_block_separation_sd": -0.10390271389929606,
+                  "minimum_block_auc": 0.48100934579439253,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.052000000000000046,
+                  "absolute_lag_one": 0.1751781263113358,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "XMEAS_05",
+                  "direction": "high",
+                  "score": -0.05922661665143303,
+                  "minimum_block_separation_sd": 0.016773383348566987,
+                  "minimum_block_auc": 0.4957196261682243,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07600000000000001,
+                  "absolute_lag_one": 0.03628447992387253,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "XMEAS_06",
+                  "direction": "low",
+                  "score": -0.03753409789579161,
+                  "minimum_block_separation_sd": 0.0384659021042084,
+                  "minimum_block_auc": 0.48110280373831776,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07600000000000001,
+                  "absolute_lag_one": 0.009610518085537563,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "XMEAS_07",
+                  "direction": "high",
+                  "score": -1.0829932022595206,
+                  "minimum_block_separation_sd": -0.1899918086394802,
+                  "minimum_block_auc": 0.49750943396226416,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.11599999999999999,
+                  "absolute_lag_one": 0.9413389078134945,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "XMEAS_08",
+                  "direction": "high",
+                  "score": -1.5459494881405254,
+                  "minimum_block_separation_sd": -0.1486161548071918,
+                  "minimum_block_auc": 0.4999716981132076,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.06400000000000006,
+                  "absolute_lag_one": 0.03524452680869054,
+                  "valid": true
+                },
+                {
+                  "index": 8,
+                  "name": "XMEAS_09",
+                  "direction": "high",
+                  "score": -2.108,
+                  "minimum_block_separation_sd": 0.0,
+                  "minimum_block_auc": 0.4451121495327103,
+                  "direction_consistency": 0.0,
+                  "internal_normal_ks": 0.10800000000000001,
+                  "absolute_lag_one": 0.23622250438725007,
+                  "valid": true
+                },
+                {
+                  "index": 9,
+                  "name": "XMEAS_10",
+                  "direction": "low",
+                  "score": -1.5354830683670082,
+                  "minimum_block_separation_sd": -0.10096085977723847,
+                  "minimum_block_auc": 0.47930841121495327,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.08799999999999997,
+                  "absolute_lag_one": 0.5527555010257443,
+                  "valid": true
+                },
+                {
+                  "index": 10,
+                  "name": "XMEAS_11",
+                  "direction": "low",
+                  "score": -0.9550767741873285,
+                  "minimum_block_separation_sd": -0.13386023757460755,
+                  "minimum_block_auc": 0.48183018867924526,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10799999999999998,
+                  "absolute_lag_one": 0.686199479784217,
+                  "valid": true
+                },
+                {
+                  "index": 11,
+                  "name": "XMEAS_12",
+                  "direction": "high",
+                  "score": -0.7991059864347047,
+                  "minimum_block_separation_sd": -0.06043931976803782,
+                  "minimum_block_auc": 0.49149532710280375,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.03647545104659269,
+                  "valid": true
+                },
+                {
+                  "index": 12,
+                  "name": "XMEAS_13",
+                  "direction": "high",
+                  "score": -1.1209108075479497,
+                  "minimum_block_separation_sd": -0.2349445962254276,
+                  "minimum_block_auc": 0.4940754716981132,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.9291981786234211,
+                  "valid": true
+                },
+                {
+                  "index": 13,
+                  "name": "XMEAS_14",
+                  "direction": "high",
+                  "score": -1.615384139407671,
+                  "minimum_block_separation_sd": -0.2180508060743375,
+                  "minimum_block_auc": 0.47226415094339624,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.06399999999999995,
+                  "absolute_lag_one": 0.029823111615726428,
+                  "valid": true
+                },
+                {
+                  "index": 14,
+                  "name": "XMEAS_15",
+                  "direction": "low",
+                  "score": -0.8456987484107781,
+                  "minimum_block_separation_sd": -0.05503208174411138,
+                  "minimum_block_auc": 0.4694528301886792,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.124,
+                  "absolute_lag_one": 0.009673530077806667,
+                  "valid": true
+                },
+                {
+                  "index": 15,
+                  "name": "XMEAS_16",
+                  "direction": "high",
+                  "score": -0.19440404660953586,
+                  "minimum_block_separation_sd": 0.021773988916799922,
+                  "minimum_block_auc": 0.5392735849056604,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.10800000000000001,
+                  "absolute_lag_one": 0.9327121421053431,
+                  "valid": true
+                },
+                {
+                  "index": 16,
+                  "name": "XMEAS_17",
+                  "direction": "high",
+                  "score": -0.7953837075370775,
+                  "minimum_block_separation_sd": -0.028717040870410836,
+                  "minimum_block_auc": 0.514066037735849,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10000000000000003,
+                  "absolute_lag_one": 0.007743283197004909,
+                  "valid": true
+                },
+                {
+                  "index": 17,
+                  "name": "XMEAS_18",
+                  "direction": "low",
+                  "score": -0.10781199859668578,
+                  "minimum_block_separation_sd": 0.20298976630045806,
+                  "minimum_block_auc": 0.5234485981308411,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.18800000000000006,
+                  "absolute_lag_one": 0.9912070595885751,
+                  "valid": true
+                },
+                {
+                  "index": 18,
+                  "name": "XMEAS_19",
+                  "direction": "low",
+                  "score": -0.3362070497606461,
+                  "minimum_block_separation_sd": 0.01104653709070471,
+                  "minimum_block_auc": 0.46814953271028037,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.22799999999999998,
+                  "absolute_lag_one": 0.9770143474054034,
+                  "valid": true
+                },
+                {
+                  "index": 19,
+                  "name": "XMEAS_20",
+                  "direction": "high",
+                  "score": -1.45403421764197,
+                  "minimum_block_separation_sd": -0.5150583222290072,
+                  "minimum_block_auc": 0.45522429906542056,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.16,
+                  "absolute_lag_one": 0.9492369149851841,
+                  "valid": true
+                },
+                {
+                  "index": 20,
+                  "name": "XMEAS_21",
+                  "direction": "high",
+                  "score": -0.8062979952655831,
+                  "minimum_block_separation_sd": -0.07963132859891632,
+                  "minimum_block_auc": 0.46567924528301885,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.06,
+                  "absolute_lag_one": 0.2212665908566121,
+                  "valid": true
+                },
+                {
+                  "index": 21,
+                  "name": "XMEAS_22",
+                  "direction": "low",
+                  "score": -0.7769893457946381,
+                  "minimum_block_separation_sd": -0.05432267912797132,
+                  "minimum_block_auc": 0.48495283018867924,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.05600000000000005,
+                  "absolute_lag_one": 0.19589875223253944,
+                  "valid": true
+                },
+                {
+                  "index": 22,
+                  "name": "XMEAS_23",
+                  "direction": "high",
+                  "score": -1.6885816172798964,
+                  "minimum_block_separation_sd": -0.24196534178702206,
+                  "minimum_block_auc": 0.46179439252336446,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.09600000000000003,
+                  "absolute_lag_one": 0.5691317686381636,
+                  "valid": true
+                },
+                {
+                  "index": 23,
+                  "name": "XMEAS_24",
+                  "direction": "high",
+                  "score": -1.0212030905652,
+                  "minimum_block_separation_sd": -0.1832697380732449,
+                  "minimum_block_auc": 0.44721495327102806,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.15199999999999997,
+                  "absolute_lag_one": 0.5770667433011542,
+                  "valid": true
+                },
+                {
+                  "index": 24,
+                  "name": "XMEAS_25",
+                  "direction": "high",
+                  "score": 0.03532544283039246,
+                  "minimum_block_separation_sd": 0.1780349307701249,
+                  "minimum_block_auc": 0.5964528301886792,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.6228379517589298,
+                  "valid": true
+                },
+                {
+                  "index": 25,
+                  "name": "XMEAS_26",
+                  "direction": "low",
+                  "score": -0.05716734247115523,
+                  "minimum_block_separation_sd": 0.006832657528844717,
+                  "minimum_block_auc": 0.5002990654205608,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.06399999999999995,
+                  "absolute_lag_one": 0.4824592621854875,
+                  "valid": true
+                },
+                {
+                  "index": 26,
+                  "name": "XMEAS_27",
+                  "direction": "high",
+                  "score": -1.5717025428192644,
+                  "minimum_block_separation_sd": -0.1588564532511405,
+                  "minimum_block_auc": 0.4452897196261682,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.5300510249391612,
+                  "valid": true
+                },
+                {
+                  "index": 27,
+                  "name": "XMEAS_28",
+                  "direction": "high",
+                  "score": -0.9849081552315726,
+                  "minimum_block_separation_sd": -0.15467696055096022,
+                  "minimum_block_auc": 0.47543396226415097,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.136,
+                  "absolute_lag_one": 0.6102581120557824,
+                  "valid": true
+                },
+                {
+                  "index": 28,
+                  "name": "XMEAS_29",
+                  "direction": "low",
+                  "score": 0.302710848488037,
+                  "minimum_block_separation_sd": 0.4085616705802891,
+                  "minimum_block_auc": 0.5734716981132075,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.08000000000000007,
+                  "absolute_lag_one": 0.6034032883690083,
+                  "valid": true
+                },
+                {
+                  "index": 29,
+                  "name": "XMEAS_30",
+                  "direction": "high",
+                  "score": -1.5985091454930185,
+                  "minimum_block_separation_sd": -0.1619903290328229,
+                  "minimum_block_auc": 0.4695514018691589,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.5287419325074478,
+                  "valid": true
+                },
+                {
+                  "index": 30,
+                  "name": "XMEAS_31",
+                  "direction": "high",
+                  "score": 0.06610771659296583,
+                  "minimum_block_separation_sd": 0.2117258076242019,
+                  "minimum_block_auc": 0.5421132075471699,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.10400000000000001,
+                  "absolute_lag_one": 0.6664723641249443,
+                  "valid": true
+                },
+                {
+                  "index": 31,
+                  "name": "XMEAS_32",
+                  "direction": "low",
+                  "score": -0.8963041368879118,
+                  "minimum_block_separation_sd": -0.13363747022124503,
+                  "minimum_block_auc": 0.48998130841121496,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.44482421285425067,
+                  "valid": true
+                },
+                {
+                  "index": 32,
+                  "name": "XMEAS_33",
+                  "direction": "high",
+                  "score": -1.4062986152288504,
+                  "minimum_block_separation_sd": -0.6241241959841919,
+                  "minimum_block_auc": 0.4056822429906542,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.6740310103119668,
+                  "valid": true
+                },
+                {
+                  "index": 33,
+                  "name": "XMEAS_34",
+                  "direction": "low",
+                  "score": -0.08811375321338794,
+                  "minimum_block_separation_sd": 0.02475856583568884,
+                  "minimum_block_auc": 0.48613084112149535,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.5674892761963072,
+                  "valid": true
+                },
+                {
+                  "index": 34,
+                  "name": "XMEAS_35",
+                  "direction": "low",
+                  "score": -0.8396848305196365,
+                  "minimum_block_separation_sd": -0.017286229940788378,
+                  "minimum_block_auc": 0.47667924528301886,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.14400000000000002,
+                  "absolute_lag_one": 0.5469277356487253,
+                  "valid": true
+                },
+                {
+                  "index": 35,
+                  "name": "XMEAS_36",
+                  "direction": "low",
+                  "score": -0.07126642181903178,
+                  "minimum_block_separation_sd": 0.03623044106402293,
+                  "minimum_block_auc": 0.5062264150943396,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.545987451532219,
+                  "valid": true
+                },
+                {
+                  "index": 36,
+                  "name": "XMEAS_37",
+                  "direction": "low",
+                  "score": -1.877044985704318,
+                  "minimum_block_separation_sd": -0.1817842425393309,
+                  "minimum_block_auc": 0.48813084112149535,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.28,
+                  "absolute_lag_one": 0.827709639326614,
+                  "valid": true
+                },
+                {
+                  "index": 37,
+                  "name": "XMEAS_38",
+                  "direction": "high",
+                  "score": -1.7285313340120616,
+                  "minimum_block_separation_sd": -0.1523170676581147,
+                  "minimum_block_auc": 0.4517924528301887,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.14,
+                  "absolute_lag_one": 0.9115237320824535,
+                  "valid": true
+                },
+                {
+                  "index": 38,
+                  "name": "XMEAS_39",
+                  "direction": "high",
+                  "score": -0.14391824870969033,
+                  "minimum_block_separation_sd": 0.06371776520694858,
+                  "minimum_block_auc": 0.4930373831775701,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.14,
+                  "absolute_lag_one": 0.7705440556665556,
+                  "valid": true
+                },
+                {
+                  "index": 39,
+                  "name": "XMEAS_40",
+                  "direction": "low",
+                  "score": -0.9682542604239133,
+                  "minimum_block_separation_sd": -0.10266995095933103,
+                  "minimum_block_auc": 0.4541121495327103,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.12000000000000005,
+                  "absolute_lag_one": 0.815670571191662,
+                  "valid": true
+                },
+                {
+                  "index": 40,
+                  "name": "XMEAS_41",
+                  "direction": "high",
+                  "score": -0.042168444252894205,
+                  "minimum_block_separation_sd": 0.22898669687618628,
+                  "minimum_block_auc": 0.49355140186915886,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.2,
+                  "absolute_lag_one": 0.7846205645163219,
+                  "valid": true
+                },
+                {
+                  "index": 41,
+                  "name": "XMV_01",
+                  "direction": "low",
+                  "score": -0.9581350980574301,
+                  "minimum_block_separation_sd": -0.21946843139076333,
+                  "minimum_block_auc": 0.44787735849056604,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000001,
+                  "absolute_lag_one": 0.34343491349360006,
+                  "valid": true
+                },
+                {
+                  "index": 42,
+                  "name": "XMV_02",
+                  "direction": "low",
+                  "score": -0.8957396629876573,
+                  "minimum_block_separation_sd": -0.12507299632099053,
+                  "minimum_block_auc": 0.46501869158878506,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10399999999999998,
+                  "absolute_lag_one": 0.32422579735525575,
+                  "valid": true
+                },
+                {
+                  "index": 43,
+                  "name": "XMV_03",
+                  "direction": "low",
+                  "score": -1.0529612550071425,
+                  "minimum_block_separation_sd": -0.267068568834363,
+                  "minimum_block_auc": 0.4540373831775701,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.092,
+                  "absolute_lag_one": 0.6089040780244508,
+                  "valid": true
+                },
+                {
+                  "index": 44,
+                  "name": "XMV_04",
+                  "direction": "low",
+                  "score": -0.8147705803227413,
+                  "minimum_block_separation_sd": -0.05610391365607459,
+                  "minimum_block_auc": 0.5072523364485981,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09199999999999997,
+                  "absolute_lag_one": 0.07769934347517278,
+                  "valid": true
+                },
+                {
+                  "index": 45,
+                  "name": "XMV_05",
+                  "direction": "high",
+                  "score": -1.8075926766354777,
+                  "minimum_block_separation_sd": -0.3021599407619228,
+                  "minimum_block_auc": 0.4525188679245283,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.11599999999999999,
+                  "absolute_lag_one": 0.7243976101608862,
+                  "valid": true
+                },
+                {
+                  "index": 46,
+                  "name": "XMV_06",
+                  "direction": "low",
+                  "score": -1.5581594414126625,
+                  "minimum_block_separation_sd": -0.11786972131071079,
+                  "minimum_block_auc": 0.4584766355140187,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.09200000000000008,
+                  "absolute_lag_one": 0.5598255470744725,
+                  "valid": true
+                },
+                {
+                  "index": 47,
+                  "name": "XMV_07",
+                  "direction": "high",
+                  "score": -0.7988016866995559,
+                  "minimum_block_separation_sd": -0.06013502003288907,
+                  "minimum_block_auc": 0.4914859813084112,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.036467974935334456,
+                  "valid": true
+                },
+                {
+                  "index": 48,
+                  "name": "XMV_08",
+                  "direction": "low",
+                  "score": -0.8454434330499627,
+                  "minimum_block_separation_sd": -0.05477676638329603,
+                  "minimum_block_auc": 0.46941509433962264,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.124,
+                  "absolute_lag_one": 0.009661332018908684,
+                  "valid": true
+                },
+                {
+                  "index": 49,
+                  "name": "XMV_09",
+                  "direction": "low",
+                  "score": -1.1970661338223505,
+                  "minimum_block_separation_sd": -0.13070873091665064,
+                  "minimum_block_auc": 0.4688598130841122,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.276,
+                  "absolute_lag_one": 0.9947629449561327,
+                  "valid": true
+                },
+                {
+                  "index": 50,
+                  "name": "XMV_10",
+                  "direction": "high",
+                  "score": 7.1005777250071525,
+                  "minimum_block_separation_sd": 7.168577725007152,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.06799999999999999,
+                  "absolute_lag_one": 0.2552426624088894,
+                  "valid": true
+                },
+                {
+                  "index": 51,
+                  "name": "XMV_11",
+                  "direction": "low",
+                  "score": -1.452214054565935,
+                  "minimum_block_separation_sd": -0.02688072123260149,
+                  "minimum_block_auc": 0.5107196261682243,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.09200000000000003,
+                  "absolute_lag_one": 0.009322674757818809,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 1.0,
+                "recall": 0.9979166666666667,
+                "f1": 0.9989572471324296,
+                "false_alarm_rate": 0.0,
+                "missed_alarm_rate": 0.0020833333333333333,
+                "average_alarm_delay": 1.0
+              }
+            }
           },
           "frozen_iid_baseline": {
             "threshold": 43.75,
@@ -288,6 +1619,670 @@
               "normal_evaluation_maximum_run_length": 4
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "XMV_10",
+              "direction": "high",
+              "empirical": {
+                "precision": 1.0,
+                "recall": 0.3416666666666667,
+                "f1": 0.5093167701863354,
+                "false_alarm_rate": 0.0,
+                "missed_alarm_rate": 0.6583333333333333,
+                "average_alarm_delay": 8.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "XMV_10",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 1.0,
+                "recall": 0.8666666666666667,
+                "f1": 0.9285714285714286,
+                "false_alarm_rate": 0.0,
+                "missed_alarm_rate": 0.13333333333333333,
+                "average_alarm_delay": 8.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "XMEAS_29",
+              "direction": "low",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "XMEAS_01",
+                  "direction": "high",
+                  "score": -0.7925465016571143,
+                  "minimum_block_separation_sd": -0.002276601883137318,
+                  "minimum_block_auc": 0.5102429906542056,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.096,
+                  "absolute_lag_one": 0.6104129324292404,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "XMEAS_02",
+                  "direction": "low",
+                  "score": -0.8285194240214182,
+                  "minimum_block_separation_sd": -0.08585275735475147,
+                  "minimum_block_auc": 0.46945794392523366,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07599999999999998,
+                  "absolute_lag_one": 0.3271308924866209,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "XMEAS_03",
+                  "direction": "high",
+                  "score": -1.6139724131564295,
+                  "minimum_block_separation_sd": -0.16863907982309603,
+                  "minimum_block_auc": 0.45493396226415095,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.2971509990522076,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "XMEAS_04",
+                  "direction": "low",
+                  "score": -0.03435614292275803,
+                  "minimum_block_separation_sd": 0.01764385707724202,
+                  "minimum_block_auc": 0.5013738317757009,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.052000000000000046,
+                  "absolute_lag_one": 0.1751781263113358,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "XMEAS_05",
+                  "direction": "low",
+                  "score": -0.8049678048185137,
+                  "minimum_block_separation_sd": -0.06230113815184699,
+                  "minimum_block_auc": 0.49754205607476637,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07600000000000001,
+                  "absolute_lag_one": 0.03628447992387253,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "XMEAS_06",
+                  "direction": "low",
+                  "score": -0.7811325687709073,
+                  "minimum_block_separation_sd": -0.03846590210424056,
+                  "minimum_block_auc": 0.4913271028037383,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07600000000000001,
+                  "absolute_lag_one": 0.009610518085537563,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "XMEAS_07",
+                  "direction": "high",
+                  "score": -1.2064878778750574,
+                  "minimum_block_separation_sd": -0.3134864842550171,
+                  "minimum_block_auc": 0.47923584905660377,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.11599999999999999,
+                  "absolute_lag_one": 0.9413389078134945,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "XMEAS_08",
+                  "direction": "high",
+                  "score": -0.051694203742073376,
+                  "minimum_block_separation_sd": 0.012305796257926683,
+                  "minimum_block_auc": 0.4930280373831776,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.06400000000000006,
+                  "absolute_lag_one": 0.03524452680869054,
+                  "valid": true
+                },
+                {
+                  "index": 8,
+                  "name": "XMEAS_09",
+                  "direction": "high",
+                  "score": -1.9774031838798134,
+                  "minimum_block_separation_sd": -0.53606985054648,
+                  "minimum_block_auc": 0.4486168224299065,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.10800000000000001,
+                  "absolute_lag_one": 0.23622250438725007,
+                  "valid": true
+                },
+                {
+                  "index": 9,
+                  "name": "XMEAS_10",
+                  "direction": "high",
+                  "score": -1.4567678217610296,
+                  "minimum_block_separation_sd": -0.02224561317125996,
+                  "minimum_block_auc": 0.4869252336448598,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.08799999999999997,
+                  "absolute_lag_one": 0.5527555010257443,
+                  "valid": true
+                },
+                {
+                  "index": 10,
+                  "name": "XMEAS_11",
+                  "direction": "low",
+                  "score": -0.9267601854696301,
+                  "minimum_block_separation_sd": -0.10554364885690914,
+                  "minimum_block_auc": 0.48139622641509433,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10799999999999998,
+                  "absolute_lag_one": 0.686199479784217,
+                  "valid": true
+                },
+                {
+                  "index": 11,
+                  "name": "XMEAS_12",
+                  "direction": "high",
+                  "score": -0.8339190346210889,
+                  "minimum_block_separation_sd": -0.09525236795442206,
+                  "minimum_block_auc": 0.47974528301886793,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.03647545104659269,
+                  "valid": true
+                },
+                {
+                  "index": 12,
+                  "name": "XMEAS_13",
+                  "direction": "high",
+                  "score": -1.292601089404936,
+                  "minimum_block_separation_sd": -0.40663487808241394,
+                  "minimum_block_auc": 0.47191509433962264,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.9291981786234211,
+                  "valid": true
+                },
+                {
+                  "index": 13,
+                  "name": "XMEAS_14",
+                  "direction": "high",
+                  "score": -0.8641287979707836,
+                  "minimum_block_separation_sd": -0.1334621313041169,
+                  "minimum_block_auc": 0.4971698113207547,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.06399999999999995,
+                  "absolute_lag_one": 0.029823111615726428,
+                  "valid": true
+                },
+                {
+                  "index": 14,
+                  "name": "XMEAS_15",
+                  "direction": "low",
+                  "score": -0.12252592638185403,
+                  "minimum_block_separation_sd": 0.0014740736181459652,
+                  "minimum_block_auc": 0.49267289719626167,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.124,
+                  "absolute_lag_one": 0.009673530077806667,
+                  "valid": true
+                },
+                {
+                  "index": 15,
+                  "name": "XMEAS_16",
+                  "direction": "high",
+                  "score": -1.0461496190683088,
+                  "minimum_block_separation_sd": -0.16330491687530632,
+                  "minimum_block_auc": 0.5062264150943396,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10800000000000001,
+                  "absolute_lag_one": 0.9327121421053431,
+                  "valid": true
+                },
+                {
+                  "index": 16,
+                  "name": "XMEAS_17",
+                  "direction": "high",
+                  "score": -0.8990841329024482,
+                  "minimum_block_separation_sd": -0.1324174662357814,
+                  "minimum_block_auc": 0.44293457943925235,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10000000000000003,
+                  "absolute_lag_one": 0.007743283197004909,
+                  "valid": true
+                },
+                {
+                  "index": 17,
+                  "name": "XMEAS_18",
+                  "direction": "low",
+                  "score": -1.5075783967944645,
+                  "minimum_block_separation_sd": -0.5301099652306538,
+                  "minimum_block_auc": 0.39325471698113207,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.18800000000000006,
+                  "absolute_lag_one": 0.9912070595885751,
+                  "valid": true
+                },
+                {
+                  "index": 18,
+                  "name": "XMEAS_19",
+                  "direction": "high",
+                  "score": -1.0458324717800511,
+                  "minimum_block_separation_sd": -0.031912218262033505,
+                  "minimum_block_auc": 0.4837383177570094,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.22799999999999998,
+                  "absolute_lag_one": 0.9770143474054034,
+                  "valid": true
+                },
+                {
+                  "index": 19,
+                  "name": "XMEAS_20",
+                  "direction": "low",
+                  "score": -1.5112629201118546,
+                  "minimum_block_separation_sd": -0.5722870246988917,
+                  "minimum_block_auc": 0.3897009345794393,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.16,
+                  "absolute_lag_one": 0.9492369149851841,
+                  "valid": true
+                },
+                {
+                  "index": 20,
+                  "name": "XMEAS_21",
+                  "direction": "high",
+                  "score": -0.7601956471292806,
+                  "minimum_block_separation_sd": -0.033528980462613836,
+                  "minimum_block_auc": 0.48223364485981307,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.06,
+                  "absolute_lag_one": 0.2212665908566121,
+                  "valid": true
+                },
+                {
+                  "index": 21,
+                  "name": "XMEAS_22",
+                  "direction": "high",
+                  "score": -1.5643730771900666,
+                  "minimum_block_separation_sd": -0.17503974385673293,
+                  "minimum_block_auc": 0.4622336448598131,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.05600000000000005,
+                  "absolute_lag_one": 0.19589875223253944,
+                  "valid": true
+                },
+                {
+                  "index": 22,
+                  "name": "XMEAS_23",
+                  "direction": "low",
+                  "score": -0.8653491412216332,
+                  "minimum_block_separation_sd": -0.0853995323954255,
+                  "minimum_block_auc": 0.4711401869158878,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09600000000000003,
+                  "absolute_lag_one": 0.5691317686381636,
+                  "valid": true
+                },
+                {
+                  "index": 23,
+                  "name": "XMEAS_24",
+                  "direction": "high",
+                  "score": -1.1029928910276272,
+                  "minimum_block_separation_sd": -0.265059538535672,
+                  "minimum_block_auc": 0.48306542056074764,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.15199999999999997,
+                  "absolute_lag_one": 0.5770667433011542,
+                  "valid": true
+                },
+                {
+                  "index": 24,
+                  "name": "XMEAS_25",
+                  "direction": "high",
+                  "score": -1.595344579005618,
+                  "minimum_block_separation_sd": -0.11930175773255212,
+                  "minimum_block_auc": 0.4902264150943396,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.11199999999999999,
+                  "absolute_lag_one": 0.6228379517589298,
+                  "valid": true
+                },
+                {
+                  "index": 25,
+                  "name": "XMEAS_26",
+                  "direction": "high",
+                  "score": -0.9024591988204396,
+                  "minimum_block_separation_sd": -0.17179253215377288,
+                  "minimum_block_auc": 0.470392523364486,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.06399999999999995,
+                  "absolute_lag_one": 0.4824592621854875,
+                  "valid": true
+                },
+                {
+                  "index": 26,
+                  "name": "XMEAS_27",
+                  "direction": "high",
+                  "score": -1.0824599667967296,
+                  "minimum_block_separation_sd": -0.33628054389527257,
+                  "minimum_block_auc": 0.45229906542056075,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.5300510249391612,
+                  "valid": true
+                },
+                {
+                  "index": 27,
+                  "name": "XMEAS_28",
+                  "direction": "high",
+                  "score": -1.0919922048437725,
+                  "minimum_block_separation_sd": -0.26176101016316006,
+                  "minimum_block_auc": 0.4920373831775701,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.136,
+                  "absolute_lag_one": 0.6102581120557824,
+                  "valid": true
+                },
+                {
+                  "index": 28,
+                  "name": "XMEAS_29",
+                  "direction": "low",
+                  "score": 0.1532758405715233,
+                  "minimum_block_separation_sd": 0.25912666266377543,
+                  "minimum_block_auc": 0.5356261682242991,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.08000000000000007,
+                  "absolute_lag_one": 0.6034032883690083,
+                  "valid": true
+                },
+                {
+                  "index": 29,
+                  "name": "XMEAS_30",
+                  "direction": "high",
+                  "score": -1.7752258680742794,
+                  "minimum_block_separation_sd": -0.3387070516140842,
+                  "minimum_block_auc": 0.46822429906542057,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.5287419325074478,
+                  "valid": true
+                },
+                {
+                  "index": 30,
+                  "name": "XMEAS_31",
+                  "direction": "low",
+                  "score": -1.0876874999459256,
+                  "minimum_block_separation_sd": -0.2754027422480228,
+                  "minimum_block_auc": 0.45848598130841123,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10400000000000001,
+                  "absolute_lag_one": 0.6664723641249443,
+                  "valid": true
+                },
+                {
+                  "index": 31,
+                  "name": "XMEAS_32",
+                  "direction": "high",
+                  "score": -0.8453488424870046,
+                  "minimum_block_separation_sd": -0.08268217582033793,
+                  "minimum_block_auc": 0.5142641509433963,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.44482421285425067,
+                  "valid": true
+                },
+                {
+                  "index": 32,
+                  "name": "XMEAS_33",
+                  "direction": "high",
+                  "score": -0.7920811525142492,
+                  "minimum_block_separation_sd": -0.009906733269590719,
+                  "minimum_block_auc": 0.5061308411214953,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.6740310103119668,
+                  "valid": true
+                },
+                {
+                  "index": 33,
+                  "name": "XMEAS_34",
+                  "direction": "high",
+                  "score": -0.8423876528371309,
+                  "minimum_block_separation_sd": -0.0628486671213874,
+                  "minimum_block_auc": 0.4785046728971963,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.5674892761963072,
+                  "valid": true
+                },
+                {
+                  "index": 34,
+                  "name": "XMEAS_35",
+                  "direction": "low",
+                  "score": -0.8638855524367217,
+                  "minimum_block_separation_sd": -0.04148695185787368,
+                  "minimum_block_auc": 0.5203396226415095,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.14400000000000002,
+                  "absolute_lag_one": 0.5469277356487253,
+                  "valid": true
+                },
+                {
+                  "index": 35,
+                  "name": "XMEAS_36",
+                  "direction": "low",
+                  "score": -1.0373109435936805,
+                  "minimum_block_separation_sd": -0.26314741404395914,
+                  "minimum_block_auc": 0.44037735849056603,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09599999999999997,
+                  "absolute_lag_one": 0.545987451532219,
+                  "valid": true
+                },
+                {
+                  "index": 36,
+                  "name": "XMEAS_37",
+                  "direction": "high",
+                  "score": -1.7840493926878511,
+                  "minimum_block_separation_sd": -0.08878864952286404,
+                  "minimum_block_auc": 0.5120754716981132,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.28,
+                  "absolute_lag_one": 0.827709639326614,
+                  "valid": true
+                },
+                {
+                  "index": 37,
+                  "name": "XMEAS_38",
+                  "direction": "high",
+                  "score": -0.0975189826071606,
+                  "minimum_block_separation_sd": 0.1453619504134528,
+                  "minimum_block_auc": 0.5196728971962616,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.14,
+                  "absolute_lag_one": 0.9115237320824535,
+                  "valid": true
+                },
+                {
+                  "index": 38,
+                  "name": "XMEAS_39",
+                  "direction": "high",
+                  "score": -0.09543620221697591,
+                  "minimum_block_separation_sd": 0.112199811699663,
+                  "minimum_block_auc": 0.4662264150943396,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.14,
+                  "absolute_lag_one": 0.7705440556665556,
+                  "valid": true
+                },
+                {
+                  "index": 39,
+                  "name": "XMEAS_40",
+                  "direction": "low",
+                  "score": -0.0719802488845642,
+                  "minimum_block_separation_sd": 0.12693739391335135,
+                  "minimum_block_auc": 0.515233644859813,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.12000000000000005,
+                  "absolute_lag_one": 0.815670571191662,
+                  "valid": true
+                },
+                {
+                  "index": 40,
+                  "name": "XMEAS_41",
+                  "direction": "low",
+                  "score": -2.025660434788229,
+                  "minimum_block_separation_sd": -0.4211719603258151,
+                  "minimum_block_auc": 0.4837383177570094,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.2,
+                  "absolute_lag_one": 0.7846205645163219,
+                  "valid": true
+                },
+                {
+                  "index": 41,
+                  "name": "XMV_01",
+                  "direction": "low",
+                  "score": -0.7440414037619512,
+                  "minimum_block_separation_sd": -0.005374737095284416,
+                  "minimum_block_auc": 0.499411214953271,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000001,
+                  "absolute_lag_one": 0.34343491349360006,
+                  "valid": true
+                },
+                {
+                  "index": 42,
+                  "name": "XMV_02",
+                  "direction": "high",
+                  "score": -0.9004152890183542,
+                  "minimum_block_separation_sd": -0.12974862235168752,
+                  "minimum_block_auc": 0.4742990654205608,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10399999999999998,
+                  "absolute_lag_one": 0.32422579735525575,
+                  "valid": true
+                },
+                {
+                  "index": 43,
+                  "name": "XMV_03",
+                  "direction": "high",
+                  "score": -0.7949188604673805,
+                  "minimum_block_separation_sd": -0.009026174294601076,
+                  "minimum_block_auc": 0.5035607476635514,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.092,
+                  "absolute_lag_one": 0.6089040780244508,
+                  "valid": true
+                },
+                {
+                  "index": 44,
+                  "name": "XMV_04",
+                  "direction": "low",
+                  "score": -0.046863768712791666,
+                  "minimum_block_separation_sd": 0.045136231287208305,
+                  "minimum_block_auc": 0.4845046728971963,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.09199999999999997,
+                  "absolute_lag_one": 0.07769934347517278,
+                  "valid": true
+                },
+                {
+                  "index": 45,
+                  "name": "XMV_05",
+                  "direction": "high",
+                  "score": -1.2944232598758707,
+                  "minimum_block_separation_sd": -0.4556571906689825,
+                  "minimum_block_auc": 0.387,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.11599999999999999,
+                  "absolute_lag_one": 0.7243976101608862,
+                  "valid": true
+                },
+                {
+                  "index": 46,
+                  "name": "XMV_06",
+                  "direction": "low",
+                  "score": -1.6534287736814974,
+                  "minimum_block_separation_sd": -0.21313905357954557,
+                  "minimum_block_auc": 0.45222429906542055,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.09200000000000008,
+                  "absolute_lag_one": 0.5598255470744725,
+                  "valid": true
+                },
+                {
+                  "index": 47,
+                  "name": "XMV_07",
+                  "direction": "high",
+                  "score": -0.833469690051851,
+                  "minimum_block_separation_sd": -0.09480302338518419,
+                  "minimum_block_auc": 0.479688679245283,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.07200000000000006,
+                  "absolute_lag_one": 0.036467974935334456,
+                  "valid": true
+                },
+                {
+                  "index": 48,
+                  "name": "XMV_08",
+                  "direction": "low",
+                  "score": -0.12230149561602284,
+                  "minimum_block_separation_sd": 0.0016985043839771658,
+                  "minimum_block_auc": 0.49270093457943925,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.124,
+                  "absolute_lag_one": 0.009661332018908684,
+                  "valid": true
+                },
+                {
+                  "index": 49,
+                  "name": "XMV_09",
+                  "direction": "high",
+                  "score": -0.38579557385329954,
+                  "minimum_block_separation_sd": 0.01389516238573363,
+                  "minimum_block_auc": 0.4703271028037383,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.276,
+                  "absolute_lag_one": 0.9947629449561327,
+                  "valid": true
+                },
+                {
+                  "index": 50,
+                  "name": "XMV_10",
+                  "direction": "high",
+                  "score": -2.568665100895867,
+                  "minimum_block_separation_sd": -1.1673317675625334,
+                  "minimum_block_auc": 0.42333644859813085,
+                  "direction_consistency": 0.3333333333333333,
+                  "internal_normal_ks": 0.06799999999999999,
+                  "absolute_lag_one": 0.2552426624088894,
+                  "valid": true
+                },
+                {
+                  "index": 51,
+                  "name": "XMV_11",
+                  "direction": "low",
+                  "score": -0.8923982547988607,
+                  "minimum_block_separation_sd": -0.13373158813219396,
+                  "minimum_block_auc": 0.43757943925233644,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.09200000000000003,
+                  "absolute_lag_one": 0.009322674757818809,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 0.2,
+                "recall": 0.016666666666666666,
+                "f1": 0.03076923076923077,
+                "false_alarm_rate": 0.03333333333333333,
+                "missed_alarm_rate": 0.9833333333333333,
+                "average_alarm_delay": 68.0
+              }
+            }
           },
           "frozen_iid_baseline": {
             "threshold": 41.469,
@@ -388,6 +2383,250 @@
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
           },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "Water.Density",
+              "direction": "high",
+              "empirical": {
+                "precision": 0.8319444444444445,
+                "recall": 0.11242492492492492,
+                "f1": 0.19808201058201058,
+                "false_alarm_rate": 0.5,
+                "missed_alarm_rate": 0.887575075075075,
+                "average_alarm_delay": 2.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "Water.Density",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 0.9765866873065016,
+                "recall": 0.9472597597597597,
+                "f1": 0.9616996951219512,
+                "false_alarm_rate": 0.5,
+                "missed_alarm_rate": 0.05274024024024024,
+                "average_alarm_delay": 2.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "Water.T",
+              "direction": "low",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "AirIn",
+                  "direction": "low",
+                  "score": -0.10061665562085242,
+                  "minimum_block_separation_sd": 1.0229276717499374,
+                  "minimum_block_auc": 0.7464069538288288,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9941773094831592,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "Air.T",
+                  "direction": "low",
+                  "score": -0.9625831343888684,
+                  "minimum_block_separation_sd": 0.15930005698190572,
+                  "minimum_block_auc": 0.497754786036036,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9875327654830968,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "Air.P",
+                  "direction": "low",
+                  "score": -0.909371372410959,
+                  "minimum_block_separation_sd": 0.2137425991473032,
+                  "minimum_block_auc": 0.2650807057057057,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9924558862330487,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "WaterIn",
+                  "direction": "low",
+                  "score": -0.14142414304177509,
+                  "minimum_block_separation_sd": 0.9822078625186517,
+                  "minimum_block_auc": 0.5,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.994528022241707,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "Water.T",
+                  "direction": "low",
+                  "score": 0.07505755291964131,
+                  "minimum_block_separation_sd": 1.1978490932499053,
+                  "minimum_block_auc": 0.8669599286786787,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.991166161321056,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "Water.Density",
+                  "direction": "high",
+                  "score": -0.034788846399042145,
+                  "minimum_block_separation_sd": 1.0887842017003129,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9942921923974201,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "Mixture.zone.P",
+                  "direction": "low",
+                  "score": -0.6057350308121974,
+                  "minimum_block_separation_sd": 0.5110440018210297,
+                  "minimum_block_auc": 0.779932667042042,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9671161305329081,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "riser.outlet.P",
+                  "direction": "low",
+                  "score": -0.8230204945012631,
+                  "minimum_block_separation_sd": 0.28182004458383236,
+                  "minimum_block_auc": 0.7215371621621621,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9193621563403819,
+                  "valid": true
+                },
+                {
+                  "index": 8,
+                  "name": "P.topsep",
+                  "direction": "high",
+                  "score": -0.5332597183189532,
+                  "minimum_block_separation_sd": 0.06299211874219333,
+                  "minimum_block_auc": 0.5426168355855856,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.4777777777777778,
+                  "absolute_lag_one": 0.9738962371334751,
+                  "valid": true
+                },
+                {
+                  "index": 9,
+                  "name": "FR.topsep.gas",
+                  "direction": "low",
+                  "score": -0.5003494600844015,
+                  "minimum_block_separation_sd": 0.6219775648194463,
+                  "minimum_block_auc": 0.8018745307807807,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9893080996153915,
+                  "valid": true
+                },
+                {
+                  "index": 10,
+                  "name": "FR.topsep.liquid",
+                  "direction": "low",
+                  "score": -0.6912739747361059,
+                  "minimum_block_separation_sd": 0.42182551162592635,
+                  "minimum_block_auc": 0.7798376501501502,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9523979454481292,
+                  "valid": true
+                },
+                {
+                  "index": 11,
+                  "name": "P_3phase",
+                  "direction": "high",
+                  "score": -0.542398387392384,
+                  "minimum_block_separation_sd": 0.08785446116597169,
+                  "minimum_block_auc": 0.5412807338588589,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.5111111111111112,
+                  "absolute_lag_one": 0.9765669497889778,
+                  "valid": true
+                },
+                {
+                  "index": 12,
+                  "name": "Air.Valve",
+                  "direction": "low",
+                  "score": -0.6211660735948248,
+                  "minimum_block_separation_sd": 0.5010386656683014,
+                  "minimum_block_auc": 0.708275853978979,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9888189570525048,
+                  "valid": true
+                },
+                {
+                  "index": 13,
+                  "name": "Water.level",
+                  "direction": "high",
+                  "score": -1.0541007623409178,
+                  "minimum_block_separation_sd": -0.007889403018073785,
+                  "minimum_block_auc": 0.5047273836336337,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.2611111111111111,
+                  "absolute_lag_one": 0.9737343261802642,
+                  "valid": true
+                },
+                {
+                  "index": 14,
+                  "name": "Water.coalescer",
+                  "direction": "high",
+                  "score": -0.24394173806510056,
+                  "minimum_block_separation_sd": 0.5459624372671539,
+                  "minimum_block_auc": 0.7501407657657657,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.6666666666666667,
+                  "absolute_lag_one": 0.9929500346623508,
+                  "valid": true
+                },
+                {
+                  "index": 15,
+                  "name": "Water.level.valve",
+                  "direction": "low",
+                  "score": -0.14494140080474943,
+                  "minimum_block_separation_sd": 0.9776639392626477,
+                  "minimum_block_auc": 0.749024024024024,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 1.0,
+                  "absolute_lag_one": 0.9904213602695886,
+                  "valid": true
+                },
+                {
+                  "index": 16,
+                  "name": "water.tank.level",
+                  "direction": "high",
+                  "score": -0.5830076355341156,
+                  "minimum_block_separation_sd": 0.4778360173591059,
+                  "minimum_block_auc": 0.5937277120870871,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.938888888888889,
+                  "absolute_lag_one": 0.9878190560173299,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 0.9846625766871165,
+                "recall": 0.1204954954954955,
+                "f1": 0.21471571906354517,
+                "false_alarm_rate": 0.04132231404958678,
+                "missed_alarm_rate": 0.8795045045045045,
+                "average_alarm_delay": 2.0
+              }
+            }
+          },
           "frozen_iid_baseline": {
             "threshold": 997.6356812,
             "delay": 3,
@@ -485,6 +2724,250 @@
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
           },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "Water.T",
+              "direction": "low",
+              "empirical": {
+                "precision": 0.31210191082802546,
+                "recall": 0.02834008097165992,
+                "f1": 0.051961823966065745,
+                "false_alarm_rate": 0.05625,
+                "missed_alarm_rate": 0.97165991902834,
+                "average_alarm_delay": 118.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "Water.T",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 0.37681159420289856,
+                "recall": 0.015037593984962405,
+                "f1": 0.028921023359288096,
+                "false_alarm_rate": 0.022395833333333334,
+                "missed_alarm_rate": 0.9849624060150376,
+                "average_alarm_delay": 118.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "Water.T",
+              "direction": "low",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "AirIn",
+                  "direction": "low",
+                  "score": -0.48338108319679185,
+                  "minimum_block_separation_sd": 0.0822746536447698,
+                  "minimum_block_auc": 0.6078818238811728,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.44074074074074077,
+                  "absolute_lag_one": 0.9996599844032836,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "Air.T",
+                  "direction": "high",
+                  "score": 0.32726553530761227,
+                  "minimum_block_separation_sd": 1.179065719349811,
+                  "minimum_block_auc": 0.7708652826003086,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.7268518518518519,
+                  "absolute_lag_one": 0.9997933287613879,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "Air.P",
+                  "direction": "low",
+                  "score": -0.16489080372371523,
+                  "minimum_block_separation_sd": 0.14868955843338763,
+                  "minimum_block_auc": 0.7290328414351852,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.18981481481481483,
+                  "absolute_lag_one": 0.9950621893691521,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "WaterIn",
+                  "direction": "low",
+                  "score": -0.4852091653964217,
+                  "minimum_block_separation_sd": 0.11182773258736992,
+                  "minimum_block_auc": 0.9981481481481481,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.4722222222222222,
+                  "absolute_lag_one": 0.9992587030462776,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "Water.T",
+                  "direction": "low",
+                  "score": 1.0126674362031771,
+                  "minimum_block_separation_sd": 1.82551342105873,
+                  "minimum_block_auc": 0.8781882957175926,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.6879629629629629,
+                  "absolute_lag_one": 0.99953208757036,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "Water.Density",
+                  "direction": "high",
+                  "score": 0.12026679267919102,
+                  "minimum_block_separation_sd": 0.8887010080167217,
+                  "minimum_block_auc": 0.7916666666666666,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.6435185185185185,
+                  "absolute_lag_one": 0.9996627872760487,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "Mixture.zone.P",
+                  "direction": "low",
+                  "score": -0.3490913501825189,
+                  "minimum_block_separation_sd": 0.024765904505743914,
+                  "minimum_block_auc": 0.5325948832947531,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.2537037037037037,
+                  "absolute_lag_one": 0.9806142039382365,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "riser.outlet.P",
+                  "direction": "low",
+                  "score": -0.015495222347736287,
+                  "minimum_block_separation_sd": 0.286009601646363,
+                  "minimum_block_auc": 0.7131878134645062,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.18333333333333335,
+                  "absolute_lag_one": 0.9726859626430638,
+                  "valid": true
+                },
+                {
+                  "index": 8,
+                  "name": "P.topsep",
+                  "direction": "low",
+                  "score": -0.4076410109434115,
+                  "minimum_block_separation_sd": 0.01785676598846889,
+                  "minimum_block_auc": 0.5334243586033951,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.3018518518518518,
+                  "absolute_lag_one": 0.9945837003201143,
+                  "valid": true
+                },
+                {
+                  "index": 9,
+                  "name": "FR.topsep.gas",
+                  "direction": "low",
+                  "score": -0.09269122498388936,
+                  "minimum_block_separation_sd": 0.10549430565435437,
+                  "minimum_block_auc": 0.7454758632330247,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.07870370370370372,
+                  "absolute_lag_one": 0.9779273077381601,
+                  "valid": true
+                },
+                {
+                  "index": 10,
+                  "name": "FR.topsep.liquid",
+                  "direction": "low",
+                  "score": -0.08441596987598371,
+                  "minimum_block_separation_sd": 0.11566910683216705,
+                  "minimum_block_auc": 0.7745732060185185,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.08240740740740743,
+                  "absolute_lag_one": 0.9707106772029733,
+                  "valid": true
+                },
+                {
+                  "index": 11,
+                  "name": "P_3phase",
+                  "direction": "low",
+                  "score": -1.0393896621643641,
+                  "minimum_block_separation_sd": -0.0,
+                  "minimum_block_auc": 0.5045241367669753,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.249074074074074,
+                  "absolute_lag_one": 0.9945956856944935,
+                  "valid": true
+                },
+                {
+                  "index": 12,
+                  "name": "Air.Valve",
+                  "direction": "low",
+                  "score": -0.22693590115070694,
+                  "minimum_block_separation_sd": 0.22007233777071486,
+                  "minimum_block_auc": 0.6311493296682099,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.325,
+                  "absolute_lag_one": 0.9880329556856872,
+                  "valid": true
+                },
+                {
+                  "index": 13,
+                  "name": "Water.level",
+                  "direction": "high",
+                  "score": -0.27185576910348763,
+                  "minimum_block_separation_sd": 0.06690139944952436,
+                  "minimum_block_auc": 0.6301643277391975,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.2157407407407408,
+                  "absolute_lag_one": 0.9920657112490848,
+                  "valid": true
+                },
+                {
+                  "index": 14,
+                  "name": "Water.coalescer",
+                  "direction": "low",
+                  "score": -1.0461042652030395,
+                  "minimum_block_separation_sd": -0.09718928778703254,
+                  "minimum_block_auc": 0.4637592833719136,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.15833333333333333,
+                  "absolute_lag_one": 0.9956599096640276,
+                  "valid": true
+                },
+                {
+                  "index": 15,
+                  "name": "Water.level.valve",
+                  "direction": "high",
+                  "score": -0.25927449489784654,
+                  "minimum_block_separation_sd": 0.06448705483520134,
+                  "minimum_block_auc": 0.47800624517746915,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.20000000000000007,
+                  "absolute_lag_one": 0.9950461989321913,
+                  "valid": true
+                },
+                {
+                  "index": 16,
+                  "name": "water.tank.level",
+                  "direction": "high",
+                  "score": -0.04750354005228127,
+                  "minimum_block_separation_sd": 0.8046176143524223,
+                  "minimum_block_auc": 0.7475200135030864,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.7277777777777777,
+                  "absolute_lag_one": 0.9973735065077033,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 0.31210191082802546,
+                "recall": 0.02834008097165992,
+                "f1": 0.051961823966065745,
+                "false_alarm_rate": 0.05625,
+                "missed_alarm_rate": 0.97165991902834,
+                "average_alarm_delay": 118.0
+              }
+            }
+          },
           "frozen_iid_baseline": {
             "threshold": 19.38907051,
             "delay": 5,
@@ -578,6 +3061,250 @@
               "normal_evaluation_maximum_run_length": 16
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "Water.level",
+              "direction": "low",
+              "empirical": {
+                "precision": 0.8362068965517241,
+                "recall": 0.10363247863247864,
+                "f1": 0.18441064638783272,
+                "false_alarm_rate": 0.005847953216374269,
+                "missed_alarm_rate": 0.8963675213675214,
+                "average_alarm_delay": 2.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "Water.level",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 1.0,
+                "recall": 0.003205128205128205,
+                "f1": 0.006389776357827476,
+                "false_alarm_rate": 0.0,
+                "missed_alarm_rate": 0.9967948717948718,
+                "average_alarm_delay": 382.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "Water.level",
+              "direction": "low",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "AirIn",
+                  "direction": "low",
+                  "score": 0.6468956466567255,
+                  "minimum_block_separation_sd": 1.0783381698919423,
+                  "minimum_block_auc": 0.8616268975586108,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.3068844807467911,
+                  "absolute_lag_one": 0.9982321699537028,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "Air.T",
+                  "direction": "low",
+                  "score": 0.5737041177178188,
+                  "minimum_block_separation_sd": 1.049158836496397,
+                  "minimum_block_auc": 0.8743576653801275,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.3506417736289381,
+                  "absolute_lag_one": 0.9992517805985607,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "Air.P",
+                  "direction": "low",
+                  "score": 1.0115202898624425,
+                  "minimum_block_separation_sd": 1.7139702967834143,
+                  "minimum_block_auc": 0.783354894897942,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.5775962660443407,
+                  "absolute_lag_one": 0.9994149635065246,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "WaterIn",
+                  "direction": "low",
+                  "score": 0.7826583162885756,
+                  "minimum_block_separation_sd": 1.4849932210468593,
+                  "minimum_block_auc": 0.8355686484606408,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.5775962660443407,
+                  "absolute_lag_one": 0.9989545548557719,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "Water.T",
+                  "direction": "low",
+                  "score": 1.0464895917739558,
+                  "minimum_block_separation_sd": 2.0237569632504178,
+                  "minimum_block_auc": 0.7942250190736918,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.8523920653442241,
+                  "absolute_lag_one": 0.999501224528951,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "Water.Density",
+                  "direction": "high",
+                  "score": -0.14057934128004987,
+                  "minimum_block_separation_sd": 0.46899606574638514,
+                  "minimum_block_auc": 0.7575845974329055,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.485414235705951,
+                  "absolute_lag_one": 0.9966446852819361,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "Mixture.zone.P",
+                  "direction": "low",
+                  "score": 0.4684971592843459,
+                  "minimum_block_separation_sd": 1.1689660818343361,
+                  "minimum_block_auc": 0.7335061077007199,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.5775962660443407,
+                  "absolute_lag_one": 0.9914906260225985,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "riser.outlet.P",
+                  "direction": "low",
+                  "score": 1.0167035714898427,
+                  "minimum_block_separation_sd": 1.6412541297865186,
+                  "minimum_block_auc": 0.9446368074228152,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.5268378063010501,
+                  "absolute_lag_one": 0.8908510079825028,
+                  "valid": true
+                },
+                {
+                  "index": 8,
+                  "name": "P.topsep",
+                  "direction": "low",
+                  "score": -0.9852134366128034,
+                  "minimum_block_separation_sd": -0.009125783682045833,
+                  "minimum_block_auc": 0.5103292455793914,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.18494749124854137,
+                  "absolute_lag_one": 0.9978939800621976,
+                  "valid": true
+                },
+                {
+                  "index": 9,
+                  "name": "FR.topsep.gas",
+                  "direction": "low",
+                  "score": 0.7981715177842645,
+                  "minimum_block_separation_sd": 1.2125539918437,
+                  "minimum_block_auc": 0.938742594919666,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.29054842473745623,
+                  "absolute_lag_one": 0.9953361972879171,
+                  "valid": true
+                },
+                {
+                  "index": 10,
+                  "name": "FR.topsep.liquid",
+                  "direction": "low",
+                  "score": 1.2353911503801853,
+                  "minimum_block_separation_sd": 1.8728345188154156,
+                  "minimum_block_auc": 0.8513485138022199,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.5198366394399067,
+                  "absolute_lag_one": 0.9704269159812954,
+                  "valid": true
+                },
+                {
+                  "index": 11,
+                  "name": "P_3phase",
+                  "direction": "low",
+                  "score": -0.925655338286491,
+                  "minimum_block_separation_sd": -0.03152876725186227,
+                  "minimum_block_auc": 0.5011542388475002,
+                  "direction_consistency": 0.6666666666666666,
+                  "internal_normal_ks": 0.10268378063010503,
+                  "absolute_lag_one": 0.9991044949514278,
+                  "valid": true
+                },
+                {
+                  "index": 12,
+                  "name": "Air.Valve",
+                  "direction": "low",
+                  "score": 0.8980078199007134,
+                  "minimum_block_separation_sd": 1.3172849132981383,
+                  "minimum_block_auc": 0.7903144888077159,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.29463243873978995,
+                  "absolute_lag_one": 0.9985786186305402,
+                  "valid": true
+                },
+                {
+                  "index": 13,
+                  "name": "Water.level",
+                  "direction": "low",
+                  "score": 3.26815783103327,
+                  "minimum_block_separation_sd": 3.417425826611768,
+                  "minimum_block_auc": 0.985410712574479,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.047257876312718786,
+                  "absolute_lag_one": 0.9080404770631152,
+                  "valid": true
+                },
+                {
+                  "index": 14,
+                  "name": "Water.coalescer",
+                  "direction": "high",
+                  "score": 0.4689713231758825,
+                  "minimum_block_separation_sd": 1.0616830889707645,
+                  "minimum_block_auc": 0.8115729624809264,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.47257876312718783,
+                  "absolute_lag_one": 0.9805320106707763,
+                  "valid": true
+                },
+                {
+                  "index": 15,
+                  "name": "Water.level.valve",
+                  "direction": "low",
+                  "score": 1.5825061321454097,
+                  "minimum_block_separation_sd": 2.284935343317006,
+                  "minimum_block_auc": 0.9941290537150717,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.5775962660443407,
+                  "absolute_lag_one": 0.9993317805090227,
+                  "valid": true
+                },
+                {
+                  "index": 16,
+                  "name": "water.tank.level",
+                  "direction": "high",
+                  "score": 1.1169134840874102,
+                  "minimum_block_separation_sd": 1.8192167632614784,
+                  "minimum_block_auc": 0.9997569039284325,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.5775962660443408,
+                  "absolute_lag_one": 0.9988280525189095,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 0.8362068965517241,
+                "recall": 0.10363247863247864,
+                "f1": 0.18441064638783272,
+                "false_alarm_rate": 0.005847953216374269,
+                "missed_alarm_rate": 0.8963675213675214,
+                "average_alarm_delay": 2.0
+              }
+            }
           },
           "frozen_iid_baseline": {
             "threshold": 61.16579056,
@@ -678,6 +3405,142 @@
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
           },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "empirical": {
+                "precision": 0.13805104408352667,
+                "recall": 0.9875518672199171,
+                "f1": 0.2422391857506361,
+                "false_alarm_rate": 0.3159685307250691,
+                "missed_alarm_rate": 0.012448132780082987,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 0.19883040935672514,
+                "recall": 0.9875518672199171,
+                "f1": 0.33101529902642557,
+                "false_alarm_rate": 0.20391239634275993,
+                "missed_alarm_rate": 0.012448132780082987,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "Accelerometer1RMS",
+                  "direction": "low",
+                  "score": 41.58412513523894,
+                  "minimum_block_separation_sd": 42.29355193823325,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.6031475967673331,
+                  "absolute_lag_one": 0.925116824907881,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "Accelerometer2RMS",
+                  "direction": "low",
+                  "score": 59.74516729129638,
+                  "minimum_block_separation_sd": 60.77529201394028,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.9366227137388347,
+                  "absolute_lag_one": 0.8740080356202632,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "Current",
+                  "direction": "low",
+                  "score": 3.0469185058797317,
+                  "minimum_block_separation_sd": 3.0741409644080178,
+                  "minimum_block_auc": 0.9756265900499987,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.027222458528285864,
+                  "absolute_lag_one": 0.09003797561883528,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "Pressure",
+                  "direction": "high",
+                  "score": -2.0161633347511696,
+                  "minimum_block_separation_sd": 0.0,
+                  "minimum_block_auc": 0.4675930756081314,
+                  "direction_consistency": 0.0,
+                  "internal_normal_ks": 0.01616333475116971,
+                  "absolute_lag_one": 0.09977934561495883,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "Temperature",
+                  "direction": "low",
+                  "score": 17.7447660808649,
+                  "minimum_block_separation_sd": 18.583600222391656,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.7324542747766908,
+                  "absolute_lag_one": 0.9255194670002779,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "Thermocouple",
+                  "direction": "low",
+                  "score": 2.5327849970719924,
+                  "minimum_block_separation_sd": 3.6496844315180668,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.9919183326244152,
+                  "absolute_lag_one": 0.9999244072866369,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "Voltage",
+                  "direction": "high",
+                  "score": 0.10467037843787703,
+                  "minimum_block_separation_sd": 0.12210976593256014,
+                  "minimum_block_auc": 0.5159787485052527,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.0174393874946831,
+                  "absolute_lag_one": 0.002125602728099872,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "Volume Flow RateRMS",
+                  "direction": "low",
+                  "score": 57.833502135334165,
+                  "minimum_block_separation_sd": 58.77968114237098,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.8332624415142493,
+                  "absolute_lag_one": 0.9516662620902834,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 0.13805104408352667,
+                "recall": 0.9875518672199171,
+                "f1": 0.2422391857506361,
+                "false_alarm_rate": 0.3159685307250691,
+                "missed_alarm_rate": 0.012448132780082987,
+                "average_alarm_delay": 3.0
+              }
+            }
+          },
           "frozen_iid_baseline": {
             "threshold": 0.2662387,
             "delay": 4,
@@ -774,6 +3637,142 @@
               "normal_evaluation_maximum_run_length": 317
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "empirical": {
+                "precision": 0.13855072463768117,
+                "recall": 0.987603305785124,
+                "f1": 0.24300965937976615,
+                "false_alarm_rate": 0.3159685307250691,
+                "missed_alarm_rate": 0.012396694214876033,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 0.1994991652754591,
+                "recall": 0.987603305785124,
+                "f1": 0.3319444444444445,
+                "false_alarm_rate": 0.20391239634275993,
+                "missed_alarm_rate": 0.012396694214876033,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "Accelerometer1RMS",
+                  "direction": "low",
+                  "score": 41.49787622458704,
+                  "minimum_block_separation_sd": 42.20730302758135,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.6031475967673331,
+                  "absolute_lag_one": 0.925116824907881,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "Accelerometer2RMS",
+                  "direction": "low",
+                  "score": 59.446363434279355,
+                  "minimum_block_separation_sd": 60.47648815692325,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.9366227137388347,
+                  "absolute_lag_one": 0.8740080356202632,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "Current",
+                  "direction": "low",
+                  "score": 2.8475930902264768,
+                  "minimum_block_separation_sd": 2.874815548754763,
+                  "minimum_block_auc": 0.9719910435543285,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.027222458528285864,
+                  "absolute_lag_one": 0.09003797561883528,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "Pressure",
+                  "direction": "high",
+                  "score": -2.0161633347511696,
+                  "minimum_block_separation_sd": 0.0,
+                  "minimum_block_auc": 0.44382611024465557,
+                  "direction_consistency": 0.0,
+                  "internal_normal_ks": 0.01616333475116971,
+                  "absolute_lag_one": 0.09977934561495883,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "Temperature",
+                  "direction": "low",
+                  "score": 25.090507323557805,
+                  "minimum_block_separation_sd": 25.929341465084562,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.7324542747766908,
+                  "absolute_lag_one": 0.9255194670002779,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "Thermocouple",
+                  "direction": "low",
+                  "score": 2.9597748961079504,
+                  "minimum_block_separation_sd": 4.076674330554025,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.9919183326244152,
+                  "absolute_lag_one": 0.9999244072866369,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "Voltage",
+                  "direction": "high",
+                  "score": 0.13961101374020643,
+                  "minimum_block_separation_sd": 0.15705040123488953,
+                  "minimum_block_auc": 0.5666855711517558,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.0174393874946831,
+                  "absolute_lag_one": 0.002125602728099872,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "Volume Flow RateRMS",
+                  "direction": "low",
+                  "score": 57.833629917249695,
+                  "minimum_block_separation_sd": 58.77980892428651,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.8332624415142493,
+                  "absolute_lag_one": 0.9516662620902834,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 0.13855072463768117,
+                "recall": 0.987603305785124,
+                "f1": 0.24300965937976615,
+                "false_alarm_rate": 0.3159685307250691,
+                "missed_alarm_rate": 0.012396694214876033,
+                "average_alarm_delay": 3.0
+              }
+            }
           },
           "frozen_iid_baseline": {
             "threshold": 0.26616765000000003,
@@ -872,6 +3871,142 @@
             },
             "scope": "held_out_posthoc_diagnostic_not_for_routing"
           },
+          "initial_adapter_results": {
+            "ecdf_one_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "empirical": {
+                "precision": 0.13604651162790699,
+                "recall": 0.9873417721518988,
+                "f1": 0.23914154317833422,
+                "false_alarm_rate": 0.3159685307250691,
+                "missed_alarm_rate": 0.012658227848101266,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "ecdf_two_sided": {
+              "feature": "Accelerometer2RMS",
+              "direction": "two_sided",
+              "empirical": {
+                "precision": 0.1961441743503772,
+                "recall": 0.9873417721518988,
+                "f1": 0.32727272727272727,
+                "false_alarm_rate": 0.20391239634275993,
+                "missed_alarm_rate": 0.012658227848101266,
+                "average_alarm_delay": 3.0
+              }
+            },
+            "stable_feature_ecdf": {
+              "feature": "Accelerometer2RMS",
+              "direction": "low",
+              "feature_diagnostics": [
+                {
+                  "index": 0,
+                  "name": "Accelerometer1RMS",
+                  "direction": "low",
+                  "score": 41.314342842585944,
+                  "minimum_block_separation_sd": 42.02376964558025,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.6031475967673331,
+                  "absolute_lag_one": 0.925116824907881,
+                  "valid": true
+                },
+                {
+                  "index": 1,
+                  "name": "Accelerometer2RMS",
+                  "direction": "low",
+                  "score": 59.798670804991545,
+                  "minimum_block_separation_sd": 60.82879552763544,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.9366227137388347,
+                  "absolute_lag_one": 0.8740080356202632,
+                  "valid": true
+                },
+                {
+                  "index": 2,
+                  "name": "Current",
+                  "direction": "low",
+                  "score": 2.914110148724438,
+                  "minimum_block_separation_sd": 2.941332607252724,
+                  "minimum_block_auc": 0.9741338491047568,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.027222458528285864,
+                  "absolute_lag_one": 0.09003797561883528,
+                  "valid": true
+                },
+                {
+                  "index": 3,
+                  "name": "Pressure",
+                  "direction": "high",
+                  "score": -2.0161633347511696,
+                  "minimum_block_separation_sd": 0.0,
+                  "minimum_block_auc": 0.4081121642336059,
+                  "direction_consistency": 0.0,
+                  "internal_normal_ks": 0.01616333475116971,
+                  "absolute_lag_one": 0.09977934561495883,
+                  "valid": true
+                },
+                {
+                  "index": 4,
+                  "name": "Temperature",
+                  "direction": "low",
+                  "score": 31.462071884898062,
+                  "minimum_block_separation_sd": 32.30090602642482,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.7324542747766908,
+                  "absolute_lag_one": 0.9255194670002779,
+                  "valid": true
+                },
+                {
+                  "index": 5,
+                  "name": "Thermocouple",
+                  "direction": "low",
+                  "score": 5.582619003394947,
+                  "minimum_block_separation_sd": 6.6995184378410215,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.9919183326244152,
+                  "absolute_lag_one": 0.9999244072866369,
+                  "valid": true
+                },
+                {
+                  "index": 6,
+                  "name": "Voltage",
+                  "direction": "high",
+                  "score": 0.08181756083152059,
+                  "minimum_block_separation_sd": 0.09925694832620369,
+                  "minimum_block_auc": 0.5679559434610477,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.0174393874946831,
+                  "absolute_lag_one": 0.002125602728099872,
+                  "valid": true
+                },
+                {
+                  "index": 7,
+                  "name": "Volume Flow RateRMS",
+                  "direction": "low",
+                  "score": 57.85669455300229,
+                  "minimum_block_separation_sd": 58.80287356003911,
+                  "minimum_block_auc": 1.0,
+                  "direction_consistency": 1.0,
+                  "internal_normal_ks": 0.8332624415142493,
+                  "absolute_lag_one": 0.9516662620902834,
+                  "valid": true
+                }
+              ],
+              "empirical": {
+                "precision": 0.13604651162790699,
+                "recall": 0.9873417721518988,
+                "f1": 0.23914154317833422,
+                "false_alarm_rate": 0.3159685307250691,
+                "missed_alarm_rate": 0.012658227848101266,
+                "average_alarm_delay": 3.0
+              }
+            }
+          },
           "frozen_iid_baseline": {
             "threshold": 0.2661607,
             "delay": 4,
@@ -903,7 +4038,27 @@
         "selected_features": [
           "XMEAS_01",
           "XMV_10"
-        ]
+        ],
+        "initial_adapter_metrics": {
+          "ecdf_one_sided": {
+            "false_alarm_rate": 0.013888888888888888,
+            "missed_alarm_rate": 0.22152777777777777,
+            "average_alarm_delay": 3.6666666666666665,
+            "f1": 0.8220632829940305
+          },
+          "ecdf_two_sided": {
+            "false_alarm_rate": 0.01875,
+            "missed_alarm_rate": 0.04652777777777778,
+            "average_alarm_delay": 3.6666666666666665,
+            "f1": 0.9571518427202207
+          },
+          "stable_feature_ecdf": {
+            "false_alarm_rate": 0.024999999999999998,
+            "missed_alarm_rate": 0.3298611111111111,
+            "average_alarm_delay": 23.666666666666668,
+            "f1": 0.6625474365216624
+          }
+        }
       },
       "pronto": {
         "episodes": 3,
@@ -921,7 +4076,27 @@
           "Water.Density",
           "Water.T",
           "Water.level"
-        ]
+        ],
+        "initial_adapter_metrics": {
+          "ecdf_one_sided": {
+            "false_alarm_rate": 0.18736598440545812,
+            "missed_alarm_rate": 0.9185341718236454,
+            "average_alarm_delay": 40.666666666666664,
+            "f1": 0.14481816031196967
+          },
+          "ecdf_two_sided": {
+            "false_alarm_rate": 0.17413194444444444,
+            "missed_alarm_rate": 0.6781658393500498,
+            "average_alarm_delay": 167.33333333333334,
+            "f1": 0.33233683161302224
+          },
+          "stable_feature_ecdf": {
+            "false_alarm_rate": 0.03447342242198701,
+            "missed_alarm_rate": 0.9158439816334553,
+            "average_alarm_delay": 40.666666666666664,
+            "f1": 0.15036272980581453
+          }
+        }
       },
       "skab": {
         "episodes": 3,
@@ -937,7 +4112,27 @@
         },
         "selected_features": [
           "Accelerometer2RMS"
-        ]
+        ],
+        "initial_adapter_metrics": {
+          "ecdf_one_sided": {
+            "false_alarm_rate": 0.3159685307250691,
+            "missed_alarm_rate": 0.012501018281020094,
+            "average_alarm_delay": 3.0,
+            "f1": 0.24146346276957883
+          },
+          "ecdf_two_sided": {
+            "false_alarm_rate": 0.20391239634275993,
+            "missed_alarm_rate": 0.012501018281020094,
+            "average_alarm_delay": 3.0,
+            "f1": 0.33007749024786576
+          },
+          "stable_feature_ecdf": {
+            "false_alarm_rate": 0.3159685307250691,
+            "missed_alarm_rate": 0.012501018281020094,
+            "average_alarm_delay": 3.0,
+            "f1": 0.24146346276957883
+          }
+        }
       }
     },
     "expected_mechanism_beacons": {

@@ -24,7 +24,9 @@ from iia_benchmark.evaluation import (  # noqa: E402
     ApplicabilityThresholds,
     assess_univariate_calibration,
     audit_univariate_partitions,
+    binary_alarm_metrics,
 )
+from iia_benchmark.models import EmpiricalCDFAlarm, FeatureStabilitySelector  # noqa: E402
 
 
 CONFIG = ROOT / "configs/experiments/univariate_adaptation_benchmark.json"
@@ -116,6 +118,7 @@ def summarize(rows: list[dict[str, object]]) -> dict[str, object]:
             values.append(float(value))
         return float(np.median(values))
 
+    adapters = tuple(rows[0]["initial_adapter_results"])
     return {
         "episodes": len(rows),
         "median_normal_train_evaluation_ks": median(
@@ -136,7 +139,36 @@ def summarize(rows: list[dict[str, object]]) -> dict[str, object]:
             for status in ("static", "adapt", "reject_univariate")
         },
         "selected_features": sorted({str(row["feature"]) for row in rows}),
+        "initial_adapter_metrics": {
+            adapter: {
+                metric: float(
+                    np.mean(
+                        [
+                            row["initial_adapter_results"][adapter]["empirical"][metric]
+                            for row in rows
+                        ]
+                    )
+                )
+                for metric in (
+                    "false_alarm_rate",
+                    "missed_alarm_rate",
+                    "average_alarm_delay",
+                    "f1",
+                )
+            }
+            for adapter in adapters
+        },
     }
+
+
+def alarm_metrics(
+    model: object, normal: np.ndarray, abnormal: np.ndarray
+) -> dict[str, float]:
+    prediction = np.r_[model.predict(normal), model.predict(abnormal)]
+    truth = np.r_[
+        np.zeros(len(normal), dtype=bool), np.ones(len(abnormal), dtype=bool)
+    ]
+    return binary_alarm_metrics(truth, prediction)
 
 
 def main() -> int:
@@ -210,6 +242,66 @@ def main() -> int:
                 direction=direction,
                 threshold=threshold,
             )
+            delay = int(
+                baseline["algorithms"]["book_2_1_iid_delay_timer"]["parameters"][
+                    "delay"
+                ]
+            )
+            one_sided = EmpiricalCDFAlarm(
+                tail_probability=0.05, tail=direction, delay=delay
+            ).fit(normal_train)
+            two_sided = EmpiricalCDFAlarm(
+                tail_probability=0.05, tail="two_sided", delay=delay
+            ).fit(normal_train)
+            stable_selector = FeatureStabilitySelector(
+                chronological_blocks=policy.chronological_blocks
+            ).fit(
+                np.asarray(episode["normal_train"]),
+                np.asarray(episode["abnormal_calibration"]),
+                feature_names=tuple(episode["feature_names"]),
+            )
+            stable_normal_train = stable_selector.transform(
+                np.asarray(episode["normal_train"])
+            )
+            stable_normal_evaluation = stable_selector.transform(
+                np.asarray(episode["normal_evaluation"])
+            )
+            stable_abnormal_evaluation = stable_selector.transform(
+                np.asarray(episode["abnormal_evaluation"])
+            )
+            stable_ecdf = EmpiricalCDFAlarm(
+                tail_probability=0.05,
+                tail=stable_selector.direction_,
+                delay=delay,
+            ).fit(stable_normal_train)
+            initial_adapters = {
+                "ecdf_one_sided": {
+                    "feature": feature_name,
+                    "direction": direction,
+                    "empirical": alarm_metrics(
+                        one_sided, normal_evaluation, abnormal_evaluation
+                    ),
+                },
+                "ecdf_two_sided": {
+                    "feature": feature_name,
+                    "direction": "two_sided",
+                    "empirical": alarm_metrics(
+                        two_sided, normal_evaluation, abnormal_evaluation
+                    ),
+                },
+                "stable_feature_ecdf": {
+                    "feature": stable_selector.feature_name_,
+                    "direction": stable_selector.direction_,
+                    "feature_diagnostics": [
+                        item.as_dict() for item in stable_selector.diagnostics_
+                    ],
+                    "empirical": alarm_metrics(
+                        stable_ecdf,
+                        stable_normal_evaluation,
+                        stable_abnormal_evaluation,
+                    ),
+                },
+            }
             results[dataset].append(
                 {
                     "dataset": dataset,
@@ -220,11 +312,10 @@ def main() -> int:
                     "split_policy": episode["split_policy"],
                     "calibration_applicability": calibration_gate.as_dict(),
                     "held_out_posthoc_audit": held_out.as_dict(),
+                    "initial_adapter_results": initial_adapters,
                     "frozen_iid_baseline": {
                         "threshold": threshold,
-                        "delay": baseline["algorithms"][
-                            "book_2_1_iid_delay_timer"
-                        ]["parameters"]["delay"],
+                        "delay": delay,
                         "empirical": baseline["algorithms"][
                             "book_2_1_iid_delay_timer"
                         ]["empirical"],

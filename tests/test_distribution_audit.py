@@ -113,3 +113,11 @@ def test_registered_real_data_audit_preserves_mechanism_findings() -> None:
         > 0.50
     )
     assert "Only calibration_applicability" in report["routing_boundary"]
+    for dataset in ("tep_classic", "pronto", "skab"):
+        adapters = datasets[dataset]["initial_adapter_metrics"]
+        assert set(adapters) == {
+            "ecdf_one_sided",
+            "ecdf_two_sided",
+            "stable_feature_ecdf",
+        }
+        assert all(0.0 <= row["f1"]["mean"] <= 1.0 for row in adapters.values())
