@@ -15,6 +15,18 @@ from .robustness import (
     default_perturbation_grid,
     run_afc_robustness_benchmark,
 )
+from .distribution_audit import (
+    ApplicabilityThresholds,
+    CalibrationApplicability,
+    DistributionShift,
+    TemporalProfile,
+    ThresholdTransfer,
+    UnivariateDistributionAudit,
+    assess_univariate_calibration,
+    audit_univariate_partitions,
+    distribution_shift,
+    temporal_profile,
+)
 
 __all__ = [
     "binary_alarm_metrics",
@@ -30,4 +42,14 @@ __all__ = [
     "run_afc_robustness_benchmark",
     "root_cause_top_k_accuracy",
     "sequence_accuracy",
+    "ApplicabilityThresholds",
+    "CalibrationApplicability",
+    "DistributionShift",
+    "TemporalProfile",
+    "ThresholdTransfer",
+    "UnivariateDistributionAudit",
+    "assess_univariate_calibration",
+    "audit_univariate_partitions",
+    "distribution_shift",
+    "temporal_profile",
 ]

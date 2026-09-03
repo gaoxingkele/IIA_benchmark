@@ -1,0 +1,312 @@
+#!/usr/bin/env python3
+"""Audit univariate transfer distributions without tuning on held-out data."""
+
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import subprocess
+import sys
+import time
+
+import numpy as np
+
+
+PROJECT = Path(__file__).resolve().parent
+ROOT = PROJECT.parents[2]
+sys.path.insert(0, str(ROOT / "src"))
+
+from iia_benchmark.evaluation import (  # noqa: E402
+    ApplicabilityThresholds,
+    assess_univariate_calibration,
+    audit_univariate_partitions,
+)
+
+
+CONFIG = ROOT / "configs/experiments/univariate_adaptation_benchmark.json"
+CHAPTER2_EXPERIMENT = ROOT / "experiments/paper_harness/chapter2_multidataset/experiment.py"
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def load_chapter2_module() -> object:
+    specification = importlib.util.spec_from_file_location(
+        "chapter2_multidataset_experiment", CHAPTER2_EXPERIMENT
+    )
+    if specification is None or specification.loader is None:
+        raise RuntimeError("cannot load the registered Chapter 2 harness")
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module
+
+
+def git_provenance(source_paths: list[Path]) -> dict[str, object]:
+    status = subprocess.run(
+        ["git", "status", "--short"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    ).stdout.splitlines()
+    return {
+        "git_worktree_dirty": bool(status),
+        "git_status_porcelain": status,
+        "source_sha256": {
+            path.relative_to(ROOT).as_posix(): sha256_file(path)
+            for path in source_paths
+        },
+    }
+
+
+def calibration_thresholds(config: dict[str, object]) -> ApplicabilityThresholds:
+    values = config["applicability_thresholds"]
+    return ApplicabilityThresholds(
+        normal_ks_adaptation=float(values["normal_ks_adaptation"]),
+        normal_median_shift_sd_adaptation=float(
+            values["normal_median_shift_sd_adaptation"]
+        ),
+        autocorrelation_block_calibration=float(
+            values["autocorrelation_block_calibration"]
+        ),
+        minimum_block_auc=float(values["minimum_block_auc"]),
+        minimum_direction_consistency=float(
+            values["minimum_direction_consistency"]
+        ),
+        chronological_blocks=int(values["chronological_blocks"]),
+    )
+
+
+def baseline_records(run_name: str) -> tuple[dict[tuple[str, str], dict[str, object]], Path]:
+    path = (
+        ROOT
+        / "experiments/paper_harness/chapter2_multidataset"
+        / run_name
+        / "final_info.json"
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    records = {
+        (dataset, row["episode_id"]): row
+        for dataset, rows in payload["result"]["datasets"].items()
+        for row in rows
+    }
+    return records, path
+
+
+def summarize(rows: list[dict[str, object]]) -> dict[str, object]:
+    audit = [row["held_out_posthoc_audit"] for row in rows]
+    gates = [row["calibration_applicability"] for row in rows]
+
+    def median(path: tuple[str, ...]) -> float:
+        values = []
+        for record in audit:
+            value: object = record
+            for key in path:
+                value = value[key]
+            values.append(float(value))
+        return float(np.median(values))
+
+    return {
+        "episodes": len(rows),
+        "median_normal_train_evaluation_ks": median(
+            ("normal_train_to_evaluation", "ks")
+        ),
+        "median_abnormal_calibration_evaluation_ks": median(
+            ("abnormal_calibration_to_evaluation", "ks")
+        ),
+        "median_evaluation_auc": median(("evaluation_auc",)),
+        "median_normal_evaluation_lag_one": median(
+            ("normal_evaluation_temporal", "lag_one_autocorrelation")
+        ),
+        "median_evaluation_abnormal_prevalence": median(
+            ("evaluation_abnormal_prevalence",)
+        ),
+        "calibration_gate_status_counts": {
+            status: sum(gate["status"] == status for gate in gates)
+            for status in ("static", "adapt", "reject_univariate")
+        },
+        "selected_features": sorted({str(row["feature"]) for row in rows}),
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--out_dir", required=True, type=Path)
+    args = parser.parse_args()
+    out_dir = args.out_dir if args.out_dir.is_absolute() else ROOT / args.out_dir
+    run_name = out_dir.name
+    config = json.loads(CONFIG.read_text(encoding="utf-8"))
+    if run_name not in config["runs"]:
+        raise ValueError(f"out_dir basename must be one of {sorted(config['runs'])}")
+    seed = int(config["runs"][run_name]["seed"])
+    chapter2_config_path = ROOT / config["source_experiment"]
+    chapter2_config = json.loads(chapter2_config_path.read_text(encoding="utf-8"))
+    chapter2 = load_chapter2_module()
+    baselines, baseline_path = baseline_records(run_name)
+    policy = calibration_thresholds(config)
+
+    print(
+        "This run tests whether the selected univariate alarm feature is "
+        "distributionally portable. Calibration gates are computed before and "
+        "separately from held-out post-hoc diagnostics."
+    )
+    started = datetime.now(timezone.utc)
+    before = time.perf_counter()
+    datasets, input_paths = chapter2.load_episodes(chapter2_config)
+    results: dict[str, list[dict[str, object]]] = {}
+    for dataset, episodes in datasets.items():
+        results[dataset] = []
+        for episode_index, episode in enumerate(episodes):
+            rng = np.random.default_rng(seed + 1009 * episode_index)
+            normal_bootstrap = chapter2.bootstrap(
+                np.asarray(episode["normal_train"]), rng
+            )
+            abnormal_bootstrap = chapter2.bootstrap(
+                np.asarray(episode["abnormal_calibration"]), rng
+            )
+            feature_index, feature_name, direction, selection_shift = chapter2.select_feature(
+                normal_bootstrap,
+                abnormal_bootstrap,
+                tuple(episode["feature_names"]),
+            )
+            baseline = baselines[(dataset, episode["id"])]
+            if baseline["feature"] != feature_name or baseline["direction"] != direction:
+                raise RuntimeError(
+                    f"frozen baseline mismatch for {dataset}/{episode['id']}"
+                )
+            threshold = float(
+                baseline["algorithms"]["book_2_1_iid_delay_timer"]["parameters"][
+                    "threshold"
+                ]
+            )
+            normal_train = np.asarray(episode["normal_train"])[:, feature_index]
+            normal_evaluation = np.asarray(episode["normal_evaluation"])[
+                :, feature_index
+            ]
+            abnormal_calibration = np.asarray(episode["abnormal_calibration"])[
+                :, feature_index
+            ]
+            abnormal_evaluation = np.asarray(episode["abnormal_evaluation"])[
+                :, feature_index
+            ]
+            calibration_gate = assess_univariate_calibration(
+                normal_train, abnormal_calibration, thresholds=policy
+            )
+            held_out = audit_univariate_partitions(
+                normal_train,
+                normal_evaluation,
+                abnormal_calibration,
+                abnormal_evaluation,
+                direction=direction,
+                threshold=threshold,
+            )
+            results[dataset].append(
+                {
+                    "dataset": dataset,
+                    "episode_id": episode["id"],
+                    "feature": feature_name,
+                    "direction": direction,
+                    "selection_standardized_median_shift": selection_shift,
+                    "split_policy": episode["split_policy"],
+                    "calibration_applicability": calibration_gate.as_dict(),
+                    "held_out_posthoc_audit": held_out.as_dict(),
+                    "frozen_iid_baseline": {
+                        "threshold": threshold,
+                        "delay": baseline["algorithms"][
+                            "book_2_1_iid_delay_timer"
+                        ]["parameters"]["delay"],
+                        "empirical": baseline["algorithms"][
+                            "book_2_1_iid_delay_timer"
+                        ]["empirical"],
+                    },
+                }
+            )
+
+    aggregates = {dataset: summarize(rows) for dataset, rows in results.items()}
+    beacons = {
+        "tep_normal_distribution_stable": bool(
+            aggregates["tep_classic"]["median_normal_train_evaluation_ks"] < 0.10
+        ),
+        "pronto_abnormal_phase_drift": bool(
+            aggregates["pronto"]["median_abnormal_calibration_evaluation_ks"]
+            > 0.50
+        ),
+        "skab_normal_baseline_drift": bool(
+            aggregates["skab"]["median_normal_train_evaluation_ks"] > 0.40
+        ),
+        "heldout_not_used_for_routing": True,
+    }
+    source_paths = [
+        CONFIG,
+        chapter2_config_path,
+        CHAPTER2_EXPERIMENT,
+        ROOT / "src/iia_benchmark/evaluation/distribution_audit.py",
+        Path(__file__).resolve(),
+        baseline_path,
+    ]
+    payload = {
+        "schema_version": 1,
+        "run_name": run_name,
+        "config": CONFIG.relative_to(ROOT).as_posix(),
+        "config_sha256": sha256_file(CONFIG),
+        "git_revision": subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip(),
+        "execution_provenance": git_provenance(source_paths),
+        "started_at_utc": started.isoformat(),
+        "finished_at_utc": datetime.now(timezone.utc).isoformat(),
+        "wall_clock_seconds": time.perf_counter() - before,
+        "result": {
+            "seed": seed,
+            "datasets": results,
+            "aggregate_distribution_audit": aggregates,
+            "expected_mechanism_beacons": beacons,
+            "input_files": [
+                {
+                    "path": path.relative_to(ROOT).as_posix(),
+                    "bytes": path.stat().st_size,
+                    "sha256": sha256_file(path),
+                }
+                for path in input_paths
+            ],
+            "reporting_boundary": config["reporting_boundary"],
+        },
+    }
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "final_info.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    print(
+        json.dumps(
+            {
+                "run_name": run_name,
+                "seed": seed,
+                "aggregates": aggregates,
+                "expected_mechanism_beacons": beacons,
+                "wall_clock_seconds": payload["wall_clock_seconds"],
+            },
+            ensure_ascii=False,
+            indent=2,
+            allow_nan=False,
+        )
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

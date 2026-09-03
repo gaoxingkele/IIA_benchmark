@@ -1,0 +1,1013 @@
+{
+  "schema_version": 1,
+  "run_name": "run_2",
+  "config": "configs/experiments/univariate_adaptation_benchmark.json",
+  "config_sha256": "43ae521c05eb362b21816b0b4b19918a01e65ffaf4ac34ccf30b107eaa57cee1",
+  "git_revision": "e63da9cc46b72a4fbda24c346ff1082528b72750",
+  "execution_provenance": {
+    "git_worktree_dirty": true,
+    "git_status_porcelain": [
+      " M src/iia_benchmark/evaluation/__init__.py",
+      "?? configs/experiments/univariate_adaptation_benchmark.json",
+      "?? experiments/paper_harness/univariate_adaptation/",
+      "?? src/iia_benchmark/evaluation/distribution_audit.py",
+      "?? tests/test_distribution_audit.py"
+    ],
+    "source_sha256": {
+      "configs/experiments/univariate_adaptation_benchmark.json": "43ae521c05eb362b21816b0b4b19918a01e65ffaf4ac34ccf30b107eaa57cee1",
+      "configs/experiments/book_chapter2_multidataset.json": "5a19fa0bba7c6f109b598a965ca35afff0c8c50fe6886cf9de80c641ce6c19bf",
+      "experiments/paper_harness/chapter2_multidataset/experiment.py": "713682f35f1be97d73eef67bfe8b45b7f03a493eba1a4bf333a0b91ff951b835",
+      "src/iia_benchmark/evaluation/distribution_audit.py": "fb21d0cec50c32fd003f104d783f9404859626d8d91907e7ccc9d27227df9c13",
+      "experiments/paper_harness/univariate_adaptation/experiment.py": "64be224c494066f3337e7173009c8e314642bd319996e2a4d8384ada781e4ffa",
+      "experiments/paper_harness/chapter2_multidataset/run_2/final_info.json": "b85a5187eb343686d665d82c0264bfee83d21345f97e4a9897c13b488f50e0ee"
+    }
+  },
+  "started_at_utc": "2026-09-03T05:52:42.298732+00:00",
+  "finished_at_utc": "2026-09-03T05:52:42.970251+00:00",
+  "wall_clock_seconds": 0.6708445000112988,
+  "result": {
+    "seed": 2207,
+    "datasets": {
+      "tep_classic": [
+        {
+          "dataset": "tep_classic",
+          "episode_id": "d01_te",
+          "feature": "XMEAS_01",
+          "direction": "high",
+          "selection_standardized_median_shift": 17.732157030819437,
+          "split_policy": "separate normal train/evaluation files; fault run split chronologically after sample 160",
+          "calibration_applicability": {
+            "status": "static",
+            "direction": "high",
+            "normal_internal_shift": {
+              "ks": 0.096,
+              "wasserstein": 0.004492559999999999,
+              "wasserstein_over_reference_iqr": 0.1291893601725377,
+              "standardized_median_shift": 0.03887762558944144
+            },
+            "normal_lag_one_autocorrelation": 0.6104129324292404,
+            "calibration_auc": 0.9836,
+            "abnormal_block_auc": [
+              0.9509532710280374,
+              1.0,
+              1.0
+            ],
+            "abnormal_direction_consistency": 1.0,
+            "recommended_adapters": [],
+            "reasons": [],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "high",
+            "samples": {
+              "normal_train": 500,
+              "normal_evaluation": 960,
+              "abnormal_calibration": 320,
+              "abnormal_evaluation": 480
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.04737499999999999,
+              "wasserstein": 0.00224045,
+              "wasserstein_over_reference_iqr": 0.05791521261470855,
+              "standardized_median_shift": 0.007530298536533971
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.29583333333333334,
+              "wasserstein": 0.08195569791666665,
+              "wasserstein_over_reference_iqr": 0.512864192219441,
+              "standardized_median_shift": -0.060016816702412386
+            },
+            "calibration_separation_sd": 18.290044405908574,
+            "evaluation_separation_sd": 17.97499772992664,
+            "calibration_auc": 0.9836,
+            "evaluation_auc": 1.0,
+            "alarm_direction_consistent": true,
+            "normal_train_temporal": {
+              "samples": 500,
+              "lag_one_autocorrelation": 0.6104129324292404,
+              "skewness": 0.18621535770680792,
+              "excess_kurtosis": 0.2460405469891329
+            },
+            "normal_evaluation_temporal": {
+              "samples": 960,
+              "lag_one_autocorrelation": 0.6825313008954725,
+              "skewness": 0.05066997579600066,
+              "excess_kurtosis": 0.10070063818133912
+            },
+            "evaluation_abnormal_prevalence": 0.3333333333333333,
+            "threshold_transfer": {
+              "threshold": 0.34074,
+              "normal_train_exceedance_rate": 0.004,
+              "normal_evaluation_exceedance_rate": 0.004166666666666667,
+              "normal_evaluation_alarm_runs": 2,
+              "normal_evaluation_mean_run_length": 2.0,
+              "normal_evaluation_maximum_run_length": 2
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 0.34074,
+            "delay": 3,
+            "empirical": {
+              "precision": 1.0,
+              "recall": 0.9958333333333333,
+              "f1": 0.9979123173277662,
+              "false_alarm_rate": 0.0,
+              "missed_alarm_rate": 0.004166666666666667,
+              "average_alarm_delay": 2.0
+            }
+          }
+        },
+        {
+          "dataset": "tep_classic",
+          "episode_id": "d04_te",
+          "feature": "XMV_10",
+          "direction": "high",
+          "selection_standardized_median_shift": 7.592679982383956,
+          "split_policy": "separate normal train/evaluation files; fault run split chronologically after sample 160",
+          "calibration_applicability": {
+            "status": "static",
+            "direction": "high",
+            "normal_internal_shift": {
+              "ks": 0.06799999999999999,
+              "wasserstein": 0.06497999999999961,
+              "wasserstein_over_reference_iqr": 0.10409291149379252,
+              "standardized_median_shift": 0.01014416725609766
+            },
+            "normal_lag_one_autocorrelation": -0.2552426624088894,
+            "calibration_auc": 1.0,
+            "abnormal_block_auc": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "abnormal_direction_consistency": 1.0,
+            "recommended_adapters": [],
+            "reasons": [],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "high",
+            "samples": {
+              "normal_train": 500,
+              "normal_evaluation": 960,
+              "abnormal_calibration": 320,
+              "abnormal_evaluation": 480
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.05470833333333336,
+              "wasserstein": 0.04457795833333345,
+              "wasserstein_over_reference_iqr": 0.06810994397759135,
+              "standardized_median_shift": 0.025687007110192707
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.05833333333333335,
+              "wasserstein": 0.05148541666666675,
+              "wasserstein_over_reference_iqr": 0.07038334472544971,
+              "standardized_median_shift": 0.1071722336063525
+            },
+            "calibration_separation_sd": 7.241833263802843,
+            "evaluation_separation_sd": 7.32745662083676,
+            "calibration_auc": 1.0,
+            "evaluation_auc": 1.0,
+            "alarm_direction_consistent": true,
+            "normal_train_temporal": {
+              "samples": 500,
+              "lag_one_autocorrelation": -0.2552426624088894,
+              "skewness": 0.002015617139783475,
+              "excess_kurtosis": 0.27412758074608856
+            },
+            "normal_evaluation_temporal": {
+              "samples": 960,
+              "lag_one_autocorrelation": -0.21887091420624574,
+              "skewness": 0.07356030466459361,
+              "excess_kurtosis": -0.1191788582293194
+            },
+            "evaluation_abnormal_prevalence": 0.3333333333333333,
+            "threshold_transfer": {
+              "threshold": 43.75,
+              "normal_train_exceedance_rate": 0.0,
+              "normal_evaluation_exceedance_rate": 0.0,
+              "normal_evaluation_alarm_runs": 0,
+              "normal_evaluation_mean_run_length": 0.0,
+              "normal_evaluation_maximum_run_length": 0
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 43.75,
+            "delay": 2,
+            "empirical": {
+              "precision": 1.0,
+              "recall": 0.9979166666666667,
+              "f1": 0.9989572471324296,
+              "false_alarm_rate": 0.0,
+              "missed_alarm_rate": 0.0020833333333333333,
+              "average_alarm_delay": 1.0
+            }
+          }
+        },
+        {
+          "dataset": "tep_classic",
+          "episode_id": "d11_te",
+          "feature": "XMV_10",
+          "direction": "high",
+          "selection_standardized_median_shift": 1.611778342072133,
+          "split_policy": "separate normal train/evaluation files; fault run split chronologically after sample 160",
+          "calibration_applicability": {
+            "status": "reject_univariate",
+            "direction": "high",
+            "normal_internal_shift": {
+              "ks": 0.06799999999999999,
+              "wasserstein": 0.06497999999999961,
+              "wasserstein_over_reference_iqr": 0.10409291149379252,
+              "standardized_median_shift": 0.01014416725609766
+            },
+            "normal_lag_one_autocorrelation": -0.2552426624088894,
+            "calibration_auc": 0.524646875,
+            "abnormal_block_auc": [
+              0.49803738317757007,
+              0.42333644859813085,
+              0.6537735849056604
+            ],
+            "abnormal_direction_consistency": 0.3333333333333333,
+            "recommended_adapters": [
+              "two_sided_change_detection",
+              "multivariate_fallback"
+            ],
+            "reasons": [
+              "unstable_abnormal_direction",
+              "insufficient_worst_block_separability"
+            ],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "high",
+            "samples": {
+              "normal_train": 500,
+              "normal_evaluation": 960,
+              "abnormal_calibration": 320,
+              "abnormal_evaluation": 480
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.05470833333333336,
+              "wasserstein": 0.04457795833333345,
+              "wasserstein_over_reference_iqr": 0.06810994397759135,
+              "standardized_median_shift": 0.025687007110192707
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.09895833333333326,
+              "wasserstein": 0.4689416666666667,
+              "wasserstein_over_reference_iqr": 0.07852996176281785,
+              "standardized_median_shift": -0.028565846184006878
+            },
+            "calibration_separation_sd": 0.6887923388062773,
+            "evaluation_separation_sd": 0.461414757349497,
+            "calibration_auc": 0.524646875,
+            "evaluation_auc": 0.5127322048611112,
+            "alarm_direction_consistent": true,
+            "normal_train_temporal": {
+              "samples": 500,
+              "lag_one_autocorrelation": -0.2552426624088894,
+              "skewness": 0.002015617139783475,
+              "excess_kurtosis": 0.27412758074608856
+            },
+            "normal_evaluation_temporal": {
+              "samples": 960,
+              "lag_one_autocorrelation": -0.21887091420624574,
+              "skewness": 0.07356030466459361,
+              "excess_kurtosis": -0.1191788582293194
+            },
+            "evaluation_abnormal_prevalence": 0.3333333333333333,
+            "threshold_transfer": {
+              "threshold": 41.469,
+              "normal_train_exceedance_rate": 0.228,
+              "normal_evaluation_exceedance_rate": 0.2604166666666667,
+              "normal_evaluation_alarm_runs": 212,
+              "normal_evaluation_mean_run_length": 1.179245283018868,
+              "normal_evaluation_maximum_run_length": 4
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 41.469,
+            "delay": 5,
+            "empirical": {
+              "precision": 1.0,
+              "recall": 0.42916666666666664,
+              "f1": 0.6005830903790087,
+              "false_alarm_rate": 0.0,
+              "missed_alarm_rate": 0.5708333333333333,
+              "average_alarm_delay": 8.0
+            }
+          }
+        }
+      ],
+      "pronto": [
+        {
+          "dataset": "pronto",
+          "episode_id": "Testday2_merged_Air_blockage_0",
+          "feature": "Water.Density",
+          "direction": "high",
+          "selection_standardized_median_shift": 2.1989622746541224,
+          "split_policy": "purged chronological normal split plus chronological 40/60 fault-segment split",
+          "calibration_applicability": {
+            "status": "adapt",
+            "direction": "high",
+            "normal_internal_shift": {
+              "ks": 1.0,
+              "wasserstein": 1.2122650177777772,
+              "wasserstein_over_reference_iqr": 207.43488367204478,
+              "standardized_median_shift": -351.2477896598685
+            },
+            "normal_lag_one_autocorrelation": 0.9942921923974201,
+            "calibration_auc": 1.0,
+            "abnormal_block_auc": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "abnormal_direction_consistency": 1.0,
+            "recommended_adapters": [
+              "robust_ecdf",
+              "regime_conditional_threshold",
+              "block_calibration",
+              "event_level_metrics"
+            ],
+            "reasons": [
+              "internal_normal_distribution_shift",
+              "strong_temporal_dependence"
+            ],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "high",
+            "samples": {
+              "normal_train": 360,
+              "normal_evaluation": 242,
+              "abnormal_calibration": 3552,
+              "abnormal_evaluation": 5328
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.5,
+              "wasserstein": 0.019543579201102296,
+              "wasserstein_over_reference_iqr": 0.01612174356327798,
+              "standardized_median_shift": 0.030970256321075598
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.887575075075075,
+              "wasserstein": 1.5919609646490236,
+              "wasserstein_over_reference_iqr": 13.530113758578551,
+              "standardized_median_shift": -22.66482906876244
+            },
+            "calibration_separation_sd": 1.2179944138837742,
+            "evaluation_separation_sd": -1.3497183950269114,
+            "calibration_auc": 1.0,
+            "evaluation_auc": 0.13379340083885538,
+            "alarm_direction_consistent": false,
+            "normal_train_temporal": {
+              "samples": 360,
+              "lag_one_autocorrelation": 0.9942921923974201,
+              "skewness": -0.0001092921518368554,
+              "excess_kurtosis": -2.0109265696816307
+            },
+            "normal_evaluation_temporal": {
+              "samples": 242,
+              "lag_one_autocorrelation": 0.9915792853423913,
+              "skewness": -5.0497588594238386e-05,
+              "excess_kurtosis": -2.0166073971146457
+            },
+            "evaluation_abnormal_prevalence": 0.9565529622980251,
+            "threshold_transfer": {
+              "threshold": 997.6356812,
+              "normal_train_exceedance_rate": 0.0,
+              "normal_evaluation_exceedance_rate": 0.0,
+              "normal_evaluation_alarm_runs": 0,
+              "normal_evaluation_mean_run_length": 0.0,
+              "normal_evaluation_maximum_run_length": 0
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 997.6356812,
+            "delay": 3,
+            "empirical": {
+              "precision": 1.0,
+              "recall": 0.11242492492492492,
+              "f1": 0.20212586468702548,
+              "false_alarm_rate": 0.0,
+              "missed_alarm_rate": 0.887575075075075,
+              "average_alarm_delay": 2.0
+            }
+          }
+        },
+        {
+          "dataset": "pronto",
+          "episode_id": "Testday3_merged_Air_leakage_0",
+          "feature": "Water.T",
+          "direction": "low",
+          "selection_standardized_median_shift": 1.834320774796251,
+          "split_policy": "purged chronological normal split plus chronological 40/60 fault-segment split",
+          "calibration_applicability": {
+            "status": "adapt",
+            "direction": "low",
+            "normal_internal_shift": {
+              "ks": 0.6879629629629629,
+              "wasserstein": 3.5803877781388884,
+              "wasserstein_over_reference_iqr": 0.8477194504759682,
+              "standardized_median_shift": -2.4438277502249965
+            },
+            "normal_lag_one_autocorrelation": 0.99953208757036,
+            "calibration_auc": 0.887108169367284,
+            "abnormal_block_auc": [
+              0.8943835599922839,
+              0.8887526523919753,
+              0.8781882957175926
+            ],
+            "abnormal_direction_consistency": 1.0,
+            "recommended_adapters": [
+              "robust_ecdf",
+              "regime_conditional_threshold",
+              "block_calibration",
+              "event_level_metrics"
+            ],
+            "reasons": [
+              "internal_normal_distribution_shift",
+              "strong_temporal_dependence"
+            ],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "low",
+            "samples": {
+              "normal_train": 2160,
+              "normal_evaluation": 1920,
+              "abnormal_calibration": 1152,
+              "abnormal_evaluation": 1729
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.36487268518518523,
+              "wasserstein": 0.8420703269884258,
+              "wasserstein_over_reference_iqr": 0.16361737308019736,
+              "standardized_median_shift": -0.2549111253746601
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.536277090964591,
+              "wasserstein": 0.11763007021993593,
+              "wasserstein_over_reference_iqr": 1.3790166293729993,
+              "standardized_median_shift": -1.591841710819172
+            },
+            "calibration_separation_sd": 1.828013316657362,
+            "evaluation_separation_sd": 2.030709148182129,
+            "calibration_auc": 0.887108169367284,
+            "evaluation_auc": 0.8364517061885482,
+            "alarm_direction_consistent": true,
+            "normal_train_temporal": {
+              "samples": 2160,
+              "lag_one_autocorrelation": 0.99953208757036,
+              "skewness": -0.5185848023556949,
+              "excess_kurtosis": -1.387157691657962
+            },
+            "normal_evaluation_temporal": {
+              "samples": 1920,
+              "lag_one_autocorrelation": 0.9982167790141353,
+              "skewness": -1.427103624977635,
+              "excess_kurtosis": 0.12900128881888406
+            },
+            "evaluation_abnormal_prevalence": 0.47382844614963004,
+            "threshold_transfer": {
+              "threshold": 19.38907051,
+              "normal_train_exceedance_rate": 0.2152777777777778,
+              "normal_evaluation_exceedance_rate": 0.18385416666666668,
+              "normal_evaluation_alarm_runs": 9,
+              "normal_evaluation_mean_run_length": 39.22222222222222,
+              "normal_evaluation_maximum_run_length": 67
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 19.38907051,
+            "delay": 5,
+            "empirical": {
+              "precision": 0.6614821591948765,
+              "recall": 0.4181607865818392,
+              "f1": 0.5124025513819985,
+              "false_alarm_rate": 0.19270833333333334,
+              "missed_alarm_rate": 0.5818392134181608,
+              "average_alarm_delay": 4.0
+            }
+          }
+        },
+        {
+          "dataset": "pronto",
+          "episode_id": "Testday4_merged_Slugging_0",
+          "feature": "Water.level",
+          "direction": "low",
+          "selection_standardized_median_shift": 6.898488004574719,
+          "split_policy": "purged chronological normal split plus chronological 40/60 fault-segment split",
+          "calibration_applicability": {
+            "status": "adapt",
+            "direction": "low",
+            "normal_internal_shift": {
+              "ks": 0.047257876312718786,
+              "wasserstein": 0.12846117661610257,
+              "wasserstein_over_reference_iqr": 0.2378759615827578,
+              "standardized_median_shift": -0.029524488240697914
+            },
+            "normal_lag_one_autocorrelation": 0.9080404770631152,
+            "calibration_auc": 0.9948956848613346,
+            "abnormal_block_auc": [
+              1.0,
+              0.9992307411812225,
+              0.985410712574479
+            ],
+            "abnormal_direction_consistency": 1.0,
+            "recommended_adapters": [
+              "block_calibration",
+              "event_level_metrics"
+            ],
+            "reasons": [
+              "strong_temporal_dependence"
+            ],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "low",
+            "samples": {
+              "normal_train": 3428,
+              "normal_evaluation": 3249,
+              "abnormal_calibration": 623,
+              "abnormal_evaluation": 936
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.0956176983637008,
+              "wasserstein": 0.27352162617927317,
+              "wasserstein_over_reference_iqr": 0.4692266405911759,
+              "standardized_median_shift": -0.009600602691478706
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.9662972794995267,
+              "wasserstein": 6.010147822065912,
+              "wasserstein_over_reference_iqr": 1.4470619874160235,
+              "standardized_median_shift": -2.866742667771154
+            },
+            "calibration_separation_sd": 6.5618849100406536,
+            "evaluation_separation_sd": 0.01959276462358981,
+            "calibration_auc": 0.9948956848613346,
+            "evaluation_auc": 0.5343328848061073,
+            "alarm_direction_consistent": true,
+            "normal_train_temporal": {
+              "samples": 3428,
+              "lag_one_autocorrelation": 0.9080404770631152,
+              "skewness": 0.054217855205965865,
+              "excess_kurtosis": 12.725573935949159
+            },
+            "normal_evaluation_temporal": {
+              "samples": 3249,
+              "lag_one_autocorrelation": 0.7520829021117068,
+              "skewness": 0.28276463091657245,
+              "excess_kurtosis": 2.527045043714933
+            },
+            "evaluation_abnormal_prevalence": 0.22365591397849463,
+            "threshold_transfer": {
+              "threshold": 61.16579056,
+              "normal_train_exceedance_rate": 0.06738623103850641,
+              "normal_evaluation_exceedance_rate": 0.01631271160357033,
+              "normal_evaluation_alarm_runs": 17,
+              "normal_evaluation_mean_run_length": 3.1176470588235294,
+              "normal_evaluation_maximum_run_length": 16
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 61.16579056,
+            "delay": 3,
+            "empirical": {
+              "precision": 0.7126436781609196,
+              "recall": 0.13247863247863248,
+              "f1": 0.22342342342342345,
+              "false_alarm_rate": 0.015389350569405972,
+              "missed_alarm_rate": 0.8675213675213675,
+              "average_alarm_delay": 2.0
+            }
+          }
+        }
+      ],
+      "skab": [
+        {
+          "dataset": "skab",
+          "episode_id": "valve1_0",
+          "feature": "Accelerometer2RMS",
+          "direction": "low",
+          "selection_standardized_median_shift": 60.73230932055428,
+          "split_policy": "anomaly-free file chronological 50/50 split; anomaly samples chronological 40/60 split",
+          "calibration_applicability": {
+            "status": "adapt",
+            "direction": "low",
+            "normal_internal_shift": {
+              "ks": 0.9366227137388347,
+              "wasserstein": 0.006671029349213098,
+              "wasserstein_over_reference_iqr": 2.648810541676853,
+              "standardized_median_shift": 3.3906483431570513
+            },
+            "normal_lag_one_autocorrelation": 0.8740080356202632,
+            "calibration_auc": 1.0,
+            "abnormal_block_auc": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "abnormal_direction_consistency": 1.0,
+            "recommended_adapters": [
+              "robust_ecdf",
+              "regime_conditional_threshold",
+              "block_calibration",
+              "event_level_metrics"
+            ],
+            "reasons": [
+              "internal_normal_distribution_shift",
+              "strong_temporal_dependence"
+            ],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "low",
+            "samples": {
+              "normal_train": 4702,
+              "normal_evaluation": 4703,
+              "abnormal_calibration": 160,
+              "abnormal_evaluation": 241
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.47773555220054204,
+              "wasserstein": 0.0044292683527433424,
+              "wasserstein_over_reference_iqr": 0.6672845998634092,
+              "standardized_median_shift": 1.231254064235817
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.11159232365145233,
+              "wasserstein": 0.00015319035529045644,
+              "wasserstein_over_reference_iqr": 0.16046755909543534,
+              "standardized_median_shift": -0.2002529383020355
+            },
+            "calibration_separation_sd": 60.88707779088837,
+            "evaluation_separation_sd": 59.62023392331623,
+            "calibration_auc": 1.0,
+            "evaluation_auc": 1.0,
+            "alarm_direction_consistent": true,
+            "normal_train_temporal": {
+              "samples": 4702,
+              "lag_one_autocorrelation": 0.8740080356202632,
+              "skewness": 0.14061403192753089,
+              "excess_kurtosis": -1.1914620784455414
+            },
+            "normal_evaluation_temporal": {
+              "samples": 4703,
+              "lag_one_autocorrelation": 0.7659732968785374,
+              "skewness": 0.34897640529065277,
+              "excess_kurtosis": 2.4356538070185207
+            },
+            "evaluation_abnormal_prevalence": 0.04874595469255663,
+            "threshold_transfer": {
+              "threshold": 0.2662387,
+              "normal_train_exceedance_rate": 0.12803062526584433,
+              "normal_evaluation_exceedance_rate": 0.5689985115883479,
+              "normal_evaluation_alarm_runs": 624,
+              "normal_evaluation_mean_run_length": 4.288461538461538,
+              "normal_evaluation_maximum_run_length": 351
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 0.2662387,
+            "delay": 4,
+            "empirical": {
+              "precision": 0.07699773536072468,
+              "recall": 0.9875518672199171,
+              "f1": 0.14285714285714285,
+              "false_alarm_rate": 0.6066340633638103,
+              "missed_alarm_rate": 0.012448132780082987,
+              "average_alarm_delay": 3.0
+            }
+          }
+        },
+        {
+          "dataset": "skab",
+          "episode_id": "valve1_1",
+          "feature": "Accelerometer2RMS",
+          "direction": "low",
+          "selection_standardized_median_shift": 60.72651415597706,
+          "split_policy": "anomaly-free file chronological 50/50 split; anomaly samples chronological 40/60 split",
+          "calibration_applicability": {
+            "status": "adapt",
+            "direction": "low",
+            "normal_internal_shift": {
+              "ks": 0.9366227137388347,
+              "wasserstein": 0.006671029349213098,
+              "wasserstein_over_reference_iqr": 2.648810541676853,
+              "standardized_median_shift": 3.3906483431570513
+            },
+            "normal_lag_one_autocorrelation": 0.8740080356202632,
+            "calibration_auc": 1.0,
+            "abnormal_block_auc": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "abnormal_direction_consistency": 1.0,
+            "recommended_adapters": [
+              "robust_ecdf",
+              "regime_conditional_threshold",
+              "block_calibration",
+              "event_level_metrics"
+            ],
+            "reasons": [
+              "internal_normal_distribution_shift",
+              "strong_temporal_dependence"
+            ],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "low",
+            "samples": {
+              "normal_train": 4702,
+              "normal_evaluation": 4703,
+              "abnormal_calibration": 160,
+              "abnormal_evaluation": 242
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.47773555220054204,
+              "wasserstein": 0.0044292683527433424,
+              "wasserstein_over_reference_iqr": 0.6672845998634092,
+              "standardized_median_shift": 1.231254064235817
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.2589359504132231,
+              "wasserstein": 0.0004817858987603308,
+              "wasserstein_over_reference_iqr": 0.3333754727007669,
+              "standardized_median_shift": 0.4788573418335509
+            },
+            "calibration_separation_sd": 60.69349883090173,
+            "evaluation_separation_sd": 59.591204999897606,
+            "calibration_auc": 1.0,
+            "evaluation_auc": 1.0,
+            "alarm_direction_consistent": true,
+            "normal_train_temporal": {
+              "samples": 4702,
+              "lag_one_autocorrelation": 0.8740080356202632,
+              "skewness": 0.14061403192753089,
+              "excess_kurtosis": -1.1914620784455414
+            },
+            "normal_evaluation_temporal": {
+              "samples": 4703,
+              "lag_one_autocorrelation": 0.7659732968785374,
+              "skewness": 0.34897640529065277,
+              "excess_kurtosis": 2.4356538070185207
+            },
+            "evaluation_abnormal_prevalence": 0.048938321536905964,
+            "threshold_transfer": {
+              "threshold": 0.26616765000000003,
+              "normal_train_exceedance_rate": 0.1220757124627818,
+              "normal_evaluation_exceedance_rate": 0.5549649160110568,
+              "normal_evaluation_alarm_runs": 635,
+              "normal_evaluation_mean_run_length": 4.110236220472441,
+              "normal_evaluation_maximum_run_length": 317
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 0.26616765000000003,
+            "delay": 4,
+            "empirical": {
+              "precision": 0.07937562271670541,
+              "recall": 0.987603305785124,
+              "f1": 0.1469412849677221,
+              "false_alarm_rate": 0.5894110142462258,
+              "missed_alarm_rate": 0.012396694214876033,
+              "average_alarm_delay": 3.0
+            }
+          }
+        },
+        {
+          "dataset": "skab",
+          "episode_id": "valve2_0",
+          "feature": "Accelerometer2RMS",
+          "direction": "low",
+          "selection_standardized_median_shift": 60.62626122947569,
+          "split_policy": "anomaly-free file chronological 50/50 split; anomaly samples chronological 40/60 split",
+          "calibration_applicability": {
+            "status": "adapt",
+            "direction": "low",
+            "normal_internal_shift": {
+              "ks": 0.9366227137388347,
+              "wasserstein": 0.006671029349213098,
+              "wasserstein_over_reference_iqr": 2.648810541676853,
+              "standardized_median_shift": 3.3906483431570513
+            },
+            "normal_lag_one_autocorrelation": 0.8740080356202632,
+            "calibration_auc": 1.0,
+            "abnormal_block_auc": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "abnormal_direction_consistency": 1.0,
+            "recommended_adapters": [
+              "robust_ecdf",
+              "regime_conditional_threshold",
+              "block_calibration",
+              "event_level_metrics"
+            ],
+            "reasons": [
+              "internal_normal_distribution_shift",
+              "strong_temporal_dependence"
+            ],
+            "scope": "training_and_calibration_only"
+          },
+          "held_out_posthoc_audit": {
+            "direction": "low",
+            "samples": {
+              "normal_train": 4702,
+              "normal_evaluation": 4703,
+              "abnormal_calibration": 157,
+              "abnormal_evaluation": 237
+            },
+            "normal_train_to_evaluation": {
+              "ks": 0.47773555220054204,
+              "wasserstein": 0.0044292683527433424,
+              "wasserstein_over_reference_iqr": 0.6672845998634092,
+              "standardized_median_shift": 1.231254064235817
+            },
+            "abnormal_calibration_to_evaluation": {
+              "ks": 0.14397054476067622,
+              "wasserstein": 0.00022023874062726756,
+              "wasserstein_over_reference_iqr": 0.13859338029530371,
+              "standardized_median_shift": -0.1597579477920557
+            },
+            "calibration_separation_sd": 60.95252817847796,
+            "evaluation_separation_sd": 59.67702447745306,
+            "calibration_auc": 1.0,
+            "evaluation_auc": 1.0,
+            "alarm_direction_consistent": true,
+            "normal_train_temporal": {
+              "samples": 4702,
+              "lag_one_autocorrelation": 0.8740080356202632,
+              "skewness": 0.14061403192753089,
+              "excess_kurtosis": -1.1914620784455414
+            },
+            "normal_evaluation_temporal": {
+              "samples": 4703,
+              "lag_one_autocorrelation": 0.7659732968785374,
+              "skewness": 0.34897640529065277,
+              "excess_kurtosis": 2.4356538070185207
+            },
+            "evaluation_abnormal_prevalence": 0.04797570850202429,
+            "threshold_transfer": {
+              "threshold": 0.2661607,
+              "normal_train_exceedance_rate": 0.12101233517652063,
+              "normal_evaluation_exceedance_rate": 0.5549649160110568,
+              "normal_evaluation_alarm_runs": 635,
+              "normal_evaluation_mean_run_length": 4.110236220472441,
+              "normal_evaluation_maximum_run_length": 317
+            },
+            "scope": "held_out_posthoc_diagnostic_not_for_routing"
+          },
+          "frozen_iid_baseline": {
+            "threshold": 0.2661607,
+            "delay": 4,
+            "empirical": {
+              "precision": 0.07784431137724551,
+              "recall": 0.9873417721518988,
+              "f1": 0.1443108233117484,
+              "false_alarm_rate": 0.5894110142462258,
+              "missed_alarm_rate": 0.012658227848101266,
+              "average_alarm_delay": 3.0
+            }
+          }
+        }
+      ]
+    },
+    "aggregate_distribution_audit": {
+      "tep_classic": {
+        "episodes": 3,
+        "median_normal_train_evaluation_ks": 0.05470833333333336,
+        "median_abnormal_calibration_evaluation_ks": 0.09895833333333326,
+        "median_evaluation_auc": 1.0,
+        "median_normal_evaluation_lag_one": -0.21887091420624574,
+        "median_evaluation_abnormal_prevalence": 0.3333333333333333,
+        "calibration_gate_status_counts": {
+          "static": 2,
+          "adapt": 0,
+          "reject_univariate": 1
+        },
+        "selected_features": [
+          "XMEAS_01",
+          "XMV_10"
+        ]
+      },
+      "pronto": {
+        "episodes": 3,
+        "median_normal_train_evaluation_ks": 0.36487268518518523,
+        "median_abnormal_calibration_evaluation_ks": 0.887575075075075,
+        "median_evaluation_auc": 0.5343328848061073,
+        "median_normal_evaluation_lag_one": 0.9915792853423913,
+        "median_evaluation_abnormal_prevalence": 0.47382844614963004,
+        "calibration_gate_status_counts": {
+          "static": 0,
+          "adapt": 3,
+          "reject_univariate": 0
+        },
+        "selected_features": [
+          "Water.Density",
+          "Water.T",
+          "Water.level"
+        ]
+      },
+      "skab": {
+        "episodes": 3,
+        "median_normal_train_evaluation_ks": 0.47773555220054204,
+        "median_abnormal_calibration_evaluation_ks": 0.14397054476067622,
+        "median_evaluation_auc": 1.0,
+        "median_normal_evaluation_lag_one": 0.7659732968785374,
+        "median_evaluation_abnormal_prevalence": 0.04874595469255663,
+        "calibration_gate_status_counts": {
+          "static": 0,
+          "adapt": 3,
+          "reject_univariate": 0
+        },
+        "selected_features": [
+          "Accelerometer2RMS"
+        ]
+      }
+    },
+    "expected_mechanism_beacons": {
+      "tep_normal_distribution_stable": true,
+      "pronto_abnormal_phase_drift": true,
+      "skab_normal_baseline_drift": true,
+      "heldout_not_used_for_routing": true
+    },
+    "input_files": [
+      {
+        "path": "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday2_merged.csv",
+        "bytes": 2964251,
+        "sha256": "5396adc910560513f0413e5f2a9f1cb2cbd32d98b7fc1af8881847dd3c53be9d"
+      },
+      {
+        "path": "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday3_merged.csv",
+        "bytes": 5045921,
+        "sha256": "abe1d895945a1e19a4025a7081abd159b06f27e4cdfe53a5610b327b95518540"
+      },
+      {
+        "path": "data/public_datasets/pronto/extracted/PRONTO benchmark case study/Pre-processed data/Aligned and labelled alarm and process data/Testday4_merged.csv",
+        "bytes": 2737013,
+        "sha256": "9d24682206bcaa2952fa7d0a08c9628be692db5ebf9f69cb3c2d2a7e015f1e12"
+      },
+      {
+        "path": "data/public_datasets/skab/data/anomaly-free/anomaly-free.csv",
+        "bytes": 814703,
+        "sha256": "7641a8742957100ef424dd97adfb3eeab27d4d180645fe2b3c49b7f7146ae9a6"
+      },
+      {
+        "path": "data/public_datasets/skab/data/valve1/0.csv",
+        "bytes": 110346,
+        "sha256": "16af3f71313a23dd33d9b7b8065d836d05c3f9257588881cc7fbe07c076d9dc8"
+      },
+      {
+        "path": "data/public_datasets/skab/data/valve1/1.csv",
+        "bytes": 110330,
+        "sha256": "fe4493bf805baef4e6dfb864094275d8cc2ea80a16b3735e2752b18b6aefd812"
+      },
+      {
+        "path": "data/public_datasets/skab/data/valve2/0.csv",
+        "bytes": 109156,
+        "sha256": "a6670e7a68c7c6ba62c649bd9d350633e80db624578e9529f2b736ced5e32bde"
+      },
+      {
+        "path": "data/public_datasets/tep_classic/data/d00.dat",
+        "bytes": 416101,
+        "sha256": "b779212cc9334804c2dd30b30071d730efe84b47358cd4fbfde1179767e466af"
+      },
+      {
+        "path": "data/public_datasets/tep_classic/data/d00_te.dat",
+        "bytes": 800640,
+        "sha256": "6800b1398c7fef7b849fd045cdc323dbe64bbcd932b3ff4636d6ceb32aadef56"
+      },
+      {
+        "path": "data/public_datasets/tep_classic/data/d01_te.dat",
+        "bytes": 800640,
+        "sha256": "f0c8170a8366cd71cff350f0f1da179fbc17dbfe32d6129e525d660da13e91ff"
+      },
+      {
+        "path": "data/public_datasets/tep_classic/data/d04_te.dat",
+        "bytes": 800640,
+        "sha256": "008f82b9c303dfb3a2cfb5d20ffd95bae25486f05610f55ccd4b82a434c346e0"
+      },
+      {
+        "path": "data/public_datasets/tep_classic/data/d11_te.dat",
+        "bytes": 800640,
+        "sha256": "d8459fa1e5294b641c0e4b21c67843ffdb5c28615f5521a36595cc9f175ddba0"
+      }
+    ],
+    "reporting_boundary": "Applicability routing uses normal training and abnormal calibration partitions only. Held-out normal and abnormal evaluation statistics are post-hoc transfer diagnostics and must not be used for feature selection, model selection, thresholds, or adaptation. Thresholds are engineering routing beacons to be validated by multi-dataset ablation, not universal statistical constants."
+  }
+}

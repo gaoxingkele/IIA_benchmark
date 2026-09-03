@@ -1,0 +1,39 @@
+{
+  "id": "univariate_adaptation_benchmark",
+  "task": "distribution_aware_univariate_alarm_transfer",
+  "downstream_tasks": ["T1"],
+  "source_experiment": "configs/experiments/book_chapter2_multidataset.json",
+  "baseline_report": "experiments/reports/book_ch2_multidataset_validation.json",
+  "runs": {
+    "run_1": {"seed": 1103},
+    "run_2": {"seed": 2207},
+    "run_3": {"seed": 3301}
+  },
+  "feature_selection": {
+    "policy": "maximum absolute calibration median shift divided by normal standard deviation",
+    "bootstrap_selection_only": true,
+    "evaluation_labels_used": false
+  },
+  "applicability_thresholds": {
+    "normal_ks_adaptation": 0.2,
+    "normal_median_shift_sd_adaptation": 0.5,
+    "autocorrelation_block_calibration": 0.8,
+    "minimum_block_auc": 0.6,
+    "minimum_direction_consistency": 0.6666666666666666,
+    "chronological_blocks": 3
+  },
+  "audit_metrics": [
+    "ks",
+    "wasserstein_over_reference_iqr",
+    "standardized_median_shift",
+    "calibration_auc",
+    "evaluation_auc",
+    "lag_one_autocorrelation",
+    "skewness",
+    "excess_kurtosis",
+    "evaluation_abnormal_prevalence",
+    "threshold_exceedance_rate",
+    "threshold_alarm_run_length"
+  ],
+  "reporting_boundary": "Applicability routing uses normal training and abnormal calibration partitions only. Held-out normal and abnormal evaluation statistics are post-hoc transfer diagnostics and must not be used for feature selection, model selection, thresholds, or adaptation. Thresholds are engineering routing beacons to be validated by multi-dataset ablation, not universal statistical constants."
+}

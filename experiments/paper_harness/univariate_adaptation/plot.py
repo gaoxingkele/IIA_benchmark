@@ -1,0 +1,216 @@
+#!/usr/bin/env python3
+"""Aggregate and plot the univariate distribution-transfer audit."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+PROJECT = Path(__file__).resolve().parent
+ROOT = PROJECT.parents[2]
+RUNS = ("run_1", "run_2", "run_3")
+DATASETS = ("tep_classic", "pronto", "skab")
+LABELS = {"tep_classic": "TEP", "pronto": "PRONTO", "skab": "SKAB"}
+COLORS = {"tep_classic": "#3B6FB6", "pronto": "#D9822B", "skab": "#3D9970"}
+
+
+def load_runs() -> list[dict[str, object]]:
+    return [
+        json.loads((PROJECT / run / "final_info.json").read_text(encoding="utf-8"))
+        for run in RUNS
+    ]
+
+
+def records(runs: list[dict[str, object]], dataset: str) -> list[dict[str, object]]:
+    return [
+        row
+        for run in runs
+        for row in run["result"]["datasets"][dataset]
+    ]
+
+
+def summary(runs: list[dict[str, object]]) -> dict[str, object]:
+    result = {}
+    for dataset in DATASETS:
+        rows = records(runs, dataset)
+        audits = [row["held_out_posthoc_audit"] for row in rows]
+        normal_ks = np.asarray(
+            [row["normal_train_to_evaluation"]["ks"] for row in audits]
+        )
+        abnormal_ks = np.asarray(
+            [row["abnormal_calibration_to_evaluation"]["ks"] for row in audits]
+        )
+        auc = np.asarray([row["evaluation_auc"] for row in audits])
+        lag = np.asarray(
+            [row["normal_evaluation_temporal"]["lag_one_autocorrelation"] for row in audits]
+        )
+        prevalence = np.asarray(
+            [row["evaluation_abnormal_prevalence"] for row in audits]
+        )
+        threshold_far = np.asarray(
+            [row["threshold_transfer"]["normal_evaluation_exceedance_rate"] for row in audits]
+        )
+        statuses = [row["calibration_applicability"]["status"] for row in rows]
+        result[dataset] = {
+            "records": len(rows),
+            "features": sorted({row["feature"] for row in rows}),
+            "normal_ks": {
+                "median": float(np.median(normal_ks)),
+                "minimum": float(np.min(normal_ks)),
+                "maximum": float(np.max(normal_ks)),
+            },
+            "abnormal_ks": {
+                "median": float(np.median(abnormal_ks)),
+                "minimum": float(np.min(abnormal_ks)),
+                "maximum": float(np.max(abnormal_ks)),
+            },
+            "evaluation_auc": {
+                "median": float(np.median(auc)),
+                "minimum": float(np.min(auc)),
+                "maximum": float(np.max(auc)),
+            },
+            "normal_lag_one": {
+                "median": float(np.median(lag)),
+                "minimum": float(np.min(lag)),
+                "maximum": float(np.max(lag)),
+            },
+            "evaluation_abnormal_prevalence": {
+                "median": float(np.median(prevalence)),
+                "minimum": float(np.min(prevalence)),
+                "maximum": float(np.max(prevalence)),
+            },
+            "raw_threshold_normal_evaluation_exceedance": {
+                "median": float(np.median(threshold_far)),
+                "minimum": float(np.min(threshold_far)),
+                "maximum": float(np.max(threshold_far)),
+            },
+            "calibration_gate_status_counts": {
+                status: statuses.count(status)
+                for status in ("static", "adapt", "reject_univariate")
+            },
+        }
+    return result
+
+
+def plot_shift(summary_values: dict[str, object]) -> None:
+    x = np.arange(len(DATASETS))
+    width = 0.34
+    normal = [summary_values[item]["normal_ks"]["median"] for item in DATASETS]
+    abnormal = [summary_values[item]["abnormal_ks"]["median"] for item in DATASETS]
+    figure, axis = plt.subplots(figsize=(8.0, 4.8))
+    axis.bar(x - width / 2, normal, width, label="Normal train→evaluation", color="#4C78A8")
+    axis.bar(x + width / 2, abnormal, width, label="Abnormal calibration→evaluation", color="#F58518")
+    axis.axhline(0.2, color="#555555", linestyle="--", linewidth=1, label="Routing beacon 0.20")
+    axis.set(
+        xticks=x,
+        xticklabels=[LABELS[item] for item in DATASETS],
+        ylabel="Kolmogorov–Smirnov distance",
+        ylim=(0, 1.02),
+        title="Univariate distribution transfer differs by dataset mechanism",
+    )
+    axis.legend(frameon=False)
+    axis.spines[["top", "right"]].set_visible(False)
+    figure.tight_layout()
+    figure.savefig(PROJECT / "Figure_1.png", dpi=180)
+    plt.close(figure)
+
+
+def plot_portability(runs: list[dict[str, object]]) -> None:
+    figure, axis = plt.subplots(figsize=(8.0, 5.2))
+    for dataset in DATASETS:
+        rows = records(runs, dataset)
+        x = [row["held_out_posthoc_audit"]["normal_train_to_evaluation"]["ks"] for row in rows]
+        y = [row["held_out_posthoc_audit"]["evaluation_auc"] for row in rows]
+        size = [
+            80 + 420 * row["held_out_posthoc_audit"]["evaluation_abnormal_prevalence"]
+            for row in rows
+        ]
+        axis.scatter(x, y, s=size, alpha=0.68, label=LABELS[dataset], color=COLORS[dataset], edgecolor="white", linewidth=0.7)
+    axis.axvline(0.2, color="#777777", linestyle="--", linewidth=1)
+    axis.axhline(0.6, color="#777777", linestyle="--", linewidth=1)
+    axis.set(
+        xlabel="Normal train→evaluation KS distance",
+        ylabel="Held-out oriented AUC",
+        xlim=(-0.02, 0.55),
+        ylim=(-0.02, 1.04),
+        title="Baseline drift and anomaly separability are distinct failure axes",
+    )
+    axis.legend(frameon=False)
+    axis.spines[["top", "right"]].set_visible(False)
+    figure.tight_layout()
+    figure.savefig(PROJECT / "Figure_2.png", dpi=180)
+    plt.close(figure)
+
+
+def write_notes(report: dict[str, object]) -> None:
+    rows = [
+        "Univariate adaptation distribution audit",
+        "========================================",
+        "",
+        "This audit separates leakage-safe calibration routing from held-out post-hoc diagnostics.",
+        "The three seeds repeat the registered Chapter 2 feature-selection protocol; seed records",
+        "are not treated as independent physical episodes for inferential p-values.",
+        "",
+    ]
+    for dataset in DATASETS:
+        item = report["datasets"][dataset]
+        rows.extend(
+            [
+                f"{LABELS[dataset]}: normal KS median={item['normal_ks']['median']:.4f}, "
+                f"abnormal KS median={item['abnormal_ks']['median']:.4f}, "
+                f"evaluation AUC median={item['evaluation_auc']['median']:.4f}, "
+                f"lag-1 median={item['normal_lag_one']['median']:.4f}.",
+                f"Calibration gate counts: {item['calibration_gate_status_counts']}.",
+                "",
+            ]
+        )
+    rows.extend(
+        [
+            "Interpretation",
+            "--------------",
+            "TEP is predominantly a stationary-transfer case with d11 providing weak univariate separation.",
+            "PRONTO is dominated by abnormal-phase drift and strong temporal dependence.",
+            "SKAB has near-perfect abnormal ranking but severe normal-baseline shift and class imbalance.",
+            "These are engineering transfer findings (M2/P1), not paper-exact industrial alarm scores.",
+        ]
+    )
+    (PROJECT / "notes.txt").write_text("\n".join(rows) + "\n", encoding="utf-8")
+
+
+def main() -> int:
+    runs = load_runs()
+    dataset_summary = summary(runs)
+    baseline_path = ROOT / "experiments/reports/book_ch2_multidataset_validation.json"
+    baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
+    report = {
+        "schema_version": 1,
+        "experiment": "univariate_adaptation_distribution_audit",
+        "runs": list(RUNS),
+        "seeds": [int(run["result"]["seed"]) for run in runs],
+        "datasets": dataset_summary,
+        "frozen_book_chapter2_baseline_metrics": baseline["aggregate_metrics"],
+        "mechanism_conclusions": {
+            "tep_classic": "mostly stationary normal transfer; d11 is weakly separable in the selected univariate representation",
+            "pronto": "abnormal phase drift and strong serial dependence dominate missed alarms",
+            "skab": "normal baseline drift and low abnormal prevalence dominate false alarms despite perfect ranking",
+        },
+        "routing_boundary": "Only calibration_applicability may route adapters. held_out_posthoc_audit is explanatory evidence and cannot tune the benchmark.",
+    }
+    report_path = ROOT / "experiments/reports/univariate_distribution_audit_validation.json"
+    report_path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    plot_shift(dataset_summary)
+    plot_portability(runs)
+    write_notes(report)
+    print(json.dumps(report["datasets"], ensure_ascii=False, indent=2, allow_nan=False))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
