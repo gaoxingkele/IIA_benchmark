@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_smd",
+  "family": "mtsad",
+  "loader": "npy",
+  "directory": "smd",
+  "files": {
+    "train": "SMD_train.npy",
+    "test": "SMD_test.npy",
+    "label": "SMD_test_label.npy"
+  },
+  "expected_shapes": {
+    "train": [708405, 38],
+    "test": [708420, 38]
+  },
+  "features": 38,
+  "window": 100,
+  "window_step": 100,
+  "anomaly_ratio": 0.5,
+  "label_policy": "native point labels; the reported benchmark additionally applies point adjustment",
+  "provenance": "Server Machine Dataset, released with the OmniAnomaly paper; benchmark payload mirrored by thuml/Time-Series-Library",
+  "citation_doi": "10.1145/3292500.3330672",
+  "reference_loader_note": "SMDSegLoader keeps the reference stride of 100 while the other four datasets use stride 1"
+}

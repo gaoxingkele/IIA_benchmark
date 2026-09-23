@@ -127,7 +127,13 @@ def main() -> int:
         action="store_true",
         help="Bypass the configured proxy (useful after a measured connectivity check).",
     )
-    parser.add_argument("--round", type=int, choices=(1, 2, 3), help="Only fetch one expansion round")
+    parser.add_argument("--round", type=int, help="Only fetch one expansion round")
+    parser.add_argument(
+        "--family",
+        action="append",
+        default=[],
+        help="Only fetch dataset families with this prefix/id; repeatable",
+    )
     args = parser.parse_args()
     sources = load_sources()
     requested = set(args.dataset)
@@ -135,15 +141,44 @@ def main() -> int:
     if requested - known:
         print(f"unknown dataset ids: {', '.join(sorted(requested - known))}", file=sys.stderr)
         return 2
+    families = set(args.family)
+    known_families = {source.get("dataset_family") for source in sources}
+    if families:
+        unknown = {
+            family
+            for family in families
+            if not any(
+                known == family or str(known).startswith(f"{family}_")
+                for known in known_families
+            )
+        }
+        if unknown:
+            print(
+                f"unknown dataset families: {', '.join(sorted(unknown))}",
+                file=sys.stderr,
+            )
+            return 2
+
+    def family_selected(source: dict[str, Any]) -> bool:
+        name = str(source.get("dataset_family"))
+        return any(name == family or name.startswith(f"{family}_") for family in families)
+
     selected = []
     for source in sources:
         if requested and source["id"] not in requested:
             continue
-        if not requested and not source.get("default", False):
+        if families and not family_selected(source):
+            continue
+        if not requested and not families and not source.get("default", False):
             continue
         if args.round and source.get("round") != args.round:
             continue
-        if source.get("large") and not args.include_large and source["id"] not in requested:
+        if (
+            source.get("large")
+            and not args.include_large
+            and source["id"] not in requested
+            and not families
+        ):
             print(f"skip {source['id']}: large; pass --include-large or --dataset")
             continue
         selected.append(source)

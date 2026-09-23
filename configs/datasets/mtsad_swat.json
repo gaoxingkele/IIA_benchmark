@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_swat",
+  "family": "mtsad",
+  "loader": "swat_csv",
+  "directory": "swat",
+  "files": {
+    "train": "swat_train2.csv",
+    "test": "swat2.csv"
+  },
+  "raw_files": {
+    "normal": "SWaT_Dataset_Normal_v1.xlsx",
+    "attack": "SWaT_Dataset_Attack_v0.xlsx"
+  },
+  "expected_shapes": {
+    "train": [495000, 51],
+    "test": [449919, 51]
+  },
+  "reported_shape_discrepancy": {
+    "paper_train_rows": 475200,
+    "payload_train_rows": 495000,
+    "note": "The Anomaly Transformer era result tables list 475200 training rows for SWaT, while the Time-Series-Library SWATSegLoader loads swat_train2.csv unchanged at 495000 rows and does not subsample. The 19800-row gap (5.5 hours at one-second sampling) is unresolved from the published artefacts, so the payload is used as shipped and the difference is carried into the reproduction comparison instead of being silently trimmed."
+  },
+  "features": 51,
+  "window": 100,
+  "window_step": 1,
+  "anomaly_ratio": 1.0,
+  "label_policy": "native point labels from the Normal/Attack column; the reported benchmark additionally applies point adjustment",
+  "provenance": "iTrust/SUTD Secure Water Treatment testbed; benchmark split as loaded by SWATSegLoader from the Time-Series-Library mirror",
+  "citation_doi": "10.1007/978-3-319-71368-7_8",
+  "reference_loader_note": "SWATSegLoader drops the trailing label column of both files; the attack label column is the detection target"
+}

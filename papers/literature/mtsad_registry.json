@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "scope": "Multivariate time-series anomaly detection benchmark family (SWaT, MSL, SMAP, PSM, SMD): dataset-origin papers, classic high-citation methods, and current state-of-the-art detectors.",
+  "policy": {
+    "pdfs_are_local_only": true,
+    "metadata_and_hashes_are_tracked": true,
+    "reproduction_status_must_be_evidence_backed": true,
+    "never_bypass_access_controls": true
+  },
+  "papers": [
+    {
+      "id": "goh2016_swat_dataset",
+      "year": 2016,
+      "title": "A Dataset to Support Research in the Design of Secure Water Treatment Systems",
+      "doi": "10.1007/978-3-319-71368-7_8",
+      "venue": "CRITIS 2016 (LNCS)",
+      "role": "dataset-origin: SWaT",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1007/978-3-319-71368-7_8",
+      "method_summary": "Introduces the Secure Water Treatment (SWaT) testbed and the labelled 11-day attack dataset used as the industrial control system benchmark.",
+      "covers_datasets": [
+        "SWaT"
+      ],
+      "coverage_basis": "paper title and publisher record; numeric claim table to be verified from an authorised copy",
+      "access_note": "Springer LNCS chapter; canonical SWaT payload is released by iTrust/SUTD only after a signed request form."
+    },
+    {
+      "id": "hundman2018_telemanom",
+      "year": 2018,
+      "title": "Detecting Spacecraft Anomalies Using LSTMs and Nonparametric Dynamic Thresholding",
+      "doi": "10.1145/3219819.3219845",
+      "venue": "KDD 2018",
+      "role": "dataset-origin: SMAP, MSL; classic method",
+      "access": "open",
+      "landing_url": "https://doi.org/10.1145/3219819.3219845",
+      "pdf_url": "https://arxiv.org/pdf/1802.04431",
+      "method_summary": "LSTM telemetry predictor with nonparametric dynamic error thresholding; releases the SMAP/MSL anomaly channel subset and labelled anomaly lists.",
+      "covers_datasets": [
+        "SMAP",
+        "MSL"
+      ],
+      "coverage_basis": "paper title and dataset release; per-channel F0.5 table to be transcribed from the PDF"
+    },
+    {
+      "id": "su2019_omnianomaly",
+      "year": 2019,
+      "title": "Robust Anomaly Detection for Multivariate Time Series through Stochastic Recurrent Neural Network",
+      "doi": "10.1145/3292500.3330672",
+      "venue": "KDD 2019",
+      "role": "dataset-origin: SMD; classic method",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1145/3292500.3330672",
+      "method_summary": "Stochastic recurrent variational autoencoder with a planar normalizing flow and an extreme-value-theory threshold; releases the Server Machine Dataset (SMD).",
+      "covers_datasets": [
+        "SMD"
+      ],
+      "coverage_basis": "paper title and SMD release repository; F1 table to be verified from an authorised copy",
+      "access_note": "ACM DL record is closed access; no confirmed open copy located during this sweep."
+    },
+    {
+      "id": "zhang2019_mscred",
+      "year": 2019,
+      "title": "A Deep Neural Network for Unsupervised Anomaly Detection and Diagnosis in Multivariate Time Series Data (MSCRED)",
+      "doi": "10.1609/aaai.v33i01.33011409",
+      "venue": "AAAI 2019",
+      "role": "classic high-citation method",
+      "access": "open",
+      "landing_url": "https://doi.org/10.1609/aaai.v33i01.33011409",
+      "pdf_url": "https://arxiv.org/pdf/1811.08055",
+      "method_summary": "Multi-scale convolutional recurrent encoder-decoder over signature matrices built from pairwise sensor correlations, with an attention-based convolutional LSTM.",
+      "covers_datasets": [
+        "SMD"
+      ],
+      "coverage_basis": "paper experiments use a power-plant dataset and SMD-style machine telemetry; exact coverage to be transcribed from the PDF"
+    },
+    {
+      "id": "audibert2020_usad",
+      "year": 2020,
+      "title": "USAD: UnSupervised Anomaly Detection on Multivariate Time Series",
+      "doi": "10.1145/3394486.3403392",
+      "venue": "KDD 2020",
+      "role": "classic high-citation method",
+      "access": "gold_open_access_cc_by",
+      "landing_url": "https://doi.org/10.1145/3394486.3403392",
+      "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3394486.3403392",
+      "method_summary": "Adversarially trained autoencoder pair that shares an encoder and reconstructs from two decoders; robust to training-set contamination.",
+      "covers_datasets": [
+        "SWaT",
+        "SMD",
+        "SMAP",
+        "MSL"
+      ],
+      "coverage_basis": "paper abstract and reported experiment table; per-dataset numbers to be transcribed from the PDF",
+      "access_note": "Semantic Scholar reports GOLD open access with a CC BY licence, but the ACM host rejects automated clients; a browser session is required."
+    },
+    {
+      "id": "abdulaal2021_psm",
+      "year": 2021,
+      "title": "Practical Approach to Asynchronous Multivariate Time Series Anomaly Detection and Localization",
+      "doi": "10.1145/3447548.3467174",
+      "venue": "KDD 2021",
+      "role": "dataset-origin: PSM",
+      "access": "gated",
+      "landing_url": "https://doi.org/10.1145/3447548.3467174",
+      "method_summary": "Randomised anomaly scoring network with a per-signal autoencoder ensemble for asynchronous multivariate monitoring; introduces the eBay Pooled Server Metrics (PSM) dataset.",
+      "covers_datasets": [
+        "PSM"
+      ],
+      "coverage_basis": "paper title and eBay release of PSM; F1 table to be verified from an authorised copy",
+      "access_note": "ACM DL record is closed access; the dataset itself is released separately in the eBay RANSynCoders repository."
+    },
+    {
+      "id": "xu2022_anomaly_transformer",
+      "year": 2022,
+      "title": "Anomaly Transformer: Time Series Anomaly Detection with Association Discrepancy",
+      "doi": "10.48550/arXiv.2110.02642",
+      "venue": "ICLR 2022",
+      "role": "SOTA anchor; defines the five-dataset protocol",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2110.02642",
+      "pdf_url": "https://arxiv.org/pdf/2110.02642",
+      "method_summary": "Anomaly-attention with a prior-association Gaussian kernel and a minimax association-discrepancy objective; the paper's experiment table is the standard five-dataset protocol.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper abstract and main results table; per-dataset F1 to be transcribed from the PDF"
+    },
+    {
+      "id": "tuli2022_tranad",
+      "year": 2022,
+      "title": "TranAD: Deep Transformer Networks for Anomaly Detection in Multivariate Time Series Data",
+      "doi": "10.14778/3514061.3514067",
+      "venue": "VLDB 2022",
+      "role": "SOTA",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2201.07284",
+      "pdf_url": "https://arxiv.org/pdf/2201.07284",
+      "method_summary": "Two-phase adversarial transformer training with focus-score amplification of reconstruction error; reports on all five benchmark datasets.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper abstract and result tables; per-dataset F1 to be transcribed from the PDF"
+    },
+    {
+      "id": "yang2023_dcdetector",
+      "year": 2023,
+      "title": "DCdetector: Dual Attention Contrastive Representation Learning for Time Series Anomaly Detection",
+      "doi": "10.1145/3580305.3599295",
+      "venue": "KDD 2023",
+      "role": "SOTA",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2306.10347",
+      "pdf_url": "https://arxiv.org/pdf/2306.10347",
+      "method_summary": "Dual-attention contrastive representation learning that compares patch-wise and channel-wise attention maps, replacing reconstruction with representation comparison.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper abstract and result tables; per-dataset F1 to be transcribed from the PDF"
+    },
+    {
+      "id": "wu2023_timesnet",
+      "year": 2023,
+      "title": "TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis",
+      "doi": "10.48550/arXiv.2210.02186",
+      "venue": "ICLR 2023",
+      "role": "SOTA general backbone",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2210.02186",
+      "pdf_url": "https://arxiv.org/pdf/2210.02186",
+      "method_summary": "Reshapes 1D series into 2D tensors by dominant periods and models both intra- and inter-period variation with inception blocks; evaluated on the five anomaly-detection datasets.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper anomaly-detection section; per-dataset F1 to be transcribed from the PDF"
+    },
+    {
+      "id": "liu2024_itransformer",
+      "year": 2024,
+      "title": "iTransformer: Inverted Transformers Are Effective for Time Series Forecasting",
+      "doi": "10.48550/arXiv.2310.06625",
+      "venue": "ICLR 2024",
+      "role": "SOTA backbone / baseline",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2310.06625",
+      "pdf_url": "https://arxiv.org/pdf/2310.06625",
+      "method_summary": "Inverts the attention axes so variate tokens carry series-global representations; used as a strong channel-wise baseline in the anomaly-detection comparisons.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "the anomaly-detection appendix reports the five-dataset table; to be transcribed from the PDF"
+    },
+    {
+      "id": "luo2024_moderntcn",
+      "year": 2024,
+      "title": "ModernTCN: A Modern Pure Convolution Structure for General Time Series Analysis",
+      "doi": "10.48550/arXiv.2205.08897",
+      "venue": "ICLR 2024",
+      "role": "SOTA backbone",
+      "access": "conference_open_review",
+      "landing_url": "https://openreview.net/forum?id=vpJMJerXHU",
+      "method_summary": "Modernised depthwise-separable temporal convolution with large kernels and variate-independent design; strong accuracy/efficiency trade-off in the Time-Series-Library leaderboard.",
+      "covers_datasets": [
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "Time-Series-Library leaderboard lists this model across the anomaly-detection datasets; to be verified from the official PDF",
+      "access_note": "OpenReview PDF endpoint returns HTTP 403 to automated clients; the forum page is public in a browser session."
+    },
+    {
+      "id": "xie2024_catch",
+      "year": 2025,
+      "title": "CATCH: Channel-Aware Multivariate Time Series Anomaly Detection via Frequency Patching",
+      "doi": "10.48550/arXiv.2410.12261",
+      "venue": "ICLR 2025",
+      "role": "SOTA",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2410.12261",
+      "pdf_url": "https://arxiv.org/pdf/2410.12261",
+      "method_summary": "Frequency-domain patching with a two-stage channel fusion module that scores channels and patches independently, then fuses them into a detection score.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper abstract and result tables; per-dataset F1 to be transcribed from the PDF"
+    },
+    {
+      "id": "feng2024_sensitivehue",
+      "year": 2024,
+      "title": "SensitiveHUE: Multivariate Time Series Anomaly Detection by Enhancing the Sensitivity to Normal Patterns",
+      "doi": "10.1145/3637528.3671919",
+      "venue": "KDD 2024",
+      "role": "SOTA",
+      "access": "gold_open_access",
+      "landing_url": "https://doi.org/10.1145/3637528.3671919",
+      "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3637528.3671919",
+      "method_summary": "Hypersphere-based uncertainty estimation combined with a sensitivity-aware objective so that normal-pattern density, not reconstruction error, drives the anomaly score.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper abstract and result tables; per-dataset F1 to be transcribed from the PDF",
+      "access_note": "Semantic Scholar reports GOLD open access, but the ACM host rejects automated clients; a browser session is required."
+    },
+    {
+      "id": "zhang2025_gcad",
+      "year": 2025,
+      "title": "GCAD: Anomaly Detection in Multivariate Time Series from the Perspective of Granger Causality",
+      "doi": "10.1609/aaai.v39i18.34096",
+      "venue": "AAAI 2025",
+      "role": "SOTA",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2501.13493",
+      "pdf_url": "https://arxiv.org/pdf/2501.13493",
+      "method_summary": "Models Granger-causal relations between channels with a causal graph predictor and detects anomalies as deviations in the predicted causal structure.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper abstract and result tables; per-dataset F1 to be transcribed from the PDF"
+    },
+    {
+      "id": "kim2025_tab",
+      "year": 2025,
+      "title": "TAB: Unified Benchmarking of Time Series Anomaly Detection Methods",
+      "doi": "10.14778/3746405.3746407",
+      "venue": "VLDB 2025",
+      "role": "benchmark methodology",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2506.18046",
+      "pdf_url": "https://arxiv.org/pdf/2506.18046",
+      "method_summary": "Unified evaluation harness that shows reported anomaly-detection rankings depend on preprocessing, thresholding, and point-adjustment conventions rather than on the model alone.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper abstract and benchmark scope; dataset list to be transcribed from the PDF"
+    },
+    {
+      "id": "liu2024_tsb_ad",
+      "year": 2024,
+      "title": "The Elephant in the Room: Towards A Reliable Time-Series Anomaly Detection Benchmark",
+      "doi": "10.52202/079017-3437",
+      "venue": "NeurIPS 2024 Datasets and Benchmarks",
+      "role": "benchmark methodology / critical re-evaluation",
+      "access": "open",
+      "landing_url": "https://papers.nips.cc/paper_files/paper/2024/hash/c3f3c690b7a99fba16d0efd35cb83b2c-Abstract-Datasets_and_Benchmarks_Track.html",
+      "pdf_url": "https://papers.nips.cc/paper_files/paper/2024/file/c3f3c690b7a99fba16d0efd35cb83b2c-Paper-Datasets_and_Benchmarks_Track.pdf",
+      "method_summary": "Introduces the TSB-AD benchmark and demonstrates that point adjustment inflates reported F1 on the classic five-dataset suite, changing which methods appear to be state of the art.",
+      "covers_datasets": [
+        "SWaT",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SMD"
+      ],
+      "coverage_basis": "paper abstract and benchmark scope; dataset list to be transcribed from the PDF"
+    },
+    {
+      "id": "ritter2024_overestimation",
+      "year": 2024,
+      "title": "Unmasking overestimation: a re-evaluation of deep anomaly detection in spacecraft telemetry",
+      "doi": "10.1007/s12567-023-00529-5",
+      "venue": "CEAS Space Journal",
+      "role": "critical re-evaluation of SMAP/MSL results",
+      "access": "open",
+      "landing_url": "https://doi.org/10.1007/s12567-023-00529-5",
+      "pdf_url": "https://link.springer.com/content/pdf/10.1007/s12567-023-00529-5.pdf",
+      "method_summary": "Shows that spacecraft-telemetry anomaly-detection scores are dominated by evaluation-pipeline choices and that several reported spacecraft results do not survive a stricter protocol.",
+      "covers_datasets": [
+        "SMAP",
+        "MSL"
+      ],
+      "coverage_basis": "paper abstract and scope; numbers to be transcribed from the PDF"
+    },
+    {
+      "id": "qi2026_revisiting_omnianomaly",
+      "year": 2026,
+      "title": "Revisiting OmniAnomaly for Anomaly Detection: performance metrics and comparison",
+      "doi": "10.48550/arXiv.2603.18985",
+      "venue": "arXiv preprint",
+      "role": "critical re-evaluation of SMD results",
+      "access": "open",
+      "landing_url": "https://arxiv.org/abs/2603.18985",
+      "pdf_url": "https://arxiv.org/pdf/2603.18985",
+      "method_summary": "Recomputes OmniAnomaly-family results on SMD under corrected metric reporting, quantifying how much of the published advantage comes from the metric rather than the model.",
+      "covers_datasets": [
+        "SMD"
+      ],
+      "coverage_basis": "preprint title and abstract; numbers to be transcribed from the PDF",
+      "note": "Preprint; recorded as a re-evaluation reference, not as a peer-reviewed SOTA entry."
+    }
+  ]
+}

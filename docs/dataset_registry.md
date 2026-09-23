@@ -13,6 +13,24 @@
 | `smd10towfgr` | 180,707,378 字节 XLSX 已下载，MD5 通过 | 10 台风机的 SCADA 与 230,618 条事件/报警日志；T4 序列/密度、T5/T6；缺专家洪泛类别 | [Zenodo 14546480](https://zenodo.org/records/14546480)，CC BY 4.0 |
 | `enas` | 20,010,388 字节 CSV 已下载，MD5 通过；只读 adapter 与 G0 已完成 | 219,893 条数字传感器/执行器状态变化和 160 个 ME/HE/UE 人工错误标记；递归 BN 的原始脉冲与五行持久化配对验证已完成；T3/T5 | [Zenodo 4742256](https://zenodo.org/records/4742256)，CC BY 4.0 |
 | `imaks` | 19,797,994 字节 ZIP 已下载，MD5 通过；sensor/KG adapter 已完成；synthetic | 211,200 行 MQTT/传感器注释与因果真值；IGDTE/BN/PLR 的 T3 诊断 smoke，负结果保留，不得进入真实工业榜单 | [Zenodo 20075430](https://zenodo.org/records/20075430) |
+| `mtsad` | 15 个载荷 + 2 个 SWaT 基准切分已下载并逐文件 SHA-256 固定；adapter、四个协议矩阵与首批复现实验已完成 | SWaT/MSL/SMAP/PSM/SMD 多变量时间序列异常检测基准族：SMD 708405×38 / MSL 58317×55 / SMAP 135183×25 / PSM 132481×25 / SWaT 495000×51（训练）；异常率 4.16% / 10.53% / 12.79% / 27.76% / 12.14% | [Time-Series-Library 镜像](https://huggingface.co/datasets/thuml/Time-Series-Library)；原始来源见 `papers/literature/mtsad_registry.json` |
+
+## MTSAD 族说明（多变量异常检测基准）
+
+`mtsad` 是新增的多变量时间序列异常检测基准族，用于回答“论文报告分数是否可复现”。
+其载荷取自 `thuml/Time-Series-Library` 的公开镜像（CC BY 4.0 声明），并由
+`configs/datasets/public_sources.json` 第 4 轮条目逐文件绑定 SHA-256；SWaT 的规范发布源
+（iTrust/SUTD）仍需签署申请，镜像替代这一事实记录在
+`configs/datasets/mtsad_swat.json` 的 `access_note`。
+
+复现协议矩阵定义在 `configs/experiments/mtsad_reproduction.json`：窗口到时间戳的展开方式、
+阈值规则（分位数 / 最优 F1）与是否点调整（point adjustment）各自独立，因此同一检测器的
+不同分数可以归因到协议而非模型。协议出处是 Time-Series-Library 的
+`exp/exp_anomaly_detection.py` 与 `utils/tools.py:adjustment`。
+
+已知冲突：TranAD 论文的数据集表记 SWaT 训练集为 496800 行，本项目固定的基准载荷为
+495000 行，两者相差 1800 行；该差异不做静默裁剪，而是随复现结果一起报告（见
+`ara_mtsad/evidence/tables/swat_split_audit.md`）。
 
 本次本地 profile：FCC Alarm 1,600 个仿真 run、16 类异常、57 个报警位并配套 4,800 个过程/阀位/扰动 CSV；PIADE raw 429,394 行、5 台设备、92,084 个非 `A_000` 报警区间；CoMoPI 150,650 个十分钟 bin、194,974 次报警；SMD10TOWFGR 230,618 条日志、167 个事件 code；EnAS 219,893 行；iMAKS annotated sensor 表 211,200 行；SKAB 35 个 CSV 实验；经典 TEP 44 个 run 文件（2 normal、42 fault）、52 个变量。数值来自 `profile_public_datasets.py`，可在数据更新后重算，不作为上游数据集的永久版本声明。
 

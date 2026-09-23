@@ -1,0 +1,129 @@
+# Exploration graph for the MTSAD reproduction iteration.
+# Nodes marked support_level: explicit come from a source that was opened in this
+# iteration; support_level: inferred are reconstructed decisions.
+schema_version: 1
+artifact: ara_mtsad
+root: "Do the published SWaT/MSL/SMAP/PSM/SMD results reproduce?"
+
+nodes:
+  - id: Q0
+    type: question
+    text: "Which artefacts count as the benchmark for these five datasets?"
+    support_level: explicit
+    source_refs:
+      - "configs/datasets/public_sources.json#sources[round=4]"
+    children: [D0, D1, D2]
+
+  - id: D0
+    type: decision
+    text: "Use the Time-Series-Library redistribution as the benchmark payload, pinned by SHA-256, and record the canonical releases as provenance."
+    support_level: explicit
+    source_refs:
+      - "data/public_datasets/mtsad/README.md"
+      - "https://raw.githubusercontent.com/thuml/Time-Series-Library/main/data_provider/data_loader.py"
+    rationale: "The reference loaders for all five datasets read exactly these files, and the row counts match the anchor tables."
+    children: [X0, X1]
+
+  - id: X0
+    type: dead_end
+    text: "Downloading the Telemanom S3 archive (s3.amazonaws.com/telemanom/data.zip / s3-us-west-2 variant) as the SMAP/MSL source."
+    support_level: explicit
+    source_refs:
+      - "HTTP probe 2026-09-24: 301 to a regional endpoint that returns 403 for anonymous clients"
+    rationale: "The archive is no longer anonymously readable, so the redistributed payload was used instead."
+
+  - id: X1
+    type: dead_end
+    text: "Fetching the USAD and SensitiveHUE PDFs from the ACM Digital Library and the ModernTCN PDF from OpenReview."
+    support_level: explicit
+    source_refs:
+      - "download manifest records: audibert2020_usad=403, feng2024_sensitivehue=403, luo2024_moderntcn=403"
+    rationale: "Automated clients are rejected; the papers are recorded as open-access-but-bot-blocked and were not fetched around the control."
+
+  - id: D1
+    type: decision
+    text: "Model the evaluation protocol as an experimental variable with four declared combinations instead of assuming one canonical protocol."
+    support_level: explicit
+    source_refs:
+      - "configs/experiments/mtsad_reproduction.json#protocols"
+      - "https://raw.githubusercontent.com/thuml/Time-Series-Library/main/exp/exp_anomaly_detection.py"
+    children: [C01, C02, E01]
+
+  - id: D2
+    type: decision
+    text: "Re-implement two deep detectors behind one interface rather than copying a repository, and tag each transcription with its grounding."
+    support_level: explicit
+    source_refs:
+      - "src/iia_benchmark/models/mtsad_detectors.py#Grounding tags"
+      - "https://raw.githubusercontent.com/thuml/Anomaly-Transformer/main/model/attn.py"
+    children: [X2, E03]
+
+  - id: X2
+    type: dead_end
+    text: "Back-propagating the Anomaly Transformer minimax terms from a single forward pass (the reference ordering) on modern autograd."
+    support_level: explicit
+    source_refs:
+      - "RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation"
+    rationale: "The reference ordering mutates shared parameters between the two backward passes; a fresh forward pass reproduces the objective without the in-place conflict."
+
+  - id: X3
+    type: dead_end
+    text: "Point adjustment and oracle threshold search implemented as per-point Python loops."
+    support_level: explicit
+    source_refs:
+      - "experiments/runs/mtsad_reproduction/smoke (first attempt did not complete a single PSM run)"
+    rationale: "The concatenated layouts reach 8.8M timestamps; the vectorised cumulative-sum formulation makes the same computation tractable (test_point_adjust_* guards the semantics)."
+
+  - id: X4
+    type: dead_end
+    text: "Training USAD with the paper's adversarial second loss term (subtracting the partner reconstruction) on the pinned payloads."
+    support_level: explicit
+    source_refs:
+      - "configs/models/mtsad_usad.json#deviation_note"
+      - "measured: decoder2 median one-step reconstruction error 0.16 -> 2.5e8 between epoch 1 and 2; stable across learning rates 1e-3, 1e-4 and 1e-5"
+    rationale: "The negative term is unbounded, so the optimiser maximises the partner reconstruction by blowing up decoder2. The shipped configuration disables the sign and is labelled as an ablated non-adversarial ensemble; the divergence is kept as a negative result rather than tuned away silently."
+
+  - id: C01
+    type: claim
+    text: "Protocol choice dominates detector identity on this family."
+    support_level: explicit
+    evidence: [C01, C02]
+
+  - id: C02
+    type: claim
+    text: "Point adjustment decouples the reported score from point-wise precision."
+    support_level: explicit
+    evidence: [C02]
+
+  - id: C04
+    type: claim
+    text: "SWaT comparisons require a pinned split version."
+    support_level: explicit
+    source_refs:
+      - "papers/literature/mtsad_pdfs/tuli2022_tranad.pdf#Table 2 dataset table (SWaT train 496800)"
+      - "configs/datasets/mtsad_swat.json#reported_shape_discrepancy"
+    evidence: [C04]
+
+  - id: E01
+    type: experiment
+    text: "Re-run the classical detector family under four declared protocols."
+    support_level: explicit
+    evidence: [C01, C02, C05]
+
+  - id: E03
+    type: experiment
+    text: "Re-run USAD and the Anomaly Transformer through the same harness."
+    support_level: explicit
+    evidence: [C01]
+
+  - id: E05
+    type: experiment
+    text: "Audit the SWaT split versions stated across the registered papers."
+    support_level: explicit
+    evidence: [C04]
+
+  - id: D3
+    type: decision
+    text: "Do not re-run deep detectors on the pinned SWaT split in this iteration."
+    support_level: inferred
+    rationale: "Roughly 495000 stride-1 training windows per epoch did not fit the iteration's compute budget; the shortfall is recorded rather than approximated by shrinking the split."

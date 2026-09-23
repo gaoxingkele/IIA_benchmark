@@ -1,0 +1,84 @@
+# Claims
+
+## C01 - Protocol choice dominates detector identity on this family
+
+**Statement**: On this benchmark family, moving between declared protocol choices
+changes a detector's headline score by more than the spread between detectors,
+so a ranking that does not fix the protocol is not a property of the methods.
+
+**Conditions**: Holds for reconstruction- and distance-style detectors evaluated
+through the windowed layouts used here; untested for protocols that additionally
+require calibrated alarm design (for example FAR/MAR-based alarm generation).
+
+**Falsification criteria**: Falsified if, across the five datasets, re-ranking
+detectors under the strict point-wise protocol reproduces the ranking obtained
+under the point-adjusted protocol with no rank inversions.
+
+**Dependencies**: C02.
+
+**Proof**: E01, E03.
+
+## C02 - Point adjustment decouples the reported score from point-wise precision
+
+**Statement**: Because a single detected point credits an entire labelled anomaly
+segment, a detector that fires once per segment attains a near-perfect adjusted
+score while its point-wise precision stays at the level implied by the segment
+length, so the adjusted score measures segment coverage rather than detection
+sharpness.
+
+**Conditions**: Established for contiguous point labels as shipped in this
+family; the size of the effect scales with segment length and is therefore
+dataset-dependent.
+
+**Falsification criteria**: Falsified if, on these payloads, the ratio between a
+detector's adjusted and point-wise score is independent of its false-positive
+rate.
+
+**Proof**: E01, E02.
+
+## C03 - The five datasets are not commensurable without their preprocessing
+
+**Statement**: Channel count, sampling rate and label granularity differ enough
+across the five payloads that a detector's score on one payload carries no direct
+information about its score on another, so cross-dataset averages are only
+interpretable when each dataset's preprocessing and threshold rule are applied
+per dataset.
+
+**Conditions**: Applies to the shipped splits; it does not claim the datasets are
+uninformative, only that their scores are not exchangeable units.
+
+**Falsification criteria**: Falsified if a single threshold and a single
+preprocessing recipe reproduce every dataset's reported operating point.
+
+**Proof**: E04.
+
+## C04 - SWaT comparisons require a pinned split version
+
+**Statement**: Published SWaT numbers in this family are produced on differently
+sized training splits, so two SWaT scores can be compared only after the split
+version is pinned; an unpinned comparison can attribute a training-set difference
+to a modelling difference.
+
+**Conditions**: Evidence covers the splits named in the registered papers and the
+redistributed payload; other SWaT derivatives were not audited.
+
+**Falsification criteria**: Falsified if the registered papers' SWaT training
+row counts can be shown to agree once the same preprocessing script is applied.
+
+**Proof**: E05.
+
+## C05 - Classical detectors already occupy the reported classical-baseline band
+
+**Statement**: Under the reference protocol, instantaneous detectors that ignore
+temporal context reach the same score band as the classical baselines quoted in
+the anchor papers, so a temporal model's advantage on this family is only
+measurable once the protocol inflation is removed.
+
+**Conditions**: Claimed for the classical baseline rows of the anchor tables
+(isolation forest, one-class SVM, distance-style detectors); it does not extend to
+the deep baselines whose reported numbers were produced by their own harnesses.
+
+**Falsification criteria**: Falsified if the re-run instantaneous detectors fall
+systematically below the quoted classical baseline rows across all five payloads.
+
+**Proof**: E01, E04.

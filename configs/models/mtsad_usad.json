@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_usad",
+  "family": "mtsad_benchmark",
+  "entrypoint": "iia_benchmark.models.mtsad_detectors:USADDetector",
+  "parameters": {
+    "window": 100,
+    "hidden_size": 100,
+    "latent_size": 40,
+    "epochs": 20,
+    "learning_rate": 0.001,
+    "batch_size": 256,
+    "alpha": 0.5,
+    "beta": 0.5,
+    "grad_clip": 1.0,
+    "adversarial": false,
+    "seed": 1103
+  },
+  "kind": "window",
+  "reproduction_status": "reconstructed_from_paper_algorithm_adversarial_phase_disabled",
+  "source": "KDD 2020 USAD Algorithm 1; the public reference script was not re-read line by line, so results are a re-run of the algorithm rather than of the released artefact.",
+  "deviation_note": "The paper's loss2 subtracts the second reconstruction term. On the pinned payloads that unbounded adversarial term drives decoder2 to diverge (median one-step reconstruction error grows from 0.16 to 2.5e8 within two epochs), so the shipped run disables the negative sign and is reported as an ablated, non-adversarial two-decoder ensemble; the divergence itself is kept as a recorded negative result.",
+  "citation_doi": "10.1145/3394486.3403392"
+}

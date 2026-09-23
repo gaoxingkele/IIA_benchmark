@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_reproduction",
+  "family": "mtsad_benchmark",
+  "task": "mtsad_detection",
+  "description": "Re-run the SWaT/MSL/SMAP/PSM/SMD anomaly-detection benchmark under explicit protocol choices so that reported numbers can be compared with re-run numbers.",
+  "datasets": ["msl", "smap", "psm", "smd", "swat"],
+  "models": [
+    "pca",
+    "mahalanobis",
+    "knn",
+    "isolation_forest",
+    "ocsvm",
+    "usad",
+    "anomaly_transformer"
+  ],
+  "seeds": [1103, 1104, 1105],
+  "protocols": {
+    "tslib_reference": {
+      "aggregation": "window_flatten",
+      "threshold": "percentile_combined",
+      "point_adjustment": true,
+      "note": "Time-Series-Library Exp_Anomaly_Detection: per-window score replicated across the window, threshold at the (100 - anomaly_ratio) percentile of train+test energy, then point adjustment."
+    },
+    "best_f1_adjusted": {
+      "aggregation": "window_flatten",
+      "threshold": "best_f1",
+      "point_adjustment": true,
+      "note": "Oracle threshold search maximising point-wise F1, metrics reported after point adjustment (the Anomaly Transformer / TranAD lineage)."
+    },
+    "best_f1_pointwise": {
+      "aggregation": "window_flatten",
+      "threshold": "best_f1",
+      "point_adjustment": false,
+      "note": "Same oracle threshold but strict point-wise scoring, which removes the point-adjustment inflation."
+    },
+    "per_point_adjusted": {
+      "aggregation": "last_point",
+      "threshold": "percentile_combined",
+      "point_adjustment": true,
+      "note": "One score per timestamp (mean over the windows covering it) before the percentile threshold and point adjustment."
+    }
+  },
+  "default_protocol": "tslib_reference",
+  "output_dir": "experiments/runs/mtsad_reproduction",
+  "reported_results": "knowledge_base/literature/mtsad_reported_results.json",
+  "reference_protocol_notes": "Reported numbers in the selected papers were produced by different harnesses; the comparison therefore records which protocol each number came from instead of assuming a single canonical protocol."
+}

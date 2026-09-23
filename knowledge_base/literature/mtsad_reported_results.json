@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "family": "mtsad_benchmark",
+  "status": "transcribed_from_pdfs",
+  "scope": "Published numbers for the SWaT/MSL/SMAP/PSM/SMD family, transcribed from the PDFs stored under papers/literature/mtsad_pdfs (local only). Every value carries the object it was read from.",
+  "extraction_method": "pdftotext -layout on the local PDF, table text transcribed verbatim; no value is carried over from memory.",
+  "protocol_caveat": "The papers do not share one protocol. Anomaly Transformer and DCdetector report point-adjusted F1 with per-paper preprocessing; TranAD reports F1 with its own threshold rule and does not evaluate PSM. Column-wise equality across papers is therefore not evidence of like-for-like evaluation.",
+  "sources": [
+    {
+      "paper_id": "xu2022_anomaly_transformer",
+      "pdf": "papers/literature/mtsad_pdfs/xu2022_anomaly_transformer.pdf",
+      "objects": ["Table 1"],
+      "reported_protocol": "point-adjusted F1 with the authors' own preprocessing; the paper does not state the threshold rule in the table caption",
+      "rows": {
+        "anomaly_transformer": {
+          "SMD": {"precision": 89.40, "recall": 95.45, "f1": 92.33},
+          "MSL": {"precision": 92.09, "recall": 95.15, "f1": 93.59},
+          "SMAP": {"precision": 94.13, "recall": 99.40, "f1": 96.69},
+          "SWaT": {"precision": 91.55, "recall": 96.73, "f1": 94.07},
+          "PSM": {"precision": 96.91, "recall": 98.90, "f1": 97.89}
+        },
+        "ocsvm": {
+          "SMD": {"f1": 56.19}, "MSL": {"f1": 70.82}, "SMAP": {"f1": 56.34},
+          "SWaT": {"f1": 47.23}, "PSM": {"f1": 70.67}
+        },
+        "isolation_forest": {
+          "SMD": {"f1": 53.64}, "MSL": {"f1": 66.45}, "SMAP": {"f1": 55.53},
+          "SWaT": {"f1": 47.02}, "PSM": {"f1": 83.48}
+        },
+        "lstm_vae": {
+          "SMD": {"f1": 82.30}, "MSL": {"f1": 82.62}, "SMAP": {"f1": 78.10},
+          "SWaT": {"f1": 82.20}, "PSM": {"f1": 80.96}
+        },
+        "omnianomaly": {
+          "SMD": {"f1": 85.22}, "MSL": {"f1": 87.67}, "SMAP": {"f1": 86.92},
+          "SWaT": {"f1": 82.83}, "PSM": {"f1": 80.83}
+        }
+      }
+    },
+    {
+      "paper_id": "yang2023_dcdetector",
+      "pdf": "papers/literature/mtsad_pdfs/yang2023_dcdetector.pdf",
+      "objects": ["Table 1"],
+      "reported_protocol": "point-adjusted F1 as re-produced by the DCdetector authors",
+      "rows": {
+        "dcdetector": {
+          "SMD": {"precision": 83.59, "recall": 91.10, "f1": 87.18},
+          "MSL": {"precision": 93.69, "recall": 99.69, "f1": 96.60},
+          "SMAP": {"precision": 95.63, "recall": 98.92, "f1": 97.02},
+          "SWaT": {"precision": 93.11, "recall": 99.77, "f1": 96.33},
+          "PSM": {"precision": 97.14, "recall": 98.74, "f1": 97.94}
+        },
+        "anomaly_transformer": {
+          "SMD": {"precision": 88.47, "recall": 92.28, "f1": 90.33},
+          "MSL": {"precision": 91.92, "recall": 96.03, "f1": 93.93},
+          "SMAP": {"precision": 93.59, "recall": 99.41, "f1": 96.41},
+          "SWaT": {"precision": 89.10, "recall": 99.28, "f1": 94.22},
+          "PSM": {"precision": 96.94, "recall": 97.81, "f1": 97.37}
+        }
+      },
+      "note": "The same method (Anomaly Transformer) is reported as SMD 92.33 by its authors and 90.33 here, which quantifies how much the reported rank depends on the re-run harness."
+    },
+    {
+      "paper_id": "tuli2022_tranad",
+      "pdf": "papers/literature/mtsad_pdfs/tuli2022_tranad.pdf",
+      "objects": ["Table 2"],
+      "reported_protocol": "F1 with complete training data under the TranAD threshold rule; PSM is not evaluated",
+      "rows": {
+        "tranad": {
+          "SMAP": {"precision": 0.8043, "recall": 0.9999, "auc": 0.9921, "f1": 0.8915},
+          "MSL": {"precision": 0.9038, "recall": 0.9999, "auc": 0.9916, "f1": 0.9494},
+          "SWaT": {"precision": 0.9760, "recall": 0.6997, "auc": 0.8491, "f1": 0.8151},
+          "SMD": {"precision": 0.9262, "recall": 0.9974, "auc": 0.9974, "f1": 0.9605}
+        },
+        "usad": {
+          "SMAP": {"f1": 0.8419}, "MSL": {"f1": 0.8822},
+          "SWaT": {"f1": 0.8143}, "SMD": {"f1": 0.9495}
+        },
+        "omnianomaly": {
+          "SMAP": {"f1": 0.8728}, "MSL": {"f1": 0.8765},
+          "SWaT": {"f1": 0.8131}, "SMD": {"f1": 0.9401}
+        },
+        "dagmm": {
+          "SMAP": {"f1": 0.8888}, "MSL": {"f1": 0.8482},
+          "SWaT": {"f1": 0.8128}, "SMD": {"f1": 0.9491}
+        }
+      },
+      "dataset_table": {
+        "SMAP": {"train_rows": 135183, "test_rows": 427617, "dimensions": "25 (55)", "anomaly_pct": 13.13},
+        "SWaT": {"train_rows": 496800, "test_rows": 449919, "dimensions": "51 (1)", "anomaly_pct": 11.98}
+      },
+      "note": "TranAD's own dataset table lists 496800 SWaT training rows, while the benchmark payload used here has 495000; see configs/datasets/mtsad_swat.json."
+    }
+  ]
+}

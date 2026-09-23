@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_psm",
+  "family": "mtsad",
+  "loader": "psm_csv",
+  "directory": "psm",
+  "files": {
+    "train": "train.csv",
+    "test": "test.csv",
+    "label": "test_label.csv"
+  },
+  "expected_shapes": {
+    "train": [132481, 25],
+    "test": [87841, 25]
+  },
+  "features": 25,
+  "window": 100,
+  "window_step": 1,
+  "anomaly_ratio": 0.5,
+  "label_policy": "native point labels; the reported benchmark additionally applies point adjustment",
+  "provenance": "eBay Pooled Server Metrics released with the asynchronous anomaly-detection paper; benchmark payload mirrored by thuml/Time-Series-Library",
+  "citation_doi": "10.1145/3447548.3467174",
+  "reference_loader_note": "PSMSegLoader uses stride 1; the first CSV column is the minute timestamp"
+}

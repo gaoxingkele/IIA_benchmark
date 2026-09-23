@@ -20,6 +20,10 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_REGISTRY = ROOT / "papers" / "literature" / "registry.json"
 DEFAULT_OUTPUT = ROOT / "papers" / "literature" / "pdfs"
 DEFAULT_MANIFEST = ROOT / "papers" / "literature" / "download_manifest.json"
+BROWSER_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+)
 
 
 def sha256(path: Path) -> str:
@@ -79,7 +83,13 @@ def download(url: str, destination: Path, proxy: str | None) -> str:
                 urllib.request.ProxyHandler({"http": proxy, "https": proxy})
             )
         opener = urllib.request.build_opener(*handlers)
-        request = urllib.request.Request(url, headers={"User-Agent": "IIA-benchmark/0.1"})
+        request = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": BROWSER_UA,
+                "Accept": "application/pdf,text/html;q=0.9,*/*;q=0.8",
+            },
+        )
         with opener.open(request, timeout=90) as response, partial.open("wb") as handle:
             shutil.copyfileobj(response, handle)
         backend = "urllib"
@@ -102,6 +112,9 @@ def main() -> int:
     )
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
+    args.registry = args.registry.resolve()
+    args.output_dir = args.output_dir.resolve()
+    args.manifest = args.manifest.resolve()
 
     registry = json.loads(args.registry.read_text(encoding="utf-8"))
     previous_manifest = None

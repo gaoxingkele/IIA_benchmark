@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_smap",
+  "family": "mtsad",
+  "loader": "npy",
+  "directory": "smap",
+  "files": {
+    "train": "SMAP_train.npy",
+    "test": "SMAP_test.npy",
+    "label": "SMAP_test_label.npy"
+  },
+  "expected_shapes": {
+    "train": [135183, 25],
+    "test": [427617, 25]
+  },
+  "features": 25,
+  "window": 100,
+  "window_step": 1,
+  "anomaly_ratio": 0.5,
+  "label_policy": "native point labels; the reported benchmark additionally applies point adjustment",
+  "provenance": "Soil Moisture Active Passive telemetry channel subset released with the Telemanom paper; benchmark payload mirrored by thuml/Time-Series-Library",
+  "citation_doi": "10.1145/3219819.3219845",
+  "reference_loader_note": "SMAPSegLoader uses stride 1"
+}

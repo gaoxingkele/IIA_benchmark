@@ -1,0 +1,58 @@
+# Evidence
+
+## Filing policy
+
+Papers in this family interleave prose, result tables and architecture figures.
+This artifact files the objects that carry the numbers it compares against, and
+records the rest explicitly rather than silently dropping them.
+
+## Filed
+
+| Object | File | Source |
+|---|---|---|
+| Anomaly Transformer Table 1 | `tables/reported_anchor_tables.md` | `papers/literature/mtsad_pdfs/xu2022_anomaly_transformer.pdf` |
+| DCdetector Table 1 | `tables/reported_anchor_tables.md` | `papers/literature/mtsad_pdfs/yang2023_dcdetector.pdf` |
+| TranAD Table 2 and its dataset table | `tables/reported_anchor_tables.md` | `papers/literature/mtsad_pdfs/tuli2022_tranad.pdf` |
+| Re-run results | `tables/rerun_classical_summary.md`, `tables/rerun_deep_summary.md` | `experiments/runs/mtsad_reproduction/*/records.json` |
+| Protocol sensitivity | `tables/protocol_sensitivity.md` | derived from the run records |
+| SWaT split audit | `tables/swat_split_audit.md` | TranAD dataset table vs pinned payload |
+
+## Not filed, with reason
+
+- **Figure 1-3 of the anchor papers (architecture diagrams, ROC curves, qualitative
+  samples)**: the anchor diagrams are reproduced in prose inside
+  `logic/solution/method.md` and `logic/concepts.md`; the ROC curves carry no value
+  that this artifact compares against, since the comparison is F1-based. A visual
+  re-render is deferred, so no screenshot is claimed.
+- **Anomaly Transformer Table 5 / appendix ablations**: not used for any claim in
+  this artifact; the appendix tables would be needed for a sensitivity study of
+  the association discrepancy, which is out of scope here.
+- **CATCH, GCAD, TimesNet, iTransformer result tables**: registered with local
+  PDFs, but no claim in this artifact depends on their numbers; they are the next
+  re-run targets rather than transcribed evidence.
+- **Table images (`.png`)**: the source objects are text tables inside PDFs and
+  were transcribed with `pdftotext -layout`; a page render is deferred, so this
+  artifact claims transcription fidelity only for the quoted rows, not visual
+  identity with the printed page.
+- **SWaT dataset chapter, OmniAnomaly, PSM, USAD, SensitiveHUE, ModernTCN PDFs**:
+  not retrievable without institutional access or a browser session; recorded as
+  unavailable in `papers/literature/mtsad_download_manifest.json` instead of being
+  fetched around the publisher's controls.
+
+## Reproduction commands
+
+Raw run records live under `experiments/runs/mtsad_reproduction/`, which the
+repository's `.gitignore` keeps local; the tables below are the tracked evidence
+and can be regenerated from those records with the commands in this section.
+
+```powershell
+python scripts/data_acquisition/download_public_datasets.py --family mtsad
+python scripts/data_acquisition/audit_public_datasets.py
+python scripts/literature/download_representative_papers.py `
+  --registry papers/literature/mtsad_registry.json `
+  --manifest papers/literature/mtsad_download_manifest.json `
+  --output-dir papers/literature/mtsad_pdfs --proxy http://127.0.0.1:17890
+python scripts/mtsad/run_reproduction.py --tag classical --models pca mahalanobis knn isolation_forest ocsvm --seeds 1103 1104 1105
+python scripts/mtsad/run_reproduction.py --tag deep --datasets psm smd msl smap --models usad anomaly_transformer --seeds 1103
+python scripts/mtsad/summarize_reproduction.py experiments/runs/mtsad_reproduction/*/records.json --out ara_mtsad/evidence/tables/rerun_summary.md
+```

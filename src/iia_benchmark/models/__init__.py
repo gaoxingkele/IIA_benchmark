@@ -4,6 +4,16 @@ from .flood import (
     perturb_alarm_episode,
     smith_waterman_similarity,
 )
+from .mtsad_detectors import (
+    AnomalyTransformerDetector,
+    IsolationForestDetector,
+    KNNDetector,
+    MahalanobisDetector,
+    OCSVMDetector,
+    PCADetector,
+    USADDetector,
+    build_detector,
+)
 from .casim import (
     CASIMClassifier,
     CASIMExpandingWindowClassifier,
@@ -331,4 +341,12 @@ __all__ = [
     "time_encoded_histogram",
     "transfer_entropy",
     "weighted_time_gradient",
+    "AnomalyTransformerDetector",
+    "IsolationForestDetector",
+    "KNNDetector",
+    "MahalanobisDetector",
+    "OCSVMDetector",
+    "PCADetector",
+    "USADDetector",
+    "build_detector",
 ]
