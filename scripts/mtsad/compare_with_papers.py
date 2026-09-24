@@ -145,6 +145,38 @@ def main() -> int:
     ]
     for tag in ("matches", "near", "off"):
         lines.append(f"| {tag} | {counts.get(tag, 0)} |")
+
+    # Column-level summary: which dataset reproduces across detectors.  This is
+    # the question a reader actually has ("can I trust the MSL column?"), and it
+    # is not the same as the per-method tally above.
+    per_dataset: dict[str, list[float]] = defaultdict(list)
+    per_dataset_models: dict[str, list[str]] = defaultdict(list)
+    for (model, dataset), candidate in best.items():
+        target = published.get((model, dataset))
+        if not target:
+            continue
+        per_dataset[dataset].append(abs(candidate["f1"] - target["value"]))
+        per_dataset_models[dataset].append(MODEL_LABELS.get(model, model))
+    lines += [
+        "",
+        "## Column reproducibility (all compared methods)",
+        "",
+        "| Dataset | compared methods | mean abs delta | worst delta | best delta |",
+        "|---|---|---|---|---|",
+    ]
+    for dataset in sorted(per_dataset, key=lambda name: np.mean(per_dataset[name])):
+        deltas = per_dataset[dataset]
+        lines.append(
+            f"| {dataset.upper()} | {len(deltas)} | {np.mean(deltas):.4f} | "
+            f"{np.max(deltas):.4f} | {np.min(deltas):.4f} |"
+        )
+    lines += [
+        "",
+        "Dataset columns ordered by how well they reproduce, pooling deep detectors",
+        "and classical baselines: the deep-only picture is finer (see",
+        "`rerun_deep_status.md`), while this table answers the coarser question of",
+        "whether a column can be trusted at all.",
+    ]
     lines += [
         "",
         "## Every configuration that was run",

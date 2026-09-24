@@ -42,6 +42,21 @@ Reference protocol = percentile threshold over pooled train+test energy
 | near | 8 |
 | off | 15 |
 
+## Column reproducibility (all compared methods)
+
+| Dataset | compared methods | mean abs delta | worst delta | best delta |
+|---|---|---|---|---|
+| PSM | 5 | 0.0664 | 0.2079 | 0.0049 |
+| SMAP | 6 | 0.1266 | 0.4336 | 0.0106 |
+| SMD | 6 | 0.1746 | 0.8218 | 0.0001 |
+| SWAT | 4 | 0.1878 | 0.3498 | 0.0115 |
+| MSL | 6 | 0.1980 | 0.7880 | 0.0067 |
+
+Dataset columns ordered by how well they reproduce, pooling deep detectors
+and classical baselines: the deep-only picture is finer (see
+`rerun_deep_status.md`), while this table answers the coarser question of
+whether a column can be trusted at all.
+
 ## Every configuration that was run
 
 | Method | Dataset | config | F1-PA | point-wise F1 | range F1 |
