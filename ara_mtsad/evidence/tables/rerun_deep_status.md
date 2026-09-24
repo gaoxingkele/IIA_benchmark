@@ -33,6 +33,31 @@ correctly.
 Eight of the ten deep pairs land within three F1 points of the published value,
 and the two that do not are both MSL.
 
+## TimesNet (transcribed; the release's own per-dataset budgets)
+
+| Dataset | Re-run F1-PA | Point-wise F1 | Published F1 | Delta | Verdict |
+|---|---|---|---|---|---|
+| SMD | 0.8542 | 0.1107 | 0.8512 | 0.0030 | matches |
+| PSM | 0.9722 | 0.0495 | 0.9521 | 0.0201 | near |
+| SMAP | 0.7357 | 0.0399 | 0.7085 | 0.0272 | near |
+| MSL | 0.8133 | 0.0561 | 0.8418 | 0.0285 | near |
+| SWaT | still running | - | 0.9210 | - | - |
+
+TimesNet is the best-reproducing detector in this artifact: four of four completed
+datasets land within three F1 points, including SMAP, where both the Anomaly
+Transformer and DCdetector sit 1-3 points away and the anchor table's other
+methods sit far below. The reading is that a shared payload and a shared protocol
+are what make a column reproducible - TimesNet is evaluated here on exactly the
+payload its paper used, because both are Time-Series-Library lineage.
+
+MSL is again the largest delta, and this time the paper's own configuration table
+explains why it is not a payload difference: four of its five dataset rows sum to
+exactly the pinned training sizes (SMD 708405, SMAP 135183, PSM 132481, SWaT
+495000), while its MSL row sums to 56317 against a pinned 58317 - and 11664 is
+exactly 20 percent of 58317, so the printed 44653 is almost certainly a digit
+transposition of 46653, not a different MSL split. The MSL payload is therefore
+ruled out as the cause of the gap.
+
 ## The MSL outliers
 
 MSL is the one dataset where neither transcribed model approaches the published

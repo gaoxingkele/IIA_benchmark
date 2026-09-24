@@ -91,6 +91,29 @@
         "SWaT": {"train_rows": 496800, "test_rows": 449919, "dimensions": "51 (1)", "anomaly_pct": 11.98}
       },
       "note": "TranAD's own dataset table lists 496800 SWaT training rows, while the benchmark payload used here has 495000; see configs/datasets/mtsad_swat.json."
+    },
+    {
+      "paper_id": "wu2023_timesnet",
+      "pdf": "papers/literature/mtsad_pdfs/wu2023_timesnet.pdf",
+      "objects": ["Table 5", "Table 9", "Table 10"],
+      "reported_protocol": "point-adjusted F1 on the Time-Series-Library payload, which is the same payload pinned here",
+      "rows": {
+        "timesnet": {
+          "SMD": {"precision": 87.76, "recall": 82.63, "f1": 85.12},
+          "MSL": {"precision": 82.97, "recall": 85.42, "f1": 84.18},
+          "SMAP": {"precision": 91.50, "recall": 57.80, "f1": 70.85},
+          "SWaT": {"precision": 88.31, "recall": 96.24, "f1": 92.10},
+          "PSM": {"precision": 98.22, "recall": 92.21, "f1": 95.21}
+        }
+      },
+      "dataset_table": {
+        "SMD": {"train": 566724, "validation": 141681, "test": 708420},
+        "MSL": {"train": 44653, "validation": 11664, "test": 73729},
+        "SMAP": {"train": 108146, "validation": 27037, "test": 427617},
+        "SWaT": {"train": 396000, "validation": 99000, "test": 449919},
+        "PSM": {"train": 105984, "validation": 26497, "test": 87841}
+      },
+      "note": "The TimesNet row is printed identically in Tables 5, 9 and 10, which is why it was transcribed from the ablation pages where the text layer is intact. Four of the five dataset rows sum to exactly the pinned payload's training size (SMD 708405, SMAP 135183, PSM 132481, SWaT 495000). MSL does not: 44653 + 11664 = 56317 against a pinned 58317, while 46653 + 11664 = 58317 and 11664 is exactly 20 percent of 58317 - so the printed '44653' is almost certainly a digit transposition of '46653' rather than a different MSL split. That rules the MSL payload out as an explanation for the reproduction gap recorded in ara_mtsad/evidence/tables/rerun_deep_status.md."
     }
   ]
 }
