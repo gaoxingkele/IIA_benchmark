@@ -16,7 +16,7 @@ persisted score series.
 | SMD | 0.7035 | 0.9533 | 0.2498 | 0.0930 | 0.7502 | 0.6572 |
 | PSM | 0.6549 | 0.7618 | 0.1069 | 0.4340 | 0.6136 | 0.1796 |
 | MSL | 0.5634 | 0.7658 | 0.2024 | 0.1481 | 0.3679 | 0.2198 |
-| SMAP | pending | 0.7273 | - | pending | 0.4555 | - |
+| SMAP | 0.4948 | 0.7273 | 0.2325 | 0.1368 | 0.4555 | 0.3187 |
 | SWaT | pending | 0.8690 | - | pending | 0.7758 | - |
 
 ## What was ruled out, and what was not
@@ -49,3 +49,10 @@ itself is what falls short. GCAD therefore joins TranAD in the set of registrati
 whose published recipe could not be matched end to end, and its verdict is
 withheld for the same reason - the remaining deviations are documented and the
 gap is reported rather than closed by tuning.
+
+One row sharpens the reading: SMAP lands at 0.4948 AUROC, i.e. a coin flip, on a
+dataset where the same harness reproduces TimesNet, the Anomaly Transformer and
+DCdetector within a few points. A chance-level ranking on one dataset with a
+documented target deviation is more consistent with the causal score not being
+comparable at that window length than with a general harness fault, but the
+artifact does not claim which, and the row is left as an open discrepancy.
