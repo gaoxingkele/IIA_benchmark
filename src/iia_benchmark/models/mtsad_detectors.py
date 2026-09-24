@@ -1210,12 +1210,182 @@ class ITransformerDetector(Detector):
         return np.concatenate(scores)
 
 
+@dataclass
+class TranADDetector(Detector):
+    """TranAD: two-phase transformer with focus-score self-conditioning (VLDB 2022).
+
+    # Grounding: transcribed
+    # sources: github.com/imperial-qore/TranAD
+    #   - src/models.py (PositionalEncoding, the TranAD module: one encoder, two
+    #     decoders, the fcn head, and the phase-2 conditioning on squared phase-1
+    #     error)
+    #   - main.py:backprop (window construction, the (1/n) / (1 - 1/n) weighting
+    #     between the two phases, AdamW with weight decay 1e-5 and a StepLR(5, 0.9)
+    #     schedule, and the test-time score l(z1, elem) at the window's last step)
+    # Deviations recorded here: inputs are float32 rather than the release's
+    # float64, and the harness's own window grid is used, so the first window is
+    # not the release's repeated-first-row padding; both are monotone-equivalent
+    # for the ranking the metrics consume.
+    # The release thresholds these scores with POT (src/pot.py, SPOT with per
+    # dataset lm_d/lr_d); this harness reports the percentile reference protocol
+    # and a separate POT script, because mixing the two would confound model and
+    # threshold.
+    """
+
+    window: int = 10
+    d_ff: int = 16
+    dropout: float = 0.1
+    epochs: int = 5
+    learning_rate: float = 0.01
+    weight_decay: float = 1e-5
+    scheduler_step: int = 5
+    scheduler_gamma: float = 0.9
+    batch_size: int = 128
+    seed: int = 1103
+    device: str = "auto"
+    kind = "window"
+    name = "tranad"
+    _model: Any = field(default=None, repr=False)
+    _device: Any = field(default=None, repr=False)
+
+    def _build(self, n_features: int):
+        torch, nn = torch_modules()
+        window = self.window
+        d_ff = self.d_ff
+        dropout = self.dropout
+
+        class PositionalEncoding(nn.Module):
+            def __init__(self, d_model, dropout, max_len=5000):
+                super().__init__()
+                self.dropout = nn.Dropout(p=dropout)
+                pe = torch.zeros(max_len, d_model)
+                position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+                div_term = torch.exp(
+                    torch.arange(0, d_model, 2).float()
+                    * (-math.log(10000.0) / d_model)
+                )
+                pe[:, 0::2] = torch.sin(position * div_term)
+                pe[:, 1::2] = torch.cos(position * div_term)
+                self.register_buffer("pe", pe.unsqueeze(0).transpose(0, 1))
+
+            def forward(self, x):
+                return self.dropout(x + self.pe[: x.size(0), :])
+
+        class Model(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.n_feats = n_features
+                self.n_window = window
+                self.n = n_features * window
+                self.pos_encoder = PositionalEncoding(2 * n_features, dropout)
+                encoder_layer = nn.TransformerEncoderLayer(
+                    d_model=2 * n_features,
+                    nhead=n_features,
+                    dim_feedforward=d_ff,
+                    dropout=dropout,
+                )
+                self.transformer_encoder = nn.TransformerEncoder(encoder_layer, 1)
+                decoder_layer1 = nn.TransformerDecoderLayer(
+                    d_model=2 * n_features,
+                    nhead=n_features,
+                    dim_feedforward=d_ff,
+                    dropout=dropout,
+                )
+                self.transformer_decoder1 = nn.TransformerDecoder(decoder_layer1, 1)
+                decoder_layer2 = nn.TransformerDecoderLayer(
+                    d_model=2 * n_features,
+                    nhead=n_features,
+                    dim_feedforward=d_ff,
+                    dropout=dropout,
+                )
+                self.transformer_decoder2 = nn.TransformerDecoder(decoder_layer2, 1)
+                self.fcn = nn.Sequential(
+                    nn.Linear(2 * n_features, n_features), nn.Sigmoid()
+                )
+
+            def encode(self, src, c, tgt):
+                src = torch.cat((src, c), dim=2)
+                src = src * math.sqrt(self.n_feats)
+                src = self.pos_encoder(src)
+                memory = self.transformer_encoder(src)
+                return tgt.repeat(1, 1, 2), memory
+
+            def forward(self, src, tgt):
+                # Phase 1 - without anomaly scores.
+                c = torch.zeros_like(src)
+                x1 = self.fcn(self.transformer_decoder1(*self.encode(src, c, tgt)))
+                # Phase 2 - with the phase-1 squared error as the focus score.
+                c = (x1 - src) ** 2
+                x2 = self.fcn(self.transformer_decoder2(*self.encode(src, c, tgt)))
+                return x1, x2
+
+        return Model()
+
+    def fit(self, windows: np.ndarray) -> "TranADDetector":
+        torch, _ = torch_modules()
+        torch.manual_seed(self.seed)
+        np.random.seed(self.seed)
+        self._device = resolve_device(self.device)
+        n_features = windows.shape[-1]
+        model = self._build(n_features).to(self._device)
+        optimiser = torch.optim.AdamW(
+            model.parameters(), lr=self.learning_rate, weight_decay=self.weight_decay
+        )
+        scheduler = torch.optim.lr_scheduler.StepLR(
+            optimiser, self.scheduler_step, self.scheduler_gamma
+        )
+        criterion = torch.nn.MSELoss(reduction="none")
+        data = torch.from_numpy(windows.astype(np.float32)).to(self._device)
+        generator = torch.Generator().manual_seed(self.seed)
+        model.train()
+        for epoch in range(self.epochs):
+            term = 1.0 / (epoch + 1)
+            order = torch.randperm(len(data), generator=generator).to(self._device)
+            for start in range(0, len(data), self.batch_size):
+                batch = data[order[start:start + self.batch_size]]
+                window = batch.permute(1, 0, 2)
+                element = window[-1, :, :].view(1, batch.shape[0], n_features)
+                x1, x2 = model(window, element)
+                loss = term * criterion(x1, element) + (1 - term) * criterion(
+                    x2, element
+                )
+                optimiser.zero_grad()
+                torch.mean(loss).backward(retain_graph=True)
+                optimiser.step()
+            scheduler.step()
+        self._model = model
+        return self
+
+    def score(self, windows: np.ndarray) -> np.ndarray:
+        torch, _ = torch_modules()
+        criterion = torch.nn.MSELoss(reduction="none")
+        model = self._model
+        model.eval()
+        n_features = windows.shape[-1]
+        scores = []
+        with torch.no_grad():
+            for start in range(0, len(windows), self.batch_size):
+                batch = torch.from_numpy(
+                    windows[start:start + self.batch_size].astype(np.float32)
+                ).to(self._device)
+                window = batch.permute(1, 0, 2)
+                element = window[-1, :, :].view(1, batch.shape[0], n_features)
+                _, x2 = model(window, element)
+                loss = criterion(x2, element)[0]
+                # One score per window, from the window's final timestamp.  The
+                # release sums or means over features depending on the branch;
+                # either is a monotone rescaling and leaves the ranking intact.
+                scores.append(torch.mean(loss, dim=-1).cpu().numpy())
+        return np.concatenate(scores)
+
+
 WINDOW_DETECTORS = {
     "usad": USADDetector,
     "anomaly_transformer": AnomalyTransformerDetector,
     "dcdetector": DCdetectorDetector,
     "timesnet": TimesNetDetector,
     "itransformer": ITransformerDetector,
+    "tranad": TranADDetector,
 }
 
 

@@ -186,3 +186,12 @@ nodes:
       - "scripts/mtsad/score_affiliation.py"
     rationale: "The conversion uses the family's reference implementation on the same persisted predictions, so the two numbers differ only by family choice, threshold operating point and evaluation framework."
     evidence: [C07]
+
+  - id: X5
+    type: dead_end
+    text: "Applying TranAD's published POT parameters (lm_d) directly to this harness's raw reconstruction scores."
+    support_level: explicit
+    source_refs:
+      - "ara_mtsad/evidence/tables/tranad_check.md"
+      - "scripts/mtsad/score_pot.py"
+    rationale: "The release normalises the score array before calling pot_eval and tuned lm_d on that scale; on raw scores the initial threshold sits three orders of magnitude below the data maximum and the GPD extrapolation yields thresholds above the maximum for MSL, SMAP and SWaT, so nothing is detected. Reported rather than tuned away."

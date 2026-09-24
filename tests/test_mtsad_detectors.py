@@ -134,3 +134,18 @@ def test_itransformer_smoke() -> None:
     assert scores.shape == (16, 24)
     assert np.isfinite(scores).all()
     assert (scores >= 0).all()
+
+
+def test_tranad_smoke() -> None:
+    pytest.importorskip("torch")
+    from iia_benchmark.models.mtsad_detectors import TranADDetector
+
+    rng = np.random.default_rng(17)
+    windows = rng.normal(size=(32, 10, 4)).astype(np.float32)
+    detector = TranADDetector(window=10, epochs=1, batch_size=16, device="cpu")
+    detector.fit(windows)
+    scores = detector.score(windows)
+    # One score per window: the error at the window's final timestamp.
+    assert scores.shape == (32,)
+    assert np.isfinite(scores).all()
+    assert (scores >= 0).all()

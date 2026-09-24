@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_tranad",
+  "family": "mtsad_benchmark",
+  "entrypoint": "iia_benchmark.models.mtsad_detectors:TranADDetector",
+  "parameters": {
+    "window": 10,
+    "d_ff": 16,
+    "dropout": 0.1,
+    "epochs": 5,
+    "learning_rate": 0.01,
+    "weight_decay": 0.00001,
+    "scheduler_step": 5,
+    "scheduler_gamma": 0.9,
+    "batch_size": 128,
+    "seed": 1103
+  },
+  "dataset_overrides": {
+    "smap": {"anomaly_ratio": 1.0, "epochs": 5},
+    "msl": {"anomaly_ratio": 1.0, "epochs": 5},
+    "swat": {"anomaly_ratio": 1.0, "epochs": 5},
+    "smd": {"anomaly_ratio": 0.5, "epochs": 5}
+  },
+  "kind": "window",
+  "reproduction_status": "transcribed_reference_implementation_partial_protocol",
+  "source": "VLDB 2022 TranAD; the two-phase transformer with focus-score self-conditioning is transcribed from github.com/imperial-qore/TranAD (src/models.py, main.py:backprop).",
+  "protocol_note": "The release thresholds these scores with POT (src/pot.py: SPOT with the per-dataset lm_d and lr_d in src/params.json). This harness reports its percentile reference protocol here, and POT is applied separately by scripts/mtsad/score_pot.py, because folding a different threshold rule into the model comparison would confound the two.",
+  "citation_doi": "10.14778/3514061.3514067"
+}

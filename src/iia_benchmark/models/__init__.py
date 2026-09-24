@@ -14,6 +14,7 @@ from .mtsad_detectors import (
     OCSVMDetector,
     PCADetector,
     TimesNetDetector,
+    TranADDetector,
     USADDetector,
     build_detector,
 )
@@ -353,6 +354,7 @@ __all__ = [
     "OCSVMDetector",
     "PCADetector",
     "TimesNetDetector",
+    "TranADDetector",
     "USADDetector",
     "build_detector",
 ]
