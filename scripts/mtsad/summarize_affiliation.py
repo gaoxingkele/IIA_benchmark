@@ -52,6 +52,13 @@ def main() -> int:
             "SMAP": "affiliation_itransformer_smap.json",
             "SWaT": "affiliation_itransformer_swat.json",
         },
+        "catch": {
+            "MSL": "affiliation_catch_msl.json",
+            "PSM": "affiliation_catch_psm.json",
+            "SMD": "affiliation_catch_smd.json",
+            "SMAP": "affiliation_catch_smap.json",
+            "SWaT": "affiliation_catch_swat.json",
+        },
     }
     # The Anomaly Transformer conversion was produced by the earlier turn and is
     # recorded in the prose table of affiliation_family_check.md; it is added here

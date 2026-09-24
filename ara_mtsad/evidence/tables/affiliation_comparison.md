@@ -18,5 +18,9 @@
 | itransformer | SMAP | 0.5022 | 0.6583 | 0.5698 | 0.587 | 0.0172 |
 | itransformer | SMD | 0.8269 | 0.6664 | 0.7380 | 0.827 | 0.0890 |
 | itransformer | SWaT | 0.5998 | 0.8366 | 0.6987 | 0.718 | 0.0193 |
+| catch | MSL | 0.5545 | 0.8772 | 0.6795 | 0.740 | 0.0605 |
+| catch | PSM | 0.8298 | 0.6887 | 0.7527 | 0.859 | 0.1063 |
+| catch | SMAP | 0.5371 | 0.8442 | 0.6565 | 0.699 | 0.0425 |
+| catch | SMD | 0.7607 | 0.9084 | 0.8280 | 0.847 | 0.0190 |
 
-Comparisons: 16. Mean absolute delta 0.0624. Worst 0.1608. Best 0.0137.
+Comparisons: 20. Mean absolute delta 0.0613. Worst 0.1608. Best 0.0137.
