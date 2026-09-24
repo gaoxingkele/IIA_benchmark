@@ -119,32 +119,46 @@ def range_based_metrics(
         return {"precision": 0.0, "recall": 0.0, "f1": 0.0,
                 "real_ranges": float(len(real)), "predicted_ranges": float(len(predicted))}
 
+    # Both loops below are sweeps: the cursor only moves forward, so the work is
+    # proportional to the number of interval pairs that actually overlap.  A
+    # naive double loop is quadratic and stalls for minutes once a threshold
+    # produces hundreds of thousands of scattered predicted ranges.
     precisions: list[float] = []
+    cursor = 0
     for pred_start, pred_end in predicted:
+        while cursor < len(real) and real[cursor][1] < pred_start:
+            cursor += 1
+        scan = cursor
         best = 0.0
-        for real_start, real_end in real:
-            overlap_start = max(pred_start, real_start)
-            overlap_end = min(pred_end, real_end)
-            if overlap_end < overlap_start:
-                continue
-            overlap = (overlap_end - overlap_start + 1) / (pred_end - pred_start + 1)
-            best = max(best, overlap)
+        pred_len = pred_end - pred_start + 1
+        while scan < len(real) and real[scan][0] <= pred_end:
+            overlap_start = max(pred_start, real[scan][0])
+            overlap_end = min(pred_end, real[scan][1])
+            if overlap_end >= overlap_start:
+                best = max(best, (overlap_end - overlap_start + 1) / pred_len)
+            scan += 1
         precisions.append(best)
 
     recalls: list[float] = []
+    cursor = 0
     for real_start, real_end in real:
+        while cursor < len(predicted) and predicted[cursor][1] < real_start:
+            cursor += 1
+        scan = cursor
         real_len = real_end - real_start + 1
         best_existence = 0.0
         best_overlap = 0.0
-        for pred_start, pred_end in predicted:
-            overlap_start = max(pred_start, real_start)
-            overlap_end = min(pred_end, real_end)
-            if overlap_end < overlap_start:
-                continue
-            best_existence = 1.0
-            position = (overlap_start - real_start) / real_len
-            overlap = (overlap_end - overlap_start + 1) / real_len
-            best_overlap = max(best_overlap, _bias(overlap, real_len, position, bias))
+        while scan < len(predicted) and predicted[scan][0] <= real_end:
+            overlap_start = max(real_start, predicted[scan][0])
+            overlap_end = min(real_end, predicted[scan][1])
+            if overlap_end >= overlap_start:
+                best_existence = 1.0
+                position = (overlap_start - real_start) / real_len
+                overlap = (overlap_end - overlap_start + 1) / real_len
+                best_overlap = max(
+                    best_overlap, _bias(overlap, real_len, position, bias)
+                )
+            scan += 1
         recalls.append(alpha * best_existence + (1.0 - alpha) * best_overlap)
 
     precision = float(np.mean(precisions))
