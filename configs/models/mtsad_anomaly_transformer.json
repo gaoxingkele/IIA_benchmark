@@ -18,6 +18,14 @@
     "seed": 1103
   },
   "kind": "window",
+  "dataset_overrides": {
+    "smd": {"anomaly_ratio": 0.5, "epochs": 10, "batch_size": 256},
+    "msl": {"anomaly_ratio": 1.0, "epochs": 3, "batch_size": 256},
+    "smap": {"anomaly_ratio": 1.0, "epochs": 3, "batch_size": 256},
+    "psm": {"anomaly_ratio": 1.0, "epochs": 3, "batch_size": 256},
+    "swat": {"anomaly_ratio": 0.1, "epochs": 3, "batch_size": 256}
+  },
+  "hyperparameter_note": "Per-dataset budget taken from the reference repository's scripts/Start.sh: SMD ratio 0.5 with 10 epochs, MSL/SMAP/PSM ratio 1 with 3 epochs, SWaT trained at ratio 0.5 but evaluated at ratio 0.1. The earlier iteration used the Time-Series-Library ratios and a fixed 10-epoch budget, which is kept under experiments/runs/mtsad_reproduction/at_tslib_budget_* as the sensitivity contrast.",
   "reproduction_status": "transcribed_from_reference_implementation",
   "source": "ICLR 2022 Anomaly Transformer; attention and minimax terms transcribed from github.com/thuml/Anomaly-Transformer (model/attn.py, solver.py) and instantiated with the paper's per-dataset hyperparameters.",
   "citation_doi": "10.48550/arXiv.2110.02642"

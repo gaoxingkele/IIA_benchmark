@@ -60,20 +60,21 @@ def adjusted_metrics(truth: np.ndarray, prediction: np.ndarray) -> dict[str, flo
 
 
 def anomaly_ranges(labels: np.ndarray) -> list[tuple[int, int]]:
-    """Contiguous inclusive [start, end] ranges of ones."""
+    """Contiguous inclusive [start, end] ranges of ones.
+
+    Vectorised on purpose: the harness evaluates eight-million-point
+    concatenated layouts, where a per-element Python loop costs minutes per
+    call and the function is called several times per protocol.
+    """
 
     flags = np.asarray(labels, dtype=bool).reshape(-1)
-    ranges: list[tuple[int, int]] = []
-    start: int | None = None
-    for index, flag in enumerate(flags):
-        if flag and start is None:
-            start = index
-        elif not flag and start is not None:
-            ranges.append((start, index - 1))
-            start = None
-    if start is not None:
-        ranges.append((start, len(flags) - 1))
-    return ranges
+    if not flags.any():
+        return []
+    padded = np.concatenate((np.zeros(1, dtype=np.int8), flags.astype(np.int8), np.zeros(1, dtype=np.int8)))
+    transitions = np.diff(padded)
+    starts = np.flatnonzero(transitions == 1)
+    ends = np.flatnonzero(transitions == -1) - 1
+    return list(zip(starts.tolist(), ends.tolist()))
 
 
 def _bias(overlap: float, real_len: int, position: float, bias: str) -> float:

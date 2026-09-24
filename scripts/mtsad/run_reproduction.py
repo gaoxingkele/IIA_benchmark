@@ -226,6 +226,7 @@ def run_single(
         "window_step": step,
         "anomaly_ratio": anomaly_ratio,
         "window_override": {key: value for key, value in overrides.items()},
+        "parameters": parameters,
         "train_shape": list(split.train.shape),
         "test_shape": list(split.test.shape),
         "test_anomaly_rate": split.anomaly_rate,
