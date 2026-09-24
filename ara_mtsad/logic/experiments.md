@@ -101,7 +101,7 @@ row under the reference protocol while its point-wise score stays far lower, whi
 would confirm that the published ranking is a property of the shared protocol
 rather than of the individual method.
 
-**Evidence**: `evidence/tables/rerun_dcdetector_summary.md`.
+**Evidence**: `evidence/tables/rerun_deep_status.md`, `evidence/tables/rerun_vs_published.md`.
 
 ## E07 - Convert the re-runs into the affiliation family and compare with CATCH
 
