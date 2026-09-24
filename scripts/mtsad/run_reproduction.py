@@ -76,6 +76,22 @@ def window_scores_to_flat(scores: np.ndarray, window: int) -> np.ndarray:
     raise ValueError(f"unexpected window-score shape {scores.shape}")
 
 
+def align_scores_to_starts(scores: np.ndarray, starts: np.ndarray) -> np.ndarray:
+    """Tolerate detectors that score fewer windows than the grid provides.
+
+    GCAD cannot score the last ``pred_len`` windows because their forecast target
+    lies beyond the series, so its scores correspond to the *first*
+    ``len(scores)`` starts.  Refusing that would force a padding hack inside the
+    detector; aligning explicitly keeps the correspondence honest.
+    """
+
+    if len(scores) == len(starts):
+        return starts
+    if len(scores) < len(starts):
+        return starts[: len(scores)]
+    raise ValueError("the detector returned more scores than there are windows")
+
+
 def window_scores_to_per_point(
     scores: np.ndarray, window: int, step: int, length: int
 ) -> np.ndarray:
@@ -85,7 +101,15 @@ def window_scores_to_per_point(
         final = scores[:, -1]
     else:
         raise ValueError(f"unexpected window-score shape {scores.shape}")
-    return per_point_view(final, window, step, length)
+    starts = align_scores_to_starts(final, window_starts(length, window, step))
+    totals = np.zeros(length, dtype=np.float64)
+    counts = np.zeros(length, dtype=np.int64)
+    np.add.at(totals, starts + window - 1, final)
+    np.add.at(counts, starts + window - 1, 1)
+    out = np.full(length, np.nan, dtype=np.float64)
+    covered = counts > 0
+    out[covered] = totals[covered] / counts[covered]
+    return out
 
 
 def per_point_view(scores: np.ndarray, window: int, step: int, length: int) -> np.ndarray:
