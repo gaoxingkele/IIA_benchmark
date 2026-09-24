@@ -157,6 +157,16 @@ nodes:
     rationale: "The data file, scaler, window, threshold rule and point-adjustment definition were each verified identical to the reference code, so the gap is recorded as open rather than assigned a cause."
     evidence: [C06]
 
+  - id: F2
+    type: finding
+    text: "With TimesNet measured, MSL is no longer a column-level failure: its deltas are AT 0.0836, DCdetector 0.1148 and TimesNet 0.0285, and TimesNet also reproduces SWaT to 0.0083 where AT is 0.0668 off - so the residual gaps track the attention-based transcriptions rather than the dataset columns."
+    support_level: explicit
+    source_refs:
+      - "ara_mtsad/evidence/tables/rerun_vs_published.md"
+      - "ara_mtsad/evidence/tables/rerun_deep_status.md#Correction to the MSL reading"
+    rationale: "This corrects F1 and narrows C06: the earlier reading attributed the MSL gap to the column, which a third model's 0.0285 delta does not support."
+    evidence: [C06]
+
   - id: N1
     type: next_step
     text: "Transcribe CATCH as the next SOTA re-run, using the per-dataset budgets pinned from its release scripts and deciding the metric-family conversion before comparing."

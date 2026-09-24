@@ -1,6 +1,6 @@
 # Re-run versus published numbers (reference protocol)
 
-Generated 2026-09-24 from 100 run records.
+Generated 2026-09-24 from 101 run records.
 Reference protocol = percentile threshold over pooled train+test energy
 (the rule used by the anchor papers) plus point adjustment.
 
@@ -30,6 +30,7 @@ Reference protocol = percentile threshold over pooled train+test energy
 | timesnet | PSM | 0.9722 | 0.0495 | 0.9521 | 0.0201 | near | win100/step1/ratio1/ep3/bs128 | wu2023_timesnet |
 | timesnet | SMAP | 0.7357 | 0.0399 | 0.7085 | 0.0272 | near | win100/step1/ratio1/ep3/bs128 | wu2023_timesnet |
 | timesnet | SMD | 0.8542 | 0.1107 | 0.8512 | 0.0030 | matches | win100/step100/ratio0.5/ep10/bs128 | wu2023_timesnet |
+| timesnet | SWAT | 0.9293 | 0.0792 | 0.9210 | 0.0083 | matches | win100/step1/ratio1/ep3/bs128 | wu2023_timesnet |
 | USAD | MSL | 0.0942 | 0.0815 | 0.8822 | 0.7880 | off | win100/step1/ratio0.5 | tuli2022_tranad |
 | USAD | SMAP | 0.4083 | 0.0415 | 0.8419 | 0.4336 | off | win100/step1/ratio0.5 | tuli2022_tranad |
 | USAD | SMD | 0.1277 | 0.0702 | 0.9495 | 0.8218 | off | win100/step100/ratio0.5 | tuli2022_tranad |
@@ -38,7 +39,7 @@ Reference protocol = percentile threshold over pooled train+test energy
 
 | verdict | pairs |
 |---|---|
-| matches | 4 |
+| matches | 5 |
 | near | 8 |
 | off | 15 |
 
@@ -48,8 +49,8 @@ Reference protocol = percentile threshold over pooled train+test energy
 |---|---|---|---|---|
 | PSM | 5 | 0.0664 | 0.2079 | 0.0049 |
 | SMAP | 6 | 0.1266 | 0.4336 | 0.0106 |
+| SWAT | 5 | 0.1519 | 0.3498 | 0.0083 |
 | SMD | 6 | 0.1746 | 0.8218 | 0.0001 |
-| SWAT | 4 | 0.1878 | 0.3498 | 0.0115 |
 | MSL | 6 | 0.1980 | 0.7880 | 0.0067 |
 
 Dataset columns ordered by how well they reproduce, pooling deep detectors
@@ -157,6 +158,7 @@ whether a column can be trusted at all.
 | timesnet | PSM | win100/step1/ratio1/ep3/bs128 | 0.9722 | 0.0495 | 0.3491 |
 | timesnet | SMAP | win100/step1/ratio1/ep3/bs128 | 0.7357 | 0.0399 | 0.0760 |
 | timesnet | SMD | win100/step100/ratio0.5/ep10/bs128 | 0.8542 | 0.1107 | 0.2076 |
+| timesnet | SWAT | win100/step1/ratio1/ep3/bs128 | 0.9293 | 0.0792 | 0.1833 |
 | USAD | MSL | win100/step1/ratio0.5 | 0.0942 | 0.0815 | 0.1065 |
 | USAD | PSM | win100/step1/ratio0.5 | 0.7215 | 0.0513 | 0.0789 |
 | USAD | SMAP | win100/step1/ratio0.5 | 0.4083 | 0.0415 | 0.0985 |

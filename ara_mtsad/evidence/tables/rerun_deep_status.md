@@ -38,17 +38,31 @@ and the two that do not are both MSL.
 | Dataset | Re-run F1-PA | Point-wise F1 | Published F1 | Delta | Verdict |
 |---|---|---|---|---|---|
 | SMD | 0.8542 | 0.1107 | 0.8512 | 0.0030 | matches |
+| SWaT | 0.9293 | 0.0792 | 0.9210 | 0.0083 | matches |
 | PSM | 0.9722 | 0.0495 | 0.9521 | 0.0201 | near |
 | SMAP | 0.7357 | 0.0399 | 0.7085 | 0.0272 | near |
 | MSL | 0.8133 | 0.0561 | 0.8418 | 0.0285 | near |
-| SWaT | still running | - | 0.9210 | - | - |
 
-TimesNet is the best-reproducing detector in this artifact: four of four completed
-datasets land within three F1 points, including SMAP, where both the Anomaly
-Transformer and DCdetector sit 1-3 points away and the anchor table's other
-methods sit far below. The reading is that a shared payload and a shared protocol
-are what make a column reproducible - TimesNet is evaluated here on exactly the
-payload its paper used, because both are Time-Series-Library lineage.
+TimesNet is the best-reproducing detector in this artifact: all five datasets land
+within three F1 points, two of them (SMD 0.0030, SWaT 0.0083) inside one point.
+The reading is that a shared payload and a shared protocol are what make a column
+reproducible - TimesNet is evaluated here on exactly the payload its paper used,
+because both are Time-Series-Library lineage.
+
+### Correction to the MSL reading
+
+The earlier iteration recorded MSL as the column where reproduction fails. With
+TimesNet measured, that is too strong: MSL's deltas are **AT 0.0836, DCdetector
+0.1148, TimesNet 0.0285**, so the column itself is reachable within three points
+and the failure is specific to the two attention-based transcriptions (or to their
+budgets, which the releases state only partially - AT runs MSL for 3 epochs at
+batch 256, DCdetector for 3 epochs at batch 64, TimesNet for a single epoch with
+d_model 8 and one layer). The honest statement is therefore: **the MSL gap is
+model-specific, and both attention-based transcriptions under-fit it**; it is not
+evidence that the MSL column is unreliable.
+
+The same correction applies to SWaT in the opposite direction: AT is 0.0668 off
+there while TimesNet is 0.0083 off, so SWaT's column is also reachable.
 
 MSL is again the largest delta, and this time the paper's own configuration table
 explains why it is not a payload difference: four of its five dataset rows sum to

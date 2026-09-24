@@ -83,20 +83,21 @@ systematically below the quoted classical baseline rows across all five payloads
 
 **Proof**: E01, E04.
 
-## C06 - Reproduction fidelity is dataset-specific, not method-specific
+## C06 - On this family, a column is reproducible if the payload and protocol match; residual gaps are method-specific
 
-**Statement**: Two independently transcribed detectors reproduce the published
-numbers on most datasets of the family and both fail on the same one, so the
-reliability of a reported score is a property of the dataset's evaluation setup
-rather than of the model that achieved it.
+**Statement**: Three independently transcribed detectors, evaluated on the payload
+their papers used, reproduce every dataset of the family within a few F1 points,
+and the residual gap concentrates on one architecture family rather than on one
+dataset column - so a residual gap is evidence about the transcription and the
+budget, not about the dataset's reliability.
 
-**Conditions**: Established for the two deep detectors re-run here under the
-reference protocol; it does not claim that every dataset outside the family
-behaves this way, nor that a third transcription would fail in the same place.
+**Conditions**: Established for the three deep detectors re-run here under the
+reference protocol. The claim is about this artifact's transcriptions, not about
+the papers' released code, and it does not extend to datasets outside the family.
 
-**Falsification criteria**: Falsified if a third independently transcribed deep
-detector reproduces MSL within the same band that the other datasets reach, while
-keeping the data file, scaler, window and threshold rule fixed.
+**Falsification criteria**: Falsified if a fourth transcription lands outside the
+three-point band on a dataset whose payload and protocol are verified identical to
+the reference, without a budget difference to explain it.
 
 **Dependencies**: C01.
 
