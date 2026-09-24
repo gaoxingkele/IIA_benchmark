@@ -569,9 +569,275 @@ POINT_DETECTORS = {
     "ocsvm": OCSVMDetector,
 }
 
+@dataclass
+class DCdetectorDetector(Detector):
+    """DCdetector: dual attention contrastive representation learning.
+
+    # Grounding: transcribed
+    # sources: github.com/DAMO-DI-ML/KDD2023-DCdetector
+    #   - model/DCdetector.py (multi-scale patching, RevIN, encoder wiring)
+    #   - model/attn.py (DAC_structure dual attention + the upsampling/reduce)
+    #   - model/embed.py (TokenEmbedding conv + sinusoidal PositionalEmbedding)
+    #   - solver.py (my_kl_loss, the ``prior_loss - series_loss`` objective and
+    #     the test-time ``softmax(-series_loss - prior_loss)`` energy)
+    # Deviations: einops ``repeat``/``reduce`` are expressed with
+    # repeat_interleave and view/mean, which is shape-identical; training runs
+    # one objective per batch because the reference solver also has no
+    # reconstruction term.
+    """
+
+    window: int = 100
+    patch_sizes: tuple[int, ...] = (3, 5, 7)
+    d_model: int = 256
+    n_heads: int = 1
+    e_layers: int = 3
+    dropout: float = 0.0
+    temperature: float = 50.0
+    epochs: int = 3
+    learning_rate: float = 1e-4
+    batch_size: int = 128
+    seed: int = 1103
+    device: str = "auto"
+    kind = "window"
+    name = "dcdetector"
+    _model: Any = field(default=None, repr=False)
+    _device: Any = field(default=None, repr=False)
+
+    def _build(self, n_features: int):
+        torch, nn = torch_modules()
+        window = self.window
+        patch_sizes = tuple(int(size) for size in self.patch_sizes)
+        for size in patch_sizes:
+            if window % size:
+                raise ValueError(
+                    f"window {window} must be divisible by patch size {size}"
+                )
+        heads = self.n_heads
+        d_model = self.d_model
+        dropout = self.dropout
+
+        class PositionalEmbedding(nn.Module):
+            def __init__(self, d_model, max_len=5000):
+                super().__init__()
+                pe = torch.zeros(max_len, d_model).float()
+                position = torch.arange(0, max_len).float().unsqueeze(1)
+                div_term = (
+                    torch.arange(0, d_model, 2).float() * -(math.log(10000.0) / d_model)
+                ).exp()
+                pe[:, 0::2] = torch.sin(position * div_term)
+                pe[:, 1::2] = torch.cos(position * div_term)
+                self.register_buffer("pe", pe.unsqueeze(0))
+
+            def forward(self, x):
+                return self.pe[:, : x.size(1)]
+
+        class TokenEmbedding(nn.Module):
+            def __init__(self, c_in, d_model):
+                super().__init__()
+                self.tokenConv = nn.Conv1d(
+                    in_channels=c_in,
+                    out_channels=d_model,
+                    kernel_size=3,
+                    padding=1,
+                    padding_mode="circular",
+                    bias=False,
+                )
+                nn.init.kaiming_normal_(
+                    self.tokenConv.weight, mode="fan_in", nonlinearity="leaky_relu"
+                )
+
+            def forward(self, x):
+                return self.tokenConv(x.permute(0, 2, 1)).transpose(1, 2)
+
+        class DataEmbedding(nn.Module):
+            def __init__(self, c_in, d_model, dropout):
+                super().__init__()
+                self.value_embedding = TokenEmbedding(c_in, d_model)
+                self.position_embedding = PositionalEmbedding(d_model)
+                self.dropout = nn.Dropout(p=dropout)
+
+            def forward(self, x):
+                return self.dropout(
+                    self.value_embedding(x) + self.position_embedding(x)
+                )
+
+        class DACStructure(nn.Module):
+            def forward(self, q_patch, q_num, k_patch, k_num, patch_index, channel):
+                patch = patch_sizes[patch_index]
+                batch_channel, _, _, _ = q_patch.shape
+                scale = 1.0 / math.sqrt(q_patch.shape[-1])
+                scores_patch = (
+                    torch.einsum("blhe,bshe->bhls", q_patch, k_patch) * scale
+                )
+                series_patch = torch.softmax(scores_patch, dim=-1)
+                scores_num = torch.einsum("blhe,bshe->bhls", q_num, k_num) * scale
+                series_num = torch.softmax(scores_num, dim=-1)
+
+                # Upsampling: a patch-level score covers patch x patch entries.
+                series_patch = series_patch.repeat_interleave(patch, dim=2)
+                series_patch = series_patch.repeat_interleave(patch, dim=3)
+                repeat_num = window // patch
+                series_num = series_num.repeat(1, 1, repeat_num, repeat_num)
+
+                batch = batch_channel // channel
+                series_patch = series_patch.view(batch, channel, *series_patch.shape[1:])
+                series_num = series_num.view(batch, channel, *series_num.shape[1:])
+                return series_patch.mean(dim=1), series_num.mean(dim=1)
+
+        class AttentionLayer(nn.Module):
+            def __init__(self):
+                super().__init__()
+                d_keys = d_model // heads
+                self.patch_query_projection = nn.Linear(d_model, d_keys * heads)
+                self.patch_key_projection = nn.Linear(d_model, d_keys * heads)
+                self.value_projection = nn.Linear(d_model, d_keys * heads)
+                self.out_projection = nn.Linear(d_keys * heads, d_model)
+                self.norm = nn.LayerNorm(d_model)
+                self.inner_attention = DACStructure()
+
+            def forward(self, x_patch_size, x_patch_num, x_ori, patch_index, channel):
+                batch, length, _ = x_patch_size.shape
+                q_patch = self.patch_query_projection(x_patch_size).view(
+                    batch, length, heads, -1
+                )
+                k_patch = self.patch_key_projection(x_patch_size).view(
+                    batch, length, heads, -1
+                )
+                batch, length, _ = x_patch_num.shape
+                q_num = self.patch_query_projection(x_patch_num).view(
+                    batch, length, heads, -1
+                )
+                k_num = self.patch_key_projection(x_patch_num).view(
+                    batch, length, heads, -1
+                )
+                return self.inner_attention(
+                    q_patch, q_num, k_patch, k_num, patch_index, channel
+                )
+
+        class DCdetector(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.embedding_patch_size = nn.ModuleList(
+                    [DataEmbedding(size, d_model, dropout) for size in patch_sizes]
+                )
+                self.embedding_patch_num = nn.ModuleList(
+                    [
+                        DataEmbedding(window // size, d_model, dropout)
+                        for size in patch_sizes
+                    ]
+                )
+                self.embedding_window_size = DataEmbedding(n_features, d_model, dropout)
+                self.layers = nn.ModuleList([AttentionLayer() for _ in range(self_layers)])
+                self.norm = nn.LayerNorm(d_model)
+
+            def forward(self, x):
+                batch, _, channels = x.shape
+                mean = x.mean(dim=1, keepdim=True)
+                std = torch.sqrt(x.var(dim=1, keepdim=True, unbiased=False) + 1e-5)
+                x = (x - mean) / std
+                x_ori = self.embedding_window_size(x)
+                series_all: list = []
+                prior_all: list = []
+                for patch_index, patch in enumerate(patch_sizes):
+                    patch_size_input = x.permute(0, 2, 1)
+                    patch_num_input = x.permute(0, 2, 1)
+                    patch_size_input = patch_size_input.reshape(
+                        batch * channels, window // patch, patch
+                    )
+                    patch_size_input = self.embedding_patch_size[patch_index](
+                        patch_size_input
+                    )
+                    patch_num_input = (
+                        patch_num_input.reshape(batch * channels, patch, window // patch)
+                    )
+                    patch_num_input = self.embedding_patch_num[patch_index](
+                        patch_num_input
+                    )
+                    for layer in self.layers:
+                        series, prior = layer(
+                            patch_size_input, patch_num_input, x_ori, patch_index, channels
+                        )
+                        series_all.append(series)
+                        prior_all.append(prior)
+                return series_all, prior_all
+
+        self_layers = self.e_layers
+        return DCdetector()
+
+    @staticmethod
+    def _kl(p, q):
+        torch, _ = torch_modules()
+        residual = p * (torch.log(p + 1e-4) - torch.log(q + 1e-4))
+        return torch.mean(torch.sum(residual, dim=-1), dim=1)
+
+    def _losses(self, series, prior, *, detach_partner: bool):
+        torch, _ = torch_modules()
+        series_loss = 0.0
+        prior_loss = 0.0
+        for index in range(len(prior)):
+            normalised = prior[index] / torch.sum(
+                prior[index], dim=-1, keepdim=True
+            )
+            if detach_partner:
+                series_loss = series_loss + self._kl(
+                    series[index], normalised.detach()
+                ) * self.temperature
+                prior_loss = prior_loss + self._kl(
+                    normalised, series[index].detach()
+                ) * self.temperature
+            else:
+                series_loss = series_loss + self._kl(series[index], normalised.detach())
+                prior_loss = prior_loss + self._kl(normalised, series[index].detach())
+        return series_loss / len(prior), prior_loss / len(prior)
+
+    def fit(self, windows: np.ndarray) -> "DCdetectorDetector":
+        torch, _ = torch_modules()
+        torch.manual_seed(self.seed)
+        np.random.seed(self.seed)
+        self._device = resolve_device(self.device)
+        model = self._build(windows.shape[-1]).to(self._device)
+        optimiser = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
+        data = torch.from_numpy(windows.astype(np.float32)).to(self._device)
+        generator = torch.Generator().manual_seed(self.seed)
+        model.train()
+        for _ in range(self.epochs):
+            order = torch.randperm(len(data), generator=generator).to(self._device)
+            for start in range(0, len(data), self.batch_size):
+                batch = data[order[start:start + self.batch_size]]
+                optimiser.zero_grad()
+                series, prior = model(batch)
+                series_loss, prior_loss = self._losses(
+                    series, prior, detach_partner=False
+                )
+                loss = (prior_loss - series_loss).mean()
+                loss.backward()
+                optimiser.step()
+        self._model = model
+        return self
+
+    def score(self, windows: np.ndarray) -> np.ndarray:
+        torch, _ = torch_modules()
+        model = self._model
+        model.eval()
+        scores = []
+        with torch.no_grad():
+            for start in range(0, len(windows), self.batch_size):
+                batch = torch.from_numpy(
+                    windows[start:start + self.batch_size].astype(np.float32)
+                ).to(self._device)
+                series, prior = model(batch)
+                series_loss, prior_loss = self._losses(
+                    series, prior, detach_partner=True
+                )
+                metric = torch.softmax((-series_loss - prior_loss), dim=-1)
+                scores.append(metric.cpu().numpy())
+        return np.concatenate(scores)
+
+
 WINDOW_DETECTORS = {
     "usad": USADDetector,
     "anomaly_transformer": AnomalyTransformerDetector,
+    "dcdetector": DCdetectorDetector,
 }
 
 

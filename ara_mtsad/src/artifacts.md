@@ -26,13 +26,22 @@ the repository root.
   two windowed deep detectors behind one interface, with `# Grounding:` tags.
 - `configs/models/mtsad_pca.json`, `mtsad_mahalanobis.json`, `mtsad_knn.json`,
   `mtsad_isolation_forest.json`, `mtsad_ocsvm.json`, `mtsad_usad.json`,
-  `mtsad_anomaly_transformer.json` - hyperparameters, entry points and
-  reproduction status per detector.
+  `mtsad_anomaly_transformer.json`, `mtsad_dcdetector.json` - hyperparameters,
+  entry points and reproduction status per detector. The DCdetector config
+  additionally carries `dataset_overrides`, because the reference scripts use a
+  different window and anomaly budget per dataset (SMD 105, MSL 90, SMAP 105,
+  PSM 60, SWaT 105).
 
 ## Experiment layer
 
 - `scripts/mtsad/run_reproduction.py` - the protocol-matrix harness; writes one
   JSON record per (dataset, detector, seed) plus `records.json`.
+- `scripts/mtsad/summarize_reproduction.py` - renders run records as markdown
+  result tables and compares them with the transcribed published numbers.
+- `scripts/mtsad/derive_protocol_evidence.py` - derives the protocol-sensitivity
+  table straight from the run records.
+- `scripts/mtsad/verify_range_metrics.py` - cross-checks the local flat
+  range-based metric against the reference affiliation implementation.
 - `configs/experiments/mtsad_reproduction.json` - dataset list, detector list,
   seeds and the four declared protocols.
 

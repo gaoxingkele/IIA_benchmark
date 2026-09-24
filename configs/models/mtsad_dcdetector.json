@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_dcdetector",
+  "family": "mtsad_benchmark",
+  "entrypoint": "iia_benchmark.models.mtsad_detectors:DCdetectorDetector",
+  "parameters": {
+    "window": 100,
+    "patch_sizes": [3, 5, 7],
+    "d_model": 256,
+    "n_heads": 1,
+    "e_layers": 3,
+    "dropout": 0.0,
+    "temperature": 50.0,
+    "epochs": 3,
+    "learning_rate": 0.0001,
+    "batch_size": 128,
+    "seed": 1103
+  },
+  "dataset_overrides": {
+    "smd": {"window": 105, "patch_sizes": [5, 7], "anomaly_ratio": 0.6, "batch_size": 256},
+    "msl": {"window": 90, "patch_sizes": [3, 5], "anomaly_ratio": 1.0, "batch_size": 64},
+    "smap": {"window": 105, "patch_sizes": [3, 5, 7], "anomaly_ratio": 0.85, "batch_size": 256},
+    "psm": {"window": 60, "patch_sizes": [1, 3, 5], "anomaly_ratio": 1.0, "batch_size": 256},
+    "swat": {"window": 105, "patch_sizes": [3, 5, 7], "anomaly_ratio": 1.0, "batch_size": 128}
+  },
+  "kind": "window",
+  "reproduction_status": "transcribed_from_reference_implementation",
+  "source": "KDD 2023 DCdetector; dual attention, RevIN, multi-scale patching and the softmax(-series_loss - prior_loss) energy are transcribed from github.com/DAMO-DI-ML/KDD2023-DCdetector (model/DCdetector.py, model/attn.py, model/embed.py, solver.py).",
+  "hyperparameter_note": "Windows and anomaly ratios come from the repository's own per-dataset scripts (SMD 105/patch 5-7/ratio 0.6, MSL 90/3-5/1.0, SMAP 105/3-5-7/0.85, PSM 60/1-3-5/1.0, SWaT 105/3-5-7/1.0); argparse receives those as digit strings, so the digit list is the patch-size list.",
+  "citation_doi": "10.1145/3580305.3599295"
+}

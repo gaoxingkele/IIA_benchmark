@@ -127,3 +127,22 @@ nodes:
     text: "Do not re-run deep detectors on the pinned SWaT split in this iteration."
     support_level: inferred
     rationale: "Roughly 495000 stride-1 training windows per epoch did not fit the iteration's compute budget; the shortfall is recorded rather than approximated by shrinking the split."
+
+  - id: D4
+    type: decision
+    text: "Report the strict flat range-based metric and name the variant, after measuring that the affiliation variant bundled with a reference release differs by an order of magnitude."
+    support_level: explicit
+    source_refs:
+      - "ara_mtsad/evidence/tables/range_metric_variant_check.md"
+      - "scripts/mtsad/verify_range_metrics.py"
+      - "DAMO-DI-ML/KDD2023-DCdetector@main metrics/affiliation/metrics.py"
+    children: [E01]
+
+  - id: D5
+    type: decision
+    text: "Transcribe DCdetector as the first non-reconstruction SOTA re-run, because its published row tops this family's table and its per-dataset scripts are explicit about window and budget."
+    support_level: explicit
+    source_refs:
+      - "configs/models/mtsad_dcdetector.json"
+      - "DAMO-DI-ML/KDD2023-DCdetector scripts/{SMD,MSL,SMAP,PSM,SWAT}.sh"
+    children: [E06]

@@ -82,3 +82,23 @@ of normalising it away.
 must then carry that disagreement into every SWaT comparison.
 
 **Evidence**: `evidence/tables/swat_split_audit.md`.
+
+## E06 - Re-run the strongest registered detector with its own per-dataset budget
+
+**Verifies**: C01, C05.
+
+**Setup**: DCdetector transcribed from its reference implementation, with the
+per-dataset window, patch sizes and anomaly ratio taken from the repository's own
+scripts (SMD 105/[5,7]/0.6, MSL 90/[3,5]/1.0, SMAP 105/[3,5,7]/0.85,
+PSM 60/[1,3,5]/1.0, SWaT 105/[3,5,7]/1.0).
+
+**Procedure**: Train with the reference budget (three epochs), score both splits,
+and evaluate through the same protocol matrix used for every other detector, so
+the only difference from the other rows is the detector and its declared budget.
+
+**Expected outcome**: The re-run is expected to land near the published DCdetector
+row under the reference protocol while its point-wise score stays far lower, which
+would confirm that the published ranking is a property of the shared protocol
+rather than of the individual method.
+
+**Evidence**: `evidence/tables/rerun_dcdetector_summary.md`.

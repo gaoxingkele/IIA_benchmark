@@ -60,3 +60,27 @@ def test_window_detectors_smoke() -> None:
     # The Anomaly Transformer scores every position inside each window.
     assert scores.shape == (64, 8)
     assert np.isfinite(scores).all()
+
+
+def test_dcdetector_smoke() -> None:
+    pytest.importorskip("torch")
+    from iia_benchmark.models.mtsad_detectors import DCdetectorDetector
+
+    rng = np.random.default_rng(3)
+    windows = rng.normal(size=(24, 12, 3)).astype(np.float32)
+    detector = DCdetectorDetector(
+        window=12,
+        patch_sizes=(3, 4),
+        d_model=16,
+        n_heads=2,
+        e_layers=1,
+        epochs=1,
+        batch_size=8,
+        device="cpu",
+    )
+    detector.fit(windows)
+    scores = detector.score(windows)
+    assert scores.shape == (24, 12)
+    assert np.isfinite(scores).all()
+    # The score is a softmax over positions, so every window sums to one.
+    np.testing.assert_allclose(scores.sum(axis=1), np.ones(24), rtol=1e-4)

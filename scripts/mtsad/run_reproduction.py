@@ -116,13 +116,25 @@ def run_single(
         cache[dataset] = split
     split = cache[dataset]
     config = load_dataset_config(dataset, ROOT / "configs/datasets")
-    window = int(config["window"])
-    step = int(config["window_step"])
-    anomaly_ratio = float(config["anomaly_ratio"])
+    model_config = load_model_config(model)
+    # A detector may legitimately need a different window or alarm budget per
+    # dataset (the reference DCdetector scripts use 105/90/60 windows and
+    # per-dataset anomaly ratios).  The override is declared in the model config
+    # and recorded on every run so the comparison stays attributable.
+    overrides = (model_config.get("dataset_overrides") or {}).get(dataset, {})
+    window = int(overrides.get("window", config["window"]))
+    step = int(overrides.get("window_step", config["window_step"]))
+    anomaly_ratio = float(overrides.get("anomaly_ratio", config["anomaly_ratio"]))
     train_z, test_z, stats = standardise(split)
 
-    model_config = load_model_config(model)
     parameters = dict(model_config.get("parameters") or {})
+    if "window" in parameters:
+        parameters["window"] = window
+    for key, value in overrides.items():
+        if key in {"window", "window_step", "anomaly_ratio"}:
+            continue
+        if key in parameters:
+            parameters[key] = value
     if "seed" in parameters:
         parameters["seed"] = seed
     if "device" not in parameters and model_config.get("kind") == "window":
@@ -213,6 +225,7 @@ def run_single(
         "window": window,
         "window_step": step,
         "anomaly_ratio": anomaly_ratio,
+        "window_override": {key: value for key, value in overrides.items()},
         "train_shape": list(split.train.shape),
         "test_shape": list(split.test.shape),
         "test_anomaly_rate": split.anomaly_rate,

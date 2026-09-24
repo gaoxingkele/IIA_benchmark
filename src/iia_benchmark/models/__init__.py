@@ -6,6 +6,7 @@ from .flood import (
 )
 from .mtsad_detectors import (
     AnomalyTransformerDetector,
+    DCdetectorDetector,
     IsolationForestDetector,
     KNNDetector,
     MahalanobisDetector,
@@ -342,6 +343,7 @@ __all__ = [
     "transfer_entropy",
     "weighted_time_gradient",
     "AnomalyTransformerDetector",
+    "DCdetectorDetector",
     "IsolationForestDetector",
     "KNNDetector",
     "MahalanobisDetector",

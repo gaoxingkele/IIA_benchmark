@@ -32,6 +32,26 @@
 495000 行，两者相差 1800 行；该差异不做静默裁剪，而是随复现结果一起报告（见
 `ara_mtsad/evidence/tables/swat_split_audit.md`）。
 
+### MTSAD 族已登记的额外数据集（论文实际用到的全部数据集）
+
+`ara_mtsad` 登记的论文不止使用五个基准数据集：TranAD 用 9 个（NAB、UCR、MBA、
+SMAP、MSL、SWaT、WADI、SMD、MSDS），Anomaly Transformer 用 6 个（五者 + NeurIPS-TS）。
+本轮把这些数据集一并纳入，逐项状态如下（登记见 `configs/datasets/public_sources.json`
+第 5 轮）：
+
+| 数据集 | 来源 | 状态 |
+|---|---|---|
+| SMAP / MSL | `imperial-qore/TranAD`（Telemanom 原始 npy 格式，166 文件） | 已下载；与 TSLib 基准载荷互为对照 |
+| SMD | 同上（OmniAnomaly 原始 per-machine 格式，114 文件） | 已下载 |
+| NAB（realKnownCause 子集） | 同上；上游 `numenta/NAB`（MIT） | 已下载，7 条序列 + labels.json |
+| UCR（自然源子集） | 同上；上游 SIGKDD 2021 多数据集竞赛 | 已下载，4 条序列（InternalBleeding 16–19） |
+| MBA（MIT-BIH 心律） | 同上；上游 PhysioNet `mitdb` | 已下载（train/test/labels xlsx） |
+| WADI | iTrust/SUTD，需申请 | 未下载；仅保留攻击标签与说明，登记为 metadata |
+| MSDS | Zenodo 3549604，需向作者申请 | 未下载；仅保留记录页与标签，登记为 metadata |
+
+仓库另有一份 TranAD 论文数据的完整清单：`data/public_datasets/mtsad_paper_repos/tranad/`
+（git 克隆，commit 记录在 `data/public_datasets/audit.json` 的 revision 字段）。
+
 本次本地 profile：FCC Alarm 1,600 个仿真 run、16 类异常、57 个报警位并配套 4,800 个过程/阀位/扰动 CSV；PIADE raw 429,394 行、5 台设备、92,084 个非 `A_000` 报警区间；CoMoPI 150,650 个十分钟 bin、194,974 次报警；SMD10TOWFGR 230,618 条日志、167 个事件 code；EnAS 219,893 行；iMAKS annotated sensor 表 211,200 行；SKAB 35 个 CSV 实验；经典 TEP 44 个 run 文件（2 normal、42 fault）、52 个变量。数值来自 `profile_public_datasets.py`，可在数据更新后重算，不作为上游数据集的永久版本声明。
 
 `configs/datasets/public_sources.json` 是机器可读登记；`data/public_datasets/audit.json` 是本机实际状态。下载器默认只抓取体量适中且无需交互授权的资源。显式下载 PRONTO 完整包：
