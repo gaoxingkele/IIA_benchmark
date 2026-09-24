@@ -185,6 +185,15 @@ nodes:
       - "decisionintelligence/CATCH@master ts_benchmark/baselines/catch (CATCH.py 15 KB, CATCH_model.py 6 KB, cross_channel_Transformer.py 5 KB, fre_rec_loss.py 6 KB, channel_mask.py, RevIN.py, ch_discover_loss.py, tools.py)"
     rationale: "Roughly 43 KB across ten files, so it is a multi-iteration transcription rather than a configuration change; the per-dataset budgets are already pinned from the release's scripts and the affiliation comparison table already accepts new models."
 
+  - id: N3
+    type: next_step
+    text: "Transcribe GCAD (the last registered SOTA) as a forecasting model whose anomaly score is the relative deviation of a gradient causality graph."
+    support_level: explicit
+    source_refs:
+      - "Tc99m/GCAD@master (main.py 8.2 KB, test.py 13.8 KB, models/common.py 3.2 KB, models/tsmixer.py 1.0 KB, run.sh)"
+      - "run.sh per-dataset budgets: SMD seq_len 30/pred_len 1/n_block 3/ff_dim 1024/sparse_th 0.005; SWaT 5/1/6/2048/0.008 with test_stride 5; SMAP 70/1/6/1024/0.008; PSM 30/5/2/128/0.005 with test_stride 10; MSL 30/1/5/1024/0.002"
+    rationale: "The mechanism is now pinned: train TSMixerRevIN (RevIN + residual temporal/feature blocks, BatchNorm) to forecast pred_len steps with summed MSE; build a training causality matrix as the batch-mean of |d loss_j / d x| over input channels per output channel, symmetrised through the upper/lower triangle difference, thresholded at sparse_th and averaged; at test time score each window by the mean relative deviation of its own causality matrix from the training one, smooth with a moving average of three, and threshold. Remaining transcription work is mechanical, and the harness needs a per-dataset window plus a note that the release's test_stride (5 for SWaT, 10 for PSM) is not reproduced by the harness's single-stride window grid."
+
   - id: F3
     type: finding
     text: "Converting the re-runs into the affiliation family puts TimesNet within 0.032-0.068 of CATCH's independently published numbers on all five datasets, and the Anomaly Transformer within 0.059 on MSL - the column where the point-adjusted comparison was furthest off - so the cross-paper disagreement is dominated by the metric family."
