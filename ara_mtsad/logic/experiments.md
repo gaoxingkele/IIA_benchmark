@@ -102,3 +102,24 @@ would confirm that the published ranking is a property of the shared protocol
 rather than of the individual method.
 
 **Evidence**: `evidence/tables/rerun_dcdetector_summary.md`.
+
+## E07 - Convert the re-runs into the affiliation family and compare with CATCH
+
+**Verifies**: C07.
+
+**Setup**: The score series persisted by `--save-scores` for TimesNet (all five
+datasets) and the Anomaly Transformer (MSL), plus CATCH's Table 2 as transcribed
+in `knowledge_base/literature/mtsad_reported_affiliation.json`.
+
+**Procedure**: Apply the harness's reference threshold, score the predictions with
+the affiliation implementation bundled with the KDD'23 DCdetector release, take
+the harmonic mean of precision and recall, and compare with the published Aff-F.
+Because the family is defined on the original series, evaluate in the
+`last_point` layout wherever windows overlap, and in `window_flatten` where the
+stride equals the window.
+
+**Expected outcome**: The conversion is expected to close most of the gap that the
+flat range-based column shows, because that gap was attributed to the family
+rather than to the scores.
+
+**Evidence**: `evidence/tables/affiliation_family_check.md`.

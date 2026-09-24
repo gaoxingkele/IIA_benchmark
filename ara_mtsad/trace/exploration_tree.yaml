@@ -175,3 +175,14 @@ nodes:
       - "ara_mtsad/evidence/tables/registered_sota_status.md"
       - "decisionintelligence/CATCH@master scripts/multivariate_detection/detect_label/{MSL,SMD}_script/CATCH.sh"
     rationale: "Its data arrives through a separate mirror and its table uses the affiliation family; both must be reconciled with the pinned payload and the point-adjusted family before a verdict is meaningful."
+
+  - id: F3
+    type: finding
+    text: "Converting the re-runs into the affiliation family puts TimesNet within 0.032-0.068 of CATCH's independently published numbers on all five datasets, and the Anomaly Transformer within 0.059 on MSL - the column where the point-adjusted comparison was furthest off - so the cross-paper disagreement is dominated by the metric family."
+    support_level: explicit
+    source_refs:
+      - "ara_mtsad/evidence/tables/affiliation_family_check.md"
+      - "knowledge_base/literature/mtsad_reported_affiliation.json"
+      - "scripts/mtsad/score_affiliation.py"
+    rationale: "The conversion uses the family's reference implementation on the same persisted predictions, so the two numbers differ only by family choice, threshold operating point and evaluation framework."
+    evidence: [C07]

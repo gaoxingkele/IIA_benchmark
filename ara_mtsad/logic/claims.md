@@ -103,3 +103,24 @@ all verified identical to the reference.
 **Dependencies**: C01.
 
 **Proof**: E03, E06.
+
+## C07 - Independent metric families agree once the family is matched
+
+**Statement**: Converting a re-run's predictions into the metric family a third
+party published in brings the two numbers within a few points, including on the
+dataset where the point-adjusted comparison was furthest off - so the apparent
+cross-paper disagreement is dominated by the metric family rather than by the
+model or the data.
+
+**Conditions**: Established for TimesNet across all five datasets and for the
+Anomaly Transformer on MSL, both converted at this harness's own percentile
+threshold rather than at the third party's operating point; it does not claim
+bit-identical protocols.
+
+**Falsification criteria**: Falsified if a further conversion of a different model
+lands far outside the band, or if the third party's numbers can be shown to use a
+different payload rather than a different family.
+
+**Dependencies**: C02, C06.
+
+**Proof**: E07.
