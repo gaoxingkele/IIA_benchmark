@@ -36,3 +36,16 @@ understate the published scores, and reading the flat variant through a paper th
 used affiliation would overstate the gap - both errors are avoided by naming the
 variant, which is why the harness records the metric family alongside the
 threshold rule and the point-adjustment flag.
+
+## Published corroboration
+
+The split is visible in the literature itself, not only in this controlled check.
+CATCH's Table 2 reports the affiliation family for the same five datasets: for
+SMAP it prints Anomaly Transformer at 0.703 Aff-F, while this artifact's flat
+range-based column gives Anomaly Transformer 0.0291 on SMAP at the reference
+threshold. The two numbers describe the same dataset and the same model family
+and differ by 0.67. Because the preprocessing and threshold also differ between
+the two setups, that gap is corroboration rather than a controlled measurement -
+the controlled measurement is the 40-trial table above. The transcription lives
+in `knowledge_base/literature/mtsad_reported_affiliation.json`, deliberately
+separate from the point-adjusted file.

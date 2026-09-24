@@ -13,6 +13,7 @@ records the rest explicitly rather than silently dropping them.
 | Anomaly Transformer Table 1 | `tables/reported_anchor_tables.md` | `papers/literature/mtsad_pdfs/xu2022_anomaly_transformer.pdf` |
 | DCdetector Table 1 | `tables/reported_anchor_tables.md` | `papers/literature/mtsad_pdfs/yang2023_dcdetector.pdf` |
 | TranAD Table 2 and its dataset table | `tables/reported_anchor_tables.md` | `papers/literature/mtsad_pdfs/tuli2022_tranad.pdf` |
+| CATCH Table 2 (affiliation family, 16 methods x 5 datasets) | `knowledge_base/literature/mtsad_reported_affiliation.json` | `papers/literature/mtsad_pdfs/xie2024_catch.pdf` |
 | Re-run results | `tables/rerun_classical_summary.md`, `tables/rerun_deep_summary.md` | `experiments/runs/mtsad_reproduction/*/records.json` |
 | Protocol sensitivity | `tables/protocol_sensitivity.md` | derived from the run records |
 | SWaT split audit | `tables/swat_split_audit.md` | TranAD dataset table vs pinned payload |

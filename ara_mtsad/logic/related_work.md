@@ -56,6 +56,14 @@ Registered SOTA detectors on this family. Not re-implemented in this iteration;
 their reported numbers are available in the local PDFs and are the natural next
 re-run targets.
 
+One of them is *bounds* rather than *baseline* for the metric question: the CATCH
+paper reports the affiliation family (Aff-F, A-R) instead of point-adjusted F1,
+so its table cannot be compared column-wise with the anchor tables. Its 16-method
+by 5-dataset matrix is transcribed into
+`knowledge_base/literature/mtsad_reported_affiliation.json` to keep the two
+families apart, and it is the clearest published instance of the same benchmark
+name carrying two incompatible metric definitions.
+
 ## RW10 - liu2024_tsb_ad (NeurIPS 2024 D&B), kim2025_tab (VLDB 2025) - *bounds*
 
 Independent benchmark efforts that document the protocol sensitivity this
