@@ -1,6 +1,6 @@
 # Re-run versus published numbers (reference protocol)
 
-Generated 2026-09-24 from 101 run records.
+Generated 2026-09-25 from 133 run records.
 Reference protocol = percentile threshold over pooled train+test energy
 (the rule used by the anchor papers) plus point adjustment.
 
@@ -14,8 +14,8 @@ Reference protocol = percentile threshold over pooled train+test energy
 | DCdetector | MSL | 0.8512 | 0.0180 | 0.9660 | 0.1148 | off | win90/step1/ratio1 | yang2023_dcdetector |
 | DCdetector | PSM | 0.9647 | 0.0196 | 0.9794 | 0.0147 | near | win60/step1/ratio1 | yang2023_dcdetector |
 | DCdetector | SMAP | 0.9414 | 0.0148 | 0.9702 | 0.0288 | near | win105/step1/ratio0.85/ep3/bs256 | yang2023_dcdetector |
-| DCdetector | SMD | 0.8488 | 0.0123 | 0.8718 | 0.0230 | near | win105/step100/ratio0.6 | yang2023_dcdetector |
-| DCdetector | SWAT | 0.9518 | 0.0190 | 0.9633 | 0.0115 | near | win105/step1/ratio1/ep3/bs128 | yang2023_dcdetector |
+| DCdetector | SMD | 0.8488 | 0.0123 | 0.8718 | 0.0230 | near | win105/step100/ratio0.6/ep3/bs256 | yang2023_dcdetector |
+| DCdetector | SWAT | 0.9519 | 0.0191 | 0.9633 | 0.0114 | near | win105/step1/ratio1/ep3/bs128 | yang2023_dcdetector |
 | IsolationForest | MSL | 0.8309 | 0.0300 | 0.6645 | 0.1664 | off | win100/step1/ratio0.5 | xu2022_anomaly_transformer |
 | IsolationForest | PSM | 0.7503 | 0.0285 | 0.8348 | 0.0845 | off | win100/step1/ratio0.5 | xu2022_anomaly_transformer |
 | IsolationForest | SMAP | 0.6862 | 0.0073 | 0.5553 | 0.1309 | off | win100/step1/ratio0.5 | xu2022_anomaly_transformer |
@@ -31,6 +31,10 @@ Reference protocol = percentile threshold over pooled train+test energy
 | timesnet | SMAP | 0.7357 | 0.0399 | 0.7085 | 0.0272 | near | win100/step1/ratio1/ep3/bs128 | wu2023_timesnet |
 | timesnet | SMD | 0.8542 | 0.1107 | 0.8512 | 0.0030 | matches | win100/step100/ratio0.5/ep10/bs128 | wu2023_timesnet |
 | timesnet | SWAT | 0.9293 | 0.0792 | 0.9210 | 0.0083 | matches | win100/step1/ratio1/ep3/bs128 | wu2023_timesnet |
+| tranad | MSL | 0.6947 | 0.0543 | 0.9494 | 0.2547 | off | win100/step1/ratio1/ep5/bs128 | tuli2022_tranad |
+| tranad | SMAP | 0.5898 | 0.0075 | 0.8915 | 0.3017 | off | win100/step1/ratio1/ep5/bs128 | tuli2022_tranad |
+| tranad | SMD | 0.1470 | 0.0311 | 0.9605 | 0.8135 | off | win100/step100/ratio0.5/ep5/bs128 | tuli2022_tranad |
+| tranad | SWAT | 0.7918 | 0.2855 | 0.8151 | 0.0233 | near | win100/step1/ratio1/ep5/bs128 | tuli2022_tranad |
 | USAD | MSL | 0.0942 | 0.0815 | 0.8822 | 0.7880 | off | win100/step1/ratio0.5 | tuli2022_tranad |
 | USAD | SMAP | 0.4083 | 0.0415 | 0.8419 | 0.4336 | off | win100/step1/ratio0.5 | tuli2022_tranad |
 | USAD | SMD | 0.1277 | 0.0702 | 0.9495 | 0.8218 | off | win100/step100/ratio0.5 | tuli2022_tranad |
@@ -40,18 +44,18 @@ Reference protocol = percentile threshold over pooled train+test energy
 | verdict | pairs |
 |---|---|
 | matches | 5 |
-| near | 8 |
-| off | 15 |
+| near | 9 |
+| off | 18 |
 
 ## Column reproducibility (all compared methods)
 
 | Dataset | compared methods | mean abs delta | worst delta | best delta |
 |---|---|---|---|---|
 | PSM | 5 | 0.0664 | 0.2079 | 0.0049 |
-| SMAP | 6 | 0.1266 | 0.4336 | 0.0106 |
-| SWAT | 5 | 0.1519 | 0.3498 | 0.0083 |
-| SMD | 6 | 0.1746 | 0.8218 | 0.0001 |
-| MSL | 6 | 0.1980 | 0.7880 | 0.0067 |
+| SWAT | 6 | 0.1304 | 0.3498 | 0.0083 |
+| SMAP | 7 | 0.1516 | 0.4336 | 0.0106 |
+| MSL | 7 | 0.2061 | 0.7880 | 0.0067 |
+| SMD | 7 | 0.2659 | 0.8218 | 0.0001 |
 
 Dataset columns ordered by how well they reproduce, pooling deep detectors
 and classical baselines: the deep-only picture is finer (see
@@ -74,11 +78,28 @@ whether a column can be trusted at all.
 | AnomalyTransformer | SMD | win100/step100/ratio0.5 | 0.8619 | 0.0163 | 0.0324 |
 | AnomalyTransformer | SMD | win100/step100/ratio0.5 | 0.9034 | 0.0249 | 0.0988 |
 | AnomalyTransformer | SWAT | win100/step1/ratio0.1/ep3/bs256 | 0.8754 | 0.0137 | 0.0071 |
+| catch | MSL | win100/step1/ratio5/ep5/bs128 | 0.7190 | 0.1236 | 0.1318 |
+| catch | PSM | win100/step1/ratio3/ep3/bs128 | 0.9345 | 0.1188 | 0.4121 |
+| catch | SMAP | win100/step1/ratio2/ep5/bs128 | 0.6739 | 0.0383 | 0.0484 |
+| catch | SMD | win100/step100/ratio5/ep1/bs256 | 0.5745 | 0.2507 | 0.1312 |
+| catch | SWAT | win100/step1/ratio3/ep5/bs64 | 0.8492 | 0.0850 | 0.1704 |
 | DCdetector | MSL | win90/step1/ratio1 | 0.8512 | 0.0180 | 0.0395 |
+| DCdetector | MSL | win90/step1/ratio1/ep3/bs64 | 0.8511 | 0.0180 | 0.0388 |
 | DCdetector | PSM | win60/step1/ratio1 | 0.9647 | 0.0196 | 0.0155 |
+| DCdetector | PSM | win60/step1/ratio1/ep3/bs256 | 0.9647 | 0.0196 | 0.0155 |
+| DCdetector | SMAP | win105/step1/ratio0.85/ep3/bs256 | 0.9414 | 0.0148 | 0.0221 |
 | DCdetector | SMAP | win105/step1/ratio0.85/ep3/bs256 | 0.9414 | 0.0148 | 0.0221 |
 | DCdetector | SMD | win105/step100/ratio0.6 | 0.8488 | 0.0123 | 0.0241 |
+| DCdetector | SMD | win105/step100/ratio0.6/ep3/bs256 | 0.8488 | 0.0123 | 0.0241 |
+| DCdetector | SWAT | win105/step1/ratio1/ep3/bs128 | 0.9519 | 0.0191 | 0.0245 |
 | DCdetector | SWAT | win105/step1/ratio1/ep3/bs128 | 0.9518 | 0.0190 | 0.0247 |
+| gcad | MSL | win30/step1/ratio1/ep10/bs128 | 0.1961 | 0.0554 | 0.0876 |
+| gcad | MSL | win30/step1/ratio1/ep10/bs128 | 0.1975 | 0.0590 | 0.0885 |
+| gcad | PSM | win30/step1/ratio1/ep10/bs128 | 0.8994 | 0.0422 | 0.1944 |
+| gcad | PSM | win30/step1/ratio1/ep10/bs128 | 0.8997 | 0.0465 | 0.2023 |
+| gcad | SMAP | win70/step1/ratio1/ep10/bs128 | 0.6524 | 0.0362 | 0.0559 |
+| gcad | SMAP | win70/step1/ratio1/ep10/bs128 | 0.6526 | 0.0358 | 0.0579 |
+| gcad | SMD | win30/step100/ratio0.5/ep10/bs128 | 0.0956 | 0.0677 | 0.0764 |
 | IsolationForest | MSL | win100/step1/ratio0.5 | 0.8779 | 0.0334 | 0.0117 |
 | IsolationForest | MSL | win100/step1/ratio0.5 | 0.8309 | 0.0300 | 0.0099 |
 | IsolationForest | MSL | win100/step1/ratio0.5 | 0.8751 | 0.0412 | 0.0134 |
@@ -94,6 +115,12 @@ whether a column can be trusted at all.
 | IsolationForest | SWAT | win100/step1/ratio1 | 0.7932 | 0.2378 | 0.0027 |
 | IsolationForest | SWAT | win100/step1/ratio1 | 0.7932 | 0.2256 | 0.0010 |
 | IsolationForest | SWAT | win100/step1/ratio1 | 0.7932 | 0.2423 | 0.0012 |
+| itransformer | MSL | win100/step1/ratio1/ep10/bs128 | 0.7126 | 0.0736 | 0.0578 |
+| itransformer | MSL | win100/step1/ratio1/ep10/bs128 | 0.7126 | 0.0736 | 0.0578 |
+| itransformer | PSM | win100/step1/ratio1/ep10/bs128 | 0.9474 | 0.0463 | 0.3186 |
+| itransformer | SMAP | win100/step1/ratio1/ep10/bs128 | 0.6663 | 0.0362 | 0.0432 |
+| itransformer | SMD | win100/step100/ratio0.5/ep10/bs128 | 0.8272 | 0.1045 | 0.1815 |
+| itransformer | SWAT | win100/step1/ratio1/ep10/bs128 | 0.9116 | 0.0316 | 0.0616 |
 | kNN | MSL | win100/step1/ratio0.5 | 0.3722 | 0.0744 | 0.0700 |
 | kNN | MSL | win100/step1/ratio0.5 | 0.2581 | 0.0755 | 0.0698 |
 | kNN | MSL | win100/step1/ratio0.5 | 0.4809 | 0.0743 | 0.0685 |
@@ -155,10 +182,19 @@ whether a column can be trusted at all.
 | PCA | SWAT | win100/step1/ratio1 | 0.8226 | 0.2896 | 0.1810 |
 | PCA | SWAT | win100/step1/ratio1 | 0.8226 | 0.2896 | 0.1810 |
 | timesnet | MSL | win100/step1/ratio1/ep1/bs128 | 0.8133 | 0.0561 | 0.0601 |
+| timesnet | MSL | win100/step1/ratio1/ep1/bs128 | 0.8133 | 0.0561 | 0.0601 |
+| timesnet | PSM | win100/step1/ratio1/ep3/bs128 | 0.9722 | 0.0495 | 0.3490 |
 | timesnet | PSM | win100/step1/ratio1/ep3/bs128 | 0.9722 | 0.0495 | 0.3491 |
+| timesnet | SMAP | win100/step1/ratio1/ep3/bs128 | 0.7357 | 0.0399 | 0.0761 |
 | timesnet | SMAP | win100/step1/ratio1/ep3/bs128 | 0.7357 | 0.0399 | 0.0760 |
 | timesnet | SMD | win100/step100/ratio0.5/ep10/bs128 | 0.8542 | 0.1107 | 0.2076 |
+| timesnet | SMD | win100/step100/ratio0.5/ep10/bs128 | 0.8542 | 0.1107 | 0.2076 |
 | timesnet | SWAT | win100/step1/ratio1/ep3/bs128 | 0.9293 | 0.0792 | 0.1833 |
+| timesnet | SWAT | win100/step1/ratio1/ep3/bs128 | 0.9293 | 0.0792 | 0.1833 |
+| tranad | MSL | win100/step1/ratio1/ep5/bs128 | 0.6947 | 0.0543 | 0.0521 |
+| tranad | SMAP | win100/step1/ratio1/ep5/bs128 | 0.5898 | 0.0075 | 0.0211 |
+| tranad | SMD | win100/step100/ratio0.5/ep5/bs128 | 0.1470 | 0.0311 | 0.0257 |
+| tranad | SWAT | win100/step1/ratio1/ep5/bs128 | 0.7918 | 0.2855 | 0.0047 |
 | USAD | MSL | win100/step1/ratio0.5 | 0.0942 | 0.0815 | 0.1065 |
 | USAD | PSM | win100/step1/ratio0.5 | 0.7215 | 0.0513 | 0.0789 |
 | USAD | SMAP | win100/step1/ratio0.5 | 0.4083 | 0.0415 | 0.0985 |

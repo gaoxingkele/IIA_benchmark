@@ -42,7 +42,12 @@ def mean_metric(records: list[dict], dataset: str, model: str, protocol: str, fi
 
 def main() -> int:
     run_root = ROOT / "experiments" / "runs" / "mtsad_reproduction"
-    records = load([run_root / "classical" / "records.json", run_root / "deep" / "records.json"])
+    # Every run directory, so the table tracks the whole matrix rather than the
+    # first two batches it was written for.
+    paths = sorted(
+        path for path in run_root.glob("*/records.json") if path.parent.name != "smoke"
+    )
+    records = load(paths)
     if not records:
         raise SystemExit("no run records found")
     pairs = sorted({(record["dataset"], record["model"]) for record in records})
