@@ -29,11 +29,12 @@ abstract: >
   iTransformer, USAD and TranAD), and reports the result under explicit protocol
   choices: window-to-timestamp layout, threshold rule (percentile, oracle or the
   release's own POT), point adjustment, metric family and split version. 124 runs
-  feed three comparison tables - 23 point-adjusted pairs and 16 affiliation-family
-  pairs - which resolve to 5 matches, 8 near and 15 off against the transcribed
-  published values, with every gap either explained or recorded as an open
-  discrepancy. The question it answers is concrete - do re-run numbers reproduce
-  the papers - and the answer is made auditable rather than anecdotal.
+  feed three comparison tables - a point-adjusted verdict table, 21
+  affiliation-family pairs and 5 threshold-free AUC rows - which resolve to 5
+  matches, 9 near and 18 off against the transcribed published values, with every
+  gap either explained or recorded as an open discrepancy. The question it answers
+  is concrete - do re-run numbers reproduce the papers - and the answer is made
+  auditable rather than anecdotal.
 ---
 
 # Headline findings
@@ -62,6 +63,15 @@ abstract: >
    neither reproduces the paper, and its release evaluates one representative
    series per dataset where the paper reports whole-dataset sizes, so its verdict
    is withheld (`evidence/tables/tranad_check.md`).
+7. **A third family joins the audit.** GCAD reports AUROC/AUPRC, which need no
+   threshold at all, and its re-run lands between 0.39 and 0.70 against published
+   0.73-0.95 - including a below-chance SWaT and a coin-flip SMAP - so its verdict
+   is withheld too, with the target defect corrected and the remaining deviations
+   documented (`evidence/tables/auc_family_check.md`).
+8. **CATCH's own table needed the conversion.** Its five datasets land within
+   0.019-0.106 of the published affiliation numbers, and without the conversion
+   the SMD agreement would have looked like a 0.5 disagreement
+   (`evidence/tables/catch_check.md`).
 
 # Layer Index
 

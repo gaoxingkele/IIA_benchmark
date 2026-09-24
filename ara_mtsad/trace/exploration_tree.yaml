@@ -168,31 +168,34 @@ nodes:
     evidence: [C06]
 
   - id: N1
-    type: next_step
+    type: completed_step
     text: "Transcribe CATCH as the next SOTA re-run, using the per-dataset budgets pinned from its release scripts and deciding the metric-family conversion before comparing."
     support_level: explicit
     source_refs:
       - "ara_mtsad/evidence/tables/registered_sota_status.md"
       - "decisionintelligence/CATCH@master scripts/multivariate_detection/detect_label/{MSL,SMD}_script/CATCH.sh"
     rationale: "Its data arrives through a separate mirror and its table uses the affiliation family; both must be reconciled with the pinned payload and the point-adjusted family before a verdict is meaningful."
+    outcome: "Done: CATCH transcribed from its ten-file release and re-run on all five datasets; the affiliation conversion was written first and its five rows land within 0.019-0.106 of the published values (evidence/tables/catch_check.md)."
 
   - id: N2
-    type: next_step
+    type: completed_step
     text: "Transcribe CATCH: the remaining registered SOTA that both has a published table and is already metric-aligned, since this artifact's affiliation conversion now exists."
     support_level: explicit
     source_refs:
       - "ara_mtsad/evidence/tables/registered_sota_status.md"
       - "decisionintelligence/CATCH@master ts_benchmark/baselines/catch (CATCH.py 15 KB, CATCH_model.py 6 KB, cross_channel_Transformer.py 5 KB, fre_rec_loss.py 6 KB, channel_mask.py, RevIN.py, ch_discover_loss.py, tools.py)"
     rationale: "Roughly 43 KB across ten files, so it is a multi-iteration transcription rather than a configuration change; the per-dataset budgets are already pinned from the release's scripts and the affiliation comparison table already accepts new models."
+    outcome: "Done: the transcription cost about two iterations and its rows now appear in affiliation_comparison.md."
 
   - id: N3
-    type: next_step
+    type: completed_step
     text: "Transcribe GCAD (the last registered SOTA) as a forecasting model whose anomaly score is the relative deviation of a gradient causality graph."
     support_level: explicit
     source_refs:
       - "Tc99m/GCAD@master (main.py 8.2 KB, test.py 13.8 KB, models/common.py 3.2 KB, models/tsmixer.py 1.0 KB, run.sh)"
       - "run.sh per-dataset budgets: SMD seq_len 30/pred_len 1/n_block 3/ff_dim 1024/sparse_th 0.005; SWaT 5/1/6/2048/0.008 with test_stride 5; SMAP 70/1/6/1024/0.008; PSM 30/5/2/128/0.005 with test_stride 10; MSL 30/1/5/1024/0.002"
     rationale: "The mechanism is now pinned: train TSMixerRevIN (RevIN + residual temporal/feature blocks, BatchNorm) to forecast pred_len steps with summed MSE; build a training causality matrix as the batch-mean of |d loss_j / d x| over input channels per output channel, symmetrised through the upper/lower triangle difference, thresholded at sparse_th and averaged; at test time score each window by the mean relative deviation of its own causality matrix from the training one, smooth with a moving average of three, and threshold. Remaining transcription work is mechanical, and the harness needs a per-dataset window plus a note that the release's test_stride (5 for SWaT, 10 for PSM) is not reproduced by the harness's single-stride window grid."
+    outcome: "Done: GCAD transcribed and re-run on all five datasets; its forecast target was corrected after the first attempt, and its five AUC rows are recorded with the verdict withheld (evidence/tables/auc_family_check.md)."
 
   - id: X6
     type: dead_end
