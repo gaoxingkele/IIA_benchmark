@@ -834,10 +834,229 @@ class DCdetectorDetector(Detector):
         return np.concatenate(scores)
 
 
+@dataclass
+class TimesNetDetector(Detector):
+    """TimesNet reconstruction detector (ICLR 2023).
+
+    # Grounding: transcribed
+    # sources: github.com/thuml/Time-Series-Library
+    #   - models/TimesNet.py (FFT_for_Period, TimesBlock, anomaly_detection)
+    #   - layers/Conv_Blocks.py (Inception_Block_V1)
+    #   - layers/Embed.py (DataEmbedding: TokenEmbedding + PositionalEmbedding,
+    #     with the x_mark=None branch used by the anomaly-detection path)
+    #   - exp/exp_anomaly_detection.py (MSE objective, train+test percentile
+    #     threshold, mean-over-channel energy)
+    # Deviation: the reference forecast path also predicts future steps; the
+    # anomaly-detection path uses pred_len = 0, which is what is transcribed.
+    """
+
+    window: int = 100
+    d_model: int = 64
+    d_ff: int = 64
+    e_layers: int = 2
+    top_k: int = 5
+    num_kernels: int = 6
+    dropout: float = 0.1
+    epochs: int = 10
+    learning_rate: float = 1e-4
+    batch_size: int = 128
+    seed: int = 1103
+    device: str = "auto"
+    kind = "window"
+    name = "timesnet"
+    _model: Any = field(default=None, repr=False)
+    _device: Any = field(default=None, repr=False)
+
+    def _build(self, n_features: int):
+        torch, nn = torch_modules()
+        window = self.window
+        self_top_k = self.top_k
+        self_kernels = self.num_kernels
+        self_d_model = self.d_model
+        self_d_ff = self.d_ff
+        self_dropout = self.dropout
+        self_layers = self.e_layers
+
+        def fft_for_period(x, k):
+            xf = torch.fft.rfft(x, dim=1)
+            frequency_list = abs(xf).mean(0).mean(-1)
+            frequency_list[0] = 0
+            _, top_list = torch.topk(frequency_list, k)
+            top_list = top_list.detach().cpu().numpy()
+            period = x.shape[1] // top_list
+            return period, abs(xf).mean(-1)[:, top_list]
+
+        class InceptionBlockV1(nn.Module):
+            def __init__(self, in_channels, out_channels, num_kernels=6):
+                super().__init__()
+                self.num_kernels = num_kernels
+                self.kernels = nn.ModuleList(
+                    [
+                        nn.Conv2d(
+                            in_channels, out_channels, kernel_size=2 * i + 1, padding=i
+                        )
+                        for i in range(num_kernels)
+                    ]
+                )
+                for module in self.modules():
+                    if isinstance(module, nn.Conv2d):
+                        nn.init.kaiming_normal_(
+                            module.weight, mode="fan_out", nonlinearity="relu"
+                        )
+                        if module.bias is not None:
+                            nn.init.constant_(module.bias, 0)
+
+            def forward(self, x):
+                res = torch.stack(
+                    [kernel(x) for kernel in self.kernels], dim=-1
+                ).mean(-1)
+                return res
+
+        class TimesBlock(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.conv = nn.Sequential(
+                    InceptionBlockV1(self_d_model, self_d_ff, self_kernels),
+                    nn.GELU(),
+                    InceptionBlockV1(self_d_ff, self_d_model, self_kernels),
+                )
+
+            def forward(self, x):
+                batch, length_in, channels = x.size()
+                period_list, period_weight = fft_for_period(x, self_top_k)
+                results = []
+                for index in range(self_top_k):
+                    period = period_list[index]
+                    if length_in % period != 0:
+                        padded_length = (length_in // period + 1) * period
+                        padding = torch.zeros(
+                            [x.shape[0], padded_length - length_in, x.shape[2]]
+                        ).to(x.device)
+                        out = torch.cat([x, padding], dim=1)
+                    else:
+                        padded_length = length_in
+                        out = x
+                    out = out.reshape(
+                        batch, padded_length // period, period, channels
+                    ).permute(0, 3, 1, 2).contiguous()
+                    out = self.conv(out)
+                    out = out.permute(0, 2, 3, 1).reshape(batch, -1, channels)
+                    results.append(out[:, :length_in, :])
+                stacked = torch.stack(results, dim=-1)
+                weights = torch.softmax(period_weight, dim=1)
+                weights = weights.unsqueeze(1).unsqueeze(1).repeat(
+                    1, length_in, channels, 1
+                )
+                return torch.sum(stacked * weights, -1) + x
+
+        class PositionalEmbedding(nn.Module):
+            def __init__(self, d_model, max_len=5000):
+                super().__init__()
+                pe = torch.zeros(max_len, d_model).float()
+                position = torch.arange(0, max_len).float().unsqueeze(1)
+                div_term = (
+                    torch.arange(0, d_model, 2).float() * -(math.log(10000.0) / d_model)
+                ).exp()
+                pe[:, 0::2] = torch.sin(position * div_term)
+                pe[:, 1::2] = torch.cos(position * div_term)
+                self.register_buffer("pe", pe.unsqueeze(0))
+
+            def forward(self, x):
+                return self.pe[:, : x.size(1)]
+
+        class TokenEmbedding(nn.Module):
+            def __init__(self, c_in, d_model):
+                super().__init__()
+                self.tokenConv = nn.Conv1d(
+                    in_channels=c_in,
+                    out_channels=d_model,
+                    kernel_size=3,
+                    padding=1,
+                    padding_mode="circular",
+                    bias=False,
+                )
+                nn.init.kaiming_normal_(
+                    self.tokenConv.weight, mode="fan_in", nonlinearity="leaky_relu"
+                )
+
+            def forward(self, x):
+                return self.tokenConv(x.permute(0, 2, 1)).transpose(1, 2)
+
+        class Model(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.value_embedding = TokenEmbedding(n_features, self_d_model)
+                self.position_embedding = PositionalEmbedding(self_d_model)
+                self.embedding_dropout = nn.Dropout(p=self_dropout)
+                self.blocks = nn.ModuleList(
+                    [TimesBlock() for _ in range(self_layers)]
+                )
+                self.layer_norm = nn.LayerNorm(self_d_model)
+                self.projection = nn.Linear(self_d_model, n_features, bias=True)
+
+            def forward(self, x):
+                means = x.mean(1, keepdim=True).detach()
+                x = x - means
+                stdev = torch.sqrt(x.var(dim=1, keepdim=True, unbiased=False) + 1e-5)
+                x = x / stdev
+                enc_out = self.embedding_dropout(
+                    self.value_embedding(x) + self.position_embedding(x)
+                )
+                for block in self.blocks:
+                    enc_out = self.layer_norm(block(enc_out))
+                dec_out = self.projection(enc_out)
+                dec_out = dec_out * stdev[:, 0, :].unsqueeze(1).repeat(
+                    1, window, 1
+                )
+                return dec_out + means[:, 0, :].unsqueeze(1).repeat(1, window, 1)
+
+        return Model()
+
+    def fit(self, windows: np.ndarray) -> "TimesNetDetector":
+        torch, _ = torch_modules()
+        torch.manual_seed(self.seed)
+        np.random.seed(self.seed)
+        self._device = resolve_device(self.device)
+        model = self._build(windows.shape[-1]).to(self._device)
+        optimiser = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
+        criterion = torch.nn.MSELoss()
+        data = torch.from_numpy(windows.astype(np.float32)).to(self._device)
+        generator = torch.Generator().manual_seed(self.seed)
+        model.train()
+        for _ in range(self.epochs):
+            order = torch.randperm(len(data), generator=generator).to(self._device)
+            for start in range(0, len(data), self.batch_size):
+                batch = data[order[start:start + self.batch_size]]
+                optimiser.zero_grad()
+                output = model(batch)
+                loss = criterion(output, batch)
+                loss.backward()
+                optimiser.step()
+        self._model = model
+        return self
+
+    def score(self, windows: np.ndarray) -> np.ndarray:
+        torch, _ = torch_modules()
+        criterion = torch.nn.MSELoss(reduction="none")
+        model = self._model
+        model.eval()
+        scores = []
+        with torch.no_grad():
+            for start in range(0, len(windows), self.batch_size):
+                batch = torch.from_numpy(
+                    windows[start:start + self.batch_size].astype(np.float32)
+                ).to(self._device)
+                output = model(batch)
+                # Reference: mean squared error over channels, per timestamp.
+                scores.append(torch.mean(criterion(batch, output), dim=-1).cpu().numpy())
+        return np.concatenate(scores)
+
+
 WINDOW_DETECTORS = {
     "usad": USADDetector,
     "anomaly_transformer": AnomalyTransformerDetector,
     "dcdetector": DCdetectorDetector,
+    "timesnet": TimesNetDetector,
 }
 
 

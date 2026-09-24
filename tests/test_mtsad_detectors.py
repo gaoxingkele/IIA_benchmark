@@ -84,3 +84,30 @@ def test_dcdetector_smoke() -> None:
     assert np.isfinite(scores).all()
     # The score is a softmax over positions, so every window sums to one.
     np.testing.assert_allclose(scores.sum(axis=1), np.ones(24), rtol=1e-4)
+
+
+def test_timesnet_smoke() -> None:
+    pytest.importorskip("torch")
+    from iia_benchmark.models.mtsad_detectors import TimesNetDetector
+
+    rng = np.random.default_rng(5)
+    # A period-4 pattern makes the FFT period detector meaningful.
+    base = np.tile(np.array([0.0, 1.0, 0.0, -1.0]), 8)
+    windows = np.stack(
+        [base + 0.01 * rng.normal(size=32) for _ in range(16)]
+    )[:, :, None].astype(np.float32)
+    detector = TimesNetDetector(
+        window=32,
+        d_model=8,
+        d_ff=8,
+        e_layers=1,
+        top_k=2,
+        epochs=1,
+        batch_size=8,
+        device="cpu",
+    )
+    detector.fit(windows)
+    scores = detector.score(windows)
+    assert scores.shape == (16, 32)
+    assert np.isfinite(scores).all()
+    assert (scores >= 0).all()
