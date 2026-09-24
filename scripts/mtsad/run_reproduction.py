@@ -189,6 +189,17 @@ def run_single(
                 split.test_labels,
             ),
         }
+        # A detector may score fewer windows than the grid provides (GCAD cannot
+        # score the windows whose forecast target falls past the end of the
+        # series).  Its scores then belong to the first windows, so the flattened
+        # label stream is truncated to the same length instead of refusing the run.
+        flat_train, flat_test, flat_truth = layouts["window_flatten"]
+        if len(flat_truth) > len(flat_test):
+            layouts["window_flatten"] = (
+                flat_train[: len(flat_test)],
+                flat_test,
+                flat_truth[: len(flat_test)],
+            )
     else:
         detector.fit(train_z)
         train_scores = detector.score(train_z)
