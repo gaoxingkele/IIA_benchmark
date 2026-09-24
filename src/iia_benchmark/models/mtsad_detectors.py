@@ -1811,6 +1811,249 @@ class CATCHDetector(Detector):
         return np.concatenate(scores)
 
 
+@dataclass
+class GCADDetector(Detector):
+    """GCAD: anomaly detection from the perspective of Granger causality (AAAI 2025).
+
+    # Grounding: transcribed
+    # sources: github.com/Tc99m/GCAD
+    #   - models/common.py (RevIN with affine parameters, the TSMixer ResBlock with
+    #     its temporal and feature linear paths)
+    #   - models/tsmixer.py (TSMixerRevIN: RevIN, stacked residual blocks, a linear
+    #     map from the input window to pred_len, then denormalisation)
+    #   - test.py (the causality matrix: |d loss_j / d x| per output channel,
+    #     symmetrised through the upper/lower triangle difference, thresholded at
+    #     sparse_th and averaged; the test score: the mean relative deviation of a
+    #     window's causality matrix from the training one, smoothed by a moving
+    #     average of three)
+    # Deviations recorded rather than hidden:
+    #   * the release's dataloader forecasts the pred_len steps that follow the
+    #     window; this harness only hands a detector its windows, so the target is
+    #     the tail of the window itself and the model predicts it from the head.
+    #     The causal graph is computed from the same forecast loss either way, but
+    #     the two are not identical objectives.
+    #   * the release samples test windows with a stride of 5 (SWaT) or 10 (PSM);
+    #     the harness uses one stride for training and testing.
+    #   * the release early-stops on a validation split with patience 2; the
+    #     harness trains a fixed budget.
+    """
+
+    window: int = 30
+    pred_len: int = 1
+    n_block: int = 3
+    ff_dim: int = 1024
+    dropout: float = 0.0
+    sparse_th: float = 0.005
+    sample_p: float = 0.2
+    epochs: int = 10
+    learning_rate: float = 1e-4
+    batch_size: int = 128
+    smoothing_window: int = 3
+    seed: int = 1103
+    device: str = "auto"
+    kind = "window"
+    name = "gcad"
+    _model: Any = field(default=None, repr=False)
+    _device: Any = field(default=None, repr=False)
+    _train_causal: Any = field(default=None, repr=False)
+
+    def _build(self, n_features: int):
+        torch, nn = torch_modules()
+        window = self.window
+        pred_len = self.pred_len
+        n_block = self.n_block
+        ff_dim = self.ff_dim
+        dropout = self.dropout
+
+        class RevIN(nn.Module):
+            def __init__(self, num_features, eps=1e-5, affine=True):
+                super().__init__()
+                self.num_features = num_features
+                self.eps = eps
+                self.affine = affine
+                if affine:
+                    self.affine_weight = nn.Parameter(torch.ones(num_features))
+                    self.affine_bias = nn.Parameter(torch.zeros(num_features))
+
+            def forward(self, x, mode, target_slice=None):
+                if mode == "norm":
+                    self._get_statistics(x)
+                    x = self._normalize(x)
+                elif mode == "denorm":
+                    x = self._denormalize(x, target_slice)
+                else:
+                    raise NotImplementedError
+                return x
+
+            def _get_statistics(self, x):
+                dims = tuple(range(1, x.ndim - 1))
+                self.mean = torch.mean(x, dim=dims, keepdim=True).detach()
+                self.stdev = torch.sqrt(
+                    torch.var(x, dim=dims, keepdim=True, unbiased=False) + self.eps
+                ).detach()
+
+            def _normalize(self, x):
+                x = (x - self.mean) / self.stdev
+                if self.affine:
+                    x = x * self.affine_weight + self.affine_bias
+                return x
+
+            def _denormalize(self, x, target_slice=None):
+                if self.affine:
+                    x = x - self.affine_bias[target_slice]
+                    x = x / (self.affine_weight + self.eps * self.eps)[target_slice]
+                x = x * self.stdev[:, :, target_slice]
+                return x + self.mean[:, :, target_slice]
+
+        class ResBlock(nn.Module):
+            def __init__(self, input_shape, dropout, ff_dim):
+                super().__init__()
+                self.norm1 = nn.BatchNorm1d(input_shape[0] * input_shape[1])
+                self.linear1 = nn.Linear(input_shape[0], input_shape[0])
+                self.dropout1 = nn.Dropout(dropout)
+                self.norm2 = nn.BatchNorm1d(input_shape[0] * input_shape[1])
+                self.linear2 = nn.Linear(input_shape[-1], ff_dim)
+                self.dropout2 = nn.Dropout(dropout)
+                self.linear3 = nn.Linear(ff_dim, input_shape[-1])
+                self.dropout3 = nn.Dropout(dropout)
+
+            def forward(self, x):
+                inputs = x
+                x = self.norm1(torch.flatten(x, 1, -1)).reshape(x.shape)
+                x = torch.transpose(x, 1, 2)
+                x = torch.nn.functional.relu(self.linear1(x))
+                x = torch.transpose(x, 1, 2)
+                x = self.dropout1(x)
+                res = x + inputs
+                x = self.norm2(torch.flatten(res, 1, -1)).reshape(res.shape)
+                x = torch.nn.functional.relu(self.linear2(x))
+                x = self.dropout2(x)
+                x = self.linear3(x)
+                x = self.dropout3(x)
+                return x + res
+
+        class Model(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.rev_norm = RevIN(n_features)
+                self.res_blocks = nn.ModuleList(
+                    [ResBlock((window - pred_len, n_features), dropout, ff_dim)
+                     for _ in range(n_block)]
+                )
+                self.linear = nn.Linear(window - pred_len, pred_len)
+
+            def forward(self, x):
+                x = self.rev_norm(x, "norm")
+                for res_block in self.res_blocks:
+                    x = res_block(x)
+                x = torch.transpose(x, 1, 2)
+                x = self.linear(x)
+                x = torch.transpose(x, 1, 2)
+                return self.rev_norm(x, "denorm", slice(None))
+
+        return Model()
+
+    def _causal_matrix(self, model, batch_x, batch_y):
+        """|d loss_j / d x| per output channel, symmetrised and thresholded."""
+        torch, _ = torch_modules()
+        criterion = torch.nn.MSELoss(reduction="sum")
+        model.zero_grad()
+        batch_x = batch_x.clone().detach().requires_grad_(True)
+        outputs = model(batch_x).float()
+        for features in range(outputs.shape[-1]):
+            model.zero_grad()
+            loss_i = criterion(outputs[:, :, features], batch_y[:, :, features])
+            loss_i.backward(retain_graph=True)
+            grad_i = torch.abs(batch_x.grad)
+            batch_x.grad = None
+            grad_i = grad_i.unsqueeze(3)
+            grad_causal_mat = (
+                grad_i if features == 0 else torch.cat([grad_causal_mat, grad_i], dim=3)
+            )
+        # (batch, input_channels, input_window, output_channels) -> mean over window
+        causal = torch.mean(grad_causal_mat, dim=1)
+        upper = torch.triu(causal, diagonal=0)
+        lower_transposed = torch.tril(causal, diagonal=-1).transpose(1, 2)
+        result = torch.triu(upper - lower_transposed, diagonal=0)
+        result_upper = torch.where(result < 0, torch.zeros_like(result), result)
+        result_lower = torch.where(
+            result < 0, torch.abs(result), torch.zeros_like(result)
+        ).transpose(1, 2)
+        causal = result_upper + result_lower
+        zero = torch.zeros_like(causal)
+        return torch.where(causal < self.sparse_th, zero, causal)
+
+    def _windows_and_targets(self, windows: np.ndarray):
+        head = windows[:, : self.window - self.pred_len, :]
+        tail = windows[:, self.window - self.pred_len :, :]
+        return head, tail
+
+    def fit(self, windows: np.ndarray) -> "GCADDetector":
+        torch, _ = torch_modules()
+        torch.manual_seed(self.seed)
+        np.random.seed(self.seed)
+        rng = np.random.default_rng(self.seed)
+        self._device = resolve_device(self.device)
+        model = self._build(windows.shape[-1]).to(self._device)
+        optimiser = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
+        criterion = torch.nn.MSELoss()
+        head, tail = self._windows_and_targets(windows)
+        data_x = torch.from_numpy(head.astype(np.float32))
+        data_y = torch.from_numpy(tail.astype(np.float32))
+        generator = torch.Generator().manual_seed(self.seed)
+        model.train()
+        for _ in range(self.epochs):
+            order = torch.randperm(len(data_x), generator=generator)
+            for start in range(0, len(data_x), self.batch_size):
+                index = order[start:start + self.batch_size]
+                batch_x = data_x[index].to(self._device)
+                batch_y = data_y[index].to(self._device)
+                optimiser.zero_grad()
+                loss = criterion(model(batch_x), batch_y)
+                loss.backward()
+                optimiser.step()
+        # Training causality matrix: sampled batches, as in the release.
+        model.eval()
+        collected = []
+        with torch.enable_grad():
+            for start in range(0, len(data_x), self.batch_size):
+                if rng.random() > self.sample_p and collected:
+                    continue
+                index = torch.arange(start, min(start + self.batch_size, len(data_x)))
+                batch_x = data_x[index].to(self._device)
+                batch_y = data_y[index].to(self._device)
+                collected.append(self._causal_matrix(model, batch_x, batch_y))
+        self._train_causal = torch.mean(torch.cat(collected, dim=0), dim=0).detach() + 1e-4
+        self._model = model
+        return self
+
+    def score(self, windows: np.ndarray) -> np.ndarray:
+        torch, _ = torch_modules()
+        model = self._model
+        model.eval()
+        head, tail = self._windows_and_targets(windows)
+        data_x = torch.from_numpy(head.astype(np.float32))
+        data_y = torch.from_numpy(tail.astype(np.float32))
+        scores = []
+        with torch.enable_grad():
+            for start in range(0, len(data_x), self.batch_size):
+                batch_x = data_x[start:start + self.batch_size].to(self._device)
+                batch_y = data_y[start:start + self.batch_size].to(self._device)
+                causal = self._causal_matrix(model, batch_x, batch_y)
+                relative = torch.abs(causal - self._train_causal) / self._train_causal
+                scores.append(torch.mean(relative, dim=(1, 2)).detach().cpu().numpy())
+        raw = np.concatenate(scores)
+        window = self.smoothing_window
+        if window > 1 and len(raw) > window:
+            kernel = np.ones(window) / window
+            smoothed = np.convolve(raw, kernel, mode="valid")
+            pad = (len(raw) - len(smoothed)) // 2
+            raw = np.concatenate(
+                [np.full(pad, smoothed[0]), smoothed, np.full(len(raw) - len(smoothed) - pad, smoothed[-1])]
+            )
+        return raw
+
+
 WINDOW_DETECTORS = {
     "usad": USADDetector,
     "anomaly_transformer": AnomalyTransformerDetector,
@@ -1819,6 +2062,7 @@ WINDOW_DETECTORS = {
     "itransformer": ITransformerDetector,
     "tranad": TranADDetector,
     "catch": CATCHDetector,
+    "gcad": GCADDetector,
 }
 
 

@@ -178,3 +178,26 @@ def test_catch_smoke() -> None:
     scores = detector.score(windows)
     assert scores.shape == (16, 32)
     assert np.isfinite(scores).all()
+
+
+def test_gcad_smoke() -> None:
+    pytest.importorskip("torch")
+    from iia_benchmark.models.mtsad_detectors import GCADDetector
+
+    rng = np.random.default_rng(29)
+    windows = rng.normal(size=(24, 12, 5)).astype(np.float32)
+    detector = GCADDetector(
+        window=12,
+        pred_len=2,
+        n_block=1,
+        ff_dim=16,
+        epochs=1,
+        batch_size=8,
+        sparse_th=0.0,
+        device="cpu",
+    )
+    detector.fit(windows)
+    scores = detector.score(windows)
+    assert scores.shape == (24,)
+    assert np.isfinite(scores).all()
+    assert (scores >= 0).all()
