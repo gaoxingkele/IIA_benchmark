@@ -13,5 +13,10 @@
 | dcdetector | SMD | 0.5183 | 0.8829 | 0.6532 | 0.675 | 0.0218 |
 | dcdetector | SWaT | 0.5375 | 0.9337 | 0.6823 | 0.696 | 0.0137 |
 | anomaly_transformer | MSL | 0.4830 | 0.9176 | 0.6329 | 0.692 | 0.0591 |
+| itransformer | MSL | 0.6002 | 0.5599 | 0.5794 | 0.710 | 0.1306 |
+| itransformer | PSM | 0.7608 | 0.7351 | 0.7477 | 0.854 | 0.1063 |
+| itransformer | SMAP | 0.5022 | 0.6583 | 0.5698 | 0.587 | 0.0172 |
+| itransformer | SMD | 0.8269 | 0.6664 | 0.7380 | 0.827 | 0.0890 |
+| itransformer | SWaT | 0.5998 | 0.8366 | 0.6987 | 0.718 | 0.0193 |
 
-Comparisons: 11. Mean absolute delta 0.0578. Worst 0.1608. Best 0.0137.
+Comparisons: 16. Mean absolute delta 0.0624. Worst 0.1608. Best 0.0137.

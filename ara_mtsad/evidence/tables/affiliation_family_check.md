@@ -85,6 +85,37 @@ the cross-paper disagreement within a few points, that TimesNet is the cleanest
 case, and that DCdetector on PSM and SMAP remains an open disagreement which the
 conversion narrowed but did not close.
 
+## iTransformer: two columns agree, three do not
+
+| Dataset | affiliation F1 (re-run) | CATCH iTrans Aff-F | delta |
+|---|---|---|---|
+| SMAP | 0.5698 | 0.587 | 0.0172 |
+| SWaT | 0.6987 | 0.718 | 0.0193 |
+| SMD | 0.7380 | 0.827 | 0.0890 |
+| PSM | 0.7477 | 0.854 | 0.1063 |
+| MSL | 0.5794 | 0.710 | 0.1306 |
+
+Unlike TimesNet, whose five columns all agree within 0.068, iTransformer agrees on
+two and misses on three. Its budget is only published for MSL, so the other four
+datasets reuse MSL's setting and their rows are cross-checks rather than verdicts;
+that caveat alone could explain part of the spread.
+
+## What the sixteen comparisons now say
+
+| Group | comparisons | mean abs delta | range |
+|---|---|---|---|
+| TimesNet | 5 | 0.0447 | 0.032 - 0.068 |
+| DCdetector | 5 | 0.0706 | 0.014 - 0.161 |
+| iTransformer | 5 | 0.0725 | 0.017 - 0.131 |
+| Anomaly Transformer | 1 | 0.0591 | - |
+| All | 16 | 0.0624 | 0.014 - 0.161 |
+
+The pattern that survives all sixteen rows is the one C06 states: the residual
+differences track the model and its (partly unpublished) training configuration,
+not the dataset column and not the metric family. TimesNet - the one model whose
+release publishes a full per-dataset budget - is also the one that agrees
+everywhere, which is the same pattern the point-adjusted comparison showed.
+
 ## Caveats
 
 - The affiliation numbers are read at the harness's own percentile threshold, not

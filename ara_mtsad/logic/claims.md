@@ -112,13 +112,13 @@ dataset where the point-adjusted comparison was furthest off - so the apparent
 cross-paper disagreement is dominated by the metric family rather than by the
 model or the data.
 
-**Conditions**: Holds for eleven converted comparisons (TimesNet and DCdetector on
-all five datasets, the Anomaly Transformer on MSL) with a mean absolute delta of
-0.058 at this harness's own percentile threshold rather than the third party's
-operating point. It does **not** hold uniformly: DCdetector on PSM and SMAP stays
-0.13-0.16 away, and the published DC column is flat across datasets where this
-artifact's re-run is not, so the claim is bounded to "the family explains most of
-the disagreement", not all of it.
+**Conditions**: Holds for sixteen converted comparisons (TimesNet and DCdetector
+and iTransformer on all five datasets, plus the Anomaly Transformer on MSL) with a
+mean absolute delta of 0.062 at this harness's own percentile threshold rather than
+the third party's operating point. It does **not** hold uniformly: DCdetector on
+SMAP stays 0.161 away and iTransformer on MSL 0.131, and the published DC column is
+flat across datasets where this artifact's re-run is not. The claim is therefore
+bounded to "the family explains most of the disagreement", not all of it.
 
 **Falsification criteria**: Falsified if a further conversion of a different model
 lands far outside the band, or if the third party's numbers can be shown to use a
