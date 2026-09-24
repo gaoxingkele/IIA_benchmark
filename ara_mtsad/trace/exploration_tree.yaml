@@ -176,6 +176,15 @@ nodes:
       - "decisionintelligence/CATCH@master scripts/multivariate_detection/detect_label/{MSL,SMD}_script/CATCH.sh"
     rationale: "Its data arrives through a separate mirror and its table uses the affiliation family; both must be reconciled with the pinned payload and the point-adjusted family before a verdict is meaningful."
 
+  - id: N2
+    type: next_step
+    text: "Transcribe CATCH: the remaining registered SOTA that both has a published table and is already metric-aligned, since this artifact's affiliation conversion now exists."
+    support_level: explicit
+    source_refs:
+      - "ara_mtsad/evidence/tables/registered_sota_status.md"
+      - "decisionintelligence/CATCH@master ts_benchmark/baselines/catch (CATCH.py 15 KB, CATCH_model.py 6 KB, cross_channel_Transformer.py 5 KB, fre_rec_loss.py 6 KB, channel_mask.py, RevIN.py, ch_discover_loss.py, tools.py)"
+    rationale: "Roughly 43 KB across ten files, so it is a multi-iteration transcription rather than a configuration change; the per-dataset budgets are already pinned from the release's scripts and the affiliation comparison table already accepts new models."
+
   - id: F3
     type: finding
     text: "Converting the re-runs into the affiliation family puts TimesNet within 0.032-0.068 of CATCH's independently published numbers on all five datasets, and the Anomaly Transformer within 0.059 on MSL - the column where the point-adjusted comparison was furthest off - so the cross-paper disagreement is dominated by the metric family."
