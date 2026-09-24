@@ -109,6 +109,7 @@ def run_single(
     device: str,
     epoch_scale: float = 1.0,
     cache: dict | None = None,
+    save_scores: bool = False,
 ) -> dict:
     cache = cache if cache is not None else {}
     if dataset not in cache:
@@ -218,7 +219,7 @@ def run_single(
         )
         results[name] = metrics
 
-    return {
+    record = {
         "dataset": dataset,
         "model": model,
         "seed": seed,
@@ -236,6 +237,9 @@ def run_single(
         "device": device,
         "protocols": results,
     }
+    if save_scores:
+        record["_layouts"] = layouts
+    return record
 
 
 def main() -> int:
@@ -255,6 +259,12 @@ def main() -> int:
         type=float,
         default=1.0,
         help="Scale deep-model epochs (smoke runs use a fraction of the reference budget).",
+    )
+    parser.add_argument(
+        "--save-scores",
+        action="store_true",
+        help="Persist the per-layout train/test scores next to the run record so "
+        "alternative thresholds can be re-derived without retraining.",
     )
     parser.add_argument("--tag", default="")
     args = parser.parse_args()
@@ -284,12 +294,23 @@ def main() -> int:
                     device=args.device,
                     epoch_scale=args.epoch_scale,
                     cache=cache,
+                    save_scores=args.save_scores,
                 )
+                layouts = record.pop("_layouts", None)
                 record["wall_seconds"] = time.time() - started
                 record["git_revision"] = revision
                 record["python"] = platform.python_version()
                 records.append(record)
                 path = out_dir / f"{dataset}__{model}__seed{seed}.json"
+                if layouts is not None:
+                    arrays = {}
+                    for layout_name, (train_layout, test_layout, truth_layout) in layouts.items():
+                        arrays[f"{layout_name}__train"] = np.asarray(train_layout, dtype=np.float64)
+                        arrays[f"{layout_name}__test"] = np.asarray(test_layout, dtype=np.float64)
+                        arrays[f"{layout_name}__truth"] = np.asarray(truth_layout, dtype=bool)
+                    np.savez_compressed(
+                        out_dir / f"{dataset}__{model}__seed{seed}__scores.npz", **arrays
+                    )
                 path.write_text(
                     json.dumps(record, ensure_ascii=False, indent=2) + "\n",
                     encoding="utf-8",

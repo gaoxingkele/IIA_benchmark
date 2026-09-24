@@ -53,6 +53,33 @@ while the papers report 0.94-0.97. A single shared cause inside the harness woul
 have to act on two architecturally different models in the same direction, which
 is why the gap is recorded as an open discrepancy rather than attributed.
 
+### Two further tests on the MSL gap
+
+**Seed variance does not explain it.** Re-running the Anomaly Transformer on MSL
+with four seeds (reference budget: ratio 1, 3 epochs, batch 256) gives adjusted F1
+0.8557, 0.8478, 0.8540 and 0.8396 - a spread of 0.016 and a mean of 0.8493. The
+published 0.9359 lies 0.080 above the best of the four, well outside the spread.
+
+**Threshold placement does not explain it.** Persisting the scores
+(`run_reproduction.py --save-scores`) and sweeping 200 thresholds from the median
+to the 99.99th percentile (`scripts/mtsad/sweep_thresholds.py`) gives an oracle
+ceiling of **0.8646** adjusted F1 for this score ranking, against 0.8557 at the
+reference percentile threshold. No threshold on these scores reaches the
+published 0.9359, so the difference is in the score ranking itself, not in where
+the threshold is placed.
+
+| Quantity | Value |
+|---|---|
+| adjusted F1 at the reference percentile threshold | 0.8557 |
+| adjusted F1 at the best threshold (oracle over 200 quantiles) | 0.8646 |
+| published adjusted F1 | 0.9359 |
+| oracle gap to published | 0.0713 |
+
+That is the strongest form this artifact can give the finding: the MSL column of
+the anchor table is not reachable by re-thresholding a transcription of the
+released architecture, so the discrepancy is a property of the re-run's score
+ranking and remains open.
+
 ## USAD (non-adversarial ablation)
 
 The paper's adversarial second loss term is unbounded and diverged on the pinned

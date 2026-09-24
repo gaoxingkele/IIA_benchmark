@@ -1,6 +1,6 @@
 # Re-run versus published numbers (reference protocol)
 
-Generated 2026-09-24 from 92 run records.
+Generated 2026-09-24 from 96 run records.
 Reference protocol = percentile threshold over pooled train+test energy
 (the rule used by the anchor papers) plus point adjustment.
 
@@ -44,6 +44,10 @@ Reference protocol = percentile threshold over pooled train+test energy
 |---|---|---|---|---|---|
 | AnomalyTransformer | MSL | win100/step1/ratio0.5 | 0.8490 | 0.0114 | 0.0136 |
 | AnomalyTransformer | MSL | win100/step1/ratio1/ep3/bs256 | 0.8557 | 0.0182 | 0.0158 |
+| AnomalyTransformer | MSL | win100/step1/ratio1/ep3/bs256 | 0.8557 | 0.0182 | 0.0158 |
+| AnomalyTransformer | MSL | win100/step1/ratio1/ep3/bs256 | 0.8478 | 0.0174 | 0.0156 |
+| AnomalyTransformer | MSL | win100/step1/ratio1/ep3/bs256 | 0.8540 | 0.0174 | 0.0190 |
+| AnomalyTransformer | MSL | win100/step1/ratio1/ep3/bs256 | 0.8396 | 0.0171 | 0.0186 |
 | AnomalyTransformer | PSM | win100/step1/ratio0.5 | 0.9662 | 0.0200 | 0.0423 |
 | AnomalyTransformer | PSM | win100/step1/ratio1 | 0.9688 | 0.0220 | 0.0625 |
 | AnomalyTransformer | SMAP | win100/step1/ratio1/ep3/bs256 | 0.9535 | 0.0219 | 0.0291 |
