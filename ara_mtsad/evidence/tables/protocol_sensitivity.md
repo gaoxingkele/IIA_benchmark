@@ -1,7 +1,7 @@
 # Protocol sensitivity
 
 Derived on 2026-09-25 by `scripts/mtsad/derive_protocol_evidence.py`
-from 133 run records in `experiments/runs/mtsad_reproduction/`.
+from 134 run records in `experiments/runs/mtsad_reproduction/`.
 Each detector is scored once per run; the rows below differ only in the
 declared protocol, so the spread is attributable to the protocol.
 
@@ -63,6 +63,7 @@ declared protocol, so the spread is attributable to the protocol.
 | SWAT | AnomalyTransformer | 0.8754 | 0.0137 | 0.0071 | 64.0 |
 | SWAT | catch | 0.8492 | 0.0850 | 0.1704 | 10.0 |
 | SWAT | dcdetector | 0.9518 | 0.0190 | 0.0246 | 50.0 |
+| SWAT | gcad | 0.9417 | 0.0292 | 0.0959 | 32.3 |
 | SWAT | IsolationForest | 0.7932 | 0.2352 | 0.0016 | 3.4 |
 | SWAT | itransformer | 0.9116 | 0.0316 | 0.0616 | 28.9 |
 | SWAT | kNN | 0.8221 | 0.2894 | 0.2314 | 2.8 |
@@ -130,6 +131,7 @@ declared protocol, so the spread is attributable to the protocol.
 | SWAT | AnomalyTransformer | 0.8754 | 0.9018 |
 | SWAT | catch | 0.8492 | 0.2166 |
 | SWAT | dcdetector | 0.9518 | 0.2187 |
+| SWAT | gcad | 0.9417 | 0.2229 |
 | SWAT | IsolationForest | 0.7932 | 0.8493 |
 | SWAT | itransformer | 0.9116 | 0.2166 |
 | SWAT | kNN | 0.8221 | 0.8479 |
@@ -197,6 +199,7 @@ declared protocol, so the spread is attributable to the protocol.
 | SWAT | AnomalyTransformer | 0.9018 | 0.8741 |
 | SWAT | catch | 0.2166 | 0.8538 |
 | SWAT | dcdetector | 0.2187 | 0.9417 |
+| SWAT | gcad | 0.2229 | 0.9416 |
 | SWAT | IsolationForest | 0.8493 | 0.7932 |
 | SWAT | itransformer | 0.2166 | 0.8903 |
 | SWAT | kNN | 0.8479 | 0.8221 |

@@ -17,7 +17,7 @@ persisted score series.
 | PSM | 0.6549 | 0.7618 | 0.1069 | 0.4340 | 0.6136 | 0.1796 |
 | MSL | 0.5634 | 0.7658 | 0.2024 | 0.1481 | 0.3679 | 0.2198 |
 | SMAP | 0.4948 | 0.7273 | 0.2325 | 0.1368 | 0.4555 | 0.3187 |
-| SWaT | pending | 0.8690 | - | pending | 0.7758 | - |
+| SWaT | 0.3932 | 0.8690 | 0.4758 | 0.1047 | 0.7758 | 0.6711 |
 
 ## What was ruled out, and what was not
 
@@ -50,9 +50,15 @@ whose published recipe could not be matched end to end, and its verdict is
 withheld for the same reason - the remaining deviations are documented and the
 gap is reported rather than closed by tuning.
 
-One row sharpens the reading: SMAP lands at 0.4948 AUROC, i.e. a coin flip, on a
-dataset where the same harness reproduces TimesNet, the Anomaly Transformer and
-DCdetector within a few points. A chance-level ranking on one dataset with a
-documented target deviation is more consistent with the causal score not being
-comparable at that window length than with a general harness fault, but the
-artifact does not claim which, and the row is left as an open discrepancy.
+Two rows sharpen the reading. SMAP lands at 0.4948 AUROC, a coin flip, on a dataset
+where the same harness reproduces TimesNet, the Anomaly Transformer and DCdetector
+within a few points; SWaT lands at 0.3932, i.e. **worse than chance**, with the
+lowest AUPRC in the table. A ranking that inverts on one dataset is not explained
+by a misplaced threshold (these metrics have none) or by a training budget alone;
+it is what a score whose direction is wrong on that dataset looks like, which is
+the expected failure mode of a causal-deviation score computed at a window length
+the release did not use (SWaT's seq_len is 5).
+
+The artifact records this as an open discrepancy and does not claim the cause. It
+does claim the bound: because AUROC and AUPRC need no threshold, no threshold rule
+can account for any of the five GCAD rows.

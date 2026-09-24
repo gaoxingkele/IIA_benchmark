@@ -1,6 +1,6 @@
 # Re-run versus published numbers (reference protocol)
 
-Generated 2026-09-25 from 133 run records.
+Generated 2026-09-25 from 134 run records.
 Reference protocol = percentile threshold over pooled train+test energy
 (the rule used by the anchor papers) plus point adjustment.
 
@@ -100,6 +100,7 @@ whether a column can be trusted at all.
 | gcad | SMAP | win70/step1/ratio1/ep10/bs128 | 0.6524 | 0.0362 | 0.0559 |
 | gcad | SMAP | win70/step1/ratio1/ep10/bs128 | 0.6526 | 0.0358 | 0.0579 |
 | gcad | SMD | win30/step100/ratio0.5/ep10/bs128 | 0.0956 | 0.0677 | 0.0764 |
+| gcad | SWAT | win5/step1/ratio1/ep10/bs128 | 0.9417 | 0.0292 | 0.0959 |
 | IsolationForest | MSL | win100/step1/ratio0.5 | 0.8779 | 0.0334 | 0.0117 |
 | IsolationForest | MSL | win100/step1/ratio0.5 | 0.8309 | 0.0300 | 0.0099 |
 | IsolationForest | MSL | win100/step1/ratio0.5 | 0.8751 | 0.0412 | 0.0134 |
