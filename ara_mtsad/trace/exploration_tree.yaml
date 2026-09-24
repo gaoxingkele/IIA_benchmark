@@ -195,3 +195,12 @@ nodes:
       - "ara_mtsad/evidence/tables/tranad_check.md"
       - "scripts/mtsad/score_pot.py"
     rationale: "The release normalises the score array before calling pot_eval and tuned lm_d on that scale; on raw scores the initial threshold sits three orders of magnitude below the data maximum and the GPD extrapolation yields thresholds above the maximum for MSL, SMAP and SWaT, so nothing is detected. Reported rather than tuned away."
+
+  - id: X5b
+    type: correction
+    text: "The dead end above attributed the POT failure to a normalisation step the release does not actually perform; re-reading main.py and calling the release's own vendored SPOT shows the failure was in this artifacts implementation, and that neither threshold rule reproduces TranAD's published numbers."
+    support_level: explicit
+    source_refs:
+      - "ara_mtsad/evidence/tables/tranad_check.md#Correction: the release's own SPOT was then run instead"
+      - "tmp/mtsad_recon/pot_reference_spots.py"
+    rationale: "With the release's SPOT the deltas are 0.557 (MSL), 0.203 (SMAP) and 0.218 (SWaT), so the threshold mechanism is ruled out and the residual gap is attributed to the model fit and to the data span (their loader evaluates one representative series per dataset)."

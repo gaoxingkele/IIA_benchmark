@@ -38,11 +38,35 @@ On three datasets the threshold lands above the maximum score, i.e. nothing is
 detected. The cause is visible in the same table: the initial POT threshold is a
 99.9th (MSL) or 2nd (SMAP) percentile of the training scores that sits at 0.005
 and 0.017 while the maxima are 1060 and 5497, so the GPD tail extrapolation is
-unstable at that scale. The release does not threshold raw errors - it normalises
-the score array before calling `pot_eval`, and the `lm_d` values were tuned for
-that normalised scale. Reproducing their operating point therefore requires their
-normalisation as well, which this iteration did not reimplement; the numbers
-above are reported rather than tuned until they look plausible.
+unstable at that scale.
+
+### Correction: the release's own SPOT was then run instead
+
+The first reading of that failure was that the release normalises its scores
+before thresholding. Inspecting `main.py` shows it does **not**: it passes the raw
+per-timestep loss to `pot_eval` and averages over features for the dataset-level
+result. The failure was therefore in this artifact's implementation of the
+algorithm, not in a missing normalisation step.
+
+The release vendors SPOT as `src/spot.py`, so the honest fix is to call *their*
+code. `tmp/mtsad_recon/pot_reference_spots.py` (a scratch script, since the file
+is third-party) imports their `SPOT` and reproduces `pot.py` line for line -
+`SPOT(q)`, `fit(train, test)`, `initialize(level=lm_d[0], min_extrema=False)`,
+`run(dynamic=False)`, `mean(thresholds) * lm_d[1]` - on this artifact's persisted
+scores:
+
+| Dataset | SPOT threshold | test max | SPOT-thresholded F1-PA | reference-protocol F1-PA | published F1 |
+|---|---|---|---|---|---|
+| MSL | 41.03 | 1469.72 | 0.3929 | 0.6947 | 0.9494 |
+| SMAP | 5.00 | 5497.21 | 0.6885 | 0.5898 | 0.8915 |
+| SWaT | 7.84 | 94.82 | 0.5971 | 0.7918 | 0.8151 |
+| SMD | SPOT raised on an empty exceedance set at level 0.99995 | 14193.95 | run failed | 0.1470 | 0.9605 |
+
+This is the decisive comparison: with the release's own threshold code, the gap
+to the published numbers does not close - it is 0.557 on MSL, 0.203 on SMAP and
+0.218 on SWaT, and SMD cannot even be thresholded at the released `level`. Two
+threshold rules were tried and neither reproduces the paper, so the threshold
+mechanism is ruled out as the explanation.
 
 ## Two structural caveats on this comparison
 
@@ -59,9 +83,12 @@ above are reported rather than tuned until they look plausible.
 ## Reading
 
 TranAD is the one registered SOTA whose published recipe could not be matched
-end-to-end in this iteration: the model was transcribed, but its threshold
-mechanism depends on a score normalisation the paper does not state and the
-release applies implicitly, and its published numbers may be computed on a
-different data span than the pinned payload. Its reference-protocol row is
-reported as a diagnostic with those two caveats attached, and its verdict is
-withheld rather than issued against a protocol the paper does not use.
+end-to-end. The model was transcribed, both plausible threshold rules were tried
+(this artifact's percentile rule and the release's own SPOT), and neither
+reproduces the paper. What remains is the data span and the fit: the release's
+`load_dataset` evaluates a single representative series per dataset while its own
+Table 2 lists whole-dataset sizes, and `params.json` keys the threshold parameters
+by file prefix, so the released pipeline that produced the 0.95/0.89/0.96 rows is
+not the pipeline these re-runs reproduce. The verdict is withheld and the row is
+reported as a diagnostic, with both threshold rules published next to it so the
+reader can see that the choice of rule was not what decided the outcome.
