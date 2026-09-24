@@ -146,3 +146,13 @@ nodes:
       - "configs/models/mtsad_dcdetector.json"
       - "DAMO-DI-ML/KDD2023-DCdetector scripts/{SMD,MSL,SMAP,PSM,SWAT}.sh"
     children: [E06]
+
+  - id: F1
+    type: finding
+    text: "Eight of ten deep detector/dataset pairs reproduce within three F1 points, and both outliers are MSL, where two architecturally different transcriptions land about 0.08-0.11 below the published values."
+    support_level: explicit
+    source_refs:
+      - "ara_mtsad/evidence/tables/rerun_vs_published.md"
+      - "ara_mtsad/evidence/tables/rerun_deep_status.md"
+    rationale: "The data file, scaler, window, threshold rule and point-adjustment definition were each verified identical to the reference code, so the gap is recorded as open rather than assigned a cause."
+    evidence: [C06]

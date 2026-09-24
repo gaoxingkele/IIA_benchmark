@@ -82,3 +82,22 @@ the deep baselines whose reported numbers were produced by their own harnesses.
 systematically below the quoted classical baseline rows across all five payloads.
 
 **Proof**: E01, E04.
+
+## C06 - Reproduction fidelity is dataset-specific, not method-specific
+
+**Statement**: Two independently transcribed detectors reproduce the published
+numbers on most datasets of the family and both fail on the same one, so the
+reliability of a reported score is a property of the dataset's evaluation setup
+rather than of the model that achieved it.
+
+**Conditions**: Established for the two deep detectors re-run here under the
+reference protocol; it does not claim that every dataset outside the family
+behaves this way, nor that a third transcription would fail in the same place.
+
+**Falsification criteria**: Falsified if a third independently transcribed deep
+detector reproduces MSL within the same band that the other datasets reach, while
+keeping the data file, scaler, window and threshold rule fixed.
+
+**Dependencies**: C01.
+
+**Proof**: E03, E06.
