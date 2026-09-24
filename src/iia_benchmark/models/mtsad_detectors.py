@@ -1849,6 +1849,7 @@ class GCADDetector(Detector):
     learning_rate: float = 1e-4
     batch_size: int = 128
     smoothing_window: int = 3
+    target_mode: str = "next_steps"
     seed: int = 1103
     device: str = "auto"
     kind = "window"
@@ -1857,9 +1858,9 @@ class GCADDetector(Detector):
     _device: Any = field(default=None, repr=False)
     _train_causal: Any = field(default=None, repr=False)
 
-    def _build(self, n_features: int):
+    def _build(self, n_features: int, input_len: int):
         torch, nn = torch_modules()
-        window = self.window
+        window = input_len
         pred_len = self.pred_len
         n_block = self.n_block
         ff_dim = self.ff_dim
@@ -1937,10 +1938,10 @@ class GCADDetector(Detector):
                 super().__init__()
                 self.rev_norm = RevIN(n_features)
                 self.res_blocks = nn.ModuleList(
-                    [ResBlock((window - pred_len, n_features), dropout, ff_dim)
+                    [ResBlock((window, n_features), dropout, ff_dim)
                      for _ in range(n_block)]
                 )
-                self.linear = nn.Linear(window - pred_len, pred_len)
+                self.linear = nn.Linear(window, pred_len)
 
             def forward(self, x):
                 x = self.rev_norm(x, "norm")
@@ -1984,8 +1985,24 @@ class GCADDetector(Detector):
         return torch.where(causal < self.sparse_th, zero, causal)
 
     def _windows_and_targets(self, windows: np.ndarray):
-        head = windows[:, : self.window - self.pred_len, :]
-        tail = windows[:, self.window - self.pred_len :, :]
+        """Return (input windows, forecast targets) for the configured mode.
+
+        ``next_steps`` follows the release: the input is the whole window and the
+        target is the ``pred_len`` steps that follow it, which the harness can
+        recover from the next window whenever windows overlap by ``window - 1``
+        (stride 1).  ``window_tail`` exists only for SMD, whose stride of 100
+        makes the following steps unavailable through the window interface; it
+        forecasts the window's own tail instead and is recorded as a deviation.
+        """
+
+        if self.target_mode == "window_tail":
+            head = windows[:, : self.window - self.pred_len, :]
+            tail = windows[:, self.window - self.pred_len :, :]
+            return head, tail
+        if len(windows) <= self.pred_len:
+            raise ValueError("not enough windows to recover the forecast target")
+        head = windows[: len(windows) - self.pred_len]
+        tail = windows[self.pred_len :, self.window - self.pred_len :, :]
         return head, tail
 
     def fit(self, windows: np.ndarray) -> "GCADDetector":
@@ -1994,10 +2011,10 @@ class GCADDetector(Detector):
         np.random.seed(self.seed)
         rng = np.random.default_rng(self.seed)
         self._device = resolve_device(self.device)
-        model = self._build(windows.shape[-1]).to(self._device)
+        head, tail = self._windows_and_targets(windows)
+        model = self._build(windows.shape[-1], head.shape[1]).to(self._device)
         optimiser = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
         criterion = torch.nn.MSELoss()
-        head, tail = self._windows_and_targets(windows)
         data_x = torch.from_numpy(head.astype(np.float32))
         data_y = torch.from_numpy(tail.astype(np.float32))
         generator = torch.Generator().manual_seed(self.seed)

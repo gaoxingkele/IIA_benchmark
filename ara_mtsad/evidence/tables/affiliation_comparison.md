@@ -22,5 +22,6 @@
 | catch | PSM | 0.8298 | 0.6887 | 0.7527 | 0.859 | 0.1063 |
 | catch | SMAP | 0.5371 | 0.8442 | 0.6565 | 0.699 | 0.0425 |
 | catch | SMD | 0.7607 | 0.9084 | 0.8280 | 0.847 | 0.0190 |
+| catch | SWaT | 0.6204 | 0.8612 | 0.7213 | 0.755 | 0.0337 |
 
-Comparisons: 20. Mean absolute delta 0.0613. Worst 0.1608. Best 0.0137.
+Comparisons: 21. Mean absolute delta 0.0600. Worst 0.1608. Best 0.0137.

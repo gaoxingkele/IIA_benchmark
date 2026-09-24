@@ -198,6 +198,7 @@ def test_gcad_smoke() -> None:
     )
     detector.fit(windows)
     scores = detector.score(windows)
-    assert scores.shape == (24,)
+    # next_steps mode drops the pred_len windows whose future is unavailable.
+    assert scores.shape == (24 - 2,)
     assert np.isfinite(scores).all()
     assert (scores >= 0).all()

@@ -17,7 +17,7 @@
     "seed": 1103
   },
   "dataset_overrides": {
-    "smd": {"window": 30, "pred_len": 1, "n_block": 3, "ff_dim": 1024, "sparse_th": 0.005, "anomaly_ratio": 0.5},
+    "smd": {"window": 30, "pred_len": 1, "n_block": 3, "ff_dim": 1024, "sparse_th": 0.005, "anomaly_ratio": 0.5, "target_mode": "window_tail"},
     "msl": {"window": 30, "pred_len": 1, "n_block": 5, "ff_dim": 1024, "sparse_th": 0.002, "anomaly_ratio": 1.0},
     "smap": {"window": 70, "pred_len": 1, "n_block": 6, "ff_dim": 1024, "sparse_th": 0.008, "anomaly_ratio": 1.0},
     "psm": {"window": 30, "pred_len": 5, "n_block": 2, "ff_dim": 128, "sparse_th": 0.005, "sample_p": 0.1, "anomaly_ratio": 1.0},
@@ -28,5 +28,6 @@
   "source": "AAAI 2025 GCAD; the TSMixerRevIN forecaster with its RevIN and residual blocks, the gradient causality matrix with its triangle symmetrisation and sparse threshold, and the relative-deviation anomaly score are transcribed from github.com/Tc99m/GCAD (models/common.py, models/tsmixer.py, test.py).",
   "hyperparameter_note": "Per-dataset budgets come from the release's run.sh. Its train_epochs default is 100 with patience 2 against a validation split; this harness trains a fixed 10 epochs on the training split.",
   "deviation_note": "Three deviations are recorded rather than hidden: the target is the tail of each window instead of the steps following it (the detector interface only sees windows), the release's test stride of 5 (SWaT) and 10 (PSM) is not reproduced, and early stopping is replaced by a fixed budget.",
+  "target_note": "For the four datasets whose windows overlap with stride 1, the forecast target is the pred_len steps that follow each window, recovered from the next window, which matches the release. SMD's stride of 100 makes that impossible through the window interface, so SMD alone uses target_mode window_tail and is reported with that deviation.",
   "citation_doi": "10.1609/aaai.v39i18.34096"
 }
