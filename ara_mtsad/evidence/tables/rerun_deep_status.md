@@ -64,6 +64,30 @@ evidence that the MSL column is unreliable.
 The same correction applies to SWaT in the opposite direction: AT is 0.0668 off
 there while TimesNet is 0.0083 off, so SWaT's column is also reachable.
 
+### The architecture explanation does not survive either
+
+iTransformer was added afterwards as a diagnostic model (the release ships an
+anomaly-detection script for MSL only, and no point-adjusted iTransformer number
+for these datasets exists in this artifact's corpus, so it produces no verdict).
+On MSL it scores **0.7126**, the lowest of the four deep models re-run there:
+
+| Model on MSL | Re-run F1-PA | Published F1 | Delta |
+|---|---|---|---|
+| TimesNet | 0.8133 | 0.8418 | 0.0285 |
+| Anomaly Transformer | 0.8557 | 0.9393 | 0.0836 |
+| DCdetector | 0.8512 | 0.9660 | 0.1148 |
+| iTransformer | 0.7126 | not published in this corpus | - |
+
+The ordering does not follow the architecture family: iTransformer is
+attention-based and ranks last, TimesNet is convolution-based and ranks first,
+and the two attention models with references sit between them. What the four runs
+*do* differ in is the training budget, which the releases state only partially
+(TimesNet 1 epoch at d_model 8, AT 3 epochs at batch 256, DCdetector 3 epochs at
+batch 64, iTransformer 10 epochs at d_model 128). The defensible reading of the
+MSL column is therefore narrower than either earlier reading: it is reachable,
+and the residual gaps track the training configuration rather than the column or
+the architecture.
+
 MSL is again the largest delta, and this time the paper's own configuration table
 explains why it is not a payload difference: four of its five dataset rows sum to
 exactly the pinned training sizes (SMD 708405, SMAP 135183, PSM 132481, SWaT

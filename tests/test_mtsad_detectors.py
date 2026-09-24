@@ -111,3 +111,26 @@ def test_timesnet_smoke() -> None:
     assert scores.shape == (16, 32)
     assert np.isfinite(scores).all()
     assert (scores >= 0).all()
+
+
+def test_itransformer_smoke() -> None:
+    pytest.importorskip("torch")
+    from iia_benchmark.models.mtsad_detectors import ITransformerDetector
+
+    rng = np.random.default_rng(9)
+    windows = rng.normal(size=(16, 24, 5)).astype(np.float32)
+    detector = ITransformerDetector(
+        window=24,
+        d_model=16,
+        d_ff=16,
+        e_layers=1,
+        n_heads=4,
+        epochs=1,
+        batch_size=8,
+        device="cpu",
+    )
+    detector.fit(windows)
+    scores = detector.score(windows)
+    assert scores.shape == (16, 24)
+    assert np.isfinite(scores).all()
+    assert (scores >= 0).all()

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "mtsad_itransformer",
+  "family": "mtsad_benchmark",
+  "entrypoint": "iia_benchmark.models.mtsad_detectors:ITransformerDetector",
+  "parameters": {
+    "window": 100,
+    "d_model": 128,
+    "d_ff": 128,
+    "e_layers": 3,
+    "n_heads": 8,
+    "factor": 3,
+    "dropout": 0.1,
+    "epochs": 10,
+    "learning_rate": 0.0001,
+    "batch_size": 128,
+    "seed": 1103
+  },
+  "dataset_overrides": {
+    "msl": {"d_model": 128, "d_ff": 128, "e_layers": 3, "anomaly_ratio": 1.0, "epochs": 10, "batch_size": 128}
+  },
+  "kind": "window",
+  "reproduction_status": "transcribed_reference_implementation_diagnostic_only",
+  "source": "ICLR 2024 iTransformer; inverted embedding, encoder and time-axis projection transcribed from github.com/thuml/Time-Series-Library (models/iTransformer.py, layers/Embed.py, layers/Transformer_EncDec.py, layers/SelfAttention_Family.py).",
+  "scope_note": "The release ships an anomaly-detection script for MSL only, and this artifact's corpus contains no point-adjusted iTransformer number for these datasets (CATCH reports it in the affiliation family). The detector therefore runs on MSL as a diagnostic model: it tests whether the residual MSL gap follows the attention family, and it produces no verdict row.",
+  "citation_doi": "10.48550/arXiv.2310.06625"
+}

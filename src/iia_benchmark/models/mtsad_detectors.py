@@ -1052,11 +1052,170 @@ class TimesNetDetector(Detector):
         return np.concatenate(scores)
 
 
+@dataclass
+class ITransformerDetector(Detector):
+    """iTransformer reconstruction detector (ICLR 2024).
+
+    # Grounding: transcribed
+    # sources: github.com/thuml/Time-Series-Library
+    #   - models/iTransformer.py (inverted embedding, encoder, projection back to
+    #     the time axis, anomaly-detection normalisation)
+    #   - layers/Embed.py (DataEmbedding_inverted)
+    #   - layers/Transformer_EncDec.py (EncoderLayer, Encoder)
+    #   - layers/SelfAttention_Family.py (FullAttention, AttentionLayer)
+    # Status: diagnostic model. The release publishes an anomaly-detection script
+    # only for MSL, and no point-adjusted number for this model exists in this
+    # artifact's corpus, so it is used to test whether the residual MSL/SWaT gaps
+    # follow the attention family rather than to produce a verdict row.
+    """
+
+    window: int = 100
+    d_model: int = 128
+    d_ff: int = 128
+    e_layers: int = 3
+    n_heads: int = 8
+    factor: int = 3
+    dropout: float = 0.1
+    activation: str = "gelu"
+    epochs: int = 10
+    learning_rate: float = 1e-4
+    batch_size: int = 128
+    seed: int = 1103
+    device: str = "auto"
+    kind = "window"
+    name = "itransformer"
+    _model: Any = field(default=None, repr=False)
+    _device: Any = field(default=None, repr=False)
+
+    def _build(self, n_features: int):
+        torch, nn = torch_modules()
+        window = self.window
+        heads = self.n_heads
+        d_model = self.d_model
+        d_ff = self.d_ff
+        dropout = self.dropout
+        activation = nn.GELU if self.activation == "gelu" else nn.ReLU
+        layers = self.e_layers
+
+        class FullAttention(nn.Module):
+            def forward(self, queries, keys, values, attn_mask):
+                batch, length, head, embed = queries.shape
+                scale = 1.0 / math.sqrt(embed)
+                scores = torch.einsum("blhe,bshe->bhls", queries, keys)
+                attn = torch.softmax(scale * scores, dim=-1)
+                out = torch.einsum("bhls,bshd->blhd", attn, values)
+                return out.contiguous(), attn
+
+        class AttentionLayer(nn.Module):
+            def __init__(self):
+                super().__init__()
+                d_keys = d_model // heads
+                self.query_projection = nn.Linear(d_model, d_keys * heads)
+                self.key_projection = nn.Linear(d_model, d_keys * heads)
+                self.value_projection = nn.Linear(d_model, d_keys * heads)
+                self.out_projection = nn.Linear(d_keys * heads, d_model)
+                self.inner_attention = FullAttention()
+
+            def forward(self, x):
+                batch, length, _ = x.shape
+                queries = self.query_projection(x).view(batch, length, heads, -1)
+                keys = self.key_projection(x).view(batch, length, heads, -1)
+                values = self.value_projection(x).view(batch, length, heads, -1)
+                out, attn = self.inner_attention(queries, keys, values, None)
+                out = out.view(batch, length, -1)
+                return self.out_projection(out), attn
+
+        class EncoderLayer(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.attention = AttentionLayer()
+                self.conv1 = nn.Conv1d(d_model, d_ff, kernel_size=1)
+                self.conv2 = nn.Conv1d(d_ff, d_model, kernel_size=1)
+                self.norm1 = nn.LayerNorm(d_model)
+                self.norm2 = nn.LayerNorm(d_model)
+                self.dropout = nn.Dropout(dropout)
+                self.activation = activation()
+
+            def forward(self, x):
+                new_x, attn = self.attention(x)
+                x = x + self.dropout(new_x)
+                y = x = self.norm1(x)
+                y = self.dropout(self.activation(self.conv1(y.transpose(-1, 1))))
+                y = self.dropout(self.conv2(y).transpose(-1, 1))
+                return self.norm2(x + y), attn
+
+        class Model(nn.Module):
+            def __init__(self):
+                super().__init__()
+                # DataEmbedding_inverted: one linear map per variate over time.
+                self.value_embedding = nn.Linear(window, d_model)
+                self.embedding_dropout = nn.Dropout(p=dropout)
+                self.layers = nn.ModuleList([EncoderLayer() for _ in range(layers)])
+                self.norm = nn.LayerNorm(d_model)
+                self.projection = nn.Linear(d_model, window, bias=True)
+
+            def forward(self, x):
+                means = x.mean(1, keepdim=True).detach()
+                x = x - means
+                stdev = torch.sqrt(x.var(dim=1, keepdim=True, unbiased=False) + 1e-5)
+                x = x / stdev
+                _, length, channels = x.shape
+                enc_out = self.embedding_dropout(
+                    self.value_embedding(x.permute(0, 2, 1))
+                )
+                for layer in self.layers:
+                    enc_out, _ = layer(enc_out)
+                enc_out = self.norm(enc_out)
+                dec_out = self.projection(enc_out).permute(0, 2, 1)[:, :, :channels]
+                dec_out = dec_out * stdev[:, 0, :].unsqueeze(1).repeat(1, length, 1)
+                return dec_out + means[:, 0, :].unsqueeze(1).repeat(1, length, 1)
+
+        return Model()
+
+    def fit(self, windows: np.ndarray) -> "ITransformerDetector":
+        torch, _ = torch_modules()
+        torch.manual_seed(self.seed)
+        np.random.seed(self.seed)
+        self._device = resolve_device(self.device)
+        model = self._build(windows.shape[-1]).to(self._device)
+        optimiser = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
+        criterion = torch.nn.MSELoss()
+        data = torch.from_numpy(windows.astype(np.float32)).to(self._device)
+        generator = torch.Generator().manual_seed(self.seed)
+        model.train()
+        for _ in range(self.epochs):
+            order = torch.randperm(len(data), generator=generator).to(self._device)
+            for start in range(0, len(data), self.batch_size):
+                batch = data[order[start:start + self.batch_size]]
+                optimiser.zero_grad()
+                loss = criterion(model(batch), batch)
+                loss.backward()
+                optimiser.step()
+        self._model = model
+        return self
+
+    def score(self, windows: np.ndarray) -> np.ndarray:
+        torch, _ = torch_modules()
+        criterion = torch.nn.MSELoss(reduction="none")
+        model = self._model
+        model.eval()
+        scores = []
+        with torch.no_grad():
+            for start in range(0, len(windows), self.batch_size):
+                batch = torch.from_numpy(
+                    windows[start:start + self.batch_size].astype(np.float32)
+                ).to(self._device)
+                output = model(batch)
+                scores.append(torch.mean(criterion(batch, output), dim=-1).cpu().numpy())
+        return np.concatenate(scores)
+
+
 WINDOW_DETECTORS = {
     "usad": USADDetector,
     "anomaly_transformer": AnomalyTransformerDetector,
     "dcdetector": DCdetectorDetector,
     "timesnet": TimesNetDetector,
+    "itransformer": ITransformerDetector,
 }
 
 

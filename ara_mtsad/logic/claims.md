@@ -85,19 +85,20 @@ systematically below the quoted classical baseline rows across all five payloads
 
 ## C06 - On this family, a column is reproducible if the payload and protocol match; residual gaps are method-specific
 
-**Statement**: Three independently transcribed detectors, evaluated on the payload
-their papers used, reproduce every dataset of the family within a few F1 points,
-and the residual gap concentrates on one architecture family rather than on one
-dataset column - so a residual gap is evidence about the transcription and the
-budget, not about the dataset's reliability.
+**Statement**: Independently transcribed detectors, evaluated on the payload their
+papers used, reproduce every dataset of the family within a few F1 points, and the
+residual gap tracks neither the dataset column nor the architecture family but the
+training configuration - so a residual gap is evidence about the transcription and
+its budget, not about the dataset's reliability.
 
-**Conditions**: Established for the three deep detectors re-run here under the
-reference protocol. The claim is about this artifact's transcriptions, not about
-the papers' released code, and it does not extend to datasets outside the family.
+**Conditions**: Established for the four deep detectors re-run here under the
+reference protocol, three of which have published counterparts. The claim is about
+this artifact's transcriptions, not about the papers' released code, and it does
+not extend to datasets outside the family.
 
-**Falsification criteria**: Falsified if a fourth transcription lands outside the
-three-point band on a dataset whose payload and protocol are verified identical to
-the reference, without a budget difference to explain it.
+**Falsification criteria**: Falsified if a fifth transcription lands outside the
+three-point band on a dataset whose payload, protocol *and* training budget are
+all verified identical to the reference.
 
 **Dependencies**: C01.
 

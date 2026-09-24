@@ -7,6 +7,7 @@ from .flood import (
 from .mtsad_detectors import (
     AnomalyTransformerDetector,
     DCdetectorDetector,
+    ITransformerDetector,
     IsolationForestDetector,
     KNNDetector,
     MahalanobisDetector,
@@ -345,6 +346,7 @@ __all__ = [
     "weighted_time_gradient",
     "AnomalyTransformerDetector",
     "DCdetectorDetector",
+    "ITransformerDetector",
     "IsolationForestDetector",
     "KNNDetector",
     "MahalanobisDetector",
