@@ -1379,6 +1379,438 @@ class TranADDetector(Detector):
         return np.concatenate(scores)
 
 
+@dataclass
+class CATCHDetector(Detector):
+    """CATCH: channel-aware frequency-patching detector (ICLR 2025).
+
+    # Grounding: transcribed
+    # sources: github.com/decisionintelligence/CATCH, ts_benchmark/baselines/catch
+    #   - models/CATCH_model.py (RevIN, FFT, real/imag patching, the channel mask
+    #     generator, the two flatten heads, the complex reassembly and ircom)
+    #   - layers/cross_channel_Transformer.py (Trans_C, c_Transformer, c_Attention)
+    #   - layers/channel_mask.py (gumbel-softmax Bernoulli mask, diagonal forced)
+    #   - utils/ch_discover_loss.py (DynamicalContrastiveLoss)
+    #   - utils/fre_rec_loss.py (frequency_loss and frequency_criterion)
+    #   - CATCH.py (the two optimisers, the rec + dc_lambda*dc + auxi_lambda*auxi
+    #     objective, the periodic mask-optimiser step, and the test score
+    #     temp_score + score_lambda * freq_score)
+    # Deviations: einops rearrange calls are expressed with reshape/permute; the
+    # release's early stopping on its own validation split is not reproduced, the
+    # harness trains the fixed epoch budget and evaluates on the pinned splits.
+    """
+
+    window: int = 192
+    patch_size: int = 16
+    patch_stride: int = 8
+    inference_patch_size: int = 32
+    inference_patch_stride: int = 1
+    cf_dim: int = 64
+    d_model: int = 128
+    d_ff: int = 256
+    head_dim: int = 64
+    n_heads: int = 8
+    e_layers: int = 3
+    dropout: float = 0.2
+    head_dropout: float = 0.1
+    regular_lambda: float = 0.5
+    temperature: float = 0.07
+    auxi_lambda: float = 0.005
+    dc_lambda: float = 0.005
+    score_lambda: float = 0.05
+    mask_update_every: int = 100
+    learning_rate: float = 1e-4
+    mask_learning_rate: float = 1e-5
+    epochs: int = 3
+    batch_size: int = 128
+    seed: int = 1103
+    device: str = "auto"
+    kind = "window"
+    name = "catch"
+    _model: Any = field(default=None, repr=False)
+    _device: Any = field(default=None, repr=False)
+
+    def _build(self, n_features: int):
+        torch, nn = torch_modules()
+        seq_len = self.window
+        patch_size = self.patch_size
+        patch_stride = self.patch_stride
+        cf_dim = self.cf_dim
+        d_model = self.d_model
+        d_ff = self.d_ff
+        head_dim = self.head_dim
+        heads = self.n_heads
+        depth = self.e_layers
+        dropout = self.dropout
+        head_dropout = self.head_dropout
+        regular_lambda = self.regular_lambda
+        temperature = self.temperature
+        patch_num = int((seq_len - patch_size) / patch_stride + 1)
+
+        class RevIN(nn.Module):
+            def __init__(self, num_features):
+                super().__init__()
+                self.eps = 1e-5
+                self.affine_weight = nn.Parameter(torch.ones(1, 1, num_features))
+                self.affine_bias = nn.Parameter(torch.zeros(1, 1, num_features))
+
+            def forward(self, x, mode):
+                if mode == "norm":
+                    self._mean = x.mean(dim=1, keepdim=True).detach()
+                    self._stdev = torch.sqrt(
+                        x.var(dim=1, keepdim=True, unbiased=False) + self.eps
+                    ).detach()
+                    x = (x - self._mean) / self._stdev
+                    return x * self.affine_weight + self.affine_bias
+                x = (x - self.affine_bias) / (self.affine_weight + self.eps * self.eps)
+                return x * self._stdev + self._mean
+
+        class ChannelMaskGenerator(nn.Module):
+            def __init__(self, input_size, n_vars):
+                super().__init__()
+                self.generator = nn.Sequential(
+                    nn.Linear(input_size * 2, n_vars, bias=False), nn.Sigmoid()
+                )
+                with torch.no_grad():
+                    self.generator[0].weight.zero_()
+                self.n_vars = n_vars
+
+            def forward(self, x):
+                distribution = self.generator(x)
+                sampled = self._bernoulli_gumbel_rsample(distribution)
+                eye = torch.eye(self.n_vars, device=x.device)
+                inverse_eye = 1 - eye
+                return torch.einsum("bcd,cd->bcd", sampled, inverse_eye) + eye
+
+            def _bernoulli_gumbel_rsample(self, distribution_matrix):
+                batch, channels, dim = distribution_matrix.shape
+                flat = distribution_matrix.reshape(batch * channels * dim, 1)
+                r_flat = 1 - flat
+                log_flat = torch.log(flat / r_flat)
+                log_r_flat = torch.log(r_flat / flat)
+                both = torch.concat([log_flat, log_r_flat], dim=-1)
+                resampled = torch.nn.functional.gumbel_softmax(both, hard=True)
+                return resampled[..., 0].reshape(batch, channels, dim)
+
+        class DynamicalContrastiveLoss(nn.Module):
+            def __init__(self, k, temperature):
+                super().__init__()
+                self.temperature = temperature
+                self.k = k
+
+            def forward(self, scores, attn_mask, norm_matrix):
+                batch = scores.shape[0]
+                n_vars = scores.shape[-1]
+                cosine = (scores / norm_matrix).mean(1)
+                pos_scores = torch.exp(cosine / self.temperature) * attn_mask
+                all_scores = torch.exp(cosine / self.temperature)
+                clustering = -torch.log(
+                    pos_scores.sum(dim=-1) / all_scores.sum(dim=-1)
+                )
+                eye = (
+                    torch.eye(attn_mask.shape[-1])
+                    .unsqueeze(0)
+                    .repeat(batch, 1, 1)
+                    .to(attn_mask.device)
+                )
+                regular = 1.0 / (n_vars * (n_vars - 1)) * torch.norm(
+                    eye.reshape(batch, -1) - attn_mask.reshape(batch, -1), p=1, dim=-1
+                )
+                return (clustering.mean(1) + self.k * regular).mean()
+
+        class CAttention(nn.Module):
+            def __init__(self, dim, heads, dim_head, dropout, regular_lambda, temperature):
+                super().__init__()
+                self.heads = heads
+                self.d_k = math.sqrt(dim_head)
+                inner = dim_head * heads
+                self.attend = nn.Softmax(dim=-1)
+                self.to_q = nn.Linear(dim, inner)
+                self.to_k = nn.Linear(dim, inner)
+                self.to_v = nn.Linear(dim, inner)
+                self.to_out = nn.Sequential(
+                    nn.Linear(inner, dim), nn.Dropout(dropout)
+                )
+                self.dynamical = DynamicalContrastiveLoss(regular_lambda, temperature)
+
+            def forward(self, x, attn_mask=None):
+                h = self.heads
+                batch, tokens, _ = x.shape
+                q = self.to_q(x).reshape(batch, tokens, h, -1)
+                k = self.to_k(x).reshape(batch, tokens, h, -1)
+                v = self.to_v(x).reshape(batch, tokens, h, -1)
+                q = q.permute(0, 2, 1, 3)
+                k = k.permute(0, 2, 1, 3)
+                v = v.permute(0, 2, 1, 3)
+                scale = 1.0 / self.d_k
+                scores = torch.einsum("b h i d, b h j d -> b h i j", q, k)
+                q_norm = torch.norm(q, dim=-1, keepdim=True)
+                k_norm = torch.norm(k, dim=-1, keepdim=True)
+                norm_matrix = torch.einsum("bhid,bhjd->bhij", q_norm, k_norm)
+                dc_loss = None
+                if attn_mask is not None:
+                    large_negative = -math.log(1e10)
+                    attention_mask = torch.where(
+                        attn_mask == 0, large_negative, 0
+                    )
+                    masked_scores = scores * attn_mask.unsqueeze(1) + attention_mask.unsqueeze(1)
+                    dc_loss = self.dynamical(scores, attn_mask, norm_matrix)
+                else:
+                    masked_scores = scores
+                attn = self.attend(masked_scores * scale)
+                out = torch.einsum("b h i j, b h j d -> b h i d", attn, v)
+                out = out.permute(0, 2, 1, 3).reshape(batch, tokens, -1)
+                return self.to_out(out), attn, dc_loss
+
+        class CTransformer(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.layers = nn.ModuleList(
+                    [
+                        nn.ModuleList(
+                            [
+                                PreNorm(
+                                    cf_dim,
+                                    CAttention(
+                                        cf_dim,
+                                        heads,
+                                        head_dim,
+                                        dropout,
+                                        regular_lambda,
+                                        temperature,
+                                    ),
+                                ),
+                                PreNorm(cf_dim, FeedForward(cf_dim, d_ff, dropout)),
+                            ]
+                        )
+                        for _ in range(depth)
+                    ]
+                )
+
+            def forward(self, x, attn_mask=None):
+                total = 0
+                attn = None
+                for attn_layer, ff in self.layers:
+                    x_n, attn, dc_loss = attn_layer(x, attn_mask=attn_mask)
+                    total = total + dc_loss
+                    x = x_n + x
+                    x = ff(x) + x
+                return x, attn, total / len(self.layers)
+
+        class TransC(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.to_patch_embedding = nn.Sequential(
+                    nn.Linear(patch_size * 2, cf_dim), nn.Dropout(dropout)
+                )
+                self.dropout = nn.Dropout(dropout)
+                self.transformer = CTransformer()
+                self.mlp_head = nn.Linear(cf_dim, d_model * 2)
+
+            def forward(self, x, attn_mask=None):
+                x = self.to_patch_embedding(x)
+                x, attn, dc_loss = self.transformer(x, attn_mask)
+                x = self.dropout(x)
+                return self.mlp_head(x), dc_loss
+
+        class FlattenHead(nn.Module):
+            def __init__(self, nf, seq_len, head_dropout):
+                super().__init__()
+                self.flatten = nn.Flatten(start_dim=-2)
+                self.linear1 = nn.Linear(nf, nf)
+                self.linear2 = nn.Linear(nf, nf)
+                self.linear3 = nn.Linear(nf, nf)
+                self.linear4 = nn.Linear(nf, seq_len)
+                self.dropout = nn.Dropout(head_dropout)
+
+            def forward(self, x):
+                x = self.flatten(x)
+                x = torch.nn.functional.relu(self.linear1(x)) + x
+                x = torch.nn.functional.relu(self.linear2(x)) + x
+                x = torch.nn.functional.relu(self.linear3(x)) + x
+                return self.linear4(x)
+
+        class PreNorm(nn.Module):
+            def __init__(self, dim, fn):
+                super().__init__()
+                self.norm = nn.LayerNorm(dim)
+                self.fn = fn
+
+            def forward(self, x, **kwargs):
+                return self.fn(self.norm(x), **kwargs)
+
+        class FeedForward(nn.Module):
+            def __init__(self, dim, hidden_dim, dropout):
+                super().__init__()
+                self.net = nn.Sequential(
+                    nn.Linear(dim, hidden_dim),
+                    nn.GELU(),
+                    nn.Dropout(dropout),
+                    nn.Linear(hidden_dim, dim),
+                    nn.Dropout(dropout),
+                )
+
+            def forward(self, x):
+                return self.net(x)
+
+        class CATCHModel(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.revin_layer = RevIN(n_features)
+                self.norm = nn.LayerNorm(patch_size)
+                self.mask_generator = ChannelMaskGenerator(patch_size, n_features)
+                self.frequency_transformer = TransC()
+                head_nf_f = d_model * 2 * patch_num
+                self.head_f1 = FlattenHead(head_nf_f, seq_len, head_dropout)
+                self.head_f2 = FlattenHead(head_nf_f, seq_len, head_dropout)
+                self.ircom = nn.Linear(seq_len * 2, seq_len)
+                self.get_r = nn.Linear(d_model * 2, d_model * 2)
+                self.get_i = nn.Linear(d_model * 2, d_model * 2)
+
+            def forward(self, z):
+                z = self.revin_layer(z, "norm")
+                z = z.permute(0, 2, 1)
+                z = torch.fft.fft(z)
+                z1, z2 = z.real, z.imag
+                z1 = z1.unfold(dimension=-1, size=patch_size, step=patch_stride)
+                z2 = z2.unfold(dimension=-1, size=patch_size, step=patch_stride)
+                z1 = z1.permute(0, 2, 1, 3)
+                z2 = z2.permute(0, 2, 1, 3)
+                batch_size, local_patch_num, c_in, local_patch_size = z1.shape
+                z1 = z1.reshape(batch_size * local_patch_num, c_in, local_patch_size)
+                z2 = z2.reshape(batch_size * local_patch_num, c_in, local_patch_size)
+                z_cat = torch.cat((z1, z2), -1)
+                channel_mask = self.mask_generator(z_cat)
+                z, dc_loss = self.frequency_transformer(z_cat, channel_mask)
+                z1 = self.get_r(z)
+                z2 = self.get_i(z)
+                z1 = z1.reshape(batch_size, local_patch_num, c_in, -1)
+                z2 = z2.reshape(batch_size, local_patch_num, c_in, -1)
+                z1 = z1.permute(0, 2, 1, 3)
+                z2 = z2.permute(0, 2, 1, 3)
+                z1 = self.head_f1(z1)
+                z2 = self.head_f2(z2)
+                complex_z = torch.complex(z1, z2)
+                z = torch.fft.ifft(complex_z)
+                z = self.ircom(torch.cat((z.real, z.imag), -1))
+                z = z.permute(0, 2, 1)
+                return self.revin_layer(z, "denorm"), complex_z.permute(0, 2, 1), dc_loss
+
+        return CATCHModel()
+
+    def _frequency_metric(self, outputs, targets, *, keep_dim, dim):
+        torch, _ = torch_modules()
+        if outputs.is_complex():
+            frequency_outputs = outputs
+        else:
+            frequency_outputs = torch.fft.fft(outputs, dim=1)
+        residual = frequency_outputs - torch.fft.fft(targets, dim=1)
+        return residual.abs().mean(dim=dim, keepdim=keep_dim)
+
+    def _frequency_score(self, outputs, targets):
+        """frequency_criterion: per-timestamp frequency residual, inferred patching."""
+        torch, _ = torch_modules()
+        patch = self.inference_patch_size
+        stride = self.inference_patch_stride
+        window = self.window
+        patch_num = int((window - patch) / stride + 1)
+        padding_length = window - (patch + (patch_num - 1) * stride)
+        output_patch = outputs.unfold(dimension=1, size=patch, step=stride)
+        batch, n_patch, channels, local = output_patch.shape
+        output_patch = output_patch.reshape(batch * n_patch, local, channels)
+        y_patch = targets.unfold(dimension=1, size=patch, step=stride)
+        y_patch = y_patch.reshape(batch * n_patch, local, channels)
+        main = self._frequency_metric(output_patch, y_patch, keep_dim=True, dim=1)
+        main = main.repeat(1, patch, 1).reshape(batch, n_patch, patch, channels)
+        end_point = patch + (patch_num - 1) * stride - 1
+        main_loss = torch.zeros(
+            (batch, n_patch, window - padding_length, channels), device=outputs.device
+        )
+        for index in range(n_patch):
+            start = index * stride
+            main_loss[:, index, start:start + patch, :] = main[:, index]
+        non_zero = torch.count_nonzero(main_loss, dim=1)
+        main_loss = main_loss.sum(1) / non_zero
+        if padding_length > 0:
+            padding_loss = self._frequency_metric(
+                outputs[:, -padding_length:, :],
+                targets[:, -padding_length:, :],
+                keep_dim=True,
+                dim=1,
+            )
+            padding_loss = padding_loss.repeat(1, padding_length, 1)
+            return torch.concat([main_loss, padding_loss], dim=1)
+        return main_loss
+
+    def fit(self, windows: np.ndarray) -> "CATCHDetector":
+        torch, _ = torch_modules()
+        torch.manual_seed(self.seed)
+        np.random.seed(self.seed)
+        self._device = resolve_device(self.device)
+        model = self._build(windows.shape[-1]).to(self._device)
+        mask_parameters = list(model.mask_generator.parameters())
+        mask_ids = {id(parameter) for parameter in mask_parameters}
+        main_parameters = [
+            parameter
+            for parameter in model.parameters()
+            if id(parameter) not in mask_ids
+        ]
+        optimiser = torch.optim.Adam(main_parameters, lr=self.learning_rate)
+        optimiser_mask = torch.optim.Adam(
+            mask_parameters, lr=self.mask_learning_rate
+        )
+        criterion = torch.nn.MSELoss()
+        data = torch.from_numpy(windows.astype(np.float32)).to(self._device)
+        generator = torch.Generator().manual_seed(self.seed)
+        model.train()
+        for _ in range(self.epochs):
+            order = torch.randperm(len(data), generator=generator).to(self._device)
+            for step, start in enumerate(range(0, len(data), self.batch_size)):
+                batch = data[order[start:start + self.batch_size]]
+                norm_input = model.revin_layer(batch, "norm")
+                output, output_complex, dc_loss = model(batch)
+                rec_loss = criterion(output, batch)
+                auxi_loss = self._frequency_metric(
+                    output_complex, norm_input, keep_dim=False, dim=None
+                )
+                loss = (
+                    rec_loss
+                    + self.dc_lambda * dc_loss
+                    + self.auxi_lambda * auxi_loss
+                )
+                optimiser.zero_grad()
+                optimiser_mask.zero_grad()
+                loss.backward()
+                optimiser.step()
+                if (step + 1) % self.mask_update_every == 0:
+                    optimiser_mask.step()
+                    optimiser_mask.zero_grad()
+        self._model = model
+        return self
+
+    def score(self, windows: np.ndarray) -> np.ndarray:
+        """Reference score: time residual plus score_lambda times frequency residual."""
+
+        torch, _ = torch_modules()
+        criterion = torch.nn.MSELoss(reduction="none")
+        model = self._model
+        model.eval()
+        scores = []
+        with torch.no_grad():
+            for start in range(0, len(windows), self.batch_size):
+                batch = torch.from_numpy(
+                    windows[start:start + self.batch_size].astype(np.float32)
+                ).to(self._device)
+                output, _, _ = model(batch)
+                temp_score = torch.mean(criterion(batch, output), dim=-1)
+                freq_score = torch.mean(
+                    self._frequency_score(batch, output), dim=-1
+                )
+                scores.append(
+                    (temp_score + self.score_lambda * freq_score).cpu().numpy()
+                )
+        return np.concatenate(scores)
+
+
 WINDOW_DETECTORS = {
     "usad": USADDetector,
     "anomaly_transformer": AnomalyTransformerDetector,
@@ -1386,6 +1818,7 @@ WINDOW_DETECTORS = {
     "timesnet": TimesNetDetector,
     "itransformer": ITransformerDetector,
     "tranad": TranADDetector,
+    "catch": CATCHDetector,
 }
 
 

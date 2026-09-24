@@ -149,3 +149,32 @@ def test_tranad_smoke() -> None:
     assert scores.shape == (32,)
     assert np.isfinite(scores).all()
     assert (scores >= 0).all()
+
+
+def test_catch_smoke() -> None:
+    pytest.importorskip("torch")
+    from iia_benchmark.models.mtsad_detectors import CATCHDetector
+
+    rng = np.random.default_rng(23)
+    windows = rng.normal(size=(16, 32, 6)).astype(np.float32)
+    detector = CATCHDetector(
+        window=32,
+        patch_size=8,
+        patch_stride=8,
+        inference_patch_size=16,
+        inference_patch_stride=1,
+        cf_dim=8,
+        d_model=8,
+        d_ff=16,
+        head_dim=8,
+        n_heads=2,
+        e_layers=1,
+        epochs=1,
+        batch_size=8,
+        mask_update_every=4,
+        device="cpu",
+    )
+    detector.fit(windows)
+    scores = detector.score(windows)
+    assert scores.shape == (16, 32)
+    assert np.isfinite(scores).all()
