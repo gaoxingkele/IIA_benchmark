@@ -39,9 +39,10 @@ def pdf_pages(path: Path) -> int | None:
     if not pdfinfo:
         return None
     proc = subprocess.run(
-        [pdfinfo, str(path)], capture_output=True, text=True, check=False
+        [pdfinfo, str(path)], capture_output=True, check=False
     )
-    for line in proc.stdout.splitlines():
+    text = (proc.stdout or b"").decode("utf-8", errors="replace")
+    for line in text.splitlines():
         if line.startswith("Pages:"):
             return int(line.split(":", 1)[1].strip())
     return None

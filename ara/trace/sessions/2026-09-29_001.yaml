@@ -1,0 +1,47 @@
+session:
+  id: "2026-09-29_001"
+  date: "2026-09-29"
+  started: "2026-09-29T21:12"
+  last_turn: "2026-09-29T23:00"
+  turn_count: 1
+  summary: "Finished the open TSAD comparison downloads. SWAN-SF checksums passed. Three papers remain gated."
+
+events_logged:
+  - turn: 1
+    type: experiment
+    id: N24
+    routing: direct
+    provenance: ai-executed
+    summary: "SWAN-SF seven archives, GECCO, and UCR 2021 checksum-matched; five of eight papers have a legal local PDF."
+  - turn: 1
+    type: observation
+    id: O11
+    routing: staged
+    provenance: ai-executed
+    summary: "mtsad_extra is outside the 16-dataset count and does not close the missing flow-matching corpus."
+
+ai_actions:
+  - turn: 1
+    action: "Waited out the SWAN-SF aria2 job, confirmed exit 0 and byte sizes, and marked the registry row downloaded."
+    provenance: ai-executed
+    files_changed:
+      - "docs/dataset_registry.md"
+      - "configs/datasets/public_sources.json"
+      - "papers/literature/mtsad_registry.json"
+      - "papers/literature/mtsad_download_manifest.json"
+
+claims_touched: []
+
+logic_revisions: []
+
+key_context:
+  - turn: 1
+    excerpt: "User asked to finish downloading the papers and datasets."
+
+open_threads:
+  - "MaelNet, SHCL, and KGL still have no local PDF. KGL is marked free on ACM but the PDF URL returned HTTP 403."
+  - "O10 remains open: no flow-matching paper set was downloaded."
+  - "WADI, MSDS, and the MOMENT Time Series Pile were not fetched."
+
+ai_suggestions_pending:
+  - "Do not count mtsad_extra toward the 16 landed IIA datasets."

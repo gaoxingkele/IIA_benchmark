@@ -49,6 +49,14 @@ SMAP、MSL、SWaT、WADI、SMD、MSDS），Anomaly Transformer 用 6 个（五�
 | WADI | iTrust/SUTD，需申请 | 未下载；仅保留攻击标签与说明，登记为 metadata |
 | MSDS | Zenodo 3549604，需向作者申请 | 未下载；仅保留记录页与标签，登记为 metadata |
 
+第 6 轮（`dataset_family=mtsad_extra`）补的是 CrossAD 主表和附录用到、而五基准缓存里没有的三套公开原件。它们不计入已落地的 16 个评测集，也还不是 CrossAD 论文里的预处理切分。
+
+| 数据集 | 来源 | 状态 |
+|---|---|---|
+| GECCO 2018 | Zenodo 3884398，`1_gecco2018_water_quality.csv` | 已下载；Zenodo MD5 与本地 SHA-256 已核对 |
+| UCR Anomaly Archive 2021 | `cs.ucr.edu` 官方 zip，184,066,400 字节 | 已下载并固定 SHA-256；保留原始压缩包 |
+| SWAN-SF | Harvard Dataverse `10.7910/DVN/EBCFKM`，CC0，七个原始包约 6.5 GB | 已下载；七个包的 Dataverse MD5 均已通过 |
+
 仓库另有一份 TranAD 论文数据的完整清单：`data/public_datasets/mtsad_paper_repos/tranad/`
 （git 克隆，commit 记录在 `data/public_datasets/audit.json` 的 revision 字段）。
 

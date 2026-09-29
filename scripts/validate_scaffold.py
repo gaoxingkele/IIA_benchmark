@@ -71,9 +71,9 @@ def main() -> int:
     if len(identifiers) != len(set(identifiers)):
         failures.append("public dataset ids must be unique")
     rounds = {source.get("round") for source in registry.get("sources", [])}
-    if rounds != {1, 2, 3}:
-        failures.append(f"public registry rounds must equal {{1,2,3}}, got {rounds}")
-    valid_roles = {"main", "documentation", "metadata"}
+    if rounds != {1, 2, 3, 4, 5, 6}:
+        failures.append(f"public registry rounds must equal {{1,2,3,4,5,6}}, got {rounds}")
+    valid_roles = {"main", "documentation", "metadata", "labels", "benchmark_split"}
     for source in registry.get("sources", []):
         if not source.get("dataset_family"):
             failures.append(f"{source['id']}: missing dataset_family")
