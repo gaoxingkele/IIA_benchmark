@@ -71,6 +71,9 @@ class PublicMega:
         if not hasattr(self.range_local, 'session'):
             self.range_local.session = requests.Session()
             self.range_local.session.proxies = {'http': self.proxy, 'https': self.proxy}
+            self.range_local.session.mount('https://', HTTPAdapter(max_retries=Retry(
+                total=2, backoff_factor=0.5, allowed_methods=['GET'],
+                status_forcelist=[500, 502, 503, 504])))
         response = self.range_local.session.get(url, headers={'Range': f'bytes={offset}-{offset + length - 1}'},
                                                 timeout=(25, 90))
         response.raise_for_status()
@@ -263,7 +266,14 @@ def wait_for_pids(pids):
     if os.name != 'nt':
         raise RuntimeError('--wait-pids is a Windows process watcher')
     import ctypes
+    from ctypes import wintypes
     kernel = ctypes.windll.kernel32
+    kernel.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+    kernel.OpenProcess.restype = wintypes.HANDLE
+    kernel.WaitForSingleObject.argtypes = [wintypes.HANDLE, wintypes.DWORD]
+    kernel.WaitForSingleObject.restype = wintypes.DWORD
+    kernel.CloseHandle.argtypes = [wintypes.HANDLE]
+    kernel.CloseHandle.restype = wintypes.BOOL
     for pid in pids:
         handle = kernel.OpenProcess(0x00100000, False, pid)
         if handle:

@@ -16,14 +16,19 @@ RUNTIME = ROOT / "data/public_datasets/flow_matching/acquisition_runtime"
 
 
 def running(pid):
-    handle = ctypes.windll.kernel32.OpenProcess(0x1000, False, pid)
+    kernel = ctypes.windll.kernel32
+    kernel.OpenProcess.argtypes = [ctypes.c_ulong, ctypes.c_int, ctypes.c_ulong]
+    kernel.OpenProcess.restype = ctypes.c_void_p
+    kernel.GetExitCodeProcess.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_ulong)]
+    kernel.CloseHandle.argtypes = [ctypes.c_void_p]
+    handle = kernel.OpenProcess(0x1000, False, pid)
     if not handle:
         return False
     code = ctypes.c_ulong()
     try:
-        return bool(ctypes.windll.kernel32.GetExitCodeProcess(handle, ctypes.byref(code))) and code.value == 259
+        return bool(kernel.GetExitCodeProcess(handle, ctypes.byref(code))) and code.value == 259
     finally:
-        ctypes.windll.kernel32.CloseHandle(handle)
+        kernel.CloseHandle(handle)
 
 
 def retry_queue(queue):
