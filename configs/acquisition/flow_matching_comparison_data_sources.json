@@ -1,0 +1,3157 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-01",
+  "scope": "Comparison-paper experiment datasets; source discovery only, no downloads by this worker.",
+  "checksum_policy": "Null means upstream checksum not yet obtained; compute local SHA256 after acquisition and verify publisher checksum if supplied.",
+  "papers": [
+    {
+      "id": "csdi",
+      "arxiv_id": "2107.03502",
+      "evidence_url": "https://arxiv.org/html/2107.03502",
+      "datasets": [
+        "PhysioNet2012 set-a",
+        "STMVL Beijing PM2.5 36 stations",
+        "solar_nips",
+        "electricity_nips",
+        "traffic_nips",
+        "taxi_30min",
+        "wiki2000_nips"
+      ]
+    },
+    {
+      "id": "sssd",
+      "arxiv_id": "2208.09399",
+      "evidence_url": "https://github.com/AI4HealthUOL/SSSD/tree/main/docs/instructions",
+      "datasets": [
+        "Electricity",
+        "ETTm1",
+        "MuJoCo",
+        "PTB-XL 1.0.1",
+        "METR-LA",
+        "PEMS-BAY"
+      ],
+      "notes": "src/get_data.py covers first four; traffic sources/preprocessing are documented separately."
+    },
+    {
+      "id": "brits",
+      "arxiv_id": "1805.10572",
+      "evidence_url": "https://arxiv.org/html/1805.10572",
+      "datasets": [
+        "STMVL Beijing PM2.5 36 stations",
+        "PhysioNet2012 set-a",
+        "UCI Localization Data for Person Activity"
+      ]
+    },
+    {
+      "id": "saits",
+      "arxiv_id": "2202.08516",
+      "evidence_url": "https://arxiv.org/html/2202.08516",
+      "datasets": [
+        "PhysioNet2012 sets a,b,c and outcomes",
+        "UCI Beijing Multi-Site Air Quality",
+        "Electricity Load Diagrams 2011-2014",
+        "ETTm1",
+        "NRTSI Air",
+        "NRTSI Gas"
+      ]
+    },
+    {
+      "id": "grin",
+      "arxiv_id": "2108.00298",
+      "evidence_url": "https://arxiv.org/html/2108.00298",
+      "datasets": [
+        "AQI-437",
+        "AQI-36",
+        "METR-LA",
+        "PEMS-BAY",
+        "CER-E SME subset",
+        "synthetic VAR"
+      ],
+      "synthetic": {
+        "source_url": "https://github.com/Graph-Machine-Learning-Group/grin/blob/main/lib/datasets/synthetic.py",
+        "runner_url": "https://github.com/Graph-Machine-Learning-Group/grin/blob/main/scripts/run_synthetic.py",
+        "method": "Graph-based vector autoregressive process; use official script/config for exact coefficients and seeds."
+      }
+    },
+    {
+      "id": "diffusion_ts",
+      "arxiv_id": "2403.01742",
+      "evidence_url": "https://github.com/Y-debug-sys/Diffusion-TS",
+      "datasets": [
+        "Stocks",
+        "ETTh1",
+        "Energy",
+        "fMRI",
+        "Sine",
+        "MuJoCo"
+      ],
+      "synthetic": [
+        {
+          "source_url": "https://github.com/Y-debug-sys/Diffusion-TS/blob/main/Utils/Data_utils/sine_dataset.py",
+          "method": "Uniform frequency and phase in [0,0.1], (sin(freq*t+phase)+1)/2, default seed 123; configurations specify sample count/length/dimension."
+        },
+        {
+          "source_url": "https://github.com/Y-debug-sys/Diffusion-TS/blob/main/Utils/Data_utils/mujoco_dataset.py",
+          "method": "dm_control suite.load(hopper,stand), uniformly initialized qpos/qvel, physics.step(), 12 qpos/qvel channels, default seed 123; separate from downloaded NRTSI MuJoCo."
+        }
+      ],
+      "notes": "Paper Table 11 lists MuJoCo dimension 14 and 10000 samples; current repository generator defaults to 12 dimensions/30000 samples. Match frozen paper/version configuration before regeneration."
+    },
+    {
+      "id": "ganf",
+      "arxiv_id": "2202.07857",
+      "evidence_url": "https://github.com/EnyanDai/GANF#datasets",
+      "datasets": [
+        "SWaT Dec2015 attack_v0",
+        "METR-LA",
+        "PMU proprietary"
+      ]
+    },
+    {
+      "id": "catch",
+      "arxiv_id": "2410.12261",
+      "evidence_url": "https://arxiv.org/html/2410.12261v2#A1.SS1",
+      "datasets": [
+        "MSL",
+        "PSM",
+        "SMD",
+        "CICIDS",
+        "CalIt2",
+        "NYC",
+        "Creditcard",
+        "GECCO",
+        "Genesis",
+        "ASD",
+        "TODS synthetic 12 sets"
+      ],
+      "synthetic": {
+        "evidence_url": "https://arxiv.org/html/2410.12261v2#A1.SS6",
+        "source_url": "https://github.com/datamllab/tods",
+        "method": "MultivariateDataGenerator, 5 channels alternating sine/cosine, freq .04, coef 1.5, noise_amp .05, training length 20000, test length 5000; 2 rates each for global/contextual/seasonal/shapelet/trend/mixture anomalies. Follow Appendix A.6 parameters; paper excerpt gives no random seed, so newly generated data cannot be asserted byte-identical to released sets."
+      }
+    },
+    {
+      "id": "dcdetector",
+      "arxiv_id": "2306.10347",
+      "evidence_url": "https://github.com/DAMO-DI-ML/KDD2023-DCdetector/blob/main/readme.md",
+      "datasets": [
+        "SMD",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SWaT",
+        "NIPS-TS-SWAN",
+        "NIPS-TS-GECCO (repository NIPS_TS_Water)",
+        "UCR"
+      ],
+      "notes": "Paper Section 4.1 names NIPS-TS-GECCO; repository uses NIPS_TS_Water script. Do not confuse with SWaT."
+    }
+  ],
+  "sources": [
+    {
+      "id": "physionet2012_set_a",
+      "url": "https://physionet.org/files/challenge-2012/1.0.0/set-a.tar.gz",
+      "path": "data/public_datasets/flow_matching/physionet2012/set-a.tar.gz",
+      "format": "tar.gz",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "csdi",
+        "brits",
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/gzip",
+        "content_length": "6632372"
+      }
+    },
+    {
+      "id": "physionet2012_outcomes_a",
+      "url": "https://physionet.org/files/challenge-2012/1.0.0/Outcomes-a.txt",
+      "path": "data/public_datasets/flow_matching/physionet2012/Outcomes-a.txt",
+      "format": "txt",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "brits",
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "text/plain; charset=utf-8",
+        "content_length": "79219"
+      }
+    },
+    {
+      "id": "physionet2012_set_b",
+      "url": "https://physionet.org/files/challenge-2012/1.0.0/set-b.tar.gz",
+      "path": "data/public_datasets/flow_matching/physionet2012/set-b.tar.gz",
+      "format": "tar.gz",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/gzip",
+        "content_length": "6652690"
+      }
+    },
+    {
+      "id": "physionet2012_outcomes_b",
+      "url": "https://physionet.org/files/challenge-2012/1.0.0/Outcomes-b.txt",
+      "path": "data/public_datasets/flow_matching/physionet2012/Outcomes-b.txt",
+      "format": "txt",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "text/plain; charset=utf-8",
+        "content_length": "79149"
+      }
+    },
+    {
+      "id": "physionet2012_set_c",
+      "url": "https://physionet.org/files/challenge-2012/1.0.0/set-c.tar.gz",
+      "path": "data/public_datasets/flow_matching/physionet2012/set-c.tar.gz",
+      "format": "tar.gz",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/gzip",
+        "content_length": "6600293"
+      }
+    },
+    {
+      "id": "physionet2012_outcomes_c",
+      "url": "https://physionet.org/files/challenge-2012/1.0.0/Outcomes-c.txt",
+      "path": "data/public_datasets/flow_matching/physionet2012/Outcomes-c.txt",
+      "format": "txt",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "text/plain; charset=utf-8",
+        "content_length": "79191"
+      }
+    },
+    {
+      "id": "beijing_stmvl",
+      "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2016/06/STMVL-Release.zip",
+      "path": "data/public_datasets/flow_matching/air_quality/STMVL-Release.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/ermongroup/CSDI/blob/main/download.py",
+      "paper_ids": [
+        "csdi",
+        "brits",
+        "grin"
+      ],
+      "access": "public",
+      "notes": "36-station PM2.5 with artificial ground truth; distinct from UCI Beijing multi-site.",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/zip",
+        "content_length": "1029253"
+      }
+    },
+    {
+      "id": "beijing_multisite",
+      "url": "https://archive.ics.uci.edu/static/public/501/beijing+multi+site+air+quality+data.zip",
+      "path": "data/public_datasets/flow_matching/air_quality/beijing_multisite.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": null,
+        "content_length": null
+      }
+    },
+    {
+      "id": "electricity_load_diagrams",
+      "url": "https://archive.ics.uci.edu/static/public/321/electricityloaddiagrams20112014.zip",
+      "path": "data/public_datasets/flow_matching/electricity/electricityloaddiagrams20112014.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "saits",
+        "sssd"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": null,
+        "content_length": null
+      }
+    },
+    {
+      "id": "ettm1",
+      "url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTm1.csv",
+      "path": "data/public_datasets/flow_matching/ett/ETTm1.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://github.com/WenjieDu/SAITS/blob/main/dataset_generating_scripts/data_downloading.sh",
+      "paper_ids": [
+        "saits",
+        "sssd"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "text/plain; charset=utf-8",
+        "content_length": "1567795"
+      }
+    },
+    {
+      "id": "etth1",
+      "url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTh1.csv",
+      "path": "data/public_datasets/flow_matching/ett/ETTh1.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://github.com/Y-debug-sys/Diffusion-TS#dataset-preparation",
+      "paper_ids": [
+        "diffusion_ts"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "text/plain; charset=utf-8",
+        "content_length": "412881"
+      }
+    },
+    {
+      "id": "human_activity_localization",
+      "url": "https://archive.ics.uci.edu/static/public/196/localization+data+for+person+activity.zip",
+      "path": "data/public_datasets/flow_matching/activity/localization_person_activity.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://arxiv.org/html/1805.10572#S5.SS1.SSS3",
+      "paper_ids": [
+        "brits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": null,
+        "content_length": null
+      }
+    },
+    {
+      "id": "solar_nips",
+      "url": "https://raw.githubusercontent.com/mbohlkeschneider/gluon-ts/mv_release/datasets/solar_nips.tar.gz",
+      "path": "data/public_datasets/flow_matching/forecasting/solar_nips.tar.gz",
+      "format": "tar.gz",
+      "checksum": null,
+      "evidence_url": "https://github.com/awslabs/gluonts/blob/dev/src/gluonts/dataset/repository/_gp_copula_2019.py",
+      "paper_ids": [
+        "csdi"
+      ],
+      "access": "public",
+      "notes": "CSDI Appendix E.3; preserve provided forecasting train/test partitions.",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "content_length": "9228872"
+      }
+    },
+    {
+      "id": "electricity_nips",
+      "url": "https://raw.githubusercontent.com/mbohlkeschneider/gluon-ts/mv_release/datasets/electricity_nips.tar.gz",
+      "path": "data/public_datasets/flow_matching/forecasting/electricity_nips.tar.gz",
+      "format": "tar.gz",
+      "checksum": null,
+      "evidence_url": "https://github.com/awslabs/gluonts/blob/dev/src/gluonts/dataset/repository/_gp_copula_2019.py",
+      "paper_ids": [
+        "csdi"
+      ],
+      "access": "public",
+      "notes": "CSDI Appendix E.3; preserve provided forecasting train/test partitions.",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "content_length": "44638661"
+      }
+    },
+    {
+      "id": "traffic_nips",
+      "url": "https://raw.githubusercontent.com/mbohlkeschneider/gluon-ts/mv_release/datasets/traffic_nips.tar.gz",
+      "path": "data/public_datasets/flow_matching/forecasting/traffic_nips.tar.gz",
+      "format": "tar.gz",
+      "checksum": null,
+      "evidence_url": "https://github.com/awslabs/gluonts/blob/dev/src/gluonts/dataset/repository/_gp_copula_2019.py",
+      "paper_ids": [
+        "csdi"
+      ],
+      "access": "public",
+      "notes": "CSDI Appendix E.3; preserve provided forecasting train/test partitions.",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "content_length": "96914090"
+      }
+    },
+    {
+      "id": "taxi_30min",
+      "url": "https://raw.githubusercontent.com/mbohlkeschneider/gluon-ts/mv_release/datasets/taxi_30min.tar.gz",
+      "path": "data/public_datasets/flow_matching/forecasting/taxi_30min.tar.gz",
+      "format": "tar.gz",
+      "checksum": null,
+      "evidence_url": "https://github.com/awslabs/gluonts/blob/dev/src/gluonts/dataset/repository/_gp_copula_2019.py",
+      "paper_ids": [
+        "csdi"
+      ],
+      "access": "public",
+      "notes": "CSDI Appendix E.3; preserve provided forecasting train/test partitions.",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "content_length": "46048537"
+      }
+    },
+    {
+      "id": "wiki2000_nips",
+      "url": "https://github.com/awslabs/gluonts/raw/b89f203595183340651411a41eeb0ee60570a4d9/datasets/wiki2000_nips.tar.gz",
+      "path": "data/public_datasets/flow_matching/forecasting/wiki2000_nips.tar.gz",
+      "format": "tar.gz",
+      "checksum": null,
+      "evidence_url": "https://github.com/awslabs/gluonts/blob/dev/src/gluonts/dataset/repository/_gp_copula_2019.py",
+      "paper_ids": [
+        "csdi"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "content_length": "22591618"
+      }
+    },
+    {
+      "id": "nrtsi_air_quality_train",
+      "url": "https://dl.dropboxusercontent.com/s/v29re767xew0070/air_quality_train.npy",
+      "path": "data/public_datasets/flow_matching/nrtsi/air_quality_train.npy",
+      "format": "npy",
+      "checksum": null,
+      "evidence_url": "https://github.com/lupalab/NRTSI/blob/main/codes_partially_observed_dimension/README.md",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "GET streamed first 128 bytes only",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "npy_header": "b\"\\x93NUMPY\\x01\\x00v\\x00{'descr': '<f8', 'fortran_order': False, 'shape': (2303, 48, 11), }                                                  \\n\""
+      },
+      "notes": "Author NRTSI Dropbox share resolved via official dl.dropboxusercontent.com endpoint; no complete payload downloaded by this worker."
+    },
+    {
+      "id": "nrtsi_air_quality_val",
+      "url": "https://dl.dropboxusercontent.com/s/xvrn7fxn974ckvt/air_quality_val.npy",
+      "path": "data/public_datasets/flow_matching/nrtsi/air_quality_val.npy",
+      "format": "npy",
+      "checksum": null,
+      "evidence_url": "https://github.com/lupalab/NRTSI/blob/main/codes_partially_observed_dimension/README.md",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "GET streamed first 128 bytes only",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "npy_header": "b\"\\x93NUMPY\\x01\\x00v\\x00{'descr': '<f8', 'fortran_order': False, 'shape': (1152, 48, 11), }                                                  \\n\""
+      },
+      "notes": "Author NRTSI Dropbox share resolved via official dl.dropboxusercontent.com endpoint; no complete payload downloaded by this worker."
+    },
+    {
+      "id": "nrtsi_air_quality_test",
+      "url": "https://dl.dropboxusercontent.com/s/ac0ix4kto2iyqxl/air_quality_test.npy",
+      "path": "data/public_datasets/flow_matching/nrtsi/air_quality_test.npy",
+      "format": "npy",
+      "checksum": null,
+      "evidence_url": "https://github.com/lupalab/NRTSI/blob/main/codes_partially_observed_dimension/README.md",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "GET streamed first 128 bytes only",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "npy_header": "b\"\\x93NUMPY\\x01\\x00v\\x00{'descr': '<f8', 'fortran_order': False, 'shape': (1151, 48, 11), }                                                  \\n\""
+      },
+      "notes": "Author NRTSI Dropbox share resolved via official dl.dropboxusercontent.com endpoint; no complete payload downloaded by this worker."
+    },
+    {
+      "id": "nrtsi_gas_train",
+      "url": "https://dl.dropboxusercontent.com/s/59a7yoirec0d2k9/gas_train.npy",
+      "path": "data/public_datasets/flow_matching/nrtsi/gas_train.npy",
+      "format": "npy",
+      "checksum": null,
+      "evidence_url": "https://github.com/lupalab/NRTSI/blob/main/codes_partially_observed_dimension/README.md",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "GET streamed first 128 bytes only",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "npy_header": "b\"\\x93NUMPY\\x01\\x00v\\x00{'descr': '<f8', 'fortran_order': False, 'shape': (40029, 48, 19), }                                                 \\n\""
+      },
+      "notes": "Author NRTSI Dropbox share resolved via official dl.dropboxusercontent.com endpoint; no complete payload downloaded by this worker."
+    },
+    {
+      "id": "nrtsi_gas_val",
+      "url": "https://dl.dropboxusercontent.com/s/lnzuhp4xo6as3d0/gas_val.npy",
+      "path": "data/public_datasets/flow_matching/nrtsi/gas_val.npy",
+      "format": "npy",
+      "checksum": null,
+      "evidence_url": "https://github.com/lupalab/NRTSI/blob/main/codes_partially_observed_dimension/README.md",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "GET streamed first 128 bytes only",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "npy_header": "b\"\\x93NUMPY\\x01\\x00v\\x00{'descr': '<f8', 'fortran_order': False, 'shape': (20015, 48, 19), }                                                 \\n\""
+      },
+      "notes": "Author NRTSI Dropbox share resolved via official dl.dropboxusercontent.com endpoint; no complete payload downloaded by this worker."
+    },
+    {
+      "id": "nrtsi_gas_test",
+      "url": "https://dl.dropboxusercontent.com/s/omp2ujbtr48iaka/gas_test.npy",
+      "path": "data/public_datasets/flow_matching/nrtsi/gas_test.npy",
+      "format": "npy",
+      "checksum": null,
+      "evidence_url": "https://github.com/lupalab/NRTSI/blob/main/codes_partially_observed_dimension/README.md",
+      "paper_ids": [
+        "saits"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "GET streamed first 128 bytes only",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "npy_header": "b\"\\x93NUMPY\\x01\\x00v\\x00{'descr': '<f8', 'fortran_order': False, 'shape': (20014, 48, 19), }                                                 \\n\""
+      },
+      "notes": "Author NRTSI Dropbox share resolved via official dl.dropboxusercontent.com endpoint; no complete payload downloaded by this worker."
+    },
+    {
+      "id": "nrtsi_mujoco_train",
+      "url": "https://dl.dropboxusercontent.com/s/pjccc2piis8g2fx/mujoco_train.npy",
+      "path": "data/public_datasets/flow_matching/mujoco/mujoco_train.npy",
+      "format": "npy",
+      "checksum": null,
+      "evidence_url": "https://github.com/AI4HealthUOL/SSSD/blob/main/docs/instructions/Mujoco/README.md",
+      "paper_ids": [
+        "sssd"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "GET streamed first 128 bytes only",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "npy_header": "b\"\\x93NUMPY\\x01\\x00v\\x00{'descr': '<f4', 'fortran_order': False, 'shape': (8000, 100, 14), }                                                 \\n\""
+      },
+      "notes": "Author NRTSI Dropbox share resolved via official dl.dropboxusercontent.com endpoint; no complete payload downloaded by this worker."
+    },
+    {
+      "id": "nrtsi_mujoco_test",
+      "url": "https://dl.dropboxusercontent.com/s/ktkswh77sueqfy8/mujoco_test.npy",
+      "path": "data/public_datasets/flow_matching/mujoco/mujoco_test.npy",
+      "format": "npy",
+      "checksum": null,
+      "evidence_url": "https://github.com/AI4HealthUOL/SSSD/blob/main/docs/instructions/Mujoco/README.md",
+      "paper_ids": [
+        "sssd"
+      ],
+      "access": "public",
+      "url_check": {
+        "method": "GET streamed first 128 bytes only",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "npy_header": "b\"\\x93NUMPY\\x01\\x00v\\x00{'descr': '<f4', 'fortran_order': False, 'shape': (2000, 100, 14), }                                                 \\n\""
+      },
+      "notes": "Author NRTSI Dropbox share resolved via official dl.dropboxusercontent.com endpoint; no complete payload downloaded by this worker."
+    },
+    {
+      "id": "ptbxl_1_0_1",
+      "url": "https://physionet.org/static/published-projects/ptb-xl/ptb-xl-a-large-publicly-available-electrocardiography-dataset-1.0.1.zip",
+      "path": "data/public_datasets/flow_matching/ptbxl/ptbxl_1_0_1.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/AI4HealthUOL/SSSD/blob/main/docs/instructions/PTB-XL/README.md",
+      "paper_ids": [
+        "sssd"
+      ],
+      "access": "public",
+      "notes": "Use 1.0.1 for paper fidelity; large waveform archive. Official SHA256SUMS.txt is available under /files/ptb-xl/1.0.1/.",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/zip",
+        "content_length": "1842722380"
+      }
+    },
+    {
+      "id": "diffusion_ts_realworld_bundle",
+      "url": "https://drive.usercontent.google.com/download?id=11DI22zKWtHjXMnNGPWNUbyGz-JiEtZy6&export=download",
+      "path": "data/public_datasets/flow_matching/diffusion_ts/dataset.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/Y-debug-sys/Diffusion-TS#dataset-preparation",
+      "paper_ids": [
+        "diffusion_ts"
+      ],
+      "access": "public",
+      "notes": "Authors package: Stocks, ETTh1, Energy, fMRI. Public share ID from README; download may require large-file confirmation. Public file download resolves without a confirmation challenge through configured proxy.",
+      "url_check": {
+        "method": "GET streamed first 8 bytes",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "magic_hex": "504b03040a000000",
+        "resolved_url": "https://drive.usercontent.google.com/download?id=11DI22zKWtHjXMnNGPWNUbyGz-JiEtZy6&export=download"
+      }
+    },
+    {
+      "id": "diffusion_ts_eeg_extension",
+      "url": "https://drive.google.com/uc?export=download&id=1IqwE0wbCT1orVdZpul2xFiNkGnYs4t89",
+      "path": "data/public_datasets/flow_matching/diffusion_ts/eeg.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/Y-debug-sys/Diffusion-TS#dataset-preparation",
+      "paper_ids": [
+        "diffusion_ts"
+      ],
+      "access": "public_google_drive",
+      "notes": "2025 repository extension, not an original 2024 paper experiment."
+    },
+    {
+      "id": "grin_public_bundle",
+      "url": "https://mega.nz/folder/qwwG3Qba#c6qFTeT7apmZKKyEunCzSg",
+      "path": "data/public_datasets/flow_matching/grin/public_bundle",
+      "format": "mega_folder",
+      "checksum": null,
+      "evidence_url": "https://github.com/Graph-Machine-Learning-Group/grin#datasets",
+      "paper_ids": [
+        "grin",
+        "sssd"
+      ],
+      "access": "public_mega",
+      "notes": "AQI-437, AQI-36, METR-LA, PEMS-BAY; use MEGA client or API, URL is not a binary file."
+    },
+    {
+      "id": "sssd_processed_bundle",
+      "url": "https://mega.nz/folder/kT91jYpI#97GyTkVVUk97fzs1Oy4nBQ",
+      "path": "data/public_datasets/flow_matching/sssd/processed_bundle",
+      "format": "mega_folder",
+      "checksum": null,
+      "evidence_url": "https://github.com/AI4HealthUOL/SSSD/blob/main/src/README.md",
+      "paper_ids": [
+        "sssd"
+      ],
+      "access": "public_mega",
+      "notes": "6.28 GB author-preprocessed bundle; includes Electricity, ETTm1, MuJoCo, PTB-XL. src/get_data.py gives individual MEGA file URLs."
+    },
+    {
+      "id": "dcrnn_traffic_bundle",
+      "url": "https://drive.google.com/drive/folders/10FOTa6HXPqX8Pf5WRoRwcFnW9BrNZEIX",
+      "path": "data/public_datasets/flow_matching/traffic/dcrnn_bundle",
+      "format": "drive_folder",
+      "checksum": null,
+      "evidence_url": "https://github.com/liyaguang/DCRNN#data-preparation",
+      "paper_ids": [
+        "grin",
+        "sssd",
+        "ganf"
+      ],
+      "access": "public_google_drive_folder",
+      "notes": "Official DCRNN folder contains metr-la.h5 and pems-bay.h5."
+    },
+    {
+      "id": "cer_e",
+      "url": "https://www.ucd.ie/issda/data/commissionforenergyregulationcer/",
+      "path": "data/public_datasets/flow_matching/cer_e/pending",
+      "format": "gated",
+      "checksum": null,
+      "evidence_url": "https://github.com/Graph-Machine-Learning-Group/grin#datasets",
+      "paper_ids": [
+        "grin"
+      ],
+      "access": "research_application_required",
+      "notes": "ISSDA application and data terms; SME subset of 485 smart meters, not a public download."
+    },
+    {
+      "id": "ganf_pmu",
+      "url": null,
+      "path": "data/public_datasets/flow_matching/pmu/unavailable",
+      "format": "unavailable",
+      "checksum": null,
+      "evidence_url": "https://github.com/EnyanDai/GANF#datasets",
+      "paper_ids": [
+        "ganf"
+      ],
+      "access": "proprietary_not_released",
+      "notes": "Official repository explicitly says proprietary and cannot be offered publicly."
+    },
+    {
+      "id": "catch_bundle",
+      "url": "https://1drv.ms/u/c/801ce36c4ff3f93b/EVTDLHyvegpEn_Oxa6ZiuFIBjTsKk6m9JldUqWDqvrVCnQ?e=P2T3Vc",
+      "path": "data/public_datasets/flow_matching/catch/author_bundle",
+      "format": "share_link",
+      "checksum": null,
+      "evidence_url": "https://github.com/decisionintelligence/CATCH#data-preparation",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public_onedrive",
+      "notes": "10 real-world families plus 12 TODS synthetic sets; alternative Baidu URL https://pan.baidu.com/s/1W7UoAWKZjoukSZ74FTipYA?pwd=2255 . Author data splits differ from conventional five-dataset MTSAD splits."
+    },
+    {
+      "id": "dcdetector_bundle",
+      "url": "https://drive.google.com/drive/folders/1RaIJQ8esoWuhyphhmMaH-VCDh-WIluRR",
+      "path": "data/public_datasets/flow_matching/dcdetector/author_bundle",
+      "format": "drive_folder",
+      "checksum": null,
+      "evidence_url": "https://github.com/DAMO-DI-ML/KDD2023-DCdetector/blob/main/readme.md",
+      "paper_ids": [
+        "dcdetector"
+      ],
+      "access": "public_google_drive_folder"
+    },
+    {
+      "id": "existing_mtsad_smd",
+      "url": null,
+      "path": "data/public_datasets/mtsad/smd",
+      "format": "directory",
+      "checksum": null,
+      "evidence_url": "configs/datasets/public_sources.json",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "existing_local_verified",
+      "notes": "Existing acquisition audit reports valid payloads. Do not overwrite; author-specific splits require separate verification."
+    },
+    {
+      "id": "existing_mtsad_msl",
+      "url": null,
+      "path": "data/public_datasets/mtsad/msl",
+      "format": "directory",
+      "checksum": null,
+      "evidence_url": "configs/datasets/public_sources.json",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "existing_local_verified",
+      "notes": "Existing acquisition audit reports valid payloads. Do not overwrite; author-specific splits require separate verification."
+    },
+    {
+      "id": "existing_mtsad_psm",
+      "url": null,
+      "path": "data/public_datasets/mtsad/psm",
+      "format": "directory",
+      "checksum": null,
+      "evidence_url": "configs/datasets/public_sources.json",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "existing_local_verified",
+      "notes": "Existing acquisition audit reports valid payloads. Do not overwrite; author-specific splits require separate verification."
+    },
+    {
+      "id": "existing_mtsad_smap",
+      "url": null,
+      "path": "data/public_datasets/mtsad/smap",
+      "format": "directory",
+      "checksum": null,
+      "evidence_url": "configs/datasets/public_sources.json",
+      "paper_ids": [
+        "dcdetector"
+      ],
+      "access": "existing_local_verified",
+      "notes": "Existing acquisition audit reports valid payloads. Do not overwrite; author-specific splits require separate verification."
+    },
+    {
+      "id": "existing_mtsad_swat",
+      "url": null,
+      "path": "data/public_datasets/mtsad/swat",
+      "format": "directory",
+      "checksum": null,
+      "evidence_url": "configs/datasets/public_sources.json",
+      "paper_ids": [
+        "ganf",
+        "dcdetector"
+      ],
+      "access": "existing_local_verified",
+      "notes": "Existing acquisition audit reports valid payloads. Do not overwrite; author-specific splits require separate verification."
+    },
+    {
+      "id": "existing_ucr",
+      "url": null,
+      "path": "data/public_datasets/mtsad_paper_repos/tranad/data/UCR",
+      "format": "directory",
+      "checksum": null,
+      "evidence_url": "data/public_datasets/audit.json",
+      "paper_ids": [
+        "dcdetector"
+      ],
+      "access": "existing_local_repository",
+      "notes": "UCR is present inside audited TranAD repository; check archive inventory before asserting all DCdetector subsets match."
+    },
+    {
+      "id": "tods_generator",
+      "url": "https://raw.githubusercontent.com/datamllab/tods/benchmark/benchmark/synthetic/Generator/multivariate_generator.py",
+      "path": "data/public_datasets/flow_matching/catch/multivariate_generator.py",
+      "format": "py",
+      "checksum": null,
+      "evidence_url": "https://arxiv.org/html/2410.12261v2#A1.SS6",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "notes": "Generator source artifact, not an experimental data payload. Additional univariate generator module may be needed."
+    },
+    {
+      "id": "mtsbench_CalIt2_CalIt2_traffic_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/CalIt2/CalIt2_traffic_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/CalIt2/CalIt2_traffic_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/CalIt2",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 106245,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "7e6d193570892814389b5a0525795d0ec3906c35",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_CalIt2_CalIt2_traffic_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/CalIt2/CalIt2_traffic_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/CalIt2/CalIt2_traffic_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/CalIt2",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 24678,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "14fe2a91daa7745da253b777bb34185437815847",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_CalIt2_CalIt2_traffic_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/CalIt2/CalIt2_traffic_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/CalIt2/CalIt2_traffic_val.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/CalIt2",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 26515,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "70d058b26f8472e69acfee10711d16820286f7da",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_GECCO_GECCO_water_quality_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/GECCO/GECCO_water_quality_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/GECCO/GECCO_water_quality_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/GECCO",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6114353,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "a1e533f861bda995c01fd34ba4be8a8d4916da77",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_GECCO_GECCO_water_quality_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/GECCO/GECCO_water_quality_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/GECCO/GECCO_water_quality_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/GECCO",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 2007574,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "d84d7336c6bed4cade71f95d0a853638545739ea",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_GECCO_GECCO_water_quality_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/GECCO/GECCO_water_quality_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/GECCO/GECCO_water_quality_val.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/GECCO",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 2034086,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "777f1724f7edc064b26b378a3f3b1be6199dd3cb",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_Genesis_Genesis_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/Genesis/Genesis_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/Genesis/Genesis_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/Genesis",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 743751,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "430725db5003ad855f7c9b96dc348ba5a68209c3",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_Genesis_Genesis_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/Genesis/Genesis_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/Genesis/Genesis_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/Genesis",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 257117,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "eb0a53027a87a42ec65ef9d1fb8be9fc77813982",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_Genesis_Genesis_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/Genesis/Genesis_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/Genesis/Genesis_val.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/Genesis",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 290150,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "45bfc9e39ee8b31484fb6266dbd689bf221f79f1",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_C-1_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_C-1_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_C-1_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 548482,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "5841c4028eb716b0e8a6f83ab7d8b8a776e121e5",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_C-1_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_C-1_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_C-1_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 518163,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "add11c2dc298e6967387474188a3b499e31fbbb0",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_C-2_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_C-2_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_C-2_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 491056,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "742b5fe9d2dfd202da06971d247f6d91c583a1a5",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_C-2_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_C-2_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_C-2_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 172398,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "9702ec90ef0ff050f947fcc2fc97046fc06201c6",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_D-14_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_D-14_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_D-14_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 597989,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "e0be00eaa59afe88ccf7b3c803ef2e1e88b2896b",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_D-14_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_D-14_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_D-14_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 830049,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "384ea96355a6e06c84fea8fef800c3c1cb8f3405",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_D-15_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_D-15_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_D-15_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 517633,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "91ef7399ee6c47e7340ebd76636b22469d2b18e9",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_D-15_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_D-15_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_D-15_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 492971,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "5edf206b8edf1f3bb56d48e715c961d4ad9d34e9",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_D-16_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_D-16_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_D-16_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 516742,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c6600c386ef7b8ca1b2cb02bb299f50bf5d5d862",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_D-16_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_D-16_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_D-16_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 332684,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "e0a9a0a6f61f550f2ce02886e4932b5ec2b960a2",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_F-4_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_F-4_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_F-4_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 830702,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "7c72b015018fb49f4503eb48139d866d5841a913",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_F-4_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_F-4_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_F-4_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 540259,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c45722ba8851b22153c05a87931667fda9bbb5a2",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_F-5_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_F-5_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_F-5_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 951979,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "b7e82d974e16de4e70ee94dba637adda92ccf622",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_F-5_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_F-5_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_F-5_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 625374,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "57639c902f4896be26679319e3b9af12abcd53c0",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_F-7_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_F-7_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_F-7_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 1219674,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "b9d4c96019d8eace0f4ce65b0d4bdf3c962ad27e",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_F-7_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_F-7_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_F-7_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 602335,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "ec58b5993b3ce9e03ed5e50ce3c6dd0dddd1bc49",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_F-8_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_F-8_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_F-8_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 575754,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "28942c846fe6500684cd1df02fd019ef1218d780",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_F-8_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_F-8_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_F-8_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 771824,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "f6b9c981cdd9b85fad3cc5dcc11553f82bd841de",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-1_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-1_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-1_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 548276,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "ec9bf31bbf7a33ff9772ea9f3eafc218d0904ab0",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-1_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-1_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-1_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 527540,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "3ac4856bd277cbc029b7cae46396c188279469dc",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-2_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-2_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-2_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 551660,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "77163cf256ad3411be347966603a4262ab21a017",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-2_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-2_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-2_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 531263,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "8a593a80e52e5eed38d6f44280c1c307223cfc88",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-3_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-3_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-3_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 511443,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "62765435059a7278d0e12e13e206a325f4a97240",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-3_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-3_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-3_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 488000,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "13741d28b8949ab62ddd7668a6d490ab5eb9341b",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-4_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-4_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-4_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 489906,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "f092201e24245e92a945c28a92e4d341dea82606",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-4_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-4_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-4_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 493796,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "e5a92c220f436bb9757e7895198bed86f0b92c18",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-5_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-5_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-5_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 545225,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "a9610a9362995c58c9b5dc341d26fbaab2c6518b",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-5_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-5_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-5_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 473802,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "4b013a12402b6fd0a5263a82f64624c81831b446",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-6_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-6_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-6_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 476339,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c948c057c1809a14b6cec6ae8115420ab56ae51a",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-6_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-6_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-6_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 353189,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "b1b1ac5f58b2f8755f00260b81f2e369d36847ec",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-7_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-7_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-7_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 522641,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "5592146c36b5b065752a9a4aa08407772e43bdd8",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_M-7_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_M-7_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_M-7_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 381960,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "0cf488545e5f52bc492b691e145bb8d9e51009da",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_P-10_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_P-10_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_P-10_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 1476929,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "40d538fa0dae2bdd35ce431a2eef67acee757192",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_P-10_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_P-10_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_P-10_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 1033175,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "67eac76372f92c2acd90ba9565e65b0a8d0a318a",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_P-11_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_P-11_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_P-11_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 854605,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c81a115017befc7f63d487f76a4f3bbf167c6669",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_P-11_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_P-11_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_P-11_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 951612,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "8d3c95a0a18d97fb68a4f5e1b49ec928f6345f7e",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_P-14_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_P-14_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_P-14_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 1476929,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "ea4ec1c8fb8d1bbc39df96a18f13ef8ed03474dd",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_P-14_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_P-14_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_P-14_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 687197,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "3a76fcc5c956d77032a5c615499d108b9755906f",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_P-15_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_P-15_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_P-15_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 691758,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "6c131d9610055096647ffa60656c8ec9e68f55fe",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_P-15_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_P-15_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_P-15_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 882683,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "51c864fd1691bd90602d79f2d6036a6759901136",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_S-2_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_S-2_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_S-2_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 416063,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "dd5ca59b975fe98cede2dd8b8c67fe6d79bc9071",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_S-2_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_S-2_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_S-2_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 208848,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "cc266ce24bc614b4a1b21b1ad230c8ae8b5bbc0d",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-12_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-12_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-12_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 590152,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "d43c385bab0c4ab64858cbe6defaa8520075a27d",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-12_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-12_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-12_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 275617,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "efc1022db4ef4d5bd3e822d04239919402232b91",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-13_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-13_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-13_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 294461,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "f2772adaa471371305482f61205f310a7078dc1a",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-13_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-13_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-13_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 274926,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "b3886f5ba6c4109a8f7b44b1caf16799044f3e50",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-13_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-13_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-13_val.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 294358,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "a0155273214eeaf4ac96fae05221278a2ec452f3",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-4_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-4_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-4_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 504049,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "76542e661a1dee716afebf8e33acb0e62921f5e4",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-4_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-4_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-4_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 511884,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "438590ca3bc8feb07f1ae5a356eb6843e58805ef",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-5_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-5_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-5_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 505224,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "cf5943c15ddeaa9d9a2d9466f17f60328b94514c",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-5_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-5_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-5_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 512971,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "7109571a46fb79d8ab2f73c0133601fdd1882c19",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-8_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-8_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-8_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 346102,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "e7811f4265be8461093a4745422872b555467874",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_MSL_MSL_T-8_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/MSL/MSL_T-8_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/MSL/MSL_T-8_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/MSL",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 168866,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "1a21973ed1b6ad666ca723624005cd5ff6e6d4bd",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_PSM_PSM_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/PSM/PSM_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/PSM/PSM_test.csv",
+      "format": "csv",
+      "checksum": "sha256:4cac499f2eacf6a292eeb94cd5dfc49b9a0bbe02d71c89207e090bde6361ef25",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/PSM",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 33707365,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "6aa7c2b85a246779add3206bd849fce0c47d60cc",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_PSM_PSM_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/PSM/PSM_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/PSM/PSM_train.csv",
+      "format": "csv",
+      "checksum": "sha256:3ecfea8ddf0c128ecc5068463450107a92c12609628c6d54c998ae18f909d034",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/PSM",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 63171784,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "38a74249ea9353f52d86c7c6275722a774e47e84",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_PSM_PSM_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/PSM/PSM_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/PSM/PSM_val.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/PSM",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 8501974,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "29bf7c3b32c7b384f296b5103dba134560552f7b",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-2_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-2_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-2_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 1271909,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "42793609a5159d1d2a3611035358a7ed23d85772",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-2_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-2_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-2_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6139746,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "7d3ae121c8ba85c5e6a9d3edab346ff98d64fa20",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-2_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-2_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-2_val.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 851085,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "d21f9c068338214e1629787e2580ae9529b087b8",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-3_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-3_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-3_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 4343403,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "049084c0c364ffb59d77374b40bbe04cea148808",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-3_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-3_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-3_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6778924,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "b4f22e141efd84ed23e8483feb7bcd1f0779b8dc",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-4_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-4_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-4_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 2947797,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "8ec0e177eb08eb1734ae0796f534daecd901d44f",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-4_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-4_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-4_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6839376,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "98b265dda670cbe04dd8a70d7f546de9b21773ca",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-6_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-6_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-6_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 5501896,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "6c10479fc3d3a4e7b446d61c58d8a98867a9c173",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-6_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-6_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-6_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6934919,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c4987e3a6eb97eaf16793da73760950317b24d31",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-7_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-7_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-7_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 5185523,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "8941c383ee7a882dbb84b6ae2ebb77f3a7d6d0a9",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-7_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-7_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-7_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 7092997,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c41fd83a2a51e5d22add49e602ea71036b9296c2",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-8_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-8_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-8_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 5992809,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "946cc3c44b47d99f79157735fd821ef931cb0938",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-1-8_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-1-8_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-1-8_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 7041836,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "e4213ec459e3d312d2f8f8550c15ede90c420f83",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-1_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-1_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-1_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 3669972,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "20b8baab1406fb13dcef361f04952562d4fe98ed",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-1_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-1_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-1_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6790256,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c08dd1ceb828abdedf8d2333c29b2b4847317aeb",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-2_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-2_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-2_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 1486856,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "029fa92b11c2857a03422949c74451d303cae418",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-2_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-2_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-2_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6409717,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "a33682a7efa7e674237fc037dfc3fcf6f5645730",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-3_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-3_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-3_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 3910713,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "1d6faef561b0163e1b732b5cd420d6889d30f096",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-3_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-3_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-3_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6502241,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "f3446175173243981433d8ac996755001222f217",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-4_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-4_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-4_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 5429616,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "6a0a56720ff0869e1ac55642c0e2afdb2f229124",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-4_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-4_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-4_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6821622,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "1a8c9a7b15b01d8c4c5384cddf823fd254c32a2e",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-5_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-5_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-5_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 5106317,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "e693249334457aacacff6ed921fd62e016c7731d",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-5_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-5_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-5_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6873465,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "d09441e35b57cca316fd63bfb621df744043f88e",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-7_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-7_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-7_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 5338036,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "ea13e1f5e2a9cd256dc3f64af974486822d7618f",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-7_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-7_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-7_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6933174,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "93420cda44805ca73421fc5b8d3364dd992fb857",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-9_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-9_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-9_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 3081248,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "efc67da144ed3ae69591f28b6a25eeaeb4afb308",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-2-9_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-2-9_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-2-9_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 7890317,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "3b567b9ddd63f518a2bb787725264252bc42f7bc",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-10_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-10_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-10_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 5158006,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "44996b7588bcb2b3e8696776e2722e4da51a08ff",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-10_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-10_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-10_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6591559,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "06076e258861d622574e85ab5e16b3b229f96879",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-2_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-2_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-2_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 3657270,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "9ee756419d0224b1099849111949bd6cb373d995",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-2_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-2_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-2_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6636660,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "5fb015c0551699019cb0d9fb44a38d96a5fea1c5",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-3_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-3_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-3_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 5793569,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "bfef3e3054ea7dfb49d0a9a35bf79f55243dd646",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-3_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-3_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-3_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 7210486,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "2f62763861254ef10b1383e777373aba10791ccb",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-5_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-5_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-5_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 2521411,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "07adf3aee100b53677c309c1e9aa30bffd03bfd3",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-5_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-5_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-5_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 6478366,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "7eed4795a3a45d54269b5b94d456f1547102fb10",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-6_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-6_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-6_test.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 3657432,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "0f80cfeb0104662d264e192135fab7701c6da2d1",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_SMD_SMD_machine-3-6_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/SMD/SMD_machine-3-6_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/SMD/SMD_machine-3-6_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/SMD",
+      "paper_ids": [
+        "catch",
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 8364279,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "ec3aebc72ebf978202a54f9e3937489246274da8",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_0_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_0_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_0_test.csv",
+      "format": "csv",
+      "checksum": "sha256:cf8dde34690524bf75b0a5a58bb2a048ed58a4b331cf39719a9a2023422ccccb",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 135268721,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "25b50e5ce3e19a4afaaeedeb2b670894e0122a09",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_0_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_0_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_0_train.csv",
+      "format": "csv",
+      "checksum": "sha256:b84c66eed6df121323d16bb0fc2d867b95129f7edef3d99155c2b419695f297a",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 23629082,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c91c8abec0c61b020d4de5afefbdfae5c0ceeff0",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_0_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_0_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_0_val.csv",
+      "format": "csv",
+      "checksum": "sha256:109afb928b02d9fa8e84c64ba3d10786d90502d79fdb3319fcde71da5d0e9e8a",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 52872775,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "e124f96752c3c2098507a38495c873e149177230",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_2_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_2_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_2_test.csv",
+      "format": "csv",
+      "checksum": "sha256:73be4082b3058d5584d2e91dff3fdceb5cfd258d4b6eec338e3cf4b19f0b9879",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 44670103,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "408f2aad68c2d42d9565d2c834702ab2db58531a",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_2_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_2_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_2_train.csv",
+      "format": "csv",
+      "checksum": "sha256:b874b9e3559a0516c95ea48ecacc0446df028a2c7df0d25e2e0449eb6c4c3a8f",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 10998407,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "55515480698ac4557a216eef969bda7b757b7a50",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_3_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_3_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_3_test.csv",
+      "format": "csv",
+      "checksum": "sha256:85a9fdbc400c2c16b15cd8900396c32d14fae6559e9c494d58433e5ef2b5d11a",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 71431095,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "e5ec278c52a92b5072dd5d6f993ce4627de12d08",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_3_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_3_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_3_train.csv",
+      "format": "csv",
+      "checksum": "sha256:b2fc2c6c511e2d7d52b654aa9e5ad0e5a5d5868f87984b3298a2aafb6889390f",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 18993437,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "07d1ec323d568b7974edb6fba88d4be5976c6ac3",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_5_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_5_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_5_test.csv",
+      "format": "csv",
+      "checksum": "sha256:114cccf0929119827c97b292507bfa8a0bd6873264141e67c18b25593b616922",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 49986500,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "0830f542686ba7aca44c17564ba8fcfda38c9b05",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_5_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_5_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_5_train.csv",
+      "format": "csv",
+      "checksum": "sha256:af8c0ed471c18b9b45329c0d3e8fa0157873e51cbf95c41cf615b43416accae5",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 12657214,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "13c499696404cfc432fa943e28497838d20070b3",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_6_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_6_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_6_test.csv",
+      "format": "csv",
+      "checksum": "sha256:de67b50695c7a0068eb6dcb1759507479479d5208d3c6dcde966fc794815ca54",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 66223135,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "71ffa879ba3e1613b8e625894eca354409576c49",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_6_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_6_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_6_train.csv",
+      "format": "csv",
+      "checksum": "sha256:96fad4e112125bc9e5a3b21e50e1d873d58fc2bdf3a8c64c2de06d6724a69e01",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 18720946,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "2d6c74f2e6cab0cb19b87f8ef99f4bbfbd737f8c",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_7_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_7_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_7_test.csv",
+      "format": "csv",
+      "checksum": "sha256:4d76c64ef634ca74ceaa118e6128643821756093917cff3a9210bd483713c6fa",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 65258113,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "da234d8234aef0bed15d56c9ed5aca2be06d8310",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_cicids_cicids_7_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/cicids/cicids_7_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/cicids/cicids_7_train.csv",
+      "format": "csv",
+      "checksum": null,
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/cicids",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 8667775,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "1761c154fb0955ee73080dd28b8857ae186da41c",
+      "checksum_note": "Non-LFS HF git blob SHA1 recorded separately; cannot use it as ordinary file SHA1 checksum."
+    },
+    {
+      "id": "mtsbench_creditcard_creditcard_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/creditcard/creditcard_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/creditcard/creditcard_test.csv",
+      "format": "csv",
+      "checksum": "sha256:8609583da5931e5cd45ed47d4258a2c0f06d9661e48b68de5350719035542384",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/creditcard",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 92482404,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c7d34ac838a67e9b36fc01a0211c2bd7efec936e",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_creditcard_creditcard_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/creditcard/creditcard_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/creditcard/creditcard_train.csv",
+      "format": "csv",
+      "checksum": "sha256:af355a6ba69b6621407380471bbf52ddeb257d3113cd256228fc93ed9e5e20bf",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/creditcard",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 30711281,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "7a7444dd246824d7604200eb8ba9be37fcf826c0",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_creditcard_creditcard_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/creditcard/creditcard_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/creditcard/creditcard_val.csv",
+      "format": "csv",
+      "checksum": "sha256:b7ed6ae2031fd88d73483a0055cd788ed11939f18f99e261d18647102b0fe368",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/creditcard",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "expected_bytes": 30836867,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "d1c4b69fe9c756007ba1bd33aedaefdef34d0252",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_swan_swan_sf_test.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/swan/swan_sf_test.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/swan/swan_sf_test.csv",
+      "format": "csv",
+      "checksum": "sha256:564a3a69292b4a5cfd678fe2c6984aa49f6dabaeadedd44bfccccaec5239484a",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/swan",
+      "paper_ids": [
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 42278063,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "c2ded02a00605bff221426437a2bc6aa8ed50383",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_swan_swan_sf_train.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/swan/swan_sf_train.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/swan/swan_sf_train.csv",
+      "format": "csv",
+      "checksum": "sha256:ae9d42cb7911ced67f6bec294870ca2f7950fb5e1610a4942fadbafa8486a433",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/swan",
+      "paper_ids": [
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 11498185,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "b0b0e71efb532eebd52aedd80bd11e0226b30f1d",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "mtsbench_swan_swan_sf_val.csv",
+      "url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/resolve/b95a65320720154430e1e8e91d105ba06c7903a5/swan/swan_sf_val.csv",
+      "path": "data/public_datasets/flow_matching/mtsbench/swan/swan_sf_val.csv",
+      "format": "csv",
+      "checksum": "sha256:355e68a44f4b2b9bdc9a51b3b435bde31ab6fafb32e24aade1de684c0fc39e28",
+      "evidence_url": "https://huggingface.co/datasets/PLAN-Lab/mTSBench/tree/b95a65320720154430e1e8e91d105ba06c7903a5/swan",
+      "paper_ids": [
+        "dcdetector"
+      ],
+      "access": "public",
+      "expected_bytes": 14044152,
+      "revision": "b95a65320720154430e1e8e91d105ba06c7903a5",
+      "license": "CC BY-NC 4.0",
+      "notes": "Official mTSBench publisher release of related dataset family; not asserted identical to CATCH/DCdetector authors preprocessing or experiment splits. Reuse fm_data path; columns include timestamp/is_anomaly.",
+      "git_blob_oid": "a232580462c9f3be8f6dc7929031b9374752362a",
+      "checksum_note": "HF LFS oid is payload SHA256."
+    },
+    {
+      "id": "tab_author_dataset_zip",
+      "url": "https://drive.usercontent.google.com/download?id=1V5BAHWBKU8uih3hE1R7WdF6_crZlIbQT&export=download&confirm=t&uuid=bcc3ed3f-89ba-4bc8-ae2a-e0b7006965a0",
+      "path": "data/public_datasets/flow_matching/catch/TAB_dataset.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/decisionintelligence/TAB#quickstart",
+      "paper_ids": [
+        "catch"
+      ],
+      "access": "public",
+      "notes": "Official CATCH/TAB authors data archive; contains exact expected ASD/NYC assets if inventory matches author scripts. Google Drive presents a standard public large-file virus-scan confirmation form. The provided form action is a permitted public download, not access control bypass.",
+      "url_check": {
+        "method": "GET streamed first 8 bytes after public confirmation form",
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "magic_hex": "504b030414000000"
+      },
+      "download_confirmation_url": "https://drive.usercontent.google.com/download?id=1V5BAHWBKU8uih3hE1R7WdF6_crZlIbQT&export=download&confirm=t&uuid=bcc3ed3f-89ba-4bc8-ae2a-e0b7006965a0"
+    }
+  ],
+  "related_release_boundary": "mTSBench is an official release by its own authors, not a CATCH author mirror. It omits ASD and NYC and uses different series/splits in some shared families. Exact CATCH data remains the author TAB/OneDrive/Baidu release."
+}
