@@ -11,6 +11,67 @@ pytest.importorskip("pypdf")
 from scripts.data_acquisition import download_flow_matching_bundle as bundle
 
 
+def test_alternate_ranges_resume_preserved_chunks_and_check_hash(tmp_path, monkeypatch):
+    pytest.importorskip("curl_cffi")
+    from scripts.data_acquisition import download_flow_matching_alternatives as alternative
+    payload = b"a,b\n1,2\n3,4\n"
+    target = tmp_path / "data.csv"
+    folder = tmp_path / "data.csv.chunks"
+    folder.mkdir()
+    (folder / "0000.part").write_bytes(payload[:2])
+    starts = []
+    def fake_curl(url, output, proxy, byte_range=None):
+        lo, hi = byte_range
+        starts.append(lo)
+        output.write_bytes(payload[lo:hi + 1])
+        return 0, 206, {"content-range": f"bytes {lo}-{hi}/{len(payload)}"}, ""
+    monkeypatch.setattr(alternative, "curl_transfer", fake_curl)
+    item = {"url": "https://example.invalid/raw", "format": "csv", "size_bytes": len(payload),
+            "range_parts": 2, "range_workers": 1,
+            "checksum": "sha256:" + hashlib.sha256(payload).hexdigest()}
+    alternative.segmented(item, target, None)
+    assert target.read_bytes() == payload
+    assert starts == [2, 6]
+
+
+def test_wrong_alternate_range_never_appends_to_preserved_partial(tmp_path, monkeypatch):
+    pytest.importorskip("curl_cffi")
+    from scripts.data_acquisition import download_flow_matching_alternatives as alternative
+    target = tmp_path / "data.csv"
+    folder = tmp_path / "data.csv.chunks"
+    folder.mkdir()
+    partial = folder / "0000.part"
+    partial.write_bytes(b"ab")
+    def wrong_curl(url, output, proxy, byte_range=None):
+        output.write_bytes(b"incorrect")
+        return 0, 206, {"content-range": "bytes 0-8/9"}, ""
+    monkeypatch.setattr(alternative, "curl_transfer", wrong_curl)
+    monkeypatch.setattr(alternative.time, "sleep", lambda _: None)
+    with pytest.raises(ValueError, match="exact requested range"):
+        alternative.segmented({"url": "https://example.invalid/raw", "size_bytes": 8,
+                               "range_parts": 1}, target, None)
+    assert partial.read_bytes() == b"ab"
+    assert not target.exists()
+
+
+def test_explicit_drive_quota_stops_alternate_retries(tmp_path, monkeypatch):
+    pytest.importorskip("curl_cffi")
+    from scripts.data_acquisition import download_flow_matching_alternatives as alternative
+    monkeypatch.setattr(alternative, "ROOT", tmp_path)
+    calls = []
+    def quota(url, output, proxy, byte_range=None):
+        calls.append(url)
+        output.write_bytes(b"<!DOCTYPE html><html><title>Google Drive - Quota exceeded</title></html>")
+        return 0, 200, {}, ""
+    monkeypatch.setattr(alternative, "curl_transfer", quota)
+    record = alternative.acquire({"id": "quota", "path": "data.zip", "format": "zip",
+                                  "url": "https://example.invalid/public",
+                                  "checksum": "md5:" + "0" * 32}, None)
+    assert record["status"] == "quota_exceeded"
+    assert len(calls) == 1
+    assert not (tmp_path / "data.zip").exists()
+
+
 def test_existing_raw_file_is_preserved_without_network(tmp_path, monkeypatch):
     monkeypatch.setattr(bundle, "ROOT", tmp_path)
     target = tmp_path / "raw.csv"

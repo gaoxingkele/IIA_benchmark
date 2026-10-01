@@ -46,8 +46,9 @@ def retry_queue(queue):
         retry_registry = RUNTIME / f"{queue['name']}_retry_{attempt}.json"
         retry_registry.write_text(json.dumps({"sources": selected}, ensure_ascii=False, indent=2), encoding="utf-8")
         original = BASE / f"{queue['name']}_automatic_retry_{attempt}_manifest.json"
-        command = [sys.executable, "scripts/data_acquisition/download_flow_matching_bundle.py",
-                   "--registry", str(retry_registry), "--manifest", str(original), "--workers", "3"]
+        command = [sys.executable, queue.get("download_script", "scripts/data_acquisition/download_flow_matching_bundle.py"),
+                   "--registry", str(retry_registry), "--manifest", str(original), "--workers", "3",
+                   *queue.get("download_arguments", [])]
         with (RUNTIME / f"{queue['name']}_retry_{attempt}.log").open("w", encoding="utf-8") as log:
             subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=False)
     return queue["name"]
@@ -67,7 +68,7 @@ def main():
             state = {name: "running" if not f.done() else
                      ("failed: " + str(f.exception()) if f.exception() else "finished")
                      for f, name in futures.items()}
-            (RUNTIME / "continuation_status.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
+            (RUNTIME / f"{args.queues.stem}_status.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
             subprocess.run([sys.executable, "scripts/data_acquisition/report_flow_matching_bundle.py"],
                            cwd=ROOT, stdout=subprocess.DEVNULL, check=False)
             if all(f.done() for f in futures):

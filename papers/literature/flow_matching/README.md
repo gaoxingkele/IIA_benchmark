@@ -47,3 +47,26 @@ Its machine-specific process IDs, logs, and status are kept locally in
 the commands above rather than reusing stale process IDs. Drive and MEGA have
 separate downloaders and manifests. Do not run duplicate queues against the same
 destination while a transfer is active.
+
+On the alternate-transport recovery pass, native curl successfully recovered all
+72 previously failed Drive files. `drive_download_manifest.json` now records all
+775 requested author-folder files as available. The remaining public files are
+registered separately, preserving the original publisher checksums:
+
+```powershell
+python scripts/data_acquisition/download_flow_matching_alternatives.py --registry configs/acquisition/flow_matching_alternative_sources.json --manifest papers/literature/flow_matching/alternative_download_manifest.json --workers 6
+python scripts/data_acquisition/download_flow_matching_alternatives.py --registry configs/acquisition/flow_matching_alternative_sources.json --manifest papers/literature/flow_matching/alternative_tep_manifest.json --only-large --workers 3
+python scripts/data_acquisition/download_flow_matching_alternatives.py --registry configs/acquisition/flow_matching_alternative_extra_sources.json --manifest papers/literature/flow_matching/alternative_extra_manifest.json --workers 4
+```
+
+The second command reuses the original `.chunks` directory and validates each
+16 MiB HTTP byte range before appending it. Final TEP files still require the
+publisher byte size and MD5. Other files use native curl with curl-cffi as a
+fallback and retain separate transport partials. Curl documentation and
+curl-cffi documentation are linked in the alternate registry. Access gates,
+withdrawn MEGA shares, and private experiment datasets remain explicit gaps.
+CelebA range probes returned real data, but full-download requests still report
+Google Drive quota exceeded. Its image archive and metadata remain unavailable;
+their publisher MD5 checksums are registered for later verification. The author EEG extension was found
+to be `EEG_Eye_State.arff`, not ZIP; the registration is corrected and the old
+transfer files are preserved.
