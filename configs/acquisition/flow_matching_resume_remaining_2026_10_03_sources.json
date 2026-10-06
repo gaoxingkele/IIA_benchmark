@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "scope": "Only incomplete public artifacts, preserving original chunks and contiguous native-curl prefixes; no aria2 sparse prefixes used",
+  "sources": [
+    {
+      "id": "ptbxl_1_0_1",
+      "url": "https://physionet.org/static/published-projects/ptb-xl/ptb-xl-a-large-publicly-available-electrocardiography-dataset-1.0.1.zip",
+      "path": "data/public_datasets/flow_matching/ptbxl/ptbxl_1_0_1.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/AI4HealthUOL/SSSD/blob/main/docs/instructions/PTB-XL/README.md",
+      "paper_ids": [
+        "sssd"
+      ],
+      "access": "public",
+      "notes": "Use 1.0.1 for paper fidelity; large waveform archive. Official SHA256SUMS.txt is available under /files/ptb-xl/1.0.1/.",
+      "url_check": {
+        "method": "HEAD",
+        "status": 200,
+        "content_type": "application/zip",
+        "content_length": "1842722380"
+      },
+      "preferred_transport": "curl_cffi",
+      "range_transport": "curl_cffi",
+      "range_workers": 1,
+      "size_bytes": 1842722380,
+      "backend": "range_curl",
+      "range_parts": 1,
+      "transport_size_evidence": "Official HTTP Content-Length from previous source registration; ZIP CRC checked on completion.",
+      "segment_bytes": 4194304
+    },
+    {
+      "id": "jfi_tep_26034659",
+      "url": "https://ndownloader.figshare.com/files/26034659?download=1",
+      "path": "data/public_datasets/flow_matching/tep_dtu_v1/TEP_Mode6.h5",
+      "format": "h5",
+      "checksum": {
+        "algorithm": "md5",
+        "value": "d01e032a1f3ff9ca3afaa1f74c52e1a6"
+      },
+      "evidence_url": "https://api.figshare.com/v2/articles/13385936/versions/1",
+      "paper_ids": [
+        "JFI"
+      ],
+      "access": "public",
+      "size_bytes": 23907566544,
+      "connections": 1,
+      "download_note": "aria2c through the configured proxy returned HTTP403 even with one connection; requests Range streaming verified HTTP206 and HDF5 magic on the same public endpoint.",
+      "backend": "range_curl",
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Range": "bytes=0-"
+      },
+      "refresh_query": "cachebust",
+      "range_parts": 32,
+      "range_workers": 2,
+      "preferred_transport": "curl_cffi",
+      "range_transport": "curl_cffi",
+      "segment_bytes": 4194304
+    },
+    {
+      "id": "jfi_tep_26003492",
+      "url": "https://ndownloader.figshare.com/files/26003492?download=1",
+      "path": "data/public_datasets/flow_matching/tep_dtu_v1/TEP_Mode3.h5",
+      "format": "h5",
+      "checksum": {
+        "algorithm": "md5",
+        "value": "5f4bf0d87e7f9ff81ee632f84f2d9050"
+      },
+      "evidence_url": "https://api.figshare.com/v2/articles/13385936/versions/1",
+      "paper_ids": [
+        "JFI"
+      ],
+      "access": "public",
+      "size_bytes": 23921551744,
+      "connections": 1,
+      "download_note": "aria2c through the configured proxy returned HTTP403 even with one connection; requests Range streaming verified HTTP206 and HDF5 magic on the same public endpoint.",
+      "backend": "range_curl",
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Range": "bytes=0-"
+      },
+      "refresh_query": "cachebust",
+      "range_parts": 32,
+      "range_workers": 2,
+      "preferred_transport": "curl_cffi",
+      "range_transport": "curl_cffi",
+      "segment_bytes": 4194304
+    },
+    {
+      "id": "jfi_tep_26003087",
+      "url": "https://ndownloader.figshare.com/files/26003087?download=1",
+      "path": "data/public_datasets/flow_matching/tep_dtu_v1/TEP_Mode1.h5",
+      "format": "h5",
+      "checksum": {
+        "algorithm": "md5",
+        "value": "c79ecc6d12a5ccb49caffcd8f531feae"
+      },
+      "evidence_url": "https://api.figshare.com/v2/articles/13385936/versions/1",
+      "paper_ids": [
+        "JFI"
+      ],
+      "access": "public",
+      "size_bytes": 23924710848,
+      "connections": 1,
+      "download_note": "aria2c through the configured proxy returned HTTP403 even with one connection; requests Range streaming verified HTTP206 and HDF5 magic on the same public endpoint.",
+      "backend": "range_curl",
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Range": "bytes=0-"
+      },
+      "refresh_query": "cachebust",
+      "range_parts": 32,
+      "range_workers": 2,
+      "preferred_transport": "curl_cffi",
+      "range_transport": "curl_cffi",
+      "segment_bytes": 4194304
+    },
+    {
+      "id": "lsun_bedroom_train",
+      "url": "http://dl.yf.io/lsun/scenes/bedroom_train_lmdb.zip",
+      "path": "data/public_datasets/flow_matching/lsun/bedroom_train_lmdb.zip",
+      "format": "zip",
+      "checksum": null,
+      "evidence_url": "https://github.com/fyu/lsun/blob/master/download.py",
+      "paper_ids": [
+        "rectified_flow"
+      ],
+      "access": "public_direct",
+      "download_status": "not_requested",
+      "verification": "Official HTTP endpoint verified via proxy Range GET: 206 application/zip and ZIP signature. HTTPS endpoint fails TLS certificate validation; no TLS checks disabled.",
+      "paper_evidence": [
+        "https://arxiv.org/html/2209.03003#S5.SS2"
+      ],
+      "expected_size": 45922737680,
+      "health_probe": {
+        "method": "HTTP Range GET through configured proxy",
+        "range_bytes": 1048576,
+        "elapsed_seconds": 8.44,
+        "observation": "Range works, source healthy; approximately 124 KiB/s in this single probe, not a sustained-throughput guarantee."
+      },
+      "fallback_urls": [
+        "https://dl.yf.io/lsun/scenes/bedroom_train_lmdb.zip"
+      ],
+      "preferred_transport": "curl_cffi",
+      "range_transport": "curl_cffi",
+      "range_workers": 1,
+      "size_bytes": 45922737680,
+      "backend": "range_curl",
+      "range_parts": 1,
+      "transport_size_evidence": "Official Range probe total recorded in original source registration; ZIP CRC checked on completion.",
+      "segment_bytes": 4194304
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+seed_everything: 2029
+experiment_subdir_base: logs/physionet/icfm/fold0
+add_checkpoint_callback: true
+data:
+  setup_seed: 2029
+  batch_size: 16
+  dataset:
+    class_path: scripts.flow_matching.transfer_dataset.CampaignWindowDataset
+    init_args:
+      root: D:\aicoding\IIA_benchmark\data\public_datasets\flow_matching\processed_campaign_v1\tep_transfer\channel_missing0.5_seed2029.npz
+  missingness:
+    class_path: imp_cfm.data.missing_data_module.DummyMissingnessDataset
+    init_args:
+      miss_mask_idx: 1
+  filter_fully_missing_train: true
+  filter_fully_missing_val: true
+  filter_fully_missing_test: true
+  num_workers: 0
+model:
+  class_path: imp_cfm.models.ConditionalFlowMatching
+  init_args:
+    flow_matcher:
+      class_path: torchcfm.ConditionalFlowMatcher
+      init_args:
+        sigma: 0.0
+    mask_generator:
+      class_path: imp_cfm.utils.mask_generator.UniformRandomMaskGenerator
+      init_args:
+        target_probability: null
+    dim: 5
+    vector_field_net:
+      class_path: imp_cfm.models.tashiro_timeseries_transformer_net.TashiroTransformerNet
+      init_args:
+        channels: 64
+        emb_time_dim: 128
+        target_dim: 53
+        feature_id_emb_dim: 16
+        embedding_dim: 128
+        nheads: 8
+        layers: 4
+        is_linear: false
+        time_embedding_net:
+          class_path: imp_cfm.models.neural_nets.TimeEmbeddingNet
+          init_args:
+            embedding_dim: 128
+            projection_dim: null
+            frequency_multiplier: 50
+    opt_lr: 1e-3
+    opt_weight_decay: 1e-6
+    opt_use_lr_scheduler: true
+    lr_scheduler: multistep
+    opt_use_amsgrad: false
+trainer:
+  gradient_clip_val: 2
+  gradient_clip_algorithm: norm
+  max_epochs: 200
+  log_every_n_steps: 1

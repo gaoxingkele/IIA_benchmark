@@ -1,0 +1,584 @@
+{
+  "schema_version": 1,
+  "id": "flow_matching_campaign_v1",
+  "created_at": "2026-10-06",
+  "source_of_truth": "configs/reproducibility/flow_matching_campaign.v1.json",
+  "phases": [
+    "author_original_protocol",
+    "corrected_independent_test",
+    "cross_dataset_transfer"
+  ],
+  "seeds": [
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "execution": {
+    "device": "cuda:0",
+    "gpu": "RTX 3090 24 GiB",
+    "parallel_gpu_jobs": 1,
+    "preserve_raw": true,
+    "output_root": "experiments/runs/flow_matching_campaign",
+    "processed_root": "data/public_datasets/flow_matching/processed_campaign_v1",
+    "stop_on_oom": true,
+    "resume_completed": true,
+    "environments": {
+      "author_core": {
+        "python": ".venv/fm-author-py310/Scripts/python.exe",
+        "python_version": "3.10.21",
+        "torch": "2.2.1+cu121",
+        "lightning": "2.2.0",
+        "numpy": "1.23.5",
+        "boundary": "NumPy 1.23.5 and pandas 2.2.2 are compatibility deviations from the CFMI conda declaration; no claim of bit-identical historical environment."
+      },
+      "modern_diagnostic": {
+        "python": ".venv/csdi-modern/Scripts/python.exe",
+        "boundary": "Python 3.12/current system Torch; preflight only, not the formal author-core queue"
+      }
+    },
+    "active_queue": "configs/experiments/fm_original_queue.v1.json",
+    "transfer_queue": "configs/experiments/fm_transfer_queue.v1.json",
+    "transfer_metric_protocol": "transfer_ensemble_v1",
+    "transfer_gate": "All first-wave jobs and all remaining original-paper experiment protocols must complete or have documented material unavailability before new-dataset transfer starts",
+    "original_scope_status": "in_progress",
+    "original_continuation_queue": "configs/experiments/fm_air36_original_queue.v1.json",
+    "saits_original_continuation_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json"
+  },
+  "comparison": {
+    "require_protocol_alignment": true,
+    "test_tuning_allowed": false,
+    "tolerance_policy": "Per metric, fixed before execution; use paper rounding and reported uncertainty. No universal 5 percent rule.",
+    "missing_reference_verdict": "not_comparable",
+    "transfer_verdict": "new_benchmark_not_paper_reproduction"
+  },
+  "papers": [
+    {
+      "id": "grasp",
+      "title": "Graph-Spectral Flow Matching for Multivariate Time Series Anomaly Detection",
+      "task": "anomaly_detection",
+      "priority": 3,
+      "author_repository": null,
+      "literature_url": "https://arxiv.org/html/2609.36765#A5.SS1",
+      "original_datasets": [
+        "SMAP (mTSBench 51 series,26 variables)",
+        "SMD (mTSBench 18 series,39 variables)",
+        "CICIDS2017 (mTSBench six series,73 features)",
+        "SWAN (mTSBench one 39-variable series)"
+      ],
+      "status": "author_code_not_located_requires_protocol_reconstruction",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims"
+    },
+    {
+      "id": "giflow",
+      "title": "Spatiotemporal Imputation with Graph-Informed Flow Matching",
+      "task": "imputation",
+      "priority": 2,
+      "author_repository": "zepengzhang/GiFlow",
+      "literature_url": "https://arxiv.org/html/2606.06682#A3.SS1",
+      "original_datasets": [
+        "Air-36 (36 stations,8760 hourly samples)",
+        "AQI (437 stations,43 cities,8760 hourly samples)",
+        "PeMS08 (170 sensors,17856 five-minute samples)",
+        "Synthetic smooth spatiotemporal graph (50 nodes,3000 steps)",
+        "Synthetic scalability graphs (10000,20000,30000,50000 nodes)"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "4e7d0375155750f6c3d9387ad68e7c78d99dd0ac",
+      "source_archive_sha256": "7c65013633bc5388277c4b43eae049fd5a74b752e903be14b1403a0e1077735e"
+    },
+    {
+      "id": "cfmi",
+      "title": "CFMI: Flow Matching for Missing Data Imputation",
+      "task": "imputation",
+      "priority": 1,
+      "author_repository": "vsimkus/cfmi",
+      "literature_url": "https://arxiv.org/pdf/2506.09258",
+      "original_datasets": [
+        "airfoil_self_noise",
+        "banknote",
+        "blood_transfusion",
+        "breast_cancer_diagnostic",
+        "california",
+        "climate_model_crashes",
+        "concrete_compression",
+        "concrete_slump",
+        "connectionist_bench_sonar",
+        "connectionist_bench_vowel",
+        "ecoli",
+        "glass",
+        "ionosphere",
+        "iris",
+        "libras",
+        "parkinsons",
+        "planning_relax",
+        "qsar_biodegradation",
+        "seeds",
+        "wine",
+        "wine_quality_red",
+        "wine_quality_white",
+        "yacht_hydrodynamics",
+        "yeast",
+        "PhysioNet/Computing in Cardiology Challenge2012 set-a",
+        "PM2.5/STMVL Air-36",
+        "Synthetic2D cosine,banana,funnel,ring,spiral"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "e743f4e21c33dde9581421f08b42fa70b7df7449",
+      "source_archive_sha256": "c242b35d6e4f01adf233a3968bc4f337a679f09c02973949899fc9d1ca783492"
+    },
+    {
+      "id": "tsflow",
+      "title": "Flow Matching with Gaussian Process Priors for Probabilistic Time Series Forecasting",
+      "task": "forecasting",
+      "priority": 3,
+      "author_repository": "marcelkollovieh/TSFlow",
+      "literature_url": "https://arxiv.org/html/2410.03024#S4",
+      "original_datasets": [
+        "Electricity (electricity_nips)",
+        "Exchange(exchange_rate_nips)",
+        "KDDCup(kdd_cup_2018_without_missing)",
+        "M4-Hourly(m4_hourly)",
+        "Solar(solar_nips)",
+        "Traffic(traffic_nips)",
+        "UberTLC-Hourly(uber_tlc_hourly)",
+        "Wikipedia(wiki2000_nips)"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "ff893176a41a1037f63efae674aab71480eee7d0",
+      "source_archive_sha256": "070f2afc9c6668d820377ed09c352e36acd89c5ac0bf791bf1d3809d20927094"
+    },
+    {
+      "id": "dfm",
+      "title": "DFM: Interpolant-free Dual Flow Matching",
+      "task": "time_series_generation",
+      "priority": 3,
+      "author_repository": null,
+      "literature_url": "https://arxiv.org/html/2410.09246#S4",
+      "original_datasets": [
+        "SMAP (entity-unconditional,55 entities,25 data dimensions as reported in paper)"
+      ],
+      "status": "author_code_not_located_requires_protocol_reconstruction",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [],
+      "boundary": "Author code/data protocol alignment required before score claims"
+    },
+    {
+      "id": "prismflow",
+      "title": "PrismFlow: Residual Dynamics for Flow Matching in Time-Series Generation",
+      "task": "generation",
+      "priority": 3,
+      "author_repository": null,
+      "literature_url": "https://arxiv.org/html/2605.28867#S5",
+      "original_datasets": [
+        "Stocks",
+        "ETTh (baseline uses ETTh1)",
+        "Energy",
+        "fMRI",
+        "Sines(synthetic)",
+        "MuJoCo(synthetic simulation)"
+      ],
+      "status": "author_code_not_located_requires_protocol_reconstruction",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [],
+      "boundary": "Author code/data protocol alignment required before score claims"
+    },
+    {
+      "id": "csdi",
+      "title": "CSDI: Conditional Score-based Diffusion Models for Probabilistic Time Series Imputation",
+      "task": "imputation",
+      "priority": 1,
+      "author_repository": "ermongroup/CSDI",
+      "literature_url": "https://arxiv.org/html/2107.03502",
+      "original_datasets": [
+        "PhysioNet2012 set-a",
+        "STMVL Beijing PM2.5 36 stations",
+        "solar_nips",
+        "electricity_nips",
+        "traffic_nips",
+        "taxi_30min",
+        "wiki2000_nips"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "7f24a436f08d98853a6b43d4f7f04e5a65ecdf27",
+      "source_archive_sha256": "409adda7b986966ab7d0350ccd616f119d899fcd1b305e91c5ce94dc96ddcb62"
+    },
+    {
+      "id": "sssd",
+      "title": "Diffusion-based Time Series Imputation and Forecasting with Structured State Space Models",
+      "task": "imputation",
+      "priority": 2,
+      "author_repository": "AI4HealthUOL/SSSD",
+      "literature_url": "https://github.com/AI4HealthUOL/SSSD/tree/main/docs/instructions",
+      "original_datasets": [
+        "Electricity",
+        "ETTm1",
+        "MuJoCo",
+        "PTB-XL 1.0.1",
+        "METR-LA",
+        "PEMS-BAY",
+        "Solar (GluonTS forecasting)"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "4d3b7a51c54b658945c0ba0bbb26e5ee1f763bed",
+      "source_archive_sha256": "08da52f0fbea25b2d4e7a01d36d816b82e125b7411d1ca3fff79f1eecbaa086e"
+    },
+    {
+      "id": "brits",
+      "title": "BRITS: Bidirectional Recurrent Imputation for Time Series",
+      "task": "imputation",
+      "priority": 2,
+      "author_repository": "caow13/BRITS",
+      "literature_url": "https://arxiv.org/html/1805.10572",
+      "original_datasets": [
+        "STMVL Beijing PM2.5 36 stations",
+        "PhysioNet2012 set-a",
+        "UCI Localization Data for Person Activity"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "fc0a3a472a6d99a6934e471d40c25ed0b029b501",
+      "source_archive_sha256": "6991a142e0bbc720cb2fc75b0f2bcc5e24030f039a7102f1caa10627a44e9a7c"
+    },
+    {
+      "id": "saits",
+      "title": "SAITS: Self-Attention-based Imputation for Time Series",
+      "task": "imputation",
+      "priority": 2,
+      "author_repository": "WenjieDu/SAITS",
+      "literature_url": "https://arxiv.org/html/2202.08516",
+      "original_datasets": [
+        "PhysioNet2012 sets a,b,c and outcomes",
+        "UCI Beijing Multi-Site Air Quality",
+        "Electricity Load Diagrams 2011-2014",
+        "ETTm1",
+        "NRTSI Air",
+        "NRTSI Gas"
+      ],
+      "status": "physio_author_adapter_preflight_verified_other_original_datasets_pending",
+      "original_reference_status": "table_2_visually_verified_no_paper_uncertainty",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "37-feature all-patient PhysioNet prepared; historical file order unspecified and loader workers differ. Air-Quality, Electricity, ETT and NRTSI protocols remain pending; no paper-score equivalence claim.",
+      "author_commit": "660b87f19c1277065f314f24134f646229e89ca9",
+      "source_archive_sha256": "5014e99a31b90e232a15a68916a47947b62922a415f44c378b980e34cc21722c",
+      "original_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+      "reference_config": "configs/reproducibility/saits/references.v1.json"
+    },
+    {
+      "id": "grin",
+      "title": "Filling the G_ap_s: Multivariate Time Series Imputation by Graph Neural Networks",
+      "task": "imputation",
+      "priority": 2,
+      "author_repository": "Graph-Machine-Learning-Group/grin",
+      "literature_url": "https://arxiv.org/html/2108.00298",
+      "original_datasets": [
+        "AQI-437",
+        "AQI-36",
+        "METR-LA",
+        "PEMS-BAY",
+        "CER-E SME subset",
+        "synthetic VAR"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "4a28afbb092600b6e6abeeabaaf67e87dbd1ed6e",
+      "source_archive_sha256": "d16f300974f4c2897ebfe1382809c76da468581ea56c17549cac643c457817aa"
+    },
+    {
+      "id": "diffusion_ts",
+      "title": "Diffusion-TS: Interpretable Diffusion for General Time Series Generation",
+      "task": "generation",
+      "priority": 3,
+      "author_repository": "Y-debug-sys/Diffusion-TS",
+      "literature_url": "https://github.com/Y-debug-sys/Diffusion-TS",
+      "original_datasets": [
+        "Stocks",
+        "ETTh1",
+        "Energy",
+        "fMRI",
+        "Sine",
+        "MuJoCo"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "566307e6cf2d8095e58de4c6e3a6ae965b69b5b5",
+      "source_archive_sha256": "f9ab31318975a6f0e6deabf6d6c95e9defffe1c421bcabda198ab0b55a060213"
+    },
+    {
+      "id": "ganf",
+      "title": "Graph-Augmented Normalizing Flows for Anomaly Detection of Multiple Time Series",
+      "task": "anomaly_detection",
+      "priority": 3,
+      "author_repository": "EnyanDai/GANF",
+      "literature_url": "https://github.com/EnyanDai/GANF#datasets",
+      "original_datasets": [
+        "SWaT Dec2015 attack_v0",
+        "METR-LA",
+        "PMU proprietary"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "bce38333b109f325a403dae9aff4987ae5bd6e1f",
+      "source_archive_sha256": "c50e53c00ca4332defd66f8472ee0dcf79ce5d01c5a951b2f91feadff9fb47d6"
+    },
+    {
+      "id": "catch",
+      "title": "CATCH: Channel-Aware Multivariate Time Series Anomaly Detection via Frequency Patching",
+      "task": "anomaly_detection",
+      "priority": 3,
+      "author_repository": "decisionintelligence/CATCH",
+      "literature_url": "https://arxiv.org/html/2410.12261v2#A1.SS1",
+      "original_datasets": [
+        "MSL",
+        "PSM",
+        "SMD",
+        "CICIDS",
+        "CalIt2",
+        "NYC",
+        "Creditcard",
+        "GECCO",
+        "Genesis",
+        "ASD",
+        "TODS synthetic 12 sets"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "3647c69be5eb56649b072596cf89098e689e20c3",
+      "source_archive_sha256": "d464a528bd312ec747dc2ad45c5ee7d5313f0d542eb778478f0fa443392be4c5"
+    },
+    {
+      "id": "dcdetector",
+      "title": "DCdetector: Dual Attention Contrastive Representation Learning for Time Series Anomaly Detection",
+      "task": "anomaly_detection",
+      "priority": 3,
+      "author_repository": "DAMO-DI-ML/KDD2023-DCdetector",
+      "literature_url": "https://github.com/DAMO-DI-ML/KDD2023-DCdetector/blob/main/readme.md",
+      "original_datasets": [
+        "SMD",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SWaT",
+        "NIPS-TS-SWAN",
+        "NIPS-TS-GECCO (repository NIPS_TS_Water)",
+        "UCR"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "9d107cae518ef24ee2eb2ad1b92107cdcd09ea10",
+      "source_archive_sha256": "b9e22199ddc44f032273b8f7e915213ed2d028e9aec4947216b647e9b542402a"
+    },
+    {
+      "id": "flow_matching",
+      "title": "Flow Matching for Generative Modeling",
+      "task": "image_generation",
+      "priority": 3,
+      "author_repository": null,
+      "literature_url": "https://arxiv.org/html/2210.02747",
+      "original_datasets": [
+        "cifar10",
+        "imagenet_32",
+        "imagenet_64",
+        "imagenet_128"
+      ],
+      "status": "author_code_not_located_requires_protocol_reconstruction",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [],
+      "boundary": "Author code/data protocol alignment required before score claims"
+    },
+    {
+      "id": "rectified_flow",
+      "title": "Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow",
+      "task": "image_generation",
+      "priority": 3,
+      "author_repository": "gnobitab/RectifiedFlow",
+      "literature_url": "https://arxiv.org/html/2209.03003",
+      "original_datasets": [
+        "cifar10",
+        "lsun_bedroom_train",
+        "lsun_bedroom_val",
+        "lsun_church_outdoor_train",
+        "lsun_church_outdoor_val",
+        "afhq_original",
+        "celeba_hq_stargan_release",
+        "celeba_hq_original_reconstruction",
+        "metfaces_aligned",
+        "officehome",
+        "domainnet_clipart",
+        "domainnet_infograph",
+        "domainnet_painting",
+        "domainnet_quickdraw",
+        "domainnet_real",
+        "domainnet_sketch",
+        "rectified_flow_toy",
+        "rectified_flow_reflow_pairs",
+        "domainnet_clipart_train_index",
+        "domainnet_clipart_test_index",
+        "domainnet_infograph_train_index",
+        "domainnet_infograph_test_index",
+        "domainnet_painting_train_index",
+        "domainnet_painting_test_index",
+        "domainnet_quickdraw_train_index",
+        "domainnet_quickdraw_test_index",
+        "domainnet_real_train_index",
+        "domainnet_real_test_index",
+        "domainnet_sketch_train_index",
+        "domainnet_sketch_test_index",
+        "metfaces_metadata"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "5a1fd4dd3ea7db764ce370a84ce35f9c8b15fde6",
+      "source_archive_sha256": "070dc68c7f903802f6f6e9db0a9ef9f3f7c61668b69dcdb0c2af4d1e3a6eade8"
+    },
+    {
+      "id": "ot_cfm",
+      "title": "Improving and Generalizing Flow-Based Generative Models with Minibatch Optimal Transport",
+      "task": "generative_modeling",
+      "priority": 3,
+      "author_repository": "atong01/conditional-flow-matching",
+      "literature_url": "https://arxiv.org/html/2302.00482",
+      "original_datasets": [
+        "cifar10",
+        "celeba_original",
+        "eb_processed_trajectorynet",
+        "eb_raw",
+        "neurips2022_cite_seq",
+        "neurips2022_multiome",
+        "ot_cfm_toy_distributions",
+        "ot_cfm_sb_ground_truth",
+        "ot_cfm_funnel_10d"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+      "source_archive_sha256": "5535c185440b7c1e740c6dbba4445a2cdecc872b897470f9c6947a676976327c"
+    },
+    {
+      "id": "tg_msfm",
+      "title": "Time-Gated Multi-Scale Flow Matching for Time-Series Imputation",
+      "task": "imputation",
+      "priority": 3,
+      "author_repository": null,
+      "literature_url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/51d317df78eded9eb3c9d3fb1091c279-Paper-Conference.pdf",
+      "original_datasets": [
+        "ETTh1",
+        "ETTh2",
+        "ETTm1",
+        "ETTm2",
+        "Electricity",
+        "Traffic",
+        "Weather",
+        "Illness",
+        "Exchange",
+        "PEMS03"
+      ],
+      "status": "author_code_not_located_requires_protocol_reconstruction",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims"
+    },
+    {
+      "id": "jfi",
+      "title": "Flow matching-based online imputation of chemical processes under arbitrary missing scenarios for enhanced process monitoring",
+      "task": "imputation",
+      "priority": 3,
+      "author_repository": null,
+      "literature_url": "https://www.sciencedirect.com/science/article/pii/S0009250926011826",
+      "original_datasets": [
+        "Tennessee Eastman process(DTU DOI10.11583/DTU.13385936.v1)",
+        "Hydrocracking process(HP,real-world industrial data)"
+      ],
+      "status": "author_code_not_located_requires_protocol_reconstruction",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims"
+    }
+  ]
+}

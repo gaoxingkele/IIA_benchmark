@@ -65,6 +65,8 @@ def live_available(record):
         return False, f"本地尺寸 {size} 与 manifest {record['bytes']} 不一致"
     with path.open("rb") as stream:
         prefix = stream.read(256).lstrip().lower()
+    if prefix.startswith(b"version https://git-lfs.github.com/spec/v1"):
+        return False, "Git LFS pointer; actual data object has not been downloaded at this path"
     if record.get("format") != "html" and prefix.startswith((b"<!doctype html", b"<html")):
         return False, "本地文件为 HTML，而非注册数据格式"
     return True, "当前文件存在且尺寸一致；摘要校验依据下载 manifest"

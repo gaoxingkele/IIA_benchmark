@@ -1,0 +1,28 @@
+seed_everything: 2028
+experiment_subdir_base: logs/physionet/imputation/umis10/icfm/fold0
+data:
+  setup_seed: 2028
+  batch_size: 16
+  dataset:
+    class_path: scripts.flow_matching.transfer_dataset.CampaignWindowDataset
+    init_args:
+      root: D:\aicoding\IIA_benchmark\data\public_datasets\flow_matching\processed_campaign_v1\pronto_transfer\channel_missing0.9_seed2028.npz
+  missingness:
+    class_path: imp_cfm.data.missing_data_module.DummyMissingnessDataset
+    init_args:
+      miss_mask_idx: 2
+  filter_fully_missing_train: false
+  filter_fully_missing_val: false
+  filter_fully_missing_test: false
+  num_workers: 0
+imputer: cfm_euler
+num_imputations: 100
+missing_data_tensor_idx: 2
+truemissing_data_tensor_idx: 1
+cfm_model_path: logs/physionet/icfm/fold0/seed_m{}_d{}/lightning_logs/version_{}/checkpoints/last.ckpt
+cfm_load_best: false
+metrics:
+- crps
+- normalised_crps
+- rmse
+- mae

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "saits_physio_original_v1",
+  "source_archives": [
+    "data/public_datasets/flow_matching/physionet2012/set-a.tar.gz",
+    "data/public_datasets/flow_matching/physionet2012/set-b.tar.gz",
+    "data/public_datasets/flow_matching/physionet2012/set-c.tar.gz"
+  ],
+  "outcomes_dir": "data/public_datasets/flow_matching/physionet2012",
+  "raw_staging": "data/public_datasets/flow_matching/processed_campaign_v1/author_saits/raw_physio_all",
+  "output_root": "data/public_datasets/flow_matching/processed_campaign_v1/author_saits/physio2012_37feats_01masked",
+  "seed": 26,
+  "train_frac": 0.8,
+  "val_frac": 0.2,
+  "artificial_missing_rate": 0.1,
+  "expected_raw_patients": 12000,
+  "expected_valid_patients": 11988,
+  "expected_dropped_ids": [147514, 142731, 145611, 140501, 155655, 143656, 156254, 150309, 140936, 141264, 150649, 142998],
+  "expected_features": 37,
+  "sequence_length": 48,
+  "hourly_aggregation": "author_pandas_pivot_table_mean",
+  "mask_protocol": "author_numpy_choice_with_replacement",
+  "ordering": "lexical_filename_frozen_historical_order_unknown",
+  "literature_citation": "https://arxiv.org/abs/2202.08516",
+  "data_citation": "https://physionet.org/content/challenge-2012/1.0.0/"
+}

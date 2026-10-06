@@ -70,3 +70,25 @@ Google Drive quota exceeded. Its image archive and metadata remain unavailable;
 their publisher MD5 checksums are registered for later verification. The author EEG extension was found
 to be `EEG_Eye_State.arff`, not ZIP; the registration is corrected and the old
 transfer files are preserved.
+
+The 2026-10-03 continuation uses curl-cffi because native Windows curl cannot
+initialize Schannel credentials in the current managed session. Six incomplete
+public archives are registered in
+`configs/acquisition/flow_matching_resume_2026_10_03_sources.json`; CelebA's
+post-cooldown retry is in
+`configs/acquisition/flow_matching_celeba_resume_2026_10_03_sources.json`.
+Original TEP chunks and contiguous native-curl prefixes are reused. Sparse
+aria2 partials are retained separately and are never treated as contiguous
+download prefixes. CelebA's two metadata files now match their publisher MD5.
+
+The continuation runner now retries entries missing from an interrupted manifest
+as well as explicit failures. Completed files must still exist locally; quota
+and permission gates are reported separately. Exhausted queues return
+`incomplete` with the unresolved IDs rather than `finished`. Runtime state
+snapshots include a timestamp so stale logs cannot be mistaken for active work.
+Mode2 subsequently passed its publisher MD5 and local SHA256, bringing TEP to
+three complete files. Five remaining archives use the final continuation registry
+`flow_matching_resume_remaining_2026_10_03_sources.json`, 4 MiB requests, and
+resumption of prefixes from interrupted but correctly bounded HTTP206 responses.
+CelebA metadata is complete; its image archive again reported explicit quota
+exceeded after partial transfer. The image chunks remain preserved.

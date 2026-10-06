@@ -57,6 +57,9 @@ def digest(path, algorithm="sha256"):
 
 
 def validate(path, item):
+    with path.open("rb") as stream:
+        if stream.read(128).startswith(b"version https://git-lfs.github.com/spec/v1"):
+            raise ValueError("Git LFS pointer returned instead of actual dataset")
     if not path.is_file() or not path.stat().st_size:
         raise ValueError("missing or empty payload")
     expected = item.get("checksum")
@@ -72,7 +75,7 @@ def validate(path, item):
             if stream.read(5) != b"%PDF-":
                 raise ValueError("response is not a PDF")
         return {"pages": len(PdfReader(path).pages)}
-    if item.get("format") == "zip":
+    if item.get("format") in ("zip", "npz"):
         with zipfile.ZipFile(path) as archive:
             bad = archive.testzip()
             if bad:

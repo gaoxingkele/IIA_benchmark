@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
 import ctypes
 import json
 from pathlib import Path
@@ -36,11 +37,15 @@ def retry_queue(queue):
         time.sleep(5)
     original = ROOT / queue["manifest"]
     registry = json.loads((ROOT / queue["registry"]).read_text(encoding="utf-8"))
+    sources = registry["sources"]
+    if queue.get("download_script", "").endswith("download_flow_matching_alternatives.py"):
+        large = "--only-large" in queue.get("download_arguments", [])
+        sources = [s for s in sources if (s.get("backend") == "range_curl") == large]
+    known = {}
     for attempt in range(1, 3):
         manifest = json.loads(original.read_text(encoding="utf-8"))
-        records = {r["id"]: r for r in manifest.get("records", [])}
-        selected = [s for s in registry["sources"] if
-                    records.get(s["id"], {}).get("status") == "failed"]
+        known.update({r["id"]: r for r in manifest.get("records", [])})
+        selected = pending_sources(sources, known)
         if not selected:
             break
         retry_registry = RUNTIME / f"{queue['name']}_retry_{attempt}.json"
@@ -51,7 +56,19 @@ def retry_queue(queue):
                    *queue.get("download_arguments", [])]
         with (RUNTIME / f"{queue['name']}_retry_{attempt}.log").open("w", encoding="utf-8") as log:
             subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=False)
-    return queue["name"]
+    if original.exists():
+        known.update({r["id"]: r for r in json.loads(original.read_text(encoding="utf-8")).get("records", [])})
+    pending = pending_sources(sources, known)
+    gated = [s["id"] for s in sources if known.get(s["id"], {}).get("status") not in (None, "available", "failed")]
+    return {"status": "incomplete" if pending or gated else "complete",
+            "pending_ids": [s["id"] for s in pending], "gated_ids": gated}
+
+
+def pending_sources(sources, records):
+    """Recover interrupted queues whose submitted files never produced records."""
+    return [s for s in sources if
+            records.get(s["id"], {}).get("status") in (None, "failed") or
+            (records.get(s["id"], {}).get("status") == "available" and not (ROOT / s["path"]).exists())]
 
 
 def main():
@@ -66,9 +83,10 @@ def main():
         futures = {pool.submit(retry_queue, q): q["name"] for q in queues}
         while True:
             state = {name: "running" if not f.done() else
-                     ("failed: " + str(f.exception()) if f.exception() else "finished")
+                     ("failed: " + str(f.exception()) if f.exception() else f.result())
                      for f, name in futures.items()}
-            (RUNTIME / f"{args.queues.stem}_status.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
+            snapshot = {"updated_at": datetime.now(timezone.utc).isoformat(), "queues": state}
+            (RUNTIME / f"{args.queues.stem}_status.json").write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
             subprocess.run([sys.executable, "scripts/data_acquisition/report_flow_matching_bundle.py"],
                            cwd=ROOT, stdout=subprocess.DEVNULL, check=False)
             if all(f.done() for f in futures):

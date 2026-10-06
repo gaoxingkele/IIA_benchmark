@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "fm_physionet2012",
+  "raw_archive": "data/public_datasets/flow_matching/cfmi/physionet/set-a.tar.gz",
+  "output_root": "data/public_datasets/flow_matching/processed_campaign_v1/physionet",
+  "expected_patients": 4000,
+  "split_seed": 1,
+  "mask_seed": 1,
+  "folds": [0, 1, 2, 3, 4],
+  "missing_ratios": [0.1, 0.5, 0.9],
+  "protocols": [
+    {"id": "csdi_author", "split_generator": "legacy", "normalization": "author_global", "boundary": "Reproduces original code global normalization; not independent normalization"},
+    {"id": "cfmi_author", "split_generator": "default_rng", "normalization": "author_global", "boundary": "CFMI and CSDI papers have different RNG splits; their reference scores are compared separately"},
+    {"id": "independent", "split_generator": "legacy", "normalization": "train_only", "boundary": "Corrected common protocol; do not label as paper-exact reproduction"}
+  ],
+  "citation": "https://physionet.org/content/challenge-2012/1.0.0/",
+  "paper_citations": ["https://arxiv.org/abs/2107.03502", "https://arxiv.org/abs/2506.09258"]
+}

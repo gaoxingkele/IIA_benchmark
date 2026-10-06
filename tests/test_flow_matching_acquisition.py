@@ -11,6 +11,75 @@ pytest.importorskip("pypdf")
 from scripts.data_acquisition import download_flow_matching_bundle as bundle
 
 
+def test_interrupted_queue_retries_sources_without_records(tmp_path, monkeypatch):
+    from scripts.data_acquisition import continue_flow_matching_downloads as continuation
+    monkeypatch.setattr(continuation, "ROOT", tmp_path)
+    (tmp_path / "complete.csv").write_bytes(b"valid preserved file")
+    sources = [{"id": "complete", "path": "complete.csv"},
+               {"id": "interrupted", "path": "missing.csv"},
+               {"id": "gate", "path": "private.zip"},
+               {"id": "lost", "path": "lost.csv"}]
+    records = {"complete": {"status": "available"}, "gate": {"status": "quota_exceeded"},
+               "lost": {"status": "available"}}
+    assert [s["id"] for s in continuation.pending_sources(sources, records)] == ["interrupted", "lost"]
+
+
+def test_cffi_range_quota_preserves_transport_prefix(tmp_path, monkeypatch):
+    pytest.importorskip("curl_cffi")
+    from scripts.data_acquisition import download_flow_matching_alternatives as alternative
+    target = tmp_path / "range.segment"
+    target.write_bytes(b"preserved prefix")
+    class Response:
+        status_code = 200
+        headers = {"content-type": "text/html"}
+        def raise_for_status(self): pass
+        def iter_content(self, size):
+            yield b"<html><title>Google Drive - Quota exceeded</title></html>"
+        def close(self): pass
+    class Session:
+        def __init__(self, **kwargs): pass
+        def __enter__(self): return self
+        def __exit__(self, *args): pass
+        def get(self, *args, **kwargs): return Response()
+    monkeypatch.setattr(alternative.cffi, "Session", Session)
+    with pytest.raises(alternative.PublicAccessGate, match="quota exceeded"):
+        alternative.cffi_transfer("https://example.invalid/public", target, None, (16, 31))
+    assert target.read_bytes() == b"preserved prefix"
+
+
+def test_interrupted_cffi_ranges_resume_received_prefixes(tmp_path, monkeypatch):
+    pytest.importorskip("curl_cffi")
+    from scripts.data_acquisition import download_flow_matching_alternatives as alternative
+    payload = b"a,b\n1,2\n3,4\n"
+    starts = []
+    class Response:
+        status_code = 206
+        def __init__(self, start, end):
+            self.start, self.end = start, end
+            self.headers = {"content-range": f"bytes {start}-{end}/{len(payload)}"}
+        def raise_for_status(self): pass
+        def iter_content(self, size):
+            yield payload[self.start:min(self.start + 2, self.end + 1)]
+            raise alternative.cffi.RequestsError("interrupted transfer")
+        def close(self): pass
+    class Session:
+        def __init__(self, **kwargs): pass
+        def __enter__(self): return self
+        def __exit__(self, *args): pass
+        def get(self, url, *, headers, **kwargs):
+            start, end = map(int, headers["Range"].removeprefix("bytes=").split("-"))
+            starts.append(start)
+            return Response(start, end)
+    monkeypatch.setattr(alternative.cffi, "Session", Session)
+    target = tmp_path / "data.csv"
+    alternative.segmented({"url": "https://example.invalid/raw", "format": "csv",
+                           "size_bytes": len(payload), "range_parts": 1, "range_workers": 1,
+                           "range_transport": "curl_cffi", "segment_bytes": 4,
+                           "checksum": "sha256:" + hashlib.sha256(payload).hexdigest()}, target, None)
+    assert target.read_bytes() == payload
+    assert starts == list(range(0, len(payload), 2))
+
+
 def test_alternate_ranges_resume_preserved_chunks_and_check_hash(tmp_path, monkeypatch):
     pytest.importorskip("curl_cffi")
     from scripts.data_acquisition import download_flow_matching_alternatives as alternative
@@ -162,6 +231,13 @@ def test_numpy_response_requires_numpy_magic(tmp_path):
     target.write_bytes(b'{"error":"quota"}')
     with pytest.raises(ValueError, match="signature"):
         bundle.validate(target, {"format": "npy"})
+
+
+def test_lfs_pointer_cannot_be_registered_as_successful_npz(tmp_path):
+    target = tmp_path / "data.npz"
+    target.write_bytes(b"version https://git-lfs.github.com/spec/v1\noid sha256:abc\nsize 5000\n")
+    with pytest.raises(ValueError, match="Git LFS"):
+        bundle.validate(target, {"format": "npz"})
 
 
 def test_existing_directory_has_file_checksums(tmp_path, monkeypatch):

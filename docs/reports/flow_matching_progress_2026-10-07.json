@@ -1,0 +1,117 @@
+{
+  "captured_at": "2026-10-07T00:53:55.374064+08:00",
+  "status": "in_progress",
+  "queues": {
+    "fm_original_queue.v1.json": {
+      "total": 30,
+      "completed": 3,
+      "pending": 27
+    },
+    "fm_air36_original_queue.v1.json": {
+      "total": 10,
+      "completed": 0,
+      "pending": 10
+    },
+    "fm_saits_physio_original_queue.v1.json": {
+      "total": 10,
+      "completed": 0,
+      "pending": 10
+    },
+    "fm_transfer_queue.v1.json": {
+      "total": 270,
+      "completed": 0,
+      "pending": 270
+    }
+  },
+  "active_queue": {
+    "status": "running",
+    "queue_pid": 31332,
+    "active_job": "cfmi_physio_original_fold0_missing0.5",
+    "active_pid": 35252,
+    "completed_jobs": 3,
+    "total_jobs": 30,
+    "records": [
+      {
+        "id": "csdi_physio_original_fold0_missing0.1",
+        "status": "completed",
+        "metrics": {
+          "mae": 0.21585868200413091,
+          "rmse": 0.47002475293162227,
+          "normalized_crps": 0.23484164779231073
+        }
+      },
+      {
+        "id": "cfmi_physio_original_fold0_missing0.1",
+        "status": "completed",
+        "metrics": {
+          "normalized_crps": 0.2533353265886231,
+          "crps": 0.2522460800013995,
+          "mae": 0.2391107818582754,
+          "rmse": 0.7311489802414491
+        }
+      },
+      {
+        "id": "csdi_physio_original_fold0_missing0.5",
+        "status": "completed",
+        "metrics": {
+          "mae": 0.2989729390395649,
+          "rmse": 0.5866468554969296,
+          "normalized_crps": 0.32658976899755393
+        }
+      }
+    ]
+  },
+  "saits_preflight": {
+    "status": "passed",
+    "diagnostic": true,
+    "records": [
+      {
+        "model": "saits",
+        "checks": {
+          "model": true,
+          "optimizer": true,
+          "controller": true,
+          "patience": true,
+          "next_epoch": true,
+          "finished": true,
+          "python_rng": true,
+          "numpy_rng": true,
+          "torch_rng": true,
+          "metrics": true,
+          "validation_selection": true
+        },
+        "parameters": 5322806,
+        "finite": true,
+        "boundary": "Four real training patients, two validation/test patients, two CPU epochs; plumbing verification only, no benchmark score."
+      },
+      {
+        "model": "brits",
+        "checks": {
+          "model": true,
+          "optimizer": true,
+          "controller": true,
+          "patience": true,
+          "next_epoch": true,
+          "finished": true,
+          "python_rng": true,
+          "numpy_rng": true,
+          "torch_rng": true,
+          "metrics": true,
+          "validation_selection": true
+        },
+        "parameters": 729584,
+        "finite": true,
+        "boundary": "Four real training patients, two validation/test patients, two CPU epochs; plumbing verification only, no benchmark score."
+      }
+    ]
+  },
+  "saits_continuation": {
+    "status": "waiting_air36",
+    "pid": 47528,
+    "pending_jobs": 10
+  },
+  "validation": {
+    "related_tests_passed": 44
+  },
+  "boundary": "Original all-paper scope remains open. Diagnostics excluded from queue counts and benchmark performance."
+}

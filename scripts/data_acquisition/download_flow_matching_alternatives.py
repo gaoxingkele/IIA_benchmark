@@ -72,6 +72,11 @@ def cffi_transfer(url, output, proxy, byte_range=None):
     with cffi.Session(impersonate="chrome", proxy=proxy or None, trust_env=False) as session:
         response = session.get(url, stream=True, timeout=90, headers=headers)
         response.raise_for_status()
+        if (offset or byte_range) and response.status_code != 206 and "text/html" in response.headers.get("content-type", ""):
+            probe = next(response.iter_content(4096), b"").lower()
+            response.close()
+            if b"quota exceeded" in probe:
+                raise PublicAccessGate("Google Drive explicitly reports quota exceeded; preserved ranges remain intact")
         if offset and (response.status_code != 206 or not response.headers.get("content-range", "").startswith(f"bytes {offset}-")):
             raise ValueError("resume response does not start at preserved offset")
         if byte_range and response.status_code != 206:
@@ -80,6 +85,11 @@ def cffi_transfer(url, output, proxy, byte_range=None):
             with output.open("ab" if offset else "wb") as stream:
                 for block in response.iter_content(1024 * 1024):
                     stream.write(block)
+        except cffi.RequestsError:
+            # A validated 206 response may end early. Its received prefix can
+            # still be checked against Content-Range and appended by segmented().
+            if not byte_range or not output.exists() or not output.stat().st_size:
+                raise
         finally:
             response.close()
         return {k.lower(): v for k, v in response.headers.items()}
@@ -130,13 +140,16 @@ def segmented(item, target, proxy):
                 partial.rename(completed)
                 return completed
             start = lo + received
-            end = min(hi, start + 16 * 1024 * 1024 - 1)
+            end = min(hi, start + item.get("segment_bytes", 16 * 1024 * 1024) - 1)
             segment = folder / f"{index:04d}.{start}.{uuid.uuid4().hex}.segment"
             try:
                 url = fresh_url(item["url"], item)
-                code, status, headers, error = curl_transfer(url, segment, proxy, (start, end))
-                if status != 206:
-                    raise RuntimeError(f"curl HTTP {status}: {error}")
+                if item.get("range_transport") == "curl_cffi":
+                    headers = cffi_transfer(url, segment, proxy, (start, end))
+                else:
+                    code, status, headers, error = curl_transfer(url, segment, proxy, (start, end))
+                    if status != 206:
+                        raise RuntimeError(f"curl HTTP {status}: {error}")
                 check_range(headers, start, end, total)
                 count = segment.stat().st_size if segment.exists() else 0
                 if not 0 < count <= end - start + 1:
@@ -145,6 +158,8 @@ def segmented(item, target, proxy):
                     shutil.copyfileobj(source, output, 1024 * 1024)
                 segment.unlink()  # This verified transport temporary has been appended.
                 failures = 0
+            except PublicAccessGate:
+                raise
             except Exception:
                 failures += 1
                 if failures >= 4:
@@ -174,12 +189,15 @@ def acquire(item, proxy):
         if target.exists():
             details, backend = finish_details(target, item), "existing_preserved"
         elif item.get("backend") == "range_curl":
-            details, backend = segmented(item, target, proxy), "native_curl_segmented"
+            details, backend = segmented(item, target, proxy), (
+                "curl_cffi_segmented" if item.get("range_transport") == "curl_cffi" else "native_curl_segmented")
         else:
             errors = []
             for url in [item["url"], *item.get("fallback_urls", [])]:
-                for backend in ("native_curl", "curl_cffi"):
-                    partial = target.with_name(target.name + f".{backend}.part")
+                transports = ("curl_cffi", "native_curl") if item.get("preferred_transport") == "curl_cffi" else ("native_curl", "curl_cffi")
+                for backend in transports:
+                    tag = "." + item["partial_tag"] if item.get("partial_tag") else ""
+                    partial = target.with_name(target.name + f".{backend}{tag}.part")
                     for attempt in range(2):
                         try:
                             if backend == "native_curl":
@@ -198,7 +216,7 @@ def acquire(item, proxy):
                                 raise FileExistsError("existing target preserved")
                             partial.rename(target)
                             return dict(record, status="available", backend=backend,
-                                        bytes=target.stat().st_size, sha256=digest(target), **{k:v for k,v in details.items() if k not in ("bytes", "sha256")})
+                                        bytes=target.stat().st_size, sha256=details.get("sha256") or digest(target), **{k:v for k,v in details.items() if k not in ("bytes", "sha256")})
                         except Exception as exc:
                             if isinstance(exc, PublicAccessGate):
                                 raise
@@ -206,7 +224,7 @@ def acquire(item, proxy):
                             time.sleep(1)
             raise RuntimeError("; ".join(errors))
         return dict(record, status="available", backend=backend,
-                    bytes=target.stat().st_size, sha256=digest(target), **{k:v for k,v in details.items() if k not in ("bytes", "sha256")})
+                    bytes=target.stat().st_size, sha256=details.get("sha256") or digest(target), **{k:v for k,v in details.items() if k not in ("bytes", "sha256")})
     except PublicAccessGate as exc:
         return dict(record, status="quota_exceeded", reason=str(exc))
     except Exception as exc:

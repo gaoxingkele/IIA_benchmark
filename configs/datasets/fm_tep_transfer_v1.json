@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "tep_dtu_v1_registered_transfer_subset",
+  "raw_root": "data/public_datasets/flow_matching/tep_dtu_v1",
+  "output_root": "data/public_datasets/flow_matching/processed_campaign_v1/tep_transfer",
+  "modes": [1, 2, 3, 4, 5, 6],
+  "fault_ids": [1, 2, 4, 8, 12],
+  "severity": 100,
+  "run_ids": [1, 50],
+  "scenario": "SingleFault/SimulationCompleted",
+  "window_length": 48,
+  "windows_per_case": 5,
+  "exclude_columns": [0],
+  "exclude_column_reason": "Column 0 is Time. No fault labels or simulator metadata are model inputs.",
+  "group_key": "simulation Run identifier shared across modes/faults/severities",
+  "split_seed": 2026,
+  "mask_seeds": [2026, 2027, 2028, 2029, 2030],
+  "missing_ratios": [0.1, 0.5, 0.9],
+  "missing_patterns": ["point", "block", "channel"],
+  "normalization": "train_only",
+  "boundary": "Preregistered computational subset for a NEW benchmark; not all 143 GB and not the inaccessible JFI paper's exact simulation subset. All raw modes remain preserved.",
+  "citation": "https://doi.org/10.11583/DTU.13385936.v1"
+}
