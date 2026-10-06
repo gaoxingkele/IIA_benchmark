@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "grin": {
+    "python": ".venv/grin-author-py38/Scripts/python.exe",
+    "python_version": "3.8.20",
+    "requirements_lock": "configs/reproducibility/grin_author_py38_requirements.lock.txt",
+    "torch_wheel_index": "https://download.pytorch.org/whl/torch_stable.html",
+    "pinned_core": {"torch": "1.8.0+cu111", "torchvision": "0.9.0+cu111", "pytorch-lightning": "1.4.0", "torchmetrics": "0.5.0", "numpy": "1.21.6", "pandas": "1.3.5", "tables": "3.7.0", "protobuf": "3.19.6"},
+    "package_count": 62,
+    "preflight": "scripts/flow_matching/preflight_grin_resume.py",
+    "boundary": "GRIN author Python/Torch/Lightning versions retained. TensorFlow/fancyimpute baseline-only extras omitted: the GRIN CLI does not import them. Other dependency versions are Windows/Python-3.8 compatible, with complete lock file. CPU resume verified; GPU numerical identity not claimed."
+  },
+  "giflow": {
+    "python": ".venv/giflow-author-py310/Scripts/python.exe",
+    "python_version": "3.10.21",
+    "requirements_lock": "configs/reproducibility/giflow_author_py310_requirements.lock.txt",
+    "requirements_input": "configs/reproducibility/giflow_author_py310_requirements.in.txt",
+    "torch_wheel_index": "https://download.pytorch.org/whl/cu121",
+    "pyg_wheel_index": "https://data.pyg.org/whl/torch-2.2.0+cu121.html",
+    "binary_only_packages": ["torch-scatter", "torch-sparse", "torch-cluster"],
+    "pinned_core": {"torch": "2.2.1+cu121", "torch-geometric": "2.5.3", "torch-spatiotemporal": "0.9.5", "torch-scatter": "2.1.2+pt22cu121", "torch-sparse": "0.6.18+pt22cu121", "torch-cluster": "1.6.3+pt22cu121", "wandb": "0.17.9", "tensorboard": "2.18.0", "protobuf": "5.29.5"},
+    "package_count": 149,
+    "preflight": "scripts/flow_matching/preflight_giflow.py",
+    "boundary": "Independent environment derived from core author lock with graph wheels and WandB-compatible TensorBoard/protobuf. Real Air-36 backward pass and 20-step Euler sampling verified on CPU. Full frozen training adapter and paper-best hyperparameter alignment remain pending."
+  },
+  "author_core_environment_mutated": false,
+  "package_compatibility_check": "uv pip check passed for both environments on 2026-10-07",
+  "citations": ["https://github.com/Graph-Machine-Learning-Group/grin", "https://github.com/zepengzhang/GiFlow", "https://docs.pytorch.org/get-started/previous-versions/", "https://torch-spatiotemporal.readthedocs.io/en/latest/usage/quickstart.html"]
+}

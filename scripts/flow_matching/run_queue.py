@@ -28,7 +28,7 @@ def find_running(config_path):
     target = (ROOT / config_path).resolve()
     for process in psutil.process_iter(['pid', 'cmdline']):
         args = process.info['cmdline'] or []
-        if '--config' not in args or not any('run_csdi.py' in a or 'run_cfmi.py' in a or 'run_saits.py' in a for a in args):
+        if '--config' not in args or not any(any(name in a for name in ('run_csdi.py', 'run_cfmi.py', 'run_saits.py', 'run_grin.py')) for a in args):
             continue
         index = args.index('--config') + 1
         if index < len(args) and (ROOT / args[index]).resolve() == target:
@@ -97,8 +97,11 @@ def main():
         records.append({'id': cfg['id'], 'status': 'completed', 'metrics': result['metrics']})
         subprocess.run([sys.executable, str(ROOT / 'scripts/flow_matching/compare_results.py')], cwd=ROOT, check=True)
         if cfg.get('paper_id') == 'saits':
-            subprocess.run([sys.executable, str(ROOT / 'scripts/flow_matching/compare_saits.py')], cwd=ROOT, check=True)
-        if cfg.get('metric_protocol'):
+            comparison = 'compare_saits_timeseries.py' if cfg.get('dataset') else 'compare_saits.py'
+            subprocess.run([sys.executable, str(ROOT / 'scripts/flow_matching' / comparison)], cwd=ROOT, check=True)
+        if cfg.get('paper_id') == 'grin':
+            subprocess.run([sys.executable, str(ROOT / 'scripts/flow_matching/compare_grin.py')], cwd=ROOT, check=True)
+        if cfg.get('metric_protocol') == 'transfer_ensemble_v1':
             subprocess.run([sys.executable, str(ROOT / 'scripts/flow_matching/compare_transfer.py')], cwd=ROOT, check=True)
     atomic_json(state_path, {'status': 'completed', 'records': records, 'total_jobs': len(settings['jobs'])})
     return 0

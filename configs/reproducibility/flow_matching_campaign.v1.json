@@ -36,6 +36,16 @@
       "modern_diagnostic": {
         "python": ".venv/csdi-modern/Scripts/python.exe",
         "boundary": "Python 3.12/current system Torch; preflight only, not the formal author-core queue"
+      },
+      "giflow_graph": {
+        "python": ".venv/giflow-author-py310/Scripts/python.exe",
+        "boundary": "Independent graph environment installed and package-compatible. Real Air-36 backward/Euler CPU preflight passed; formal training adapter and paper-best hyperparameters pending.",
+        "requirements_lock": "configs/reproducibility/giflow_author_py310_requirements.lock.txt"
+      },
+      "grin_legacy": {
+        "python": ".venv/grin-author-py38/Scripts/python.exe",
+        "boundary": "Python 3.8.20, author Torch 1.8.0+cu111 and Lightning 1.4.0 installed. Both Air datasets and exact CPU epoch resume verified; GRIN-only dependencies locked, baseline TensorFlow/fancyimpute extras omitted.",
+        "requirements_lock": "configs/reproducibility/grin_author_py38_requirements.lock.txt"
       }
     },
     "active_queue": "configs/experiments/fm_original_queue.v1.json",
@@ -44,7 +54,9 @@
     "transfer_gate": "All first-wave jobs and all remaining original-paper experiment protocols must complete or have documented material unavailability before new-dataset transfer starts",
     "original_scope_status": "in_progress",
     "original_continuation_queue": "configs/experiments/fm_air36_original_queue.v1.json",
-    "saits_original_continuation_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json"
+    "saits_original_continuation_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+    "saits_timeseries_continuation_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json",
+    "grin_original_continuation_queue": "configs/experiments/fm_grin_original_queue.v1.json"
   },
   "comparison": {
     "require_protocol_alignment": true,
@@ -90,14 +102,14 @@
         "Synthetic smooth spatiotemporal graph (50 nodes,3000 steps)",
         "Synthetic scalability graphs (10000,20000,30000,50000 nodes)"
       ],
-      "status": "author_code_acquired_not_reproduced",
+      "status": "real_air36_cpu_preflight_passed_formal_adapter_alignment_pending",
       "original_reference_status": "numeric_targets_pending_transcription",
       "transfer_datasets": [
         "tep_dtu_v1",
         "skab_public",
         "pronto_public"
       ],
-      "boundary": "Author code/data protocol alignment required before score claims",
+      "boundary": "Both exact graph Air datasets staged. Validation/test leakage, EMA/checkpoint and configurable-root corrections are recorded in separate source copy. Real CPU backward/Euler pass verified; released defaults differ from appendix search space, frozen formal paper-best configuration pending.",
       "author_commit": "4e7d0375155750f6c3d9387ad68e7c78d99dd0ac",
       "source_archive_sha256": "7c65013633bc5388277c4b43eae049fd5a74b752e903be14b1403a0e1077735e"
     },
@@ -299,18 +311,19 @@
         "NRTSI Air",
         "NRTSI Gas"
       ],
-      "status": "physio_author_adapter_preflight_verified_other_original_datasets_pending",
-      "original_reference_status": "table_2_visually_verified_no_paper_uncertainty",
+      "status": "original_main_datasets_prepared_original_corrected_queues_registered_not_completed",
+      "original_reference_status": "tables_2_4_visually_verified_no_paper_uncertainty",
       "transfer_datasets": [
         "tep_dtu_v1",
         "skab_public",
         "pronto_public"
       ],
-      "boundary": "37-feature all-patient PhysioNet prepared; historical file order unspecified and loader workers differ. Air-Quality, Electricity, ETT and NRTSI protocols remain pending; no paper-score equivalence claim.",
+      "boundary": "PhysioNet and all three main time-series datasets prepared. Released window tail and replacement-mask bugs preserved for original scores and fixed in a separate protocol. ETT best INI absent; only paper-specified SAITS-base queued. NRTSI, downstream and ablations remain pending.",
       "author_commit": "660b87f19c1277065f314f24134f646229e89ca9",
       "source_archive_sha256": "5014e99a31b90e232a15a68916a47947b62922a415f44c378b980e34cc21722c",
       "original_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
-      "reference_config": "configs/reproducibility/saits/references.v1.json"
+      "reference_config": "configs/reproducibility/saits/references.v1.json",
+      "timeseries_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json"
     },
     {
       "id": "grin",
@@ -327,16 +340,18 @@
         "CER-E SME subset",
         "synthetic VAR"
       ],
-      "status": "author_code_acquired_not_reproduced",
-      "original_reference_status": "numeric_targets_pending_transcription",
+      "status": "both_air_datasets_cpu_resume_verified_original_queue_registered_not_completed",
+      "original_reference_status": "table_1_out_of_sample_visually_verified_spread_type_unestablished",
       "transfer_datasets": [
         "tep_dtu_v1",
         "skab_public",
         "pronto_public"
       ],
-      "boundary": "Author code/data protocol alignment required before score claims",
+      "boundary": "Original CLI/model/loss/mean-aggregated point metrics retained. Calendar splits are disjoint, exact two-epoch CPU resume verified for Air-36, full437 also finite. Five-seed out-of-sample queues frozen. In-sample, traffic, CER-E and synthetic/ablations remain pending; no final reproduction verdict.",
       "author_commit": "4a28afbb092600b6e6abeeabaaf67e87dbd1ed6e",
-      "source_archive_sha256": "d16f300974f4c2897ebfe1382809c76da468581ea56c17549cac643c457817aa"
+      "source_archive_sha256": "d16f300974f4c2897ebfe1382809c76da468581ea56c17549cac643c457817aa",
+      "original_queue": "configs/experiments/fm_grin_original_queue.v1.json",
+      "reference_config": "configs/reproducibility/grin_references.v1.json"
     },
     {
       "id": "diffusion_ts",

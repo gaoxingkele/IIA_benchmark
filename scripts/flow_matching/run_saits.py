@@ -13,7 +13,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from scripts.flow_matching.audit_author_code import working_copy
+from scripts.flow_matching.audit_author_code import working_copy, saits_corrected_protocol_copy
 from scripts.flow_matching.prepare_saits_physio import sha
 
 
@@ -31,6 +31,14 @@ def patient_bootstrap(statistics, seed, repetitions=2000):
         raise ValueError('No evaluable bootstrap samples')
     intervals = np.quantile(draws, [0.025, 0.975], axis=0)
     return {key: intervals[:, i].tolist() for i, key in enumerate(('mae', 'rmse', 'mre'))}
+
+
+def aggregate_groups(statistics, groups):
+    import numpy as np
+    identifiers, inverse = np.unique(groups, return_inverse=True)
+    aggregated = np.zeros((len(identifiers), 4), dtype=float)
+    np.add.at(aggregated, inverse, statistics)
+    return identifiers, aggregated
 
 
 def configure(author, config, output):
@@ -86,8 +94,12 @@ def run(config_path, stop_after_epoch=None):
         return report
     if stop_after_epoch and not config.get('diagnostic'):
         raise ValueError('Interruption testing is permitted only for diagnostic jobs')
-    working_copy('saits')
-    source = ROOT / 'experiments/runs/flow_matching_campaign/sources/saits/corrected'
+    if config.get('corrected_masking'):
+        patch_manifest = saits_corrected_protocol_copy()
+        source = ROOT / patch_manifest['working_path']
+    else:
+        patch_manifest = working_copy('saits')
+        source = ROOT / patch_manifest['working_path']
     sys.path.insert(0, str(source))
     import run_models as author
     torch.set_num_threads(4)
@@ -117,6 +129,8 @@ def run(config_path, stop_after_epoch=None):
     data_audit = json.loads((ROOT / config['dataset_root'] / 'data_audit.json').read_text(encoding='utf-8'))
     if dataset_sha != data_audit['dataset_sha256']:
         raise ValueError('Dataset differs from frozen audit')
+    if config.get('dataset_sha256', dataset_sha) != dataset_sha:
+        raise ValueError('Dataset differs from frozen job')
     if sha(ROOT / config['dataset_root'] / 'audit_arrays.npz') != data_audit['audit_arrays_sha256']:
         raise ValueError('Patient identities differ from frozen audit')
     best_path = output / 'best.pt'
@@ -196,19 +210,27 @@ def run(config_path, stop_after_epoch=None):
                          mask.sum((1, 2)).double(), (target.double() * mask).abs().sum((1, 2))), dim=1).numpy()
     with np.load(ROOT / config['dataset_root'] / 'audit_arrays.npz') as arrays:
         patient_ids = arrays['test_ids'][torch.cat(indices).numpy()]
-    np.savez_compressed(output / 'patient_statistics.npz', patient_ids=patient_ids, statistics=stats)
+        groups = arrays['test_groups'][torch.cat(indices).numpy()] if config.get('bootstrap_group') == 'month' else patient_ids
+    group_ids, grouped_stats = aggregate_groups(stats, groups)
+    statistics_name = 'group_statistics.npz' if config.get('bootstrap_group') == 'month' else 'patient_statistics.npz'
+    np.savez_compressed(output / statistics_name, unit_ids=patient_ids, group_ids=group_ids, statistics=grouped_stats)
     snapshot = json.loads((source.parent / 'snapshot.json').read_text(encoding='utf-8'))
     report = {'status': 'completed', 'config': config, 'config_sha256': config_sha, 'metrics': metrics,
               'test_patients': len(prediction), 'target_count': int(mask.sum()), 'training_seconds': training_seconds,
               'evaluation_seconds': time.monotonic() - evaluation_start, 'validation_best': {k: v for k, v in best.items() if k != 'model_state_dict'},
               'author_snapshot': snapshot, 'dataset_sha256': dataset_sha, 'parameters': args.total_params,
+              'patch_manifest': patch_manifest,
               'environment': {'python': sys.version, 'torch': torch.__version__, 'numpy': np.__version__},
-              'patient_bootstrap_95_ci': patient_bootstrap(stats, config['seed'] + 10000),
+              'bootstrap_group': config.get('bootstrap_group', 'patient'), 'bootstrap_groups': len(group_ids),
               'protocol_boundaries': data_audit['protocol_boundaries'] + [
                   'Windows loader workers set to zero versus author four; MIT random draw stream can differ.',
                   'Author model, losses, Adam, validation frequency and MAE controller retained; resume saves full state at epoch boundaries.',
                   'Final checkpoint selected solely on validation MAE; test metrics use author functions aggregated on CPU.',
-                  'Five preregistered model seeds share the frozen patient split; paper Table 2 does not report uncertainty.']}
+                  'Five preregistered model seeds share the frozen split; paper Tables 2/4 do not report uncertainty.']}
+    interval_name = 'month_block_bootstrap_95_ci' if config.get('bootstrap_group') == 'month' else 'patient_bootstrap_95_ci'
+    report[interval_name] = patient_bootstrap(grouped_stats, config['seed'] + 10000)
+    if config.get('bootstrap_group') == 'month':
+        report['test_windows'] = report.pop('test_patients')
     (output / report_name).write_text(json.dumps(report, indent=2), encoding='utf-8')
     return report
 

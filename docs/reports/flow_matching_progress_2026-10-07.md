@@ -62,3 +62,12 @@ python scripts/flow_matching/compare_saits.py
 ```
 
 实时文件为 `experiments/runs/flow_matching_campaign/queue_status.json`、`original_continuation_status.json`、`saits_continuation_status.json` 和 `transfer_gate_status.json`。数据审计位于 SAITS 独立处理目录的 `data_audit.json`；作者预检记录为 `saits_cpu_preflight_report.json`。
+
+
+## 后续迭代：SAITS 时序数据与图方法
+
+前一轮已提交并推送 `74c29b1` 到 main。新增 SAITS 三个主要时序数据集的 22 份原版/修正版预处理包和 210 项冻结任务，保留原始下载文件。原版窗口截断会丢弃完整末窗；有放回遮掩导致标称 90% 实际约 59.34%。修正协议独立登记，原版与修正版结果分开比较。ETT 最优 INI 未公开，本地仅登记论文给出的 SAITS-base，不冒充最优结果。
+
+GiFlow 独立环境完成真实 Air-36 CPU 反向传播与 20 步 Euler 采样验证，完整正式适配器和论文最优参数仍待完成。GRIN 的 Python 3.8 / Torch 1.8 / Lightning 1.4 环境安装并冻结，真实 Air-36 和 437 站点训练/验证/测试均有限；CPU 两轮断点恢复的权重、优化器、学习率及随机状态与连续训练完全一致。原版日历切分无训练、验证、测试时间重叠。GRIN 两数据集各五种子共 10 项正式任务，顺序等待 SAITS 后运行。GRIN 原文第 7 页表 1 的 out-of-sample 参考值已目视核对，MRE 百分数转换为比率；论文误差条类型未确认，不据此宣称统计等价。
+
+现登记原论文及修正协议共 270 项，工业迁移另 270 项。当前正式完成仍为首队列 3/30；CFMI 50% 完整采样继续运行。CPU 预检均不计入正式成绩。相关验证 57 项通过，两个新环境的依赖兼容性检查通过。所有 20 篇的完整复现尚未完成，原论文范围门禁保持 in_progress。

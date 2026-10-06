@@ -1,0 +1,85 @@
+{
+  "as_of_local": "2026-10-07T01:58:35",
+  "status": "in_progress_not_complete",
+  "git_prior_iteration": "74c29b1_pushed_main",
+  "registered_original_and_corrected_jobs": 270,
+  "queue_counts": {
+    "fm_original_queue.v1.json": 30,
+    "fm_air36_original_queue.v1.json": 10,
+    "fm_saits_physio_original_queue.v1.json": 10,
+    "fm_saits_timeseries_queue.v1.json": 210,
+    "fm_grin_original_queue.v1.json": 10
+  },
+  "registered_transfer_jobs": 270,
+  "current_queue": {
+    "status": "running",
+    "queue_pid": 31332,
+    "active_job": "cfmi_physio_original_fold0_missing0.5",
+    "active_pid": 35252,
+    "completed_jobs": 3,
+    "total_jobs": 30,
+    "records": [
+      {
+        "id": "csdi_physio_original_fold0_missing0.1",
+        "status": "completed",
+        "metrics": {
+          "mae": 0.21585868200413091,
+          "rmse": 0.47002475293162227,
+          "normalized_crps": 0.23484164779231073
+        }
+      },
+      {
+        "id": "cfmi_physio_original_fold0_missing0.1",
+        "status": "completed",
+        "metrics": {
+          "normalized_crps": 0.2533353265886231,
+          "crps": 0.2522460800013995,
+          "mae": 0.2391107818582754,
+          "rmse": 0.7311489802414491
+        }
+      },
+      {
+        "id": "csdi_physio_original_fold0_missing0.5",
+        "status": "completed",
+        "metrics": {
+          "mae": 0.2989729390395649,
+          "rmse": 0.5866468554969296,
+          "normalized_crps": 0.32658976899755393
+        }
+      }
+    ]
+  },
+  "saits_preprocessing": {
+    "main_timeseries_packs": 22,
+    "variants": [
+      "author_original_window_and_replacement_mask",
+      "corrected_complete_windows_and_exact_masks"
+    ],
+    "air_windows_author_corrected": [
+      1458,
+      1461
+    ],
+    "electricity_windows_author_corrected": [
+      1397,
+      1400
+    ],
+    "ett_windows_both": 5803,
+    "nominal90_author_realized_percent": 59.3383,
+    "ett_best_config": "not_available_only_reconstructed_paper_base_queued"
+  },
+  "graph_preflights": {
+    "giflow_real_air36_backward_euler": "passed",
+    "grin_air36_full437_and_exact_cpu_resume": "passed"
+  },
+  "validation": {
+    "relevant_pytest_passed": 57,
+    "uv_pip_check_grin_giflow": "passed"
+  },
+  "transfer_scope_gate": "in_progress; no industrial full-run results yet",
+  "remaining": [
+    "Complete active GPU queues and all repeats before paper comparisons.",
+    "GiFlow formal resumable adapter and paper-best configuration alignment.",
+    "Remaining original datasets/author protocols across the 20-paper scope, including inaccessible or proprietary materials.",
+    "Complete original-scope review before TEP/SKAB/PRONTO formal transfer."
+  ]
+}

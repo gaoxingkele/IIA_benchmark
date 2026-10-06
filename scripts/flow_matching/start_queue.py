@@ -36,6 +36,10 @@ def main():
         record['original_continuation'] = launch('run_original_continuation.py', 'original_continuation')
     if (BASE / 'saits_cpu_preflight_report.json').exists():
         record['saits_continuation'] = launch('run_saits_when_ready.py', 'saits_continuation')
+    if (BASE / 'saits_timeseries_cpu_preflight_report.json').exists():
+        record['saits_timeseries_continuation'] = launch('run_saits_timeseries_when_ready.py', 'saits_timeseries_continuation')
+    if (BASE / 'grin_cpu_preflight_report.json').exists():
+        record['grin_continuation'] = launch('run_grin_when_ready.py', 'grin_continuation')
     preflight = BASE / 'cfmi_cpu_preflight/report.json'
     if preflight.exists():
         checks = json.loads(preflight.read_text(encoding='utf-8'))['records']
