@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "id": "fm_mtsad_comparison_v1",
+  "status": "prospective_protocol_not_executed",
+  "scope": "Time-series anomaly detection; existing imputation results are excluded",
+  "source_config": "configs/reproducibility/mtsad_protocol_sources.v1.json",
+  "inventory_report": "docs/reports/mtsad_flow_matching_audit_2026-10-07.json",
+  "dataset_sources": {
+    "classic_five": "configs/experiments/mtsad_reproduction.json",
+    "additional": "configs/reproducibility/flow_matching_campaign.v1.json",
+    "path_resolution": "Resolve registered assets through configs and manifests; exact author subset and derived AD split require a new frozen data manifest"
+  },
+  "execution_gate": {
+    "requires": ["Exact entity/timestamp manifest and hashes", "Train/validation/test group audit", "Author dataset and feature selection recorded", "Model callable or explicit pending status", "Hyperparameters selected without test outcomes", "Environment lock, original commit, patch diff and score artifact hashes"],
+    "no_automatic_training_from_this_plan": true,
+    "uncertainty_required_before_leaderboard": true
+  },
+  "datasets": {
+    "main": ["SMD", "MSL", "SMAP", "SWaT", "PSM"],
+    "author_extensions": ["GECCO", "SWAN", "UCR Anomaly Archive"],
+    "additional_paper_appendix_pending": ["TSB-AD-U", "TSB-AD-M"],
+    "transfer": ["TEP", "SKAB", "PRONTO"],
+    "other_local_assets": ["CICIDS"],
+    "author_specific_constraints": ["CrossAD MSL/SMAP single first continuous feature gets a separate track from full multivariate input", "UCR subset membership must match each paper", "GECCO/SWAN have incompatible local versions; match author version first", "NASA and SMD entity boundaries must be recovered before windowing", "Industrial imputation windows cannot serve as an AD split"]
+  },
+  "tracks": [
+    {
+      "id": "author_reproduction",
+      "purpose": "Match each original paper independently before comparing algorithms",
+      "rules": ["Keep original threshold, PA and feature/subset decisions in separately named columns", "Pin published architecture/backbone and checkpoint selection", "Fix runtime bugs only with a logged minimal patch; semantic corrections are separate runs", "Report mean, uncertainty and deviation from the matching paper row; do not demand every random seed match exactly"]
+    },
+    {
+      "id": "tab_pinned",
+      "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+      "primary_label_metric": "f_score",
+      "score_metrics": ["auc_roc", "auc_pr", "VUS_ROC", "VUS_PR"],
+      "diagnostic_label_metric": "affiliation_f",
+      "adjust_f_score": "Optional author diagnostic; excluded from primary comparisons",
+      "threshold_ratios_percent": [0.1, 0.5, 1, 2, 3, 5, 10, 15, 20, 25],
+      "boundary": "TAB paper reports best outcomes over a ratio grid; current TSLib adapter pools train/test scores. Preserve and disclose transductive score calibration and test-label metric selection. TAB implementation also offers PA columns. User's exact TAB config/column remains unconfirmed.",
+      "freeze": ["Split strategy", "Feature selection", "Nonoverlap window and complete test coverage", "Affiliation implementation", "VUS buffer and version", "Aggregation across entities"]
+    },
+    {
+      "id": "strict_deployment",
+      "calibration_split": "validation",
+      "primary_false_alarm_percent": 1,
+      "secondary_false_alarm_percent": [0.1, 5],
+      "threshold_rule": "Validation score percentile; thresholds frozen before test; record normal-only or contaminated validation population",
+      "point_adjustment": false,
+      "metrics": ["point_f1", "auroc_raw_score", "average_precision_raw_score", "false_alarms_per_hour", "event_recall", "detection_delay", "entity_macro_and_micro"],
+      "rules": ["No test scores or labels in calibration/model selection", "One finite aligned score per test timestamp", "Never flatten overlapping windows as separate timestamps", "No boundary-crossing windows or events", "Online causal and offline future-context methods reported separately"]
+    },
+    {
+      "id": "industrial_transfer",
+      "rules": ["TEP group by operating mode, simulation run and fault ID", "SKAB group by experiment and failure episode", "PRONTO group by day and operating/fault episode", "Freeze fault-to-anomaly mapping and temporal/group held-out splits", "Never overwrite raw files", "Refit preprocessing on target training only; no automatic reuse of imputation masks"]
+    }
+  ],
+  "reproducibility": {
+    "seeds": [1103, 1104, 1105, 1106, 1107],
+    "preprocessing": ["Train-fit scaler; never fit on test", "Train-only imputation parameters with explicit PSM missing-value rule", "Drop timestamp from model features unless author protocol explicitly retains it", "Preserve channels/entity IDs and anomaly-event boundaries"],
+    "uncertainty": "Report seed mean/std and 95% paired confidence intervals with entity/run or temporal-block resampling; no IID timestamp bootstrap",
+    "fairness": ["Author-recommended hyperparameter track", "Separate matched-backbone/capacity and GPU-budget track", "Report parameters, training time, score inference time and memory", "MOMENT zero-shot, linear probe and fine-tuning are separate; audit checkpoint availability and pretraining dataset overlap"]
+  },
+  "fm_candidates": {
+    "registered_families": ["GRASP", "GiFlow", "CFMI", "TSFlow", "DFM", "PrismFlow", "Flow Matching", "Rectified Flow", "OT-CFM", "TG-MSfM", "JFI"],
+    "library_objective_ablations": ["ConditionalFlowMatcher", "ExactOptimalTransportConditionalFlowMatcher", "TargetConditionalFlowMatcher", "SchrodingerBridgeConditionalFlowMatcher", "VariancePreservingConditionalFlowMatcher"],
+    "status": "No completed formal anomaly-detection runs; library objective classes are not trained anomaly detectors",
+    "adaptation_candidates": ["GRASP spectral/graph velocity discrepancy with explicit reconstruction status", "Conditional masked prediction residual with the scored target hidden from condition", "Velocity discrepancy with a defined normal reference", "Actual CNF likelihood only if ODE divergence and base density are evaluated"],
+    "score_selection": "Freeze score and all aggregation rules using validation; likelihood proxies must not be labelled exact likelihood"
+  },
+  "diagnostic_sequence": [
+    {"step": 1, "test": "Same saved scores under author, TAB and strict protocols", "interpretation": "Separates PA, test-label threshold optimization, pooled score calibration, VUS buffer and window aggregation"},
+    {"step": 2, "test": "Raw-score AUROC/AP and diagnostic oracle F1 ceiling", "interpretation": "Good ranking with low fixed-threshold F1 suggests calibration mismatch; poor ranking suggests model/score failure. Oracle is diagnostic only."},
+    {"step": 3, "test": "Audit split, channels, coverage, preprocessing, checkpoints and numerical stability", "interpretation": "Distinguishes reproduction mismatch from methodological weakness"},
+    {"step": 4, "test": "Matched-budget and score/path/backbone ablations", "interpretation": "Separate scoring objective, representation, optimization and compute effects"},
+    {"step": 5, "test": "Held-out fault types, operating modes, drift and contamination", "interpretation": "Measure normal-distribution fit versus useful abnormal separation; accept inferior results rather than tune on test"}
+  ],
+  "prospective_robustness_axes": {
+    "training_contamination_percent": [0, 1, 5, 10],
+    "window_lengths": [50, 100, 200],
+    "ode_steps": [20, 50, 100],
+    "monte_carlo_samples": [1, 8, 32],
+    "others": ["Point versus contextual versus collective/fault anomalies", "Graph and frequency components on/off", "Sensor noise and missingness", "Cross-entity and cross-operating-mode shifts"],
+    "budget_rule": "Predeclare a tractable one-factor ablation schedule after validation pilot; this is not a full Cartesian job queue"
+  },
+  "citations": ["https://arxiv.org/abs/2506.18046", "https://arxiv.org/abs/2510.12489", "https://arxiv.org/abs/2210.02186", "https://arxiv.org/abs/2402.03885", "https://arxiv.org/abs/2412.06264", "https://arxiv.org/abs/2609.36765"]
+}

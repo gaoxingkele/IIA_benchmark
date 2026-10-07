@@ -1,0 +1,3919 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-10-07",
+  "generated_at_utc": "2026-10-07T01:15:20.421517+00:00",
+  "scope": "Requested eight TSAD papers, registered FM families, local original/extra datasets, and protocol confounds",
+  "summary": {
+    "requested_papers": 8,
+    "requested_valid_local_pdfs": 5,
+    "requested_missing_fulltexts": [
+      "MaelNet",
+      "SHCL",
+      "KGL"
+    ],
+    "enhanced_version_boundary": "Pi-Transformer v2 is local; journal PDF is not. No separately author-confirmed enhanced successors located for the other seven in bounded searches; exhaustive completeness is not established.",
+    "classic_five_local": true,
+    "all_exact_paper_datasets_ready": false,
+    "fm_registered_family_records": 11,
+    "fm_registered_valid_pdfs": 10,
+    "additional_fm_guide_pdf": 1,
+    "fm_original_paper_linked_source_snapshots": 5,
+    "additional_current_official_fm_library": 1,
+    "torchcfm_callable_objective_classes": 5,
+    "formal_fm_anomaly_detection_runs": 0,
+    "new_author_or_tab_training_runs_this_audit": 0,
+    "reason": "Existing formal FM campaign measures imputation. Downloaded libraries/objective classes do not establish trained TSAD detectors."
+  },
+  "paper_evidence": [
+    {
+      "method": "MaelNet",
+      "registry_id": "muhammad2025_maelnet",
+      "title": "MaelNet: Memorable Anomaly Election Learning Detecting Anomalies in Time Series Data using Dual-Net Transformer",
+      "authors": [
+        "I Komang Ari Mogi",
+        "Ary Mazharuddin Shiddiqi",
+        "Baskoro Adi Pratomo",
+        "Choiru Za?in",
+        "Muhammad Ismail",
+        "Anggito Anju Hartawan Manalu"
+      ],
+      "publication_year": 2025,
+      "doi": "10.1109/AI-SI66213.2025.11341688",
+      "venue": "AI-SI 2025",
+      "local_pdf": null,
+      "full_text_status": "needs_institution",
+      "official_code_url": null,
+      "local_official_code": false,
+      "datasets": [
+        "SMAP",
+        "SMD",
+        "SWaT",
+        "PSM",
+        "MSL"
+      ],
+      "primary_sources": [
+        "https://scholar.its.ac.id/en/publications/maelnet-memorable-anomaly-election-learning-detecting-anomalies-i/",
+        "https://ieeexplore.ieee.org/document/11341688/"
+      ],
+      "oa_check": {
+        "url": "https://api.openalex.org/works/https://doi.org/10.1109/AI-SI66213.2025.11341688",
+        "is_oa": false,
+        "any_repository_has_fulltext": false
+      },
+      "verified_claims": [
+        "Official institution abstract states aggregate F1 improvement 3.84% and false positive reduction 1.109%; per-dataset table not accessible."
+      ],
+      "protocol": {
+        "point_adjustment": "unknown",
+        "threshold_data": "unknown",
+        "test_label_threshold_search": "unknown"
+      },
+      "enhanced_versions": {
+        "confirmed_separate_followup_papers": [],
+        "status": "No explicitly linked followup located in bounded exact-title and author searches; not proof none exists."
+      },
+      "metadata_correction": "Registry identifier muhammad2025_maelnet is not first author; publication is AI-SI 2025 even if IEEE indexing appeared 2026."
+    },
+    {
+      "method": "Pi-Transformer",
+      "registry_id": "maleki2026_pi_transformer",
+      "title": "Pi-transformer: A prior-informed dual-attention model for multivariate time-series anomaly detection",
+      "authors": [
+        "Sepehr Maleki",
+        "Negar Pourmoazemi"
+      ],
+      "doi": "10.1016/j.asoc.2026.115029",
+      "arxiv_id": "2509.19985",
+      "venue": "Applied Soft Computing 195 (2026) 115029",
+      "publication_year": 2026,
+      "local_pdf": {
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\maleki2026_pi_transformer.pdf",
+        "bytes": 1784038,
+        "sha256": "e602de06da42cf4bf30f42bab470d3500b78a1c6315b3fcb3877f733932291d1"
+      },
+      "local_pdf_version": "arXiv v2 19 Mar 2026, 29 pages",
+      "publisher_pdf_downloaded": false,
+      "full_text_status": "open_pdf for arXiv; publisher OA CC BY independently confirmed",
+      "official_code_url": "https://github.com/sepehr-m/Pi-Transformer",
+      "official_code_status": "Currently GitHub webpage and API https://api.github.com/repos/sepehr-m/Pi-Transformer return 404; v1 abstract cites this URL, v2 removed code statement.",
+      "local_official_code": false,
+      "datasets": [
+        "SMD",
+        "MSL",
+        "SMAP",
+        "SWaT",
+        "PSM"
+      ],
+      "primary_sources": [
+        "https://arxiv.org/abs/2509.19985v1",
+        "https://arxiv.org/abs/2509.19985v2",
+        "https://arxiv.org/html/2509.19985v2",
+        "https://www.sciencedirect.com/science/article/pii/S1568494626004771"
+      ],
+      "claimed_f1_percent": {
+        "SMD": 91.23,
+        "MSL": 95.96,
+        "SMAP": 97.02,
+        "SWaT": 96.82,
+        "PSM": 98.08
+      },
+      "claim_location": "v2 PDF p16 Table2, averaged over five seeds; uncertainty absent from table",
+      "protocol": {
+        "point_adjustment": true,
+        "point_adjustment_location": "v2 PDF p13 Eq10, p15 Algorithm2 and Sec4.1",
+        "normalization": "energy and mismatch medians/IQR from training scores; max fusion",
+        "threshold_data": "fused training union threshold split score percentile 100-rho; threshold split actual origin and rho tuning procedure not fully specified",
+        "test_label_threshold_search": "not established; no accessible official code to resolve ambiguous threshold split",
+        "score_timeline": "stride1 overlapping windows; end alignment and averaging",
+        "author_limitations": "Sec4.1 and Conclusion explicitly state point adjustment permissive and strict point/range metrics can be lower"
+      },
+      "enhanced_versions": {
+        "v1": {
+          "date": "2025-09-24",
+          "title": "Pi-Transformer: A Physics-informed Attention Mechanism for Time Series Anomaly Detection",
+          "local_pdf": false
+        },
+        "v2": {
+          "date": "2026-03-19",
+          "local_pdf": true
+        },
+        "publisher_version": {
+          "doi": "10.1016/j.asoc.2026.115029",
+          "open_access": true,
+          "local_pdf": false
+        },
+        "confirmed_separate_followup_papers": [],
+        "classification": "Same-identity revision/publication chain, not separate enhanced algorithm."
+      },
+      "oa_check": {
+        "url": "https://api.openalex.org/works/https://doi.org/10.1016/j.asoc.2026.115029",
+        "is_oa": true,
+        "license": "cc-by",
+        "oa_status": "hybrid"
+      }
+    },
+    {
+      "method": "DT-LA",
+      "registry_id": "choi2025_dt_la",
+      "title": "Dual Transformers With Latent Amplification for Multivariate Time Series Anomaly Detection",
+      "authors": [
+        "Yeji Choi",
+        "Kwanghoon Sohn",
+        "Ig-Jae Kim"
+      ],
+      "doi": "10.1109/ACCESS.2025.3594473",
+      "publication_year": 2025,
+      "venue": "IEEE Access 13:136433?136445",
+      "local_pdf": {
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\choi2025_dt_la.pdf",
+        "bytes": 3152139,
+        "sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d"
+      },
+      "full_text_status": "open_pdf CC BY",
+      "official_code_url": null,
+      "local_official_code": false,
+      "datasets": [
+        "SMAP",
+        "MSL",
+        "PSM",
+        "SMD"
+      ],
+      "primary_sources": [
+        "https://ieeexplore.ieee.org/document/11105392/",
+        "https://yonsei.elsevierpure.com/en/publications/dual-transformers-with-latent-amplification-for-multivariate-time/"
+      ],
+      "claimed_f1_percent": {
+        "SMAP": 97.02,
+        "MSL": 95.09,
+        "PSM": 98.42,
+        "SMD": 93.98,
+        "average": 96.13
+      },
+      "claim_location": "PDF p8 Table3 visually inspected; numbers are embedded as raster/table and plain text extraction alone insufficient",
+      "paper_inconsistency": "PDF p8 prose incorrectly calls MSL 98.33 F1; Table3 shows 98.33 Recall and 95.09 F1. Use table F1.",
+      "protocol": {
+        "point_adjustment": true,
+        "point_adjustment_location": "p7 SecIV.A.4 says one hit expands entire ground-truth anomalous segment",
+        "threshold_data": "p7 SecIV.A.2 describes percentile giving p% validation anomalies; tuning and origin of p not disclosed",
+        "test_label_threshold_search": "No established evidence from paper; no official code located.",
+        "hyperparameter_validation_labels": "p10 SecIV.C.2 MRH delta selected via validation F1 grid search, so labeled-validation setting",
+        "preprocess": "Training mean/variance standardization; nonoverlapping window100",
+        "train_settings": "RTX3090; Adam lr1e-5; max100epochs/early stopping; batch256; 3layers d512 8heads; lambda .5",
+        "baseline_origin": "Only A.T.*, DCdetector*, MEMTO* reproduced under same settings; other baseline values copied from MEMTO reference10."
+      },
+      "enhanced_versions": {
+        "confirmed_separate_followup_papers": [],
+        "status": "No explicit followup identified in exact-title/code searches; do not label related methods enhancements."
+      }
+    },
+    {
+      "method": "SHCL",
+      "registry_id": "zhang2026_shcl",
+      "title": "Subsequence heterogeneity contrastive learning for time series anomaly detection",
+      "authors": [
+        "Zhibin Zhang",
+        "Xiaohong Zhang",
+        "Qiang Li",
+        "Chun Huang",
+        "Tao Yin",
+        "Meng Yan"
+      ],
+      "doi": "10.1016/j.ins.2025.122680",
+      "publication_year": 2026,
+      "venue": "Information Sciences 723:122680",
+      "local_pdf": null,
+      "full_text_status": "needs_institution",
+      "official_code_url": "https://github.com/Zhangzzbzzb/SHCL",
+      "official_code_commit": "022520104f2d0d3bda563557ebc99279e6812511",
+      "local_official_code": "downloaded_source_not_yet_author_training_reproduced",
+      "public_implementation": "SHCL-VAE only; official README refactored implementation, not original Transformer or LSTM execution config",
+      "datasets": [
+        "SMD",
+        "MSL",
+        "SMAP",
+        "PSM",
+        "SWaT",
+        "GECCO",
+        "SWAN",
+        "UCR"
+      ],
+      "primary_sources": [
+        "https://www.sciencedirect.com/science/article/pii/S0020025525008138",
+        "https://github.com/Zhangzzbzzb/SHCL",
+        "https://github.com/Zhangzzbzzb/SHCL/blob/022520104f2d0d3bda563557ebc99279e6812511/img/OverallResult.png",
+        "https://github.com/Zhangzzbzzb/SHCL/blob/022520104f2d0d3bda563557ebc99279e6812511/img/multi-metric.png"
+      ],
+      "code_files": {
+        "solver": {
+          "url": "https://raw.githubusercontent.com/Zhangzzbzzb/SHCL/022520104f2d0d3bda563557ebc99279e6812511/solver.py",
+          "sha256": "ed957d03e376b036fdb48d4885e51735827082fcf86d5f58ada8a7a8a29d9582",
+          "bytes": 11657
+        },
+        "data_loader": {
+          "url": "https://raw.githubusercontent.com/Zhangzzbzzb/SHCL/022520104f2d0d3bda563557ebc99279e6812511/data_factory/data_loader.py",
+          "sha256": "3abc6bde5cdf4dff9fd52baa83ee6a402b5e5d6f5a2c51775a2e0b9bb7fa663d",
+          "bytes": 18513
+        },
+        "result_table": {
+          "url": "https://raw.githubusercontent.com/Zhangzzbzzb/SHCL/022520104f2d0d3bda563557ebc99279e6812511/img/OverallResult.png",
+          "sha256": "7d2986d57b3c87556cbe020c1f9f68be0bc02a5873631c863828796c507155eb",
+          "bytes": 628888
+        },
+        "multi_metrics": {
+          "url": "https://raw.githubusercontent.com/Zhangzzbzzb/SHCL/022520104f2d0d3bda563557ebc99279e6812511/img/multi-metric.png",
+          "sha256": "a620520f45cd6c5454d0d38e40ac2e3b220d80abc2ac74b39581d8cbbce545a5",
+          "bytes": 332594
+        }
+      },
+      "verified_claims": {
+        "SHCL_Transformer_MSL_F1": 95.06,
+        "SHCL_Transformer_PSM_F1": 98.97,
+        "SHCL_VAE_PSM_F1": 99.19,
+        "SHCL_LSTM_PSM_96.42": "Not verified; official current table has Transformer and VAE, no LSTM. Need paper original table/page."
+      },
+      "protocol": {
+        "point_adjustment": true,
+        "point_adjustment_location": "Pinned solver.py lines259?289 perform ground-truth segment fill and print adjusted F1 separately from raw F1",
+        "threshold_data_regular5": "data_loader.py uses tail20% train as val for SMD/MSL/SMAP/PSM/SWaT; mode thre returns val windows; solver.py221 percentile(100-anormly_ratio)",
+        "threshold_data_extra": "GECCO data_loader.py297 and SWAN341 set self.val=self.test; same thre logic therefore uses test scores for threshold calibration",
+        "test_label_threshold_search": "Not established in examined solver; labels used for PA and metrics, not percentile. Hyperparameter anomaly ratio tuning history unknown.",
+        "checkpoint_selection": "solver180 computes val loss, but182 saves every epoch to same checkpoint: last epoch rather than advertised best validation checkpoint",
+        "tail_policy": "Most regular5 test loaders enumerate floor(test_length/window_size) nonoverlap windows, dropping final partial tail; NIPS loaders use overlapping windows step1",
+        "PSM_timestamp_risk": "Current PSMSegLoader reads all train/test CSV columns without values[:,1:] while labels strips first column; possible timestamp used as feature unless released input already strips timestamp, need data snapshot audit."
+      },
+      "oa_check": {
+        "url": "https://api.openalex.org/works/https://doi.org/10.1016/j.ins.2025.122680",
+        "is_oa": false,
+        "any_repository_has_fulltext": false
+      },
+      "enhanced_versions": {
+        "confirmed_separate_followup_papers": [],
+        "classification": "Transformer/VAE/LSTM are within-framework backbones, not confirmed chronological followup papers; currently official VAE refactor must not substitute silently for Transformer."
+      },
+      "current_local_official_snapshot": {
+        "paper_id": "shcl",
+        "repository": "Zhangzzbzzb/SHCL",
+        "commit": "022520104f2d0d3bda563557ebc99279e6812511",
+        "archive_sha256": "f6e352f98ba434886193d80e441a488de1c34b8fd485647f88ae04ffa59bde9a",
+        "url": "https://codeload.github.com/Zhangzzbzzb/SHCL/zip/022520104f2d0d3bda563557ebc99279e6812511",
+        "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\shcl\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established"
+      }
+    },
+    {
+      "method": "KGL",
+      "title": "KGL: An Efficient Time Series Anomaly Detection Approach for the Industrial Internet of Things",
+      "authors": [
+        "Bingfeng Wang",
+        "Yaodong Tao",
+        "Yong Wang",
+        "Lin Zhou"
+      ],
+      "venue": "MLSC 2025",
+      "doi": "10.1145/3778450.3778526",
+      "published_crossref": "2025-10-16",
+      "identity_evidence": "https://api.crossref.org/works/10.1145/3778450.3778526",
+      "publisher": "https://dl.acm.org/doi/10.1145/3778450.3778526",
+      "local_pdf_exists": false,
+      "local_manifest_status": "download_failed; HTTP 403",
+      "local_registry": "papers/literature/mtsad_registry.json:424",
+      "local_manifest": "papers/literature/mtsad_download_manifest.json:242",
+      "reported_numbers": {
+        "SMD_F1": 0.94,
+        "SMD_AUC": 0.97
+      },
+      "reported_numbers_verification": "Inherited registry transcribes publisher Table 2, but current original PDF unavailable and publisher web open failed; this audit has not independently confirmed metric definitions",
+      "official_repo": null,
+      "repo_search_status": "not located in exact-title and author-name searches; absence is not proof that code does not exist",
+      "protocol": {
+        "point_adjustment": "unknown",
+        "test_label_threshold_selection": "unknown",
+        "AUC_input_raw_score_or_binary_prediction": "unknown",
+        "supervision": "unknown"
+      },
+      "enhanced_version": "No author-confirmed enhancement or extension identified in bounded search; cannot claim all derivatives downloaded"
+    },
+    {
+      "method": "CrossAD",
+      "title": "CrossAD: Time Series Anomaly Detection with Cross-scale Associations and Cross-window Modeling",
+      "authors": [
+        "Beibu Li",
+        "Qichao Shentu",
+        "Yang Shu",
+        "Hui Zhang",
+        "Ming Li",
+        "Ning Jin",
+        "Bin Yang",
+        "Chenjuan Guo"
+      ],
+      "venue": "NeurIPS 2025",
+      "arxiv": "2510.12489",
+      "arxiv_current_version": "v1; 2025-10-14",
+      "paper_url": "https://arxiv.org/html/2510.12489v1",
+      "conference_version_url": "https://openreview.net/pdf?id=fkYFDxiLpi",
+      "local_pdf": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+      "local_pdf_sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add",
+      "local_pdf_pages": 21,
+      "official_repo": "https://github.com/decisionintelligence/CrossAD",
+      "original_repo_local_snapshot_before_this_audit": "Not present under external_repos; no local model config or callable implementation located for CrossAD",
+      "main_datasets": [
+        "SMD",
+        "MSL",
+        "SMAP",
+        "SWaT",
+        "PSM",
+        "GECCO",
+        "SWAN"
+      ],
+      "additional_appendix_datasets": [
+        "UCR Anomaly Archive",
+        "TSB-AD-U",
+        "TSB-AD-M"
+      ],
+      "paper_main_metrics": [
+        "VUS-ROC",
+        "VUS-PR"
+      ],
+      "main_table_location": "local PDF page 8, Table 1",
+      "main_table": {
+        "SMD": {
+          "VUS_ROC": 0.858,
+          "VUS_PR": 0.2344
+        },
+        "MSL": {
+          "VUS_ROC": 0.8091,
+          "VUS_PR": 0.3144
+        },
+        "SMAP": {
+          "VUS_ROC": 0.5779,
+          "VUS_PR": 0.1443
+        },
+        "SWaT": {
+          "VUS_ROC": 0.7865,
+          "VUS_PR": 0.4767
+        },
+        "PSM": {
+          "VUS_ROC": 0.7302,
+          "VUS_PR": 0.5596
+        },
+        "GECCO": {
+          "VUS_ROC": 0.9948,
+          "VUS_PR": 0.6211
+        },
+        "SWAN": {
+          "VUS_ROC": 0.9499,
+          "VUS_PR": 0.9171
+        }
+      },
+      "table2_examples": {
+        "SMD": {
+          "Standard_F1": 0.2412,
+          "Affiliation_F1": 0.8531,
+          "AUC_ROC": 0.7823,
+          "AUC_PR": 0.1864
+        },
+        "PSM": {
+          "Standard_F1": 0.4974,
+          "Affiliation_F1": 0.8603,
+          "AUC_ROC": 0.681,
+          "AUC_PR": 0.4906
+        }
+      },
+      "protocol": {
+        "PA_main_metrics": "No; paper page 7 explicitly critiques PA and main tables use VUS",
+        "MSL_SMAP_channels": "Only the first continuous dimension retained, page 7; do not compare directly against full multivariate representations",
+        "normalization": "data_provider/data_provider.py fits StandardScaler on original training portion before its 80/20 train/validation split, not on test",
+        "checkpoint_selection": "validation reconstruction loss, exp/exp_anomaly_detection.py",
+        "main_score_metrics": "exp.test saves raw per-channel scores, averages channels and evaluates score metrics",
+        "Standard_F1_code": "run.py default metrics include best_f1; ts_ad_evaluation/f1/metrics.py selects maximum precision-recall F1 using test labels; no PA in that branch. The exact paper-table-to-code-output mapping still requires rerunning the release",
+        "Affiliation_F1_threshold": "Paper pages 15 and 17 specify SPOT. Code has separate evaluate_spot/init-score path, default q=0.1; q-selection provenance not proven from paper",
+        "extra_PA_F1": "Appendix TSB-AD table also reports PA-F1 as a separate metric; do not imply the work never computes PA"
+      },
+      "code_evidence": [
+        "https://raw.githubusercontent.com/decisionintelligence/CrossAD/main/run.py",
+        "https://raw.githubusercontent.com/decisionintelligence/CrossAD/main/exp/exp_anomaly_detection.py",
+        "https://raw.githubusercontent.com/decisionintelligence/CrossAD/main/ts_ad_evaluation/evaluator.py",
+        "https://raw.githubusercontent.com/decisionintelligence/CrossAD/main/ts_ad_evaluation/f1/metrics.py",
+        "https://raw.githubusercontent.com/decisionintelligence/CrossAD/main/data_provider/data_provider.py"
+      ],
+      "author_preprocessed_data_url": "https://drive.google.com/file/d/1YU_d9kIaP2EubyUhGWOwSKAhJxNntB8W/view",
+      "enhanced_version": "No separate author-confirmed enhanced CrossAD paper identified. NeurIPS PDF and arXiv version are editions of the same work; DADA is separately cited predecessor/related work, not an enhanced CrossAD",
+      "current_local_official_snapshot": {
+        "paper_id": "crossad",
+        "repository": "decisionintelligence/CrossAD",
+        "commit": "ff0fb2d41291b76452898910312dd38ed3389bf3",
+        "archive_sha256": "5150d009b6b30e739155d4c5d188a1ab6521248e06134265d1bcec0d03cbd3df",
+        "url": "https://codeload.github.com/decisionintelligence/CrossAD/zip/ff0fb2d41291b76452898910312dd38ed3389bf3",
+        "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\crossad\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established"
+      },
+      "local_official_code": "downloaded_source_not_yet_author_training_reproduced"
+    },
+    {
+      "method": "TimesNet",
+      "title": "TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis",
+      "authors": [
+        "Haixu Wu",
+        "Tengge Hu",
+        "Yong Liu",
+        "Hang Zhou",
+        "Jianmin Wang",
+        "Mingsheng Long"
+      ],
+      "venue": "ICLR 2023",
+      "arxiv": "2210.02186",
+      "arxiv_current_version": "v3; 2023-04-12",
+      "paper_url": "https://arxiv.org/pdf/2210.02186",
+      "local_pdf": "papers/literature/mtsad_pdfs/wu2023_timesnet.pdf",
+      "local_pdf_sha256": "a45cb3d35c7b4db7091439ee714fd43dd6cd9e8f2fb1867f5463ae0433aebbd1",
+      "local_pdf_pages": 23,
+      "official_repo": "https://github.com/thuml/TimesNet",
+      "official_complete_code_repo": "https://github.com/thuml/Time-Series-Library",
+      "local_implementation": "src/iia_benchmark/models/mtsad_detectors.py:838",
+      "local_config": "configs/models/mtsad_timesnet.json",
+      "local_implementation_status": "Transcribed reconstruction implementation; do not present as a direct official-code run",
+      "original_repo_local_snapshot_before_this_audit": "Not present under external_repos",
+      "main_datasets": [
+        "SMD",
+        "MSL",
+        "SMAP",
+        "SWaT",
+        "PSM"
+      ],
+      "table_location": "local PDF page 22, Table 15; page 9 Table 5",
+      "table15_F1": {
+        "Inception_shared": {
+          "SMD": 0.8512,
+          "MSL": 0.8418,
+          "SMAP": 0.7085,
+          "SWaT": 0.921,
+          "PSM": 0.9521
+        },
+        "ResNeXt": {
+          "SMD": 0.8581,
+          "MSL": 0.8515,
+          "SMAP": 0.7152,
+          "SWaT": 0.9174,
+          "PSM": 0.9747
+        }
+      },
+      "user_number_discrepancy": "PSM 0.974 is close to ResNeXt 0.9747, but SWaT 0.924 is not a Table 15 TimesNet result; do not combine best values across variants/sources as one reproducible claim",
+      "protocol": {
+        "point_adjustment": "Official TSL exp_anomaly_detection.py applies adjustment(gt,pred) before precision_recall_fscore_support",
+        "threshold": "Official TSL concatenates train and test reconstruction energies, then uses percentile(100-anomaly_ratio). Test score distribution calibration is explicit; this branch does not itself maximize test-label F1",
+        "ratio_selection": "Released scripts/hyperparameter selection still need per-dataset provenance audit; do not assert that ratio was test-label selected without evidence",
+        "training": "Unsupervised MSE reconstruction with validation-loss early stopping; test loss also printed but early_stopping consumes vali_loss",
+        "windowing": "Paper page 8 nonoverlapping test segments; page 14 window length 100",
+        "anomaly_transformer_baseline": "Paper replaces original joint association criterion with reconstruction-only for its backbone comparison; not an untouched original Anomaly Transformer baseline"
+      },
+      "code_evidence": "https://raw.githubusercontent.com/thuml/Time-Series-Library/main/exp/exp_anomaly_detection.py",
+      "enhanced_version": "No author-confirmed TimesNet++ or official anomaly-detection successor identified. Paper itself includes Inception, ResNeXt, ConvNext and Swin variants. Many later modified-TimesNet application papers are separate derived works, not automatically official enhanced versions or comparable on this five-dataset task",
+      "current_local_official_snapshot": {
+        "paper_id": "timesnet_tslib",
+        "repository": "thuml/Time-Series-Library",
+        "commit": "4e938a1767106324dd753b2a44832bf870a0252e",
+        "archive_sha256": "8ad00c38d00baa6b4a17df2a688a96c945a0c005b6caceca0e932e6f5ac6edaa",
+        "url": "https://codeload.github.com/thuml/Time-Series-Library/zip/4e938a1767106324dd753b2a44832bf870a0252e",
+        "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\timesnet_tslib\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established"
+      },
+      "local_official_code": "downloaded_source_not_yet_author_training_reproduced"
+    },
+    {
+      "method": "MOMENT",
+      "title": "MOMENT: A Family of Open Time-series Foundation Models",
+      "authors": [
+        "Mononito Goswami",
+        "Konrad Szafer",
+        "Arjun Choudhry",
+        "Yifu Cai",
+        "Shuo Li",
+        "Artur Dubrawski"
+      ],
+      "venue": "ICML 2024",
+      "arxiv": "2402.03885",
+      "arxiv_current_version": "v3; 2024-10-10",
+      "paper_url": "https://arxiv.org/pdf/2402.03885",
+      "local_pdf": "papers/literature/mtsad_pdfs/goswami2024_moment.pdf",
+      "local_pdf_sha256": "037108e4be01e9ae7643bbe54bd4f65c9b5710d53f336c05054e68be645124e2",
+      "local_pdf_pages": 38,
+      "official_inference_repo": "https://github.com/moment-timeseries-foundation-model/moment",
+      "official_research_reproduction_repo": "https://github.com/moment-timeseries-foundation-model/moment-research",
+      "original_repo_local_snapshot_before_this_audit": "Not present under external_repos; no local MOMENT model config/callable implementation located",
+      "user_SMD_F1_0_832": "Attribution unverified. Not found as an SMD anomaly result in the local original paper. SMD mentions are dataset/pretraining metadata; the literal 0.832 on PDF page 31 is in a classification table, not an SMD F1 result. Do not relabel or guess the missing source",
+      "original_anomaly_task": "UCR Anomaly Archive subset, not the classical five multivariate benchmarks. Paper inconsistently says 44 (main page 7), 45 (Table 22 caption), 46 (Appendix F.3); reconstruct exact released subset list before reproduction",
+      "protocol": {
+        "reported_metrics": [
+          "Adjusted Best F1",
+          "VUS-ROC"
+        ],
+        "threshold_selection": "adjbestf1 uses 100 evenly spaced thresholds over test score range, computes ground-truth label point adjustment, returns maximum F1; this is retrospective oracle performance, not deployable threshold calibration",
+        "zero_shot": "Frozen pretrained reconstruction model",
+        "linear_probing": "Freeze backbone, update reconstruction head on target training data; report separately from zero-shot and from unpretrained unsupervised methods",
+        "window": 512,
+        "downsampling": "Appendix F.3 page 28 downsamples series longer than 2560 by factor 10",
+        "VUS_buffer": "Official research metric code sets window length from the first to last positive label (designed for one-event UCR), then generate_curve(...,2*window). Parent audit found current TAB uses median event length and also 2*window. The formulas coincide for a single event but differ for multiple events; freeze exact implementation/version before numeric comparison",
+        "pretraining": "Time Series Pile provides a different information/compute budget; audit target-series overlap and source/target split contamination separately"
+      },
+      "code_evidence": [
+        "https://raw.githubusercontent.com/moment-timeseries-foundation-model/moment-research/main/moment/utils/anomaly_detection_metrics.py",
+        "https://raw.githubusercontent.com/moment-timeseries-foundation-model/moment/main/momentfm/utils/anomaly_detection_metrics.py",
+        "https://raw.githubusercontent.com/moment-timeseries-foundation-model/moment-research/main/moment/tasks/anomaly_detection_finetune.py"
+      ],
+      "enhanced_version": "Official family has small/base/large checkpoints plus inference and research packages; these are model-size/package variants, not distinct MOMENT-2 papers. No author-confirmed anomaly-detection enhanced successor identified in bounded search. TimeSeriesGym/JoLT linked in README are separate projects",
+      "current_local_official_snapshot": {
+        "paper_id": "moment_research",
+        "repository": "moment-timeseries-foundation-model/moment-research",
+        "commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "archive_sha256": "9b58a8fd2b697833391e77f76114357e0c78aa4b91ad7a5c9b50f7187afd2092",
+        "url": "https://codeload.github.com/moment-timeseries-foundation-model/moment-research/zip/3ab637e413f35f2c317573c0ace280d825c558de",
+        "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\moment_research\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established"
+      },
+      "local_official_code": "downloaded_source_not_yet_author_training_reproduced"
+    }
+  ],
+  "local_inventory": {
+    "checked_at": "2026-10-07T01:07:12.947022+00:00",
+    "root": "D:\\aicoding\\IIA_benchmark",
+    "scope": "Read-only evidence inventory; no downloads, queues, models or data mutated.",
+    "eight_papers": [
+      {
+        "id": "wu2023_timesnet",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\wu2023_timesnet.pdf",
+        "present": true,
+        "previous_status": "downloaded",
+        "bytes": 4106684,
+        "sha256": "a45cb3d35c7b4db7091439ee714fd43dd6cd9e8f2fb1867f5463ae0433aebbd1",
+        "manifest_sha256_match": true,
+        "pages": 23,
+        "nonempty_page_text_count": 23,
+        "valid_pdf": true
+      },
+      {
+        "id": "maleki2026_pi_transformer",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\maleki2026_pi_transformer.pdf",
+        "present": true,
+        "previous_status": "downloaded",
+        "bytes": 1784038,
+        "sha256": "e602de06da42cf4bf30f42bab470d3500b78a1c6315b3fcb3877f733932291d1",
+        "manifest_sha256_match": true,
+        "pages": 29,
+        "nonempty_page_text_count": 29,
+        "valid_pdf": true
+      },
+      {
+        "id": "li2025_crossad",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\li2025_crossad.pdf",
+        "present": true,
+        "previous_status": "downloaded",
+        "bytes": 5332908,
+        "sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add",
+        "manifest_sha256_match": true,
+        "pages": 21,
+        "nonempty_page_text_count": 21,
+        "valid_pdf": true
+      },
+      {
+        "id": "goswami2024_moment",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\goswami2024_moment.pdf",
+        "present": true,
+        "previous_status": "downloaded",
+        "bytes": 3735815,
+        "sha256": "037108e4be01e9ae7643bbe54bd4f65c9b5710d53f336c05054e68be645124e2",
+        "manifest_sha256_match": true,
+        "pages": 38,
+        "nonempty_page_text_count": 38,
+        "valid_pdf": true
+      },
+      {
+        "id": "choi2025_dt_la",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\choi2025_dt_la.pdf",
+        "present": true,
+        "previous_status": "downloaded",
+        "bytes": 3152139,
+        "sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+        "manifest_sha256_match": true,
+        "pages": 13,
+        "nonempty_page_text_count": 13,
+        "valid_pdf": true
+      },
+      {
+        "id": "wang2025_kgl",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\wang2025_kgl.pdf",
+        "present": false,
+        "previous_status": "download_failed"
+      },
+      {
+        "id": "zhang2026_shcl",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\zhang2026_shcl.pdf",
+        "present": false,
+        "previous_status": "not_openly_downloadable"
+      },
+      {
+        "id": "muhammad2025_maelnet",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\mtsad_pdfs\\muhammad2025_maelnet.pdf",
+        "present": false,
+        "previous_status": "not_openly_downloadable"
+      }
+    ],
+    "followup_versions": "No separately registered or named local enhanced versions of these eight methods found in papers/literature, configs/models or downloaded author snapshot directories. Pi-Transformer journal edition explicitly absent per registry; literature completeness cannot be inferred.",
+    "fm_papers": [
+      {
+        "id": "cfmi",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\cfmi.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 9169919,
+        "sha256": "fab4275121ac7dbfd793e8d7ccbf92677e0eb5d350e32544ff114f4b0f05a993",
+        "manifest_sha256_match": true,
+        "pages": 94,
+        "nonempty_page_text_count": 94,
+        "valid_pdf": true
+      },
+      {
+        "id": "dfm",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\dfm.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 364737,
+        "sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+        "manifest_sha256_match": true,
+        "pages": 6,
+        "nonempty_page_text_count": 6,
+        "valid_pdf": true
+      },
+      {
+        "id": "flow_matching",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\flow_matching.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 25147129,
+        "sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+        "manifest_sha256_match": true,
+        "pages": 28,
+        "nonempty_page_text_count": 28,
+        "valid_pdf": true
+      },
+      {
+        "id": "giflow",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\giflow.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 703619,
+        "sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+        "manifest_sha256_match": true,
+        "pages": 17,
+        "nonempty_page_text_count": 17,
+        "valid_pdf": true
+      },
+      {
+        "id": "grasp",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\grasp.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 811382,
+        "sha256": "1b9e48e68d57ca8466099d0515ac67b2c3309b75cf9445ac58f5fd6ec39583fd",
+        "manifest_sha256_match": true,
+        "pages": 28,
+        "nonempty_page_text_count": 28,
+        "valid_pdf": true
+      },
+      {
+        "id": "jfi",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\jfi.pdf",
+        "present": false,
+        "previous_status": "needs_institution"
+      },
+      {
+        "id": "ot_cfm",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\ot_cfm.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 9677988,
+        "sha256": "c98a4834abffe8a5c4e27c13c36a10d83d38e8780c98c3891150c4e028094d0a",
+        "manifest_sha256_match": true,
+        "pages": 34,
+        "nonempty_page_text_count": 34,
+        "valid_pdf": true
+      },
+      {
+        "id": "prismflow",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\prismflow.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 4816618,
+        "sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+        "manifest_sha256_match": true,
+        "pages": 12,
+        "nonempty_page_text_count": 12,
+        "valid_pdf": true
+      },
+      {
+        "id": "rectified_flow",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\rectified_flow.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 18024983,
+        "sha256": "d81790cb6988ef480002adcc84000d4f44855b11fb868001fd53aad133bc3a74",
+        "manifest_sha256_match": true,
+        "pages": 41,
+        "nonempty_page_text_count": 41,
+        "valid_pdf": true
+      },
+      {
+        "id": "tg_msfm",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\tg_msfm.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 755004,
+        "sha256": "6f36a93ec8fafbf326d8e71be5fac652229e6d272027595088a647b4455db187",
+        "manifest_sha256_match": true,
+        "pages": 21,
+        "nonempty_page_text_count": 21,
+        "valid_pdf": true
+      },
+      {
+        "id": "tsflow",
+        "path": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\pdfs\\tsflow.pdf",
+        "present": true,
+        "previous_status": "available",
+        "bytes": 1399061,
+        "sha256": "736e0f8e7190d013e9696bdfaeec3f2b1a803273022779625081c07a993fb0f2",
+        "manifest_sha256_match": true,
+        "pages": 23,
+        "nonempty_page_text_count": 23,
+        "valid_pdf": true
+      }
+    ],
+    "fm_inventory": {
+      "registered_family_records": 11,
+      "pdfs_valid": 10,
+      "family_ids": [
+        "cfmi",
+        "dfm",
+        "flow_matching",
+        "giflow",
+        "grasp",
+        "jfi",
+        "ot_cfm",
+        "prismflow",
+        "rectified_flow",
+        "tg_msfm",
+        "tsflow"
+      ],
+      "non_fm_campaign_ids": [
+        "brits",
+        "catch",
+        "csdi",
+        "dcdetector",
+        "diffusion_ts",
+        "ganf",
+        "grin",
+        "saits",
+        "sssd"
+      ],
+      "note": "11 is literature-family registration count including inaccessible JFI; not 11 runnable anomaly detectors. GANF is a normalizing flow, CSDI/SSSD/Diffusion-TS are diffusion, SAITS/BRITS/GRIN are imputation competitors, CATCH/DCdetector are anomaly detectors.",
+      "author_snapshot_ids": [
+        "giflow",
+        "cfmi",
+        "tsflow",
+        "rectified_flow",
+        "ot_cfm"
+      ],
+      "no_located_author_snapshot": [
+        "dfm",
+        "flow_matching",
+        "grasp",
+        "jfi",
+        "prismflow",
+        "tg_msfm"
+      ],
+      "formal_anomaly_detection_variants_run": 0,
+      "formal_imputation_variants_run": [
+        "cfmi"
+      ],
+      "fm_cpu_preflight_only": [
+        "giflow"
+      ]
+    },
+    "author_sources": [
+      {
+        "paper_id": "giflow",
+        "repository": "zepengzhang/GiFlow",
+        "commit": "4e7d0375155750f6c3d9387ad68e7c78d99dd0ac",
+        "archive_sha256": "7c65013633bc5388277c4b43eae049fd5a74b752e903be14b1403a0e1077735e",
+        "url": "https://codeload.github.com/zepengzhang/GiFlow/zip/4e7d0375155750f6c3d9387ad68e7c78d99dd0ac",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\giflow\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\giflow\\original",
+        "actual_file_count": 9,
+        "python_file_count": 8,
+        "category": "flow_matching_family"
+      },
+      {
+        "paper_id": "cfmi",
+        "repository": "vsimkus/cfmi",
+        "commit": "e743f4e21c33dde9581421f08b42fa70b7df7449",
+        "archive_sha256": "c242b35d6e4f01adf233a3968bc4f337a679f09c02973949899fc9d1ca783492",
+        "url": "https://codeload.github.com/vsimkus/cfmi/zip/e743f4e21c33dde9581421f08b42fa70b7df7449",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\cfmi\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\cfmi\\original",
+        "actual_file_count": 4343,
+        "python_file_count": 52,
+        "category": "flow_matching_family"
+      },
+      {
+        "paper_id": "tsflow",
+        "repository": "marcelkollovieh/TSFlow",
+        "commit": "ff893176a41a1037f63efae674aab71480eee7d0",
+        "archive_sha256": "070f2afc9c6668d820377ed09c352e36acd89c5ac0bf791bf1d3809d20927094",
+        "url": "https://codeload.github.com/marcelkollovieh/TSFlow/zip/ff893176a41a1037f63efae674aab71480eee7d0",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\tsflow\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\tsflow\\original",
+        "actual_file_count": 54,
+        "python_file_count": 30,
+        "category": "flow_matching_family"
+      },
+      {
+        "paper_id": "csdi",
+        "repository": "ermongroup/CSDI",
+        "commit": "7f24a436f08d98853a6b43d4f7f04e5a65ecdf27",
+        "archive_sha256": "409adda7b986966ab7d0350ccd616f119d899fcd1b305e91c5ce94dc96ddcb62",
+        "url": "https://codeload.github.com/ermongroup/CSDI/zip/7f24a436f08d98853a6b43d4f7f04e5a65ecdf27",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\csdi\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\csdi\\original",
+        "actual_file_count": 18,
+        "python_file_count": 10,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "sssd",
+        "repository": "AI4HealthUOL/SSSD",
+        "commit": "4d3b7a51c54b658945c0ba0bbb26e5ee1f763bed",
+        "archive_sha256": "08da52f0fbea25b2d4e7a01d36d816b82e125b7411d1ca3fff79f1eecbaa086e",
+        "url": "https://codeload.github.com/AI4HealthUOL/SSSD/zip/4d3b7a51c54b658945c0ba0bbb26e5ee1f763bed",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\sssd\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\sssd\\original",
+        "actual_file_count": 50,
+        "python_file_count": 22,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "brits",
+        "repository": "caow13/BRITS",
+        "commit": "fc0a3a472a6d99a6934e471d40c25ed0b029b501",
+        "archive_sha256": "6991a142e0bbc720cb2fc75b0f2bcc5e24030f039a7102f1caa10627a44e9a7c",
+        "url": "https://codeload.github.com/caow13/BRITS/zip/fc0a3a472a6d99a6934e471d40c25ed0b029b501",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\brits\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\brits\\original",
+        "actual_file_count": 18,
+        "python_file_count": 14,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "saits",
+        "repository": "WenjieDu/SAITS",
+        "commit": "660b87f19c1277065f314f24134f646229e89ca9",
+        "archive_sha256": "5014e99a31b90e232a15a68916a47947b62922a415f44c378b980e34cc21722c",
+        "url": "https://codeload.github.com/WenjieDu/SAITS/zip/660b87f19c1277065f314f24134f646229e89ca9",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\saits\\original",
+        "actual_file_count": 62,
+        "python_file_count": 16,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "grin",
+        "repository": "Graph-Machine-Learning-Group/grin",
+        "commit": "4a28afbb092600b6e6abeeabaaf67e87dbd1ed6e",
+        "archive_sha256": "d16f300974f4c2897ebfe1382809c76da468581ea56c17549cac643c457817aa",
+        "url": "https://codeload.github.com/Graph-Machine-Learning-Group/grin/zip/4a28afbb092600b6e6abeeabaaf67e87dbd1ed6e",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\grin\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\grin\\original",
+        "actual_file_count": 148,
+        "python_file_count": 48,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "diffusion_ts",
+        "repository": "Y-debug-sys/Diffusion-TS",
+        "commit": "566307e6cf2d8095e58de4c6e3a6ae965b69b5b5",
+        "archive_sha256": "f9ab31318975a6f0e6deabf6d6c95e9defffe1c421bcabda198ab0b55a060213",
+        "url": "https://codeload.github.com/Y-debug-sys/Diffusion-TS/zip/566307e6cf2d8095e58de4c6e3a6ae965b69b5b5",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\diffusion_ts\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\diffusion_ts\\original",
+        "actual_file_count": 57,
+        "python_file_count": 26,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "ganf",
+        "repository": "EnyanDai/GANF",
+        "commit": "bce38333b109f325a403dae9aff4987ae5bd6e1f",
+        "archive_sha256": "c50e53c00ca4332defd66f8472ee0dcf79ce5d01c5a951b2f91feadff9fb47d6",
+        "url": "https://codeload.github.com/EnyanDai/GANF/zip/bce38333b109f325a403dae9aff4987ae5bd6e1f",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\ganf\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\ganf\\original",
+        "actual_file_count": 34,
+        "python_file_count": 13,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "catch",
+        "repository": "decisionintelligence/CATCH",
+        "commit": "3647c69be5eb56649b072596cf89098e689e20c3",
+        "archive_sha256": "d464a528bd312ec747dc2ad45c5ee7d5313f0d542eb778478f0fa443392be4c5",
+        "url": "https://codeload.github.com/decisionintelligence/CATCH/zip/3647c69be5eb56649b072596cf89098e689e20c3",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\catch\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\catch\\original",
+        "actual_file_count": 2234,
+        "python_file_count": 1070,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "dcdetector",
+        "repository": "DAMO-DI-ML/KDD2023-DCdetector",
+        "commit": "9d107cae518ef24ee2eb2ad1b92107cdcd09ea10",
+        "archive_sha256": "b9e22199ddc44f032273b8f7e915213ed2d028e9aec4947216b647e9b542402a",
+        "url": "https://codeload.github.com/DAMO-DI-ML/KDD2023-DCdetector/zip/9d107cae518ef24ee2eb2ad1b92107cdcd09ea10",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\dcdetector\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\dcdetector\\original",
+        "actual_file_count": 56,
+        "python_file_count": 32,
+        "category": "non_fm_comparator"
+      },
+      {
+        "paper_id": "rectified_flow",
+        "repository": "gnobitab/RectifiedFlow",
+        "commit": "5a1fd4dd3ea7db764ce370a84ce35f9c8b15fde6",
+        "archive_sha256": "070dc68c7f903802f6f6e9db0a9ef9f3f7c61668b69dcdb0c2af4d1e3a6eade8",
+        "url": "https://codeload.github.com/gnobitab/RectifiedFlow/zip/5a1fd4dd3ea7db764ce370a84ce35f9c8b15fde6",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\rectified_flow\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\rectified_flow\\original",
+        "actual_file_count": 50,
+        "python_file_count": 39,
+        "category": "flow_matching_family"
+      },
+      {
+        "paper_id": "ot_cfm",
+        "repository": "atong01/conditional-flow-matching",
+        "commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+        "archive_sha256": "5535c185440b7c1e740c6dbba4445a2cdecc872b897470f9c6947a676976327c",
+        "url": "https://codeload.github.com/atong01/conditional-flow-matching/zip/7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+        "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\ot_cfm\\original",
+        "status": "acquired_not_executed",
+        "version_boundary": "Current author commit; paper-era commit not yet established",
+        "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\sources\\ot_cfm\\original",
+        "actual_file_count": 188,
+        "python_file_count": 84,
+        "category": "flow_matching_family"
+      }
+    ],
+    "model_configs": [
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_brits.json",
+        "schema_version": 1,
+        "id": "fm_brits",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/1805.10572",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "caow13/BRITS",
+        "author_commit": "fc0a3a472a6d99a6934e471d40c25ed0b029b501",
+        "paper_score_status": "not_verified",
+        "additional_context": {
+          "saits_paper_baseline": {
+            "implementation": "scripts/flow_matching/run_saits.py",
+            "queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+            "citation": "https://arxiv.org/abs/2202.08516",
+            "status": "author_baseline_adapter_preflight_verified",
+            "boundary": "SAITS authors' 37-feature PhysioNet BRITS baseline. The original 2018 BRITS-paper adapter remains pending."
+          }
+        }
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_catch.json",
+        "schema_version": 1,
+        "id": "fm_catch",
+        "family": "flow_matching_campaign",
+        "task": "anomaly_detection",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2410.12261v2#A1.SS1",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "decisionintelligence/CATCH",
+        "author_commit": "3647c69be5eb56649b072596cf89098e689e20c3",
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_cfmi.json",
+        "schema_version": 1,
+        "id": "fm_cfmi",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "author_adapter_registered",
+        "citation": "https://arxiv.org/pdf/2506.09258",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "vsimkus/cfmi",
+        "author_commit": "e743f4e21c33dde9581421f08b42fa70b7df7449",
+        "paper_score_status": "not_verified",
+        "entrypoint": "scripts.flow_matching.run_cfmi:run"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_csdi.json",
+        "schema_version": 1,
+        "id": "fm_csdi",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "author_adapter_registered",
+        "citation": "https://arxiv.org/html/2107.03502",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "ermongroup/CSDI",
+        "author_commit": "7f24a436f08d98853a6b43d4f7f04e5a65ecdf27",
+        "paper_score_status": "not_verified",
+        "entrypoint": "scripts.flow_matching.run_csdi:run"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_dcdetector.json",
+        "schema_version": 1,
+        "id": "fm_dcdetector",
+        "family": "flow_matching_campaign",
+        "task": "anomaly_detection",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://github.com/DAMO-DI-ML/KDD2023-DCdetector/blob/main/readme.md",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "DAMO-DI-ML/KDD2023-DCdetector",
+        "author_commit": "9d107cae518ef24ee2eb2ad1b92107cdcd09ea10",
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_dfm.json",
+        "schema_version": 1,
+        "id": "fm_dfm",
+        "family": "flow_matching_campaign",
+        "task": "time_series_generation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2410.09246#S4",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": null,
+        "author_commit": null,
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_diffusion_ts.json",
+        "schema_version": 1,
+        "id": "fm_diffusion_ts",
+        "family": "flow_matching_campaign",
+        "task": "generation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://github.com/Y-debug-sys/Diffusion-TS",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "Y-debug-sys/Diffusion-TS",
+        "author_commit": "566307e6cf2d8095e58de4c6e3a6ae965b69b5b5",
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_flow_matching.json",
+        "schema_version": 1,
+        "id": "fm_flow_matching",
+        "family": "flow_matching_campaign",
+        "task": "image_generation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2210.02747",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": null,
+        "author_commit": null,
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_ganf.json",
+        "schema_version": 1,
+        "id": "fm_ganf",
+        "family": "flow_matching_campaign",
+        "task": "anomaly_detection",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://github.com/EnyanDai/GANF#datasets",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "EnyanDai/GANF",
+        "author_commit": "bce38333b109f325a403dae9aff4987ae5bd6e1f",
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_giflow.json",
+        "schema_version": 1,
+        "id": "fm_giflow",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "real_air36_cpu_backward_and_euler_verified_formal_adapter_pending",
+        "citation": "https://arxiv.org/html/2606.06682#A3.SS1",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "zepengzhang/GiFlow",
+        "author_commit": "4e7d0375155750f6c3d9387ad68e7c78d99dd0ac",
+        "paper_score_status": "not_verified",
+        "diagnostic_implementation": "scripts/flow_matching/preflight_giflow.py",
+        "data_config": "configs/data/fm_graph_author_air.v1.json",
+        "environment_config": "configs/reproducibility/graph_author_environments.v1.json"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_grasp.json",
+        "schema_version": 1,
+        "id": "fm_grasp",
+        "family": "flow_matching_campaign",
+        "task": "anomaly_detection",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2609.36765#A5.SS1",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": null,
+        "author_commit": null,
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_grin.json",
+        "schema_version": 1,
+        "id": "fm_grin",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "original_air_adapter_and_exact_cpu_resume_verified_queue_pending",
+        "citation": "https://arxiv.org/html/2108.00298",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "Graph-Machine-Learning-Group/grin",
+        "author_commit": "4a28afbb092600b6e6abeeabaaf67e87dbd1ed6e",
+        "paper_score_status": "not_verified",
+        "implementation": "scripts/flow_matching/run_grin.py",
+        "original_queue": "configs/experiments/fm_grin_original_queue.v1.json",
+        "data_config": "configs/data/fm_graph_author_air.v1.json",
+        "reference_config": "configs/reproducibility/grin_references.v1.json",
+        "environment_config": "configs/reproducibility/graph_author_environments.v1.json"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_jfi.json",
+        "schema_version": 1,
+        "id": "fm_jfi",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://www.sciencedirect.com/science/article/pii/S0009250926011826",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": null,
+        "author_commit": null,
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_ot_cfm.json",
+        "schema_version": 1,
+        "id": "fm_ot_cfm",
+        "family": "flow_matching_campaign",
+        "task": "generative_modeling",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2302.00482",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "atong01/conditional-flow-matching",
+        "author_commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_prismflow.json",
+        "schema_version": 1,
+        "id": "fm_prismflow",
+        "family": "flow_matching_campaign",
+        "task": "generation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2605.28867#S5",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": null,
+        "author_commit": null,
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_rectified_flow.json",
+        "schema_version": 1,
+        "id": "fm_rectified_flow",
+        "family": "flow_matching_campaign",
+        "task": "image_generation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2209.03003",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "gnobitab/RectifiedFlow",
+        "author_commit": "5a1fd4dd3ea7db764ce370a84ce35f9c8b15fde6",
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_saits.json",
+        "schema_version": 1,
+        "id": "fm_saits",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "main_datasets_author_and_corrected_cpu_preflight_verified_queues_pending",
+        "implementation": "scripts/flow_matching/run_saits.py",
+        "original_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+        "data_config": "configs/data/fm_saits_physio_original.v1.json",
+        "reference_config": "configs/reproducibility/saits/references.v1.json",
+        "citation": "https://arxiv.org/html/2202.08516",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "WenjieDu/SAITS",
+        "author_commit": "660b87f19c1277065f314f24134f646229e89ca9",
+        "paper_score_status": "not_verified",
+        "timeseries_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json",
+        "timeseries_data_config": "configs/data/fm_saits_timeseries_original.v1.json",
+        "timeseries_reference_config": "configs/reproducibility/saits/timeseries_references.v1.json"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_sssd.json",
+        "schema_version": 1,
+        "id": "fm_sssd",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://github.com/AI4HealthUOL/SSSD/tree/main/docs/instructions",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "AI4HealthUOL/SSSD",
+        "author_commit": "4d3b7a51c54b658945c0ba0bbb26e5ee1f763bed",
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_tg_msfm.json",
+        "schema_version": 1,
+        "id": "fm_tg_msfm",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://proceedings.iclr.cc/paper_files/paper/2026/file/51d317df78eded9eb3c9d3fb1091c279-Paper-Conference.pdf",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": null,
+        "author_commit": null,
+        "paper_score_status": "not_verified"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\configs\\models\\fm_tsflow.json",
+        "schema_version": 1,
+        "id": "fm_tsflow",
+        "family": "flow_matching_campaign",
+        "task": "forecasting",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2410.03024#S4",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "marcelkollovieh/TSFlow",
+        "author_commit": "ff893176a41a1037f63efae674aab71480eee7d0",
+        "paper_score_status": "not_verified"
+      }
+    ],
+    "torchcfm_installed_implementations": [
+      "ConditionalFlowMatcher",
+      "ExactOptimalTransportConditionalFlowMatcher",
+      "TargetConditionalFlowMatcher",
+      "SchrodingerBridgeConditionalFlowMatcher",
+      "VariancePreservingConditionalFlowMatcher"
+    ],
+    "torchcfm_note": "Five callable classes exist in installed torchcfm 1.0.5; availability does not mean registered five anomaly-detection algorithms, trained five variants, or complete variant-specific papers.",
+    "classic_datasets": [
+      {
+        "id": "smd",
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\smd",
+        "files": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\smd\\SMD_test.npy",
+            "bytes": 107679968,
+            "sha256": "64520f6b9351d609bb395e947a3c98f6c513f608c794c571f9a0176d98cdb671",
+            "manifest_sha256_match": true,
+            "shape": [
+              708420,
+              38
+            ],
+            "dtype": "float32",
+            "nan_count": 0
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\smd\\SMD_test_label.npy",
+            "bytes": 2833808,
+            "sha256": "400a29e062ca8c8f8d7e4801c68c35801f3a2180d5d70fe118d6525a33dd3ed2",
+            "manifest_sha256_match": true,
+            "shape": [
+              708420
+            ],
+            "dtype": "float32",
+            "nan_count": 0,
+            "label_values": [
+              0.0,
+              1.0
+            ],
+            "anomaly_points": 29444
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\smd\\SMD_train.npy",
+            "bytes": 107677688,
+            "sha256": "ef3a4a4e9c87c939c23e0cdf1190c18a1d41ef1aadb5d6c5ae909514332ef791",
+            "manifest_sha256_match": true,
+            "shape": [
+              708405,
+              38
+            ],
+            "dtype": "float32",
+            "nan_count": 0
+          }
+        ],
+        "entity_boundary_status": "Concatenated aggregate files have no entity-boundary manifest; strict grouped TAB use must align raw entity release, avoid cross-entity windows."
+      },
+      {
+        "id": "msl",
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\msl",
+        "files": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\msl\\MSL_test.npy",
+            "bytes": 32440888,
+            "sha256": "8b479ebeeabb63ff636e8adeb095a7bcc46a0cdc7befa189b45b05b1e90c9425",
+            "manifest_sha256_match": true,
+            "shape": [
+              73729,
+              55
+            ],
+            "dtype": "float64",
+            "nan_count": 0
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\msl\\MSL_test_label.npy",
+            "bytes": 73857,
+            "sha256": "23e120c30a645000f093ff5311de177601b8220ba3ca4281c6376883444f7b97",
+            "manifest_sha256_match": true,
+            "shape": [
+              73729
+            ],
+            "dtype": "bool",
+            "nan_count": 0,
+            "label_values": [
+              false,
+              true
+            ],
+            "anomaly_points": 7766
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\msl\\MSL_train.npy",
+            "bytes": 25659608,
+            "sha256": "d767ecfc8ea344f7a6e78f815a84dc7923f600df1beb14359f3e73202148b058",
+            "manifest_sha256_match": true,
+            "shape": [
+              58317,
+              55
+            ],
+            "dtype": "float64",
+            "nan_count": 0
+          }
+        ],
+        "entity_boundary_status": "Concatenated aggregate files have no entity-boundary manifest; strict grouped TAB use must align raw entity release, avoid cross-entity windows."
+      },
+      {
+        "id": "smap",
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\smap",
+        "files": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\smap\\SMAP_test.npy",
+            "bytes": 85523528,
+            "sha256": "458c3b354b6a602b711241c29fb50518dddb0c1c9248d7d2e1691a9c218d4ac0",
+            "manifest_sha256_match": true,
+            "shape": [
+              427617,
+              25
+            ],
+            "dtype": "float64",
+            "nan_count": 0
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\smap\\SMAP_test_label.npy",
+            "bytes": 427745,
+            "sha256": "55f94fcccc3ae35216cfd6ac5e0e2016ad9d08d5ff0aca9f09916c6501380e0f",
+            "manifest_sha256_match": true,
+            "shape": [
+              427617
+            ],
+            "dtype": "bool",
+            "nan_count": 0,
+            "label_values": [
+              false,
+              true
+            ],
+            "anomaly_points": 54696
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\smap\\SMAP_train.npy",
+            "bytes": 27036728,
+            "sha256": "1c823bed59f32d45a2e6323ac79bf7755c80c2ff68a2d3d7322e4dee40a11010",
+            "manifest_sha256_match": true,
+            "shape": [
+              135183,
+              25
+            ],
+            "dtype": "float64",
+            "nan_count": 0
+          }
+        ],
+        "entity_boundary_status": "Concatenated aggregate files have no entity-boundary manifest; strict grouped TAB use must align raw entity release, avoid cross-entity windows."
+      },
+      {
+        "id": "psm",
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\psm",
+        "files": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\psm\\test.csv",
+            "bytes": 42523490,
+            "sha256": "566bc50117d13f58793d830c14975c55f627cab63953265d7d6ce2dbcf2b0f80",
+            "manifest_sha256_match": true,
+            "shape": [
+              87841,
+              26
+            ],
+            "columns": [
+              "timestamp_(min)",
+              "feature_0",
+              "feature_1",
+              "feature_2",
+              "feature_3",
+              "feature_4",
+              "feature_5",
+              "feature_6",
+              "feature_7",
+              "feature_8",
+              "feature_9",
+              "feature_10",
+              "feature_11",
+              "feature_12",
+              "feature_13",
+              "feature_14",
+              "feature_15",
+              "feature_16",
+              "feature_17",
+              "feature_18",
+              "feature_19",
+              "feature_20",
+              "feature_21",
+              "feature_22",
+              "feature_23",
+              "feature_24"
+            ],
+            "nan_count": 0
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\psm\\test_label.csv",
+            "bytes": 966273,
+            "sha256": "e5b6b0c716a9b3d52e3a1b06761527811f75a218790c37b8a5e806741aeb0676",
+            "manifest_sha256_match": true,
+            "shape": [
+              87841,
+              2
+            ],
+            "columns": [
+              "timestamp_(min)",
+              "label"
+            ],
+            "nan_count": 0,
+            "last_column_value_counts": {
+              "0": 63460,
+              "1": 24381
+            }
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\psm\\train.csv",
+            "bytes": 63628087,
+            "sha256": "816e0e2a5356b3b09d356925cd9a0fe1d327e3b350e9336d26ee3e650c72e112",
+            "manifest_sha256_match": true,
+            "shape": [
+              132481,
+              26
+            ],
+            "columns": [
+              "timestamp_(min)",
+              "feature_0",
+              "feature_1",
+              "feature_2",
+              "feature_3",
+              "feature_4",
+              "feature_5",
+              "feature_6",
+              "feature_7",
+              "feature_8",
+              "feature_9",
+              "feature_10",
+              "feature_11",
+              "feature_12",
+              "feature_13",
+              "feature_14",
+              "feature_15",
+              "feature_16",
+              "feature_17",
+              "feature_18",
+              "feature_19",
+              "feature_20",
+              "feature_21",
+              "feature_22",
+              "feature_23",
+              "feature_24"
+            ],
+            "nan_count": 4195
+          }
+        ],
+        "entity_boundary_status": "single released time series"
+      },
+      {
+        "id": "swat",
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\swat",
+        "files": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\swat\\swat2.csv",
+            "bytes": 164416771,
+            "sha256": "23c5bacf78de7527aac031ad43acc7ac99ec49b17b645aaa2a74a4a7d60a0a80",
+            "manifest_sha256_match": null,
+            "shape": [
+              449919,
+              52
+            ],
+            "columns": [
+              "FIT101",
+              "LIT101",
+              " MV101",
+              "P101",
+              "P102",
+              " AIT201",
+              "AIT202",
+              "AIT203",
+              "FIT201",
+              " MV201",
+              " P201",
+              " P202",
+              "P203",
+              " P204",
+              "P205",
+              "P206",
+              "DPIT301",
+              "FIT301",
+              "LIT301",
+              "MV301",
+              "MV302",
+              " MV303",
+              "MV304",
+              "P301",
+              "P302",
+              "AIT401",
+              "AIT402",
+              "FIT401",
+              "LIT401",
+              "P401",
+              "P402",
+              "P403",
+              "P404",
+              "UV401",
+              "AIT501",
+              "AIT502",
+              "AIT503",
+              "AIT504",
+              "FIT501",
+              "FIT502",
+              "FIT503",
+              "FIT504",
+              "P501",
+              "P502",
+              "PIT501",
+              "PIT502",
+              "PIT503",
+              "FIT601",
+              "P601",
+              "P602",
+              "P603",
+              "Normal/Attack"
+            ],
+            "nan_count": 0,
+            "last_column_value_counts": {
+              "0": 395298,
+              "1": 54621
+            }
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\swat\\SWaT_Dataset_Attack_v0.xlsx",
+            "bytes": 116016616,
+            "sha256": "6cc72c24425453879bac1565cae4c6f35ad585a578510ab2a27b325d1bac2e8d",
+            "manifest_sha256_match": true
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\swat\\SWaT_Dataset_Normal_v1.xlsx",
+            "bytes": 130566907,
+            "sha256": "fb7bb0a9c10f86ad29d8f2ae4fd09284e7db70c76350f5b2afcca58d9ace6c49",
+            "manifest_sha256_match": true
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\swat\\swat_train2.csv",
+            "bytes": 182817723,
+            "sha256": "cfdba4611fd7b093246309eae7b249da05decff8cde640c8283bfef8e6eaf5fb",
+            "manifest_sha256_match": null,
+            "shape": [
+              495000,
+              52
+            ],
+            "columns": [
+              "FIT101",
+              "LIT101",
+              " MV101",
+              "P101",
+              "P102",
+              " AIT201",
+              "AIT202",
+              "AIT203",
+              "FIT201",
+              " MV201",
+              " P201",
+              " P202",
+              "P203",
+              " P204",
+              "P205",
+              "P206",
+              "DPIT301",
+              "FIT301",
+              "LIT301",
+              "MV301",
+              "MV302",
+              " MV303",
+              "MV304",
+              "P301",
+              "P302",
+              "AIT401",
+              "AIT402",
+              "FIT401",
+              "LIT401",
+              "P401",
+              "P402",
+              "P403",
+              "P404",
+              "UV401",
+              "AIT501",
+              "AIT502",
+              "AIT503",
+              "AIT504",
+              "FIT501",
+              "FIT502",
+              "FIT503",
+              "FIT504",
+              "P501",
+              "P502",
+              "PIT501",
+              "PIT502",
+              "PIT503",
+              "FIT601",
+              "P601",
+              "P602",
+              "P603",
+              "Normal/Attack"
+            ],
+            "nan_count": 0,
+            "last_column_value_counts": {
+              "0": 495000
+            }
+          }
+        ],
+        "entity_boundary_status": "single released time series"
+      }
+    ],
+    "swat_boundary": "Train CSV 495000x52 (51 features+label), whereas Anomaly Transformer lineage table lists475200 and TranAD table496800. Raw normal/attack XLSX present/hash verified, but startup/cutoff discrepancy not silently resolved.",
+    "nasa_raw_archive": {
+      "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\nasa_author\\nasa_smap_msl.zip",
+      "bytes": 86004011,
+      "entries": 412,
+      "array_count": 328,
+      "label_csv_entries": [
+        "labeled_anomalies.csv"
+      ],
+      "sample_paths": [
+        "data/data/2018-05-19_15.00.10/models/A-1.h5",
+        "data/data/2018-05-19_15.00.10/models/A-2.h5",
+        "data/data/2018-05-19_15.00.10/models/A-3.h5",
+        "data/data/2018-05-19_15.00.10/models/A-4.h5",
+        "data/data/2018-05-19_15.00.10/models/A-5.h5",
+        "data/data/2018-05-19_15.00.10/models/A-6.h5",
+        "data/data/2018-05-19_15.00.10/models/A-7.h5",
+        "data/data/2018-05-19_15.00.10/models/A-8.h5",
+        "data/data/2018-05-19_15.00.10/models/A-9.h5",
+        "data/data/2018-05-19_15.00.10/models/B-1.h5"
+      ],
+      "archive_sha256": "6084d3ee3906381f2c98aa3773b6b2d77c82413503faa78f962196582e873733",
+      "crc_checked": false,
+      "boundary": "Central directory inspected and hash computed; raw entity-channel mapping requires labelled_anomalies.csv parse and paper subset alignment.",
+      "label_mapping": {
+        "csv_entry": "labeled_anomalies.csv",
+        "rows": 82,
+        "columns": [
+          "chan_id",
+          "spacecraft",
+          "anomaly_sequences",
+          "class",
+          "num_values"
+        ],
+        "spacecraft_counts": {
+          "SMAP": 55,
+          "MSL": 27
+        },
+        "duplicate_channel_ids": 1
+      },
+      "channels": [
+        {
+          "spacecraft": "SMAP",
+          "channel": "P-1",
+          "train_entries": [
+            "data/data/train/P-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-1.npy"
+          ],
+          "test_label_num_values": 8505
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "S-1",
+          "train_entries": [
+            "data/data/train/S-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/S-1.npy"
+          ],
+          "test_label_num_values": 7331
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-1",
+          "train_entries": [
+            "data/data/train/E-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-1.npy"
+          ],
+          "test_label_num_values": 8516
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-2",
+          "train_entries": [
+            "data/data/train/E-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-2.npy"
+          ],
+          "test_label_num_values": 8532
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-3",
+          "train_entries": [
+            "data/data/train/E-3.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-3.npy"
+          ],
+          "test_label_num_values": 8307
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-4",
+          "train_entries": [
+            "data/data/train/E-4.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-4.npy"
+          ],
+          "test_label_num_values": 8354
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-5",
+          "train_entries": [
+            "data/data/train/E-5.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-5.npy"
+          ],
+          "test_label_num_values": 8294
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-6",
+          "train_entries": [
+            "data/data/train/E-6.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-6.npy"
+          ],
+          "test_label_num_values": 8300
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-7",
+          "train_entries": [
+            "data/data/train/E-7.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-7.npy"
+          ],
+          "test_label_num_values": 8310
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-8",
+          "train_entries": [
+            "data/data/train/E-8.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-8.npy"
+          ],
+          "test_label_num_values": 8532
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-9",
+          "train_entries": [
+            "data/data/train/E-9.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-9.npy"
+          ],
+          "test_label_num_values": 8302
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-10",
+          "train_entries": [
+            "data/data/train/E-10.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-10.npy"
+          ],
+          "test_label_num_values": 8505
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-11",
+          "train_entries": [
+            "data/data/train/E-11.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-11.npy"
+          ],
+          "test_label_num_values": 8514
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-12",
+          "train_entries": [
+            "data/data/train/E-12.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-12.npy"
+          ],
+          "test_label_num_values": 8512
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "E-13",
+          "train_entries": [
+            "data/data/train/E-13.npy"
+          ],
+          "test_entries": [
+            "data/data/test/E-13.npy"
+          ],
+          "test_label_num_values": 8640
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-1",
+          "train_entries": [
+            "data/data/train/A-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-1.npy"
+          ],
+          "test_label_num_values": 8640
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-1",
+          "train_entries": [
+            "data/data/train/D-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-1.npy"
+          ],
+          "test_label_num_values": 8509
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "P-2",
+          "train_entries": [
+            "data/data/train/P-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-2.npy"
+          ],
+          "test_label_num_values": 8209
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "P-3",
+          "train_entries": [
+            "data/data/train/P-3.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-3.npy"
+          ],
+          "test_label_num_values": 8493
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-2",
+          "train_entries": [
+            "data/data/train/D-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-2.npy"
+          ],
+          "test_label_num_values": 8595
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-3",
+          "train_entries": [
+            "data/data/train/D-3.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-3.npy"
+          ],
+          "test_label_num_values": 8640
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-4",
+          "train_entries": [
+            "data/data/train/D-4.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-4.npy"
+          ],
+          "test_label_num_values": 8473
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-2",
+          "train_entries": [
+            "data/data/train/A-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-2.npy"
+          ],
+          "test_label_num_values": 7914
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-3",
+          "train_entries": [
+            "data/data/train/A-3.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-3.npy"
+          ],
+          "test_label_num_values": 8205
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-4",
+          "train_entries": [
+            "data/data/train/A-4.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-4.npy"
+          ],
+          "test_label_num_values": 8080
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "G-1",
+          "train_entries": [
+            "data/data/train/G-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/G-1.npy"
+          ],
+          "test_label_num_values": 8469
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "G-2",
+          "train_entries": [
+            "data/data/train/G-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/G-2.npy"
+          ],
+          "test_label_num_values": 7361
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-5",
+          "train_entries": [
+            "data/data/train/D-5.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-5.npy"
+          ],
+          "test_label_num_values": 7628
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-6",
+          "train_entries": [
+            "data/data/train/D-6.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-6.npy"
+          ],
+          "test_label_num_values": 7884
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-7",
+          "train_entries": [
+            "data/data/train/D-7.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-7.npy"
+          ],
+          "test_label_num_values": 7642
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "F-1",
+          "train_entries": [
+            "data/data/train/F-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/F-1.npy"
+          ],
+          "test_label_num_values": 8584
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "P-4",
+          "train_entries": [
+            "data/data/train/P-4.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-4.npy"
+          ],
+          "test_label_num_values": 7783
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "G-3",
+          "train_entries": [
+            "data/data/train/G-3.npy"
+          ],
+          "test_entries": [
+            "data/data/test/G-3.npy"
+          ],
+          "test_label_num_values": 7907
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "T-1",
+          "train_entries": [
+            "data/data/train/T-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-1.npy"
+          ],
+          "test_label_num_values": 8612
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "T-2",
+          "train_entries": [
+            "data/data/train/T-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-2.npy"
+          ],
+          "test_label_num_values": 8625
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-8",
+          "train_entries": [
+            "data/data/train/D-8.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-8.npy"
+          ],
+          "test_label_num_values": 7874
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-9",
+          "train_entries": [
+            "data/data/train/D-9.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-9.npy"
+          ],
+          "test_label_num_values": 7406
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "F-2",
+          "train_entries": [
+            "data/data/train/F-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/F-2.npy"
+          ],
+          "test_label_num_values": 8626
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "G-4",
+          "train_entries": [
+            "data/data/train/G-4.npy"
+          ],
+          "test_entries": [
+            "data/data/test/G-4.npy"
+          ],
+          "test_label_num_values": 7632
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "T-3",
+          "train_entries": [
+            "data/data/train/T-3.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-3.npy"
+          ],
+          "test_label_num_values": 8579
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-11",
+          "train_entries": [
+            "data/data/train/D-11.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-11.npy"
+          ],
+          "test_label_num_values": 7431
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-12",
+          "train_entries": [
+            "data/data/train/D-12.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-12.npy"
+          ],
+          "test_label_num_values": 7918
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "B-1",
+          "train_entries": [
+            "data/data/train/B-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/B-1.npy"
+          ],
+          "test_label_num_values": 8044
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "G-6",
+          "train_entries": [
+            "data/data/train/G-6.npy"
+          ],
+          "test_entries": [
+            "data/data/test/G-6.npy"
+          ],
+          "test_label_num_values": 8640
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "G-7",
+          "train_entries": [
+            "data/data/train/G-7.npy"
+          ],
+          "test_entries": [
+            "data/data/test/G-7.npy"
+          ],
+          "test_label_num_values": 8029
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "P-7",
+          "train_entries": [
+            "data/data/train/P-7.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-7.npy"
+          ],
+          "test_label_num_values": 8071
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "R-1",
+          "train_entries": [
+            "data/data/train/R-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/R-1.npy"
+          ],
+          "test_label_num_values": 7244
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-5",
+          "train_entries": [
+            "data/data/train/A-5.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-5.npy"
+          ],
+          "test_label_num_values": 4693
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-6",
+          "train_entries": [
+            "data/data/train/A-6.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-6.npy"
+          ],
+          "test_label_num_values": 4453
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-7",
+          "train_entries": [
+            "data/data/train/A-7.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-7.npy"
+          ],
+          "test_label_num_values": 8631
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "D-13",
+          "train_entries": [
+            "data/data/train/D-13.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-13.npy"
+          ],
+          "test_label_num_values": 7663
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "P-2",
+          "train_entries": [
+            "data/data/train/P-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-2.npy"
+          ],
+          "test_label_num_values": 8209
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-8",
+          "train_entries": [
+            "data/data/train/A-8.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-8.npy"
+          ],
+          "test_label_num_values": 8375
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "A-9",
+          "train_entries": [
+            "data/data/train/A-9.npy"
+          ],
+          "test_entries": [
+            "data/data/test/A-9.npy"
+          ],
+          "test_label_num_values": 8434
+        },
+        {
+          "spacecraft": "SMAP",
+          "channel": "F-3",
+          "train_entries": [
+            "data/data/train/F-3.npy"
+          ],
+          "test_entries": [
+            "data/data/test/F-3.npy"
+          ],
+          "test_label_num_values": 8376
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "M-6",
+          "train_entries": [
+            "data/data/train/M-6.npy"
+          ],
+          "test_entries": [
+            "data/data/test/M-6.npy"
+          ],
+          "test_label_num_values": 2049
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "M-1",
+          "train_entries": [
+            "data/data/train/M-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/M-1.npy"
+          ],
+          "test_label_num_values": 2277
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "M-2",
+          "train_entries": [
+            "data/data/train/M-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/M-2.npy"
+          ],
+          "test_label_num_values": 2277
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "S-2",
+          "train_entries": [
+            "data/data/train/S-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/S-2.npy"
+          ],
+          "test_label_num_values": 1827
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "P-10",
+          "train_entries": [
+            "data/data/train/P-10.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-10.npy"
+          ],
+          "test_label_num_values": 6100
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "T-4",
+          "train_entries": [
+            "data/data/train/T-4.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-4.npy"
+          ],
+          "test_label_num_values": 2217
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "T-5",
+          "train_entries": [
+            "data/data/train/T-5.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-5.npy"
+          ],
+          "test_label_num_values": 2218
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "F-7",
+          "train_entries": [
+            "data/data/train/F-7.npy"
+          ],
+          "test_entries": [
+            "data/data/test/F-7.npy"
+          ],
+          "test_label_num_values": 5054
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "M-3",
+          "train_entries": [
+            "data/data/train/M-3.npy"
+          ],
+          "test_entries": [
+            "data/data/test/M-3.npy"
+          ],
+          "test_label_num_values": 2127
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "M-4",
+          "train_entries": [
+            "data/data/train/M-4.npy"
+          ],
+          "test_entries": [
+            "data/data/test/M-4.npy"
+          ],
+          "test_label_num_values": 2038
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "M-5",
+          "train_entries": [
+            "data/data/train/M-5.npy"
+          ],
+          "test_entries": [
+            "data/data/test/M-5.npy"
+          ],
+          "test_label_num_values": 2303
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "P-15",
+          "train_entries": [
+            "data/data/train/P-15.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-15.npy"
+          ],
+          "test_label_num_values": 2856
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "C-1",
+          "train_entries": [
+            "data/data/train/C-1.npy"
+          ],
+          "test_entries": [
+            "data/data/test/C-1.npy"
+          ],
+          "test_label_num_values": 2264
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "C-2",
+          "train_entries": [
+            "data/data/train/C-2.npy"
+          ],
+          "test_entries": [
+            "data/data/test/C-2.npy"
+          ],
+          "test_label_num_values": 2051
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "T-12",
+          "train_entries": [
+            "data/data/train/T-12.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-12.npy"
+          ],
+          "test_label_num_values": 2430
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "T-13",
+          "train_entries": [
+            "data/data/train/T-13.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-13.npy"
+          ],
+          "test_label_num_values": 2430
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "F-4",
+          "train_entries": [
+            "data/data/train/F-4.npy"
+          ],
+          "test_entries": [
+            "data/data/test/F-4.npy"
+          ],
+          "test_label_num_values": 3422
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "F-5",
+          "train_entries": [
+            "data/data/train/F-5.npy"
+          ],
+          "test_entries": [
+            "data/data/test/F-5.npy"
+          ],
+          "test_label_num_values": 3922
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "D-14",
+          "train_entries": [
+            "data/data/train/D-14.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-14.npy"
+          ],
+          "test_label_num_values": 2625
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "T-9",
+          "train_entries": [
+            "data/data/train/T-9.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-9.npy"
+          ],
+          "test_label_num_values": 1096
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "P-14",
+          "train_entries": [
+            "data/data/train/P-14.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-14.npy"
+          ],
+          "test_label_num_values": 6100
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "T-8",
+          "train_entries": [
+            "data/data/train/T-8.npy"
+          ],
+          "test_entries": [
+            "data/data/test/T-8.npy"
+          ],
+          "test_label_num_values": 1519
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "P-11",
+          "train_entries": [
+            "data/data/train/P-11.npy"
+          ],
+          "test_entries": [
+            "data/data/test/P-11.npy"
+          ],
+          "test_label_num_values": 3535
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "D-15",
+          "train_entries": [
+            "data/data/train/D-15.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-15.npy"
+          ],
+          "test_label_num_values": 2158
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "D-16",
+          "train_entries": [
+            "data/data/train/D-16.npy"
+          ],
+          "test_entries": [
+            "data/data/test/D-16.npy"
+          ],
+          "test_label_num_values": 2191
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "M-7",
+          "train_entries": [
+            "data/data/train/M-7.npy"
+          ],
+          "test_entries": [
+            "data/data/test/M-7.npy"
+          ],
+          "test_label_num_values": 2156
+        },
+        {
+          "spacecraft": "MSL",
+          "channel": "F-8",
+          "train_entries": [
+            "data/data/train/F-8.npy"
+          ],
+          "test_entries": [
+            "data/data/test/F-8.npy"
+          ],
+          "test_label_num_values": 2487
+        }
+      ],
+      "all_labelled_channels_have_train_test": true
+    },
+    "extra_processed": [
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\dcdetector\\author_bundle\\NIPS_TS_Swan",
+        "files": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\dcdetector\\author_bundle\\NIPS_TS_Swan\\NIPS_TS_Swan_test.npy",
+            "bytes": 18240128,
+            "sha256": "c0185c0d7f227af1ccf96639cb47bc219bb600a962b973d686faf6bc7bcbe539",
+            "shape": [
+              60000,
+              38
+            ],
+            "dtype": "float64",
+            "nan_count": 0,
+            "label_values": null
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\dcdetector\\author_bundle\\NIPS_TS_Swan\\NIPS_TS_Swan_test_label.npy",
+            "bytes": 480128,
+            "sha256": "98249bb3551380374fc784d24126e895971daab01af8f4b6b31986616eef6364",
+            "shape": [
+              60000
+            ],
+            "dtype": "float64",
+            "nan_count": 0,
+            "label_values": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\dcdetector\\author_bundle\\NIPS_TS_Swan\\NIPS_TS_Swan_train.npy",
+            "bytes": 18240128,
+            "sha256": "accaf4e583a2ebeff03e560a71bffa45f5edaa88b26f1494d2dd96e0252239bc",
+            "shape": [
+              60000,
+              38
+            ],
+            "dtype": "float64",
+            "nan_count": 0,
+            "label_values": null
+          }
+        ]
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\dcdetector\\author_bundle\\NIPS_TS_GECCO",
+        "files": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\dcdetector\\author_bundle\\NIPS_TS_GECCO\\NIPS_TS_Water_test.npy",
+            "bytes": 4986920,
+            "sha256": "34db9c82a9a68aca09d6db6509ac01e84b18ebf80626aa05ea200ad90fd688f7",
+            "shape": [
+              69261,
+              9
+            ],
+            "dtype": "float64",
+            "nan_count": 0,
+            "label_values": null
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\dcdetector\\author_bundle\\NIPS_TS_GECCO\\NIPS_TS_Water_test_label.npy",
+            "bytes": 554216,
+            "sha256": "52ff5456507c21a98a7b656dbbc3f61f4fbcee0903a5121708481144a0319ca4",
+            "shape": [
+              69261
+            ],
+            "dtype": "float64",
+            "nan_count": 0,
+            "label_values": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\dcdetector\\author_bundle\\NIPS_TS_GECCO\\NIPS_TS_Water_train.npy",
+            "bytes": 4986848,
+            "sha256": "fedd16731e7513e21ecba1f214cd73da074e095a40f5793629f13070da602eee",
+            "shape": [
+              69260,
+              9
+            ],
+            "dtype": "float64",
+            "nan_count": 0,
+            "label_values": null
+          }
+        ]
+      }
+    ],
+    "mtsbench": {
+      "CalIt2": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\CalIt2",
+        "csv_count": 3,
+        "train_count": 1,
+        "test_count": 1,
+        "val_count": 1,
+        "partial_download_sidecars": 0
+      },
+      "cicids": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\cicids",
+        "csv_count": 13,
+        "train_count": 6,
+        "test_count": 6,
+        "val_count": 1,
+        "partial_download_sidecars": 7,
+        "train_without_test": [],
+        "test_without_train": [],
+        "sample_schema": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\cicids\\cicids_0_test.csv",
+          "columns": [
+            "timestamp",
+            " Total Length of Bwd Packets",
+            " Fwd Packet Length Min",
+            " Fwd Packet Length Mean",
+            " Fwd Packet Length Std",
+            "Bwd Packet Length Max",
+            " Bwd Packet Length Min",
+            " Bwd Packet Length Mean",
+            " Bwd Packet Length Std",
+            "Flow Bytes/s",
+            " Flow Packets/s",
+            " Flow IAT Mean",
+            " Flow IAT Std",
+            " Flow IAT Max",
+            " Flow IAT Min",
+            "Fwd IAT Total",
+            " Fwd IAT Mean",
+            " Fwd IAT Std",
+            " Fwd IAT Max",
+            " Fwd IAT Min",
+            "Bwd IAT Total",
+            " Bwd IAT Mean",
+            " Bwd IAT Std",
+            " Bwd IAT Max",
+            " Bwd IAT Min",
+            "Fwd PSH Flags",
+            " Bwd PSH Flags",
+            " Fwd URG Flags",
+            " Bwd URG Flags",
+            " Fwd Header Length",
+            " Bwd Header Length",
+            "Fwd Packets/s",
+            " Bwd Packets/s",
+            " Min Packet Length",
+            " Max Packet Length",
+            " Packet Length Mean",
+            " Packet Length Std",
+            " Packet Length Variance",
+            "FIN Flag Count",
+            " SYN Flag Count",
+            " RST Flag Count",
+            " PSH Flag Count",
+            " ACK Flag Count",
+            " URG Flag Count",
+            " CWE Flag Count",
+            " ECE Flag Count",
+            " Down/Up Ratio",
+            " Average Packet Size",
+            " Avg Fwd Segment Size",
+            " Avg Bwd Segment Size",
+            " Fwd Header Length.1",
+            "Fwd Avg Bytes/Bulk",
+            " Fwd Avg Packets/Bulk",
+            " Fwd Avg Bulk Rate",
+            " Bwd Avg Bytes/Bulk",
+            " Bwd Avg Packets/Bulk",
+            "Bwd Avg Bulk Rate",
+            "Subflow Fwd Packets",
+            " Subflow Fwd Bytes",
+            " Subflow Bwd Packets",
+            " Subflow Bwd Bytes",
+            "Init_Win_bytes_forward",
+            " Init_Win_bytes_backward",
+            " act_data_pkt_fwd",
+            " min_seg_size_forward",
+            "Active Mean",
+            " Active Std",
+            " Active Max",
+            " Active Min",
+            "Idle Mean",
+            " Idle Std",
+            " Idle Max",
+            " Idle Min",
+            "is_anomaly"
+          ],
+          "actual_data_features_excluding_timestamp_label": 72
+        }
+      },
+      "creditcard": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\creditcard",
+        "csv_count": 3,
+        "train_count": 1,
+        "test_count": 1,
+        "val_count": 1,
+        "partial_download_sidecars": 0
+      },
+      "GECCO": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\GECCO",
+        "csv_count": 3,
+        "train_count": 1,
+        "test_count": 1,
+        "val_count": 1,
+        "partial_download_sidecars": 0,
+        "file_audits": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\GECCO\\GECCO_water_quality_test.csv",
+            "shape": [
+              83113,
+              11
+            ],
+            "columns": [
+              "timestamp",
+              "Tp",
+              "Cl",
+              "pH",
+              "Redox",
+              "Leit",
+              "Trueb",
+              "Cl_2",
+              "Fm",
+              "Fm_2",
+              "is_anomaly"
+            ],
+            "sha256": "1540ae632c03828525c6ffde4dff12d27410c79ee38d69f6807ed8a4ff73941d",
+            "nan_count": 0
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\GECCO\\GECCO_water_quality_train.csv",
+            "shape": [
+              27560,
+              11
+            ],
+            "columns": [
+              "timestamp",
+              "Tp",
+              "Cl",
+              "pH",
+              "Redox",
+              "Leit",
+              "Trueb",
+              "Cl_2",
+              "Fm",
+              "Fm_2",
+              "is_anomaly"
+            ],
+            "sha256": "8c5d70f9fd4da93a2e8f183199cc6afc2b7915a11289c4fc8e6c4c83ee126311",
+            "nan_count": 0
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\GECCO\\GECCO_water_quality_val.csv",
+            "shape": [
+              27704,
+              11
+            ],
+            "columns": [
+              "timestamp",
+              "Tp",
+              "Cl",
+              "pH",
+              "Redox",
+              "Leit",
+              "Trueb",
+              "Cl_2",
+              "Fm",
+              "Fm_2",
+              "is_anomaly"
+            ],
+            "sha256": "8dfa6ce99c605a8d9b85524e29dfe9965bd60a315e248e700b2934486c1cc398",
+            "nan_count": 0
+          }
+        ]
+      },
+      "Genesis": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\Genesis",
+        "csv_count": 3,
+        "train_count": 1,
+        "test_count": 1,
+        "val_count": 1,
+        "partial_download_sidecars": 0
+      },
+      "MSL": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\MSL",
+        "csv_count": 53,
+        "train_count": 26,
+        "test_count": 26,
+        "val_count": 1,
+        "partial_download_sidecars": 0,
+        "train_without_test": [],
+        "test_without_train": [],
+        "sample_schema": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\MSL\\MSL_C-1_test.csv",
+          "columns": [
+            "timestamp",
+            "feature_1",
+            "feature_2",
+            "feature_3",
+            "feature_4",
+            "feature_5",
+            "feature_6",
+            "feature_7",
+            "feature_8",
+            "feature_9",
+            "feature_10",
+            "feature_11",
+            "feature_12",
+            "feature_13",
+            "feature_14",
+            "feature_15",
+            "feature_16",
+            "feature_17",
+            "feature_18",
+            "feature_19",
+            "feature_20",
+            "feature_21",
+            "feature_22",
+            "feature_23",
+            "feature_24",
+            "feature_25",
+            "feature_26",
+            "feature_27",
+            "feature_28",
+            "feature_29",
+            "feature_30",
+            "feature_31",
+            "feature_32",
+            "feature_33",
+            "feature_34",
+            "feature_35",
+            "feature_36",
+            "feature_37",
+            "feature_38",
+            "feature_39",
+            "feature_40",
+            "feature_41",
+            "feature_42",
+            "feature_43",
+            "feature_44",
+            "feature_45",
+            "feature_46",
+            "feature_47",
+            "feature_48",
+            "feature_49",
+            "feature_50",
+            "feature_51",
+            "feature_52",
+            "feature_53",
+            "feature_54",
+            "feature_55",
+            "is_anomaly"
+          ],
+          "actual_data_features_excluding_timestamp_label": 55
+        }
+      },
+      "PSM": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\PSM",
+        "csv_count": 3,
+        "train_count": 1,
+        "test_count": 1,
+        "val_count": 1,
+        "partial_download_sidecars": 0
+      },
+      "SMAP": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\SMAP",
+        "csv_count": 104,
+        "train_count": 52,
+        "test_count": 51,
+        "val_count": 1,
+        "partial_download_sidecars": 0,
+        "train_without_test": [
+          "SMAP_P-7"
+        ],
+        "test_without_train": [],
+        "sample_schema": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\SMAP\\SMAP_A-1_test.csv",
+          "columns": [
+            "timestamp",
+            "feature_1",
+            "feature_2",
+            "feature_3",
+            "feature_4",
+            "feature_5",
+            "feature_6",
+            "feature_7",
+            "feature_8",
+            "feature_9",
+            "feature_10",
+            "feature_11",
+            "feature_12",
+            "feature_13",
+            "feature_14",
+            "feature_15",
+            "feature_16",
+            "feature_17",
+            "feature_18",
+            "feature_19",
+            "feature_20",
+            "feature_21",
+            "feature_22",
+            "feature_23",
+            "feature_24",
+            "feature_25",
+            "is_anomaly"
+          ],
+          "actual_data_features_excluding_timestamp_label": 25
+        }
+      },
+      "SMD": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\SMD",
+        "csv_count": 37,
+        "train_count": 18,
+        "test_count": 18,
+        "val_count": 1,
+        "partial_download_sidecars": 0,
+        "train_without_test": [],
+        "test_without_train": [],
+        "sample_schema": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\SMD\\SMD_machine-1-2_test.csv",
+          "columns": [
+            "timestamp",
+            "feature_1",
+            "feature_2",
+            "feature_3",
+            "feature_4",
+            "feature_5",
+            "feature_6",
+            "feature_7",
+            "feature_8",
+            "feature_9",
+            "feature_10",
+            "feature_11",
+            "feature_12",
+            "feature_13",
+            "feature_14",
+            "feature_15",
+            "feature_16",
+            "feature_17",
+            "feature_18",
+            "feature_19",
+            "feature_20",
+            "feature_21",
+            "feature_22",
+            "feature_23",
+            "feature_24",
+            "feature_25",
+            "feature_26",
+            "feature_27",
+            "feature_28",
+            "feature_29",
+            "feature_30",
+            "feature_31",
+            "feature_32",
+            "feature_33",
+            "feature_34",
+            "feature_35",
+            "feature_36",
+            "feature_37",
+            "feature_38",
+            "is_anomaly"
+          ],
+          "actual_data_features_excluding_timestamp_label": 38
+        }
+      },
+      "swan": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\swan",
+        "csv_count": 3,
+        "train_count": 1,
+        "test_count": 1,
+        "val_count": 1,
+        "partial_download_sidecars": 4,
+        "file_audits": [
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\swan\\swan_sf_test.csv",
+            "shape": [
+              72000,
+              40
+            ],
+            "columns": [
+              "timestamp",
+              "TOTUSJH",
+              "TOTBSQ",
+              "TOTPOT",
+              "TOTUSJZ",
+              "ABSNJZH",
+              "SAVNCPP",
+              "USFLUX",
+              "TOTFZ",
+              "MEANPOT",
+              "EPSZ",
+              "MEANSHR",
+              "SHRGT45",
+              "MEANGAM",
+              "MEANGBT",
+              "MEANGBZ",
+              "MEANGBH",
+              "MEANJZH",
+              "TOTFY",
+              "MEANJZD",
+              "MEANALP",
+              "TOTFX",
+              "EPSY",
+              "EPSX",
+              "R_VALUE",
+              "CRVAL1",
+              "CRLN_OBS",
+              "LAT_MIN",
+              "LON_MIN",
+              "LAT_MAX",
+              "LON_MAX",
+              "QUALITY",
+              "IS_TMFI",
+              "BFLARE",
+              "CFLARE",
+              "MFLARE",
+              "XFLARE",
+              "XR_MAX",
+              "XR_QUAL",
+              "is_anomaly"
+            ],
+            "sha256": "564a3a69292b4a5cfd678fe2c6984aa49f6dabaeadedd44bfccccaec5239484a",
+            "nan_count": 0
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\swan\\swan_sf_train.csv",
+            "shape": [
+              19672,
+              40
+            ],
+            "columns": [
+              "timestamp",
+              "TOTUSJH",
+              "TOTBSQ",
+              "TOTPOT",
+              "TOTUSJZ",
+              "ABSNJZH",
+              "SAVNCPP",
+              "USFLUX",
+              "TOTFZ",
+              "MEANPOT",
+              "EPSZ",
+              "MEANSHR",
+              "SHRGT45",
+              "MEANGAM",
+              "MEANGBT",
+              "MEANGBZ",
+              "MEANGBH",
+              "MEANJZH",
+              "TOTFY",
+              "MEANJZD",
+              "MEANALP",
+              "TOTFX",
+              "EPSY",
+              "EPSX",
+              "R_VALUE",
+              "CRVAL1",
+              "CRLN_OBS",
+              "LAT_MIN",
+              "LON_MIN",
+              "LAT_MAX",
+              "LON_MAX",
+              "QUALITY",
+              "IS_TMFI",
+              "BFLARE",
+              "CFLARE",
+              "MFLARE",
+              "XFLARE",
+              "XR_MAX",
+              "XR_QUAL",
+              "is_anomaly"
+            ],
+            "sha256": "ae9d42cb7911ced67f6bec294870ca2f7950fb5e1610a4942fadbafa8486a433",
+            "nan_count": 0
+          },
+          {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\swan\\swan_sf_val.csv",
+            "shape": [
+              24000,
+              40
+            ],
+            "columns": [
+              "timestamp",
+              "TOTUSJH",
+              "TOTBSQ",
+              "TOTPOT",
+              "TOTUSJZ",
+              "ABSNJZH",
+              "SAVNCPP",
+              "USFLUX",
+              "TOTFZ",
+              "MEANPOT",
+              "EPSZ",
+              "MEANSHR",
+              "SHRGT45",
+              "MEANGAM",
+              "MEANGBT",
+              "MEANGBZ",
+              "MEANGBH",
+              "MEANJZH",
+              "TOTFY",
+              "MEANJZD",
+              "MEANALP",
+              "TOTFX",
+              "EPSY",
+              "EPSX",
+              "R_VALUE",
+              "CRVAL1",
+              "CRLN_OBS",
+              "LAT_MIN",
+              "LON_MIN",
+              "LAT_MAX",
+              "LON_MAX",
+              "QUALITY",
+              "IS_TMFI",
+              "BFLARE",
+              "CFLARE",
+              "MFLARE",
+              "XFLARE",
+              "XR_MAX",
+              "XR_QUAL",
+              "is_anomaly"
+            ],
+            "sha256": "355e68a44f4b2b9bdc9a51b3b435bde31ab6fafb32e24aade1de684c0fc39e28",
+            "nan_count": 0
+          }
+        ]
+      }
+    },
+    "tep": {
+      "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\tep_dtu_v1",
+      "files": [
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\tep_dtu_v1\\TEP_Mode1.h5",
+          "bytes": 23924710848,
+          "expected_bytes": 23924710848,
+          "bytes_match": true,
+          "hdf5_magic_valid": true,
+          "verified_at": "2026-10-03T19:37:52.320610+00:00",
+          "verification_manifest": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\resume_remaining_2026_10_03_manifest.json",
+          "publisher_checksum": {
+            "algorithm": "md5",
+            "value": "c79ecc6d12a5ccb49caffcd8f531feae"
+          }
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\tep_dtu_v1\\TEP_Mode2.h5",
+          "bytes": 23897125720,
+          "expected_bytes": 23897125720,
+          "bytes_match": true,
+          "hdf5_magic_valid": true,
+          "verified_at": "2026-10-03T03:28:15.687684+00:00",
+          "verification_manifest": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\resume_2026_10_03_manifest.json",
+          "publisher_checksum": {
+            "algorithm": "md5",
+            "value": "72ee75fdf6da8e59327f04fd4fd49662"
+          }
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\tep_dtu_v1\\TEP_Mode3.h5",
+          "bytes": 23921551744,
+          "expected_bytes": 23921551744,
+          "bytes_match": true,
+          "hdf5_magic_valid": true,
+          "verified_at": "2026-10-03T19:37:52.320610+00:00",
+          "verification_manifest": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\resume_remaining_2026_10_03_manifest.json",
+          "publisher_checksum": {
+            "algorithm": "md5",
+            "value": "5f4bf0d87e7f9ff81ee632f84f2d9050"
+          }
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\tep_dtu_v1\\TEP_Mode4.h5",
+          "bytes": 23219369960,
+          "expected_bytes": 23219369960,
+          "bytes_match": true,
+          "hdf5_magic_valid": true,
+          "verified_at": "2026-10-01T20:43:44.863948+00:00",
+          "verification_manifest": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\alternative_tep_manifest.json",
+          "publisher_checksum": {
+            "algorithm": "md5",
+            "value": "c1e76a74022230450dc14fe904451236"
+          }
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\tep_dtu_v1\\TEP_Mode5.h5",
+          "bytes": 23890304712,
+          "expected_bytes": 23890304712,
+          "bytes_match": true,
+          "hdf5_magic_valid": true,
+          "verified_at": "2026-10-01T20:43:44.863948+00:00",
+          "verification_manifest": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\alternative_tep_manifest.json",
+          "publisher_checksum": {
+            "algorithm": "md5",
+            "value": "8f3c1a1ebeb80ad78089f82a7d521fda"
+          }
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\tep_dtu_v1\\TEP_Mode6.h5",
+          "bytes": 23907566544,
+          "expected_bytes": 23907566544,
+          "bytes_match": true,
+          "hdf5_magic_valid": true,
+          "verified_at": "2026-10-03T19:37:52.320610+00:00",
+          "verification_manifest": "D:\\aicoding\\IIA_benchmark\\papers\\literature\\flow_matching\\resume_remaining_2026_10_03_manifest.json",
+          "publisher_checksum": {
+            "algorithm": "md5",
+            "value": "d01e032a1f3ff9ca3afaa1f74c52e1a6"
+          }
+        }
+      ],
+      "boundary": "Recheck exact byte counts and magic only; publisher MD5/full SHA inherited from download verification in cited manifests; 142GB not reread.",
+      "processed_imputation_payload": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\processed_campaign_v1\\tep_transfer",
+        "shape": [
+          7230,
+          48,
+          53
+        ],
+        "split_sizes": {
+          "train": 5055,
+          "val": 725,
+          "test": 1450
+        },
+        "file_count": 45,
+        "task": "imputation_new_benchmark_not_anomaly_detection",
+        "boundary": "Preregistered computational subset for a NEW benchmark; not all 143 GB and not the inaccessible JFI paper's exact simulation subset. All raw modes remain preserved."
+      }
+    },
+    "skab": {
+      "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\skab\\data",
+      "csv_count": 35,
+      "anomaly_free_count": 1,
+      "trial_file_count": 34,
+      "columns_example": [
+        "datetime",
+        "Accelerometer1RMS",
+        "Accelerometer2RMS",
+        "Current",
+        "Pressure",
+        "Temperature",
+        "Thermocouple",
+        "Voltage",
+        "Volume Flow RateRMS",
+        "anomaly",
+        "changepoint"
+      ],
+      "processed_imputation_payload": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\processed_campaign_v1\\skab_transfer",
+        "shape": [
+          952,
+          48,
+          8
+        ],
+        "split_sizes": {
+          "train": 709,
+          "val": 91,
+          "test": 152
+        },
+        "file_count": 45,
+        "task": "imputation_new_benchmark_not_anomaly_detection",
+        "boundary": "New continuous-sensor imputation benchmark. Native anomaly/changepoint labels and datetime are excluded from model inputs. Whole files are split before windowing."
+      }
+    },
+    "pronto": {
+      "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\pronto",
+      "archive_bytes": 1720560937,
+      "extracted_file_count": 8,
+      "inventory": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\pronto\\archive_inventory.json",
+      "processed_imputation_payload": {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\processed_campaign_v1\\pronto_transfer",
+        "shape": [
+          944,
+          48,
+          17
+        ],
+        "split_sizes": {
+          "train": 258,
+          "val": 443,
+          "test": 243
+        },
+        "file_count": 45,
+        "task": "imputation_new_benchmark_not_anomaly_detection",
+        "boundary": "New continuous-process imputation benchmark: Testday2 train, Testday3 validation, Testday4 test. The 12 alarm-state columns and Fault label are excluded. Three days do not support strong cross-plant generalization claims."
+      }
+    },
+    "results": {
+      "flow_campaign_results": [
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\cfmi_original_fold0_missing0.1\\result.json",
+          "diagnostic": false,
+          "metrics": {
+            "normalized_crps": 0.2533353265886231,
+            "crps": 0.2522460800013995,
+            "mae": 0.2391107818582754,
+            "rmse": 0.7311489802414491
+          },
+          "task": "imputation"
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\cfmi_original_fold0_missing0.5\\result.json",
+          "diagnostic": false,
+          "metrics": {
+            "normalized_crps": 0.3457570815495493,
+            "crps": 0.36141768846304323,
+            "mae": 0.33092951094903084,
+            "rmse": 0.7210774657499462
+          },
+          "task": "imputation"
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\cfmi_original_fold0_missing0.9\\result.json",
+          "diagnostic": false,
+          "metrics": {
+            "normalized_crps": 0.5773723559567534,
+            "crps": 0.5934461312776914,
+            "mae": 0.5553408204080243,
+            "rmse": 0.9215302756469846
+          },
+          "task": "imputation"
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\csdi_original_fold0_missing0.1\\result.json",
+          "diagnostic": false,
+          "metrics": {
+            "mae": 0.21585868200413091,
+            "rmse": 0.47002475293162227,
+            "normalized_crps": 0.23484164779231073
+          },
+          "task": "imputation"
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\csdi_original_fold0_missing0.5\\result.json",
+          "diagnostic": false,
+          "metrics": {
+            "mae": 0.2989729390395649,
+            "rmse": 0.5866468554969296,
+            "normalized_crps": 0.32658976899755393
+          },
+          "task": "imputation"
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\csdi_original_fold0_missing0.9\\result.json",
+          "diagnostic": false,
+          "metrics": {
+            "mae": 0.4719382671527821,
+            "rmse": 0.7789593768675954,
+            "normalized_crps": 0.513559007020176
+          },
+          "task": "imputation"
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\csdi_original_fold1_missing0.1\\result.json",
+          "diagnostic": false,
+          "metrics": {
+            "mae": 0.21852382099736373,
+            "rmse": 0.4545831457072853,
+            "normalized_crps": 0.23959202581414013
+          },
+          "task": "imputation"
+        },
+        {
+          "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\flow_matching_campaign\\csdi_physio_pretrained_diagnostic\\result.json",
+          "diagnostic": true,
+          "metrics": {
+            "mae": 0.32098233448109104,
+            "rmse": 0.5738336675324932,
+            "normalized_crps": 0.40141723030491877
+          },
+          "task": "imputation"
+        }
+      ],
+      "eight_methods_models_found": [
+        "mtsad_timesnet.json"
+      ]
+    },
+    "existing_mtsad_protocol": {
+      "schema_version": 1,
+      "id": "mtsad_reproduction",
+      "family": "mtsad_benchmark",
+      "task": "mtsad_detection",
+      "description": "Re-run the SWaT/MSL/SMAP/PSM/SMD anomaly-detection benchmark under explicit protocol choices so that reported numbers can be compared with re-run numbers.",
+      "datasets": [
+        "msl",
+        "smap",
+        "psm",
+        "smd",
+        "swat"
+      ],
+      "models": [
+        "pca",
+        "mahalanobis",
+        "knn",
+        "isolation_forest",
+        "ocsvm",
+        "usad",
+        "anomaly_transformer",
+        "dcdetector",
+        "timesnet"
+      ],
+      "seeds": [
+        1103,
+        1104,
+        1105
+      ],
+      "protocols": {
+        "tslib_reference": {
+          "aggregation": "window_flatten",
+          "threshold": "percentile_combined",
+          "point_adjustment": true,
+          "note": "Time-Series-Library Exp_Anomaly_Detection: per-window score replicated across the window, threshold at the (100 - anomaly_ratio) percentile of train+test energy, then point adjustment."
+        },
+        "best_f1_adjusted": {
+          "aggregation": "window_flatten",
+          "threshold": "best_f1",
+          "point_adjustment": true,
+          "note": "Oracle threshold search maximising point-wise F1, metrics reported after point adjustment (the Anomaly Transformer / TranAD lineage)."
+        },
+        "best_f1_pointwise": {
+          "aggregation": "window_flatten",
+          "threshold": "best_f1",
+          "point_adjustment": false,
+          "note": "Same oracle threshold but strict point-wise scoring, which removes the point-adjustment inflation."
+        },
+        "per_point_adjusted": {
+          "aggregation": "last_point",
+          "threshold": "percentile_combined",
+          "point_adjustment": true,
+          "note": "One score per timestamp (mean over the windows covering it) before the percentile threshold and point adjustment."
+        }
+      },
+      "default_protocol": "tslib_reference",
+      "output_dir": "experiments/runs/mtsad_reproduction",
+      "reported_results": "knowledge_base/literature/mtsad_reported_results.json",
+      "reference_protocol_notes": "Reported numbers in the selected papers were produced by different harnesses; the comparison therefore records which protocol each number came from instead of assuming a single canonical protocol."
+    },
+    "existing_protocol_warning": "Default is point-adjusted train+test percentile reference replication, not independent held-out TAB calibration. Oracle best_f1 entries are explicit. No anomaly-detection FM model callable or TAB-aligned result found.",
+    "raw_extra_archives": [
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\gecco2018\\1_gecco2018_water_quality.csv",
+        "bytes": 10784171,
+        "dataset": "gecco2018",
+        "sha256": "c41221f3045696b75b79374f4c41c63f6c988e1df03b1dedcdbf910d44ea71cd"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\swansf\\addenda.tar.gz",
+        "bytes": 34042374,
+        "dataset": "swansf"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\swansf\\partition1_instances.tar.gz",
+        "bytes": 1273859189,
+        "dataset": "swansf"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\swansf\\partition2_instances.tar.gz",
+        "bytes": 1512325420,
+        "dataset": "swansf"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\swansf\\partition3_instances.tar.gz",
+        "bytes": 736247805,
+        "dataset": "swansf"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\swansf\\partition4_instances.tar.gz",
+        "bytes": 885390803,
+        "dataset": "swansf"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\swansf\\partition5_instances.tar.gz",
+        "bytes": 1301114492,
+        "dataset": "swansf"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\swansf\\SWAN.tar.gz",
+        "bytes": 735206766,
+        "dataset": "swansf"
+      },
+      {
+        "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_extra\\ucr\\UCR_TimeSeriesAnomalyDatasets2021.zip",
+        "bytes": 184066400,
+        "dataset": "ucr",
+        "zip_entry_count": 273,
+        "zip_central_directory_valid": true
+      }
+    ],
+    "author_sources_verification_boundary": "Physical source trees and Python-file counts verified; original archive hashes/commits are inherited snapshot metadata, not a fresh redownload/byte-for-byte official remote comparison."
+  },
+  "new_pinned_sources": [
+    {
+      "paper_id": "tab",
+      "repository": "decisionintelligence/TAB",
+      "commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+      "archive_sha256": "b6a91775cb3f6e7f52b73dbf4845518c1cb04e04ef15dc449a13649275f0f2d7",
+      "url": "https://codeload.github.com/decisionintelligence/TAB/zip/5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+      "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\tab\\original",
+      "status": "acquired_not_executed",
+      "version_boundary": "Current author commit; paper-era commit not yet established"
+    },
+    {
+      "paper_id": "shcl",
+      "repository": "Zhangzzbzzb/SHCL",
+      "commit": "022520104f2d0d3bda563557ebc99279e6812511",
+      "archive_sha256": "f6e352f98ba434886193d80e441a488de1c34b8fd485647f88ae04ffa59bde9a",
+      "url": "https://codeload.github.com/Zhangzzbzzb/SHCL/zip/022520104f2d0d3bda563557ebc99279e6812511",
+      "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\shcl\\original",
+      "status": "acquired_not_executed",
+      "version_boundary": "Current author commit; paper-era commit not yet established"
+    },
+    {
+      "paper_id": "crossad",
+      "repository": "decisionintelligence/CrossAD",
+      "commit": "ff0fb2d41291b76452898910312dd38ed3389bf3",
+      "archive_sha256": "5150d009b6b30e739155d4c5d188a1ab6521248e06134265d1bcec0d03cbd3df",
+      "url": "https://codeload.github.com/decisionintelligence/CrossAD/zip/ff0fb2d41291b76452898910312dd38ed3389bf3",
+      "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\crossad\\original",
+      "status": "acquired_not_executed",
+      "version_boundary": "Current author commit; paper-era commit not yet established"
+    },
+    {
+      "paper_id": "timesnet_tslib",
+      "repository": "thuml/Time-Series-Library",
+      "commit": "4e938a1767106324dd753b2a44832bf870a0252e",
+      "archive_sha256": "8ad00c38d00baa6b4a17df2a688a96c945a0c005b6caceca0e932e6f5ac6edaa",
+      "url": "https://codeload.github.com/thuml/Time-Series-Library/zip/4e938a1767106324dd753b2a44832bf870a0252e",
+      "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\timesnet_tslib\\original",
+      "status": "acquired_not_executed",
+      "version_boundary": "Current author commit; paper-era commit not yet established"
+    },
+    {
+      "paper_id": "moment_research",
+      "repository": "moment-timeseries-foundation-model/moment-research",
+      "commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+      "archive_sha256": "9b58a8fd2b697833391e77f76114357e0c78aa4b91ad7a5c9b50f7187afd2092",
+      "url": "https://codeload.github.com/moment-timeseries-foundation-model/moment-research/zip/3ab637e413f35f2c317573c0ace280d825c558de",
+      "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\moment_research\\original",
+      "status": "acquired_not_executed",
+      "version_boundary": "Current author commit; paper-era commit not yet established"
+    },
+    {
+      "paper_id": "flow_matching_library",
+      "repository": "facebookresearch/flow_matching",
+      "commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+      "archive_sha256": "24b70381485291c94fe7112d8e9a6a11762935383d9696f3626fc7be2eba553b",
+      "url": "https://codeload.github.com/facebookresearch/flow_matching/zip/11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+      "original_path": "experiments\\runs\\mtsad_protocol_audit\\sources\\flow_matching_library\\original",
+      "status": "acquired_not_executed",
+      "version_boundary": "Current author commit; paper-era commit not yet established"
+    }
+  ],
+  "additional_verified_pdfs": [
+    {
+      "id": "flow_matching_guide",
+      "url": "https://arxiv.org/pdf/2412.06264v1",
+      "target": "papers/literature/flow_matching/pdfs/flow_matching_guide_2412.06264v1.pdf",
+      "citation": "https://arxiv.org/abs/2412.06264v1",
+      "title": "Flow Matching Guide and Code",
+      "sha256": "520d9cd0f62856033b5f61c6920b3447c4f33ba349eae718113abb3c5b6d096d",
+      "bytes": 18573090,
+      "pages": 83,
+      "status": "verified_pdf",
+      "checksum_boundary": "Locally computed SHA256; publisher checksum not supplied. Version pinned and first-page title verified."
+    }
+  ],
+  "tab_protocol": {
+    "paper": "https://arxiv.org/html/2506.18046v2",
+    "paper_recommendation": "No PA and no dropped test tail; best outcomes across anomaly-ratio grid are reported",
+    "paper_ratio_percent": [
+      0.1,
+      0.5,
+      1,
+      2,
+      3,
+      5,
+      10,
+      15,
+      20,
+      25
+    ],
+    "current_code": "f_score is raw point F1; adjust_f_score is GT point-adjusted F1. Both are registered, so metrics=all can emit both.",
+    "tslib_adapter": "Current pinned adapter pools train and test energies for percentile thresholds; ratios are evaluated separately",
+    "selection_boundary": "Test-score distribution calibration, test-label threshold optimization, GT point adjustment, and test-driven model/checkpoint selection are distinct operations.",
+    "auc_pr": "TAB code calls average_precision_score, not trapezoidal PR area",
+    "vus": "TAB uses twice the median event length as maximum buffer; MOMENT research code uses twice the span from first to last positive. Pin implementations before comparing.",
+    "user_exact_config_and_metric": "not supplied; cannot assert user run matches all paper/code options",
+    "metric_contract_check": {
+      "status": "passed",
+      "fixture_count": 32,
+      "seed": 20261007,
+      "maximum_absolute_errors": {
+        "f_score": 5.551115123125783e-17,
+        "adjust_f_score": 1.1102230246251565e-16,
+        "auc_roc": 0.0,
+        "auc_pr": 0.0
+      },
+      "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+      "source_sha256": {
+        "classification_metrics_label.py": "265e6f04c9f019fde6a9f51c9f594a984d292c4a2d480a00212af1768f18f898",
+        "classification_metrics_score.py": "18479e6941ddec90a83176f36e15f3055091f02525abf0c1643274f1b553c769"
+      },
+      "boundary": "Named original function bodies on randomized binary fixtures only; not full TAB execution, VUS/Affiliation verification or benchmark evidence. TAB auc_pr is average precision."
+    }
+  },
+  "historical_local_protocol_example": {
+    "source": "experiments/runs/mtsad_reproduction/tn_psm/records.json",
+    "source_sha256": "7a33d06870c909e7824d4fccf7fcabf065e6cb0ac24d247c1d0ee975aa6895c7",
+    "model": "timesnet",
+    "dataset": "psm",
+    "seed": 1103,
+    "git_revision": "f04ebe28df4e83aeae221c475b9bc8851d726b64",
+    "parameters": {
+      "window": 100,
+      "d_model": 64,
+      "d_ff": 64,
+      "e_layers": 2,
+      "top_k": 3,
+      "num_kernels": 6,
+      "dropout": 0.1,
+      "epochs": 3,
+      "learning_rate": 0.0001,
+      "batch_size": 128,
+      "seed": 1103,
+      "device": "auto"
+    },
+    "same_score_layout": "window_flatten",
+    "threshold_rule": "percentile_combined",
+    "point_f1": 0.04949410975113665,
+    "pa_f1": 0.9722388141001185,
+    "scored_points": 8774200,
+    "boundary": "Historical local transcription, overlapping windows flattened and timestamps repeated; same run/threshold before versus after PA. Diagnostic of protocol sensitivity, neither exact author reproduction nor TAB leaderboard."
+  },
+  "remaining_dataset_gates": [
+    "Recover NASA/SMD entity boundaries; local aggregated arrays and mTSBench subsets are not interchangeable",
+    "Resolve exact GECCO/SWAN author preprocessing, splits and feature selection",
+    "Resolve UCR author subset; archive central directory validity does not imply a fresh per-member CRC audit",
+    "CrossAD appendix TSB-AD-U and TSB-AD-M not located as registered complete local assets; pending verified acquisition/inventory",
+    "Build grouped AD fault/run/operating-mode manifests for TEP, SKAB and PRONTO; existing processed outputs are imputation windows",
+    "PSM train contains 4195 NaNs; freeze train-only filling rule",
+    "SWaT local split length differs from some author releases; never silently crop to make numbers match"
+  ],
+  "comparison_plan": "configs/experiments/fm_mtsad_comparison.v1.json",
+  "strict_evaluator": "src/iia_benchmark/evaluation/mtsad_strict.py",
+  "validation": {
+    "pytest": "37 passed: test_flow_matching_acquisition.py, test_mtsad_strict.py, test_mtsad_metrics.py, test_mtsad_range_speed.py",
+    "official_tab_metric_fixtures": "32 passed; synthetic fixtures validate semantics only"
+  },
+  "running_imputation_campaign_snapshot": {
+    "status": "running",
+    "queue_pid": 31332,
+    "active_job": "cfmi_physio_original_fold1_missing0.1",
+    "active_pid": 38300,
+    "completed_jobs": 7,
+    "total_jobs": 30,
+    "records": [
+      {
+        "id": "csdi_physio_original_fold0_missing0.1",
+        "status": "completed",
+        "metrics": {
+          "mae": 0.21585868200413091,
+          "rmse": 0.47002475293162227,
+          "normalized_crps": 0.23484164779231073
+        }
+      },
+      {
+        "id": "cfmi_physio_original_fold0_missing0.1",
+        "status": "completed",
+        "metrics": {
+          "normalized_crps": 0.2533353265886231,
+          "crps": 0.2522460800013995,
+          "mae": 0.2391107818582754,
+          "rmse": 0.7311489802414491
+        }
+      },
+      {
+        "id": "csdi_physio_original_fold0_missing0.5",
+        "status": "completed",
+        "metrics": {
+          "mae": 0.2989729390395649,
+          "rmse": 0.5866468554969296,
+          "normalized_crps": 0.32658976899755393
+        }
+      },
+      {
+        "id": "cfmi_physio_original_fold0_missing0.5",
+        "status": "completed",
+        "metrics": {
+          "normalized_crps": 0.3457570815495493,
+          "crps": 0.36141768846304323,
+          "mae": 0.33092951094903084,
+          "rmse": 0.7210774657499462
+        }
+      },
+      {
+        "id": "csdi_physio_original_fold0_missing0.9",
+        "status": "completed",
+        "metrics": {
+          "mae": 0.4719382671527821,
+          "rmse": 0.7789593768675954,
+          "normalized_crps": 0.513559007020176
+        }
+      },
+      {
+        "id": "cfmi_physio_original_fold0_missing0.9",
+        "status": "completed",
+        "metrics": {
+          "normalized_crps": 0.5773723559567534,
+          "crps": 0.5934461312776914,
+          "mae": 0.5553408204080243,
+          "rmse": 0.9215302756469846
+        }
+      },
+      {
+        "id": "csdi_physio_original_fold1_missing0.1",
+        "status": "completed",
+        "metrics": {
+          "mae": 0.21852382099736373,
+          "rmse": 0.4545831457072853,
+          "normalized_crps": 0.23959202581414013
+        }
+      }
+    ]
+  },
+  "unresolved_user_references": [
+    "Unspecified WWW test-calibration paper",
+    "Exact extra dataset list if beyond the inferred registered assets",
+    "Exact user TAB config, metric column and dataset version"
+  ],
+  "boundaries": [
+    "No evidence here proves fabricated results",
+    "Code download is not implementation reproduction",
+    "Local raw data is not a frozen benchmark split",
+    "No claim that all global FM variants or later publications have been downloaded",
+    "TEP publisher checksums were verified in earlier manifests; the entire 142.76 GB was not rehashed in this audit",
+    "New snapshot archive checksums are local download hashes, not publisher-provided checksums"
+  ]
+}
