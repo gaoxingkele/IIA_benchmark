@@ -1,0 +1,91 @@
+{
+  "paper_id": "timesnet",
+  "model_configs": [
+    {
+      "path": "configs/models/mtsad_timesnet.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "mtsad_timesnet",
+        "family": "mtsad_benchmark",
+        "entrypoint": "iia_benchmark.models.mtsad_detectors:TimesNetDetector",
+        "parameters": {
+          "window": 100,
+          "d_model": 64,
+          "d_ff": 64,
+          "e_layers": 2,
+          "top_k": 5,
+          "num_kernels": 6,
+          "dropout": 0.1,
+          "epochs": 10,
+          "learning_rate": 0.0001,
+          "batch_size": 128,
+          "seed": 1103
+        },
+        "dataset_overrides": {
+          "smd": {
+            "d_model": 64,
+            "d_ff": 64,
+            "e_layers": 2,
+            "top_k": 5,
+            "anomaly_ratio": 0.5,
+            "epochs": 10,
+            "batch_size": 128
+          },
+          "msl": {
+            "d_model": 8,
+            "d_ff": 16,
+            "e_layers": 1,
+            "top_k": 3,
+            "anomaly_ratio": 1.0,
+            "epochs": 1,
+            "batch_size": 128
+          },
+          "smap": {
+            "d_model": 128,
+            "d_ff": 128,
+            "e_layers": 3,
+            "top_k": 3,
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 128
+          },
+          "psm": {
+            "d_model": 64,
+            "d_ff": 64,
+            "e_layers": 2,
+            "top_k": 3,
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 128
+          },
+          "swat": {
+            "d_model": 64,
+            "d_ff": 64,
+            "e_layers": 3,
+            "top_k": 3,
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 128
+          }
+        },
+        "kind": "window",
+        "reproduction_status": "transcribed_from_reference_implementation",
+        "source": "ICLR 2023 TimesNet; the period-based 2D reshaping, Inception blocks, embedding and the anomaly-detection normalization are transcribed from github.com/thuml/Time-Series-Library (models/TimesNet.py, layers/Conv_Blocks.py, layers/Embed.py, exp/exp_anomaly_detection.py).",
+        "hyperparameter_note": "Per-dataset budgets come from the release's scripts/anomaly_detection/<dataset>/TimesNet.sh. SWaT ships eight configurations there (d_model 8-64 x e_layers 2-3); d_model 64 with three layers is used here and the sweep is recorded as a known degree of freedom.",
+        "citation_doi": "10.48550/arXiv.2210.02186"
+      }
+    }
+  ],
+  "code_url": null,
+  "pinned_sources": [
+    {
+      "id": "timesnet_tslib",
+      "author_repository": "thuml/Time-Series-Library",
+      "author_commit": "4e938a1767106324dd753b2a44832bf870a0252e",
+      "citation": "https://arxiv.org/abs/2210.02186",
+      "role": "official_timesnet_full_implementation",
+      "archive_sha256": "8ad00c38d00baa6b4a17df2a688a96c945a0c005b6caceca0e932e6f5ac6edaa"
+    }
+  ],
+  "boundary": "Pinned sources and callable entrypoints are separate evidence; acquisition is not reproduction."
+}

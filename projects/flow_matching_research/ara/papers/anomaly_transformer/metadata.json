@@ -1,0 +1,121 @@
+{
+  "id": "anomaly_transformer",
+  "title": "Anomaly Transformer: Time Series Anomaly Detection with Association Discrepancy",
+  "year": 2022,
+  "authors": [],
+  "doi": null,
+  "arxiv_id": null,
+  "citation": null,
+  "task": "time_series_anomaly_detection",
+  "family": "association_discrepancy",
+  "method_summary": "先验/序列双关联注意力及 minimax 学习构建关联差异，以关联差异加权重建误差评分。",
+  "reproduction_gap": "MaelNet/Pi 的基础方法；原发布版测试校准与点调整必须从严格评价中分离。",
+  "sources": [
+    {
+      "path": "papers/literature/mtsad_pdfs/xu2022_anomaly_transformer.pdf",
+      "sha256": "ff8d3bb627fce9914eb8a9e78c4139e4852771dbee801da2c766dea028a17053",
+      "pages": 20,
+      "selected_pdf_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    }
+  ],
+  "primary_source_sha256": "ff8d3bb627fce9914eb8a9e78c4139e4852771dbee801da2c766dea028a17053",
+  "anchors": [
+    {
+      "id": "A01",
+      "pdf_page": 1,
+      "marker": "discrepancy",
+      "scope": "method_navigation",
+      "review": "curated synopsis; marker verified in extracted text; not a full-page manual review"
+    }
+  ],
+  "original_datasets": [
+    "SMAP",
+    "MSL",
+    "SMD",
+    "PSM",
+    "SWaT"
+  ],
+  "model_configs": [
+    {
+      "path": "configs/models/mtsad_anomaly_transformer.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "mtsad_anomaly_transformer",
+        "family": "mtsad_benchmark",
+        "entrypoint": "iia_benchmark.models.mtsad_detectors:AnomalyTransformerDetector",
+        "parameters": {
+          "window": 100,
+          "d_model": 32,
+          "n_heads": 8,
+          "e_layers": 3,
+          "d_ff": 32,
+          "dropout": 0.0,
+          "k": 3,
+          "temperature": 50.0,
+          "epochs": 10,
+          "learning_rate": 0.0001,
+          "batch_size": 128,
+          "seed": 1103
+        },
+        "kind": "window",
+        "dataset_overrides": {
+          "smd": {
+            "anomaly_ratio": 0.5,
+            "epochs": 10,
+            "batch_size": 256
+          },
+          "msl": {
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 256
+          },
+          "smap": {
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 256
+          },
+          "psm": {
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 256
+          },
+          "swat": {
+            "anomaly_ratio": 0.1,
+            "epochs": 3,
+            "batch_size": 256
+          }
+        },
+        "hyperparameter_note": "Per-dataset budget taken from the reference repository's scripts/Start.sh: SMD ratio 0.5 with 10 epochs, MSL/SMAP/PSM ratio 1 with 3 epochs, SWaT trained at ratio 0.5 but evaluated at ratio 0.1. The earlier iteration used the Time-Series-Library ratios and a fixed 10-epoch budget, which is kept under experiments/runs/mtsad_reproduction/at_tslib_budget_* as the sensitivity contrast.",
+        "reproduction_status": "transcribed_from_reference_implementation",
+        "source": "ICLR 2022 Anomaly Transformer; attention and minimax terms transcribed from github.com/thuml/Anomaly-Transformer (model/attn.py, solver.py) and instantiated with the paper's per-dataset hyperparameters.",
+        "citation_doi": "10.48550/arXiv.2110.02642"
+      }
+    }
+  ],
+  "code_url": null,
+  "campaign_status": "not_claimed_reproduced",
+  "reported_results": [],
+  "scientific_reproduction_status": "not_established_by_this_artifact",
+  "dataset_inventory_status": "registered_source_metadata; exact subsets/preprocessing remain subject to original-protocol audit"
+}

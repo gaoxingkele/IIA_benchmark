@@ -1,0 +1,70 @@
+{
+  "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+  "execution": {
+    "device": "cuda:0",
+    "gpu": "RTX 3090 24 GiB",
+    "parallel_gpu_jobs": 1,
+    "preserve_raw": true,
+    "output_root": "experiments/runs/flow_matching_campaign",
+    "processed_root": "data/public_datasets/flow_matching/processed_campaign_v1",
+    "stop_on_oom": true,
+    "resume_completed": true,
+    "environments": {
+      "author_core": {
+        "python": ".venv/fm-author-py310/Scripts/python.exe",
+        "python_version": "3.10.21",
+        "torch": "2.2.1+cu121",
+        "lightning": "2.2.0",
+        "numpy": "1.23.5",
+        "boundary": "NumPy 1.23.5 and pandas 2.2.2 are compatibility deviations from the CFMI conda declaration; no claim of bit-identical historical environment."
+      },
+      "modern_diagnostic": {
+        "python": ".venv/csdi-modern/Scripts/python.exe",
+        "boundary": "Python 3.12/current system Torch; preflight only, not the formal author-core queue"
+      },
+      "giflow_graph": {
+        "python": ".venv/giflow-author-py310/Scripts/python.exe",
+        "boundary": "Independent graph environment installed and package-compatible. Real Air-36 backward/Euler CPU preflight passed; formal training adapter and paper-best hyperparameters pending.",
+        "requirements_lock": "configs/reproducibility/giflow_author_py310_requirements.lock.txt"
+      },
+      "grin_legacy": {
+        "python": ".venv/grin-author-py38/Scripts/python.exe",
+        "boundary": "Python 3.8.20, author Torch 1.8.0+cu111 and Lightning 1.4.0 installed. Both Air datasets and exact CPU epoch resume verified; GRIN-only dependencies locked, baseline TensorFlow/fancyimpute extras omitted.",
+        "requirements_lock": "configs/reproducibility/grin_author_py38_requirements.lock.txt"
+      }
+    },
+    "active_queue": "configs/experiments/fm_original_queue.v1.json",
+    "transfer_queue": "configs/experiments/fm_transfer_queue.v1.json",
+    "transfer_metric_protocol": "transfer_ensemble_v1",
+    "transfer_gate": "All first-wave jobs and all remaining original-paper experiment protocols must complete or have documented material unavailability before new-dataset transfer starts",
+    "original_scope_status": "in_progress",
+    "original_continuation_queue": "configs/experiments/fm_air36_original_queue.v1.json",
+    "saits_original_continuation_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+    "saits_timeseries_continuation_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json",
+    "grin_original_continuation_queue": "configs/experiments/fm_grin_original_queue.v1.json"
+  },
+  "paper_record": {
+    "id": "brits",
+    "title": "BRITS: Bidirectional Recurrent Imputation for Time Series",
+    "task": "imputation",
+    "priority": 2,
+    "author_repository": "caow13/BRITS",
+    "literature_url": "https://arxiv.org/html/1805.10572",
+    "original_datasets": [
+      "STMVL Beijing PM2.5 36 stations",
+      "PhysioNet2012 set-a",
+      "UCI Localization Data for Person Activity"
+    ],
+    "status": "author_code_acquired_not_reproduced",
+    "original_reference_status": "numeric_targets_pending_transcription",
+    "transfer_datasets": [
+      "tep_dtu_v1",
+      "skab_public",
+      "pronto_public"
+    ],
+    "boundary": "Author code/data protocol alignment required before score claims",
+    "author_commit": "fc0a3a472a6d99a6934e471d40c25ed0b029b501",
+    "source_archive_sha256": "6991a142e0bbc720cb2fc75b0f2bcc5e24030f039a7102f1caa10627a44e9a7c"
+  },
+  "boundary": "Snapshot of frozen planning config, not live training status. Use tracked run evidence for actual execution; historical task labels may be corrected by this ARA record."
+}

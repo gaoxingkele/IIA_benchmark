@@ -1,0 +1,187 @@
+{
+  "id": "timesnet",
+  "title": "TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis",
+  "year": 2023,
+  "authors": [
+    "Haixu Wu",
+    "Tengge Hu",
+    "Yong Liu",
+    "Hang Zhou",
+    "Jianmin Wang",
+    "Mingsheng Long"
+  ],
+  "doi": null,
+  "arxiv_id": "2210.02186",
+  "citation": "https://arxiv.org/abs/2210.02186",
+  "task": "general_time_series",
+  "family": "periodic_2d_model",
+  "method_summary": "以 FFT 找主要周期，将一维时序重排为多个二维结构，用 Inception 卷积刻画周期内/周期间变化。",
+  "reproduction_gap": "异常轨道依赖重建分数和发布脚本阈值；归一化、SWaT参数扫描、point adjustment须显式披露。",
+  "sources": [
+    {
+      "path": "papers/literature/flow_matching/user_supplied/2026-10-07/timesnet/12da8da7bf1b3db1bdbd55ef0358967c6b49d84f6183f7da7176c57cecd4d513.pdf",
+      "sha256": "12da8da7bf1b3db1bdbd55ef0358967c6b49d84f6183f7da7176c57cecd4d513",
+      "pages": 23,
+      "selected_pdf_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "archive": "papers/flow matching/流匹配算法研究.zip",
+      "archive_member": "TimesNet.pdf"
+    },
+    {
+      "path": "papers/literature/mtsad_pdfs/wu2023_timesnet.pdf",
+      "sha256": "a45cb3d35c7b4db7091439ee714fd43dd6cd9e8f2fb1867f5463ae0433aebbd1",
+      "pages": 23,
+      "selected_pdf_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ]
+    }
+  ],
+  "primary_source_sha256": "12da8da7bf1b3db1bdbd55ef0358967c6b49d84f6183f7da7176c57cecd4d513",
+  "anchors": [
+    {
+      "id": "A01",
+      "pdf_page": 1,
+      "marker": "Inception",
+      "scope": "method_navigation",
+      "review": "curated synopsis; marker verified in extracted text; not a full-page manual review"
+    }
+  ],
+  "original_datasets": [
+    "SMAP",
+    "MSL",
+    "SMD",
+    "PSM",
+    "SWaT"
+  ],
+  "model_configs": [
+    {
+      "path": "configs/models/mtsad_timesnet.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "mtsad_timesnet",
+        "family": "mtsad_benchmark",
+        "entrypoint": "iia_benchmark.models.mtsad_detectors:TimesNetDetector",
+        "parameters": {
+          "window": 100,
+          "d_model": 64,
+          "d_ff": 64,
+          "e_layers": 2,
+          "top_k": 5,
+          "num_kernels": 6,
+          "dropout": 0.1,
+          "epochs": 10,
+          "learning_rate": 0.0001,
+          "batch_size": 128,
+          "seed": 1103
+        },
+        "dataset_overrides": {
+          "smd": {
+            "d_model": 64,
+            "d_ff": 64,
+            "e_layers": 2,
+            "top_k": 5,
+            "anomaly_ratio": 0.5,
+            "epochs": 10,
+            "batch_size": 128
+          },
+          "msl": {
+            "d_model": 8,
+            "d_ff": 16,
+            "e_layers": 1,
+            "top_k": 3,
+            "anomaly_ratio": 1.0,
+            "epochs": 1,
+            "batch_size": 128
+          },
+          "smap": {
+            "d_model": 128,
+            "d_ff": 128,
+            "e_layers": 3,
+            "top_k": 3,
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 128
+          },
+          "psm": {
+            "d_model": 64,
+            "d_ff": 64,
+            "e_layers": 2,
+            "top_k": 3,
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 128
+          },
+          "swat": {
+            "d_model": 64,
+            "d_ff": 64,
+            "e_layers": 3,
+            "top_k": 3,
+            "anomaly_ratio": 1.0,
+            "epochs": 3,
+            "batch_size": 128
+          }
+        },
+        "kind": "window",
+        "reproduction_status": "transcribed_from_reference_implementation",
+        "source": "ICLR 2023 TimesNet; the period-based 2D reshaping, Inception blocks, embedding and the anomaly-detection normalization are transcribed from github.com/thuml/Time-Series-Library (models/TimesNet.py, layers/Conv_Blocks.py, layers/Embed.py, exp/exp_anomaly_detection.py).",
+        "hyperparameter_note": "Per-dataset budgets come from the release's scripts/anomaly_detection/<dataset>/TimesNet.sh. SWaT ships eight configurations there (d_model 8-64 x e_layers 2-3); d_model 64 with three layers is used here and the sweep is recorded as a known degree of freedom.",
+        "citation_doi": "10.48550/arXiv.2210.02186"
+      }
+    }
+  ],
+  "code_url": null,
+  "campaign_status": "not_claimed_reproduced",
+  "reported_results": [],
+  "scientific_reproduction_status": "not_established_by_this_artifact",
+  "dataset_inventory_status": "registered_source_metadata; exact subsets/preprocessing remain subject to original-protocol audit",
+  "edition_comparison": {
+    "file_hashes_distinct": true,
+    "normalized_text_equal": false,
+    "boundary": "Whitespace/punctuation-insensitive extracted-text comparison; does not compare figures or certify scientific equivalence. Keep edition-specific page anchors."
+  }
+}

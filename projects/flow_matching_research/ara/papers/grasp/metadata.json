@@ -1,0 +1,162 @@
+{
+  "id": "grasp",
+  "title": "Graph-Spectral Flow Matching for Multivariate Time Series Anomaly Detection",
+  "year": 2026,
+  "authors": [
+    "Zepeng Zhang",
+    "Jhony H. Giraldo",
+    "Wenbin Wang",
+    "Olga Fink"
+  ],
+  "doi": null,
+  "arxiv_id": "2609.36765",
+  "citation": "https://arxiv.org/abs/2609.36765",
+  "task": "time_series_anomaly_detection",
+  "family": "graph_spectral_fm",
+  "method_summary": "通过图 Dirichlet 能量与动能构造固定端点输运路径，在图频率上求解插值；以正常训练分布的速度失配构造异常分数。",
+  "reproduction_gap": "mTSBench 的实体数和特征数须与经典五数据集版本分开；作者代码未定位，须重建谱路径、图构造及速度加权。",
+  "sources": [
+    {
+      "path": "papers/literature/flow_matching/pdfs/grasp.pdf",
+      "sha256": "1b9e48e68d57ca8466099d0515ac67b2c3309b75cf9445ac58f5fd6ec39583fd",
+      "pages": 28,
+      "selected_pdf_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    }
+  ],
+  "primary_source_sha256": "1b9e48e68d57ca8466099d0515ac67b2c3309b75cf9445ac58f5fd6ec39583fd",
+  "anchors": [
+    {
+      "id": "A01",
+      "pdf_page": 1,
+      "marker": "Dirichlet",
+      "scope": "method_navigation",
+      "review": "curated synopsis; marker verified in extracted text; not a full-page manual review"
+    }
+  ],
+  "original_datasets": [
+    "SMAP (mTSBench 51 series,26 variables)",
+    "SMD (mTSBench 18 series,39 variables)",
+    "CICIDS2017 (mTSBench six series,73 features)",
+    "SWAN (mTSBench one 39-variable series)"
+  ],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_grasp.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "fm_grasp",
+        "family": "flow_matching_campaign",
+        "task": "anomaly_detection",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/2609.36765#A5.SS1",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": null,
+        "author_commit": null,
+        "paper_score_status": "not_verified"
+      }
+    }
+  ],
+  "code_url": null,
+  "campaign_status": "author_code_not_located_requires_protocol_reconstruction",
+  "reported_results": [],
+  "scientific_reproduction_status": "not_established_by_this_artifact",
+  "dataset_inventory_status": "registered_source_metadata; exact subsets/preprocessing remain subject to original-protocol audit",
+  "environment_reference": {
+    "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+    "execution": {
+      "device": "cuda:0",
+      "gpu": "RTX 3090 24 GiB",
+      "parallel_gpu_jobs": 1,
+      "preserve_raw": true,
+      "output_root": "experiments/runs/flow_matching_campaign",
+      "processed_root": "data/public_datasets/flow_matching/processed_campaign_v1",
+      "stop_on_oom": true,
+      "resume_completed": true,
+      "environments": {
+        "author_core": {
+          "python": ".venv/fm-author-py310/Scripts/python.exe",
+          "python_version": "3.10.21",
+          "torch": "2.2.1+cu121",
+          "lightning": "2.2.0",
+          "numpy": "1.23.5",
+          "boundary": "NumPy 1.23.5 and pandas 2.2.2 are compatibility deviations from the CFMI conda declaration; no claim of bit-identical historical environment."
+        },
+        "modern_diagnostic": {
+          "python": ".venv/csdi-modern/Scripts/python.exe",
+          "boundary": "Python 3.12/current system Torch; preflight only, not the formal author-core queue"
+        },
+        "giflow_graph": {
+          "python": ".venv/giflow-author-py310/Scripts/python.exe",
+          "boundary": "Independent graph environment installed and package-compatible. Real Air-36 backward/Euler CPU preflight passed; formal training adapter and paper-best hyperparameters pending.",
+          "requirements_lock": "configs/reproducibility/giflow_author_py310_requirements.lock.txt"
+        },
+        "grin_legacy": {
+          "python": ".venv/grin-author-py38/Scripts/python.exe",
+          "boundary": "Python 3.8.20, author Torch 1.8.0+cu111 and Lightning 1.4.0 installed. Both Air datasets and exact CPU epoch resume verified; GRIN-only dependencies locked, baseline TensorFlow/fancyimpute extras omitted.",
+          "requirements_lock": "configs/reproducibility/grin_author_py38_requirements.lock.txt"
+        }
+      },
+      "active_queue": "configs/experiments/fm_original_queue.v1.json",
+      "transfer_queue": "configs/experiments/fm_transfer_queue.v1.json",
+      "transfer_metric_protocol": "transfer_ensemble_v1",
+      "transfer_gate": "All first-wave jobs and all remaining original-paper experiment protocols must complete or have documented material unavailability before new-dataset transfer starts",
+      "original_scope_status": "in_progress",
+      "original_continuation_queue": "configs/experiments/fm_air36_original_queue.v1.json",
+      "saits_original_continuation_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+      "saits_timeseries_continuation_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json",
+      "grin_original_continuation_queue": "configs/experiments/fm_grin_original_queue.v1.json"
+    },
+    "paper_record": {
+      "id": "grasp",
+      "title": "Graph-Spectral Flow Matching for Multivariate Time Series Anomaly Detection",
+      "task": "anomaly_detection",
+      "priority": 3,
+      "author_repository": null,
+      "literature_url": "https://arxiv.org/html/2609.36765#A5.SS1",
+      "original_datasets": [
+        "SMAP (mTSBench 51 series,26 variables)",
+        "SMD (mTSBench 18 series,39 variables)",
+        "CICIDS2017 (mTSBench six series,73 features)",
+        "SWAN (mTSBench one 39-variable series)"
+      ],
+      "status": "author_code_not_located_requires_protocol_reconstruction",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims"
+    },
+    "boundary": "Snapshot of frozen planning config, not live training status. Use tracked run evidence for actual execution; historical task labels may be corrected by this ARA record."
+  }
+}

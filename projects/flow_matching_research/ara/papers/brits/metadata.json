@@ -1,0 +1,157 @@
+{
+  "id": "brits",
+  "title": "BRITS: Bidirectional Recurrent Imputation for Time Series",
+  "year": 2018,
+  "authors": [
+    "Wei Cao",
+    "Dong Wang",
+    "Jian Li",
+    "Hao Zhou",
+    "Lei Li",
+    "Yitan Li"
+  ],
+  "doi": null,
+  "arxiv_id": "1805.10572",
+  "citation": "https://arxiv.org/abs/1805.10572",
+  "task": "imputation",
+  "family": "bidirectional_rnn",
+  "method_summary": "将缺失值作为双向循环网络计算图中的可学习变量，以时间衰减、特征相关性和双向一致性联合优化插补。",
+  "reproduction_gap": "双向访问未来窗口只适用于离线任务；与在线 JFI 分轨比较。",
+  "sources": [
+    {
+      "path": "papers/literature/flow_matching/pdfs/brits.pdf",
+      "sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pages": 12,
+      "selected_pdf_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    }
+  ],
+  "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+  "anchors": [
+    {
+      "id": "A01",
+      "pdf_page": 1,
+      "marker": "bidirectional",
+      "scope": "method_navigation",
+      "review": "curated synopsis; marker verified in extracted text; not a full-page manual review"
+    }
+  ],
+  "original_datasets": [
+    "STMVL Beijing PM2.5 36 stations",
+    "PhysioNet2012 set-a",
+    "UCI Localization Data for Person Activity"
+  ],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_brits.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "fm_brits",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "registered_pending_author_adapter",
+        "citation": "https://arxiv.org/html/1805.10572",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "caow13/BRITS",
+        "author_commit": "fc0a3a472a6d99a6934e471d40c25ed0b029b501",
+        "paper_score_status": "not_verified",
+        "additional_context": {
+          "saits_paper_baseline": {
+            "implementation": "scripts/flow_matching/run_saits.py",
+            "queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+            "citation": "https://arxiv.org/abs/2202.08516",
+            "status": "author_baseline_adapter_preflight_verified",
+            "boundary": "SAITS authors' 37-feature PhysioNet BRITS baseline. The original 2018 BRITS-paper adapter remains pending."
+          }
+        }
+      }
+    }
+  ],
+  "code_url": "https://github.com/caow13/BRITS",
+  "campaign_status": "author_code_acquired_not_reproduced",
+  "reported_results": [],
+  "scientific_reproduction_status": "not_established_by_this_artifact",
+  "dataset_inventory_status": "registered_source_metadata; exact subsets/preprocessing remain subject to original-protocol audit",
+  "environment_reference": {
+    "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+    "execution": {
+      "device": "cuda:0",
+      "gpu": "RTX 3090 24 GiB",
+      "parallel_gpu_jobs": 1,
+      "preserve_raw": true,
+      "output_root": "experiments/runs/flow_matching_campaign",
+      "processed_root": "data/public_datasets/flow_matching/processed_campaign_v1",
+      "stop_on_oom": true,
+      "resume_completed": true,
+      "environments": {
+        "author_core": {
+          "python": ".venv/fm-author-py310/Scripts/python.exe",
+          "python_version": "3.10.21",
+          "torch": "2.2.1+cu121",
+          "lightning": "2.2.0",
+          "numpy": "1.23.5",
+          "boundary": "NumPy 1.23.5 and pandas 2.2.2 are compatibility deviations from the CFMI conda declaration; no claim of bit-identical historical environment."
+        },
+        "modern_diagnostic": {
+          "python": ".venv/csdi-modern/Scripts/python.exe",
+          "boundary": "Python 3.12/current system Torch; preflight only, not the formal author-core queue"
+        },
+        "giflow_graph": {
+          "python": ".venv/giflow-author-py310/Scripts/python.exe",
+          "boundary": "Independent graph environment installed and package-compatible. Real Air-36 backward/Euler CPU preflight passed; formal training adapter and paper-best hyperparameters pending.",
+          "requirements_lock": "configs/reproducibility/giflow_author_py310_requirements.lock.txt"
+        },
+        "grin_legacy": {
+          "python": ".venv/grin-author-py38/Scripts/python.exe",
+          "boundary": "Python 3.8.20, author Torch 1.8.0+cu111 and Lightning 1.4.0 installed. Both Air datasets and exact CPU epoch resume verified; GRIN-only dependencies locked, baseline TensorFlow/fancyimpute extras omitted.",
+          "requirements_lock": "configs/reproducibility/grin_author_py38_requirements.lock.txt"
+        }
+      },
+      "active_queue": "configs/experiments/fm_original_queue.v1.json",
+      "transfer_queue": "configs/experiments/fm_transfer_queue.v1.json",
+      "transfer_metric_protocol": "transfer_ensemble_v1",
+      "transfer_gate": "All first-wave jobs and all remaining original-paper experiment protocols must complete or have documented material unavailability before new-dataset transfer starts",
+      "original_scope_status": "in_progress",
+      "original_continuation_queue": "configs/experiments/fm_air36_original_queue.v1.json",
+      "saits_original_continuation_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+      "saits_timeseries_continuation_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json",
+      "grin_original_continuation_queue": "configs/experiments/fm_grin_original_queue.v1.json"
+    },
+    "paper_record": {
+      "id": "brits",
+      "title": "BRITS: Bidirectional Recurrent Imputation for Time Series",
+      "task": "imputation",
+      "priority": 2,
+      "author_repository": "caow13/BRITS",
+      "literature_url": "https://arxiv.org/html/1805.10572",
+      "original_datasets": [
+        "STMVL Beijing PM2.5 36 stations",
+        "PhysioNet2012 set-a",
+        "UCI Localization Data for Person Activity"
+      ],
+      "status": "author_code_acquired_not_reproduced",
+      "original_reference_status": "numeric_targets_pending_transcription",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "Author code/data protocol alignment required before score claims",
+      "author_commit": "fc0a3a472a6d99a6934e471d40c25ed0b029b501",
+      "source_archive_sha256": "6991a142e0bbc720cb2fc75b0f2bcc5e24030f039a7102f1caa10627a44e9a7c"
+    },
+    "boundary": "Snapshot of frozen planning config, not live training status. Use tracked run evidence for actual execution; historical task labels may be corrected by this ARA record."
+  }
+}

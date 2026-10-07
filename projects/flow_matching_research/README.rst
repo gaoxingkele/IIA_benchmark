@@ -23,13 +23,14 @@
 获取边界
 --------
 
-素材记录保留实际访问状态。MaelNet、SHCL、JFI 的完整论文仍有访问缺口；
-KGL 为开放获取论文，但当前原文服务器返回 403；Pi-Transformer 的 arXiv
-版本已取得，期刊版本的下载端点仍被拒绝。CFM-TS 页面返回验证内容，不能
-计作完整论文。部分原始作者代码尚未找到，已取得的库或其他作者代码不替代它们。
+2026-10-07 用户提供的两个压缩包已通过完整性和标题核验，补齐 MaelNet、SHCL、
+KGL、JFI、CFM-TS 全文，并新增 Pi-Transformer 期刊版本、MOMENT long-context
+和 SensitiveHUE 全文。原压缩包及各版本保留；SWaT 文件中的目标论文按章节页码登记。
+部分原始作者代码尚未找到，已取得的库或其他作者代码不替代它们。
 
 CER-E 需要研究申请，GANF 的原始 PMU 数据未公开，ImageNet 与 Kaggle 原始
-特征文件仍有授权条件。公开替代文件、当前作者发布版本与原实验同字节版本
+特征文件仍有授权条件。新全文确认的 JFI HP 私有炼化数据也未公开。
+公开替代文件、当前作者发布版本与原实验同字节版本
 分别记录；生成数据、CelebA-HQ 重建和实验预处理仍属于后续可执行任务。
 
 这个独立项目集中管理 Flow Matching 时间序列异常检测研究，以及支撑研究的
@@ -66,3 +67,21 @@ Windows 目录映射访问新位置，已冻结配置及其哈希保持有效。
 
 当前资料拉取不代表所有算法已经训练或复现成功。正在运行的旧插补队列继续留在
 原工作区，新增异常检测实验需要经过数据清单和实现状态门槛。
+
+ARA 参考文献工程
+---------------
+
+`ara/README.md <ara/README.md>`_ 收录45篇独立参考、49份全文版本。
+每篇按逻辑、证据、实现和追溯四层保存方法摘要、可证伪主张、原协议实验设计、
+页码/哈希、代码及数据映射。已登记46条作者报告数值，尚未转录的表格明确保留待核状态。
+工程验证通过不代表论文性能已复现。
+
+更新和检查从 ``benchmark`` 子模块根执行：
+
+.. code-block:: powershell
+
+   python -m scripts.literature.build_flow_matching_ara
+   python -m scripts.literature.verify_flow_matching_ara
+
+配置真源为 ``configs/reproducibility/flow_matching_ara.v1.json``。
+大文件全文和完整提取文本仅保留本地；工程摘要与追溯记录进入 Git。

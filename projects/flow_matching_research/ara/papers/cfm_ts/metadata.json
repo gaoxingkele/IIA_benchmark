@@ -1,0 +1,161 @@
+{
+  "id": "cfm_ts",
+  "title": "Conditional Flow Matching for Time Series Modelling",
+  "year": 2024,
+  "authors": [
+    "Ella Tamir",
+    "Najwa Laabid",
+    "Markus Heinonen",
+    "Vikas Garg",
+    "Arno Solin"
+  ],
+  "doi": null,
+  "arxiv_id": null,
+  "citation": "https://openreview.net/forum?id=Hqn4Aj7xrQ",
+  "task": "continuous_time_dynamics",
+  "family": "trajectory_conditional_fm",
+  "method_summary": "以 BB-Flows 的线性高斯边际插值或 GP-Flows 的状态/导数联合高斯后验形成轨迹条件速度目标。",
+  "reproduction_gap": "正文与附录的 sine 轨迹数、batch size 不一致；作者代码未定位，先冻结采纳版本再复现。",
+  "sources": [
+    {
+      "path": "papers/literature/flow_matching/user_supplied/2026-10-07/cfm_ts/090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827.pdf",
+      "sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+      "pages": 8,
+      "selected_pdf_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "archive": "papers/flow matching/流匹配算法研究.zip",
+      "archive_member": "CFM-TS.pdf"
+    }
+  ],
+  "primary_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+  "anchors": [
+    {
+      "id": "A01",
+      "pdf_page": 2,
+      "marker": "Kalman",
+      "scope": "method_navigation",
+      "review": "curated synopsis; marker verified in extracted text; not a full-page manual review"
+    },
+    {
+      "id": "A02",
+      "pdf_page": 2,
+      "marker": "Kalman",
+      "scope": "protocol_or_reported_table",
+      "review": "selected passage reviewed; tabular rows marked visual separately"
+    },
+    {
+      "id": "A03",
+      "pdf_page": 3,
+      "marker": "Gaussian",
+      "scope": "protocol_or_reported_table",
+      "review": "selected passage reviewed; tabular rows marked visual separately"
+    },
+    {
+      "id": "A04",
+      "pdf_page": 4,
+      "marker": "Table 1",
+      "scope": "protocol_or_reported_table",
+      "review": "selected passage reviewed; tabular rows marked visual separately"
+    },
+    {
+      "id": "A05",
+      "pdf_page": 8,
+      "marker": "256",
+      "scope": "protocol_or_reported_table",
+      "review": "selected passage reviewed; tabular rows marked visual separately"
+    }
+  ],
+  "original_datasets": [
+    "Lotka-Volterra simulated ODE",
+    "Sine simulated ODE",
+    "Pendulum simulated ODE"
+  ],
+  "model_configs": [],
+  "code_url": null,
+  "campaign_status": "not_claimed_reproduced",
+  "reported_results": [
+    {
+      "pdf_page": 4,
+      "table": "1",
+      "metric": "MSE",
+      "dataset": "Lotka-Volterra",
+      "value": 0.008,
+      "status": "author_reported_not_locally_reproduced",
+      "standard_deviation": 0.003,
+      "runs": 5,
+      "method_row": "CFM-BB",
+      "verification": "visual"
+    },
+    {
+      "pdf_page": 4,
+      "table": "1",
+      "metric": "MSE",
+      "dataset": "Sine",
+      "value": 0.07,
+      "status": "author_reported_not_locally_reproduced",
+      "standard_deviation": 0.05,
+      "runs": 5,
+      "method_row": "CFM-BB",
+      "verification": "visual"
+    },
+    {
+      "pdf_page": 4,
+      "table": "1",
+      "metric": "MSE",
+      "dataset": "Pendulum",
+      "value": 2.31,
+      "status": "author_reported_not_locally_reproduced",
+      "standard_deviation": 1.68,
+      "runs": 5,
+      "method_row": "CFM-BB",
+      "verification": "visual"
+    },
+    {
+      "pdf_page": 4,
+      "table": "1",
+      "metric": "MSE",
+      "dataset": "Lotka-Volterra",
+      "value": 0.0086,
+      "status": "author_reported_not_locally_reproduced",
+      "standard_deviation": 0.002,
+      "runs": 5,
+      "method_row": "CFM-GP",
+      "verification": "visual"
+    },
+    {
+      "pdf_page": 4,
+      "table": "1",
+      "metric": "MSE",
+      "dataset": "Sine",
+      "value": 0.005,
+      "status": "author_reported_not_locally_reproduced",
+      "standard_deviation": 0.003,
+      "runs": 5,
+      "method_row": "CFM-GP",
+      "verification": "visual"
+    },
+    {
+      "pdf_page": 4,
+      "table": "1",
+      "metric": "MSE",
+      "dataset": "Pendulum",
+      "value": 0.09,
+      "status": "author_reported_not_locally_reproduced",
+      "standard_deviation": 0.14,
+      "runs": 5,
+      "method_row": "CFM-GP",
+      "verification": "visual"
+    }
+  ],
+  "scientific_reproduction_status": "not_established_by_this_artifact",
+  "dataset_inventory_status": "registered_source_metadata; exact subsets/preprocessing remain subject to original-protocol audit",
+  "venue": "ICML2024 SPIGM workshop"
+}

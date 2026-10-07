@@ -1,0 +1,171 @@
+{
+  "id": "saits",
+  "title": "SAITS: Self-Attention-based Imputation for Time Series",
+  "year": 2023,
+  "authors": [
+    "Wenjie Du",
+    "David Cote",
+    "Yan Liu"
+  ],
+  "doi": "10.1016/j.eswa.2023.119619",
+  "arxiv_id": "2202.08516",
+  "citation": "https://arxiv.org/abs/2202.08516",
+  "task": "imputation",
+  "family": "attention_imputation",
+  "method_summary": "两组对角掩蔽自注意力结合观测重建、插补损失及加权组合，避免简单自复制。",
+  "reproduction_gap": "比较时统一缺失掩码和标准化；当前正式插补实验与未来检测器适配分开登记。",
+  "sources": [
+    {
+      "path": "papers/literature/flow_matching/pdfs/saits.pdf",
+      "sha256": "234ee64b75f730a663827d116df783c11780968d4be61ad5d6b51bc7e0d0956b",
+      "pages": 22,
+      "selected_pdf_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ]
+    }
+  ],
+  "primary_source_sha256": "234ee64b75f730a663827d116df783c11780968d4be61ad5d6b51bc7e0d0956b",
+  "anchors": [
+    {
+      "id": "A01",
+      "pdf_page": 1,
+      "marker": "diagonally",
+      "scope": "method_navigation",
+      "review": "curated synopsis; marker verified in extracted text; not a full-page manual review"
+    }
+  ],
+  "original_datasets": [
+    "PhysioNet2012 sets a,b,c and outcomes",
+    "UCI Beijing Multi-Site Air Quality",
+    "Electricity Load Diagrams 2011-2014",
+    "ETTm1",
+    "NRTSI Air",
+    "NRTSI Gas"
+  ],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_saits.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "fm_saits",
+        "family": "flow_matching_campaign",
+        "task": "imputation",
+        "reproduction_status": "main_datasets_author_and_corrected_cpu_preflight_verified_queues_pending",
+        "implementation": "scripts/flow_matching/run_saits.py",
+        "original_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+        "data_config": "configs/data/fm_saits_physio_original.v1.json",
+        "reference_config": "configs/reproducibility/saits/references.v1.json",
+        "citation": "https://arxiv.org/html/2202.08516",
+        "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+        "author_repository": "WenjieDu/SAITS",
+        "author_commit": "660b87f19c1277065f314f24134f646229e89ca9",
+        "paper_score_status": "not_verified",
+        "timeseries_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json",
+        "timeseries_data_config": "configs/data/fm_saits_timeseries_original.v1.json",
+        "timeseries_reference_config": "configs/reproducibility/saits/timeseries_references.v1.json"
+      }
+    }
+  ],
+  "code_url": "https://github.com/WenjieDu/SAITS",
+  "campaign_status": "original_main_datasets_prepared_original_corrected_queues_registered_not_completed",
+  "reported_results": [],
+  "scientific_reproduction_status": "not_established_by_this_artifact",
+  "dataset_inventory_status": "registered_source_metadata; exact subsets/preprocessing remain subject to original-protocol audit",
+  "environment_reference": {
+    "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+    "execution": {
+      "device": "cuda:0",
+      "gpu": "RTX 3090 24 GiB",
+      "parallel_gpu_jobs": 1,
+      "preserve_raw": true,
+      "output_root": "experiments/runs/flow_matching_campaign",
+      "processed_root": "data/public_datasets/flow_matching/processed_campaign_v1",
+      "stop_on_oom": true,
+      "resume_completed": true,
+      "environments": {
+        "author_core": {
+          "python": ".venv/fm-author-py310/Scripts/python.exe",
+          "python_version": "3.10.21",
+          "torch": "2.2.1+cu121",
+          "lightning": "2.2.0",
+          "numpy": "1.23.5",
+          "boundary": "NumPy 1.23.5 and pandas 2.2.2 are compatibility deviations from the CFMI conda declaration; no claim of bit-identical historical environment."
+        },
+        "modern_diagnostic": {
+          "python": ".venv/csdi-modern/Scripts/python.exe",
+          "boundary": "Python 3.12/current system Torch; preflight only, not the formal author-core queue"
+        },
+        "giflow_graph": {
+          "python": ".venv/giflow-author-py310/Scripts/python.exe",
+          "boundary": "Independent graph environment installed and package-compatible. Real Air-36 backward/Euler CPU preflight passed; formal training adapter and paper-best hyperparameters pending.",
+          "requirements_lock": "configs/reproducibility/giflow_author_py310_requirements.lock.txt"
+        },
+        "grin_legacy": {
+          "python": ".venv/grin-author-py38/Scripts/python.exe",
+          "boundary": "Python 3.8.20, author Torch 1.8.0+cu111 and Lightning 1.4.0 installed. Both Air datasets and exact CPU epoch resume verified; GRIN-only dependencies locked, baseline TensorFlow/fancyimpute extras omitted.",
+          "requirements_lock": "configs/reproducibility/grin_author_py38_requirements.lock.txt"
+        }
+      },
+      "active_queue": "configs/experiments/fm_original_queue.v1.json",
+      "transfer_queue": "configs/experiments/fm_transfer_queue.v1.json",
+      "transfer_metric_protocol": "transfer_ensemble_v1",
+      "transfer_gate": "All first-wave jobs and all remaining original-paper experiment protocols must complete or have documented material unavailability before new-dataset transfer starts",
+      "original_scope_status": "in_progress",
+      "original_continuation_queue": "configs/experiments/fm_air36_original_queue.v1.json",
+      "saits_original_continuation_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+      "saits_timeseries_continuation_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json",
+      "grin_original_continuation_queue": "configs/experiments/fm_grin_original_queue.v1.json"
+    },
+    "paper_record": {
+      "id": "saits",
+      "title": "SAITS: Self-Attention-based Imputation for Time Series",
+      "task": "imputation",
+      "priority": 2,
+      "author_repository": "WenjieDu/SAITS",
+      "literature_url": "https://arxiv.org/html/2202.08516",
+      "original_datasets": [
+        "PhysioNet2012 sets a,b,c and outcomes",
+        "UCI Beijing Multi-Site Air Quality",
+        "Electricity Load Diagrams 2011-2014",
+        "ETTm1",
+        "NRTSI Air",
+        "NRTSI Gas"
+      ],
+      "status": "original_main_datasets_prepared_original_corrected_queues_registered_not_completed",
+      "original_reference_status": "tables_2_4_visually_verified_no_paper_uncertainty",
+      "transfer_datasets": [
+        "tep_dtu_v1",
+        "skab_public",
+        "pronto_public"
+      ],
+      "boundary": "PhysioNet and all three main time-series datasets prepared. Released window tail and replacement-mask bugs preserved for original scores and fixed in a separate protocol. ETT best INI absent; only paper-specified SAITS-base queued. NRTSI, downstream and ablations remain pending.",
+      "author_commit": "660b87f19c1277065f314f24134f646229e89ca9",
+      "source_archive_sha256": "5014e99a31b90e232a15a68916a47947b62922a415f44c378b980e34cc21722c",
+      "original_queue": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+      "reference_config": "configs/reproducibility/saits/references.v1.json",
+      "timeseries_queue": "configs/experiments/fm_saits_timeseries_queue.v1.json"
+    },
+    "boundary": "Snapshot of frozen planning config, not live training status. Use tracked run evidence for actual execution; historical task labels may be corrected by this ARA record."
+  }
+}
