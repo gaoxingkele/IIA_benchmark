@@ -1,0 +1,110 @@
+{
+  "paper_id": "catch",
+  "title": "CATCH: Channel-Aware Multivariate Time Series Anomaly Detection via Frequency Patching",
+  "task": "time_series_anomaly_detection",
+  "ara_artifact": "papers/catch/PAPER.md",
+  "primary_source_sha256": "7bb18834c337810be427efe056e4e8aac9d4f163a9d8b8f59375470202ff53dd",
+  "main_implementation": {
+    "status": "source_present_not_end_to_end_verified",
+    "note": "固定作者源码在场；完整环境、原实验配置及全部消融仍须验证。"
+  },
+  "source_resources": [
+    {
+      "id": "catch",
+      "path": "experiments/runs/flow_matching_campaign/sources/catch/original",
+      "repository": "decisionintelligence/CATCH",
+      "commit": "3647c69be5eb56649b072596cf89098e689e20c3",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "0aeedf7a252be2e21cf871f9a4c251b5984f8273617f39f364f975a5843ad7c9"
+    }
+  ],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.mtsad_detectors:CATCHDetector",
+      "path": "src/iia_benchmark/models/mtsad_detectors.py",
+      "sha256": "5ee2fea31587eb31bba91f1d2aa9f2a01a9ad66820651e93d9397cde7e4fa085",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_catch.json",
+    "configs/models/mtsad_catch.json"
+  ],
+  "paper_ablations": {
+    "source_sha256": "7bb18834c337810be427efe056e4e8aac9d4f163a9d8b8f59375470202ff53dd",
+    "ablation_page_candidates": [
+      {
+        "pdf_page": 8,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 9,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 18,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      }
+    ],
+    "reviewed_axes": [],
+    "mentioned_registered_references": [
+      {
+        "paper_id": "cfmi",
+        "pdf_pages": [
+          1,
+          3,
+          5
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "dcdetector",
+        "pdf_pages": [
+          3,
+          8,
+          16,
+          18
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "timesnet",
+        "pdf_pages": [
+          8,
+          15,
+          18
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "moment",
+        "pdf_pages": [
+          11
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "anomaly_transformer",
+        "pdf_pages": [
+          3,
+          4,
+          8,
+          15,
+          18,
+          21
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      }
+    ],
+    "baseline_inventory_status": "not_exhaustively_registered_per_paper_table",
+    "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
+  },
+  "ablation_code_candidates": [],
+  "selected_variant_code_locators": [],
+  "ablation_coverage_status": "not_fully_verified",
+  "all_paper_ablations_ready": false,
+  "paper_score_reproduction_status": "not_inferred_from_code_presence",
+  "preserved_patches": null,
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+}

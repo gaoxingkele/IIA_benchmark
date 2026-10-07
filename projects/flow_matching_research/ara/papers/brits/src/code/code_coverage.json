@@ -1,0 +1,56 @@
+{
+  "paper_id": "brits",
+  "title": "BRITS: Bidirectional Recurrent Imputation for Time Series",
+  "task": "imputation",
+  "ara_artifact": "papers/brits/PAPER.md",
+  "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+  "main_implementation": {
+    "status": "source_present_not_end_to_end_verified",
+    "note": "固定作者源码在场；完整环境、原实验配置及全部消融仍须验证。"
+  },
+  "source_resources": [
+    {
+      "id": "brits",
+      "path": "experiments/runs/flow_matching_campaign/sources/brits/original",
+      "repository": "caow13/BRITS",
+      "commit": "fc0a3a472a6d99a6934e471d40c25ed0b029b501",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "96e7a4417c45ec85a0f3e2f897352772d6fca536371d6f7526bd17a7ddf58661"
+    },
+    {
+      "id": "saits",
+      "path": "experiments/runs/flow_matching_campaign/sources/saits/original",
+      "repository": "WenjieDu/SAITS",
+      "commit": "660b87f19c1277065f314f24134f646229e89ca9",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "15ab05363438d5b71a9d9c7c5007a02f36b548ab50d16ba1c6d1a710add7cdbc"
+    }
+  ],
+  "local_entrypoints": [
+    {
+      "entrypoint": "scripts.flow_matching.run_saits:run",
+      "path": "scripts/flow_matching/run_saits.py",
+      "sha256": "efc0ed219c4d9455ee80e98d9b41ea7954aa83c5b639fa03a3e736692e987b33",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_brits.json"
+  ],
+  "paper_ablations": {
+    "source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+    "ablation_page_candidates": [],
+    "reviewed_axes": [],
+    "mentioned_registered_references": [],
+    "baseline_inventory_status": "not_exhaustively_registered_per_paper_table",
+    "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
+  },
+  "ablation_code_candidates": [],
+  "selected_variant_code_locators": [],
+  "ablation_coverage_status": "not_fully_verified",
+  "all_paper_ablations_ready": false,
+  "paper_score_reproduction_status": "not_inferred_from_code_presence",
+  "preserved_patches": null,
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+}

@@ -85,3 +85,21 @@ ARA 参考文献工程
 
 配置真源为 ``configs/reproducibility/flow_matching_ara.v1.json``。
 大文件全文和完整提取文本仅保留本地；工程摘要与追溯记录进入 Git。
+
+代码及消融覆盖审计
+------------------
+
+`ara/code_coverage.md <ara/code_coverage.md>`_ 汇总45篇参考的主方法与已审读消融，
+`ara/code_coverage.json <ara/code_coverage.json>`_ 保存来源提交、代码树哈希、静态入口、
+消融原文页码、既有修复补丁及运行记录。26个源码资源目录关联29篇参考，10篇有静态定位的
+本地模型/运行入口；13篇未定位到已登记的主方法实现。共享库、教程、镜像及部分发布不代表
+完整方法。全部消融与全部比较基线尚未逐项验收；全文齐全不能替代代码与复现齐全。
+
+配置真源为 ``configs/reproducibility/fm_code_coverage.v1.json``。从benchmark根更新：
+
+.. code-block:: powershell
+
+   python -m scripts.flow_matching.audit_code_coverage
+
+当前CPU合成输入接口测试通过，仅验证接口。审计不启动训练、不修改现有队列；
+缺失实现与未覆盖消融继续纳入FM-001、FM-003、FM-004和FM-008，数值复现由FM-006验收。

@@ -1,0 +1,154 @@
+{
+  "paper_id": "giflow",
+  "title": "Spatiotemporal Imputation with Graph-Informed Flow Matching",
+  "task": "imputation",
+  "ara_artifact": "papers/giflow/PAPER.md",
+  "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+  "main_implementation": {
+    "status": "source_present_not_end_to_end_verified",
+    "note": "固定作者源码在场；完整环境、原实验配置及全部消融仍须验证。"
+  },
+  "source_resources": [
+    {
+      "id": "giflow",
+      "path": "experiments/runs/flow_matching_campaign/sources/giflow/original",
+      "repository": "zepengzhang/GiFlow",
+      "commit": "4e7d0375155750f6c3d9387ad68e7c78d99dd0ac",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "686a794567f894a80abe7eb231dcebd65c29407134155e6a7567e85aa633332c"
+    }
+  ],
+  "local_entrypoints": [],
+  "model_configs": [
+    "configs/models/fm_giflow.json"
+  ],
+  "paper_ablations": {
+    "source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+    "ablation_page_candidates": [
+      {
+        "pdf_page": 8,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 9,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      }
+    ],
+    "reviewed_axes": [
+      {
+        "pdf_page": 8,
+        "marker": "FM-Gauss",
+        "axes": [
+          "高斯先验FM-Gauss",
+          "仅空间先验GFM",
+          "仅时间先验TFM"
+        ],
+        "scope": "selected passage; not exhaustive appendix enumeration"
+      }
+    ],
+    "mentioned_registered_references": [
+      {
+        "paper_id": "csdi",
+        "pdf_pages": [
+          12,
+          13
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "brits",
+        "pdf_pages": [
+          6,
+          7,
+          10,
+          13,
+          16,
+          17
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "saits",
+        "pdf_pages": [
+          6,
+          7,
+          10,
+          13,
+          16,
+          17
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "grin",
+        "pdf_pages": [
+          6,
+          7,
+          13,
+          16,
+          17
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "flow_matching",
+        "pdf_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "rectified_flow",
+        "pdf_pages": [
+          11
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      }
+    ],
+    "baseline_inventory_status": "not_exhaustively_registered_per_paper_table",
+    "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
+  },
+  "ablation_code_candidates": [],
+  "selected_variant_code_locators": [],
+  "ablation_coverage_status": "not_fully_verified",
+  "all_paper_ablations_ready": false,
+  "paper_score_reproduction_status": "not_inferred_from_code_presence",
+  "preserved_patches": {
+    "manifest": "experiments/runs/flow_matching_campaign/sources/giflow/patch_manifest.json",
+    "status": "reviewed_fixes_applied_not_score_verified",
+    "patches": [
+      {
+        "file": "data.py",
+        "reason": "Allow explicitly configured data root; original default preserved.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\giflow\\data.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      },
+      {
+        "file": "main.py",
+        "reason": "Retain reviewed test isolation/EMA/checkpoint fixes; honor configured data root/device and propagate CPU fallback to model-created tensors. Default GPU behavior preserved.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\giflow\\main.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      }
+    ],
+    "boundary": "Preserved source and patch hashes checked; a fix is not a proof of paper-score reproduction."
+  },
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+}

@@ -6,7 +6,7 @@
 
 本轮只做素材核验和工程建档。原作者结果与本地实验结果分开；当前完整复现与统一异常检测对比仍需实际运行证据。未逐项转录的表格有明确状态，不填造数字。
 
-[补件核对](archive_reconciliation.md) · [方法族映射](method_families.md) · [比较与失配分析](comparison_plan.md) · [结构化索引](index.json)
+[补件核对](archive_reconciliation.md) · [方法族映射](method_families.md) · [比较与失配分析](comparison_plan.md) · [全部方法/消融代码审计](code_coverage.md) · [结构化索引](index.json)
 
 | 参考 | 原任务 | 方法族 | ARA入口 |
 |---|---|---|---|
@@ -61,5 +61,6 @@
 ```powershell
 python -m scripts.literature.import_flow_matching_archives
 python -m scripts.literature.build_flow_matching_ara
+python -m scripts.flow_matching.audit_code_coverage
 python -m scripts.literature.verify_flow_matching_ara
 ```

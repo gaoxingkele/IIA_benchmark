@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-07T15:31:23.380285+00:00",
+  "status": "local_code_resource_audit_passed_with_explicit_implementation_gaps",
+  "summary": {
+    "paper_count": 45,
+    "unique_code_resources": 26,
+    "present_code_resources": 26,
+    "papers_bound_to_source_resources": 29,
+    "papers_with_local_entrypoint_symbols": 10,
+    "main_status_counts": {
+      "no_registered_main_implementation_located": 13,
+      "source_present_not_end_to_end_verified": 21,
+      "related_components_only": 2,
+      "publisher_supplement_present_unverified": 1,
+      "components_and_tutorial_present": 1,
+      "related_author_libraries_present": 2,
+      "third_party_mirror_present": 1,
+      "partial_paper_method_release": 1,
+      "local_reconstruction_with_deviation": 1,
+      "dataset_reference_not_detector": 1,
+      "local_transcription_present": 1
+    },
+    "missing_registered_main_implementations": [
+      "grasp",
+      "dfm",
+      "prismflow",
+      "jfi",
+      "cfm_ts",
+      "flow_mismatching",
+      "maelnet",
+      "dt_la",
+      "kgl",
+      "moment_long_context",
+      "psm",
+      "omnianomaly",
+      "sensitivehue"
+    ],
+    "papers_with_fully_verified_all_ablation_coverage": 0,
+    "all_methods_complete": false,
+    "all_ablations_complete": false,
+    "boundary": "Zero certified-complete ablation sets does not mean zero ablation code. Shared code directories and components do not count as independent complete detectors."
+  },
+  "checks": [
+    {
+      "command": "python -m pytest tests/test_fm_code_coverage.py tests/test_flow_matching_ara.py tests/test_flow_matching_project.py -q",
+      "passed": 25
+    },
+    {
+      "command": "python -m pytest tests/test_mtsad_detectors.py -q",
+      "passed": 10,
+      "boundary": "CPU synthetic interface validation only"
+    },
+    {
+      "command": "python -m scripts.literature.verify_flow_matching_ara",
+      "passed_papers": 45,
+      "source_checks": true
+    },
+    {
+      "name": "selected variant source markers",
+      "passed": 13
+    },
+    {
+      "name": "preserved original and corrected patch hashes",
+      "passed": 12
+    },
+    {
+      "name": "static local entrypoint symbols",
+      "passed": 10
+    }
+  ],
+  "code_audit_sha256": "fba8da07de24e2adce737c1b2a9a756fd5cd5f83fa9f6c721f930a3900f5611c",
+  "known_legacy_syntax_issues": [
+    {
+      "resource": "brits",
+      "issues": [
+        {
+          "path": "main.py",
+          "error": "Missing parentheses in call to 'print'. Did you mean print(...)? (main.py, line 48)"
+        }
+      ]
+    }
+  ],
+  "boundary": "This validates the audit and source identity, not complete implementations, dependencies, every ablation/baseline or paper performance. Existing training queues were not changed."
+}

@@ -1,0 +1,77 @@
+{
+  "paper_id": "csdi",
+  "title": "CSDI: Conditional Score-based Diffusion Models for Probabilistic Time Series Imputation",
+  "task": "imputation",
+  "ara_artifact": "papers/csdi/PAPER.md",
+  "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+  "main_implementation": {
+    "status": "source_present_not_end_to_end_verified",
+    "note": "固定作者源码在场；完整环境、原实验配置及全部消融仍须验证。"
+  },
+  "source_resources": [
+    {
+      "id": "csdi",
+      "path": "experiments/runs/flow_matching_campaign/sources/csdi/original",
+      "repository": "ermongroup/CSDI",
+      "commit": "7f24a436f08d98853a6b43d4f7f04e5a65ecdf27",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "6502142a7d7520aaf4d00d94c3de0110fda2afb3fdafbf0c9c5e17868d6268d0"
+    }
+  ],
+  "local_entrypoints": [
+    {
+      "entrypoint": "scripts.flow_matching.run_csdi:run",
+      "path": "scripts/flow_matching/run_csdi.py",
+      "sha256": "c66b7a785c58b1d045c6d952efc1d2ceba13f8425878279d93e6af7e695d461b",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_csdi.json"
+  ],
+  "paper_ablations": {
+    "source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+    "ablation_page_candidates": [
+      {
+        "pdf_page": 19,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      }
+    ],
+    "reviewed_axes": [],
+    "mentioned_registered_references": [
+      {
+        "paper_id": "brits",
+        "pdf_pages": [
+          8,
+          10,
+          17,
+          21
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      }
+    ],
+    "baseline_inventory_status": "not_exhaustively_registered_per_paper_table",
+    "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
+  },
+  "ablation_code_candidates": [],
+  "selected_variant_code_locators": [],
+  "ablation_coverage_status": "not_fully_verified",
+  "all_paper_ablations_ready": false,
+  "paper_score_reproduction_status": "not_inferred_from_code_presence",
+  "preserved_patches": {
+    "manifest": "experiments/runs/flow_matching_campaign/sources/csdi/patch_manifest.json",
+    "status": "reviewed_fixes_applied_not_score_verified",
+    "patches": [
+      {
+        "file": "diff_models.py",
+        "reason": "Lazy-load optional linear attention; the paper's is_linear=False Transformer and state dict remain unchanged.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\csdi\\diff_models.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      }
+    ],
+    "boundary": "Preserved source and patch hashes checked; a fix is not a proof of paper-score reproduction."
+  },
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+}

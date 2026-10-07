@@ -1,0 +1,99 @@
+{
+  "paper_id": "timesnet",
+  "title": "TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis",
+  "task": "general_time_series",
+  "ara_artifact": "papers/timesnet/PAPER.md",
+  "primary_source_sha256": "12da8da7bf1b3db1bdbd55ef0358967c6b49d84f6183f7da7176c57cecd4d513",
+  "main_implementation": {
+    "status": "source_present_not_end_to_end_verified",
+    "note": "固定作者源码在场；完整环境、原实验配置及全部消融仍须验证。"
+  },
+  "source_resources": [
+    {
+      "id": "timesnet_tslib",
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original",
+      "repository": "thuml/Time-Series-Library",
+      "commit": "4e938a1767106324dd753b2a44832bf870a0252e",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "381fdf80da8298f236cad6b859106b0fd701cc3ba2e80c54e8192e702693cfa1"
+    }
+  ],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.mtsad_detectors:TimesNetDetector",
+      "path": "src/iia_benchmark/models/mtsad_detectors.py",
+      "sha256": "5ee2fea31587eb31bba91f1d2aa9f2a01a9ad66820651e93d9397cde7e4fa085",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/mtsad_timesnet.json"
+  ],
+  "paper_ablations": {
+    "source_sha256": "12da8da7bf1b3db1bdbd55ef0358967c6b49d84f6183f7da7176c57cecd4d513",
+    "ablation_page_candidates": [
+      {
+        "pdf_page": 13,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 15,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 16,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      }
+    ],
+    "reviewed_axes": [
+      {
+        "pdf_page": 15,
+        "marker": "adaptive aggregation",
+        "axes": [
+          "二维表示",
+          "Inception替换其他块",
+          "独立/共享参数",
+          "自适应聚合"
+        ],
+        "scope": "selected passage; not exhaustive appendix enumeration"
+      }
+    ],
+    "mentioned_registered_references": [
+      {
+        "paper_id": "grasp",
+        "pdf_pages": [
+          10
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "tsflow",
+        "pdf_pages": [
+          23
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "anomaly_transformer",
+        "pdf_pages": [
+          6,
+          8,
+          9,
+          12,
+          22
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      }
+    ],
+    "baseline_inventory_status": "not_exhaustively_registered_per_paper_table",
+    "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
+  },
+  "ablation_code_candidates": [],
+  "selected_variant_code_locators": [],
+  "ablation_coverage_status": "not_fully_verified",
+  "all_paper_ablations_ready": false,
+  "paper_score_reproduction_status": "not_inferred_from_code_presence",
+  "preserved_patches": null,
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+}

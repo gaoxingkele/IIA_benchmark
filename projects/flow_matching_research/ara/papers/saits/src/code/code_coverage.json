@@ -1,0 +1,150 @@
+{
+  "paper_id": "saits",
+  "title": "SAITS: Self-Attention-based Imputation for Time Series",
+  "task": "imputation",
+  "ara_artifact": "papers/saits/PAPER.md",
+  "primary_source_sha256": "234ee64b75f730a663827d116df783c11780968d4be61ad5d6b51bc7e0d0956b",
+  "main_implementation": {
+    "status": "source_present_not_end_to_end_verified",
+    "note": "固定作者源码在场；完整环境、原实验配置及全部消融仍须验证。"
+  },
+  "source_resources": [
+    {
+      "id": "saits",
+      "path": "experiments/runs/flow_matching_campaign/sources/saits/original",
+      "repository": "WenjieDu/SAITS",
+      "commit": "660b87f19c1277065f314f24134f646229e89ca9",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "15ab05363438d5b71a9d9c7c5007a02f36b548ab50d16ba1c6d1a710add7cdbc"
+    }
+  ],
+  "local_entrypoints": [
+    {
+      "entrypoint": "scripts.flow_matching.run_saits:run",
+      "path": "scripts/flow_matching/run_saits.py",
+      "sha256": "efc0ed219c4d9455ee80e98d9b41ea7954aa83c5b639fa03a3e736692e987b33",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_saits.json"
+  ],
+  "paper_ablations": {
+    "source_sha256": "234ee64b75f730a663827d116df783c11780968d4be61ad5d6b51bc7e0d0956b",
+    "ablation_page_candidates": [
+      {
+        "pdf_page": 2,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 7,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 9,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 11,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 15,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 16,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      },
+      {
+        "pdf_page": 18,
+        "discovery": "automatic keyword navigation; may include abstracts, references or table-of-contents entries"
+      }
+    ],
+    "reviewed_axes": [],
+    "mentioned_registered_references": [
+      {
+        "paper_id": "brits",
+        "pdf_pages": [
+          2,
+          4,
+          5,
+          6,
+          11,
+          12,
+          13,
+          14,
+          18,
+          19,
+          22
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "ganf",
+        "pdf_pages": [
+          19
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "usad",
+        "pdf_pages": [
+          18
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      }
+    ],
+    "baseline_inventory_status": "not_exhaustively_registered_per_paper_table",
+    "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
+  },
+  "ablation_code_candidates": [],
+  "selected_variant_code_locators": [],
+  "ablation_coverage_status": "not_fully_verified",
+  "all_paper_ablations_ready": false,
+  "paper_score_reproduction_status": "not_inferred_from_code_presence",
+  "preserved_patches": {
+    "manifest": "experiments/runs/flow_matching_campaign/sources/saits/patch_manifest.json",
+    "status": "reviewed_fixes_applied_not_score_verified",
+    "patches": [
+      {
+        "file": "dataset_generating_scripts/gene_PhysioNet2012_dataset.py",
+        "reason": "Replace unused TSDB dependency with metadata-only stdlib pickle export; freeze previously unspecified patient directory ordering lexically; export H5 row IDs/features/scaler for audit. Historical author file ordering is unavailable, so exact split alignment remains unverified. Hourly mean, 37 features, seed 26, train-only scaling and legacy replacement masks are unchanged.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\dataset_generating_scripts_gene_PhysioNet2012_dataset.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      },
+      {
+        "file": "run_models.py",
+        "reason": "Use Windows-valid timestamp directory names; no training or selection change.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\run_models.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      },
+      {
+        "file": "dataset_generating_scripts/gene_UCI_BeijingAirQuality_dataset.py",
+        "reason": "Metadata-only stdlib pickle compatibility, deterministic seed 26 (upstream seed unspecified), lexical station ordering for Air Quality and timestamp/month-group audit export. Preserve original calendar splits, scaling, windowing and replacement masks.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\dataset_generating_scripts_gene_UCI_BeijingAirQuality_dataset.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      },
+      {
+        "file": "dataset_generating_scripts/gene_UCI_electricity_dataset.py",
+        "reason": "Metadata-only stdlib pickle compatibility, deterministic seed 26 (upstream seed unspecified), lexical station ordering for Air Quality and timestamp/month-group audit export. Preserve original calendar splits, scaling, windowing and replacement masks.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\dataset_generating_scripts_gene_UCI_electricity_dataset.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      },
+      {
+        "file": "dataset_generating_scripts/gene_ETTm1_dataset.py",
+        "reason": "Metadata-only stdlib pickle compatibility, deterministic seed 26 (upstream seed unspecified), lexical station ordering for Air Quality and timestamp/month-group audit export. Preserve original calendar splits, scaling, windowing and replacement masks.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\dataset_generating_scripts_gene_ETTm1_dataset.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      }
+    ],
+    "boundary": "Preserved source and patch hashes checked; a fix is not a proof of paper-score reproduction."
+  },
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+}

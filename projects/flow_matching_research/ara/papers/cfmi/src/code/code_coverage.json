@@ -1,0 +1,200 @@
+{
+  "paper_id": "cfmi",
+  "title": "CFMI: Flow Matching for Missing Data Imputation",
+  "task": "imputation",
+  "ara_artifact": "papers/cfmi/PAPER.md",
+  "primary_source_sha256": "fab4275121ac7dbfd793e8d7ccbf92677e0eb5d350e32544ff114f4b0f05a993",
+  "main_implementation": {
+    "status": "source_present_not_end_to_end_verified",
+    "note": "固定作者源码在场；完整环境、原实验配置及全部消融仍须验证。"
+  },
+  "source_resources": [
+    {
+      "id": "cfmi",
+      "path": "experiments/runs/flow_matching_campaign/sources/cfmi/original",
+      "repository": "vsimkus/cfmi",
+      "commit": "e743f4e21c33dde9581421f08b42fa70b7df7449",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "c702840e1ab4d2e4e3ce4223fbea4a51e55b9e6562118b9792157fb573235c0d"
+    }
+  ],
+  "local_entrypoints": [
+    {
+      "entrypoint": "scripts.flow_matching.run_cfmi:run",
+      "path": "scripts/flow_matching/run_cfmi.py",
+      "sha256": "c294d8d942c81fc6032ec8cac8a34ef2b60fddec61781ae84d0b00c58d02aa77",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_cfmi.json"
+  ],
+  "paper_ablations": {
+    "source_sha256": "fab4275121ac7dbfd793e8d7ccbf92677e0eb5d350e32544ff114f4b0f05a993",
+    "ablation_page_candidates": [],
+    "reviewed_axes": [],
+    "mentioned_registered_references": [
+      {
+        "paper_id": "csdi",
+        "pdf_pages": [
+          7,
+          8,
+          9,
+          10,
+          14,
+          15,
+          17,
+          18,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "brits",
+        "pdf_pages": [
+          10,
+          92,
+          93
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      },
+      {
+        "paper_id": "flow_matching",
+        "pdf_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9,
+          10,
+          11,
+          12,
+          15,
+          17,
+          18
+        ],
+        "relation": "name mentioned; NOT automatically a compared baseline or a reproduced implementation"
+      }
+    ],
+    "baseline_inventory_status": "not_exhaustively_registered_per_paper_table",
+    "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
+  },
+  "ablation_code_candidates": [],
+  "selected_variant_code_locators": [],
+  "ablation_coverage_status": "not_fully_verified",
+  "all_paper_ablations_ready": false,
+  "paper_score_reproduction_status": "not_inferred_from_code_presence",
+  "preserved_patches": {
+    "manifest": "experiments/runs/flow_matching_campaign/sources/cfmi/patch_manifest.json",
+    "status": "reviewed_fixes_applied_not_score_verified",
+    "patches": [
+      {
+        "file": "imp_cfm/models/cfm.py",
+        "reason": "Fix invalid pl.Any runtime annotations to imported typing.Any; no numerical algorithm change. Confirmed import error under author-declared Lightning 2.2.0.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\cfmi\\imp_cfm_models_cfm.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      },
+      {
+        "file": "imp_cfm/models/csdi.py",
+        "reason": "Fix invalid pl.Any runtime annotations to imported typing.Any; no numerical algorithm change. Confirmed import error under author-declared Lightning 2.2.0.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\cfmi\\imp_cfm_models_csdi.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      },
+      {
+        "file": "train_argparser.py",
+        "reason": "Add optional Lightning checkpoint restart argument; defaults to the original behavior.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\cfmi\\train_argparser.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      },
+      {
+        "file": "train.py",
+        "reason": "Forward optional checkpoint to Trainer.fit to resume optimizer/scheduler/RNG state after interruption.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\cfmi\\train.py.patch",
+        "original_hash_matches": true,
+        "corrected_hash_matches": true
+      }
+    ],
+    "boundary": "Preserved source and patch hashes checked; a fix is not a proof of paper-score reproduction."
+  },
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+}
