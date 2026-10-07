@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "project": "flow_matching_research",
+  "tasks": [
+    {
+      "id": "FM-001",
+      "title": "补齐论文、直接后续版本、作者代码、权重和实验数据",
+      "status": "in_progress",
+      "depends_on": [],
+      "acceptance": "所有已定义资产有可验证本地文件或具体的外部获取阻碍；未获得资产保留未完成状态",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/1"
+    },
+    {
+      "id": "FM-002",
+      "title": "恢复实体边界并冻结异常检测数据划分和预处理",
+      "status": "planned",
+      "depends_on": [
+        "FM-001"
+      ],
+      "acceptance": "训练/验证/测试按实体、运行批次和时间隔离，标签、缺失值、通道、完整覆盖与哈希可追溯",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/2"
+    },
+    {
+      "id": "FM-003",
+      "title": "建立作者环境、执行作者代码并记录修复补丁",
+      "status": "planned",
+      "depends_on": [
+        "FM-001"
+      ],
+      "acceptance": "环境锁与作者版本固定，运行修复和协议修正分开，保留原始代码",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/3"
+    },
+    {
+      "id": "FM-004",
+      "title": "实现和验证 FM 异常检测评分及目标函数变种",
+      "status": "planned",
+      "depends_on": [
+        "FM-002",
+        "FM-003"
+      ],
+      "acceptance": "模型配置、可调用实现、引用和有意义的验证齐备；类定义或烟测不算正式结果",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/4"
+    },
+    {
+      "id": "FM-005",
+      "title": "统一论文、TAB 和部署三种评估协议",
+      "status": "protocol_drafted",
+      "depends_on": [
+        "FM-002"
+      ],
+      "acceptance": "固定同一原始分数重算，明确 PA、阈值、VUS、Affiliation 与测试集依赖",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/5"
+    },
+    {
+      "id": "FM-006",
+      "title": "完成原论文实验数据上的多种子复现和指标核对",
+      "status": "planned",
+      "depends_on": [
+        "FM-003",
+        "FM-004",
+        "FM-005"
+      ],
+      "acceptance": "匹配论文实验行，报告原始指标、均值、置信区间、计算量和复现偏差",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/6"
+    },
+    {
+      "id": "FM-007",
+      "title": "完成 TEP、SKAB、PRONTO 等新数据迁移实验",
+      "status": "planned",
+      "depends_on": [
+        "FM-006"
+      ],
+      "acceptance": "冻结工业故障划分与预处理，使用验证集选择，报告跨工况和故障迁移",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/7"
+    },
+    {
+      "id": "FM-008",
+      "title": "分析低性能、复现不匹配和竞争方法优势",
+      "status": "planned",
+      "depends_on": [
+        "FM-006"
+      ],
+      "acceptance": "区分评价口径、校准、排序能力、评分函数、容量、训练预算与分布偏移，执行预登记消融",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/8"
+    },
+    {
+      "id": "FM-009",
+      "title": "整理可复查研究结果、资源清单和最终报告",
+      "status": "in_progress",
+      "depends_on": [
+        "FM-001",
+        "FM-006",
+        "FM-007",
+        "FM-008"
+      ],
+      "acceptance": "源码、配置、哈希、补丁、数据出处、失败与成功结果均可追溯，不夸大完成度",
+      "github_issue": "https://github.com/gaoxingkele/flow-matching-research/issues/9"
+    }
+  ]
+}

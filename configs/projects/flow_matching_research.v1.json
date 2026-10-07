@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "flow_matching_research",
+  "title": "流匹配算法研究",
+  "github_repository": "https://github.com/gaoxingkele/flow-matching-research",
+  "repository_visibility": "private",
+  "project_template": "projects/flow_matching_research",
+  "canonical_benchmark": "https://github.com/gaoxingkele/IIA_benchmark.git",
+  "asset_root_environment": "IIA_BENCHMARK_ROOT",
+  "primary_task": "time_series_anomaly_detection",
+  "supporting_tasks": [
+    "original_paper_reproduction",
+    "time_series_imputation",
+    "industrial_transfer",
+    "FM_objective_and_scoring_ablations"
+  ],
+  "campaign_config": "configs/reproducibility/flow_matching_campaign.v1.json",
+  "comparison_config": "configs/experiments/fm_mtsad_comparison.v1.json",
+  "audit_report": "docs/reports/mtsad_flow_matching_audit_2026-10-07.json",
+  "catalog": "projects/flow_matching_research/materials/catalog.json",
+  "material_aliases": "configs/projects/flow_matching_material_aliases.v1.json",
+  "acquisition_report": "docs/reports/flow_matching_project_acquisition_2026-10-07.json",
+  "tasks": "projects/flow_matching_research/tasks.json",
+  "acquisition_registries": [
+    "configs/acquisition/flow_matching_fm_data_sources.json",
+    "configs/acquisition/flow_matching_comparison_data_sources.json",
+    "configs/acquisition/flow_matching_foundation_data_sources.json",
+    "configs/acquisition/fm_project_missing_papers.v1.json",
+    "configs/acquisition/fm_project_fm_supplements.v1.json",
+    "configs/acquisition/fm_project_missing_datasets.v1.json",
+    "configs/acquisition/fm_project_checkpoints_and_retries.v1.json",
+    "configs/acquisition/fm_project_moment_pile.v1.json",
+    "configs/acquisition/fm_project_remaining_public_data.v1.json"
+  ],
+  "evidence_reports": [
+    "docs/reports/fm_project_evidence/missing_papers.json",
+    "docs/reports/fm_project_evidence/fm_supplements.json",
+    "docs/reports/fm_project_evidence/dataset_assets.json",
+    "docs/reports/fm_project_evidence/remaining_public_data.json",
+    "docs/reports/fm_project_evidence/project_validation.json"
+  ],
+  "material_policy": {
+    "raw_location": "Existing registered paths under the canonical benchmark asset root",
+    "github_content": "Project tasks, pinned source dependency, acquisition registries, evidence and checksums",
+    "preserve_existing_data_and_queues": true,
+    "download_backend_preference": "aria2c",
+    "proxy": "http://127.0.0.1:17890",
+    "do_not_count": [
+      "Partial transfers",
+      "LFS pointers",
+      "HTML returned as data",
+      "Placeholder/manual marker paths",
+      "Library classes as completed anomaly detectors"
+    ]
+  },
+  "paper_task_corrections": [
+    {
+      "paper_id": "DFM",
+      "original_task": "unsupervised_time_series_anomaly_detection",
+      "original_dataset": "SMAP",
+      "evidence": "docs/reports/fm_project_evidence/fm_supplements.json",
+      "boundary": "Correction applies to this research project; active historical campaign configuration is preserved."
+    }
+  ]
+}
