@@ -4,15 +4,22 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import sys
 
 
 def inspect(root, artifact, verify_hash=False):
     relative = artifact.get("path")
     if not relative:
         return "no_local_path"
-    target = (root / relative).resolve()
-    if not target.is_relative_to(root.resolve()):
-        raise ValueError("Material path escapes asset root")
+    storage_source = root / 'src/iia_benchmark/config/storage.py'
+    if storage_source.is_file():
+        sys.path.insert(0, str(root / 'src'))
+        from iia_benchmark.config.storage import resolve_project_path
+        target = resolve_project_path(root, relative)
+    else:
+        target = (root / relative).resolve()
+        if not target.is_relative_to(root.resolve()):
+            raise ValueError("Material path escapes asset root")
     if not target.exists():
         return "missing"
     if target.is_dir():

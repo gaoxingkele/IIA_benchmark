@@ -181,7 +181,7 @@ def segmented(item, target, proxy):
 
 def acquire(item, proxy):
     record = dict(item)
-    target = resolved_path(ROOT / item["path"])
+    target = resolved_path(ROOT / item["path"], root=ROOT)
     if not target.is_relative_to(ROOT):
         return dict(record, status="failed", reason="outside workspace")
     try:

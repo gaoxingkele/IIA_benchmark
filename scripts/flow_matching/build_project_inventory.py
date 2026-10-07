@@ -10,8 +10,11 @@ from collections import Counter
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import sys
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'src'))
+from iia_benchmark.config.storage import project_relative_path
 SUCCESS = {"available", "downloaded", "verified", "verified_pdf", "open_pdf", "existing_verified"}
 
 
@@ -20,13 +23,7 @@ def read(path):
 
 
 def relative(value):
-    path = Path(value)
-    if path.is_absolute():
-        return path.resolve().relative_to(ROOT.resolve()).as_posix()
-    target = (ROOT / path).resolve()
-    if not target.is_relative_to(ROOT.resolve()):
-        raise ValueError("Registered asset escapes workspace")
-    return target.relative_to(ROOT.resolve()).as_posix()
+    return project_relative_path(ROOT, value)
 
 
 def nested_file_records(value):

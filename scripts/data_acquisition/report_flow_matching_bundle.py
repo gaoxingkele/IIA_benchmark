@@ -7,9 +7,12 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import re
+import sys
 
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'src'))
+from iia_benchmark.config.storage import resolve_project_path
 CONFIGS = [ROOT / "configs/acquisition" / f"flow_matching_{group}_data_sources.json"
            for group in ("fm", "comparison", "foundation")]
 BASE = ROOT / "papers/literature/flow_matching"
@@ -53,7 +56,10 @@ def live_available(record):
         return False, (record or {}).get("reason") or (record or {}).get("status", "无下载记录")
     if not record.get("path"):
         return False, "成功记录缺少本地路径"
-    path = (ROOT / record["path"]).resolve()
+    try:
+        path = resolve_project_path(ROOT, record["path"])
+    except ValueError as error:
+        return False, str(error)
     if not path.is_relative_to(ROOT) or not path.exists():
         return False, "manifest 标记成功，但本地路径不存在或越出仓库"
     if path.is_dir():
@@ -145,7 +151,7 @@ def generate(output: Path, data_manifest: Path, paper_manifest: Path, metadata: 
     unique_files = {}
     for sid in good:
         record = data_records[sid]
-        path = (ROOT / record["path"]).resolve()
+        path = resolve_project_path(ROOT, record["path"])
         if path.is_file():
             unique_files[str(path)] = path.stat().st_size
     pdf_good = sum(live_available(r)[0] for r in pdf_records.values())

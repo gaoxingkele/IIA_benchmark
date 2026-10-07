@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from iia_benchmark.adaptation import run_univariate_transfer  # noqa: E402
 from iia_benchmark.data import load_univariate_transfer_config  # noqa: E402
+from iia_benchmark.config.storage import project_relative_path
 
 
 def sha256_file(path: Path) -> str:
@@ -41,7 +42,7 @@ def main() -> int:
     result = run_univariate_transfer(bundle, config["adaptation"], seed=seed)
     result["input_files"] = [
         {
-            "path": Path(source["path"]).relative_to(ROOT).as_posix(),
+            "path": project_relative_path(ROOT, source["path"]),
             "bytes": Path(source["path"]).stat().st_size,
             "sha256": sha256_file(Path(source["path"])),
         }

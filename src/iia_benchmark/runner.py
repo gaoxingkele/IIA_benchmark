@@ -11,6 +11,7 @@ from typing import Any
 import numpy as np
 
 from iia_benchmark.config import load_experiment_config, load_json_reference
+from iia_benchmark.config.storage import project_relative_path
 from iia_benchmark.data import (
     build_fcc_alarm_split,
     build_npp_alarm_split,
@@ -97,7 +98,7 @@ def _sha256(path: Path) -> str:
 def _data_evidence(paths: list[Path], root: Path) -> dict[str, Any]:
     records = [
         {
-            "path": path.relative_to(root).as_posix(),
+            "path": project_relative_path(root, path),
             "bytes": path.stat().st_size,
             "sha256": _sha256(path),
         }

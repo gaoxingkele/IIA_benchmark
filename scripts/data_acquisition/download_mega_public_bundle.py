@@ -26,6 +26,9 @@ from Crypto.Cipher import AES
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src'))
+from iia_benchmark.config.storage import project_relative_path
+
 
 def decode64(text):
     return base64.urlsafe_b64decode(text + '=' * (-len(text) % 4))
@@ -136,7 +139,7 @@ class PublicMega:
         target.relative_to(base)
         result = dict(source_id=source['id'], source_url=source['url'],
                       evidence_url=source['evidence_url'], paper_ids=source['paper_ids'],
-                      path=str(target), relative_path=target.relative_to(Path.cwd()).as_posix(),
+                      path=str(target), relative_path=project_relative_path(Path.cwd(), target),
                       expected_bytes=item['size'], sha256=None, mega_mac_verified=False)
         if target.exists():
             try:

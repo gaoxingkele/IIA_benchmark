@@ -10,24 +10,20 @@ from collections import Counter
 from datetime import datetime, timezone
 import hashlib
 import json
-from pathlib import Path, PureWindowsPath
+from pathlib import Path
+import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'src'))
+from iia_benchmark.config.storage import resolve_project_path
 DEFAULT_REGISTRY = "configs/acquisition/fm_project_moment_pile.v1.json"
 DEFAULT_REPORT = "papers/literature/flow_matching/project_moment_pile_integrity.json"
 
 
 def contained_path(root: Path, value: str) -> Path:
-    """Reject absolute paths, traversal, and symlinks outside the workspace."""
-    relative = Path(value)
-    if relative.is_absolute() or PureWindowsPath(value).is_absolute():
-        raise ValueError("Registered paths must be relative to the workspace")
-    root = root.resolve()
-    target = (root / relative).resolve()
-    if not target.is_relative_to(root) or target == root:
-        raise ValueError("Registered path escapes the workspace")
-    return target
+    """Reject traversal and unauthorized links; allow configured data mounts."""
+    return resolve_project_path(root, value, relative_only=True)
 
 
 def source_signature(source: dict) -> str:

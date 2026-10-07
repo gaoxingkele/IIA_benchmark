@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 
 from iia_benchmark.data import load_fcc_alarm_runs, load_fcc_timeseries_runs
+from iia_benchmark.config.storage import project_relative_path
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -203,10 +204,10 @@ def build_profile(alarm_archive: Path, timeseries_archive: Path) -> dict:
         "schema_version": 1,
         "dataset_family": "fcc_alarm",
         "source": {
-            "alarm_archive": alarm_archive.relative_to(ROOT).as_posix(),
+            "alarm_archive": project_relative_path(ROOT, alarm_archive),
             "alarm_archive_bytes": alarm_archive.stat().st_size,
             "alarm_archive_sha256": sha256_file(alarm_archive),
-            "timeseries_archive": timeseries_archive.relative_to(ROOT).as_posix(),
+            "timeseries_archive": project_relative_path(ROOT, timeseries_archive),
             "timeseries_archive_bytes": timeseries_archive.stat().st_size,
             "timeseries_archive_sha256": sha256_file(timeseries_archive),
             "citation_doi": "10.60517/2v23vv393",

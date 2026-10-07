@@ -22,6 +22,7 @@ from iia_benchmark.data import (  # noqa: E402
     load_tep_five_class_alarm_runs,
 )
 from iia_benchmark.models import criterion_c_alarm_flood_detection  # noqa: E402
+from iia_benchmark.config.storage import project_relative_path
 
 
 def sha256_file(path: Path) -> str:
@@ -177,7 +178,7 @@ def profile(archive_path: Path, random_state: int) -> dict[str, object]:
         "dataset_family": "tep_alarm_dataport",
         "payload": "2nd_Alarm_Dataset_5Classes.zip",
         "source": {
-            "path": archive_path.relative_to(ROOT).as_posix(),
+            "path": project_relative_path(ROOT, archive_path),
             "bytes": archive_path.stat().st_size,
             "sha256": sha256_file(archive_path),
             "citation_doi": "10.21227/326k-qr90",

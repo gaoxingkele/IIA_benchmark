@@ -15,6 +15,8 @@ import uuid
 import gdown
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'src'))
+from iia_benchmark.config.storage import resolve_project_path, project_relative_path
 REGISTRY = ROOT / "configs/acquisition/flow_matching_drive_sources.json"
 MANIFEST = ROOT / "papers/literature/flow_matching/drive_download_manifest.json"
 
@@ -117,18 +119,18 @@ def main():
     for folder in folder_work:
         print("Enumerating", folder["id"], flush=True)
         try:
-            root = (ROOT / folder["path"]).resolve()
+            root = resolve_project_path(ROOT, folder["path"])
             if not root.is_relative_to(ROOT / "data/public_datasets/flow_matching"):
                 raise ValueError("folder target outside authorized data tree")
             entries = gdown.download_folder(url=folder["url"], output=str(root),
                 proxy=args.proxy, skip_download=True, quiet=True, use_cookies=False)
             for entry in entries:
-                target = Path(entry.local_path).resolve()
+                target = resolve_project_path(ROOT, entry.local_path)
                 if not target.is_relative_to(root):
                     raise ValueError("unsafe enumerated local path")
                 sources.append({"id": "drive_" + entry.id, "drive_file_id": entry.id,
                     "url": "https://drive.google.com/uc?export=download&id=" + entry.id,
-                    "path": target.relative_to(ROOT).as_posix(), "format": target.suffix.lstrip(".").lower(),
+                    "path": project_relative_path(ROOT, target), "format": target.suffix.lstrip(".").lower(),
                     "checksum": None, "evidence_url": folder["evidence_url"],
                     "paper_ids": folder["paper_ids"], "access": "public", "parent_source_id": folder["id"],
                     "reproduction_boundary": "Official author distribution; exact experiment subset and split agreement still require audit."})

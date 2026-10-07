@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from iia_benchmark.data import build_npp_alarm_split, load_npp_alarm_runs  # noqa: E402
 from iia_benchmark.models import criterion_c_alarm_flood_detection  # noqa: E402
+from iia_benchmark.config.storage import project_relative_path
 
 
 FAMILIES = (
@@ -210,7 +211,7 @@ def profile(extracted_root: Path, source_archive: Path, random_state: int) -> di
             "excluded_from_closed_set": ["MD", "Normal"],
         },
         "source": {
-            "archive_path": source_archive.relative_to(ROOT).as_posix(),
+            "archive_path": project_relative_path(ROOT, source_archive),
             "archive_bytes": source_archive.stat().st_size,
             "archive_sha256": sha256_file(source_archive),
             "extracted_slice_files": sum(item["runs"] for item in source_profiles.values()),

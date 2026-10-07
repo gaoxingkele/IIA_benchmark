@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 from iia_benchmark.data import extract_pronto_members
+from iia_benchmark.config.storage import project_relative_path
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -33,7 +34,7 @@ def main() -> int:
     )
     records = [
         {
-            "path": path.relative_to(ROOT).as_posix(),
+            "path": project_relative_path(ROOT, path),
             "bytes": path.stat().st_size,
         }
         for path in paths

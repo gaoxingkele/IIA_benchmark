@@ -21,6 +21,8 @@ from urllib3.util.retry import Retry
 from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'src'))
+from iia_benchmark.config.storage import resolve_project_path
 sys.path.insert(0, str(Path(__file__).parent))
 from download_public_datasets import find_aria2
 HTTP_STATE = threading.local()
@@ -36,16 +38,13 @@ def http_session():
     return HTTP_STATE.session
 
 
-def resolved_path(path):
-    resolved = path.resolve()
-    # Windows may return the extended-length spelling during concurrent mkdirs.
-    spelling = str(resolved)
-    if sys.platform == "win32" and spelling.startswith("\\\\?\\"):
-        spelling = spelling[4:]
-        if spelling.startswith("UNC\\"):
-            spelling = "\\\\" + spelling[4:]
-        resolved = Path(spelling)
-    return resolved
+def resolved_path(path, root=None):
+    # Keep registered relative paths stable while a configured junction routes
+    # the actual file access to external storage.
+    try:
+        return resolve_project_path(ROOT if root is None else root, path)
+    except ValueError as error:
+        raise ValueError(f'target outside repository or configured storage: {path}') from error
 
 
 def digest(path, algorithm="sha256"):

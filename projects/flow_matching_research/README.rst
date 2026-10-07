@@ -43,6 +43,10 @@ CER-E 需要研究申请，GANF 的原始 PMU 数据未公开，ImageNet 与 Kag
 ``gaoxingkele/IIA_benchmark`` 的固定版本。原始大数据保留在已登记的数据路径，
 该项目仓库保存出处、版本、校验值与缺口，不重复上传大数据。
 
+本机数据位置由 ``configs/storage/data_storage.v1.json`` 登记，实际目录为
+``F:/aicoding/IIA_Data/public_datasets``。旧的 ``data/public_datasets`` 路径通过
+Windows 目录映射访问新位置，已冻结配置及其哈希保持有效。
+
 克隆项目与检查素材：
 
 .. code-block:: powershell

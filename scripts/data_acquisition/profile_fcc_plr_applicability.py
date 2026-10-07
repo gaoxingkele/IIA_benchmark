@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
 from iia_benchmark.data import load_fcc_timeseries_runs  # noqa: E402
+from iia_benchmark.config.storage import project_relative_path
 
 
 def sha256_file(path: Path) -> str:
@@ -63,7 +64,7 @@ def main() -> int:
         "dataset_family": "fcc_alarm",
         "target_algorithm": "book_4_4_plr_rca",
         "source": {
-            "path": source.relative_to(ROOT).as_posix(),
+            "path": project_relative_path(ROOT, source),
             "bytes": source.stat().st_size,
             "sha256": sha256_file(source),
             "citation_doi": "10.60517/2v23vv393",
