@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "paper_id": "grasp",
+  "source_pdf": "papers/literature/flow_matching/pdfs/grasp.pdf",
+  "source_sha256": "1b9e48e68d57ca8466099d0515ac67b2c3309b75cf9445ac58f5fd6ec39583fd",
+  "preserved_ara_metadata": "projects/flow_matching_research/ara/papers/grasp/metadata.json",
+  "corrections": [
+    {"pages":[8,23],"topic":"graph_construction","verified_requirement":"Training node-feature pairwise distances, Gaussian weights exp(-(distance/std(distance_matrix))^2), binary threshold 0.5.","remaining_gap":"Distance function and node-feature normalization are not identified. Current abs-Pearson graph is a local choice, not the described Gaussian-distance construction."},
+    {"pages":[23],"topic":"validation","verified_requirement":"Chronological normal training split 80/20; maximum 1500 epochs, validation every 50 epochs.","remaining_gap":"These pages specify neither early-stopping patience nor checkpoint selection. Do not invent author early stopping or treat lack of an invented patience as a quoted paper requirement."},
+    {"pages":[24,25],"topic":"architecture_ablation","supersedes":"MLP/CNN velocity architecture comparison in the earlier ARA reproduction_gap","verified_requirement":"TSMixer versus a GNN with two residual GCN blocks and a channel-token Transformer with two encoder layers and four attention heads; hidden dimension 128.","remaining_gap":"GNN and Transformer reconstruction/validation and original experiments still need completion; projection/norm details remain unverified."},
+    {"pages":[8],"topic":"metrics","verified_requirement":"Entity macro PRC, ROC and test-label oracle point Best-F1, then mean/STD over ten seeds. Best-F1 is retrospective. No PA.","native_benchmark_definition":"The acquired mTSBench metric_PR uses average_precision_score; metric_PointF1 uses epsilon 0.00001. HBOS/COPOD native wrappers fit supplied test features; this is a separate transductive baseline replay, not strict training-only generalization."},
+    {"pages":[22],"topic":"data_identity","verified_requirement":"SMAP 51 series/26 variables; SMD 18/39; CICIDS six/73; SWAN one/39.","local_evidence":"Registered full entity counts match. Original benchmark exclusion of timestamp and is_anomaly gives respectively 25,38,72,38 actual features. Keep labels excluded; do not add a label column to match paper prose. Exact GRASP data-feature equivalence remains unverified."}
+  ],
+  "additional_unfinished_sweeps": {
+    "inference_flow_times":[1,2,5,10,20,50],
+    "inference_source_samples":[1,2,5,10,20],
+    "tau_retrained":[0,0.25,0.5,1,2,4,8],
+    "pages":[25,26,27,28],
+    "boundary":"All four datasets and ten seeds remain required. Native HBOS/COPOD replay does not complete GRASP main, ablation, attribution, sensitivity or timing experiments."
+  }
+}

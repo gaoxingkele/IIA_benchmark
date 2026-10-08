@@ -1,6 +1,6 @@
 # 未完成实验执行进度
 
-快照时间：2026-10-08T23:33:00.518702+00:00。目标仍为全部已知未完成实验；尚未完成。
+快照时间：2026-10-08T23:51:12.869722+00:00。目标仍为全部已知未完成实验；尚未完成。
 
 42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。
 另加入 175 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。
@@ -9,7 +9,7 @@
 另有工业异常检测任务 1400 项，状态 {'completed': 466, 'partial_or_failed': 84, 'pending': 850}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
 保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。
 关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。
-当前任务记录：{'completed': 931, 'partial_or_failed': 195, 'pending': 2234, 'running': 2}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
+当前任务记录：{'completed': 943, 'partial_or_failed': 195, 'pending': 2221, 'running': 3}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
 
 CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。
 
@@ -63,7 +63,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_sb_stable_v2 | msl | 5/5 | 0.076244 | 0.534781 | 0.113941 |
 | fm_objective_sf2m_stable_v2 | msl | 5/5 | 0.075694 | 0.533194 | 0.115100 |
 | fm_objective_sf2m_flow_only_stable_v2 | msl | 5/5 | 0.076244 | 0.534781 | 0.113941 |
-| fm_objective_sb_stable_v2 | smd | 2/5 | 0.404325 | 0.762213 | 0.329719 |
+| fm_objective_sb_stable_v2 | smd | 3/5 | 0.408924 | 0.762838 | 0.332417 |
 | fm_strict_timesnet__psm__registered | psm | 5/5 | 0.053941 | 0.598985 | 0.396761 |
 | fm_strict_anomaly_transformer__psm__registered | psm | 5/5 | 0.014575 | 0.513439 | 0.295091 |
 | fm_strict_dcdetector__psm__registered | psm | 5/5 | 0.017267 | 0.501093 | 0.278458 |
@@ -82,6 +82,8 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_dcdetector__msl__registered | msl | 5/5 | 0.018754 | 0.510673 | 0.108932 |
 | fm_strict_tranad__msl__registered | msl | 5/5 | 0.081264 | 0.564902 | 0.123400 |
 | fm_strict_usad__msl__registered | msl | 5/5 | 0.065173 | 0.588159 | 0.130747 |
+| fm_strict_usad__msl__signed_paper_loss | msl | 5/5 | 0.137823 | 0.600799 | 0.133992 |
+| fm_strict_itransformer__msl__registered | msl | 5/5 | 0.079931 | 0.579678 | 0.138575 |
 | fm_reflow_2stage | psm | 5/5 | 0.029949 | 0.725765 | 0.552078 |
 | fm_reflow_2stage | smap | 5/5 | 0.230333 | 0.547532 | 0.148794 |
 | fm_reflow_2stage | msl | 5/5 | 0.075546 | 0.539035 | 0.117010 |
@@ -124,6 +126,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_moment_pretrained_small__release512 | pronto_day4 | 1/1 | 0.003298 | 0.586470 | 0.473271 |
 | fm_moment_pretrained_small__TAB100 | psm | 1/1 | 0.051095 | 0.585120 | 0.383768 |
 | fm_moment_pretrained_small__TAB100 | smap | 1/1 | 0.047672 | 0.434559 | 0.111922 |
+| fm_moment_pretrained_small__TAB100 | msl | 1/1 | 0.077288 | 0.560163 | 0.135149 |
 | fm_objective_independent | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |
 | fm_objective_ot | tep_classic | 5/5 | 0.731832 | 0.890985 | 0.977679 |
 | fm_objective_rectified | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |

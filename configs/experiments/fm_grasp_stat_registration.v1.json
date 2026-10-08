@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "acquisition_config": "configs/acquisition/fm_grasp_mtsbench_source.v1.json",
+  "author_source": "experiments/runs/fm_grasp_paper_protocol_v1/sources/mtsbench/original",
+  "data_manifest": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+  "queue_output": "configs/experiments/fm_grasp_stat_queue.v1.json",
+  "state_root": "experiments/runs/fm_grasp_stat_native_v1",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/mtsbench_stat_native_v1",
+  "python": ".venv/mtsbench-stat-py312/Scripts/python.exe",
+  "environment_lock": "configs/reproducibility/mtsbench_stat_py312.lock.json",
+  "runtime_config": "configs/runtime/fm_light_controllers.v1.json",
+  "paper_pdf": "papers/literature/flow_matching/pdfs/grasp.pdf",
+  "seeds": [1103,1104,1105,1106,1107,1108,1109,1110,1111,1112],
+  "datasets": [
+    {"id":"swan","entities":1,"paper_variables":39},
+    {"id":"smd","entities":18,"paper_variables":39},
+    {"id":"smap","entities":51,"paper_variables":26},
+    {"id":"cicids","entities":6,"paper_variables":73}
+  ],
+  "algorithms": [
+    {"id":"HBOS","model_config":"configs/models/fm_grasp_mtsbench_hbos.json","parameters":{"slidingWindow":1,"n_bins":10,"tol":0.5,"n_jobs":1}},
+    {"id":"COPOD","model_config":"configs/models/fm_grasp_mtsbench_copod.json","parameters":{"n_jobs":1}}
+  ],
+  "settings": {"minimum_available_memory_bytes":12884901888,"minimum_commit_headroom_bytes":17179869184,"emergency_commit_headroom_bytes":8589934592,"cpu_threads":1},
+  "protocol":"native_transductive_test_feature_fit_oracle_f1",
+  "boundary":"Exact native statistical wrapper defaults, feature exclusion and metrics. Ten actual re-fits, deterministic algorithms; not ten independent stochastic training runs. Released source version and hardware differ from paper; no paper-equivalence certification. Raw train arrays are audited but not passed to these unsupervised native wrappers."
+}
