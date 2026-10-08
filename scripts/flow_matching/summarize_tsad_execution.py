@@ -104,8 +104,8 @@ def author_pipeline_snapshot(root, project):
                 return any(fragment in a for a in psutil.Process(pid).cmdline())
             except (psutil.NoSuchProcess, psutil.AccessDenied):
                 return False
-        worker_live = matches(state.get('pid'), 'run_maelnet_author_queue.py')
-        child_live = matches(state.get('active_pid'), 'run_anomaly.py')
+        worker_live = matches(state.get('pid'), queue.get('worker_script', 'run_maelnet_author_queue.py'))
+        child_live = matches(state.get('active_pid'), queue.get('child_script', 'run_anomaly.py'))
         jobs = []
         for job in queue['jobs']:
             output = root / job['output_directory']
@@ -248,7 +248,7 @@ def snapshot(root):
              '42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。',
              f"另加入 {report['strict_baseline_registered_jobs']} 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。",
              f"另加入 {report['iterative_reflow_and_epoch_control_jobs']} 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。",
-             '另有独立的MaelNet官方作者轨：150个配方—数据集—种子任务、600个训练/RL阶段。状态及原协议指标见execution_snapshot.json的author_pipeline_experiments，不计入严格无PA成绩。',
+             '独立作者/镜像完整流程：' + '；'.join(f"{a['name']} {a['registered_jobs']}个任务、{a['registered_stages']}个阶段，{a['counts']}" for a in report['author_pipeline_experiments']) + '。原协议单列，不计入严格无PA成绩。',
              f"另有工业异常检测任务 {report['industrial_registered_jobs']} 项，状态 {report['industrial_job_counts']}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。",
              '保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。',
              '关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。',

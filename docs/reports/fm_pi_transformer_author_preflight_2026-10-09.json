@@ -1,0 +1,64 @@
+{
+  "queue_sha256": "5be2d8327622ef4da74644cfe1e81ffb58160f30a75160bf4b583abccbd1eff0",
+  "records": [
+    {
+      "branch": "source_runtime",
+      "dataset": "PSM",
+      "batch_shape": [
+        256,
+        100,
+        25
+      ],
+      "configured_d_model": 512,
+      "configured_heads": 8,
+      "configured_layers": 2,
+      "actual_layers": 1,
+      "native_train_shape": [
+        132481,
+        25
+      ],
+      "native_test_shape": [
+        87841,
+        25
+      ],
+      "full_stride_one_training_windows": 132382,
+      "parameter_count": 1930289,
+      "loss1": -68.29523468017578,
+      "loss2": 77.32808685302734,
+      "torch_version": "2.13.0+cu126",
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "benchmark_performance": false
+    },
+    {
+      "branch": "causal_axis_repaired",
+      "dataset": "PSM",
+      "batch_shape": [
+        256,
+        100,
+        25
+      ],
+      "configured_d_model": 512,
+      "configured_heads": 8,
+      "configured_layers": 2,
+      "actual_layers": 1,
+      "native_train_shape": [
+        132481,
+        25
+      ],
+      "native_test_shape": [
+        87841,
+        25
+      ],
+      "full_stride_one_training_windows": 132382,
+      "parameter_count": 1930289,
+      "loss1": -64.89458465576172,
+      "loss2": 73.95471954345703,
+      "torch_version": "2.13.0+cu126",
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "benchmark_performance": false
+    }
+  ],
+  "native_data_and_full_capacity_backward_verified": true,
+  "benchmark_performance": false,
+  "boundary": "Pinned historical mirror reproduction and separately named causal/time-axis repair controls. Keep full source hyperparameters, stride-one training, source early stopping on test, source pooled train/test score calibration, original PA and original dropped inference tails. Neither branch proves journal equivalence or strict TAB generalization. Config axes on source_runtime are mirror sensitivity controls; e_layers produces e_layers-1 active layers. Temperature/stream grid is posthoc diagnostic, never select a strict leaderboard result using test labels."
+}

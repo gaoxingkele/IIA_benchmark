@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original",
+  "source_repository": "https://github.com/Arshadiqball/Pi-Transformer",
+  "source_commit": "2e9f3f2bf3cc84e46ee3c0f187eed716e9be1514",
+  "paper": "papers/literature/flow_matching/user_supplied/2026-10-07/pi_transformer/da5c00ebc02675c406ef5228f9a3b9b9e4ccc531c64bba5c97375d879dd7aa44.pdf",
+  "model_config": "configs/models/fm_comparator_pi_transformer.json",
+  "runtime_root": "experiments/runs/fm_pi_transformer_author_v1/runtime",
+  "output_root": "experiments/runs/fm_pi_transformer_author_v1",
+  "dfa_cache_root": "data/public_datasets/flow_matching/pi_author_dfa_cache_v1",
+  "queue_path": "configs/experiments/fm_pi_transformer_author_queue.v1.json",
+  "preflight_report": "docs/reports/fm_pi_transformer_author_preflight_2026-10-09.json",
+  "dataset_config_root": "configs/datasets",
+  "raw_root": "data/public_datasets/mtsad",
+  "python": ".venv/pi-transformer-author-py312/Scripts/python.exe",
+  "cpu_threads": 2,
+  "datasets": ["PSM", "SMAP", "MSL", "SMD", "SWaT"],
+  "seeds": [42, 1103, 1104, 1105, 1106, 1107],
+  "branches": ["source_runtime", "causal_axis_repaired"],
+  "training_axes": {
+    "model.e_layers": [2, 3, 4],
+    "model.d_model": [128, 256, 512, 1024],
+    "model.n_heads": [2, 4, 8, 16],
+    "data.batch_size": [64, 128, 256, 512],
+    "training.n_epochs": [3, 5, 10]
+  },
+  "multiplier_axes": {"training.k": [0.5, 2.0, 4.0], "model.lambda_smooth": [0.5, 2.0]},
+  "score_temperature_multipliers": [0.25, 0.5, 1.0, 2.0, 4.0],
+  "score_streams": ["energy", "mismatch", "fused"],
+  "remaining_journal_axes": ["No prior pathway", "Prior-only single head (not both pathways)", "Phase/fractal/Gaussian/Hurst/smoothness component removals", "Uniform/exponential/fixed-Gaussian replacements", "Journal positive-KL two-step updates, per-head phase projection, all-layer regularizers, exact prior stabilizer, reconstruction validation and stride-one inference"],
+  "boundary": "Pinned historical mirror reproduction and separately named causal/time-axis repair controls. Keep full source hyperparameters, stride-one training, source early stopping on test, source pooled train/test score calibration, original PA and original dropped inference tails. Neither branch proves journal equivalence or strict TAB generalization. Config axes on source_runtime are mirror sensitivity controls; e_layers produces e_layers-1 active layers. Temperature/stream grid is posthoc diagnostic, never select a strict leaderboard result using test labels."
+}

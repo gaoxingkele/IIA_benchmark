@@ -1,0 +1,26 @@
+{
+  "paper_path": "papers/literature/flow_matching/user_supplied/2026-10-07/pi_transformer/da5c00ebc02675c406ef5228f9a3b9b9e4ccc531c64bba5c97375d879dd7aa44.pdf",
+  "paper_sha256": "da5c00ebc02675c406ef5228f9a3b9b9e4ccc531c64bba5c97375d879dd7aa44",
+  "journal": "Applied Soft Computing 195 (2026) 115029",
+  "source_commit": "2e9f3f2bf3cc84e46ee3c0f187eed716e9be1514",
+  "source_provenance": "Historical third-party mirror with retained author-associated commits; current author repository has README/LICENSE only. Current-author endorsement of this mirror has not been established.",
+  "reviewed_pdf_pages": [5, 6, 12],
+  "visually_reviewed_rendered_pages": [6, 12],
+  "differences": [
+    {"item": "KL sign and optimizer updates", "page": 6, "journal": "Equations 2/3 both use positive symmetric KL. Algorithm 1 makes two separate optimizer updates and recomputes the forward pass.", "mirror": "Negative series KL and positive prior KL; two backwards on one forward, one Adam step.", "executed_control": "Both registered branches preserve mirror updates; journal-equivalent updates remain outstanding."},
+    {"item": "Causal support", "page": 6, "journal": "Series and prior share support j<=i.", "mirror": "masked_fill return discarded; prior unmasked.", "executed_control": "source_runtime preserves mirror; causal_axis_repaired assigns series mask and masks prior."},
+    {"item": "Phase time axis and head specificity", "page": 5, "journal": "Head-specific scalar phase projection.", "mirror": "Permute then reshape scrambles timestamp/head order; phase subsequently averages all projected channels.", "executed_control": "causal_axis_repaired fixes timestamp order; per-head journal projection remains outstanding."},
+    {"item": "Attention layer count", "page": 12, "journal": "Table 3 encoder layers 2/3/4.", "mirror": "Constructs e_layers-1 attention layers and convolution blocks.", "executed_control": "Both branches record actual layers and preserve source construction; declared-layer sweep is a mirror control."},
+    {"item": "Regularizers", "page": 6, "journal": "Tau first-difference smoothness across layers, Hurst distillation, additional prior-score stabilizer.", "mirror": "Only last layer Hurst/Beta/tau regularizers returned; exact equivalence of Beta-Hurst term and the described prior-score stabilizer is unestablished.", "executed_control": "Preserve source; exact journal all-layer regularizer remains outstanding."},
+    {"item": "Gradient clipping", "page": 6, "journal": "Apply gradient clipping.", "mirror": "clip_grad_norm_ before backward after zero_grad, so no current gradient is clipped.", "executed_control": "Preserve source in both branches; proper clipping is a remaining journal control."},
+    {"item": "Early stopping", "page": 6, "journal": "Validation reconstruction loss.", "mirror": "self.validation(self.test_loader) with two KL-adjusted losses.", "executed_control": "Marked test-used early stopping; never strict TAB result."},
+    {"item": "Inference and layer aggregation", "pages": [6, 12], "journal": "Stride-one windows; mismatch averaged across layers and heads.", "mirror": "Nonoverlapping thre_loader, drops N%window test tail, sums mismatch across layers.", "executed_control": "Save native/scored/dropped point counts and raw score streams; do not claim full-native strict inference."},
+    {"item": "Threshold and PA", "page": 12, "journal": "Reported protocol must be aligned before comparing high F1.", "mirror": "Pooled train and test scores set percentile threshold; labels used for PA, whose backward loop excludes index zero.", "executed_control": "Preserve and independently reproduce source threshold/PA; also save unadjusted metrics under that same transductive threshold."}
+  ],
+  "table3_full_F1_percent": {"MSL": 95.96, "PSM": 98.08, "SMAP": 97.02, "SMD": 91.23, "SWaT": 96.82},
+  "implemented_direct_training_axes": {"encoder_layers": [2, 3, 4], "model_width": [128, 256, 512, 1024], "heads": [2, 4, 8, 16], "batch_size": [64, 128, 256, 512], "epochs": [3, 5, 10], "k_multipliers": [0.5, 1, 2, 4], "smoothness_multipliers": [0.5, 1, 2]},
+  "posthoc_scoring_axes": {"temperature_multipliers": [0.25, 0.5, 1, 2, 4], "streams": ["energy", "mismatch", "fused"], "source_score_saved_separately": true, "strict_TAB_result": false},
+  "execution_note": "This queue calls mirror train/test APIs sequentially in a single seeded process. The published CLI starts train and test in separate processes and reseeds/reconstructs the model at test startup. A separate CLI RNG score control on the saved checkpoints remains to be executed; no retraining is required for that control. Torch no_grad wraps inference; source dropout is zero and source model.eval is retained.",
+  "remaining": ["Separate-CLI test RNG control on the completed checkpoints", "Journal-equivalent architecture and training", "All prior-pathway/component/replacement ablations in Table 3", "Prior-only single head, not both attentions changed to one head", "Strict held-out validation and complete stride-one inference", "All previously recorded 45-paper obligations remain in scope"],
+  "complete": false
+}
