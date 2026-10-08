@@ -150,7 +150,7 @@ def snapshot(root):
         process = None
         try:
             process = psutil.Process(state.get('pid', -1))
-            worker = 'run_industrial_tsad_queue.py' if lane.startswith('industrial_') else 'run_tsad_queue.py'
+            worker = queue.get('worker_script', 'run_industrial_tsad_queue.py' if lane.startswith('industrial_') else 'run_tsad_queue.py')
             if not any(worker in a for a in process.cmdline()):
                 process = None
         except (psutil.NoSuchProcess, psutil.AccessDenied):
@@ -178,9 +178,10 @@ def snapshot(root):
                 for metric, value in strict['micro'].items():
                     if value is not None:
                         aggregates[(job['model_config'], job['dataset'])][metric].append(value)
-    grouped = [{'model_config': model, 'dataset': dataset, 'required_seeds': len(settings['seeds']),
+    required = Counter((j['model_config'], j['dataset']) for j in jobs)
+    grouped = [{'model_config': model, 'dataset': dataset, 'required_seeds': required[(model, dataset)],
                 'metrics': {key: intervals(values) for key, values in metrics.items()},
-                'boundary': 'Seed t intervals describe initialization variability; not a paired cross-algorithm or entity sampling equivalence test.'}
+                'boundary': 'Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test.'}
                for (model, dataset), metrics in aggregates.items()]
     # Old flat-harness records are evidence; never silently adopted as new strict runs.
     history = []

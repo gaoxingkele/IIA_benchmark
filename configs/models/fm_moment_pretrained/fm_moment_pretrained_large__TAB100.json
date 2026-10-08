@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "fm_moment_pretrained_large__TAB100",
+  "task": "time_series_anomaly_detection",
+  "kind": "window",
+  "entrypoint": "iia_benchmark.models.fm_moment_pretrained:MomentPretrainedWindow",
+  "parameters": {
+    "source_root": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/pre_train/submodules/moment",
+    "checkpoint_directory": "data/public_datasets/flow_matching/project_additions/checkpoints/MOMENT-1-large",
+    "checkpoint_sha256": "a56928052ac6f5d09b97c3834bea6ce3aef9f02b513b5fac98954e7377801572",
+    "config_sha256": "b0111650e8718e31d7e89575666aa3e140747d35279ec1a7c9f6ed7616c29433",
+    "window": 100,
+    "batch_size": 1,
+    "epochs": 0,
+    "padding_policy": "TAB_always_extra_patch",
+    "seed": 42,
+    "device": "cpu"
+  },
+  "citation": "https://arxiv.org/abs/2402.03885",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+  "source_repository": "https://github.com/decisionintelligence/TAB",
+  "checkpoint_citation": "https://huggingface.co/AutonLab/MOMENT-1-large",
+  "reproduction_status": "actual_official_release_pretrained_zero_shot_not_historical_paper_checkpoint_equivalence",
+  "repeat_boundary": "Frozen pretrained zero-shot inference, dropout off and explicit all-observed reconstruction mask. One run per exact checkpoint/context/dataset; no pseudo-independent random-seed repetitions. Entity/time-block bootstrap intervals are retained.",
+  "boundary": "Actual current official release checkpoint zero-shot reconstruction, not random T5/ICM and not proof of original historical-paper weight equivalence. Full grouped native timestamp coverage, frozen context and validation-only primary threshold. Industrial preprocessing boundaries are retained, including PRONTO label-assisted normal selection. Original-paper fine-tuning, historical checkpoints and complete TAB harness remain separate unfinished obligations."
+}

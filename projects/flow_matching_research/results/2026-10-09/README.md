@@ -1,15 +1,15 @@
 # 未完成实验执行进度
 
-快照时间：2026-10-08T19:32:58.934789+00:00。目标仍为全部已知未完成实验；尚未完成。
+快照时间：2026-10-08T19:53:56.758832+00:00。目标仍为全部已知未完成实验；尚未完成。
 
 42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。
 另加入 175 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。
 另加入 140 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。
 独立作者/镜像完整流程：maelnet 150个任务、600个阶段，{'running': 1, 'pending': 149}；pi_transformer_historical_mirror 1140个任务、2280个阶段，{'running': 1, 'pending': 1139}。原协议单列，不计入严格无PA成绩。
-另有工业异常检测任务 1400 项，状态 {'completed': 93, 'partial_or_failed': 15, 'running': 1, 'pending': 1291}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
+另有工业异常检测任务 1400 项，状态 {'completed': 128, 'partial_or_failed': 30, 'running': 1, 'pending': 1241}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
 保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。
 关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。
-当前任务记录：{'completed': 418, 'partial_or_failed': 120, 'pending': 2748, 'running': 4}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
+当前任务记录：{'completed': 481, 'partial_or_failed': 135, 'pending': 2743, 'running': 3}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
 
 CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。
 
@@ -58,6 +58,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_sf2m_stable_v2 | psm | 5/5 | 0.032784 | 0.718805 | 0.547731 |
 | fm_objective_sf2m_flow_only_stable_v2 | psm | 5/5 | 0.033416 | 0.717722 | 0.545647 |
 | fm_objective_sb_stable_v2 | smap | 5/5 | 0.233867 | 0.540958 | 0.147982 |
+| fm_objective_sf2m_stable_v2 | smap | 2/5 | 0.233224 | 0.543292 | 0.148397 |
 | fm_strict_timesnet__psm__registered | psm | 5/5 | 0.053941 | 0.598985 | 0.396761 |
 | fm_strict_anomaly_transformer__psm__registered | psm | 5/5 | 0.014575 | 0.513439 | 0.295091 |
 | fm_strict_dcdetector__psm__registered | psm | 5/5 | 0.017267 | 0.501093 | 0.278458 |
@@ -65,7 +66,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_usad__psm__registered | psm | 5/5 | 0.028775 | 0.720846 | 0.543615 |
 | fm_strict_usad__psm__signed_paper_loss | psm | 5/5 | 0.058838 | 0.519146 | 0.304404 |
 | fm_strict_itransformer__psm__registered | psm | 5/5 | 0.048369 | 0.593232 | 0.385533 |
-| fm_strict_timesnet__smap__registered | smap | 1/5 | 0.039928 | 0.413382 | 0.105050 |
+| fm_strict_timesnet__smap__registered | smap | 2/5 | 0.038437 | 0.412771 | 0.104665 |
 | fm_reflow_2stage | psm | 5/5 | 0.029949 | 0.725765 | 0.552078 |
 | fm_reflow_2stage | smap | 5/5 | 0.230333 | 0.547532 | 0.148794 |
 | fm_reflow_2stage | msl | 5/5 | 0.075546 | 0.539035 | 0.117010 |
@@ -84,7 +85,13 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_rectified_40epoch_budget_control | smap | 5/5 | 0.232921 | 0.535617 | 0.146476 |
 | fm_rectified_40epoch_budget_control | msl | 5/5 | 0.072524 | 0.542974 | 0.114567 |
 | fm_rectified_40epoch_budget_control | smd | 5/5 | 0.418723 | 0.772170 | 0.340303 |
-| fm_rectified_40epoch_budget_control | swat | 4/5 | 0.288289 | 0.821818 | 0.723281 |
+| fm_rectified_40epoch_budget_control | swat | 5/5 | 0.288095 | 0.822282 | 0.723544 |
+| fm_rectified_40epoch_budget_control | swan | 5/5 | 0.555437 | 0.804995 | 0.672827 |
+| fm_rectified_40epoch_budget_control | cicids | 5/5 | 0.048674 | 0.619370 | 0.394101 |
+| fm_rectified_60epoch_budget_control | psm | 5/5 | 0.033730 | 0.736344 | 0.551276 |
+| fm_rectified_60epoch_budget_control | smap | 5/5 | 0.231837 | 0.535460 | 0.146316 |
+| fm_rectified_60epoch_budget_control | msl | 3/5 | 0.072185 | 0.543019 | 0.114687 |
+| fm_moment_pretrained_small__release512 | psm | 1/1 | 0.036639 | 0.555556 | 0.337271 |
 | fm_objective_independent | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |
 | fm_objective_ot | tep_classic | 5/5 | 0.731832 | 0.890985 | 0.977679 |
 | fm_objective_rectified | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |
@@ -103,7 +110,14 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_tranad__psm__registered | tep_classic | 5/5 | 0.761331 | 0.887078 | 0.977274 |
 | fm_strict_usad__psm__registered | tep_classic | 5/5 | 0.832105 | 0.859262 | 0.965419 |
 | fm_strict_itransformer__psm__registered | tep_classic | 5/5 | 0.557398 | 0.723174 | 0.934172 |
-| fm_strict_usad__psm__signed_paper_loss | tep_classic | 3/5 | 0.832888 | 0.859070 | 0.965377 |
+| fm_strict_usad__psm__signed_paper_loss | tep_classic | 5/5 | 0.831361 | 0.857314 | 0.965089 |
+| fm_objective_independent | skab | 5/5 | 0.509209 | 0.637441 | 0.549567 |
+| fm_objective_ot | skab | 5/5 | 0.509655 | 0.638719 | 0.550659 |
+| fm_objective_rectified | skab | 5/5 | 0.509209 | 0.637441 | 0.549567 |
+| fm_objective_target | skab | 5/5 | 0.509466 | 0.637567 | 0.550253 |
+| fm_objective_vp | skab | 5/5 | 0.510206 | 0.658022 | 0.591310 |
+| fm_objective_sb_stable_v2 | skab | 5/5 | 0.509601 | 0.644456 | 0.563593 |
+| fm_objective_sf2m_stable_v2 | skab | 3/5 | 0.509742 | 0.649224 | 0.575125 |
 
 逐种子结果、标准误/种子区间、时间块或实体区间、检查点及分数哈希均保存在 [execution_snapshot.json](execution_snapshot.json)。单种子块区间不替代跨算法配对检验。
 
@@ -111,7 +125,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 
 ## 已补算的固定版本 TAB 范围指标
 
-已核验 283 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
+已核验 322 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
 
 | 模型配置 | 数据集 | VUS 已完成种子 | VUS ROC 均值 | VUS PR 均值 | 严格阈值 Affiliation F 均值 |
 |---|---|---:|---:|---:|---:|
@@ -139,6 +153,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_target | psm | 5 | 0.701574 | 0.502289 | 0.581274 |
 | fm_objective_target | smap | 5 | 0.690140 | 0.294203 | 0.537754 |
 | fm_objective_target | smd | 5 | 0.813133 | 0.433818 | 0.800311 |
+| fm_objective_target | swan | 2 | 0.712596 | 0.582126 | 0.652267 |
 | fm_objective_target | swat | 5 | 0.680010 | 0.485990 | 0.718252 |
 | fm_objective_vp | msl | 5 | 0.702600 | 0.284205 | 0.733116 |
 | fm_objective_vp | psm | 5 | 0.671146 | 0.492057 | 0.522960 |
@@ -148,19 +163,27 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_anomaly_transformer__psm__registered | psm | 5 | 0.432373 | 0.291488 | 0.635304 |
 | fm_strict_dcdetector__psm__registered | psm | 2 | 0.439577 | 0.280859 | 0.642914 |
 | fm_strict_timesnet__psm__registered | psm | 5 | 0.597688 | 0.398548 | 0.767881 |
+| fm_reflow_2stage | cicids | 1 | 0.695947 | 0.345177 | 0.348489 |
 | fm_reflow_2stage | msl | 5 | 0.700867 | 0.285871 | 0.732293 |
 | fm_reflow_2stage | psm | 5 | 0.685073 | 0.497841 | 0.547103 |
 | fm_reflow_2stage | smap | 5 | 0.692927 | 0.291242 | 0.535977 |
 | fm_reflow_2stage | smd | 5 | 0.795336 | 0.420790 | 0.799751 |
 | fm_reflow_2stage | swan | 5 | 0.745971 | 0.616491 | 0.675825 |
 | fm_reflow_2stage | swat | 5 | 0.680466 | 0.487292 | 0.706191 |
+| fm_objective_independent | skab | 5 | 0.797160 | 0.736057 | 0.774492 |
 | fm_objective_independent | tep_classic | 5 | 0.976290 | 0.995223 | 0.942948 |
+| fm_objective_ot | skab | 5 | 0.798622 | 0.737487 | 0.773416 |
 | fm_objective_ot | tep_classic | 5 | 0.976236 | 0.995193 | 0.945853 |
+| fm_objective_rectified | skab | 5 | 0.797160 | 0.736057 | 0.774492 |
 | fm_objective_rectified | tep_classic | 5 | 0.976290 | 0.995223 | 0.942948 |
+| fm_objective_sb_stable_v2 | skab | 5 | 0.807162 | 0.750735 | 0.773940 |
 | fm_objective_sb_stable_v2 | tep_classic | 5 | 0.975428 | 0.995032 | 0.948819 |
+| fm_objective_sf2m_stable_v2 | skab | 3 | 0.815305 | 0.762653 | 0.775370 |
 | fm_objective_sf2m_stable_v2 | tep_classic | 5 | 0.975403 | 0.995018 | 0.944569 |
 | fm_objective_sf2m_flow_only_stable_v2 | tep_classic | 5 | 0.975428 | 0.995032 | 0.948819 |
+| fm_objective_target | skab | 5 | 0.797759 | 0.737317 | 0.772947 |
 | fm_objective_target | tep_classic | 5 | 0.976239 | 0.995212 | 0.946545 |
+| fm_objective_vp | skab | 5 | 0.831504 | 0.783663 | 0.776964 |
 | fm_objective_vp | tep_classic | 5 | 0.976332 | 0.995198 | 0.938951 |
 | fm_rectified_40epoch_budget_control | tep_classic | 5 | 0.976414 | 0.995308 | 0.944949 |
 | fm_rectified_60epoch_budget_control | tep_classic | 5 | 0.976417 | 0.995317 | 0.941918 |
@@ -172,7 +195,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_timesnet__psm__registered | tep_classic | 5 | 0.955354 | 0.990342 | 0.921253 |
 | fm_strict_tranad__psm__registered | tep_classic | 5 | 0.974274 | 0.994929 | 0.916555 |
 | fm_strict_usad__psm__registered | tep_classic | 5 | 0.980942 | 0.996367 | 0.935752 |
-| fm_strict_usad__psm__signed_paper_loss | tep_classic | 2 | 0.981006 | 0.996386 | 0.934819 |
+| fm_strict_usad__psm__signed_paper_loss | tep_classic | 5 | 0.980764 | 0.996333 | 0.934338 |
 
 每个实体独立评价；macro仅平均原参考函数有定义的结果，未定义实体/种子数保留，不填零。Affiliation F、点级 F1 和 PA-F1 是不同指标，不能直接混比。VUS缓冲按测试标签事件长度产生，是已披露的评价依赖；严格阈值仍只来自验证段。完整TAB训练流程未等效认证。
 

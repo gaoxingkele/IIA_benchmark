@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "fm_moment_pretrained_base__TAB100",
+  "task": "time_series_anomaly_detection",
+  "kind": "window",
+  "entrypoint": "iia_benchmark.models.fm_moment_pretrained:MomentPretrainedWindow",
+  "parameters": {
+    "source_root": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/pre_train/submodules/moment",
+    "checkpoint_directory": "data/public_datasets/flow_matching/project_additions/checkpoints/MOMENT-1-base",
+    "checkpoint_sha256": "1a436826ffe618273ec62b9656dc4cab8edc470364f104e90542a4ebc14fb825",
+    "config_sha256": "f1c66c2bb845229c0ed27a1600dbcc956b85ab21f9e5fd8a1663e6641bed7755",
+    "window": 100,
+    "batch_size": 1,
+    "epochs": 0,
+    "padding_policy": "TAB_always_extra_patch",
+    "seed": 42,
+    "device": "cpu"
+  },
+  "citation": "https://arxiv.org/abs/2402.03885",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+  "source_repository": "https://github.com/decisionintelligence/TAB",
+  "checkpoint_citation": "https://huggingface.co/AutonLab/MOMENT-1-base",
+  "reproduction_status": "actual_official_release_pretrained_zero_shot_not_historical_paper_checkpoint_equivalence",
+  "repeat_boundary": "Frozen pretrained zero-shot inference, dropout off and explicit all-observed reconstruction mask. One run per exact checkpoint/context/dataset; no pseudo-independent random-seed repetitions. Entity/time-block bootstrap intervals are retained.",
+  "boundary": "Actual current official release checkpoint zero-shot reconstruction, not random T5/ICM and not proof of original historical-paper weight equivalence. Full grouped native timestamp coverage, frozen context and validation-only primary threshold. Industrial preprocessing boundaries are retained, including PRONTO label-assisted normal selection. Original-paper fine-tuning, historical checkpoints and complete TAB harness remain separate unfinished obligations."
+}
