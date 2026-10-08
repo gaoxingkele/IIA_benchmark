@@ -1,0 +1,14 @@
+{
+  "id": "crossad_full_author_pipeline",
+  "task": "time_series_anomaly_detection",
+  "implementation": "external_author_pipeline",
+  "callable": "iia_benchmark.models.fm_crossad_author_runtime.build_model",
+  "execution_script": "scripts/flow_matching/run_crossad_author_job.py",
+  "reproduction_status": "Official source and release checkpoints; CPU placement patch and lossless parsed-data cache. Full original hyperparameters and early stopping preserved. Original-paper equivalence requires completed results and protocol audit.",
+  "parameters": {
+    "settings": "configs/experiments/fm_crossad_author_execution.v1.json",
+    "algorithm_budget_source": "Official per-dataset model_configs_0.json and train_configs.json"
+  },
+  "citations": ["https://arxiv.org/abs/2510.12489", "https://github.com/decisionintelligence/CrossAD/tree/ff0fb2d41291b76452898910312dd38ed3389bf3", "https://drive.google.com/file/d/1YU_d9kIaP2EubyUhGWOwSKAhJxNntB8W/view"],
+  "boundary": "Release checkpoint testing and original-budget fresh training are different experiments. Flat author feature subsets are separate from entity-aware/full-feature benchmarks."
+}

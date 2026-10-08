@@ -1,0 +1,32 @@
+{
+  "queue_sha256": "212057927b5445f0ccf61df439a1f2f7e527d425a82be8c784a5956bf5760608",
+  "records": [
+    {
+      "dataset": "MSL",
+      "checkpoint": {
+        "reconstructed_ablation_row": 3
+      },
+      "native_batch_shape": [
+        128,
+        96,
+        1
+      ],
+      "training_windows_stride1": 46558,
+      "test_native_points": 73729,
+      "native_test_tail_points": 1,
+      "finite_backward": true,
+      "deterministic_release_inference": true,
+      "parameter_count": 927750,
+      "seconds": 3.75,
+      "benchmark_performance": false
+    }
+  ],
+  "environment": {
+    "torch": "2.13.0+cu126",
+    "numpy": "2.4.6"
+  },
+  "source_required_torch": "1.10.0",
+  "framework_equivalence": false,
+  "benchmark_performance": false,
+  "boundary": "Full official flat-author-data pipeline, not entity-grouped strict TAB equivalence. Preserve author channel deletion, scaler fitted on all nominal training data before 80/20 split, stride=1 training, nonoverlap validation/test and author early stopping. Release checkpoint evaluation is separate from six fresh-training seeds. CPU/runtime and framework-version differences disclosed; original Table 3 ablations, other original tasks and transfer obligations remain pending. Reconstructed rows 1..5 explicitly distinguished. Pure encoder/decoder activation checkpointing preserves full batches and EMA single updates; low-memory starts wait."
+}

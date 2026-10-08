@@ -1,0 +1,47 @@
+{
+  "paper": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+  "paper_sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add",
+  "table3_visual_review": {"pdf_page": 9, "rows": 6, "columns": ["Multi-Scale Modeling", "Cross-Scale Reconstruction", "Sub-series Representation", "Global Context"], "review": "Primary PDF page rendered and checkbox combinations and numeric rows visually reviewed"},
+  "table3_rows": [
+    {"row": 1, "components": [false, false, false, false], "PSM": [0.6783, 0.4467], "MSL": [0.7388, 0.2383], "GECCO": [0.9344, 0.4145], "implementation_status": "Independent ablation source not provided; exact reconstruction pending"},
+    {"row": 2, "components": [true, false, false, false], "PSM": [0.6889, 0.4739], "MSL": [0.7513, 0.2479], "GECCO": [0.9542, 0.4668], "implementation_status": "Paper says each scale reconstructs itself; independent implementation pending"},
+    {"row": 3, "components": [true, true, false, false], "PSM": [0.7125, 0.4874], "MSL": [0.7782, 0.2984], "GECCO": [0.9628, 0.5121], "implementation_status": "Coarser-to-finer reconstruction without global context; independent implementation pending"},
+    {"row": 4, "components": [true, true, false, true], "PSM": [0.7211, 0.5491], "MSL": [0.7790, 0.3000], "GECCO": [0.9581, 0.5299], "implementation_status": "Direct encoder multi-scale representations update global context; exact bank representation/shape not specified in released source"},
+    {"row": 5, "components": [false, false, true, true], "PSM": [0.6991, 0.4600], "MSL": [0.7696, 0.2869], "GECCO": [0.9577, 0.4679], "implementation_status": "Single-scale sub-series/global context variant; independent implementation pending"},
+    {"row": 6, "components": [true, true, true, true], "PSM": [0.7302, 0.5596], "MSL": [0.8091, 0.3144], "GECCO": [0.9948, 0.6211], "implementation_status": "Full official Basic_CrossAD; registered release testing and original-budget fresh training"}
+  ],
+  "table3_metric_order": ["VUS_ROC", "VUS_PR"],
+  "table1_full_crossad_reference": {
+    "SMD": [0.8580, 0.2344], "MSL": [0.8091, 0.3144], "SMAP": [0.5779, 0.1443],
+    "SWAT": [0.7865, 0.4767], "PSM": [0.7302, 0.5596], "GECCO": [0.9948, 0.6211], "SWAN": [0.9499, 0.9171]
+  },
+  "table2_standard_f1_references": {"SMD": 0.2412, "PSM": 0.4974, "GECCO": 0.5700},
+  "table1_table2_review": "Primary PDF page 8 text extracted; page 9 VUS rows for PSM/MSL/GECCO independently visually reviewed. Full Table 1/2 visual transcription review remains pending.",
+  "source_protocol": {
+    "raw_data": "Exact released author dataset bundle, seven full flat CSVs and DETECT_META train lengths",
+    "channel_selection": {"MSL": "Delete indices 1..54, keep first feature", "SMAP": "Delete indices 1..24, keep first feature", "SWAT": "Delete original 20 configured discrete channels", "others": "Keep all source feature columns"},
+    "scaler": "StandardScaler fit on all nominal train rows before 80/20 train/validation split",
+    "train_windows": "Stride 1, shuffled, drop_last=False, full per-dataset batch size",
+    "validation_test": "Nonoverlap stride equals seq_len; original drops terminal N modulo seq_len points",
+    "training": "20 maximum epochs; source MSE only, Adam or AdamW per dataset, original learning-rate schedule and patience 3",
+    "selection": "Author validation MSE early stopping and best checkpoint reload",
+    "test_metrics": "Source best_f1 uses test labels and PR-curve oracle; original range/VUS defaults slidingWindow=100, version=opt, 250 thresholds. SPOT default q=0.1 and affiliation executed separately.",
+    "native_control": "All native points preserved, original nonoverlap scores retained, append only unscored tail from end-aligned full window; validation-only thresholds. Original normalization and flat-data grouping boundaries remain disclosed."
+  },
+  "environment_and_runtime_gaps": [
+    "Two unconditional CUDA mask placements removed in a separate CPU runtime copy, original source preserved",
+    "Torch 2.13.0 CPU versus source requirements Torch 1.10.0; numerical/environment equivalence not established",
+    "Source checkpoint THOP total_ops/total_params metadata separated from strictly verified algorithm tensors",
+    "Lossless wide dataframe cache uses exact unmodified author parser; source scalers and split/window algorithms unchanged",
+    "Release checkpoints lack training seed/budget evidence; one release-evaluation run is not six independent training repetitions"
+  ],
+  "remaining_original_obligations": [
+    "Implement and execute exact or explicitly reconstructed Table 3 rows 1..5 on PSM/MSL/GECCO; preserve ambiguity rather than aliasing them to full model",
+    "All original Table 4 comparator efficiency runs with batch 128 and five epochs on GECCO",
+    "Complete seven author release and six-seed fresh-training runs and independently audit saved scores and all author metrics",
+    "Original parameter-sensitivity axes and figures, UCR/TSB-AD-U/TSB-AD-M appendix experiments",
+    "Entity-aware/full-feature and new industrial dataset transfers using frozen target protocols",
+    "Full original baseline coverage and all 45-paper/681-record obligations remain active"
+  ],
+  "all_paper_experiments_complete": false
+}

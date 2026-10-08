@@ -5,8 +5,8 @@
   "ara_artifact": "papers/crossad/PAPER.md",
   "primary_source_sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add",
   "main_implementation": {
-    "status": "source_present_not_end_to_end_verified",
-    "note": "固定作者源码在场；完整环境、原实验配置及全部消融仍须验证。"
+    "status": "callable_complete_budget_pipeline_registered_not_yet_end_to_end_verified",
+    "note": "7 source datasets, 7 released checkpoints, 42 original-budget fresh fits and 90 explicitly reconstructed Table3 fits registered. Native full-batch preflight is required per case; unresolved cases remain pending."
   },
   "source_resources": [
     {
@@ -18,8 +18,18 @@
       "code_tree_sha256": "7eb2aab26b051422a3597d5a8bd207d2215434aaa3d7339c459e1be5551c3a9f"
     }
   ],
-  "local_entrypoints": [],
-  "model_configs": [],
+  "local_entrypoints": [
+    "scripts/flow_matching/run_crossad_memory_v2_job.py",
+    "scripts/flow_matching/run_crossad_ablation_v2_job.py"
+  ],
+  "model_configs": [
+    "configs/models/fm_crossad_author_pipeline.json",
+    "configs/models/fm_crossad_ablation/fm_crossad_table3_row1.json",
+    "configs/models/fm_crossad_ablation/fm_crossad_table3_row2.json",
+    "configs/models/fm_crossad_ablation/fm_crossad_table3_row3.json",
+    "configs/models/fm_crossad_ablation/fm_crossad_table3_row4.json",
+    "configs/models/fm_crossad_ablation/fm_crossad_table3_row5.json"
+  ],
   "paper_ablations": {
     "source_sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add",
     "ablation_page_candidates": [
@@ -119,10 +129,49 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
-  "ablation_coverage_status": "not_fully_verified",
+  "selected_variant_code_locators": [
+    "src/iia_benchmark/models/fm_crossad_ablation.py",
+    "src/iia_benchmark/models/fm_crossad_memory_v2.py"
+  ],
+  "ablation_coverage_status": "Five Table3 rows callable as explicit reconstructions; native full-batch validation and complete score reproduction pending. Remaining sensitivities/appendix/efficiency ablations not complete.",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",
   "preserved_patches": null,
-  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+  "next_gate": "Finish all per-case full-batch checks, execute all 139 registered jobs, audit complete source scores/metrics, then remaining baseline/efficiency/sensitivity/appendix/transfer scope.",
+  "execution_queue": "configs/experiments/fm_crossad_complete_queue.v5.json",
+  "protocol_audit": "docs/reports/fm_crossad_protocol_audit_2026-10-09_v2.json",
+  "table1_table2_visual_audit": "docs/reports/fm_crossad_table1_table2_visual_audit_2026-10-09.json",
+  "reconstructed_table3_rows": [
+    {
+      "row": 1,
+      "config": "configs/models/fm_crossad_ablation/fm_crossad_table3_row1.json",
+      "source_equivalence": false,
+      "status": "callable_registered_native_validation_and_full_execution_pending"
+    },
+    {
+      "row": 2,
+      "config": "configs/models/fm_crossad_ablation/fm_crossad_table3_row2.json",
+      "source_equivalence": false,
+      "status": "callable_registered_native_validation_and_full_execution_pending"
+    },
+    {
+      "row": 3,
+      "config": "configs/models/fm_crossad_ablation/fm_crossad_table3_row3.json",
+      "source_equivalence": false,
+      "status": "callable_registered_native_validation_and_full_execution_pending"
+    },
+    {
+      "row": 4,
+      "config": "configs/models/fm_crossad_ablation/fm_crossad_table3_row4.json",
+      "source_equivalence": false,
+      "status": "callable_registered_native_validation_and_full_execution_pending"
+    },
+    {
+      "row": 5,
+      "config": "configs/models/fm_crossad_ablation/fm_crossad_table3_row5.json",
+      "source_equivalence": false,
+      "status": "callable_registered_native_validation_and_full_execution_pending"
+    }
+  ],
+  "all_original_experiments_complete": false
 }

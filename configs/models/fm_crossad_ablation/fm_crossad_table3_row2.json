@@ -1,0 +1,22 @@
+{
+  "id": "crossad_table3_row2",
+  "task": "time_series_anomaly_detection",
+  "implementation": "paper_reconstructed_author_harness",
+  "callable": "iia_benchmark.models.fm_crossad_ablation.build_ablation",
+  "parameters": {
+    "row": 2,
+    "components": [
+      true,
+      false,
+      false,
+      false
+    ],
+    "parent": "configs/experiments/fm_crossad_author_execution.v1.json"
+  },
+  "reproduction_status": "Callable paper reconstruction; exact unpublished author ablation architecture unverified",
+  "citations": [
+    "https://arxiv.org/abs/2510.12489",
+    "https://github.com/decisionintelligence/CrossAD/tree/ff0fb2d41291b76452898910312dd38ed3389bf3"
+  ],
+  "boundary": "Paper-described Table 3 rows 1..5 reconstructed using original encoder/decoder/EMA primitives. Independent author ablation source and exact layer/head choices were not released. Row 4 bank stores full encoder token sequences; this shape is an explicit reconstruction choice. Same-scale rows include the raw finest scale and prohibit both self/cross attention between scales. Full original training, early stopping and author/native metric harness preserved. These are reconstructed experiments, not author-certified ablation reproductions."
+}

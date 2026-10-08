@@ -1,15 +1,15 @@
 # 未完成实验执行进度
 
-快照时间：2026-10-08T20:30:48.123872+00:00。目标仍为全部已知未完成实验；尚未完成。
+快照时间：2026-10-08T21:10:34.255235+00:00。目标仍为全部已知未完成实验；尚未完成。
 
 42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。
 另加入 175 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。
 另加入 140 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。
-独立作者/镜像完整流程：maelnet 150个任务、600个阶段，{'failed_or_partial_preserved': 2, 'running': 1, 'pending': 147}；pi_transformer_historical_mirror 1140个任务、2280个阶段，{'failed_or_partial_preserved': 3, 'running': 1, 'pending': 1136}。原协议单列，不计入严格无PA成绩。
-另有工业异常检测任务 1400 项，状态 {'completed': 196, 'partial_or_failed': 33, 'pending': 1171}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
+独立作者/镜像完整流程：maelnet 150个任务、600个阶段，{'failed_or_partial_preserved': 2, 'running': 1, 'pending': 147}；pi_transformer_historical_mirror 1140个任务、2280个阶段，{'failed_or_partial_preserved': 3, 'running': 1, 'pending': 1136}；crossad_complete 139个任务、556个阶段，{'pending': 139}。原协议单列，不计入严格无PA成绩。
+另有工业异常检测任务 1400 项，状态 {'completed': 301, 'partial_or_failed': 69, 'running': 1, 'pending': 1029}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
 保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。
 关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。
-当前任务记录：{'completed': 572, 'partial_or_failed': 140, 'pending': 2646, 'running': 4}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
+当前任务记录：{'completed': 685, 'partial_or_failed': 176, 'pending': 2497, 'running': 4}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
 
 CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。
 
@@ -59,6 +59,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_sf2m_flow_only_stable_v2 | psm | 5/5 | 0.033416 | 0.717722 | 0.545647 |
 | fm_objective_sb_stable_v2 | smap | 5/5 | 0.233867 | 0.540958 | 0.147982 |
 | fm_objective_sf2m_stable_v2 | smap | 5/5 | 0.232735 | 0.541786 | 0.148027 |
+| fm_objective_sf2m_flow_only_stable_v2 | smap | 4/5 | 0.233552 | 0.541598 | 0.148105 |
 | fm_strict_timesnet__psm__registered | psm | 5/5 | 0.053941 | 0.598985 | 0.396761 |
 | fm_strict_anomaly_transformer__psm__registered | psm | 5/5 | 0.014575 | 0.513439 | 0.295091 |
 | fm_strict_dcdetector__psm__registered | psm | 5/5 | 0.017267 | 0.501093 | 0.278458 |
@@ -66,7 +67,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_usad__psm__registered | psm | 5/5 | 0.028775 | 0.720846 | 0.543615 |
 | fm_strict_usad__psm__signed_paper_loss | psm | 5/5 | 0.058838 | 0.519146 | 0.304404 |
 | fm_strict_itransformer__psm__registered | psm | 5/5 | 0.048369 | 0.593232 | 0.385533 |
-| fm_strict_timesnet__smap__registered | smap | 2/5 | 0.038437 | 0.412771 | 0.104665 |
+| fm_strict_timesnet__smap__registered | smap | 3/5 | 0.038687 | 0.412164 | 0.104676 |
 | fm_reflow_2stage | psm | 5/5 | 0.029949 | 0.725765 | 0.552078 |
 | fm_reflow_2stage | smap | 5/5 | 0.230333 | 0.547532 | 0.148794 |
 | fm_reflow_2stage | msl | 5/5 | 0.075546 | 0.539035 | 0.117010 |
@@ -94,10 +95,11 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_rectified_60epoch_budget_control | smd | 5/5 | 0.413955 | 0.774513 | 0.341945 |
 | fm_rectified_60epoch_budget_control | swat | 5/5 | 0.287477 | 0.821908 | 0.723513 |
 | fm_rectified_60epoch_budget_control | swan | 4/5 | 0.558538 | 0.806859 | 0.675088 |
-| fm_rectified_60epoch_budget_control | cicids | 2/5 | 0.047853 | 0.619345 | 0.393702 |
+| fm_rectified_60epoch_budget_control | cicids | 4/5 | 0.048355 | 0.615679 | 0.392124 |
 | fm_moment_pretrained_small__release512 | psm | 1/1 | 0.036639 | 0.555556 | 0.337271 |
 | fm_moment_pretrained_small__release512 | smap | 1/1 | 0.105609 | 0.454654 | 0.126343 |
 | fm_moment_pretrained_small__release512 | msl | 1/1 | 0.086996 | 0.559740 | 0.132951 |
+| fm_moment_pretrained_small__release512 | smd | 1/1 | 0.174824 | 0.813581 | 0.260849 |
 | fm_objective_independent | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |
 | fm_objective_ot | tep_classic | 5/5 | 0.731832 | 0.890985 | 0.977679 |
 | fm_objective_rectified | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |
@@ -137,7 +139,29 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_itransformer__psm__registered | skab | 5/5 | 0.195811 | 0.555937 | 0.431904 |
 | fm_strict_usad__psm__signed_paper_loss | skab | 5/5 | 0.509769 | 0.679032 | 0.641558 |
 | fm_objective_independent | pronto_day4 | 5/5 | 0.004121 | 0.463218 | 0.377897 |
-| fm_objective_ot | pronto_day4 | 4/5 | 0.004327 | 0.462527 | 0.376731 |
+| fm_objective_ot | pronto_day4 | 5/5 | 0.004286 | 0.462867 | 0.377187 |
+| fm_objective_rectified | pronto_day4 | 5/5 | 0.004121 | 0.463218 | 0.377897 |
+| fm_objective_target | pronto_day4 | 5/5 | 0.003957 | 0.463794 | 0.378149 |
+| fm_objective_vp | pronto_day4 | 5/5 | 0.004121 | 0.426152 | 0.356261 |
+| fm_objective_sb_stable_v2 | pronto_day4 | 3/5 | 0.004121 | 0.451857 | 0.369249 |
+| fm_objective_sf2m_stable_v2 | pronto_day4 | 3/5 | 0.003984 | 0.452381 | 0.369946 |
+| fm_objective_sf2m_flow_only_stable_v2 | pronto_day4 | 3/5 | 0.004121 | 0.451857 | 0.369249 |
+| fm_reflow_2stage | pronto_day4 | 5/5 | 0.004121 | 0.418756 | 0.352676 |
+| fm_reflow_3stage | pronto_day4 | 5/5 | 0.004203 | 0.400798 | 0.344741 |
+| fm_rectified_40epoch_budget_control | pronto_day4 | 5/5 | 0.004121 | 0.471913 | 0.385524 |
+| fm_rectified_60epoch_budget_control | pronto_day4 | 5/5 | 0.004039 | 0.472890 | 0.386122 |
+| fm_strict_timesnet__psm__registered | pronto_day4 | 5/5 | 0.004447 | 0.558825 | 0.475870 |
+| fm_strict_anomaly_transformer__psm__registered | pronto_day4 | 5/5 | 0.049669 | 0.480756 | 0.419808 |
+| fm_strict_dcdetector__psm__registered | pronto_day4 | 5/5 | 0.020039 | 0.468322 | 0.397537 |
+| fm_strict_tranad__psm__registered | pronto_day4 | 5/5 | 0.004121 | 0.434710 | 0.360376 |
+| fm_strict_usad__psm__registered | pronto_day4 | 5/5 | 0.000000 | 0.456466 | 0.371131 |
+| fm_strict_itransformer__psm__registered | pronto_day4 | 5/5 | 0.013923 | 0.539136 | 0.462087 |
+| fm_strict_usad__psm__signed_paper_loss | pronto_day4 | 5/5 | 0.000000 | 0.409522 | 0.353194 |
+| fm_objective_independent | pronto_day2 | 5/5 | 0.164760 | 0.717108 | 0.975313 |
+| fm_objective_ot | pronto_day2 | 5/5 | 0.163174 | 0.710470 | 0.974522 |
+| fm_objective_rectified | pronto_day2 | 5/5 | 0.164760 | 0.717108 | 0.975313 |
+| fm_objective_target | pronto_day2 | 5/5 | 0.164299 | 0.718803 | 0.975536 |
+| fm_objective_vp | pronto_day2 | 5/5 | 0.110471 | 0.710927 | 0.974623 |
 
 逐种子结果、标准误/种子区间、时间块或实体区间、检查点及分数哈希均保存在 [execution_snapshot.json](execution_snapshot.json)。单种子块区间不替代跨算法配对检验。
 
@@ -145,7 +169,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 
 ## 已补算的固定版本 TAB 范围指标
 
-已核验 396 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
+已核验 506 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
 
 | 模型配置 | 数据集 | VUS 已完成种子 | VUS ROC 均值 | VUS PR 均值 | 严格阈值 Affiliation F 均值 |
 |---|---|---:|---:|---:|---:|
@@ -179,7 +203,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_vp | psm | 5 | 0.671146 | 0.492057 | 0.522960 |
 | fm_objective_vp | smap | 5 | 0.691672 | 0.289387 | 0.533601 |
 | fm_objective_vp | smd | 5 | 0.804581 | 0.431433 | 0.798092 |
-| fm_objective_vp | swan | 1 | 0.748389 | 0.618578 | 0.672492 |
+| fm_objective_vp | swan | 4 | 0.747713 | 0.617901 | 0.672511 |
 | fm_objective_vp | swat | 5 | 0.682084 | 0.487826 | 0.703106 |
 | fm_strict_anomaly_transformer__psm__registered | psm | 5 | 0.432373 | 0.291488 | 0.635304 |
 | fm_strict_dcdetector__psm__registered | psm | 2 | 0.439577 | 0.280859 | 0.642914 |
@@ -191,49 +215,72 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_reflow_2stage | smd | 5 | 0.795336 | 0.420790 | 0.799751 |
 | fm_reflow_2stage | swan | 5 | 0.745971 | 0.616491 | 0.675825 |
 | fm_reflow_2stage | swat | 5 | 0.680466 | 0.487292 | 0.706191 |
+| fm_objective_independent | pronto_day2 | 5 | 0.976135 | 0.998642 | 0.557584 |
 | fm_objective_independent | pronto_day4 | 5 | 0.646314 | 0.629969 | 0.390340 |
 | fm_objective_independent | skab | 5 | 0.797160 | 0.736057 | 0.774492 |
 | fm_objective_independent | tep_classic | 5 | 0.976290 | 0.995223 | 0.942948 |
-| fm_objective_ot | pronto_day4 | 3 | 0.644129 | 0.625668 | 0.390340 |
+| fm_objective_ot | pronto_day2 | 5 | 0.975452 | 0.998594 | 0.557396 |
+| fm_objective_ot | pronto_day4 | 5 | 0.645902 | 0.628389 | 0.390393 |
 | fm_objective_ot | skab | 5 | 0.798622 | 0.737487 | 0.773416 |
 | fm_objective_ot | tep_classic | 5 | 0.976236 | 0.995193 | 0.945853 |
+| fm_objective_rectified | pronto_day2 | 5 | 0.976135 | 0.998642 | 0.557584 |
+| fm_objective_rectified | pronto_day4 | 5 | 0.646314 | 0.629969 | 0.390340 |
 | fm_objective_rectified | skab | 5 | 0.797160 | 0.736057 | 0.774492 |
 | fm_objective_rectified | tep_classic | 5 | 0.976290 | 0.995223 | 0.942948 |
+| fm_objective_sb_stable_v2 | pronto_day4 | 3 | 0.636532 | 0.616044 | 0.390422 |
 | fm_objective_sb_stable_v2 | skab | 5 | 0.807162 | 0.750735 | 0.773940 |
 | fm_objective_sb_stable_v2 | tep_classic | 5 | 0.975428 | 0.995032 | 0.948819 |
+| fm_objective_sf2m_stable_v2 | pronto_day4 | 3 | 0.637129 | 0.618050 | 0.390340 |
 | fm_objective_sf2m_stable_v2 | skab | 5 | 0.811590 | 0.756376 | 0.774487 |
 | fm_objective_sf2m_stable_v2 | tep_classic | 5 | 0.975403 | 0.995018 | 0.944569 |
+| fm_objective_sf2m_flow_only_stable_v2 | pronto_day4 | 3 | 0.636532 | 0.616044 | 0.390422 |
 | fm_objective_sf2m_flow_only_stable_v2 | skab | 5 | 0.807162 | 0.750735 | 0.773940 |
 | fm_objective_sf2m_flow_only_stable_v2 | tep_classic | 5 | 0.975428 | 0.995032 | 0.948819 |
+| fm_objective_target | pronto_day2 | 5 | 0.976382 | 0.998662 | 0.557522 |
+| fm_objective_target | pronto_day4 | 5 | 0.646883 | 0.630595 | 0.390339 |
 | fm_objective_target | skab | 5 | 0.797759 | 0.737317 | 0.772947 |
 | fm_objective_target | tep_classic | 5 | 0.976239 | 0.995212 | 0.946545 |
+| fm_objective_vp | pronto_day2 | 5 | 0.975270 | 0.998589 | 0.555089 |
+| fm_objective_vp | pronto_day4 | 5 | 0.616521 | 0.600420 | 0.390340 |
 | fm_objective_vp | skab | 5 | 0.831504 | 0.783663 | 0.776964 |
 | fm_objective_vp | tep_classic | 5 | 0.976332 | 0.995198 | 0.938951 |
+| fm_rectified_40epoch_budget_control | pronto_day4 | 5 | 0.653947 | 0.641289 | 0.390389 |
 | fm_rectified_40epoch_budget_control | skab | 5 | 0.780206 | 0.712742 | 0.773067 |
 | fm_rectified_40epoch_budget_control | tep_classic | 5 | 0.976414 | 0.995308 | 0.944949 |
+| fm_rectified_60epoch_budget_control | pronto_day4 | 5 | 0.655000 | 0.643326 | 0.390340 |
 | fm_rectified_60epoch_budget_control | skab | 5 | 0.774063 | 0.706324 | 0.775239 |
 | fm_rectified_60epoch_budget_control | tep_classic | 5 | 0.976417 | 0.995317 | 0.941918 |
+| fm_reflow_2stage | pronto_day4 | 5 | 0.611032 | 0.595473 | 0.390340 |
 | fm_reflow_2stage | skab | 5 | 0.803590 | 0.745465 | 0.774031 |
 | fm_reflow_2stage | tep_classic | 5 | 0.976223 | 0.995191 | 0.939546 |
+| fm_reflow_3stage | pronto_day4 | 5 | 0.595280 | 0.579246 | 0.390389 |
 | fm_reflow_3stage | skab | 5 | 0.804914 | 0.747594 | 0.777073 |
 | fm_reflow_3stage | tep_classic | 5 | 0.976181 | 0.995186 | 0.939388 |
+| fm_strict_anomaly_transformer__psm__registered | pronto_day4 | 5 | 0.717926 | 0.694036 | 0.790997 |
 | fm_strict_anomaly_transformer__psm__registered | skab | 4 | 0.660282 | 0.589757 | 0.749117 |
 | fm_strict_anomaly_transformer__psm__registered | tep_classic | 5 | 0.890125 | 0.972942 | 0.904345 |
+| fm_strict_dcdetector__psm__registered | pronto_day4 | 5 | 0.702741 | 0.675540 | 0.762463 |
 | fm_strict_dcdetector__psm__registered | skab | 3 | 0.684734 | 0.594531 | 0.717326 |
 | fm_strict_dcdetector__psm__registered | tep_classic | 5 | 0.876082 | 0.969965 | 0.884707 |
+| fm_strict_itransformer__psm__registered | pronto_day4 | 5 | 0.745938 | 0.724188 | 0.649683 |
 | fm_strict_itransformer__psm__registered | skab | 5 | 0.747270 | 0.673080 | 0.721763 |
 | fm_strict_itransformer__psm__registered | tep_classic | 5 | 0.950915 | 0.989562 | 0.914512 |
+| fm_strict_timesnet__psm__registered | pronto_day4 | 5 | 0.761214 | 0.735129 | 0.545347 |
 | fm_strict_timesnet__psm__registered | skab | 5 | 0.748035 | 0.674873 | 0.711315 |
 | fm_strict_timesnet__psm__registered | tep_classic | 5 | 0.955354 | 0.990342 | 0.921253 |
+| fm_strict_tranad__psm__registered | pronto_day4 | 5 | 0.617609 | 0.596592 | 0.390576 |
 | fm_strict_tranad__psm__registered | skab | 5 | 0.881295 | 0.862251 | 0.765349 |
 | fm_strict_tranad__psm__registered | tep_classic | 5 | 0.974274 | 0.994929 | 0.916555 |
+| fm_strict_usad__psm__registered | pronto_day4 | 5 | 0.640990 | 0.627183 | — |
 | fm_strict_usad__psm__registered | skab | 5 | 0.890857 | 0.879593 | 0.757419 |
 | fm_strict_usad__psm__registered | tep_classic | 5 | 0.980942 | 0.996367 | 0.935752 |
+| fm_strict_usad__psm__signed_paper_loss | pronto_day4 | 5 | 0.596755 | 0.587822 | — |
 | fm_strict_usad__psm__signed_paper_loss | skab | 5 | 0.898785 | 0.891228 | 0.749148 |
 | fm_strict_usad__psm__signed_paper_loss | tep_classic | 5 | 0.980764 | 0.996333 | 0.934338 |
 | fm_moment_pretrained_small__release512 | msl | 1 | 0.720217 | 0.309355 | 0.696811 |
 | fm_moment_pretrained_small__release512 | psm | 1 | 0.547813 | 0.333540 | 0.658476 |
 | fm_moment_pretrained_small__release512 | smap | 1 | 0.674969 | 0.251157 | 0.545930 |
+| fm_moment_pretrained_small__release512 | smd | 1 | 0.810018 | 0.326123 | 0.543465 |
 
 每个实体独立评价；macro仅平均原参考函数有定义的结果，未定义实体/种子数保留，不填零。Affiliation F、点级 F1 和 PA-F1 是不同指标，不能直接混比。VUS缓冲按测试标签事件长度产生，是已披露的评价依赖；严格阈值仍只来自验证段。完整TAB训练流程未等效认证。
 

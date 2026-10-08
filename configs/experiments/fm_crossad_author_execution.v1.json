@@ -1,0 +1,26 @@
+{
+  "source": "experiments/runs/mtsad_protocol_audit/sources/crossad/original",
+  "source_revision": "ff0fb2d41291b76452898910312dd38ed3389bf3",
+  "source_url": "https://github.com/decisionintelligence/CrossAD/tree/ff0fb2d41291b76452898910312dd38ed3389bf3",
+  "paper": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+  "raw_root": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset",
+  "runtime_root": "data/public_datasets/flow_matching/crossad_author_runtime_v1",
+  "cache_root": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1",
+  "model_config": "configs/models/fm_crossad_author_pipeline.json",
+  "output_root": "experiments/runs/fm_crossad_author_v1",
+  "queue_path": "configs/experiments/fm_crossad_author_queue.v1.json",
+  "python": ".venv/crossad-author-py312/Scripts/python.exe",
+  "datasets": ["GECCO", "MSL", "PSM", "SMAP", "SMD", "SWAN", "SWAT"],
+  "seeds": [2025, 1103, 1104, 1105, 1106, 1107],
+  "cpu_threads": 2,
+  "author_metrics": ["best_f1", "auc", "r_auc", "vus"],
+  "spot_q": [0.1],
+  "evaluation": {
+    "cpu_threads": 2, "strict_false_alarm_percent": [0.1, 1, 5],
+    "primary_false_alarm_percent": 1, "bootstrap_resamples": 200,
+    "bootstrap_block_points": 1024,
+    "tab_threshold_ratios_percent": [0.1, 0.5, 1, 2, 3, 5, 10, 15, 20, 25],
+    "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2"
+  },
+  "boundary": "Full official flat-author-data pipeline, not entity-grouped strict TAB equivalence. Preserve author channel deletion, scaler fitted on all nominal training data before 80/20 split, stride=1 training, nonoverlap validation/test and author early stopping. Release checkpoint evaluation is separate from six fresh-training seeds. CPU/runtime and framework-version differences disclosed; original Table 3 ablations, other original tasks and transfer obligations remain pending."
+}
