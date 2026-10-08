@@ -108,15 +108,19 @@ ARA 参考文献工程
 算法与数据集实验指标
 ------------------
 
-完整指标表 <results/2026-10-08/README.md>_ 记录540个冻结任务、328条聚合指标、126条每折指标及论文来源。
-Excel下载 <results/2026-10-08/experiment_results.xlsx>_ 含该FM队列快照的全部记录及未完成项。
+`2026-10-09完整指标表 <results/2026-10-09/complete_metrics/README.md>`_ 同时覆盖严格异常检测、历史协议、原协议插补、论文报告值及未完成项。
+`Excel下载 <results/2026-10-09/complete_metrics/complete_experiment_metrics.xlsx>`_ 包含9个可筛选工作表。
+逐实体、逐阈值和全部数值字段还保留为CSV及压缩CSV，数值来源和SHA256可追溯。
+`2026-10-08旧快照 <results/2026-10-08/README.md>`_ 保留其原始任务范围。
 
 完整未完成实验续跑
 ----------------
 
 2026-10-09执行进度 <results/2026-10-09/README.md>_ 已冻结42个可训练窗口主方法/消融、7个完整数据集、5个种子，
 合计1470个基础实验；另登记105个不改变最终目标的SB/SF2M数值修复重跑。CPU续跑及修复队列已启动，
-GPU续跑等待现有插补队列完成。原论文、其他任务、工业异常检测、作者适配器和完整TAB指标仍是未完成义务。
+另加入175个窗口基线任务：6种既有方法以及USAD有符号损失对照。GPU续跑等待现有插补队列完成。
+固定版本TAB的VUS和Affiliation正在对完整保存分数逐项补算；原论文、其他任务、工业异常检测、作者适配器和完整TAB训练流程仍是未完成义务。
+非重叠训练窗口比部分作者stride=1少很多梯度更新，相同epoch数不等于相同训练预算，不能据当前低分判定原论文无效。
 
 2026-10-08表未覆盖旧MTSAD目录的137份历史运行记录；不能据该表推断整个项目没有异常检测成绩。
 历史数值、协议和来源已补入2026-10-09报告，并与新验证集校准、无PA、完整时间点覆盖的本地严格轨分开。
@@ -127,5 +131,6 @@ GPU续跑等待现有插补队列完成。原论文、其他任务、工业异�
    python -m scripts.flow_matching.start_tsad_execution
    python -m scripts.flow_matching.register_entropic_repair
    python -m scripts.flow_matching.summarize_tsad_execution
+   python -m scripts.flow_matching.export_complete_metrics
 
 以上命令从benchmark根目录运行；已冻结输入和结果有哈希门禁，不覆盖原始数据或历史实验。

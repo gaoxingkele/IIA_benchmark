@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "fm_strict_window_baselines_v1",
+  "methods": ["timesnet", "anomaly_transformer", "dcdetector", "tranad", "usad", "itransformer"],
+  "datasets": ["psm", "smap", "msl", "smd", "swat"],
+  "seeds": [1103, 1104, 1105, 1106, 1107],
+  "source_config_directory": "configs/models",
+  "model_output_directory": "configs/models/fm_strict_baselines",
+  "shared_input_manifest": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+  "evaluation_reference_queue": "configs/experiments/fm_tsad_cpu_queue.v1.json",
+  "queue_path": "configs/experiments/fm_strict_baseline_queue.v1.json",
+  "output_root": "experiments/runs/fm_strict_baseline_execution_v1",
+  "cpu_threads": 2,
+  "include_usad_signed_loss_control": true,
+  "budget": "Existing per-dataset model settings and complete epoch budgets; no test tuning or reduced smoke schedule",
+  "input_policy": "Exact same full entity-aware prepared arrays as the FM queue; independently aligned scores and validation-only primary threshold",
+  "deferred": {
+    "catch": "Published window192 exceeds two datasets' shortest validation segments; complete boundary/coverage adapter required without discarding entities",
+    "gcad": "Forecast adapter's stride/context and shortened score contract differ from nonoverlapping full coverage; cannot substitute repeated incomplete predictions",
+    "point_baselines": "Require a separate per-timestamp checkpoint contract; do not force into a window model",
+    "author_specific": "MaelNet/Pi/CrossAD/MOMENT full author adapters remain separate pending obligations"
+  },
+  "citations": ["https://github.com/decisionintelligence/TAB", "configs/experiments/mtsad_reproduction.json"],
+  "boundary": "Full local baseline comparison, not historical author-harness equivalence; original known deviations remain explicit. USAD signed-loss control may be unstable and must be reported as such."
+}

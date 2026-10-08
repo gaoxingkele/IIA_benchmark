@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "fm_strict_timesnet__smap__registered",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_legacy_window_adapter:LegacyWindowAdapter",
+  "parameters": {
+    "method": "timesnet",
+    "parameters": {
+      "window": 100,
+      "d_model": 128,
+      "d_ff": 128,
+      "e_layers": 3,
+      "top_k": 3,
+      "num_kernels": 6,
+      "dropout": 0.1,
+      "learning_rate": 0.0001,
+      "batch_size": 128
+    },
+    "epochs": 3,
+    "seed": 1103,
+    "device": "cpu"
+  },
+  "citation": "https://doi.org/10.48550/arXiv.2210.02186",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_config": "configs/models/mtsad_timesnet.json",
+  "source_config_sha256": "d80dc9199b8a71336ff03a8e41835e07114ce84db43846980da5657b316a3d03",
+  "original_reproduction_status": "transcribed_from_reference_implementation",
+  "reproduction_status": "existing_local_transcription_strict_track_not_author_pipeline_equivalence",
+  "known_deviations": {
+    "source": "ICLR 2023 TimesNet; the period-based 2D reshaping, Inception blocks, embedding and the anomaly-detection normalization are transcribed from github.com/thuml/Time-Series-Library (models/TimesNet.py, layers/Conv_Blocks.py, layers/Embed.py, exp/exp_anomaly_detection.py).",
+    "hyperparameter_note": "Per-dataset budgets come from the release's scripts/anomaly_detection/<dataset>/TimesNet.sh. SWaT ships eight configurations there (d_model 8-64 x e_layers 2-3); d_model 64 with three layers is used here and the sweep is recorded as a known degree of freedom."
+  },
+  "variant": "registered",
+  "boundary": "Full local baseline comparison, not historical author-harness equivalence; original known deviations remain explicit. USAD signed-loss control may be unstable and must be reported as such."
+}

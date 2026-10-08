@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "fm_strict_usad__swat__signed_paper_loss",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_legacy_window_adapter:LegacyWindowAdapter",
+  "parameters": {
+    "method": "usad",
+    "parameters": {
+      "window": 100,
+      "hidden_size": 100,
+      "latent_size": 40,
+      "learning_rate": 0.001,
+      "batch_size": 256,
+      "alpha": 0.5,
+      "beta": 0.5,
+      "grad_clip": 1.0,
+      "adversarial": true
+    },
+    "epochs": 20,
+    "seed": 1103,
+    "device": "cpu"
+  },
+  "citation": "https://doi.org/10.1145/3394486.3403392",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_config": "configs/models/mtsad_usad.json",
+  "source_config_sha256": "4fadacd9c980de386a5b34cfffc4ef5ecd24c6e212c0a59a2598324bf75bbfdc",
+  "original_reproduction_status": "reconstructed_from_paper_algorithm_adversarial_phase_disabled",
+  "reproduction_status": "existing_local_transcription_strict_track_not_author_pipeline_equivalence",
+  "known_deviations": {
+    "source": "KDD 2020 USAD Algorithm 1; the public reference script was not re-read line by line, so results are a re-run of the algorithm rather than of the released artefact.",
+    "deviation_note": "The paper's loss2 subtracts the second reconstruction term. On the pinned payloads that unbounded adversarial term drives decoder2 to diverge (median one-step reconstruction error grows from 0.16 to 2.5e8 within two epochs), so the shipped run disables the negative sign and is reported as an ablated, non-adversarial two-decoder ensemble; the divergence itself is kept as a recorded negative result."
+  },
+  "variant": "signed_paper_loss",
+  "boundary": "Full local baseline comparison, not historical author-harness equivalence; original known deviations remain explicit. USAD signed-loss control may be unstable and must be reported as such."
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "fm_strict_itransformer__psm__registered",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_legacy_window_adapter:LegacyWindowAdapter",
+  "parameters": {
+    "method": "itransformer",
+    "parameters": {
+      "window": 100,
+      "d_model": 128,
+      "d_ff": 128,
+      "e_layers": 3,
+      "n_heads": 8,
+      "factor": 3,
+      "dropout": 0.1,
+      "learning_rate": 0.0001,
+      "batch_size": 128
+    },
+    "epochs": 10,
+    "seed": 1103,
+    "device": "cpu"
+  },
+  "citation": "https://doi.org/10.48550/arXiv.2310.06625",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_config": "configs/models/mtsad_itransformer.json",
+  "source_config_sha256": "bc2fd501353b6ab93c5afe47390ee1af530dd23dc0b695080159f49ed403081f",
+  "original_reproduction_status": "transcribed_reference_implementation_diagnostic_only",
+  "reproduction_status": "existing_local_transcription_strict_track_not_author_pipeline_equivalence",
+  "known_deviations": {
+    "source": "ICLR 2024 iTransformer; inverted embedding, encoder and time-axis projection transcribed from github.com/thuml/Time-Series-Library (models/iTransformer.py, layers/Embed.py, layers/Transformer_EncDec.py, layers/SelfAttention_Family.py).",
+    "scope_note": "The release ships an anomaly-detection script for MSL only, and this artifact's corpus contains no point-adjusted iTransformer number for these datasets (CATCH reports it in the affiliation family). The detector therefore runs on MSL as a diagnostic model: it tests whether the residual MSL gap follows the attention family, and it produces no verdict row.",
+    "budget_note": "Only MSL's budget is published by the release. The other four datasets reuse the same budget (d_model 128, three layers, 10 epochs, batch 128) and their alarm ratios follow the dataset configs; because the budget is not the release's own for those datasets, their rows are reported only in the affiliation-family cross-check against CATCH and never as verdicts."
+  },
+  "variant": "registered",
+  "boundary": "Full local baseline comparison, not historical author-harness equivalence; original known deviations remain explicit. USAD signed-loss control may be unstable and must be reported as such."
+}

@@ -28,6 +28,53 @@ def intervals(values):
             'ci95_high': mean + margin if margin is not None else None}
 
 
+def range_snapshot(root, project):
+    path = project.get('tab_range_execution_config')
+    if not path:
+        return {'completed_evaluations': 0, 'records': [], 'seed_aggregates': []}
+    config = json.loads((root / path).read_text(encoding='utf-8'))
+    for source in config['source_receipts']:
+        if sha(root / source['path']) != source['sha256']:
+            raise ValueError('Frozen range metric source changed')
+    base = root / config['output_root']
+    records, groups = [], defaultdict(lambda: defaultdict(list))
+    for result_path in sorted((base / 'jobs').glob('*/evaluation.json')):
+        receipt = result_path.parent / 'evaluation.sha256'
+        if not receipt.exists():
+            continue  # Atomic producer may be between the JSON and checksum writes.
+        checksum = sha(result_path)
+        if receipt.read_text(encoding='ascii').strip() != checksum:
+            raise ValueError('Completed TAB metric artifact changed')
+        record = json.loads(result_path.read_text(encoding='utf-8'))
+        if sha(root / record['model_result_path']) != record['model_result_sha256']:
+            raise ValueError('TAB metric source model result changed')
+        entry = {key: record[key] for key in ('id', 'dataset', 'model_config', 'seed', 'VUS_entity_macro',
+                                             'strict_affiliation_entity_macro', 'tab_ratio_affiliation_entity_macro',
+                                             'aggregation', 'boundary')}
+        entry.update(evaluation_path=result_path.relative_to(root).as_posix(), evaluation_sha256=checksum)
+        records.append(entry)
+        metrics = {**record['VUS_entity_macro'], **record['strict_affiliation_entity_macro']['1']}
+        for metric, value in metrics.items():
+            if value['mean_over_defined_entities'] is not None:
+                groups[(record['model_config'], record['dataset'])][metric].append(value['mean_over_defined_entities'])
+    aggregates = [{'model_config': model, 'dataset': dataset,
+                   'metrics': {metric: intervals(values) for metric, values in metrics.items()},
+                   'boundary': 'Entity macro only over defined reference outputs; per-run undefined counts retained. Different metrics/protocols are not interchangeable.'}
+                  for (model, dataset), metrics in groups.items()]
+    state_path = base / 'status.json'
+    state = json.loads(state_path.read_text(encoding='utf-8')) if state_path.exists() else {}
+    process_live = False
+    try:
+        process = psutil.Process(state.get('pid', -1))
+        process_live = any('run_tab_ranges_when_ready.py' in argument for argument in process.cmdline())
+    except (psutil.NoSuchProcess, psutil.AccessDenied):
+        pass
+    return {'completed_evaluations': len(records), 'records': records, 'seed_aggregates': aggregates,
+            'process_observation': {'pid': state.get('pid'), 'verified_live': process_live, 'status': state.get('status'), 'active_job': state.get('active_job')},
+            'full_psm_reference_differential': project.get('tab_range_differential_report'),
+            'boundary': 'Pinned TAB metric evaluators, not full TAB model training harness.'}
+
+
 def snapshot(root):
     settings = json.loads((root / 'configs/experiments/fm_tsad_execution.v1.json').read_text(encoding='utf-8'))
     base = root / settings['output_root']
@@ -91,11 +138,14 @@ def snapshot(root):
                'model_configs': paper['model_configs'], 'remaining_original_reproduction_gap': paper['reproduction_gap'],
                'status': 'all_original_experiments_not_proven_complete',
                'known_method_records': sum(r['paper_id'] == paper['id'] for r in inventory['records'])} for paper in ara['papers']]
+    ranges = range_snapshot(root, project)
     report = {'captured_utc': datetime.now(timezone.utc).isoformat(), 'objective': 'Run every known unfinished experiment in this research direction',
               'goal_achieved': False, 'new_job_counts': dict(Counter(j['status'] for j in jobs)),
               'new_registered_attempts_including_numerical_retries': len(jobs),
               'base_registered_experiments': len(settings['model_configs']) * len(settings['datasets']) * len(settings['seeds']),
               'new_method_configs': len(settings['model_configs']),
+              'strict_baseline_registered_jobs': sum(j['lane'] == 'strict_baselines' for j in jobs),
+              'tab_range_evaluations': ranges,
               'process_observations': live, 'completed_new_runs': completed, 'seed_aggregates': grouped,
               'new_jobs': jobs, 'legacy_mtsad_records': history, 'legacy_record_count': len(history),
               'original_paper_scope': papers, 'known_method_inventory_records': len(inventory['records']),
@@ -104,7 +154,7 @@ def snapshot(root):
                   'Exact original-paper datasets/settings and all inspected ablation axes across all 45 ARA artifacts',
                   'GiFlow/forecasting/generation/continuous-time/image/single-cell and tabular original experiments',
                   'TEP/SKAB/PRONTO anomaly-detection manifests and adapters (imputation splits do not qualify)',
-                  'Complete TAB VUS/Affiliation metrics and full pinned author harness alignment',
+                  'Finish VUS/Affiliation for all remaining saved-score jobs and full pinned TAB author training-harness alignment',
                   'Rectified Flow iterative reflow experiments; current sigma-zero straight-path adapter is single-stage and matches independent CFM',
                   'Hyperparameter/fidelity gaps and material availability recorded in each ARA source'],
               'boundary': 'New queues are concrete progress, not a redefinition of completion. Historical results were absent from the 2026-10-08 FM-only table and are retained here without upgrading their protocol or fidelity.'}
@@ -130,7 +180,9 @@ def snapshot(root):
         writer.writerows(legacy_rows)
     lines = ['# 未完成实验执行进度', '', f"快照时间：{report['captured_utc']}。目标仍为全部已知未完成实验；尚未完成。", '',
              '42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。',
+             f"另加入 {report['strict_baseline_registered_jobs']} 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。",
              '保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。',
+             '关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。',
              f"当前任务记录：{dict(Counter(j['status'] for j in jobs))}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。", '',
              'CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。', '',
              '## 已完成的本地严格协议结果', '',
@@ -143,6 +195,16 @@ def snapshot(root):
         lines.append(f"| {Path(group['model_config']).stem} | {group['dataset']} | {metrics['f1']['n']}/{group['required_seeds']} | {fmt('f1')} | {fmt('auroc')} | {fmt('average_precision')} |")
     lines += ['', '逐种子结果、标准误/种子区间、时间块或实体区间、检查点及分数哈希均保存在 [execution_snapshot.json](execution_snapshot.json)。单种子块区间不替代跨算法配对检验。', '',
               '独立 CFM 与此处单阶段 Rectified 适配器在 sigma=0、相同种子/骨干下使用同一条直线路径，数值相同是预期行为；不应视为两个独立算法的证据。迭代 reflow 尚待另行实现和实验。', '',
+              '## 已补算的固定版本 TAB 范围指标', '',
+              f"已核验 {ranges['completed_evaluations']} 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。", '',
+              '| 模型配置 | 数据集 | VUS 已完成种子 | VUS ROC 均值 | VUS PR 均值 | 严格阈值 Affiliation F 均值 |',
+              '|---|---|---:|---:|---:|---:|']
+    for group in ranges['seed_aggregates']:
+        metrics = group['metrics']
+        fmt = lambda name: f"{metrics[name]['mean']:.6f}" if name in metrics else '—'
+        count = metrics.get('VUS_ROC', metrics.get('affiliation_f', {})).get('n', 0)
+        lines.append(f"| {Path(group['model_config']).stem} | {group['dataset']} | {count} | {fmt('VUS_ROC')} | {fmt('VUS_PR')} | {fmt('affiliation_f')} |")
+    lines += ['', '每个实体独立评价；macro仅平均原参考函数有定义的结果，未定义实体/种子数保留，不填零。Affiliation F、点级 F1 和 PA-F1 是不同指标，不能直接混比。VUS缓冲按测试标签事件长度产生，是已披露的评价依赖；严格阈值仍只来自验证段。完整TAB训练流程未等效认证。', '',
               '## 历史记录补充与范围更正', '',
               f"先前 2026-10-08 表只覆盖 FM 注册队列，未纳入旧 mtsad_reproduction 目录的 {len(history)} 份运行记录。TimesNet、Anomaly Transformer、DCdetector 等历史数值确实存在，因此不能据前表声称整个项目没有异常检测成绩。", '',
               '旧记录可能重复种子、预算或协议；缺少新严格协议要求的冻结原始数据、完整实体/时间覆盖或检查点链，不能直接晋升为新队列已完成项。全部历史数值及协议见 [historical_mtsad_metrics.csv](historical_mtsad_metrics.csv)。未改写历史文件。', '',
@@ -151,8 +213,8 @@ def snapshot(root):
               '- 原有 540 个插补/迁移任务继续执行；原数据和活跃队列未重启。',
               '- 原作者 MaelNet RL、Pi 期刊版本等效、CrossAD、MOMENT 权重及其他 source-only 适配器仍需完善。',
               '- GiFlow、预测、生成、连续时间、图像、单细胞、表格原始实验及工业异常检测迁移仍未全部完成。',
-              '- TAB 核心指标/比例诊断单列：合并训练/测试分数校准且按测试标签选最佳比例。VUS/Affiliation 与完整 TAB 原作者流程仍待补齐。',
-              '- 原 Sinkhorn 不收敛日志和部分产物保留；修正版只改求解器续接与迭代上限，最终正则、边缘容差和训练轮数不变。修正版实际完整数据实验仍需验证。', '',
+              '- TAB 核心指标/比例诊断单列：合并训练/测试分数校准且按测试标签选最佳比例。剩余 VUS/Affiliation 和完整 TAB 原作者训练流程继续执行。',
+              '- 原 Sinkhorn 不收敛日志和部分产物保留；修正版只改求解器续接与迭代上限，最终正则、边缘容差和训练轮数不变。修正版已有实际完整 PSM 成功结果，其余种子/数据集继续核验。', '',
               '数据身份、通道、实体边界、训练/验证隔离、缺失修复和训练段缩放统计见 [data_manifest.json](data_manifest.json)。SMAP_P-7 仅提供训练文件，明确登记后不纳入 51 个有测试文件的实体评价。', '']
     (delivery / 'README.md').write_text('\n'.join(lines), encoding='utf-8', newline='\n')
     return report

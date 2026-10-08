@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "fm_strict_anomaly_transformer__smap__registered",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_legacy_window_adapter:LegacyWindowAdapter",
+  "parameters": {
+    "method": "anomaly_transformer",
+    "parameters": {
+      "window": 100,
+      "d_model": 32,
+      "n_heads": 8,
+      "e_layers": 3,
+      "d_ff": 32,
+      "dropout": 0.0,
+      "k": 3,
+      "temperature": 50.0,
+      "learning_rate": 0.0001,
+      "batch_size": 256
+    },
+    "epochs": 3,
+    "seed": 1103,
+    "device": "cpu"
+  },
+  "citation": "https://doi.org/10.48550/arXiv.2110.02642",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_config": "configs/models/mtsad_anomaly_transformer.json",
+  "source_config_sha256": "3680bdb6dd1968c6472ec464679300ce810616ce80719f31549133a7077a660a",
+  "original_reproduction_status": "transcribed_from_reference_implementation",
+  "reproduction_status": "existing_local_transcription_strict_track_not_author_pipeline_equivalence",
+  "known_deviations": {
+    "hyperparameter_note": "Per-dataset budget taken from the reference repository's scripts/Start.sh: SMD ratio 0.5 with 10 epochs, MSL/SMAP/PSM ratio 1 with 3 epochs, SWaT trained at ratio 0.5 but evaluated at ratio 0.1. The earlier iteration used the Time-Series-Library ratios and a fixed 10-epoch budget, which is kept under experiments/runs/mtsad_reproduction/at_tslib_budget_* as the sensitivity contrast.",
+    "source": "ICLR 2022 Anomaly Transformer; attention and minimax terms transcribed from github.com/thuml/Anomaly-Transformer (model/attn.py, solver.py) and instantiated with the paper's per-dataset hyperparameters."
+  },
+  "variant": "registered",
+  "boundary": "Full local baseline comparison, not historical author-harness equivalence; original known deviations remain explicit. USAD signed-loss control may be unstable and must be reported as such."
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "id": "fm_tab_range_execution_v1",
+  "reference_metric_root": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics",
+  "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+  "output_root": "experiments/runs/fm_tsad_tab_range_v1",
+  "queue_paths": [
+    "configs/experiments/fm_tsad_cpu_queue.v1.json",
+    "configs/experiments/fm_tsad_gpu_queue.v1.json",
+    "configs/experiments/fm_tsad_entropic_repair_queue.v1.json",
+    "configs/experiments/fm_strict_baseline_queue.v1.json"
+  ],
+  "poll_seconds": 30,
+  "cpu_threads": 1,
+  "source_receipts": [
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/vus_metrics.py",
+      "sha256": "99860e115d21b6dfdb3343b26914f3030c9139f0c57e467bb2ee56a9e6529621"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/utils.py",
+      "sha256": "cd11cfda6b3dd1397e549269951900db14c0f95d149fd9b64f2d0a8155e6a514"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/classification_metrics_label.py",
+      "sha256": "265e6f04c9f019fde6a9f51c9f594a984d292c4a2d480a00212af1768f18f898"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/classification_metrics_score.py",
+      "sha256": "18479e6941ddec90a83176f36e15f3055091f02525abf0c1643274f1b553c769"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/affiliation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/affiliation/affiliation_zone.py",
+      "sha256": "b1ef39ce86b2bcdb6271cdec730bfbcf035494e33733fbf38a6358d3a2119a27"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/affiliation/generics.py",
+      "sha256": "f85ab5f263e0256053c92d2c5019741b6c5d097a28902331d65c70cdf061bf07"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/affiliation/integral_interval.py",
+      "sha256": "3b84a8a1dd85c19e667d67b1c6a3652697164ce553d50a03ca0d96cae286f69a"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/affiliation/metrics.py",
+      "sha256": "47a7b38053fd9fcf71334ae00a36201ac14e6e495af73d2a92331e6e5d91e518"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/evaluation/metrics/affiliation/single_ground_truth_event.py",
+      "sha256": "a18cc106a9d590ab4a685a5a328bbf4fa737b5c7a1af964ca7309a7f0539ebb1"
+    },
+    {
+      "path": "scripts/flow_matching/tab_range_metrics.py",
+      "sha256": "02c6c6e7075b51efe6adb9eb12c9be6a49e7d4f147eb20ef586bc7a1b6bd902d"
+    },
+    {
+      "path": "scripts/flow_matching/evaluate_tab_ranges.py",
+      "sha256": "33d535230ac93cdb43942debe2e75a25b84ef7171477a68178d101dabe343552"
+    },
+    {
+      "path": "scripts/flow_matching/run_tab_ranges_when_ready.py",
+      "sha256": "9b85e4548defe3d91e2ffc55e6e404bb6f2d0753fda8e3ac6481a733e954d9e6"
+    }
+  ],
+  "metric_semantics": "VUS: all250 score-order thresholds with inclusive ties; buffers0..2*int(median test event length), same as pinned TAB; accelerated rank prefix verified against executable original. Affiliation: original source functions, entity boundaries retained.",
+  "strict_calibration": "Saved validation-only threshold used verbatim; test-label-dependent VUS buffer is a metric, not a calibration input.",
+  "tab_calibration": "Saved pooled train/test-score thresholds and ratio grid; test-label metric selection diagnostic only.",
+  "undefined_policy": "Preserve null and status for undefined reference single-class/no-alarm cases; report defined/undefined counts for entity macro.",
+  "boundary": "Full range metric calculations on full local score artifacts; not full TAB training-harness or original-paper equivalence."
+}

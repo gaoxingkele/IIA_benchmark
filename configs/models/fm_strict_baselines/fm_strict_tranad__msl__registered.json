@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "fm_strict_tranad__msl__registered",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_legacy_window_adapter:LegacyWindowAdapter",
+  "parameters": {
+    "method": "tranad",
+    "parameters": {
+      "window": 10,
+      "d_ff": 16,
+      "dropout": 0.1,
+      "learning_rate": 0.01,
+      "weight_decay": 1e-05,
+      "scheduler_step": 5,
+      "scheduler_gamma": 0.9,
+      "batch_size": 128
+    },
+    "epochs": 5,
+    "seed": 1103,
+    "device": "cpu"
+  },
+  "citation": "https://doi.org/10.14778/3514061.3514067",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_config": "configs/models/mtsad_tranad.json",
+  "source_config_sha256": "b0c1e8d71d3f7f2911248fac2fbc6168d2e78a4f8f2cc61813db59b4233f411b",
+  "original_reproduction_status": "transcribed_reference_implementation_partial_protocol",
+  "reproduction_status": "existing_local_transcription_strict_track_not_author_pipeline_equivalence",
+  "known_deviations": {
+    "source": "VLDB 2022 TranAD; the two-phase transformer with focus-score self-conditioning is transcribed from github.com/imperial-qore/TranAD (src/models.py, main.py:backprop).",
+    "protocol_note": "The release thresholds these scores with POT (src/pot.py: SPOT with the per-dataset lm_d and lr_d in src/params.json). This harness reports its percentile reference protocol here, and POT is applied separately by scripts/mtsad/score_pot.py, because folding a different threshold rule into the model comparison would confound the two."
+  },
+  "variant": "registered",
+  "boundary": "Full local baseline comparison, not historical author-harness equivalence; original known deviations remain explicit. USAD signed-loss control may be unstable and must be reported as such."
+}

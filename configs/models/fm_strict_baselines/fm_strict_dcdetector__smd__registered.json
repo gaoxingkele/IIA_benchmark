@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "fm_strict_dcdetector__smd__registered",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_legacy_window_adapter:LegacyWindowAdapter",
+  "parameters": {
+    "method": "dcdetector",
+    "parameters": {
+      "window": 105,
+      "patch_sizes": [
+        5,
+        7
+      ],
+      "d_model": 256,
+      "n_heads": 1,
+      "e_layers": 3,
+      "dropout": 0.0,
+      "temperature": 50.0,
+      "learning_rate": 0.0001,
+      "batch_size": 256
+    },
+    "epochs": 3,
+    "seed": 1103,
+    "device": "cpu"
+  },
+  "citation": "https://doi.org/10.1145/3580305.3599295",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_config": "configs/models/mtsad_dcdetector.json",
+  "source_config_sha256": "55575afd9692348b4ba127698053f60991d5f2b7bd126548767b09b68a6b0b49",
+  "original_reproduction_status": "transcribed_from_reference_implementation",
+  "reproduction_status": "existing_local_transcription_strict_track_not_author_pipeline_equivalence",
+  "known_deviations": {
+    "source": "KDD 2023 DCdetector; dual attention, RevIN, multi-scale patching and the softmax(-series_loss - prior_loss) energy are transcribed from github.com/DAMO-DI-ML/KDD2023-DCdetector (model/DCdetector.py, model/attn.py, model/embed.py, solver.py).",
+    "hyperparameter_note": "Windows and anomaly ratios come from the repository's own per-dataset scripts (SMD 105/patch 5-7/ratio 0.6, MSL 90/3-5/1.0, SMAP 105/3-5-7/0.85, PSM 60/1-3-5/1.0, SWaT 105/3-5-7/1.0); argparse receives those as digit strings, so the digit list is the patch-size list."
+  },
+  "variant": "registered",
+  "boundary": "Full local baseline comparison, not historical author-harness equivalence; original known deviations remain explicit. USAD signed-loss control may be unstable and must be reported as such."
+}
