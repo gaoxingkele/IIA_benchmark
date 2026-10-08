@@ -61,6 +61,23 @@ def main():
     summary, strict_runs, diagnostic, leaves, entity_runs = [], [], [], [], []
     sources = [{'path': archived_snapshot.relative_to(ROOT).as_posix(), 'sha256': sha(archived_snapshot)},
                {'path': str(config_path.relative_to(ROOT)).replace('\\', '/'), 'sha256': sha(config_path)}]
+    author_tracks = snapshot.get('author_pipeline_experiments', [])
+    author_jobs, author_leaves = [], []
+    for track in author_tracks:
+        sources.append({'path': track['queue'], 'sha256': track['queue_sha256']})
+        for job in track['jobs']:
+            author_jobs.append(dict(job, algorithm=track['name'], protocol='author_pipeline',
+                                    strict_TAB_result=False, boundary=track['boundary']))
+            if job['status'] == 'completed':
+                source = ROOT / job['result_path']
+                if sha(source) != job['result_sha256']:
+                    raise ValueError(f'Author result changed: {source}')
+                sources.append({'path': job['result_path'], 'sha256': job['result_sha256']})
+                for name, value in numeric_leaves(job['metrics']):
+                    author_leaves.append({'algorithm': track['name'], 'dataset': job['dataset'],
+                                          'author_recipe': job['author_recipe'], 'seed': job['seed'],
+                                          'run_id': job['id'], 'metric_path': name, 'value': value,
+                                          'result_path': job['result_path'], 'result_sha256': job['result_sha256']})
     for (model, dataset), jobs in groups.items():
         metrics = seed_stats.get((model, dataset), {}).get('metrics', {})
         range_metrics = range_stats.get((model, dataset), {}).get('metrics', {})
@@ -135,10 +152,13 @@ def main():
               'summary': {'registered_tsad_attempts': len(snapshot['new_jobs']), 'tsad_counts': snapshot['new_job_counts'],
                           'tsad_model_dataset_groups': len(summary), 'complete_tsad_runs': len(snapshot['completed_new_runs']),
                           'TAB_range_complete_runs': len(ranges), 'historical_runs': len(snapshot['legacy_mtsad_records']),
+                          'author_pipeline_registered_jobs': len(author_jobs),
+                          'author_pipeline_counts': dict(Counter(j['status'] for j in author_jobs)),
                           'historical_protocol_rows': len(history), 'imputation': imputation['summary']},
               'strict_summary': sorted(summary, key=lambda r: (-r['completed_seeds'], r['algorithm_config'], r['dataset'])),
               'strict_runs': strict_runs, 'tab_ratio_diagnostic': diagnostic, 'historical_runs': history,
               'imputation': imputation, 'tsad_jobs': snapshot['new_jobs'], 'sources': sources,
+              'author_pipeline_tracks': author_tracks, 'author_pipeline_jobs': author_jobs,
               'paper_scope': snapshot['original_paper_scope'], 'remaining_obligations': snapshot['other_remaining_obligations'],
               'boundary': 'Complete registered-source snapshot, not proof all papers/ablations executed or all paper tables transcribed. Strict point F1, PA F1, affiliation F, VUS and imputation errors are separate. Nonoverlapping training differs from stride=1 author budgets.'}
     (target / 'complete_results.json').write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n', encoding='utf-8')
@@ -148,9 +168,14 @@ def main():
                'imputation_summary': imputation['formal_results'], 'imputation_per_run': imputation['per_run_metrics'],
                'registered_tsad_jobs': snapshot['new_jobs'], 'registered_imputation_jobs': imputation['jobs'],
                'paper_claims': imputation['author_claims'], 'original_dataset_scope': imputation['original_dataset_scope']}
+    exports['author_pipeline_jobs'] = author_jobs
+    exports['author_pipeline_numeric_metrics'] = author_leaves
     for name, rows in exports.items():
         flat = [{k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v for k, v in row.items()} for row in rows]
-        write_csv(target / (name + '.csv'), flat, list(dict.fromkeys(k for r in flat for k in r)))
+        headers = list(dict.fromkeys(k for r in flat for k in r))
+        if name == 'author_pipeline_numeric_metrics' and not headers:
+            headers = ['algorithm', 'dataset', 'author_recipe', 'seed', 'run_id', 'metric_path', 'value', 'result_path', 'result_sha256']
+        write_csv(target / (name + '.csv'), flat, headers)
     # The exhaustive repeated provenance table is large as text; preserve the
     # local CSV and commit its deterministic, byte-identical compressed copy.
     numeric_csv = target / 'all_tsad_numeric_metrics.csv'
@@ -178,6 +203,10 @@ def main():
               '## 文件', '', '[完整 Excel](complete_experiment_metrics.xlsx)、[所有组合与状态](strict_summary.csv)、[逐种子严格指标](strict_per_seed.csv)、[历史协议结果](historical_protocol_results.csv)、[插补汇总](imputation_summary.csv)、[论文报告值](paper_claims.csv)、[完整机器可读结果](complete_results.json)。', '',
               '原文数据范围、未运行任务及每篇复现缺口均保留在 CSV/JSON 与 Excel 中。']
     (target / 'README.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    with (target / 'README.md').open('a', encoding='utf-8') as stream:
+        stream.write('\n## 作者完整流程\n\n')
+        stream.write(f"独立作者流程登记 {len(author_jobs)} 项，状态 {dict(Counter(j['status'] for j in author_jobs))}。")
+        stream.write('逐项配方、数据集、种子和阶段状态见 author_pipeline_jobs.csv；尚无完整流程指标时保留空值，不计入严格成绩。\n')
     validation = {'captured_utc': report['captured_utc'], 'checks': {
         'tsad_job_accounting': sum(snapshot['new_job_counts'].values()) == len(snapshot['new_jobs']),
         'all_registered_tsad_groups_present': sum(r['required_seeds'] for r in summary) == len(snapshot['new_jobs']),
@@ -185,6 +214,8 @@ def main():
         'all_complete_runs_have_ten_ratio_diagnostics': len(diagnostic) == 10 * len(snapshot['completed_new_runs']),
         'missing_groups_never_zero_filled': all(r['f1_mean'] is None for r in summary if not r['completed_seeds']),
         'source_result_and_range_hashes_verified': True,
+        'author_pipeline_jobs_all_accounted_for': len(author_jobs) == sum(t['registered_jobs'] for t in author_tracks),
+        'author_pipeline_not_promoted_to_strict_results': all(not j['strict_TAB_result'] for j in author_jobs),
         'imputation_jobs_all_accounted_for': len(imputation['jobs']) == 540,
         'paper_claims_not_promoted_to_local_results': all(r['local_value'] is None for r in imputation['author_claims'])},
         'csv_row_counts': {name: len(rows) for name, rows in exports.items()},

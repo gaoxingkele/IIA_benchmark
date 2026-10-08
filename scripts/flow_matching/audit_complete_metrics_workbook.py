@@ -81,8 +81,13 @@ with zipfile.ZipFile(target / 'complete_experiment_metrics.xlsx') as archive:
         equal(4, f'R{i}', row['verdict'])
     for i, row in enumerate(data['imputation']['per_run_metrics'], 6):
         equal(5, f'I{i}', row['value'])
+    for i, row in enumerate(data.get('author_pipeline_jobs', []), 6):
+        for column, key in [('A', 'algorithm'), ('B', 'author_recipe'), ('C', 'dataset'),
+                            ('D', 'seed'), ('E', 'status'), ('G', 'strict_TAB_result'), ('I', 'id')]:
+            equal(9, f'{column}{i}', row[key])
+        equal(9, f'H{i}', json.dumps(row['metrics'], ensure_ascii=False, separators=(',', ':')) if 'metrics' in row else None)
     tables = [p for p in archive.namelist() if p.startswith('xl/tables/table') and p.endswith('.xml')]
-    assert len(tables) == 9
+    assert len(tables) == len(manifest['sheets'])
     assert all(ET.fromstring(archive.read(p)).find('m:autoFilter', ns) is not None for p in tables)
 validation = json.loads((target / 'validation.json').read_text(encoding='utf-8'))
 validation['workbook'] = {'sheets_verified': len(matrices), 'rows': sum(s['rows'] for s in manifest['sheets']),

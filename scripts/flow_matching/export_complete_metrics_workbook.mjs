@@ -67,8 +67,9 @@ add('插补每次运行','插补每个折或种子的原始指标','耗时与che
  ['算法','数据集','缺失率','协议','掩码','折','种子','指标','数值','训练秒','评估秒','评估点数','测试样本','生成样本','轮数','运行ID','配置','配置SHA256','来源','结果SHA256','数据SHA256','模型SHA256'],
  imputation.per_run_metrics.map(r=>perKeys.map(k=>r[k])),[3,9,10,11],{A:23,B:23,D:35,H:26,P:80,Q:110,S:130});
 const allJobs=[...data.tsad_jobs.map(r=>[path.basename(r.model_config,'.json'),r.dataset.toUpperCase(),'异常检测',r.lane,null,null,r.seed,r.status,r.id,r.model_config,null]),
+ ...(data.author_pipeline_jobs??[]).map(r=>[r.algorithm+' '+r.author_recipe,r.dataset,'异常检测作者流程','author_pipeline',null,null,r.seed,r.status,r.id,r.output_directory,null]),
  ...imputation.jobs.map(r=>[r.algorithm,r.dataset,'插补',r.track,r.missing_ratio,r.fold,r.seed,r.status,r.id,r.config,r.pattern])];
-add('全部登记任务','全部登记实验任务',`异常检测${data.tsad_jobs.length}项含数值修复重跑及reflow对照。另有${imputation.jobs.length}项插补任务。无结果项不计零分。`,
+add('全部登记任务','全部登记实验任务',`严格检测${data.tsad_jobs.length}项，作者流程${(data.author_pipeline_jobs??[]).length}项，插补${imputation.jobs.length}项。无结果项留空。`,
  ['算法配置','数据集','任务','执行轨道','缺失率','折','种子','状态','任务ID','配置来源','掩码'],allJobs,[5],{A:55,D:35,H:25,I:100,J:110,K:24});
 add('论文报告值','ARA已核验转录的论文指标','论文原单位保留。F1_percent为0–100，F1为0–1。未转录表格仍待核验。',
  ['算法/表行','数据集','缺失率','指标','论文数值','SE','STD','重复数','PDF页','表号','原协议','转录核验','论文ID','参考ID','论文URL','全文SHA256'],
@@ -78,6 +79,12 @@ add('原文数据范围','45篇论文的原始实验数据范围','273条是含�
  ['论文/算法','任务','原文数据集描述','指标行数','有数值行数','本地绑定状态','全文SHA256','来源URL','复现缺口'],
  imputation.original_dataset_scope.map(r=>[r.paper_id,r.task,r.dataset_description,r.registered_local_metric_rows,r.numeric_local_metric_rows,r.status,r.source_sha256,r.citation,r.reproduction_gap]),[],
  {A:32,B:40,C:90,D:18,E:18,F:80,G:72,H:105,I:160});
+if(data.author_pipeline_jobs?.length){
+ add('作者流程状态','作者完整流程的配方、数据集和种子','原协议单列。完整流程完成前没有最终指标。',
+ ['算法','配方','数据集','种子','状态','已产生阶段记录数','严格TAB成绩','最终指标','任务ID','输出来源','阶段记录','协议边界'],
+ data.author_pipeline_jobs.map(r=>[r.algorithm,r.author_recipe,r.dataset,r.seed,r.status,r.stage_receipts.length,r.strict_TAB_result,r.metrics??null,r.id,r.output_directory,r.stage_receipts,r.boundary]),
+ [],{A:20,B:23,C:15,D:12,E:30,F:28,G:23,H:85,I:100,J:125,K:140,L:160});
+}
 workbook.recalculate();
 console.log((await workbook.inspect({kind:'table',range:'严格结果!A5:N10',include:'values,formulas',tableMaxRows:6,tableMaxCols:14,maxChars:1800})).ndjson);
 console.log((await workbook.inspect({kind:'match',searchTerm:'#REF!|#DIV/0!|#VALUE!|#NAME\\?|#NUM!|#NULL!|#SPILL!|#CALC!',options:{useRegex:true,maxResults:30},maxChars:1200})).ndjson);
