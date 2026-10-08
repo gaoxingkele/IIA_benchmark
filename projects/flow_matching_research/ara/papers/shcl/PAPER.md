@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：原文说阈值来自 validation，代码校准轨道须独立审计；Table2 是 Transformer/VAE，未找到此前所说 LSTM96.42 行。
+主要复现问题：作者VAE源码保留，五骨干Transformer/VAE/CNN/RNN/LSTM及THM/连续性/高斯KL/评分和部分消融已补；adaptive masking及精确架构仍待对齐。

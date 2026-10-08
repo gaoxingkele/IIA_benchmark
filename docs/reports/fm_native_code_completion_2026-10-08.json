@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-08T00:41:53.713850+00:00",
+  "all_paper_code_complete": false,
+  "formal_scores_reproduced": false,
+  "implemented_papers": 4,
+  "registered_executable_configurations": 16,
+  "author_snapshots_acquired": 0,
+  "primary_source_hash_checks": {
+    "grasp": true,
+    "dfm": true,
+    "prismflow": true,
+    "cfm_ts": true
+  },
+  "implementations": [
+    "src/iia_benchmark/models/fm_native.py",
+    "src/iia_benchmark/models/fm_native_trajectory.py"
+  ],
+  "tests": {
+    "command": "python -m pytest tests/test_fm_native.py tests/test_fm_native_trajectory.py -q",
+    "passed": 27,
+    "device": "cpu",
+    "meaning": "mathematical limits/derivatives/eigenbasis invariance/density sign/WTA masking and fit-score/sample contracts; no benchmark score",
+    "additional_checks": [
+      "all 16 model config entrypoints instantiate on CPU and include source citations",
+      "no-WTA variant produces zero expert-generator specialization gradients",
+      "constant-translation CNF has zero Jacobian correction"
+    ]
+  },
+  "papers": [
+    {
+      "id": "grasp",
+      "status": "executable_core_and_variants_reconstructed_not_full_author_pipeline",
+      "model_configs": [
+        "configs/models/fm_native_grasp_grasp.json",
+        "configs/models/fm_native_grasp_mean.json",
+        "configs/models/fm_native_grasp_er.json",
+        "configs/models/fm_native_grasp_lin.json"
+      ],
+      "ready_components": [
+        "closed-form graph spectral path/velocity",
+        "normalized Laplacian",
+        "sinusoidal alternating time/variable mixer",
+        "train fit and deterministic anomaly score",
+        "mean/ER/linear paper variants"
+      ],
+      "missing": [
+        "author-verified graph estimator/projection convention",
+        "exact mTSBench split/window-to-point aggregation",
+        "validation schedule/early stopping",
+        "MLP/CNN velocity architecture comparison",
+        "all sensitivity experiments and 10-seed datasets"
+      ],
+      "all_ablations_complete": false,
+      "design_choices": [
+        "Paper does not identify the estimator producing its edge-weight matrix; abs-Pearson from training windows is an explicit local fallback. Prefer caller-supplied verified adjacency.",
+        "MLP projection axes/normalization dimensions are explicit local choices consistent with described alternating temporal/channel mixer, not certified author architecture.",
+        "Interior time grid j/(T+1), j=1..T; source samples shared across windows for chunk-independent deterministic scoring.",
+        "No early-stopping/validation scheduler or exact mTSBench preprocessing has yet been implemented; 1500 epochs is the paper maximum, not a validated local optimum."
+      ]
+    },
+    {
+      "id": "dfm",
+      "status": "executable_core_and_variants_reconstructed_not_full_author_pipeline",
+      "model_configs": [
+        "configs/models/fm_native_dfm_hutchinson.json",
+        "configs/models/fm_native_dfm_exact.json"
+      ],
+      "ready_components": [
+        "literal dual-field cosine loss",
+        "train fit and window-level score",
+        "Euler CNF reverse-field density with Hutchinson or exact trace"
+      ],
+      "missing": [
+        "author U-Net and learnable prior",
+        "Dopri5",
+        "MLE-CNF and exact published FM/I-CFM U-Net baselines",
+        "author SMAP entity/feature protocol",
+        "threshold and adjustment protocol",
+        "objective degeneracy/bijectivity needs mathematical audit"
+      ],
+      "all_ablations_complete": false,
+      "design_choices": [
+        "TimeMLP replaces unspecified U-Net parameterization; fixed standard Gaussian replaces paper learnable Gaussian. Neither is author equivalent.",
+        "Literal equation 12 only: data/prior independently sampled at uniform time. Aligned constant fields can attain zero cosine loss; loss does not establish bijectivity or distribution matching.",
+        "Paper Eq.11 applies a univariate inverse-function argument to multidimensional time-dependent vectors. This is retained as a documented theoretical concern, not silently repaired.",
+        "Euler backward integration over learned reverse field, valid continuous-change-of-variable sign. Dopri5 and exact paper preprocessing/threshold/point-adjustment protocols remain pending.",
+        "Training epochs and learning rate are local defaults, not values recovered from unpublished author settings."
+      ]
+    },
+    {
+      "id": "prismflow",
+      "status": "executable_core_and_variants_reconstructed_not_full_author_pipeline",
+      "model_configs": [
+        "configs/models/fm_native_prismflow_full.json",
+        "configs/models/fm_native_prismflow_vanilla_fm.json",
+        "configs/models/fm_native_prismflow_no_wta.json",
+        "configs/models/fm_native_prismflow_no_balance.json",
+        "configs/models/fm_native_prismflow_beta_zero.json",
+        "configs/models/fm_native_prismflow_gamma_zero.json"
+      ],
+      "ready_components": [
+        "dissipative Koopman generators",
+        "hard confidence WTA",
+        "masked selected-generator gradient",
+        "KL uniform load balancing",
+        "fit and Euler sampling",
+        "five Table3 ablation switches"
+      ],
+      "missing": [
+        "author backbone/projection/schedules/hyperparameters",
+        "conditional guidance",
+        "all metric evaluator and baseline pipelines",
+        "low-data/forecasting/imputation tests"
+      ],
+      "all_ablations_complete": false,
+      "design_choices": [
+        "Flat TimeMLP global field/encoder and latent=16/K=4 are explicit defaults; exact paper backbone, projector, schedules, and hyperparameter budget not specified in supplied full text.",
+        "lambda(t)=t and one-step endpoint estimate x+(1-t)*(global.detach()+lambda*residual) are explicit choices.",
+        "Global velocity is detached for WTA loss; selected expert S/R receive gradients, shared encoder/decoder and load-balancing router remain shared.",
+        "Conditional forecasting/imputation guidance, pretrained metric evaluators and comparison baseline experiment pipelines remain pending."
+      ]
+    },
+    {
+      "id": "cfm_ts",
+      "status": "executable_core_and_variants_reconstructed_not_full_author_pipeline",
+      "model_configs": [
+        "configs/models/fm_native_cfm_ts_bb_paper_literal.json",
+        "configs/models/fm_native_cfm_ts_bb_gaussian_consistent.json",
+        "configs/models/fm_native_cfm_ts_gp_paper_literal.json",
+        "configs/models/fm_native_cfm_ts_gp_gaussian_conditional.json"
+      ],
+      "ready_components": [
+        "Kalman/RTS preprocessing",
+        "BB literal/corrected Gaussian targets",
+        "RBF state/derivative GP posterior and per-trajectory MLE",
+        "GP literal/corrected targets",
+        "trajectory fit/vector field/RK4 simulation"
+      ],
+      "missing": [
+        "author formula interpretation",
+        "exact simulation split/count version",
+        "author network and dopri5 adjoint NODE baseline",
+        "full five-seed MSE experiments"
+      ],
+      "all_ablations_complete": false,
+      "design_choices": [
+        "Standard diagonal zero-drift Kalman/RTS repairs printed smoothing gain/covariance equations; m0=y0,P0=1 are explicit initialization choices.",
+        "BB paper_literal implements printed Eq.8; gaussian_consistent instead uses 0.5*Pprime/P(t)*(x-m(t)), the velocity of Eq.7 Gaussian interpolation. Kept as distinct configurations.",
+        "GP paper_literal omits posterior means as printed Eq.10; gaussian_conditional restores derivative mean and centered state, the standard Gaussian conditional derivative.",
+        "GP MLE uses L-BFGS-B rather than unspecified author optimizer, shared RBF across independent state dimensions; dense covariance sampled jointly over queries.",
+        "TimeMLP differs from ambiguous 64/258-dimension architecture; RK4 replaces dopri5 during diagnostic simulation; main/appendix trajectory counts and batch size conflicts must be frozen before comparisons."
+      ]
+    }
+  ],
+  "provenance_manifest": "configs/acquisition/fm_native_code_completion_2026-10-08.json",
+  "input_preserved": true,
+  "gpu_jobs_started": 0,
+  "implementation_sha256": {
+    "src/iia_benchmark/models/fm_native.py": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+    "src/iia_benchmark/models/fm_native_trajectory.py": "6dc42026407f52957f2740af834e5d20a083e6a1c6d860e0d3925ef784f1f992",
+    "tests/test_fm_native.py": "650cd2d04b751ade2a3cd9b2c31081709b8f015f5c205e15d1d8e0e6e9dd5fef",
+    "tests/test_fm_native_trajectory.py": "b8d512d0eae029c07a59cb8881b4c3db653d49631f5f773c097078d538d1edc3",
+    "configs/models/fm_native_grasp_grasp.json": "6fac0efab30b5fbff69a293124e5100c5772ab8bf41e19da1f302fd64350868b",
+    "configs/models/fm_native_grasp_mean.json": "0dc87e03168904509386cff5c99a35dd5ab546047845e9d7ad04d7f57530e3f6",
+    "configs/models/fm_native_grasp_er.json": "ee797d9e64988cd70581a0dacef0a66dcf851c5cacb512852d4eda4d5fa881a8",
+    "configs/models/fm_native_grasp_lin.json": "946aed1de706d7d6a754a8a9fb2afddae7c2940636e12fdae94485ca2940f146",
+    "configs/models/fm_native_dfm_hutchinson.json": "6ef0fabbf39279d3c68540cb60acd042f56bb41cf34a628557de19029f75f82c",
+    "configs/models/fm_native_dfm_exact.json": "868feaa5253c2b852edefac3a653c3fc71524d61f4f957bf5737c1b9d2750073",
+    "configs/models/fm_native_prismflow_full.json": "b8163437a2e329fac3997b46f991824c3a08e8ead89aa943c9c0da2190b2828f",
+    "configs/models/fm_native_prismflow_vanilla_fm.json": "d70d5e42f28f641bf33ce8d9705e56b50a0f740143b8cb95a1a55807b91fec45",
+    "configs/models/fm_native_prismflow_no_wta.json": "d1104fe8f9773ab8e670adcb7d75f055ef7805c42841a0022c558a8bca122410",
+    "configs/models/fm_native_prismflow_no_balance.json": "5034d87ef4ce4e8ea93b8f21686239c1825149b8911e03e1c8a7466a54a94007",
+    "configs/models/fm_native_prismflow_beta_zero.json": "d520d80bea09ab6a024415b5170161a58273c955d264987cc13a5b5491fed4b6",
+    "configs/models/fm_native_prismflow_gamma_zero.json": "ded78b5401a3c04e6350d359d87926e5d665f83e0ab010da2833699f468c66e4",
+    "configs/models/fm_native_cfm_ts_bb_paper_literal.json": "25a358be168d1743f03cddec126ca4d9b3fc6598feba4dacaf92aa8b7503796b",
+    "configs/models/fm_native_cfm_ts_bb_gaussian_consistent.json": "073bc5a5207b16fd2933e178cda891425780cb3b96ad18c40488f35aaba0b39f",
+    "configs/models/fm_native_cfm_ts_gp_paper_literal.json": "3b02658e02219911baaf44ab10ed7db647b8744f079e7a2b3739db5c84fb250c",
+    "configs/models/fm_native_cfm_ts_gp_gaussian_conditional.json": "f6d81aab9c560b80b354c6bd2ef88f4b73c97cce8e366ba5b51d64a2c8c39969"
+  }
+}

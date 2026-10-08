@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "fm_native_dfm_exact",
+  "family": "paper_derived_native_flow_matching",
+  "task": "anomaly_detection",
+  "kind": "window",
+  "entrypoint": "iia_benchmark.models.fm_native:DFMDetector",
+  "parameters": {
+    "window": 8,
+    "hidden": 128,
+    "epochs": 100,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "steps": 4,
+    "trace": "exact",
+    "seed": 1103,
+    "device": "auto"
+  },
+  "citation": "https://arxiv.org/abs/2410.09246",
+  "paper_id": "dfm",
+  "paper_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+  "reproduction_status": "executable_paper_derived_reconstruction_not_author_equivalent",
+  "variant": "literal_dual_cosine_exact",
+  "paper_score_status": "not_reproduced",
+  "design_choices": [
+    "TimeMLP replaces unspecified U-Net parameterization; fixed standard Gaussian replaces paper learnable Gaussian. Neither is author equivalent.",
+    "Literal equation 12 only: data/prior independently sampled at uniform time. Aligned constant fields can attain zero cosine loss; loss does not establish bijectivity or distribution matching.",
+    "Paper Eq.11 applies a univariate inverse-function argument to multidimensional time-dependent vectors. This is retained as a documented theoretical concern, not silently repaired.",
+    "Euler backward integration over learned reverse field, valid continuous-change-of-variable sign. Dopri5 and exact paper preprocessing/threshold/point-adjustment protocols remain pending.",
+    "Training epochs and learning rate are local defaults, not values recovered from unpublished author settings."
+  ],
+  "data_reference": [
+    "SMAP"
+  ],
+  "evaluation": "frozen grouped train/validation/test protocol required; no test-label threshold tuning; no synthetic benchmark claim"
+}

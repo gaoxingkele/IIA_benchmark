@@ -1,0 +1,38 @@
+{
+  "task": "forecasting_and_classification",
+  "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+  "parameters": {
+    "heads": 4,
+    "mode": "icm",
+    "train_beta": true,
+    "epsilon": 1e-06
+  },
+  "functions": {
+    "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+  },
+  "reproduction_status": "paper_derived_attention_components_not_complete_moment_integration",
+  "gaps": [
+    "No dedicated ICM author repository located.",
+    "This is a standalone attention/embedding primitive. Full MomentICMT5 integration is prepared in separate configs; original pretrained ICM weights remain unavailable.",
+    "Graph Transformer adapter, Crossformer, iTransformer/multivariate patching, N-BEATS and all experiment scripts have not been aligned to this paper setting.",
+    "One-epoch Time Series Pile pretraining, 26 UEA SVM classification and forecasting experiment pipelines remain pending.",
+    "Q/K/V projections are supplied by caller; local dot-product scale is standard sqrt(key dimension).",
+    "All components are for original forecast/classification task; no anomaly detection performance implied."
+  ],
+  "evidence_pages": [
+    3,
+    4,
+    7,
+    8
+  ],
+  "schema_version": 1,
+  "id": "fm_supplemental_moment_long_context__finetune_beta",
+  "family": "flow_matching_research_code_completion",
+  "citation": "https://arxiv.org/abs/2409.13530v1",
+  "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+  "paper_score_status": "not_verified",
+  "benchmark_ready": false,
+  "all_paper_ablations_complete": false,
+  "variant_of": "fm_supplemental_moment_long_context",
+  "variant_id": "finetune_beta"
+}

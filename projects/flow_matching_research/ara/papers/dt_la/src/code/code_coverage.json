@@ -5,12 +5,32 @@
   "ara_artifact": "papers/dt_la/PAPER.md",
   "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "local_paper_core_reconstruction_with_gaps",
+    "note": "MRH、双编码器、注意力熵、scaled-softmax及fit/score和显式消融已还原；未公开架构/归约/验证搜索细节待核。"
   },
   "source_resources": [],
-  "local_entrypoints": [],
-  "model_configs": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_comparator_dt_la.json",
+    "configs/models/fm_comparator_dt_la_l2_no_sparse.json",
+    "configs/models/fm_comparator_dt_la_l2_sparse.json",
+    "configs/models/fm_comparator_dt_la_lambda_0p1.json",
+    "configs/models/fm_comparator_dt_la_lambda_0p3.json",
+    "configs/models/fm_comparator_dt_la_lambda_0p7.json",
+    "configs/models/fm_comparator_dt_la_lambda_1p0.json",
+    "configs/models/fm_comparator_dt_la_mrh_no_sparse.json",
+    "configs/models/fm_comparator_dt_la_score_input.json",
+    "configs/models/fm_comparator_dt_la_score_latent.json",
+    "configs/models/fm_comparator_dt_la_score_softmax.json"
+  ],
   "paper_ablations": {
     "source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
     "ablation_page_candidates": [
@@ -77,7 +97,118 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_comparator_dt_la",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_l2_no_sparse",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_l2_sparse",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_lambda_0p1",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_lambda_0p3",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_lambda_0p7",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_lambda_1p0",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_mrh_no_sparse",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_score_input",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_score_latent",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_dt_la_score_softmax",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

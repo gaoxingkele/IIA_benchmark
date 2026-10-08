@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：Algorithm2 使用 train 与 threshold 分数校准，并显式 point-adjust；期刊16页与 arXiv29页须分别引用。代码镜像未经现任作者确认。
+主要复现问题：镜像源码的CPU构造、phase reshape、causal mask与prior支持四项修复及single-head配置已物化；作者现仓库仍仅README/LICENSE，完整期刊等价性待核。

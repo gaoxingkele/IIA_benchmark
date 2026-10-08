@@ -1,6 +1,6 @@
 # Pi-transformer: A prior-informed dual-attention model for multivariate time-series anomaly detection
 
-Algorithm2 使用 train 与 threshold 分数校准，并显式 point-adjust；期刊16页与 arXiv29页须分别引用。代码镜像未经现任作者确认。
+镜像源码的CPU构造、phase reshape、causal mask与prior支持四项修复及single-head配置已物化；作者现仓库仍仅README/LICENSE，完整期刊等价性待核。
 
 冻结要求：作者版本与代码提交、数据实体/划分、训练专属归一化、掩码/窗口及回填、种子和预算、积分器/步数、分数聚合、阈值来源、点调整、指标尺度与不确定性。
 

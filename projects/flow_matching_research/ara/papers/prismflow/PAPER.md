@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：专家路由、频谱保真和低数据预算分别消融；Context-FID/Discriminative Score 不能直接换成异常检测优势。
+主要复现问题：代码、主消融或组件已按原文还原；仍缺：author backbone/projection/schedules/hyperparameters；conditional guidance；all metric evaluator and baseline pipelines；low-data/forecasting/imputation tests

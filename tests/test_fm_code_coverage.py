@@ -36,6 +36,14 @@ def test_legacy_syntax_and_warnings_are_recorded(tmp_path):
     assert report['python_syntax_warnings_current_interpreter'][0]['path']=='escape.py'
 
 
+def test_lua_author_source_is_registered_without_python_claim(tmp_path):
+    (tmp_path/'model.lua').write_text('error("must not execute")\n')
+    report,files=inspect_resource(tmp_path,{'id':'glow','path':'.'})
+    assert report['status']=='local_code_files_present'
+    assert report['python_files']==0
+    assert files[0]['path']=='model.lua'
+
+
 def test_entrypoint_symbols_without_import_or_nested_false_positive(tmp_path):
     path=tmp_path/'src/iia_benchmark/models/method.py';path.parent.mkdir(parents=True)
     path.write_text('raise RuntimeError("no execution")\nclass Model: pass\ndef outer():\n    def nested(): pass\n')

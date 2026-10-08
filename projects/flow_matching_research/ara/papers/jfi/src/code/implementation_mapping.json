@@ -15,6 +15,408 @@
         "author_commit": null,
         "paper_score_status": "not_verified"
       }
+    },
+    {
+      "path": "configs/models/fm_supplemental_jfi.json",
+      "configuration": {
+        "task": "online_imputation_and_supervised_downstream",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+        "parameters": {
+          "width": 32,
+          "mixed": true,
+          "channel_attention": true
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:jfi_objective",
+          "impute": "iia_benchmark.models.fm_supplemental:jfi_impute"
+        },
+        "objective": {
+          "sigma": 0,
+          "prior_variance": 0.01,
+          "local_prior": true,
+          "joint": true,
+          "target_weight": 1,
+          "distillation_weight": 1,
+          "temperature": 1
+        },
+        "variants": [
+          {
+            "id": "without_lpd",
+            "objective": {
+              "local_prior": false
+            },
+            "impute": {
+              "local_prior": false
+            }
+          },
+          {
+            "id": "without_mcb_ca",
+            "parameters": {
+              "mixed": false,
+              "channel_attention": false
+            }
+          },
+          {
+            "id": "without_jfol",
+            "objective": {
+              "joint": false
+            }
+          },
+          {
+            "id": "nfe_1",
+            "impute": {
+              "steps": 1
+            }
+          },
+          {
+            "id": "nfe_10",
+            "impute": {
+              "steps": 10
+            }
+          },
+          {
+            "id": "nfe_50",
+            "impute": {
+              "steps": 50
+            }
+          }
+        ],
+        "reproduction_status": "paper_derived_callable_architecture_and_core_ablations",
+        "gaps": [
+          "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+          "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+          "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+          "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+          "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+          "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+        ],
+        "evidence_pages": [
+          5,
+          6,
+          7,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_jfi",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1016/j.ces.2026.124467",
+        "paper_primary_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_jfi__nfe_1.json",
+      "configuration": {
+        "task": "online_imputation_and_supervised_downstream",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+        "parameters": {
+          "width": 32,
+          "mixed": true,
+          "channel_attention": true
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:jfi_objective",
+          "impute": "iia_benchmark.models.fm_supplemental:jfi_impute"
+        },
+        "objective": {
+          "sigma": 0,
+          "prior_variance": 0.01,
+          "local_prior": true,
+          "joint": true,
+          "target_weight": 1,
+          "distillation_weight": 1,
+          "temperature": 1
+        },
+        "reproduction_status": "paper_derived_callable_architecture_and_core_ablations",
+        "gaps": [
+          "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+          "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+          "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+          "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+          "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+          "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+        ],
+        "evidence_pages": [
+          5,
+          6,
+          7,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_jfi__nfe_1",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1016/j.ces.2026.124467",
+        "paper_primary_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_jfi",
+        "variant_id": "nfe_1",
+        "impute": {
+          "steps": 1
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_jfi__nfe_10.json",
+      "configuration": {
+        "task": "online_imputation_and_supervised_downstream",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+        "parameters": {
+          "width": 32,
+          "mixed": true,
+          "channel_attention": true
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:jfi_objective",
+          "impute": "iia_benchmark.models.fm_supplemental:jfi_impute"
+        },
+        "objective": {
+          "sigma": 0,
+          "prior_variance": 0.01,
+          "local_prior": true,
+          "joint": true,
+          "target_weight": 1,
+          "distillation_weight": 1,
+          "temperature": 1
+        },
+        "reproduction_status": "paper_derived_callable_architecture_and_core_ablations",
+        "gaps": [
+          "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+          "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+          "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+          "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+          "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+          "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+        ],
+        "evidence_pages": [
+          5,
+          6,
+          7,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_jfi__nfe_10",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1016/j.ces.2026.124467",
+        "paper_primary_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_jfi",
+        "variant_id": "nfe_10",
+        "impute": {
+          "steps": 10
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_jfi__nfe_50.json",
+      "configuration": {
+        "task": "online_imputation_and_supervised_downstream",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+        "parameters": {
+          "width": 32,
+          "mixed": true,
+          "channel_attention": true
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:jfi_objective",
+          "impute": "iia_benchmark.models.fm_supplemental:jfi_impute"
+        },
+        "objective": {
+          "sigma": 0,
+          "prior_variance": 0.01,
+          "local_prior": true,
+          "joint": true,
+          "target_weight": 1,
+          "distillation_weight": 1,
+          "temperature": 1
+        },
+        "reproduction_status": "paper_derived_callable_architecture_and_core_ablations",
+        "gaps": [
+          "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+          "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+          "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+          "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+          "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+          "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+        ],
+        "evidence_pages": [
+          5,
+          6,
+          7,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_jfi__nfe_50",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1016/j.ces.2026.124467",
+        "paper_primary_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_jfi",
+        "variant_id": "nfe_50",
+        "impute": {
+          "steps": 50
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_jfi__without_jfol.json",
+      "configuration": {
+        "task": "online_imputation_and_supervised_downstream",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+        "parameters": {
+          "width": 32,
+          "mixed": true,
+          "channel_attention": true
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:jfi_objective",
+          "impute": "iia_benchmark.models.fm_supplemental:jfi_impute"
+        },
+        "objective": {
+          "sigma": 0,
+          "prior_variance": 0.01,
+          "local_prior": true,
+          "joint": false,
+          "target_weight": 1,
+          "distillation_weight": 1,
+          "temperature": 1
+        },
+        "reproduction_status": "paper_derived_callable_architecture_and_core_ablations",
+        "gaps": [
+          "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+          "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+          "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+          "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+          "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+          "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+        ],
+        "evidence_pages": [
+          5,
+          6,
+          7,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_jfi__without_jfol",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1016/j.ces.2026.124467",
+        "paper_primary_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_jfi",
+        "variant_id": "without_jfol"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_jfi__without_lpd.json",
+      "configuration": {
+        "task": "online_imputation_and_supervised_downstream",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+        "parameters": {
+          "width": 32,
+          "mixed": true,
+          "channel_attention": true
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:jfi_objective",
+          "impute": "iia_benchmark.models.fm_supplemental:jfi_impute"
+        },
+        "objective": {
+          "sigma": 0,
+          "prior_variance": 0.01,
+          "local_prior": false,
+          "joint": true,
+          "target_weight": 1,
+          "distillation_weight": 1,
+          "temperature": 1
+        },
+        "reproduction_status": "paper_derived_callable_architecture_and_core_ablations",
+        "gaps": [
+          "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+          "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+          "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+          "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+          "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+          "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+        ],
+        "evidence_pages": [
+          5,
+          6,
+          7,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_jfi__without_lpd",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1016/j.ces.2026.124467",
+        "paper_primary_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_jfi",
+        "variant_id": "without_lpd",
+        "impute": {
+          "local_prior": false
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_jfi__without_mcb_ca.json",
+      "configuration": {
+        "task": "online_imputation_and_supervised_downstream",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+        "parameters": {
+          "width": 32,
+          "mixed": false,
+          "channel_attention": false
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:jfi_objective",
+          "impute": "iia_benchmark.models.fm_supplemental:jfi_impute"
+        },
+        "objective": {
+          "sigma": 0,
+          "prior_variance": 0.01,
+          "local_prior": true,
+          "joint": true,
+          "target_weight": 1,
+          "distillation_weight": 1,
+          "temperature": 1
+        },
+        "reproduction_status": "paper_derived_callable_architecture_and_core_ablations",
+        "gaps": [
+          "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+          "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+          "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+          "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+          "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+          "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+        ],
+        "evidence_pages": [
+          5,
+          6,
+          7,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_jfi__without_mcb_ca",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1016/j.ces.2026.124467",
+        "paper_primary_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_jfi",
+        "variant_id": "without_mcb_ca"
+      }
     }
   ],
   "code_url": null,

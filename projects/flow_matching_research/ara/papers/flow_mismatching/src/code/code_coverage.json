@@ -5,12 +5,30 @@
   "ara_artifact": "papers/flow_mismatching/PAPER.md",
   "primary_source_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "local_paper_component_reconstruction_with_gaps",
+    "note": "代码、主消融或组件已按原文还原；仍缺：No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.；Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.；Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.；Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.；K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.；Original task is image detection; do not report as TSAD performance."
   },
   "source_resources": [],
-  "local_entrypoints": [],
-  "model_configs": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_supplemental_flow_mismatching.json",
+    "configs/models/fm_supplemental_flow_mismatching__class_conditional.json",
+    "configs/models/fm_supplemental_flow_mismatching__class_conditional__visa.json",
+    "configs/models/fm_supplemental_flow_mismatching__path_mean.json",
+    "configs/models/fm_supplemental_flow_mismatching__path_percentile_10.json",
+    "configs/models/fm_supplemental_flow_mismatching__path_percentile_20.json",
+    "configs/models/fm_supplemental_flow_mismatching__path_percentile_30.json",
+    "configs/models/fm_supplemental_flow_mismatching__pooled_categories.json",
+    "configs/models/fm_supplemental_flow_mismatching__unweighted_time.json"
+  ],
   "paper_ablations": {
     "source_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
     "ablation_page_candidates": [
@@ -93,7 +111,98 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_supplemental_flow_mismatching",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_flow_mismatching__class_conditional",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_flow_mismatching__class_conditional__visa",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_flow_mismatching__path_mean",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_flow_mismatching__path_percentile_10",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_flow_mismatching__path_percentile_20",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_flow_mismatching__path_percentile_30",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_flow_mismatching__pooled_categories",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_flow_mismatching__unweighted_time",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "FlowMismatchUNet"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

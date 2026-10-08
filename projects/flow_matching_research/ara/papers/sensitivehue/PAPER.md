@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：需将测试校准和验证校准严格分轨；模型 NLL 与最终 F1 不是同一指标。 PDFp7分别报告best-threshold F1*与点调整F1*_PA；不能当验证集阈值结果。
+主要复现问题：官方源码及CPU模型前后向已验证；Table4九行损失/结构变体已实现，论文公式与发布源码的均值缩放差异分开记录；完整训练及数值对齐待验收。

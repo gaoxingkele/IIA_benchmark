@@ -1,0 +1,753 @@
+{
+  "paper_id": "dt_la",
+  "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 14,
+    "ablation": 11
+  },
+  "records": [
+    {
+      "record_id": "dt_la:main",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 1,
+      "marker": "Received 7 July 2025, accepted 29 July 2025, date of publication 31 July 2025, date of current version 7 August 2025.",
+      "method": "dt_la",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la.json",
+        "configs/models/fm_comparator_dt_la_l2_no_sparse.json",
+        "configs/models/fm_comparator_dt_la_l2_sparse.json",
+        "configs/models/fm_comparator_dt_la_lambda_0p1.json",
+        "configs/models/fm_comparator_dt_la_lambda_0p3.json",
+        "configs/models/fm_comparator_dt_la_lambda_0p7.json",
+        "configs/models/fm_comparator_dt_la_lambda_1p0.json",
+        "configs/models/fm_comparator_dt_la_mrh_no_sparse.json",
+        "configs/models/fm_comparator_dt_la_score_input.json",
+        "configs/models/fm_comparator_dt_la_score_latent.json",
+        "configs/models/fm_comparator_dt_la_score_softmax.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:ocsvm:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "OC-SVM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "y compare our method against 14 models, including traditional machine learning baselines (OC-SVM [1], Isolation Forest [2]), density-based models (LOF [3], DAGMM [49], MPPCACD [50]), clustering-based models (Deep-SVD [51], THOC [48]), reconstruction-based ",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "OC-SVM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/pyod/original/pyod/models/ocsvm.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:isolationforest:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "Isolation Forest",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "r method against 14 models, including traditional machine learning baselines (OC-SVM [1], Isolation Forest [2]), density-based models (LOF [3], DAGMM [49], MPPCACD [50]), clustering-based models (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], ",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "Isolation Forest",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/isolation_forest.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:lof:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "LOF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "onal machine learning baselines (OC-SVM [1], Isolation Forest [2]), density-based models (LOF [3], DAGMM [49], MPPCACD [50]), clustering-based models (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], I",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "LOF",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/self_impl/LOF/lof.py",
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/lof.py",
+        "experiments/runs/fm_baseline_code_completion/sources/pyod/original/pyod/models/lof.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/LOF/lof.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:dagmm:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "DAGMM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ine learning baselines (OC-SVM [1], Isolation Forest [2]), density-based models (LOF [3], DAGMM [49], MPPCACD [50]), clustering-based models (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion ",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "DAGMM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/DAGMM.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/dagmm.py",
+        "experiments/runs/fm_baseline_code_completion/sources/tods/original/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/fm_baseline_code_completion/sources/tods/original/tods/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/DAGMM.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/core/dagmm/dagmm.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:mppcacd:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "MPPCACD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " baselines (OC-SVM [1], Isolation Forest [2]), density-based models (LOF [3], DAGMM [49], MPPCACD [50]), clustering-based models (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion [7], AnomalyTr",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "MPPCACD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:deepsvd:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "Deep-SVD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " [2]), density-based models (LOF [3], DAGMM [49], MPPCACD [50]), clustering-based models (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion [7], AnomalyTransformer [8], MEMTO [10]), and represent",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "Deep-SVD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:thoc:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "THOC",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "based models (LOF [3], DAGMM [49], MPPCACD [50]), clustering-based models (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion [7], AnomalyTransformer [8], MEMTO [10]), and representation learn",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "THOC",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/timesead_baselines/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/timesead_baselines/original",
+          "role": "maintainer_component_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "wagner-d/TimeSeAD",
+          "commit": "bb8efa9ce17f9cfb0bab77df08c32d986de8429e",
+          "identity_status": "benchmark_author_repository_with_method_reimplementations",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "benchmark_author_repository_with_method_reimplementations; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:lstmvae:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "LSTM-VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "D [50]), clustering-based models (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion [7], AnomalyTransformer [8], MEMTO [10]), and representation learning-based models (DCdetector [37]). Among the",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "LSTM-VAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:beatgan:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "BeatGAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ering-based models (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion [7], AnomalyTransformer [8], MEMTO [10]), and representation learning-based models (DCdetector [37]). Among these, AnomalyTr",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "BeatGAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/beatgan/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/beatgan/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "imbingox/BeatGAN",
+          "commit": "d7b0e8802073558479164a6cf6a2ae43726a371b",
+          "identity_status": "repository_claimed_paper_implementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "repository_claimed_paper_implementation; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:omnianomaly:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "OmniAnomaly",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "dels (Deep-SVD [51], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion [7], AnomalyTransformer [8], MEMTO [10]), and representation learning-based models (DCdetector [37]). Among these, AnomalyTransformer [8] (den",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "OmniAnomaly",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:interfusion:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "InterFusion",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "1], THOC [48]), reconstruction-based models (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion [7], AnomalyTransformer [8], MEMTO [10]), and representation learning-based models (DCdetector [37]). Among these, AnomalyTransformer [8] (denoted as A.T.), DC",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "InterFusion",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/interfusion/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/interfusion/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "zhhlee/InterFusion",
+          "commit": "8c85d511c1f070669ba8c5cf097b8fa4a202d15b",
+          "identity_status": "repository_claimed_paper_implementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "repository_claimed_paper_implementation; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:anomalytransformer:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "Anomaly Transformer",
+      "marker_match": "alphanumeric_normalized",
+      "evidence_snippet": null,
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "Anomaly Transformer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/self_impl/Anomaly_trans/AnomalyTransformer.py",
+        "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original",
+        "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original/model/AnomalyTransformer.py",
+        "experiments/runs/fm_code_completion/sources/maelnet/original/models/AnomalyTransformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/models/anomaly_transformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/scripts/development/anomaly_transformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/Anomaly_trans/AnomalyTransformer.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:memto:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "MEMTO",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ls (LSTM-VAE [5], BeatGAN [14], OmniAnomaly [6], InterFusion [7], AnomalyTransformer [8], MEMTO [10]), and representation learning-based models (DCdetector [37]). Among these, AnomalyTransformer [8] (denoted as A.T.), DCdetector [37], and MEMTO [10] are s",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "MEMTO",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/memto/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/memto/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "gunny97/MEMTO",
+          "commit": "5a3287103021c5c7e7cac9377c626cf18bdea50c",
+          "identity_status": "repository_claimed_paper_implementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "repository_claimed_paper_implementation; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "dt_la:baseline:dcdetector:8",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 8,
+      "marker": "DCdetector",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "usion [7], AnomalyTransformer [8], MEMTO [10]), and representation learning-based models (DCdetector [37]). Among these, AnomalyTransformer [8] (denoted as A.T.), DCdetector [37], and MEMTO [10] are state-of-the-art Transformer-based models. For fair compariso",
+      "evidence_context": "Section B Main Results baseline paragraph",
+      "method": "DCdetector",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/self_impl/DCdetector/DCdetector.py",
+        "experiments/runs/flow_matching_campaign/sources/dcdetector/original",
+        "experiments/runs/flow_matching_campaign/sources/dcdetector/original/model/DCdetector.py",
+        "experiments/runs/fm_code_completion/sources/maelnet/original/models/DCDetector.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/DCdetector/DCdetector.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_dcdetector.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:l2nosparse:9",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 9,
+      "marker": "L2",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ", PSM, and SMD. Each plot compares DT-LA (Ours) and the Baseline model. The Baseline uses L2 loss for both spaces, while DT-LA uses L2 in the input space and MRH in the latent space. TABLE 4. Ablation studies on the types of latent space reconstruction",
+      "evidence_context": "Table 4 and accompanying Loss Analysis paragraph",
+      "method": "L2/no sparse",
+      "variant": "L2/no sparse",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la_l2_no_sparse.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "The paragraph explicitly describes latent loss L2 vs MRH and sparse attention enabled vs disabled; exact cell values/visual table still pending."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:l2sparse:9",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 9,
+      "marker": "L2",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ", PSM, and SMD. Each plot compares DT-LA (Ours) and the Baseline model. The Baseline uses L2 loss for both spaces, while DT-LA uses L2 in the input space and MRH in the latent space. TABLE 4. Ablation studies on the types of latent space reconstruction",
+      "evidence_context": "Table 4 and accompanying Loss Analysis paragraph",
+      "method": "L2/sparse",
+      "variant": "L2/sparse",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la_l2_sparse.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "The paragraph explicitly describes latent loss L2 vs MRH and sparse attention enabled vs disabled; exact cell values/visual table still pending."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:mrhnosparse:9",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 9,
+      "marker": "MRH",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "el. The Baseline uses L2 loss for both spaces, while DT-LA uses L2 in the input space and MRH in the latent space. TABLE 4. Ablation studies on the types of latent space reconstruction loss functions and whether sparse attention is applied. errors; (4) ",
+      "evidence_context": "Table 4 and accompanying Loss Analysis paragraph",
+      "method": "MRH/no sparse",
+      "variant": "MRH/no sparse",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la_mrh_no_sparse.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "The paragraph explicitly describes latent loss L2 vs MRH and sparse attention enabled vs disabled; exact cell values/visual table still pending."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:mrhsparse:9",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 9,
+      "marker": "MRH",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "el. The Baseline uses L2 loss for both spaces, while DT-LA uses L2 in the input space and MRH in the latent space. TABLE 4. Ablation studies on the types of latent space reconstruction loss functions and whether sparse attention is applied. errors; (4) ",
+      "evidence_context": "Table 4 and accompanying Loss Analysis paragraph",
+      "method": "MRH/sparse",
+      "variant": "MRH/sparse",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "The paragraph explicitly describes latent loss L2 vs MRH and sparse attention enabled vs disabled; exact cell values/visual table still pending."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:inputonly:10",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 10,
+      "marker": "Setting (a)",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "f the proposed scaled-softmax normalization. When only the input anomaly scores are used (Setting (a)), the model achieves a moderate average F1-score of 82.87%. In contrast, relying solely on latent-space deviation (Setting (b)) results in a lower performance ",
+      "evidence_context": "Table 5 scoring criteria Settings a-d",
+      "method": "input only",
+      "variant": "input only",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la_score_input.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:latentonly:10",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 10,
+      "marker": "Setting (b)",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "derate average F1-score of 82.87%. In contrast, relying solely on latent-space deviation (Setting (b)) results in a lower performance of 67.96% in the average F1-score. These results suggest that while latent anomaly scores provide valuable insights, the applic",
+      "evidence_context": "Table 5 scoring criteria Settings a-d",
+      "method": "latent only",
+      "variant": "latent only",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la_score_latent.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:inputlatentsoftmax:10",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 10,
+      "marker": "Setting (c)",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "e regularization coefficient λ in the entropy-based sparse attention loss. normalization (Setting (c)), the performance improves significantly, yielding an average F1-score of 94.92%. This demonstrates that latent anomaly scores complement input anomaly scores,",
+      "evidence_context": "Table 5 scoring criteria Settings a-d",
+      "method": "input latent softmax",
+      "variant": "input latent softmax",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la_score_softmax.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:inputlatentscaledsoftmax:10",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 10,
+      "marker": "Setting (d)",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ction capability. The best performance is achieved with the scaled-softmax normalization (Setting (d)), which results in an F1-score of 97.02%. This confirms that scaled-softmax effectively mitigates softmax-induced distortion, particularly in challenging scena",
+      "evidence_context": "Table 5 scoring criteria Settings a-d",
+      "method": "input latent scaled softmax",
+      "variant": "input latent scaled softmax",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_dt_la.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:l2:9",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 9,
+      "marker": "L2",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ", PSM, and SMD. Each plot compares DT-LA (Ours) and the Baseline model. The Baseline uses L2 loss for both spaces, while DT-LA uses L2 in the input space and MRH in the latent space. TABLE 4. Ablation studies on the types of latent space reconstruction",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "L2",
+      "variant": "L2",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Table 4 loss/sparsity four rows; Table 5 p10 input/latent/fusion score formulas not fully encoded here."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:mrh:9",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 9,
+      "marker": "MRH",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "el. The Baseline uses L2 loss for both spaces, while DT-LA uses L2 in the input space and MRH in the latent space. TABLE 4. Ablation studies on the types of latent space reconstruction loss functions and whether sparse attention is applied. errors; (4) ",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "MRH",
+      "variant": "MRH",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Table 4 loss/sparsity four rows; Table 5 p10 input/latent/fusion score formulas not fully encoded here."
+      ]
+    },
+    {
+      "record_id": "dt_la:ablation:sparsity:9",
+      "paper_id": "dt_la",
+      "primary_source_sha256": "6168294a9f5c6f8c5af6d432842cacd43a70f22b6a62ded2b22ed35f18577f1d",
+      "pdf_page": 9,
+      "marker": "sparsity",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "gularization coefficient λ in sparse attention – evaluating how varying the entropy-based sparsity weight influences attention behavior and detection accuracy. 1) LOSS ANALYSIS To investigate how different loss functions influence training behavior and detec",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "sparsity",
+      "variant": "sparsity",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Table 4 loss/sparsity four rows; Table 5 p10 input/latent/fusion score formulas not fully encoded here."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

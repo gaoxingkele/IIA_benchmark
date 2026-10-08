@@ -1,0 +1,109 @@
+{
+  "paper_id": "cfm_ts",
+  "primary_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 1,
+    "ablation": 2
+  },
+  "records": [
+    {
+      "record_id": "cfm_ts:main",
+      "paper_id": "cfm_ts",
+      "primary_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+      "pdf_page": 1,
+      "marker": "Conditional Flow Matching for Time Series Modelling",
+      "method": "cfm_ts",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_native_trajectory.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_native_cfm_ts_bb_gaussian_consistent.json",
+        "configs/models/fm_native_cfm_ts_bb_paper_literal.json",
+        "configs/models/fm_native_cfm_ts_gp_gaussian_conditional.json",
+        "configs/models/fm_native_cfm_ts_gp_paper_literal.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "cfm_ts:baseline:node:4",
+      "paper_id": "cfm_ts",
+      "primary_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+      "pdf_page": 4,
+      "marker": "NODE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ons (different colors = different trajectories) trajectory Ground truth CFM - GP CFM - BB NODE 2D Lotka-Volterra 1D Sine ODE 1D Pendulum MSE (↓) MSE (↓) MSE (↓) 0.09 ± 0.14 2.31 ± 1.68 - 0.005 ± 0.003 0.07 ± 0.05 0.04 ± 0.005 0.0086 ± 0.002 0.0080 ± 0.00",
+      "evidence_context": "Figure 2 Table 1",
+      "method": "NODE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "cfm_ts:ablation:cfmbb:4",
+      "paper_id": "cfm_ts",
+      "primary_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+      "pdf_page": 4,
+      "marker": "CFM-BB",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ry. NODE fails completely on 1D Pendulum and performs poorly on the Lotka-Volterra, while CFM-BB struggles with 1D Pendulum and performs best on the Lotka-Volterra. CFM-GP performs well across all tasks. Table 1. The MSE loss(↓) (mean and standard deviatio",
+      "evidence_context": "Figure 2 Table 1 proposed path variants",
+      "method": "CFM-BB",
+      "variant": "CFM-BB",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_native_trajectory.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "cfm_ts:ablation:cfmgp:4",
+      "paper_id": "cfm_ts",
+      "primary_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+      "pdf_page": 4,
+      "marker": "CFM-GP",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "olterra, while CFM-BB struggles with 1D Pendulum and performs best on the Lotka-Volterra. CFM-GP performs well across all tasks. Table 1. The MSE loss(↓) (mean and standard deviation over 5 runs) for all models. L-V is Lotka-Volterra. We do not report the ",
+      "evidence_context": "Figure 2 Table 1 proposed path variants",
+      "method": "CFM-GP",
+      "variant": "CFM-GP",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_native_trajectory.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

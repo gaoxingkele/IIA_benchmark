@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "fm_comparator_maelnet_fn_1p5_fp_0p8",
+  "paper_id": "maelnet",
+  "task": "time_series_anomaly_detection",
+  "citation": "https://doi.org/10.1109/AI-SI66213.2025.11341688",
+  "source_path": "experiments/runs/fm_code_completion/sources/maelnet/variants/fn_1p5_fp_0p8",
+  "commit": "a5f5bb5a23b90773fd15a5059a6f0c0ef2853c56",
+  "entrypoints": [
+    "models.MaelNet:Model",
+    "models.AnomalyTransformer:Model",
+    "models.DCDetector:Model",
+    "exp.opt_rl2_anomaly:OPT_RL_Anomaly"
+  ],
+  "reproduction_status": "author_code_ablation_materialized_full_pipeline_acceptance_pending",
+  "ablation_factory": "iia_benchmark.models.fm_comparator_author_patches:prepare_maelnet_reward",
+  "ablations": {
+    "TableIV_reward_penalties": {
+      "false_negative": [
+        -1.5,
+        -2.0
+      ],
+      "false_positive": [
+        -0.6,
+        -0.8
+      ]
+    },
+    "TableIII_no_slow_learner": "implemented author OPT_RL_Anomaly checkpoint filter; full training/policy dimension acceptance pending"
+  },
+  "remaining_gaps": [
+    "Full RL requires extra gym/stable-baselines dependencies and checkpoint staging; isolated CPU env currently adds only einops0.8.1.",
+    "Author evaluation uses train+test score percentile and point adjustment; this is a separate paper-faithful track, not TAB validation-frozen threshold.",
+    "All TableIII slow-learner recipes have not been mapped to scripts/accepted."
+  ],
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "variant_of": "fm_comparator_maelnet",
+  "ablation_params": {
+    "false_negative": -1.5,
+    "false_positive": -0.8,
+    "include_slow_learner": true
+  },
+  "patch_manifest": {
+    "file": "utils/agentreward.py",
+    "source": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_code_completion\\sources\\maelnet\\original",
+    "corrected": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_code_completion\\sources\\maelnet\\variants\\fn_1p5_fp_0p8",
+    "original_sha256": "74710f1259da047d02018e7535a3fa3b5642a614ed85406946a7f70a4257bcfc",
+    "corrected_sha256": "1d8235b504b484f807e5fd5ae92041a5e7ac5a57fa2dff1b01ccbb45ff7620d3",
+    "false_negative": -1.5,
+    "false_positive": -0.8,
+    "include_slow_learner": true,
+    "boundary": "Author reward/checkpoint ablations generated; no training/evaluation acceptance."
+  },
+  "entrypoint_boundary": "Standalone author slow-learner model core; full fast/slow/RL workflow uses entrypoints and remains unverified",
+  "author_entrypoint": "models.MaelNet:Model",
+  "entrypoint_scope": "author_source_requires_isolated_runtime"
+}

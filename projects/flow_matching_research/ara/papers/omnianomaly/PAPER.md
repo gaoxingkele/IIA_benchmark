@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：随机潜变量与概率阈值校准、实体训练粒度及 PA 固定后再比较。
+主要复现问题：官方OmniAnomaly及ZhuSuan/tfsnippet源码在场；TensorFlow1.12/TFP0.5历史环境与精确版本/消融对齐待验收。

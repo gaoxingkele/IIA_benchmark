@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 原文登记 2 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 奖励依赖真实标签，所属划分尚不清楚；Table II 三个数据集的最佳行实际是其他方法，不能声称五项皆由 MaelNet 获胜。
+**Statement**: 原文登记 2 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 原文链接官方ModMaelNet源码、CPU核心前后向和奖励/去慢学习器变体在场；完整RL、checkpoint及协议验收待做。
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

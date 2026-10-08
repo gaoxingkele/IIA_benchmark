@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：数据来源论文不等于当前 PSM 检测器；eBay 内部数据与公开 PSM 的可获取性分开。
+主要复现问题：官方RANSynCoders源码及同步开关在场；历史TensorFlow环境、私有生产模型与BKPI、全消融及TAB适配待验收。

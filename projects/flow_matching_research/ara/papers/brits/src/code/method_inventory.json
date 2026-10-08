@@ -1,0 +1,315 @@
+{
+  "paper_id": "brits",
+  "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 8,
+    "ablation": 3
+  },
+  "records": [
+    {
+      "record_id": "brits:main",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 1,
+      "marker": "BRITS: Bidirectional Recurrent Imputation for Time",
+      "method": "brits",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original",
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/grin/original/lib/nn/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/saits/original",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/brits.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_brits.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "brits:baseline:mean:7",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 7,
+      "marker": "Mean",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "001 and batch size 64. For all the tasks, we normalize the numerical values to have zero mean and unit variance for stable training. We use different early stopping strategies for pure imputation task and classiﬁcation tasks. For the imputation tasks, we",
+      "evidence_context": "Section 5.2.2 Baseline Methods",
+      "method": "Mean",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:baseline:knn:7",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 7,
+      "marker": "KNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "de: • Mean: We simply replace the missing values with corresponding global mean. • KNN: We use k-nearest neighbor [13] to ﬁnd the similar samples, and impute the missing values with weighted average of its neighbors. • Matrix Factorization (MF): We fact",
+      "evidence_context": "Section 5.2.2 Baseline Methods",
+      "method": "KNN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/pyod/original/pyod/models/knn.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:baseline:matrixfactorization:7",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 7,
+      "marker": "Matrix Factorization",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " samples, and impute the missing values with weighted average of its neighbors. • Matrix Factorization (MF): We factorize the data matrix into two low-rank matrices, and ﬁll the missing values by matrix completion [13]. • MICE: We use Multiple Imputation by Chained Equa",
+      "evidence_context": "Section 5.2.2 Baseline Methods",
+      "method": "Matrix Factorization",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:baseline:mice:7",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 7,
+      "marker": "MICE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "o two low-rank matrices, and ﬁll the missing values by matrix completion [13]. • MICE: We use Multiple Imputation by Chained Equations (MICE), a widely used impu- tation method, to ﬁll the missing values. MICE creates multiple imputations with chained eq",
+      "evidence_context": "Section 5.2.2 Baseline Methods",
+      "method": "MICE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:baseline:imputets:7",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 7,
+      "marker": "ImputeTS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "missing values. MICE creates multiple imputations with chained equations [2]. • ImputeTS: We use ImputeTS package in R to impute the missing values. ImputeTS is a widely used package for missing value imputation, which utilizes the state space model and kalm",
+      "evidence_context": "Section 5.2.2 Baseline Methods",
+      "method": "ImputeTS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:baseline:stmvl:7",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 7,
+      "marker": "STMVL",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "e imputation, which utilizes the state space model and kalman smoothing [23]. • STMVL: Speciﬁcally, we use STMVL for the air quality data imputation. STMVL is the state-of-the-art method for air quality data imputation. It further utilizes the geo-locatio",
+      "evidence_context": "Section 5.2.2 Baseline Methods",
+      "method": "STMVL",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:baseline:grud:7",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 7,
+      "marker": "GRU-D",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "lso compare our model with existing RNN-based imputation methods, including: • GRU-D: GRU-D is proposed for handling missing values in health-care data. It imputes each missing value by the weighted combination of its last observation, and the global mean",
+      "evidence_context": "Section 5.2.2 Baseline Methods",
+      "method": "GRU-D",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/gru_d.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:baseline:mrnn:7",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 7,
+      "marker": "M-RNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " observation, and the global mean, together with a recurrent component [10]. • M-RNN: M-RNN also uses bi-directional RNN. It imputes the missing values according to hidden states in both directions in RNN. M-RNN treats the imputed values as constants. It ",
+      "evidence_context": "Section 5.2.2 Baseline Methods",
+      "method": "M-RNN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/m_rnn.py",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/mrnn.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:ablation:ritsi:8",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 8,
+      "marker": "RITS-I",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "D / 0.559 (77.58%) 0.558 (70.05%) M-RNN 14.24 (20.43%) 0.451 (62.65%) 0.248 (31.19%) Ours RITS-I 12.73 (18.32%) 0.395 (54.80%) 0.240 (30.10%) BRITS-I 11.58 (16.66%) 0.361 (50.01%) 0.220 (27.61%) RITS 12.19 (17.54%) 0.300 (41.89%) 0.248 (31.21%) BRITS 11.56",
+      "evidence_context": "Table 1 variants",
+      "method": "RITS-I",
+      "variant": "RITS-I",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/rits_i.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original",
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/grin/original/lib/nn/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/saits/original",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/brits.py"
+      ],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:ablation:rits:8",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 8,
+      "marker": "RITS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "D / 0.559 (77.58%) 0.558 (70.05%) M-RNN 14.24 (20.43%) 0.451 (62.65%) 0.248 (31.19%) Ours RITS-I 12.73 (18.32%) 0.395 (54.80%) 0.240 (30.10%) BRITS-I 11.58 (16.66%) 0.361 (50.01%) 0.220 (27.61%) RITS 12.19 (17.54%) 0.300 (41.89%) 0.248 (31.21%) BRITS 11.",
+      "evidence_context": "Table 1 variants",
+      "method": "RITS",
+      "variant": "RITS",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/rits.py",
+        "experiments/runs/flow_matching_campaign/sources/grin/original/lib/nn/layers/rits.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original",
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/grin/original/lib/nn/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/saits/original",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/brits.py"
+      ],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "brits:ablation:britsi:8",
+      "paper_id": "brits",
+      "primary_source_sha256": "6a3f516b2f8d8a418f7c907c9617e45dff673c04f0e73cd2b56307c4a67a09a0",
+      "pdf_page": 8,
+      "marker": "BRITS-I",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "%) 0.451 (62.65%) 0.248 (31.19%) Ours RITS-I 12.73 (18.32%) 0.395 (54.80%) 0.240 (30.10%) BRITS-I 11.58 (16.66%) 0.361 (50.01%) 0.220 (27.61%) RITS 12.19 (17.54%) 0.300 (41.89%) 0.248 (31.21%) BRITS 11.56 (16.65%) 0.281 (39.14%) 0.219 (27.59%) We compare th",
+      "evidence_context": "Table 1 variants",
+      "method": "BRITS-I",
+      "variant": "BRITS-I",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/brits_i.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original",
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/grin/original/lib/nn/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/saits/original",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/brits.py"
+      ],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

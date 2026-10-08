@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：正文与附录的 sine 轨迹数、batch size 不一致；作者代码未定位，先冻结采纳版本再复现。
+主要复现问题：代码、主消融或组件已按原文还原；仍缺：author formula interpretation；exact simulation split/count version；author network and dopri5 adjoint NODE baseline；full five-seed MSE experiments

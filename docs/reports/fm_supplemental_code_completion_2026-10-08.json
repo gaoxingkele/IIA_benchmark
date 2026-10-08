@@ -1,0 +1,771 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-08T00:51:13.835484+00:00",
+  "scope": "six supplemental missing main-code records; all-method and all-ablation completeness not certified",
+  "source_downloads": [
+    {
+      "id": "psm",
+      "repository": "https://github.com/eBay/RANSynCoders",
+      "commit": "948e61eb579815ff2a6bce721332d8220d59ca47",
+      "url": "https://codeload.github.com/eBay/RANSynCoders/zip/948e61eb579815ff2a6bce721332d8220d59ca47",
+      "sha256": "b02cc52ab7a6caa3957e77d5c14bc8ba0fc0c681accdc159d9481cf8d795232a",
+      "archive": "experiments/runs/fm_code_completion/sources/psm/948e61eb579815ff2a6bce721332d8220d59ca47.zip",
+      "path": "experiments/runs/fm_code_completion/sources/psm/original",
+      "code_file_count": 4,
+      "syntax_issues": [],
+      "code_tree_sha256": "40f15ac5aa0fc7f6cf91a1103475cc8c66a55c28d94726af028e3ea0722dafc3"
+    },
+    {
+      "id": "omnianomaly",
+      "repository": "https://github.com/NetManAIOps/OmniAnomaly",
+      "commit": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+      "url": "https://codeload.github.com/NetManAIOps/OmniAnomaly/zip/7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+      "sha256": "5bcce77823a9ed2ea872c733895ccb6a7edb40476306ab8626b49481803b831e",
+      "archive": "experiments/runs/fm_code_completion/sources/omnianomaly/7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4.zip",
+      "path": "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+      "code_file_count": 12,
+      "syntax_issues": [],
+      "code_tree_sha256": "8ee9586d9c322ce57a384d07d94e80fc39da6d9579da90e215413d6cc45d3cf2"
+    },
+    {
+      "id": "sensitivehue",
+      "repository": "https://github.com/yuesuoqingqiu/SensitiveHUE",
+      "commit": "a50047883ab22957ed7fd9c168a3bbcb8d836546",
+      "url": "https://codeload.github.com/yuesuoqingqiu/SensitiveHUE/zip/a50047883ab22957ed7fd9c168a3bbcb8d836546",
+      "sha256": "9beb1af9a74104c087273ae8c3a733b29b4ae9918b8651718b4957b61978f335",
+      "archive": "experiments/runs/fm_code_completion/sources/sensitivehue/a50047883ab22957ed7fd9c168a3bbcb8d836546.zip",
+      "path": "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+      "code_file_count": 18,
+      "syntax_issues": [],
+      "code_tree_sha256": "456c6161552bcacee66ab50ce1fd853599dede3deda44c834751ff9d12deab36"
+    },
+    {
+      "id": "omnianomaly_zhusuan",
+      "repository": "https://github.com/thu-ml/zhusuan",
+      "ref": "master",
+      "commit": "4386b2a12ae4f4ed8e694e504e51d7dcdfd6f22a",
+      "url": "https://codeload.github.com/thu-ml/zhusuan/zip/4386b2a12ae4f4ed8e694e504e51d7dcdfd6f22a",
+      "sha256": "092f5c2dde2c7fe240ce7107434dd818437f19693a64927024f9ca9578d9695a",
+      "archive": "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/4386b2a12ae4f4ed8e694e504e51d7dcdfd6f22a.zip",
+      "path": "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original",
+      "role": "omnianomaly_dependency",
+      "code_file_count": 92,
+      "syntax_issues": [],
+      "code_tree_sha256": "bd66364da8b928375651fc9bd0a544a7e2b7ea444c300da00baa3417b23fbc38"
+    },
+    {
+      "id": "omnianomaly_tfsnippet",
+      "repository": "https://github.com/haowen-xu/tfsnippet",
+      "ref": "v0.2.0-alpha1",
+      "commit": "7b43abdbdd29f1914dbc11b961b5d45b9de76653",
+      "url": "https://codeload.github.com/haowen-xu/tfsnippet/zip/7b43abdbdd29f1914dbc11b961b5d45b9de76653",
+      "sha256": "21f2a2d476560adf5257c123a95657f646d77f7941faedebfd0ebd5bec42f1de",
+      "archive": "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/7b43abdbdd29f1914dbc11b961b5d45b9de76653.zip",
+      "path": "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+      "role": "omnianomaly_dependency",
+      "code_file_count": 238,
+      "syntax_issues": [],
+      "code_tree_sha256": "0c8e7881fb823dc3766cd6f124fd958c4897170b1bc061c9a872d3c33633b951"
+    }
+  ],
+  "papers": [
+    {
+      "task": "online_imputation_and_supervised_downstream",
+      "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+      "variants": [
+        {
+          "id": "without_lpd",
+          "objective": {
+            "local_prior": false
+          },
+          "impute": {
+            "local_prior": false
+          }
+        },
+        {
+          "id": "without_mcb_ca",
+          "parameters": {
+            "mixed": false,
+            "channel_attention": false
+          }
+        },
+        {
+          "id": "without_jfol",
+          "objective": {
+            "joint": false
+          }
+        },
+        {
+          "id": "nfe_1",
+          "impute": {
+            "steps": 1
+          }
+        },
+        {
+          "id": "nfe_10",
+          "impute": {
+            "steps": 10
+          }
+        },
+        {
+          "id": "nfe_50",
+          "impute": {
+            "steps": 50
+          }
+        }
+      ],
+      "reproduction_status": "paper_derived_callable_architecture_and_core_ablations",
+      "gaps": [
+        "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+        "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+        "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+        "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+        "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+        "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+      ],
+      "evidence_pages": [
+        5,
+        6,
+        7,
+        10
+      ],
+      "schema_version": 1,
+      "id": "fm_supplemental_jfi",
+      "family": "flow_matching_research_code_completion",
+      "citation": "https://doi.org/10.1016/j.ces.2026.124467",
+      "paper_primary_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "paper_score_status": "not_verified",
+      "benchmark_ready": false,
+      "all_paper_ablations_complete": false,
+      "paper_id": "jfi",
+      "config": "configs/models/fm_supplemental_jfi.json",
+      "model_configs": [
+        "configs/models/fm_supplemental_jfi.json",
+        "configs/models/fm_supplemental_jfi__without_lpd.json",
+        "configs/models/fm_supplemental_jfi__without_mcb_ca.json",
+        "configs/models/fm_supplemental_jfi__without_jfol.json",
+        "configs/models/fm_supplemental_jfi__nfe_1.json",
+        "configs/models/fm_supplemental_jfi__nfe_10.json",
+        "configs/models/fm_supplemental_jfi__nfe_50.json"
+      ],
+      "ready_components": [
+        "LPD Eq.9",
+        "MCB/CA U-Net Table1",
+        "CFM/JFOL Eq.7,12-16",
+        "three component ablations",
+        "masked Euler NFE sensitivity"
+      ],
+      "missing": [
+        "Exact author code not located; branch reduction/separability and time embedding wiring are local choices.",
+        "Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.",
+        "TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.",
+        "Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.",
+        "Required frozen downstream teacher enforced when joint distillation weight > 0.",
+        "sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
+      ],
+      "all_ablations_complete": false
+    },
+    {
+      "task": "image_anomaly_detection",
+      "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+      "variants": [
+        {
+          "id": "path_mean",
+          "score": {
+            "aggregation": "average"
+          }
+        },
+        {
+          "id": "path_percentile_10",
+          "score": {
+            "aggregation": "percentile",
+            "percentile": 0.1
+          }
+        },
+        {
+          "id": "path_percentile_20",
+          "score": {
+            "aggregation": "percentile",
+            "percentile": 0.2
+          }
+        },
+        {
+          "id": "path_percentile_30",
+          "score": {
+            "aggregation": "percentile",
+            "percentile": 0.3
+          }
+        },
+        {
+          "id": "unweighted_time",
+          "score": {
+            "weighted": false
+          }
+        },
+        {
+          "id": "path_time_sweep",
+          "paths": [
+            2,
+            4,
+            8,
+            16,
+            32
+          ],
+          "times": [
+            2,
+            4,
+            8,
+            16,
+            32
+          ]
+        },
+        {
+          "id": "class_conditional",
+          "parameters": {
+            "num_classes": "REQUIRES_DATASET_CATEGORY_COUNT"
+          },
+          "call_contract": "Supply labels explicitly; bind batch labels in velocity closure during scoring."
+        },
+        {
+          "id": "pooled_categories",
+          "parameters": {
+            "num_classes": null
+          }
+        }
+      ],
+      "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+      "related_repository": "https://github.com/facebookresearch/flow_matching",
+      "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+      "gaps": [
+        "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+        "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+        "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+        "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+        "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+        "Original task is image detection; do not report as TSAD performance."
+      ],
+      "evidence_pages": [
+        3,
+        4,
+        9,
+        21
+      ],
+      "schema_version": 1,
+      "id": "fm_supplemental_flow_mismatching",
+      "family": "flow_matching_research_code_completion",
+      "citation": "https://arxiv.org/abs/2605.23070",
+      "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+      "paper_score_status": "not_verified",
+      "benchmark_ready": false,
+      "all_paper_ablations_complete": false,
+      "paper_id": "flow_mismatching",
+      "config": "configs/models/fm_supplemental_flow_mismatching.json",
+      "model_configs": [
+        "configs/models/fm_supplemental_flow_mismatching.json",
+        "configs/models/fm_supplemental_flow_mismatching__path_mean.json",
+        "configs/models/fm_supplemental_flow_mismatching__path_percentile_10.json",
+        "configs/models/fm_supplemental_flow_mismatching__path_percentile_20.json",
+        "configs/models/fm_supplemental_flow_mismatching__path_percentile_30.json",
+        "configs/models/fm_supplemental_flow_mismatching__unweighted_time.json",
+        "configs/models/fm_supplemental_flow_mismatching__class_conditional.json",
+        "configs/models/fm_supplemental_flow_mismatching__class_conditional__visa.json",
+        "configs/models/fm_supplemental_flow_mismatching__pooled_categories.json"
+      ],
+      "ready_components": [
+        "image CFM Eq.1",
+        "velocity mismatch Eq.2-4",
+        "path minimum/average/10th-20th-30th order statistics",
+        "t-squared/unweighted scoring",
+        "K-T sweep",
+        "Appendix C.1 cited Meta U-Net with conditional or pooled labels"
+      ],
+      "missing": [
+        "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+        "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+        "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+        "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+        "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+        "Original task is image detection; do not report as TSAD performance."
+      ],
+      "all_ablations_complete": false
+    },
+    {
+      "task": "forecasting_and_classification",
+      "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+      "variants": [
+        {
+          "id": "independent",
+          "parameters": {
+            "mode": "independent"
+          }
+        },
+        {
+          "id": "concatenation_relative_bias",
+          "parameters": {
+            "mode": "concatenation"
+          }
+        },
+        {
+          "id": "icm_static",
+          "module": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding",
+          "requires": [
+            "channel_count",
+            "embedding_dimension"
+          ]
+        },
+        {
+          "id": "freeze_beta",
+          "parameters": {
+            "train_beta": false
+          }
+        },
+        {
+          "id": "finetune_beta",
+          "parameters": {
+            "train_beta": true
+          }
+        }
+      ],
+      "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+      "gaps": [
+        "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+        "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+        "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+        "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+      ],
+      "evidence_pages": [
+        3,
+        4,
+        7,
+        8
+      ],
+      "schema_version": 1,
+      "id": "fm_supplemental_moment_long_context",
+      "family": "flow_matching_research_code_completion",
+      "citation": "https://arxiv.org/abs/2409.13530v1",
+      "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+      "paper_score_status": "not_verified",
+      "benchmark_ready": false,
+      "all_paper_ablations_complete": false,
+      "paper_id": "moment_long_context",
+      "config": "configs/models/fm_supplemental_moment_long_context.json",
+      "model_configs": [
+        "configs/models/fm_supplemental_moment_long_context.json",
+        "configs/models/fm_supplemental_moment_long_context__independent.json",
+        "configs/models/fm_supplemental_moment_long_context__concatenation_relative_bias.json",
+        "configs/models/fm_supplemental_moment_long_context__icm_static.json",
+        "configs/models/fm_supplemental_moment_long_context__freeze_beta.json",
+        "configs/models/fm_supplemental_moment_long_context__finetune_beta.json",
+        "configs/models/fm_supplemental_moment_long_context_t5.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__independent.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__icm_static.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__finetune_beta_head.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta_head.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__reconstruction.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__features.json"
+      ],
+      "ready_components": [
+        "ICM memory aggregation/retrieval Eqs.1-2",
+        "one beta per head, frozen/trainable",
+        "independent channel local attention",
+        "concatenation with channel-relative bias",
+        "static channel embeddings AppendixB.2",
+        "full every-layer T5 ICM integration with author MOMENT patching/embedding/RevIN/heads",
+        "forecast/reconstruction/feature forward-backward; independent/static/freeze-beta variants"
+      ],
+      "missing": [
+        "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+        "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+        "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+        "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+      ],
+      "all_ablations_complete": false
+    },
+    {
+      "task": "asynchronous_multivariate_anomaly_detection",
+      "author_source_path": "experiments/runs/fm_code_completion/sources/psm/original",
+      "author_entrypoint": "main:RANSynCoders",
+      "reproduction_status": "complete_downloaded_author_repository_legacy_runtime_not_validated",
+      "variants": [
+        {
+          "id": "synchronization_on",
+          "author_parameters": {
+            "synchronize": true
+          }
+        },
+        {
+          "id": "synchronization_off",
+          "author_parameters": {
+            "synchronize": false
+          }
+        }
+      ],
+      "gaps": [
+        "TensorFlow historical environment not installed or executed by this completion.",
+        "Original production models and private BKPI data are not provided by public non-production release.",
+        "Complete all-paper ablation mapping, exact legacy dependency compatibility and unified TAB adapter remain pending."
+      ],
+      "evidence_pages": [
+        5,
+        7,
+        10
+      ],
+      "schema_version": 1,
+      "id": "fm_supplemental_psm",
+      "family": "flow_matching_research_code_completion",
+      "citation": "https://doi.org/10.1145/3447548.3467174",
+      "paper_primary_sha256": "02e72a9141c878277f15eebf25fad80d00953c1ac29c5fe8ca66a44f93357685",
+      "paper_score_status": "not_verified",
+      "benchmark_ready": false,
+      "all_paper_ablations_complete": false,
+      "author_repository": "https://github.com/eBay/RANSynCoders",
+      "author_commit": "948e61eb579815ff2a6bce721332d8220d59ca47",
+      "paper_id": "psm",
+      "config": "configs/models/fm_supplemental_psm.json",
+      "model_configs": [
+        "configs/models/fm_supplemental_psm.json",
+        "configs/models/fm_supplemental_psm__synchronization_on.json",
+        "configs/models/fm_supplemental_psm__synchronization_off.json"
+      ],
+      "ready_components": [
+        "complete fixed author repository",
+        "RANSynCoders/RANCoders/synchronization source",
+        "author example notebook",
+        "synchronize flag on/off"
+      ],
+      "missing": [
+        "TensorFlow historical environment not installed or executed by this completion.",
+        "Original production models and private BKPI data are not provided by public non-production release.",
+        "Complete all-paper ablation mapping, exact legacy dependency compatibility and unified TAB adapter remain pending."
+      ],
+      "all_ablations_complete": false
+    },
+    {
+      "task": "multivariate_anomaly_detection",
+      "author_source_path": "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+      "author_entrypoint": "main.py",
+      "reproduction_status": "complete_downloaded_author_repository_legacy_runtime_not_validated",
+      "variants": [
+        {
+          "id": "posterior_no_flow",
+          "author_config": {
+            "posterior_flow_type": null
+          }
+        },
+        {
+          "id": "disconnected_posterior",
+          "author_config": {
+            "use_connected_z_q": false
+          }
+        },
+        {
+          "id": "disconnected_prior",
+          "author_config": {
+            "use_connected_z_p": false
+          }
+        }
+      ],
+      "gaps": [
+        "TensorFlow GPU 1.12/TFP 0.5 Python 3.5/3.6 historical runtime not executed.",
+        "Author repository and two git dependencies downloaded; latest ZhuSuan commit is a current pinned dependency, not established historical version.",
+        "Flags are present in author source; exact mapping to every paper ablation/table and TAB threshold protocol remain pending."
+      ],
+      "evidence_pages": [
+        3,
+        10
+      ],
+      "schema_version": 1,
+      "id": "fm_supplemental_omnianomaly",
+      "family": "flow_matching_research_code_completion",
+      "citation": "https://doi.org/10.1145/3292500.3330672",
+      "paper_primary_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "paper_score_status": "not_verified",
+      "benchmark_ready": false,
+      "all_paper_ablations_complete": false,
+      "author_repository": "https://github.com/NetManAIOps/OmniAnomaly",
+      "author_commit": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+      "paper_id": "omnianomaly",
+      "config": "configs/models/fm_supplemental_omnianomaly.json",
+      "model_configs": [
+        "configs/models/fm_supplemental_omnianomaly.json",
+        "configs/models/fm_supplemental_omnianomaly__posterior_no_flow.json",
+        "configs/models/fm_supplemental_omnianomaly__disconnected_posterior.json",
+        "configs/models/fm_supplemental_omnianomaly__disconnected_prior.json"
+      ],
+      "ready_components": [
+        "complete fixed author repository",
+        "connected prior/posterior flags",
+        "posterior normalizing-flow switch",
+        "ZhuSuan and tfsnippet dependency snapshots"
+      ],
+      "missing": [
+        "TensorFlow GPU 1.12/TFP 0.5 Python 3.5/3.6 historical runtime not executed.",
+        "Author repository and two git dependencies downloaded; latest ZhuSuan commit is a current pinned dependency, not established historical version.",
+        "Flags are present in author source; exact mapping to every paper ablation/table and TAB threshold protocol remain pending."
+      ],
+      "all_ablations_complete": false
+    },
+    {
+      "task": "multivariate_anomaly_detection",
+      "entrypoint": "iia_benchmark.models.fm_supplemental_author:load_sensitivehue",
+      "variants": [
+        {
+          "id": "no_sfr",
+          "parameters": {
+            "statistical_removal": false
+          }
+        },
+        {
+          "id": "mse",
+          "objective": {
+            "probabilistic": false
+          }
+        },
+        {
+          "id": "nll",
+          "objective": {
+            "weighted": false
+          }
+        },
+        {
+          "id": "window_sweep",
+          "step_num_in": [
+            12,
+            24,
+            48,
+            96,
+            192
+          ]
+        },
+        {
+          "id": "alpha_sweep",
+          "alpha": [
+            0,
+            0.25,
+            0.5,
+            0.75,
+            1
+          ]
+        }
+      ],
+      "reproduction_status": "complete_author_repository_model_cpu_validated_partial_local_ablation_glue",
+      "gaps": [
+        "Exact Table4 training scripts are not publicly included in author snapshot.",
+        "Formula SFR reconstructs directly via linear mean head Eq.15; released code additionally transforms reconstruction with statistics of its own output. Both versions are preserved and distinguished.",
+        "Full data/preprocessing/early stopping/three-seed experiment and TAB validation-fixed threshold reproduction are pending.",
+        "Natural variant uses referenced Gaussian natural heads without optional Laplace regularization; exact SensitiveHUE Table4 implementation is unpublished."
+      ],
+      "evidence_pages": [
+        1,
+        7,
+        8
+      ],
+      "schema_version": 1,
+      "id": "fm_supplemental_sensitivehue",
+      "family": "flow_matching_research_code_completion",
+      "citation": "https://doi.org/10.1145/3637528.3671919",
+      "paper_primary_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "paper_score_status": "not_verified",
+      "benchmark_ready": false,
+      "all_paper_ablations_complete": false,
+      "author_repository": "https://github.com/yuesuoqingqiu/SensitiveHUE",
+      "author_commit": "a50047883ab22957ed7fd9c168a3bbcb8d836546",
+      "paper_id": "sensitivehue",
+      "config": "configs/models/fm_supplemental_sensitivehue.json",
+      "model_configs": [
+        "configs/models/fm_supplemental_sensitivehue.json",
+        "configs/models/fm_supplemental_sensitivehue__no_sfr.json",
+        "configs/models/fm_supplemental_sensitivehue__mse.json",
+        "configs/models/fm_supplemental_sensitivehue__nll.json",
+        "configs/models/fm_supplemental_sensitivehue__paper_sfr.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_compression.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_mask.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_revin.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_nll.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_beta_nll_05.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_beta_nll_1.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_faithful.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_natural.json"
+      ],
+      "ready_components": [
+        "complete fixed author repository",
+        "author model forward/backward",
+        "MTS-NLL weighted/unweighted/MSE losses",
+        "local SFR removal switch",
+        "window and alpha sweeps",
+        "author disruption strategy source",
+        "formula-derived Table4 Compression/Mask/RevIN/SFR",
+        "beta-NLL 0.5/1 with stop-gradient weighting",
+        "Faithful shared-trunk isolation + mean-only gradients",
+        "Natural eta1/eta2 Gaussian head parameterization"
+      ],
+      "missing": [
+        "Exact Table4 training scripts are not publicly included in author snapshot.",
+        "Formula SFR reconstructs directly via linear mean head Eq.15; released code additionally transforms reconstruction with statistics of its own output. Both versions are preserved and distinguished.",
+        "Full data/preprocessing/early stopping/three-seed experiment and TAB validation-fixed threshold reproduction are pending.",
+        "Natural variant uses referenced Gaussian natural heads without optional Laplace regularization; exact SensitiveHUE Table4 implementation is unpublished."
+      ],
+      "all_ablations_complete": false
+    }
+  ],
+  "validation": {
+    "command": "python -m pytest tests/test_fm_supplemental.py -q",
+    "passed": 30,
+    "skipped": 0,
+    "device": "cpu",
+    "data": "synthetic behavior checks, not benchmark performance",
+    "author_runtime_checked": [
+      "SensitiveHUE model forward/backward",
+      "Meta image U-Net forward/backward",
+      "MOMENT reused components with locally initialized T5/ICM end-to-end CPU forecast/backward"
+    ],
+    "author_legacy_runtime_not_checked": [
+      "RANSynCoders TensorFlow",
+      "OmniAnomaly TensorFlow 1.x"
+    ],
+    "all_materialized_entrypoints_constructed": [
+      "fm_supplemental_flow_mismatching",
+      "fm_supplemental_flow_mismatching__class_conditional",
+      "fm_supplemental_flow_mismatching__class_conditional__visa",
+      "fm_supplemental_flow_mismatching__path_mean",
+      "fm_supplemental_flow_mismatching__path_percentile_10",
+      "fm_supplemental_flow_mismatching__path_percentile_20",
+      "fm_supplemental_flow_mismatching__path_percentile_30",
+      "fm_supplemental_flow_mismatching__pooled_categories",
+      "fm_supplemental_flow_mismatching__unweighted_time",
+      "fm_supplemental_jfi",
+      "fm_supplemental_jfi__nfe_1",
+      "fm_supplemental_jfi__nfe_10",
+      "fm_supplemental_jfi__nfe_50",
+      "fm_supplemental_jfi__without_jfol",
+      "fm_supplemental_jfi__without_lpd",
+      "fm_supplemental_jfi__without_mcb_ca",
+      "fm_supplemental_moment_long_context",
+      "fm_supplemental_moment_long_context__concatenation_relative_bias",
+      "fm_supplemental_moment_long_context__finetune_beta",
+      "fm_supplemental_moment_long_context__freeze_beta",
+      "fm_supplemental_moment_long_context__icm_static",
+      "fm_supplemental_moment_long_context__independent",
+      "fm_supplemental_moment_long_context_t5",
+      "fm_supplemental_moment_long_context_t5__features",
+      "fm_supplemental_moment_long_context_t5__finetune_beta_head",
+      "fm_supplemental_moment_long_context_t5__freeze_beta",
+      "fm_supplemental_moment_long_context_t5__freeze_beta_head",
+      "fm_supplemental_moment_long_context_t5__icm_static",
+      "fm_supplemental_moment_long_context_t5__independent",
+      "fm_supplemental_moment_long_context_t5__reconstruction",
+      "fm_supplemental_sensitivehue",
+      "fm_supplemental_sensitivehue__mse",
+      "fm_supplemental_sensitivehue__nll",
+      "fm_supplemental_sensitivehue__no_sfr",
+      "fm_supplemental_sensitivehue__paper_sfr",
+      "fm_supplemental_sensitivehue__table4_beta_nll_05",
+      "fm_supplemental_sensitivehue__table4_beta_nll_1",
+      "fm_supplemental_sensitivehue__table4_compression",
+      "fm_supplemental_sensitivehue__table4_faithful",
+      "fm_supplemental_sensitivehue__table4_mask",
+      "fm_supplemental_sensitivehue__table4_natural",
+      "fm_supplemental_sensitivehue__table4_nll",
+      "fm_supplemental_sensitivehue__table4_revin"
+    ],
+    "legacy_source_configs_not_constructible_current_runtime": [
+      "fm_supplemental_omnianomaly",
+      "fm_supplemental_omnianomaly__disconnected_posterior",
+      "fm_supplemental_omnianomaly__disconnected_prior",
+      "fm_supplemental_omnianomaly__posterior_no_flow",
+      "fm_supplemental_psm",
+      "fm_supplemental_psm__synchronization_off",
+      "fm_supplemental_psm__synchronization_on"
+    ],
+    "asserted_semantics": [
+      "beta-NLL stop-gradient analytical derivatives",
+      "Faithful shared-trunk gradients equal mean-only optimization",
+      "Natural-head Gaussian likelihood equivalence",
+      "all five reconstruction strategies callable",
+      "ICM channel permutation and per-sample memory isolation",
+      "T5 padding excluded from memory",
+      "one beta per layer/head; frozen backbone exposes only head/beta",
+      "configured relative assets do not depend on cwd",
+      "43 physical entrypoints construct with parameters; 7 legacy source-status configurations explicit"
+    ]
+  },
+  "implemented_files": [
+    "src/iia_benchmark/models/fm_supplemental.py",
+    "src/iia_benchmark/models/fm_supplemental_author.py",
+    "tests/test_fm_supplemental.py",
+    "src/iia_benchmark/models/fm_supplemental_variants.py",
+    "src/iia_benchmark/models/fm_supplemental_moment.py"
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "asset_root_contract": "Relative configured source_root resolves against checkout inferred from module location, never process cwd. Installed-package callers pass explicit asset_root or absolute source_root.",
+  "materialized_variant_configs": {
+    "jfi": [
+      "configs/models/fm_supplemental_jfi__without_lpd.json",
+      "configs/models/fm_supplemental_jfi__without_mcb_ca.json",
+      "configs/models/fm_supplemental_jfi__without_jfol.json",
+      "configs/models/fm_supplemental_jfi__nfe_1.json",
+      "configs/models/fm_supplemental_jfi__nfe_10.json",
+      "configs/models/fm_supplemental_jfi__nfe_50.json"
+    ],
+    "flow_mismatching": [
+      "configs/models/fm_supplemental_flow_mismatching__path_mean.json",
+      "configs/models/fm_supplemental_flow_mismatching__path_percentile_10.json",
+      "configs/models/fm_supplemental_flow_mismatching__path_percentile_20.json",
+      "configs/models/fm_supplemental_flow_mismatching__path_percentile_30.json",
+      "configs/models/fm_supplemental_flow_mismatching__unweighted_time.json",
+      "configs/models/fm_supplemental_flow_mismatching__class_conditional.json",
+      "configs/models/fm_supplemental_flow_mismatching__class_conditional__visa.json",
+      "configs/models/fm_supplemental_flow_mismatching__pooled_categories.json"
+    ],
+    "moment_long_context": [
+      "configs/models/fm_supplemental_moment_long_context__independent.json",
+      "configs/models/fm_supplemental_moment_long_context__concatenation_relative_bias.json",
+      "configs/models/fm_supplemental_moment_long_context__icm_static.json",
+      "configs/models/fm_supplemental_moment_long_context__freeze_beta.json",
+      "configs/models/fm_supplemental_moment_long_context__finetune_beta.json",
+      "configs/models/fm_supplemental_moment_long_context_t5.json",
+      "configs/models/fm_supplemental_moment_long_context_t5__independent.json",
+      "configs/models/fm_supplemental_moment_long_context_t5__icm_static.json",
+      "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta.json",
+      "configs/models/fm_supplemental_moment_long_context_t5__finetune_beta_head.json",
+      "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta_head.json",
+      "configs/models/fm_supplemental_moment_long_context_t5__reconstruction.json",
+      "configs/models/fm_supplemental_moment_long_context_t5__features.json"
+    ],
+    "psm": [
+      "configs/models/fm_supplemental_psm__synchronization_on.json",
+      "configs/models/fm_supplemental_psm__synchronization_off.json"
+    ],
+    "omnianomaly": [
+      "configs/models/fm_supplemental_omnianomaly__posterior_no_flow.json",
+      "configs/models/fm_supplemental_omnianomaly__disconnected_posterior.json",
+      "configs/models/fm_supplemental_omnianomaly__disconnected_prior.json"
+    ],
+    "sensitivehue": [
+      "configs/models/fm_supplemental_sensitivehue__no_sfr.json",
+      "configs/models/fm_supplemental_sensitivehue__mse.json",
+      "configs/models/fm_supplemental_sensitivehue__nll.json",
+      "configs/models/fm_supplemental_sensitivehue__paper_sfr.json",
+      "configs/models/fm_supplemental_sensitivehue__table4_compression.json",
+      "configs/models/fm_supplemental_sensitivehue__table4_mask.json",
+      "configs/models/fm_supplemental_sensitivehue__table4_revin.json",
+      "configs/models/fm_supplemental_sensitivehue__table4_nll.json",
+      "configs/models/fm_supplemental_sensitivehue__table4_beta_nll_05.json",
+      "configs/models/fm_supplemental_sensitivehue__table4_beta_nll_1.json",
+      "configs/models/fm_supplemental_sensitivehue__table4_faithful.json",
+      "configs/models/fm_supplemental_sensitivehue__table4_natural.json"
+    ]
+  },
+  "method_scope_notes": [
+    "Independent legacy PSM/Omni flags retain explicit runtime-not-validated status instead of fake callable replacements.",
+    "Table4 formula-derived models do not assert equivalence to unpublished author ablation training scripts.",
+    "Function/objective/impute settings are separated from constructor parameters in JFI physical variants."
+  ],
+  "paper_formula_release_discrepancies": {
+    "sensitivehue": "Paper Eq.15 is a direct mean linear head after SFR. Released model rescales that head with its own reconstruction statistics, not original input statistics. Keep original loader and explicit paper-formula SFR model separate. Original author losses omit the common 1/2 factor; paper-formula variants retain it.",
+    "jfi": "Algorithm1 line6 omits t*z1; Eq7 explicitly includes t*z1. Reconstruction follows Eq7.",
+    "moment_long_context": "MOMENT original release does not include dedicated ICM/Tiny checkpoint. Prepared T5 model matches published Tiny dimensions but starts with random weights and no automatic Hub downloads."
+  }
+}

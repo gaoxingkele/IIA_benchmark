@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 原文登记 4 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 验证集最大 F1 动态阈值；split、种子、点调整未充分说明，作者代码尚未定位。论文实际2025。
+**Statement**: 原文登记 4 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 GAT、cubic B-spline KAN、LSTM与去模块消融已还原；论文未公开训练目标/输出头/图邻域，本地选择显式登记，非完整原版。
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

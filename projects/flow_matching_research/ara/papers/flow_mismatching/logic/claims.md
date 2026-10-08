@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 该文数值尚未逐项转录；不能给出未核实的论文指标或本地等效性结论。 原文验证 MVTec-AD 与 VisA；时序版本须另设窗口映射、变量/时间聚合和正常训练协议。
+**Statement**: 该文数值尚未逐项转录；不能给出未核实的论文指标或本地等效性结论。 代码、主消融或组件已按原文还原；仍缺：No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.；Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.；Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.；Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.；K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.；Original task is image detection; do not report as TSAD performance.
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

@@ -1,6 +1,6 @@
 # KGL: An Efficient Time Series Anomaly Detection Approach for the Industrial Internet of Things
 
-验证集最大 F1 动态阈值；split、种子、点调整未充分说明，作者代码尚未定位。论文实际2025。
+GAT、cubic B-spline KAN、LSTM与去模块消融已还原；论文未公开训练目标/输出头/图邻域，本地选择显式登记，非完整原版。
 
 冻结要求：作者版本与代码提交、数据实体/划分、训练专属归一化、掩码/窗口及回填、种子和预算、积分器/步数、分数聚合、阈值来源、点调整、指标尺度与不确定性。
 

@@ -14,7 +14,7 @@
   "task": "time_series_anomaly_detection",
   "family": "kan_graph_lstm",
   "method_summary": "以 KAN 激活增强图注意力并用 LSTM 学习时序动态，融合变量依赖和时间表示进行异常检测。",
-  "reproduction_gap": "验证集最大 F1 动态阈值；split、种子、点调整未充分说明，作者代码尚未定位。论文实际2025。",
+  "reproduction_gap": "GAT、cubic B-spline KAN、LSTM与去模块消融已还原；论文未公开训练目标/输出头/图邻域，本地选择显式登记，非完整原版。",
   "sources": [
     {
       "path": "papers/literature/flow_matching/user_supplied/2026-10-07/kgl/fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d.pdf",
@@ -62,7 +62,291 @@
     "SMD",
     "SMAP"
   ],
-  "model_configs": [],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_comparator_kgl.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_kgl",
+        "paper_id": "kgl",
+        "reproduction_status": "core_architecture_reconstructed_training_head_not_specified_in_paper",
+        "citation": "https://doi.org/10.1145/3778450.3778526",
+        "window_size": 100,
+        "anchors": {
+          "GAT_Eqs1_4": [
+            4
+          ],
+          "KAN_spline_Eqs6_7_and_LSTM_Eqs8_13": [
+            5
+          ],
+          "settings": [
+            6
+          ],
+          "ablations": [
+            7
+          ]
+        },
+        "ablations": {
+          "use_gat": [
+            true,
+            false
+          ],
+          "use_kan": [
+            true,
+            false
+          ],
+          "use_lstm": [
+            true,
+            false
+          ]
+        },
+        "assumptions": [
+          "Paper never specifies training objective, output head, anomaly score, graph neighbors, embedding dimensions/head count or pooling rule.",
+          "Dense sensor graph at each timestamp, learned scalar sensor projection, mean node pooling, next-step linear prediction/MSE are chosen and must not be called verified KGL.",
+          "Cubic spline with eight grid intervals on [-3,3]; grid/order/initialization not provided in paper.",
+          "First window timestamp score is zero because it has no predecessor; evaluator should mask it for prediction track.",
+          "epochs10/batch64/width64/heads4 are placeholders; only lr1e-3 and window100 are stated in paper.",
+          "Paper dataset counts differ from canonical TAB assets; exact split reproduction unresolved."
+        ],
+        "parameters": {
+          "method": "kgl",
+          "options": {
+            "d_model": 64,
+            "heads": 4,
+            "use_gat": true,
+            "use_kan": true,
+            "use_lstm": true
+          },
+          "epochs": 10,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_kgl_without_gat.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_kgl_without_gat",
+        "paper_id": "kgl",
+        "reproduction_status": "core_architecture_reconstructed_training_head_not_specified_in_paper",
+        "citation": "https://doi.org/10.1145/3778450.3778526",
+        "window_size": 100,
+        "anchors": {
+          "GAT_Eqs1_4": [
+            4
+          ],
+          "KAN_spline_Eqs6_7_and_LSTM_Eqs8_13": [
+            5
+          ],
+          "settings": [
+            6
+          ],
+          "ablations": [
+            7
+          ]
+        },
+        "ablations": {
+          "use_gat": [
+            true,
+            false
+          ],
+          "use_kan": [
+            true,
+            false
+          ],
+          "use_lstm": [
+            true,
+            false
+          ]
+        },
+        "assumptions": [
+          "Paper never specifies training objective, output head, anomaly score, graph neighbors, embedding dimensions/head count or pooling rule.",
+          "Dense sensor graph at each timestamp, learned scalar sensor projection, mean node pooling, next-step linear prediction/MSE are chosen and must not be called verified KGL.",
+          "Cubic spline with eight grid intervals on [-3,3]; grid/order/initialization not provided in paper.",
+          "First window timestamp score is zero because it has no predecessor; evaluator should mask it for prediction track.",
+          "epochs10/batch64/width64/heads4 are placeholders; only lr1e-3 and window100 are stated in paper.",
+          "Paper dataset counts differ from canonical TAB assets; exact split reproduction unresolved."
+        ],
+        "variant_of": "fm_comparator_kgl",
+        "parameters": {
+          "method": "kgl",
+          "options": {
+            "d_model": 64,
+            "heads": 4,
+            "use_gat": false,
+            "use_kan": true,
+            "use_lstm": true
+          },
+          "epochs": 10,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_kgl_without_kan.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_kgl_without_kan",
+        "paper_id": "kgl",
+        "reproduction_status": "core_architecture_reconstructed_training_head_not_specified_in_paper",
+        "citation": "https://doi.org/10.1145/3778450.3778526",
+        "window_size": 100,
+        "anchors": {
+          "GAT_Eqs1_4": [
+            4
+          ],
+          "KAN_spline_Eqs6_7_and_LSTM_Eqs8_13": [
+            5
+          ],
+          "settings": [
+            6
+          ],
+          "ablations": [
+            7
+          ]
+        },
+        "ablations": {
+          "use_gat": [
+            true,
+            false
+          ],
+          "use_kan": [
+            true,
+            false
+          ],
+          "use_lstm": [
+            true,
+            false
+          ]
+        },
+        "assumptions": [
+          "Paper never specifies training objective, output head, anomaly score, graph neighbors, embedding dimensions/head count or pooling rule.",
+          "Dense sensor graph at each timestamp, learned scalar sensor projection, mean node pooling, next-step linear prediction/MSE are chosen and must not be called verified KGL.",
+          "Cubic spline with eight grid intervals on [-3,3]; grid/order/initialization not provided in paper.",
+          "First window timestamp score is zero because it has no predecessor; evaluator should mask it for prediction track.",
+          "epochs10/batch64/width64/heads4 are placeholders; only lr1e-3 and window100 are stated in paper.",
+          "Paper dataset counts differ from canonical TAB assets; exact split reproduction unresolved."
+        ],
+        "variant_of": "fm_comparator_kgl",
+        "parameters": {
+          "method": "kgl",
+          "options": {
+            "d_model": 64,
+            "heads": 4,
+            "use_gat": true,
+            "use_kan": false,
+            "use_lstm": true
+          },
+          "epochs": 10,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_kgl_without_lstm.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_kgl_without_lstm",
+        "paper_id": "kgl",
+        "reproduction_status": "core_architecture_reconstructed_training_head_not_specified_in_paper",
+        "citation": "https://doi.org/10.1145/3778450.3778526",
+        "window_size": 100,
+        "anchors": {
+          "GAT_Eqs1_4": [
+            4
+          ],
+          "KAN_spline_Eqs6_7_and_LSTM_Eqs8_13": [
+            5
+          ],
+          "settings": [
+            6
+          ],
+          "ablations": [
+            7
+          ]
+        },
+        "ablations": {
+          "use_gat": [
+            true,
+            false
+          ],
+          "use_kan": [
+            true,
+            false
+          ],
+          "use_lstm": [
+            true,
+            false
+          ]
+        },
+        "assumptions": [
+          "Paper never specifies training objective, output head, anomaly score, graph neighbors, embedding dimensions/head count or pooling rule.",
+          "Dense sensor graph at each timestamp, learned scalar sensor projection, mean node pooling, next-step linear prediction/MSE are chosen and must not be called verified KGL.",
+          "Cubic spline with eight grid intervals on [-3,3]; grid/order/initialization not provided in paper.",
+          "First window timestamp score is zero because it has no predecessor; evaluator should mask it for prediction track.",
+          "epochs10/batch64/width64/heads4 are placeholders; only lr1e-3 and window100 are stated in paper.",
+          "Paper dataset counts differ from canonical TAB assets; exact split reproduction unresolved."
+        ],
+        "variant_of": "fm_comparator_kgl",
+        "parameters": {
+          "method": "kgl",
+          "options": {
+            "d_model": 64,
+            "heads": 4,
+            "use_gat": true,
+            "use_kan": true,
+            "use_lstm": false
+          },
+          "epochs": 10,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    }
+  ],
   "code_url": null,
   "campaign_status": "not_claimed_reproduced",
   "reported_results": [

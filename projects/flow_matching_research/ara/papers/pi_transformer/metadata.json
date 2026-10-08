@@ -12,7 +12,7 @@
   "task": "time_series_anomaly_detection",
   "family": "prior_dual_attention",
   "method_summary": "相位与尺度信息形成先验注意力；结合关联差异加权重建能量、稳健归一化及多窗口分数融合。",
-  "reproduction_gap": "Algorithm2 使用 train 与 threshold 分数校准，并显式 point-adjust；期刊16页与 arXiv29页须分别引用。代码镜像未经现任作者确认。",
+  "reproduction_gap": "镜像源码的CPU构造、phase reshape、causal mask与prior支持四项修复及single-head配置已物化；作者现仓库仍仅README/LICENSE，完整期刊等价性待核。",
   "sources": [
     {
       "path": "papers/literature/flow_matching/user_supplied/2026-10-07/pi_transformer/da5c00ebc02675c406ef5228f9a3b9b9e4ccc531c64bba5c97375d879dd7aa44.pdf",
@@ -109,7 +109,97 @@
     "PSM",
     "SWaT"
   ],
-  "model_configs": [],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_comparator_pi_transformer.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "fm_comparator_pi_transformer",
+        "paper_id": "pi_transformer",
+        "task": "time_series_anomaly_detection",
+        "citation": "https://doi.org/10.1016/j.asoc.2026.115029",
+        "source_path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original",
+        "corrected_path": "experiments/runs/fm_code_completion/sources/pi_transformer/corrected",
+        "source_commit": "2e9f3f2bf3cc84e46ee3c0f187eed716e9be1514",
+        "patch_factory": "iia_benchmark.models.fm_comparator_author_patches:prepare_pi_transformer",
+        "reproduction_status": "third_party_author_history_mirror_core_executable_journal_equivalence_incomplete",
+        "ablations": {
+          "single_head": "n_heads=1 parameter available",
+          "layer_count": "e_layers parameter available but release builds e_layers-1 attention layers",
+          "phase_scale_removal": "not implemented",
+          "prior_removal": "not implemented",
+          "score_streams": "main.py energy/mismatch fusion paths available; named complete Table3 presets not supplied"
+        },
+        "remaining_gaps": [
+          "Journal Eqs2/3 use two positive stop-gradient KL objectives; full released trainer alignment remains unresolved.",
+          "Released Encoder returns regularizers from last layer only.",
+          "Phase gate sums head channels rather than journal per-head scalar projection.",
+          "Additional prior/distillation terms are not completely specified by paper."
+        ],
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "current_author_repository": "sepehr-m/PiTransformer",
+        "current_author_commit": "e7cedef97d8be1af6b90234e7cb8e90a4820be8e",
+        "current_author_status": "checked current author snapshot contains README.md and LICENSE only; mirror still required",
+        "parameters": {
+          "win_size": 100,
+          "enc_in": "dataset_channels",
+          "c_out": "dataset_channels",
+          "d_model": 512,
+          "n_heads": 8,
+          "e_layers": 3
+        },
+        "author_entrypoint": "model.PiTransformer:PiTransformer",
+        "entrypoint_scope": "author_source_requires_isolated_runtime"
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_pi_transformer_single_head.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "fm_comparator_pi_transformer_single_head",
+        "paper_id": "pi_transformer",
+        "task": "time_series_anomaly_detection",
+        "citation": "https://doi.org/10.1016/j.asoc.2026.115029",
+        "source_path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original",
+        "corrected_path": "experiments/runs/fm_code_completion/sources/pi_transformer/corrected",
+        "source_commit": "2e9f3f2bf3cc84e46ee3c0f187eed716e9be1514",
+        "patch_factory": "iia_benchmark.models.fm_comparator_author_patches:prepare_pi_transformer",
+        "reproduction_status": "third_party_author_history_mirror_core_executable_journal_equivalence_incomplete",
+        "ablations": {
+          "single_head": "n_heads=1 parameter available",
+          "layer_count": "e_layers parameter available but release builds e_layers-1 attention layers",
+          "phase_scale_removal": "not implemented",
+          "prior_removal": "not implemented",
+          "score_streams": "main.py energy/mismatch fusion paths available; named complete Table3 presets not supplied"
+        },
+        "remaining_gaps": [
+          "Journal Eqs2/3 use two positive stop-gradient KL objectives; full released trainer alignment remains unresolved.",
+          "Released Encoder returns regularizers from last layer only.",
+          "Phase gate sums head channels rather than journal per-head scalar projection.",
+          "Additional prior/distillation terms are not completely specified by paper."
+        ],
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "current_author_repository": "sepehr-m/PiTransformer",
+        "current_author_commit": "e7cedef97d8be1af6b90234e7cb8e90a4820be8e",
+        "current_author_status": "checked current author snapshot contains README.md and LICENSE only; mirror still required",
+        "variant_of": "fm_comparator_pi_transformer",
+        "parameters": {
+          "win_size": 100,
+          "enc_in": "dataset_channels",
+          "c_out": "dataset_channels",
+          "d_model": 512,
+          "n_heads": 1,
+          "e_layers": 3
+        },
+        "author_entrypoint": "model.PiTransformer:PiTransformer",
+        "entrypoint_scope": "author_source_requires_isolated_runtime"
+      }
+    }
+  ],
   "code_url": null,
   "campaign_status": "not_claimed_reproduced",
   "reported_results": [

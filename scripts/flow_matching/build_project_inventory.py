@@ -143,7 +143,7 @@ def main():
         }
 
     code_sources = []
-    for area in ("flow_matching_campaign", "mtsad_protocol_audit", "fm_project_acquisition"):
+    for area in ("flow_matching_campaign", "mtsad_protocol_audit", "fm_project_acquisition", "fm_code_completion", "fm_baseline_code_completion", "fm_foundation_baseline_sources", "fm_tsad_baseline_sources", "fm_imputation_baseline_sources"):
         for path in (ROOT / "experiments/runs" / area / "sources").glob("*/snapshot.json"):
             snapshot = read(path)
             original = snapshot.get("original_path")

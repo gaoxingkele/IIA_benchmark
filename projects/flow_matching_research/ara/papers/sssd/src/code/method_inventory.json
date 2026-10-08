@@ -1,0 +1,612 @@
+{
+  "paper_id": "sssd",
+  "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 21,
+    "ablation": 2
+  },
+  "records": [
+    {
+      "record_id": "sssd:main",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 1,
+      "marker": "Diﬀusion-based Time Series Imputation and Forecasting",
+      "method": "sssd",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/sssd/original"
+      ],
+      "model_configs": [
+        "configs/models/fm_sssd.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:lamc:8",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 8,
+      "marker": "LAMC",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "uding baselines) were obtained from models trained by us. Model MAE RMSE 20% RM on PTB-XL LAMC 0.0678 0.1309 CSDI 0.0038±2e-6 0.0189±5e-5 DiﬀWave 0.0043±4e-4 0.0177±4e-4 CSDIS4 0.0031±1e-7 0.0171±6e-4 SSSDSA 0.0045±3e-7 0.0181±4e-6 SSSDS4 0.0034±4e-6 0.0",
+      "evidence_context": "Table 1 PTB-XL",
+      "method": "LAMC",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:csdi:8",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 8,
+      "marker": "CSDI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "re obtained from models trained by us. Model MAE RMSE 20% RM on PTB-XL LAMC 0.0678 0.1309 CSDI 0.0038±2e-6 0.0189±5e-5 DiﬀWave 0.0043±4e-4 0.0177±4e-4 CSDIS4 0.0031±1e-7 0.0171±6e-4 SSSDSA 0.0045±3e-7 0.0181±4e-6 SSSDS4 0.0034±4e-6 0.0119±1e-4 20% RBM on",
+      "evidence_context": "Table 1 PTB-XL",
+      "method": "CSDI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_csdi.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:diffwave:8",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 8,
+      "marker": "DiffWave",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ed by us. Model MAE RMSE 20% RM on PTB-XL LAMC 0.0678 0.1309 CSDI 0.0038±2e-6 0.0189±5e-5 DiﬀWave 0.0043±4e-4 0.0177±4e-4 CSDIS4 0.0031±1e-7 0.0171±6e-4 SSSDSA 0.0045±3e-7 0.0181±4e-6 SSSDS4 0.0034±4e-6 0.0119±1e-4 20% RBM on PTB-XL LAMC 0.0759 0.1498 CSDI 0",
+      "evidence_context": "Table 1 PTB-XL",
+      "method": "DiffWave",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/diffwave/original",
+        "experiments/runs/fm_imputation_baseline_sources/sources/diffwave_unconditional/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/diffwave/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/lmnt-com/diffwave",
+          "commit": "0594106093b8d8c444de8bd8cd26482f653c569f",
+          "identity_status": "paper_website_linked_reimplementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Official paper demo explicitly lists this repository under Reimplementations on GitHub; original audio model and task adaptation are not certified equivalents to multivariate TS experiment baselines."
+        },
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/diffwave_unconditional/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/philsyn/DiffWave-unconditional",
+          "commit": "ce8d60a7f22c6adfbaf2cd1ed058bde99816b2c3",
+          "identity_status": "paper_website_linked_reimplementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Official paper demo explicitly lists this repository under Reimplementations on GitHub; original audio model and task adaptation are not certified equivalents to multivariate TS experiment baselines."
+        }
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:csdis4:8",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 8,
+      "marker": "CSDI_S4",
+      "marker_match": "alphanumeric_normalized",
+      "evidence_snippet": null,
+      "evidence_context": "Table 1 PTB-XL",
+      "method": "CSDI_S4",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDIS4.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:grud:9",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 9,
+      "marker": "GRU-D",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "such as 70%, 80%, and 90%, for which we compare performance against the baselines RNN GRU-D (Che et al., 2016), ODE-RNN (Rubanova et al., 2019), NeuralCDE (Morrill et al., 2021), Latent-ODE (Rubanova et al., 2019), NAOMI (Liu et al., 2019), NRTSI (Shan et",
+      "evidence_context": "MuJoCo comparison",
+      "method": "GRU-D",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/gru_d.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:odernn:9",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 9,
+      "marker": "ODE-RNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " for which we compare performance against the baselines RNN GRU-D (Che et al., 2016), ODE-RNN (Rubanova et al., 2019), NeuralCDE (Morrill et al., 2021), Latent-ODE (Rubanova et al., 2019), NAOMI (Liu et al., 2019), NRTSI (Shan et al., 2021), and CSDI (Tashi",
+      "evidence_context": "MuJoCo comparison",
+      "method": "ODE-RNN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:neuralcde:9",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 9,
+      "marker": "Neural CDE",
+      "marker_match": "alphanumeric_normalized",
+      "evidence_snippet": null,
+      "evidence_context": "MuJoCo comparison",
+      "method": "Neural CDE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_small/models/kovae/neuralCDE.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:latentode:9",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 9,
+      "marker": "Latent ODE",
+      "marker_match": "alphanumeric_normalized",
+      "evidence_snippet": null,
+      "evidence_context": "MuJoCo comparison",
+      "method": "Latent ODE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:naomi:9",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 9,
+      "marker": "NAOMI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " et al., 2019), NeuralCDE (Morrill et al., 2021), Latent-ODE (Rubanova et al., 2019), NAOMI (Liu et al., 2019), NRTSI (Shan et al., 2021), and CSDI (Tashiro et al., 2021). We report an averaged MSE for a single imputation per sample on the test set over 3",
+      "evidence_context": "MuJoCo comparison",
+      "method": "NAOMI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:nrtsi:9",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 9,
+      "marker": "NRTSI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "(Morrill et al., 2021), Latent-ODE (Rubanova et al., 2019), NAOMI (Liu et al., 2019), NRTSI (Shan et al., 2021), and CSDI (Tashiro et al., 2021). We report an averaged MSE for a single imputation per sample on the test set over 3 trials. All baselines res",
+      "evidence_context": "MuJoCo comparison",
+      "method": "NRTSI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:csdi:9",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 9,
+      "marker": "CSDI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ows a misplaced R peak. The imputation quality improves qualitatively with the proposed CSDIS4 variant but still misses essential signal features. Only the proposed DiﬀWave imputer, SSSDSA and SSSDS4 models capture all essential signal features. The qual",
+      "evidence_context": "MuJoCo comparison",
+      "method": "CSDI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_csdi.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:gpcopula:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "GP-copula",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "68 and 24 time steps respectively. As baselines, we consider CSDI (Tashiro et al., 2021), GP-copula (Salinas et al., 2019), Transformer MAF (TransMAF) (Rasul et al., 2021b), and TLAE (Nguyen & Quanz, 2021). All baseline results were collected from its respect",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "GP-copula",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:transmaf:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "TransMAF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " consider CSDI (Tashiro et al., 2021), GP-copula (Salinas et al., 2019), Transformer MAF (TransMAF) (Rasul et al., 2021b), and TLAE (Nguyen & Quanz, 2021). All baseline results were collected from its respective original publications. We report an averaged M",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "TransMAF",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:tlae:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "TLAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ", GP-copula (Salinas et al., 2019), Transformer MAF (TransMAF) (Rasul et al., 2021b), and TLAE (Nguyen & Quanz, 2021). All baseline results were collected from its respective original publications. We report an averaged MSE of 100 samples generated per t",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "TLAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:csdi:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "CSDI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "0 50 100 150 200 250 2 0 value Target CSDI 0 50 100 150 200 250 2 0 value Target CSDIS4 0 50 100 150 200 250 2 0 value Target SSSDSA 0 50 100 150 200 250 2 0 value Target SSSDS4 Figure 4: PTB-XL TF for ",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "CSDI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_csdi.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:lstnet:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "LSTnet",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "onditional values are 96, 48, 284, 288, and 384 time steps, respectively. We compare to LSTnet (Lai et al., 2018), LSTMa (Bahdanau et al., 2015), Reformer (Kitaev et al., 2020), LogTrans (Li et al., 2019), Informer (Zhou et al., 2021), one Informer baselin",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "LSTnet",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:lstma:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "LSTMa",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "8, 284, 288, and 384 time steps, respectively. We compare to LSTnet (Lai et al., 2018), LSTMa (Bahdanau et al., 2015), Reformer (Kitaev et al., 2020), LogTrans (Li et al., 2019), Informer (Zhou et al., 2021), one Informer baseline called Informer(†), Auto",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "LSTMa",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:reformer:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "Reformer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ", respectively. We compare to LSTnet (Lai et al., 2018), LSTMa (Bahdanau et al., 2015), Reformer (Kitaev et al., 2020), LogTrans (Li et al., 2019), Informer (Zhou et al., 2021), one Informer baseline called Informer(†), Autoformer (Wu et al., 2021), and CSDI",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "Reformer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/time_series_library/models/Reformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/time_series_library/models/Reformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/Reformer.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:logtrans:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "LogTrans",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "Tnet (Lai et al., 2018), LSTMa (Bahdanau et al., 2015), Reformer (Kitaev et al., 2020), LogTrans (Li et al., 2019), Informer (Zhou et al., 2021), one Informer baseline called Informer(†), Autoformer (Wu et al., 2021), and CSDI (Tashiro et al., 2021). We repo",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "LogTrans",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:informer:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "Informer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "Ma (Bahdanau et al., 2015), Reformer (Kitaev et al., 2020), LogTrans (Li et al., 2019), Informer (Zhou et al., 2021), one Informer baseline called Informer(†), Autoformer (Wu et al., 2021), and CSDI (Tashiro et al., 2021). We report an averaged MAE and MSE f",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "Informer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/time_series_library/models/Informer.py",
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/forecast/informer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/time_series_library/models/Informer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/Informer.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:baseline:autoformer:11",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 11,
+      "marker": "Autoformer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " et al., 2019), Informer (Zhou et al., 2021), one Informer baseline called Informer(†), Autoformer (Wu et al., 2021), and CSDI (Tashiro et al., 2021). We report an averaged MAE and MSE for a single sample generated for each test sample over 2 trials. All basel",
+      "evidence_context": "Solar/ETTm1 comparison",
+      "method": "Autoformer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/time_series_library/models/Autoformer.py",
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/forecast/autoformer.py",
+        "experiments/runs/fm_code_completion/sources/maelnet/original/models/AutoFormer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/time_series_library/models/Autoformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/Autoformer.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:ablation:sssdsa:8",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 8,
+      "marker": "SSSD_SA",
+      "marker_match": "alphanumeric_normalized",
+      "evidence_snippet": null,
+      "evidence_context": "Table 1 proposed architecture variants",
+      "method": "SSSD_SA",
+      "variant": "SSSD_SA",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/sssd/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sssd:ablation:sssds4:8",
+      "paper_id": "sssd",
+      "primary_source_sha256": "29ed65edf1fec7d641f3143a741cac8596ae986334f017f7ab0e193735f13b2c",
+      "pdf_page": 8,
+      "marker": "SSSD_S4",
+      "marker_match": "alphanumeric_normalized",
+      "evidence_snippet": null,
+      "evidence_context": "Table 1 proposed architecture variants",
+      "method": "SSSD_S4",
+      "variant": "SSSD_S4",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/sssd/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

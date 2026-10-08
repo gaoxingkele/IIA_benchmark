@@ -14,7 +14,7 @@
   "task": "image_anomaly_detection",
   "family": "velocity_mismatch_ad",
   "method_summary": "在 Gaussian 到测试图像的仿射路径上比较正常生成速度与几何目标速度，跨路径/时间聚合失配形成热图和图像分数。",
-  "reproduction_gap": "原文验证 MVTec-AD 与 VisA；时序版本须另设窗口映射、变量/时间聚合和正常训练协议。",
+  "reproduction_gap": "代码、主消融或组件已按原文还原；仍缺：No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.；Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.；Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.；Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.；K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.；Original task is image detection; do not report as TSAD performance.",
   "sources": [
     {
       "path": "papers/literature/flow_matching/project_additions/flow_mismatching_2605.23070v1.pdf",
@@ -73,7 +73,687 @@
     "MVTec-AD",
     "VisA"
   ],
-  "model_configs": [],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": null,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "minimum",
+          "percentile": 0.1,
+          "weighted": true,
+          "top_fraction": 0.01
+        },
+        "variants": [
+          {
+            "id": "path_mean",
+            "score": {
+              "aggregation": "average"
+            }
+          },
+          {
+            "id": "path_percentile_10",
+            "score": {
+              "aggregation": "percentile",
+              "percentile": 0.1
+            }
+          },
+          {
+            "id": "path_percentile_20",
+            "score": {
+              "aggregation": "percentile",
+              "percentile": 0.2
+            }
+          },
+          {
+            "id": "path_percentile_30",
+            "score": {
+              "aggregation": "percentile",
+              "percentile": 0.3
+            }
+          },
+          {
+            "id": "unweighted_time",
+            "score": {
+              "weighted": false
+            }
+          },
+          {
+            "id": "path_time_sweep",
+            "paths": [
+              2,
+              4,
+              8,
+              16,
+              32
+            ],
+            "times": [
+              2,
+              4,
+              8,
+              16,
+              32
+            ]
+          },
+          {
+            "id": "class_conditional",
+            "parameters": {
+              "num_classes": "REQUIRES_DATASET_CATEGORY_COUNT"
+            },
+            "call_contract": "Supply labels explicitly; bind batch labels in velocity closure during scoring."
+          },
+          {
+            "id": "pooled_categories",
+            "parameters": {
+              "num_classes": null
+            }
+          }
+        ],
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching__class_conditional.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": 15,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "minimum",
+          "percentile": 0.1,
+          "weighted": true,
+          "top_fraction": 0.01
+        },
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching__class_conditional",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_flow_mismatching",
+        "variant_id": "class_conditional",
+        "call_contract": "Call image_cfm_objective/flow_mismatch with labels [B]; scoring repeats labels in path-major order automatically.",
+        "configured_label_scope": "MVTec-AD 15 categories; VisA uses 12 and needs a separate configuration"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching__class_conditional__visa.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": 12,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "minimum",
+          "percentile": 0.1,
+          "weighted": true,
+          "top_fraction": 0.01
+        },
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching__class_conditional__visa",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_flow_mismatching",
+        "variant_id": "class_conditional",
+        "call_contract": "Call image_cfm_objective/flow_mismatch with labels [B]; scoring repeats labels in path-major order automatically.",
+        "configured_label_scope": "VisA 12 categories"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching__path_mean.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": null,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "average",
+          "percentile": 0.1,
+          "weighted": true,
+          "top_fraction": 0.01
+        },
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching__path_mean",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_flow_mismatching",
+        "variant_id": "path_mean"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching__path_percentile_10.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": null,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "percentile",
+          "percentile": 0.1,
+          "weighted": true,
+          "top_fraction": 0.01
+        },
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching__path_percentile_10",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_flow_mismatching",
+        "variant_id": "path_percentile_10"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching__path_percentile_20.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": null,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "percentile",
+          "percentile": 0.2,
+          "weighted": true,
+          "top_fraction": 0.01
+        },
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching__path_percentile_20",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_flow_mismatching",
+        "variant_id": "path_percentile_20"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching__path_percentile_30.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": null,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "percentile",
+          "percentile": 0.3,
+          "weighted": true,
+          "top_fraction": 0.01
+        },
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching__path_percentile_30",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_flow_mismatching",
+        "variant_id": "path_percentile_30"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching__pooled_categories.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": null,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "minimum",
+          "percentile": 0.1,
+          "weighted": true,
+          "top_fraction": 0.01
+        },
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching__pooled_categories",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_flow_mismatching",
+        "variant_id": "pooled_categories"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_flow_mismatching__unweighted_time.json",
+      "configuration": {
+        "task": "image_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+          "num_classes": null,
+          "model_channels": 64,
+          "num_res_blocks": 3,
+          "channel_mult": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            4
+          ],
+          "attention_resolutions": [
+            4,
+            8,
+            16,
+            32
+          ],
+          "num_head_channels": 32,
+          "dropout": 0.05
+        },
+        "functions": {
+          "objective": "iia_benchmark.models.fm_supplemental:image_cfm_objective",
+          "score": "iia_benchmark.models.fm_supplemental:flow_mismatch"
+        },
+        "score": {
+          "paths": 8,
+          "times": 8,
+          "aggregation": "minimum",
+          "percentile": 0.1,
+          "weighted": false,
+          "top_fraction": 0.01
+        },
+        "reproduction_status": "paper_derived_detector_and_cited_library_backbone_available",
+        "related_repository": "https://github.com/facebookresearch/flow_matching",
+        "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+        "gaps": [
+          "No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.",
+          "Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.",
+          "Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.",
+          "Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.",
+          "K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.",
+          "Original task is image detection; do not report as TSAD performance."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          9,
+          21
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_flow_mismatching__unweighted_time",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2605.23070",
+        "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_flow_mismatching",
+        "variant_id": "unweighted_time"
+      }
+    }
+  ],
   "code_url": null,
   "campaign_status": "not_claimed_reproduced",
   "reported_results": [],

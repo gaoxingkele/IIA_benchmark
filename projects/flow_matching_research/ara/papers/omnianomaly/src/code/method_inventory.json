@@ -1,0 +1,340 @@
+{
+  "paper_id": "omnianomaly",
+  "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 5,
+    "ablation": 6
+  },
+  "records": [
+    {
+      "record_id": "omnianomaly:main",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 1,
+      "marker": "Robust Anomaly Detection for Multivariate Time Series",
+      "method": "omnianomaly",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_omnianomaly.json",
+        "configs/models/fm_supplemental_omnianomaly__disconnected_posterior.json",
+        "configs/models/fm_supplemental_omnianomaly__disconnected_prior.json",
+        "configs/models/fm_supplemental_omnianomaly__posterior_no_flow.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:baseline:lstmndt:6",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 6,
+      "marker": "LSTM-NDT",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "multivariate time series anomaly detection: LSTM with nonparametric dynamic thresholding (LSTM-NDT for short) [6], EncDec-AD [11], DAGMM [27], and LSTM-VAE [16], which have been described in Section 2. Moreover, we select Donut [24], a state-of-the-art univa",
+      "evidence_context": "Section 5.2.1 Baselines",
+      "method": "LSTM-NDT",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:baseline:encdecad:6",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 6,
+      "marker": "EncDec-AD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "anomaly detection: LSTM with nonparametric dynamic thresholding (LSTM-NDT for short) [6], EncDec-AD [11], DAGMM [27], and LSTM-VAE [16], which have been described in Section 2. Moreover, we select Donut [24], a state-of-the-art univariate time series anomaly ",
+      "evidence_context": "Section 5.2.1 Baselines",
+      "method": "EncDec-AD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:baseline:dagmm:6",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 6,
+      "marker": "DAGMM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "n: LSTM with nonparametric dynamic thresholding (LSTM-NDT for short) [6], EncDec-AD [11], DAGMM [27], and LSTM-VAE [16], which have been described in Section 2. Moreover, we select Donut [24], a state-of-the-art univariate time series anomaly detection ap",
+      "evidence_context": "Section 5.2.1 Baselines",
+      "method": "DAGMM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/DAGMM.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/dagmm.py",
+        "experiments/runs/fm_baseline_code_completion/sources/tods/original/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/fm_baseline_code_completion/sources/tods/original/tods/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/DAGMM.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/core/dagmm/dagmm.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:baseline:lstmvae:6",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 6,
+      "marker": "LSTM-VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "parametric dynamic thresholding (LSTM-NDT for short) [6], EncDec-AD [11], DAGMM [27], and LSTM-VAE [16], which have been described in Section 2. Moreover, we select Donut [24], a state-of-the-art univariate time series anomaly detection approach based on VAE",
+      "evidence_context": "Section 5.2.1 Baselines",
+      "method": "LSTM-VAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:baseline:donut:6",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 6,
+      "marker": "Donut",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "AGMM [27], and LSTM-VAE [16], which have been described in Section 2. Moreover, we select Donut [24], a state-of-the-art univariate time series anomaly detection approach based on VAE, as another baseline. To apply Donut [24] to multivariate time series a",
+      "evidence_context": "Section 5.2.1 Baselines",
+      "method": "Donut",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/donut/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/donut/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "NetManAIOps/donut",
+          "commit": "c8a44d91f102f36ba712e1e896408337501bce9b",
+          "identity_status": "author_repository_redirect",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "author_repository_redirect; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "omnianomaly:ablation:c1rnn:7",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 7,
+      "marker": "C1-RNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "s. (C1) In this category, the GRU in OmniAnomaly is replaced by a simple RNN, denoted as “C1-RNN”, or by LSTM, denoted as “C1-LSTM”. (C2) The z-space variables are connected in qnet only (denoted as “C2-qnet”), in pnet only (denoted as “C2-pnet”), or in ne",
+      "evidence_context": "Component analysis Figure 5 C1-C3",
+      "method": "C1-RNN",
+      "variant": "C1-RNN",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "C1-C3 are evaluated with best-test-threshold F1best for fair within-paper comparison; not the default POT metric."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:ablation:c1lstm:7",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 7,
+      "marker": "C1-LSTM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " in OmniAnomaly is replaced by a simple RNN, denoted as “C1-RNN”, or by LSTM, denoted as “C1-LSTM”. (C2) The z-space variables are connected in qnet only (denoted as “C2-qnet”), in pnet only (denoted as “C2-pnet”), or in neither net (denoted as “C2-no z con",
+      "evidence_context": "Component analysis Figure 5 C1-C3",
+      "method": "C1-LSTM",
+      "variant": "C1-LSTM",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "C1-C3 are evaluated with best-test-threshold F1best for fair within-paper comparison; not the default POT metric."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:ablation:c2qnet:7",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 7,
+      "marker": "C2-qnet",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " denoted as “C1-LSTM”. (C2) The z-space variables are connected in qnet only (denoted as “C2-qnet”), in pnet only (denoted as “C2-pnet”), or in neither net (denoted as “C2-no z connected”). (C3) Planar NF in qnet of OmniAnomaly is replaced by Gaussian funct",
+      "evidence_context": "Component analysis Figure 5 C1-C3",
+      "method": "C2-qnet",
+      "variant": "C2-qnet",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [
+        "configs/models/fm_supplemental_omnianomaly__disconnected_prior.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "C1-C3 are evaluated with best-test-threshold F1best for fair within-paper comparison; not the default POT metric."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:ablation:c2pnet:7",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 7,
+      "marker": "C2-pnet",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ce variables are connected in qnet only (denoted as “C2-qnet”), in pnet only (denoted as “C2-pnet”), or in neither net (denoted as “C2-no z connected”). (C3) Planar NF in qnet of OmniAnomaly is replaced by Gaussian function (i.e., “C3-no planar NF”). (C4) I",
+      "evidence_context": "Component analysis Figure 5 C1-C3",
+      "method": "C2-pnet",
+      "variant": "C2-pnet",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [
+        "configs/models/fm_supplemental_omnianomaly__disconnected_posterior.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "C1-C3 are evaluated with best-test-threshold F1best for fair within-paper comparison; not the default POT metric."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:ablation:c2nozconnected:7",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 7,
+      "marker": "C2-no z connected",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "enoted as “C2-qnet”), in pnet only (denoted as “C2-pnet”), or in neither net (denoted as “C2-no z connected”). (C3) Planar NF in qnet of OmniAnomaly is replaced by Gaussian function (i.e., “C3-no planar NF”). (C4) Instead of applying the POT method to set a threshold",
+      "evidence_context": "Component analysis Figure 5 C1-C3",
+      "method": "C2-no z connected",
+      "variant": "C2-no z connected",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "C1-C3 are evaluated with best-test-threshold F1best for fair within-paper comparison; not the default POT metric."
+      ]
+    },
+    {
+      "record_id": "omnianomaly:ablation:c3noplanarnf:7",
+      "paper_id": "omnianomaly",
+      "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+      "pdf_page": 7,
+      "marker": "C3-no planar NF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "nnected”). (C3) Planar NF in qnet of OmniAnomaly is replaced by Gaussian function (i.e., “C3-no planar NF”). (C4) Instead of applying the POT method to set a threshold automatically, here we enumerate thresholds to obtain F1best . For fair comparison, the results f",
+      "evidence_context": "Component analysis Figure 5 C1-C3",
+      "method": "C3-no planar NF",
+      "variant": "C3-no planar NF",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [
+        "configs/models/fm_supplemental_omnianomaly__posterior_no_flow.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+        "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "C1-C3 are evaluated with best-test-threshold F1best for fair within-paper comparison; not the default POT metric."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

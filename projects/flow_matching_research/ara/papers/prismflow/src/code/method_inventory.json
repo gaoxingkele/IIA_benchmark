@@ -1,0 +1,448 @@
+{
+  "paper_id": "prismflow",
+  "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 8,
+    "ablation": 5
+  },
+  "records": [
+    {
+      "record_id": "prismflow:main",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 1,
+      "marker": "PrismFlow: Residual Dynamics for Flow Matching in",
+      "method": "prismflow",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_prismflow.json",
+        "configs/models/fm_native_prismflow_beta_zero.json",
+        "configs/models/fm_native_prismflow_full.json",
+        "configs/models/fm_native_prismflow_gamma_zero.json",
+        "configs/models/fm_native_prismflow_no_balance.json",
+        "configs/models/fm_native_prismflow_no_wta.json",
+        "configs/models/fm_native_prismflow_vanilla_fm.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "prismflow:baseline:smf:6",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 6,
+      "marker": "SMF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ontext-FID Score ↓ Ours 0.003±.000 0.027±.008 0.015±.001 0.006±.005 0.022±.002 0.155±.002 SMF [44] 0.005±.001 0.023±.003 0.059±.007 0.019±.002 0.049±.007 0.116±.006 Diffusion-TS [36] 0.014±.001 0.208±.052 0.132±.010 0.015±.001 0.092±.020 0.108±.006 Diff",
+      "evidence_context": "Table 1 unconditional generation",
+      "method": "SMF",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "prismflow:baseline:diffusionts:6",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 6,
+      "marker": "Diffusion-TS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "002 0.155±.002 SMF [44] 0.005±.001 0.023±.003 0.059±.007 0.019±.002 0.049±.007 0.116±.006 Diffusion-TS [36] 0.014±.001 0.208±.052 0.132±.010 0.015±.001 0.092±.020 0.108±.006 DiffTime [7] 0.008±.002 0.236±.074 0.299±.044 0.188±.028 0.289±.045 0.324±.045 Diffwave ",
+      "evidence_context": "Table 1 unconditional generation",
+      "method": "Diffusion-TS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/diffusion_ts/original"
+      ],
+      "model_configs": [
+        "configs/models/fm_diffusion_ts.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "prismflow:baseline:difftime:6",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 6,
+      "marker": "DiffTime",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "±.006 Diffusion-TS [36] 0.014±.001 0.208±.052 0.132±.010 0.015±.001 0.092±.020 0.108±.006 DiffTime [7] 0.008±.002 0.236±.074 0.299±.044 0.188±.028 0.289±.045 0.324±.045 Diffwave [35] 0.014±.002 0.232±.032 0.873±.061 0.393±.041 1.031±.131 0.244±.018 TimeGAN [",
+      "evidence_context": "Table 1 unconditional generation",
+      "method": "DiffTime",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "prismflow:baseline:diffwave:6",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 6,
+      "marker": "Diffwave",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "0.108±.006 DiffTime [7] 0.008±.002 0.236±.074 0.299±.044 0.188±.028 0.289±.045 0.324±.045 Diffwave [35] 0.014±.002 0.232±.032 0.873±.061 0.393±.041 1.031±.131 0.244±.018 TimeGAN [12] 0.101±.014 0.105±.025 0.300±.013 0.565±.028 0.742±.133 1.292±.218 TimeVAE [",
+      "evidence_context": "Table 1 unconditional generation",
+      "method": "Diffwave",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/diffwave/original",
+        "experiments/runs/fm_imputation_baseline_sources/sources/diffwave_unconditional/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/diffwave/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/lmnt-com/diffwave",
+          "commit": "0594106093b8d8c444de8bd8cd26482f653c569f",
+          "identity_status": "paper_website_linked_reimplementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Official paper demo explicitly lists this repository under Reimplementations on GitHub; original audio model and task adaptation are not certified equivalents to multivariate TS experiment baselines."
+        },
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/diffwave_unconditional/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/philsyn/DiffWave-unconditional",
+          "commit": "ce8d60a7f22c6adfbaf2cd1ed058bde99816b2c3",
+          "identity_status": "paper_website_linked_reimplementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Official paper demo explicitly lists this repository under Reimplementations on GitHub; original audio model and task adaptation are not certified equivalents to multivariate TS experiment baselines."
+        }
+      ]
+    },
+    {
+      "record_id": "prismflow:baseline:timegan:6",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 6,
+      "marker": "TimeGAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ".324±.045 Diffwave [35] 0.014±.002 0.232±.032 0.873±.061 0.393±.041 1.031±.131 0.244±.018 TimeGAN [12] 0.101±.014 0.105±.025 0.300±.013 0.565±.028 0.742±.133 1.292±.218 TimeVAE [31] 0.307±.060 0.215±.035 0.805±.186 0.251±.015 1.631±.142 14.449±.969 Cot-GAN ",
+      "evidence_context": "Table 1 unconditional generation",
+      "method": "TimeGAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/timegan/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/timegan/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/jsyoon0823/TimeGAN",
+          "commit": "8f6181cb9b9d2fa0c930cd902411d9ac8a308e07",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Actual current author repository source acquired; paper-era commit, runnable environment, all ablations and metric reproduction are not verified."
+        }
+      ]
+    },
+    {
+      "record_id": "prismflow:baseline:timevae:6",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 6,
+      "marker": "TimeVAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "0.244±.018 TimeGAN [12] 0.101±.014 0.105±.025 0.300±.013 0.565±.028 0.742±.133 1.292±.218 TimeVAE [31] 0.307±.060 0.215±.035 0.805±.186 0.251±.015 1.631±.142 14.449±.969 Cot-GAN [29] 1.337±.068 0.408±.086 0.980±.071 1.094±.079 1.039±.028 7.813±.550 Correlat",
+      "evidence_context": "Table 1 unconditional generation",
+      "method": "TimeVAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/timevae/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/timevae/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/abudesai/timeVAE",
+          "commit": "9914576bd44a6facbc94a594a82dd14724969a50",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Actual current author repository source acquired; paper-era commit, runnable environment, all ablations and metric reproduction are not verified."
+        }
+      ]
+    },
+    {
+      "record_id": "prismflow:baseline:cotgan:6",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 6,
+      "marker": "Cot-GAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ".292±.218 TimeVAE [31] 0.307±.060 0.215±.035 0.805±.186 0.251±.015 1.631±.142 14.449±.969 Cot-GAN [29] 1.337±.068 0.408±.086 0.980±.071 1.094±.079 1.039±.028 7.813±.550 Correlational Score ↓ Ours 0.017±.004 0.007±.003 0.022±.010 0.203±.030 0.495±.033 0.898±",
+      "evidence_context": "Table 1 unconditional generation",
+      "method": "Cot-GAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/cot_gan/original",
+        "experiments/runs/fm_imputation_baseline_sources/sources/cot_gan_pytorch/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/cot_gan/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/tianlinxu312/cot-gan",
+          "commit": "617b7e94a881cdb58045288b502734aa02d0d745",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Actual current author repository source acquired; paper-era commit, runnable environment, all ablations and metric reproduction are not verified."
+        },
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/cot_gan_pytorch/original",
+          "role": "maintainer_component_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/tianlinxu312/cot-gan-pytorch",
+          "commit": "490cbcb9caf081789110539aa3fad71f14a3f5de",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Supplementary author PyTorch video implementation; continuous multivariate time-series comparator adaptation not certified."
+        }
+      ]
+    },
+    {
+      "record_id": "prismflow:baseline:rnnar:6",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 6,
+      "marker": "RNN-AR",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "0.476±.044 Cot-GAN [29] 0.254±.137 0.230±.016 0.325±.099 0.426±.022 0.498±.002 0.492±.018 RNN-AR [12] 0.495±.001 0.226±.035 - - 0.483±.004 - Predictive Score ↓ Ours 0.093±.000 0.037±.000 0.122±.003 0.006±.003 0.251±.003 0.100±.000 SMF [44] 0.093±.000 0.037",
+      "evidence_context": "Table 1 unconditional generation",
+      "method": "RNN-AR",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "prismflow:ablation:vanillafm:8",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 8,
+      "marker": "Vanilla FM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "e model design. Metric Variant Stocks fMRI Context-FID Score ↓ Ours 0.027±.008 0.155±.002 Vanilla FM 0.116±.012 0.324±.030 Training w/o LWTA 0.107±.011 0.294±.018 Training w/o LBAL 0.088±.015 0.178±.007 Training β = 0 0.095±.010 0.248±.019 Sampling γ = 0 0.091",
+      "evidence_context": "Section 5.4 Table 3",
+      "method": "Vanilla FM",
+      "variant": "Vanilla FM",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_native_prismflow_vanilla_fm.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "prismflow:ablation:trainingwolwta:8",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 8,
+      "marker": "Training w/o LWTA",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ocks fMRI Context-FID Score ↓ Ours 0.027±.008 0.155±.002 Vanilla FM 0.116±.012 0.324±.030 Training w/o LWTA 0.107±.011 0.294±.018 Training w/o LBAL 0.088±.015 0.178±.007 Training β = 0 0.095±.010 0.248±.019 Sampling γ = 0 0.091±.010 0.185±.014 Discriminative Score ↓ ",
+      "evidence_context": "Section 5.4 Table 3",
+      "method": "Training w/o LWTA",
+      "variant": "Training w/o LWTA",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_native_prismflow_no_wta.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "prismflow:ablation:trainingwolbal:8",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 8,
+      "marker": "Training w/o LBAL",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "±.008 0.155±.002 Vanilla FM 0.116±.012 0.324±.030 Training w/o LWTA 0.107±.011 0.294±.018 Training w/o LBAL 0.088±.015 0.178±.007 Training β = 0 0.095±.010 0.248±.019 Sampling γ = 0 0.091±.010 0.185±.014 Discriminative Score ↓ Ours 0.030±.004 0.129±.053 Vanilla FM 0.",
+      "evidence_context": "Section 5.4 Table 3",
+      "method": "Training w/o LBAL",
+      "variant": "Training w/o LBAL",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_native_prismflow_no_balance.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "prismflow:ablation:trainingbetazero:8",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 8,
+      "marker": "Training β = 0",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ".324±.030 Training w/o LWTA 0.107±.011 0.294±.018 Training w/o LBAL 0.088±.015 0.178±.007 Training β = 0 0.095±.010 0.248±.019 Sampling γ = 0 0.091±.010 0.185±.014 Discriminative Score ↓ Ours 0.030±.004 0.129±.053 Vanilla FM 0.186±.005 0.245±.050 Training w/o LWTA",
+      "evidence_context": "Section 5.4 Table 3",
+      "method": "Training beta zero",
+      "variant": "Training beta zero",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_native_prismflow_beta_zero.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "prismflow:ablation:samplinggammazero:8",
+      "paper_id": "prismflow",
+      "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+      "pdf_page": 8,
+      "marker": "Sampling γ = 0",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "1 0.294±.018 Training w/o LBAL 0.088±.015 0.178±.007 Training β = 0 0.095±.010 0.248±.019 Sampling γ = 0 0.091±.010 0.185±.014 Discriminative Score ↓ Ours 0.030±.004 0.129±.053 Vanilla FM 0.186±.005 0.245±.050 Training w/o LWTA 0.112±.014 0.402±.029 Training w/o L",
+      "evidence_context": "Section 5.4 Table 3",
+      "method": "Sampling gamma zero",
+      "variant": "Sampling gamma zero",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_native_prismflow_gamma_zero.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

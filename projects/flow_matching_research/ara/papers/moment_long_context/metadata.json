@@ -15,7 +15,7 @@
   "task": "forecasting_and_classification",
   "family": "compressive_channel_memory",
   "method_summary": "Infini-ChannelMixer 引入可压缩记忆，以少量额外参数增强 MOMENT 的长上下文及变量交互。",
-  "reproduction_gap": "后续版只验证预测/分类，不能声称异常检测增强；Table3胜平负12/2/12并非全面优胜。",
+  "reproduction_gap": "代码、主消融或组件已按原文还原；仍缺：MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.；All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.；Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.；Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate.",
   "sources": [
     {
       "path": "papers/literature/flow_matching/user_supplied/2026-10-07/moment_long_context/3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413.pdf",
@@ -65,7 +65,718 @@
     "Weather",
     "26 UEA classification datasets"
   ],
-  "model_configs": [],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+        "parameters": {
+          "heads": 4,
+          "mode": "icm",
+          "train_beta": true,
+          "epsilon": 1e-06
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "variants": [
+          {
+            "id": "independent",
+            "parameters": {
+              "mode": "independent"
+            }
+          },
+          {
+            "id": "concatenation_relative_bias",
+            "parameters": {
+              "mode": "concatenation"
+            }
+          },
+          {
+            "id": "icm_static",
+            "module": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding",
+            "requires": [
+              "channel_count",
+              "embedding_dimension"
+            ]
+          },
+          {
+            "id": "freeze_beta",
+            "parameters": {
+              "train_beta": false
+            }
+          },
+          {
+            "id": "finetune_beta",
+            "parameters": {
+              "train_beta": true
+            }
+          }
+        ],
+        "reproduction_status": "paper_derived_attention_components_not_complete_moment_integration",
+        "gaps": [
+          "No dedicated ICM author repository located.",
+          "This is a standalone attention/embedding primitive. Full MomentICMT5 integration is prepared in separate configs; original pretrained ICM weights remain unavailable.",
+          "Graph Transformer adapter, Crossformer, iTransformer/multivariate patching, N-BEATS and all experiment scripts have not been aligned to this paper setting.",
+          "One-epoch Time Series Pile pretraining, 26 UEA SVM classification and forecasting experiment pipelines remain pending.",
+          "Q/K/V projections are supplied by caller; local dot-product scale is standard sqrt(key dimension).",
+          "All components are for original forecast/classification task; no anomaly detection performance implied."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "prepared_additional_configs": [
+          "configs/models/fm_supplemental_moment_long_context__concatenation_relative_bias.json",
+          "configs/models/fm_supplemental_moment_long_context__finetune_beta.json",
+          "configs/models/fm_supplemental_moment_long_context__freeze_beta.json",
+          "configs/models/fm_supplemental_moment_long_context__icm_static.json",
+          "configs/models/fm_supplemental_moment_long_context__independent.json",
+          "configs/models/fm_supplemental_moment_long_context_t5.json",
+          "configs/models/fm_supplemental_moment_long_context_t5__features.json",
+          "configs/models/fm_supplemental_moment_long_context_t5__finetune_beta_head.json",
+          "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta.json",
+          "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta_head.json",
+          "configs/models/fm_supplemental_moment_long_context_t5__icm_static.json",
+          "configs/models/fm_supplemental_moment_long_context_t5__independent.json",
+          "configs/models/fm_supplemental_moment_long_context_t5__reconstruction.json"
+        ]
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context__concatenation_relative_bias.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+        "parameters": {
+          "heads": 4,
+          "mode": "concatenation",
+          "train_beta": true,
+          "epsilon": 1e-06
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_attention_components_not_complete_moment_integration",
+        "gaps": [
+          "No dedicated ICM author repository located.",
+          "This is a standalone attention/embedding primitive. Full MomentICMT5 integration is prepared in separate configs; original pretrained ICM weights remain unavailable.",
+          "Graph Transformer adapter, Crossformer, iTransformer/multivariate patching, N-BEATS and all experiment scripts have not been aligned to this paper setting.",
+          "One-epoch Time Series Pile pretraining, 26 UEA SVM classification and forecasting experiment pipelines remain pending.",
+          "Q/K/V projections are supplied by caller; local dot-product scale is standard sqrt(key dimension).",
+          "All components are for original forecast/classification task; no anomaly detection performance implied."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context__concatenation_relative_bias",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_moment_long_context",
+        "variant_id": "concatenation_relative_bias"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context__finetune_beta.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+        "parameters": {
+          "heads": 4,
+          "mode": "icm",
+          "train_beta": true,
+          "epsilon": 1e-06
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_attention_components_not_complete_moment_integration",
+        "gaps": [
+          "No dedicated ICM author repository located.",
+          "This is a standalone attention/embedding primitive. Full MomentICMT5 integration is prepared in separate configs; original pretrained ICM weights remain unavailable.",
+          "Graph Transformer adapter, Crossformer, iTransformer/multivariate patching, N-BEATS and all experiment scripts have not been aligned to this paper setting.",
+          "One-epoch Time Series Pile pretraining, 26 UEA SVM classification and forecasting experiment pipelines remain pending.",
+          "Q/K/V projections are supplied by caller; local dot-product scale is standard sqrt(key dimension).",
+          "All components are for original forecast/classification task; no anomaly detection performance implied."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context__finetune_beta",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_moment_long_context",
+        "variant_id": "finetune_beta"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context__freeze_beta.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+        "parameters": {
+          "heads": 4,
+          "mode": "icm",
+          "train_beta": false,
+          "epsilon": 1e-06
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_attention_components_not_complete_moment_integration",
+        "gaps": [
+          "No dedicated ICM author repository located.",
+          "This is a standalone attention/embedding primitive. Full MomentICMT5 integration is prepared in separate configs; original pretrained ICM weights remain unavailable.",
+          "Graph Transformer adapter, Crossformer, iTransformer/multivariate patching, N-BEATS and all experiment scripts have not been aligned to this paper setting.",
+          "One-epoch Time Series Pile pretraining, 26 UEA SVM classification and forecasting experiment pipelines remain pending.",
+          "Q/K/V projections are supplied by caller; local dot-product scale is standard sqrt(key dimension).",
+          "All components are for original forecast/classification task; no anomaly detection performance implied."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context__freeze_beta",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_moment_long_context",
+        "variant_id": "freeze_beta"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context__icm_static.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding",
+        "parameters": {
+          "channels": 8,
+          "dimension": 256
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_static_embedding_component_only",
+        "gaps": [
+          "No dedicated ICM author repository located.",
+          "This is a standalone attention/embedding primitive. Full MomentICMT5 integration is prepared in separate configs; original pretrained ICM weights remain unavailable.",
+          "Graph Transformer adapter, Crossformer, iTransformer/multivariate patching, N-BEATS and all experiment scripts have not been aligned to this paper setting.",
+          "One-epoch Time Series Pile pretraining, 26 UEA SVM classification and forecasting experiment pipelines remain pending.",
+          "Q/K/V projections are supplied by caller; local dot-product scale is standard sqrt(key dimension).",
+          "All components are for original forecast/classification task; no anomaly detection performance implied."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context__icm_static",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_moment_long_context",
+        "variant_id": "icm_static",
+        "module": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding",
+        "requires": [
+          "channel_count",
+          "embedding_dimension"
+        ]
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context__independent.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+        "parameters": {
+          "heads": 4,
+          "mode": "independent",
+          "train_beta": true,
+          "epsilon": 1e-06
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_attention_components_not_complete_moment_integration",
+        "gaps": [
+          "No dedicated ICM author repository located.",
+          "This is a standalone attention/embedding primitive. Full MomentICMT5 integration is prepared in separate configs; original pretrained ICM weights remain unavailable.",
+          "Graph Transformer adapter, Crossformer, iTransformer/multivariate patching, N-BEATS and all experiment scripts have not been aligned to this paper setting.",
+          "One-epoch Time Series Pile pretraining, 26 UEA SVM classification and forecasting experiment pipelines remain pending.",
+          "Q/K/V projections are supplied by caller; local dot-product scale is standard sqrt(key dimension).",
+          "All components are for original forecast/classification task; no anomaly detection performance implied."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context__independent",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "variant_of": "fm_supplemental_moment_long_context",
+        "variant_id": "independent"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context_t5.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+          "seq_len": 256,
+          "patch_len": 8,
+          "d_model": 256,
+          "num_layers": 4,
+          "heads": 4,
+          "d_ff": 1024,
+          "forecast_horizon": 96,
+          "task": "forecast",
+          "mixer": "icm",
+          "static_channels": null,
+          "train_beta": true,
+          "freeze_backbone": false,
+          "dropout": 0.1
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+        "gaps": [
+          "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+          "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+          "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+          "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context_t5",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+        "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction."
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context_t5__features.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+          "seq_len": 256,
+          "patch_len": 8,
+          "d_model": 256,
+          "num_layers": 4,
+          "heads": 4,
+          "d_ff": 1024,
+          "forecast_horizon": 96,
+          "task": "features",
+          "mixer": "icm",
+          "static_channels": null,
+          "train_beta": true,
+          "freeze_backbone": false,
+          "dropout": 0.1
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+        "gaps": [
+          "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+          "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+          "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+          "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context_t5__features",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+        "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction.",
+        "variant_id": "features",
+        "variant_of": "fm_supplemental_moment_long_context_t5"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context_t5__finetune_beta_head.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+          "seq_len": 256,
+          "patch_len": 8,
+          "d_model": 256,
+          "num_layers": 4,
+          "heads": 4,
+          "d_ff": 1024,
+          "forecast_horizon": 96,
+          "task": "forecast",
+          "mixer": "icm",
+          "static_channels": null,
+          "train_beta": true,
+          "freeze_backbone": true,
+          "dropout": 0.1
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+        "gaps": [
+          "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+          "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+          "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+          "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context_t5__finetune_beta_head",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+        "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction.",
+        "variant_id": "finetune_beta_head",
+        "variant_of": "fm_supplemental_moment_long_context_t5"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+          "seq_len": 256,
+          "patch_len": 8,
+          "d_model": 256,
+          "num_layers": 4,
+          "heads": 4,
+          "d_ff": 1024,
+          "forecast_horizon": 96,
+          "task": "forecast",
+          "mixer": "icm",
+          "static_channels": null,
+          "train_beta": false,
+          "freeze_backbone": false,
+          "dropout": 0.1
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+        "gaps": [
+          "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+          "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+          "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+          "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context_t5__freeze_beta",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+        "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction.",
+        "variant_id": "freeze_beta",
+        "variant_of": "fm_supplemental_moment_long_context_t5"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta_head.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+          "seq_len": 256,
+          "patch_len": 8,
+          "d_model": 256,
+          "num_layers": 4,
+          "heads": 4,
+          "d_ff": 1024,
+          "forecast_horizon": 96,
+          "task": "forecast",
+          "mixer": "icm",
+          "static_channels": null,
+          "train_beta": false,
+          "freeze_backbone": true,
+          "dropout": 0.1
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+        "gaps": [
+          "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+          "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+          "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+          "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context_t5__freeze_beta_head",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+        "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction.",
+        "variant_id": "freeze_beta_head",
+        "variant_of": "fm_supplemental_moment_long_context_t5"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context_t5__icm_static.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+          "seq_len": 256,
+          "patch_len": 8,
+          "d_model": 256,
+          "num_layers": 4,
+          "heads": 4,
+          "d_ff": 1024,
+          "forecast_horizon": 96,
+          "task": "forecast",
+          "mixer": "icm",
+          "static_channels": 8,
+          "train_beta": true,
+          "freeze_backbone": false,
+          "dropout": 0.1
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+        "gaps": [
+          "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+          "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+          "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+          "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context_t5__icm_static",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+        "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction.",
+        "variant_id": "icm_static",
+        "variant_of": "fm_supplemental_moment_long_context_t5"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context_t5__independent.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+          "seq_len": 256,
+          "patch_len": 8,
+          "d_model": 256,
+          "num_layers": 4,
+          "heads": 4,
+          "d_ff": 1024,
+          "forecast_horizon": 96,
+          "task": "forecast",
+          "mixer": "independent",
+          "static_channels": null,
+          "train_beta": true,
+          "freeze_backbone": false,
+          "dropout": 0.1
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+        "gaps": [
+          "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+          "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+          "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+          "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context_t5__independent",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+        "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction.",
+        "variant_id": "independent",
+        "variant_of": "fm_supplemental_moment_long_context_t5"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_moment_long_context_t5__reconstruction.json",
+      "configuration": {
+        "task": "forecasting_and_classification",
+        "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+        "parameters": {
+          "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+          "seq_len": 256,
+          "patch_len": 8,
+          "d_model": 256,
+          "num_layers": 4,
+          "heads": 4,
+          "d_ff": 1024,
+          "forecast_horizon": 96,
+          "task": "reconstruction",
+          "mixer": "icm",
+          "static_channels": null,
+          "train_beta": true,
+          "freeze_backbone": false,
+          "dropout": 0.1
+        },
+        "functions": {
+          "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+        },
+        "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+        "gaps": [
+          "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+          "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+          "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+          "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+        ],
+        "evidence_pages": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_moment_long_context_t5__reconstruction",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://arxiv.org/abs/2409.13530v1",
+        "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+        "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+        "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction.",
+        "variant_id": "reconstruction",
+        "variant_of": "fm_supplemental_moment_long_context_t5"
+      }
+    }
+  ],
   "code_url": null,
   "campaign_status": "not_claimed_reproduced",
   "reported_results": [],

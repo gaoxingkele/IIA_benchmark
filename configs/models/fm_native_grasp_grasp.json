@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "fm_native_grasp_grasp",
+  "family": "paper_derived_native_flow_matching",
+  "task": "anomaly_detection",
+  "kind": "window",
+  "entrypoint": "iia_benchmark.models.fm_native:GRASPDetector",
+  "parameters": {
+    "window": 50,
+    "hidden": 128,
+    "blocks": 2,
+    "dropout": 0.1,
+    "tau": 2.0,
+    "graph_threshold": 0.5,
+    "variant": "grasp",
+    "epochs": 1500,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "source_samples": 5,
+    "flow_evaluations": 10,
+    "seed": 1103,
+    "device": "auto"
+  },
+  "citation": "https://arxiv.org/abs/2609.36765",
+  "paper_id": "grasp",
+  "paper_source_sha256": "1b9e48e68d57ca8466099d0515ac67b2c3309b75cf9445ac58f5fd6ec39583fd",
+  "reproduction_status": "executable_paper_derived_reconstruction_not_author_equivalent",
+  "variant": "grasp",
+  "paper_score_status": "not_reproduced",
+  "design_choices": [
+    "Paper does not identify the estimator producing its edge-weight matrix; abs-Pearson from training windows is an explicit local fallback. Prefer caller-supplied verified adjacency.",
+    "MLP projection axes/normalization dimensions are explicit local choices consistent with described alternating temporal/channel mixer, not certified author architecture.",
+    "Interior time grid j/(T+1), j=1..T; source samples shared across windows for chunk-independent deterministic scoring.",
+    "No early-stopping/validation scheduler or exact mTSBench preprocessing has yet been implemented; 1500 epochs is the paper maximum, not a validated local optimum."
+  ],
+  "data_reference": [
+    "SMAP (mTSBench 51 series,26 variables)",
+    "SMD (mTSBench 18 series,39 variables)",
+    "CICIDS2017 (mTSBench six series,73 features)",
+    "SWAN (mTSBench one 39-variable series)"
+  ],
+  "evaluation": "frozen grouped train/validation/test protocol required; no test-label threshold tuning; no synthetic benchmark claim"
+}

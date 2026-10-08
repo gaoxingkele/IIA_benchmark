@@ -6,9 +6,18 @@
   "primary_source_sha256": "e303e6db2b5a541b3610a928f139757dc30b55e4c515915c77d3cb0f156178b4",
   "main_implementation": {
     "status": "local_reconstruction_with_deviation",
-    "note": "本地含adversarial开关及两解码器；默认配置adversarial=false，已运行版本是非对抗消融，原算法长期稳定性/等价性未通过。"
+    "note": "本地含adversarial开关及两解码器；默认配置adversarial=false，已运行版本是非对抗消融，原算法长期稳定性/等价性未通过。 官方原始源码现已补入，但本地实现与原版的完整等价性仍待核验。"
   },
-  "source_resources": [],
+  "source_resources": [
+    {
+      "id": "usad_author_completion",
+      "path": "experiments/runs/fm_baseline_code_completion/sources/usad_author/original",
+      "repository": "manigalati/usad",
+      "commit": "e25af45c8e1c32783aed94fc7e5ab85effef2b1a",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "b29b4f05859921a12cb509777bae9a796e78914962532adb9e747cd21033dd81"
+    }
+  ],
   "local_entrypoints": [
     {
       "entrypoint": "iia_benchmark.models.mtsad_detectors:USADDetector",

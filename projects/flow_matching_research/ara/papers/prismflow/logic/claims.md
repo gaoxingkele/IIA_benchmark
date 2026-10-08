@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 该文数值尚未逐项转录；不能给出未核实的论文指标或本地等效性结论。 专家路由、频谱保真和低数据预算分别消融；Context-FID/Discriminative Score 不能直接换成异常检测优势。
+**Statement**: 该文数值尚未逐项转录；不能给出未核实的论文指标或本地等效性结论。 代码、主消融或组件已按原文还原；仍缺：author backbone/projection/schedules/hyperparameters；conditional guidance；all metric evaluator and baseline pipelines；low-data/forecasting/imputation tests
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

@@ -1,6 +1,6 @@
 # DFM: Interpolant-free Dual Flow Matching
 
-原文实验是 SMAP 无监督异常检测；旧 campaign 的 generation 标签不作为本工程的任务依据；冻结密度计算和积分容差。
+代码、主消融或组件已按原文还原；仍缺：author U-Net and learnable prior；Dopri5；MLE-CNF and exact published FM/I-CFM U-Net baselines；author SMAP entity/feature protocol；threshold and adjustment protocol；objective degeneracy/bijectivity needs mathematical audit
 
 冻结要求：作者版本与代码提交、数据实体/划分、训练专属归一化、掩码/窗口及回填、种子和预算、积分器/步数、分数聚合、阈值来源、点调整、指标尺度与不确定性。
 

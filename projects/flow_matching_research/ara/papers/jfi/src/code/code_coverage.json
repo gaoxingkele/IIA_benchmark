@@ -5,13 +5,28 @@
   "ara_artifact": "papers/jfi/PAPER.md",
   "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "local_paper_core_reconstruction_with_gaps",
+    "note": "代码、主消融或组件已按原文还原；仍缺：Exact author code not located; branch reduction/separability and time embedding wiring are local choices.；Algorithm 1 line 6 omits factor t on z1; implementation follows explicit Eq.7 rather than that inconsistent line.；TEP simulation IDs, HP private data, pre-trained DCNN/SOFTS teacher pipelines, mask generator, preprocessing and exact paper hyperparameters not completed.；Online windows must contain only data available at deployment timestamp; LPD interpolates within supplied observed window.；Required frozen downstream teacher enforced when joint distillation weight > 0.；sigma/prior variance/loss weights here are explicit development defaults, not certified paper-best values."
   },
   "source_resources": [],
-  "local_entrypoints": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_supplemental:JFIVelocity",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
   "model_configs": [
-    "configs/models/fm_jfi.json"
+    "configs/models/fm_jfi.json",
+    "configs/models/fm_supplemental_jfi.json",
+    "configs/models/fm_supplemental_jfi__nfe_1.json",
+    "configs/models/fm_supplemental_jfi__nfe_10.json",
+    "configs/models/fm_supplemental_jfi__nfe_50.json",
+    "configs/models/fm_supplemental_jfi__without_jfol.json",
+    "configs/models/fm_supplemental_jfi__without_lpd.json",
+    "configs/models/fm_supplemental_jfi__without_mcb_ca.json"
   ],
   "paper_ablations": {
     "source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
@@ -116,7 +131,78 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_supplemental_jfi",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "JFIVelocity"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_jfi__nfe_1",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "JFIVelocity"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_jfi__nfe_10",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "JFIVelocity"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_jfi__nfe_50",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "JFIVelocity"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_jfi__without_jfol",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "JFIVelocity"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_jfi__without_lpd",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "JFIVelocity"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_jfi__without_mcb_ca",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "JFIVelocity"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

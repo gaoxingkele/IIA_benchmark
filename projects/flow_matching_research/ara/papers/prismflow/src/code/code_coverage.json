@@ -5,13 +5,27 @@
   "ara_artifact": "papers/prismflow/PAPER.md",
   "primary_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "local_paper_core_reconstruction_with_gaps",
+    "note": "代码、主消融或组件已按原文还原；仍缺：author backbone/projection/schedules/hyperparameters；conditional guidance；all metric evaluator and baseline pipelines；low-data/forecasting/imputation tests"
   },
   "source_resources": [],
-  "local_entrypoints": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_native:PrismFlowModel",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
   "model_configs": [
-    "configs/models/fm_prismflow.json"
+    "configs/models/fm_prismflow.json",
+    "configs/models/fm_native_prismflow_beta_zero.json",
+    "configs/models/fm_native_prismflow_full.json",
+    "configs/models/fm_native_prismflow_gamma_zero.json",
+    "configs/models/fm_native_prismflow_no_balance.json",
+    "configs/models/fm_native_prismflow_no_wta.json",
+    "configs/models/fm_native_prismflow_vanilla_fm.json"
   ],
   "paper_ablations": {
     "source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
@@ -93,7 +107,68 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_native_prismflow_beta_zero",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "markers": [
+        "PrismFlowModel"
+      ],
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_prismflow_full",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "markers": [
+        "PrismFlowModel"
+      ],
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_prismflow_gamma_zero",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "markers": [
+        "PrismFlowModel"
+      ],
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_prismflow_no_balance",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "markers": [
+        "PrismFlowModel"
+      ],
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_prismflow_no_wta",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "markers": [
+        "PrismFlowModel"
+      ],
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_prismflow_vanilla_fm",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "markers": [
+        "PrismFlowModel"
+      ],
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

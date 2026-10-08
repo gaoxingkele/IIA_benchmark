@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 该文数值尚未逐项转录；不能给出未核实的论文指标或本地等效性结论。 后续版只验证预测/分类，不能声称异常检测增强；Table3胜平负12/2/12并非全面优胜。
+**Statement**: 该文数值尚未逐项转录；不能给出未核实的论文指标或本地等效性结论。 代码、主消融或组件已按原文还原；仍缺：MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.；All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.；Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.；Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate.
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

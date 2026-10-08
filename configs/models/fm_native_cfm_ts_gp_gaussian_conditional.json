@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "fm_native_cfm_ts_gp_gaussian_conditional",
+  "family": "paper_derived_native_flow_matching",
+  "task": "continuous_time_dynamics",
+  "kind": "trajectory",
+  "entrypoint": "iia_benchmark.models.fm_native_trajectory:CFMTSModel",
+  "parameters": {
+    "method": "gp",
+    "target_mode": "gaussian_conditional",
+    "hidden": 258,
+    "epochs": 400,
+    "batch_size": 256,
+    "learning_rate": 0.01,
+    "samples": 10,
+    "grid_points": 50,
+    "seed": 1103,
+    "device": "cpu",
+    "gp_max_iterations": 400
+  },
+  "citation": "https://openreview.net/forum?id=Hqn4Aj7xrQ",
+  "paper_id": "cfm_ts",
+  "paper_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+  "reproduction_status": "executable_paper_derived_reconstruction_not_author_equivalent",
+  "variant": "gp_gaussian_conditional",
+  "paper_score_status": "not_reproduced",
+  "design_choices": [
+    "Standard diagonal zero-drift Kalman/RTS repairs printed smoothing gain/covariance equations; m0=y0,P0=1 are explicit initialization choices.",
+    "BB paper_literal implements printed Eq.8; gaussian_consistent instead uses 0.5*Pprime/P(t)*(x-m(t)), the velocity of Eq.7 Gaussian interpolation. Kept as distinct configurations.",
+    "GP paper_literal omits posterior means as printed Eq.10; gaussian_conditional restores derivative mean and centered state, the standard Gaussian conditional derivative.",
+    "GP MLE uses L-BFGS-B rather than unspecified author optimizer, shared RBF across independent state dimensions; dense covariance sampled jointly over queries.",
+    "TimeMLP differs from ambiguous 64/258-dimension architecture; RK4 replaces dopri5 during diagnostic simulation; main/appendix trajectory counts and batch size conflicts must be frozen before comparisons."
+  ],
+  "data_reference": [
+    "Lotka-Volterra simulated ODE",
+    "Sine simulated ODE",
+    "Pendulum simulated ODE"
+  ],
+  "evaluation": "frozen grouped train/validation/test protocol required; no test-label threshold tuning; no synthetic benchmark claim"
+}

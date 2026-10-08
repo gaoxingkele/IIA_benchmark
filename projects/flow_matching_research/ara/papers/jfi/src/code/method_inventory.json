@@ -1,0 +1,292 @@
+{
+  "paper_id": "jfi",
+  "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 6,
+    "ablation": 3
+  },
+  "records": [
+    {
+      "record_id": "jfi:main",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 1,
+      "marker": "Contents lists available at ScienceDirect",
+      "method": "jfi",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_jfi.json",
+        "configs/models/fm_supplemental_jfi.json",
+        "configs/models/fm_supplemental_jfi__nfe_1.json",
+        "configs/models/fm_supplemental_jfi__nfe_10.json",
+        "configs/models/fm_supplemental_jfi__nfe_50.json",
+        "configs/models/fm_supplemental_jfi__without_jfol.json",
+        "configs/models/fm_supplemental_jfi__without_lpd.json",
+        "configs/models/fm_supplemental_jfi__without_mcb_ca.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "jfi:baseline:gpvae:7",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 7,
+      "marker": "GP-VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " JFI with 6 imputation baseline methods based on dif- ferent architectures: 1) GP-VAE (Fortuin et al., 2020): A VAE-based method that incorpo- rates Gaussian process. 2) MBGAN (Ni and Cao, 2022): A GAN-based method that incorporates multi-head attention me",
+      "evidence_context": "Section 4.1.3 Baselines",
+      "method": "GP-VAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/gp_vae/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/gp_vae/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/ratschlab/GP-VAE",
+          "commit": "6e06c93d37d07ede2eb1f578b577c80a59846e2c",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Actual current author repository source acquired; paper-era commit, runnable environment, all ablations and metric reproduction are not verified."
+        }
+      ]
+    },
+    {
+      "record_id": "jfi:baseline:mbgan:7",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 7,
+      "marker": "MBGAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "uin et al., 2020): A VAE-based method that incorpo- rates Gaussian process. 2) MBGAN (Ni and Cao, 2022): A GAN-based method that incorporates multi-head attention mechanisms with bidirectional gated recurrent units (GRU). 3) TimesNet (Wu et al., 2023): A ",
+      "evidence_context": "Section 4.1.3 Baselines",
+      "method": "MBGAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "jfi:baseline:timesnet:7",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 7,
+      "marker": "TimesNet",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "i-head attention mechanisms with bidirectional gated recurrent units (GRU). 3) TimesNet (Wu et al., 2023): A CNN-based method that explicitly models temporal multi-periodicity. 4) SA-GAIN (Zhang et al., 2022): A GAN-based method that incorpo- rates self-atte",
+      "evidence_context": "Section 4.1.3 Baselines",
+      "method": "TimesNet",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/time_series_library/models/TimesNet.py",
+        "experiments/runs/fm_code_completion/sources/maelnet/original/models/TimesNet.py",
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/models/timesnet.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/time_series_library/models/TimesNet.py",
+        "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/TimesNet.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "jfi:baseline:sagain:7",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 7,
+      "marker": "SA-GAIN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "023): A CNN-based method that explicitly models temporal multi-periodicity. 4) SA-GAIN (Zhang et al., 2022): A GAN-based method that incorpo- rates self-attention mechanisms with an autoencoder. 5) CSDI (Tashiro et al., 2021): A diﬀusion-based method that e",
+      "evidence_context": "Section 4.1.3 Baselines",
+      "method": "SA-GAIN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "jfi:baseline:csdi:7",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 7,
+      "marker": "CSDI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "d method that incorpo- rates self-attention mechanisms with an autoencoder. 5) CSDI (Tashiro et al., 2021): A diﬀusion-based method that employs a score-based diﬀusion model with a Transformer backbone incorpo- rating two-dimensional attention mechanisms",
+      "evidence_context": "Section 4.1.3 Baselines",
+      "method": "CSDI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_csdi.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "jfi:baseline:saits:7",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 7,
+      "marker": "SAITS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "attention mechanisms to capture both tem- poral and feature dependencies. 6) SAITS (Du et al., 2023): A Transformer-based method that incorpo- rates diagonally-masked self-attention and joint optimization train- ing. Chemical Engineering Science 335 (2026",
+      "evidence_context": "Section 4.1.3 Baselines",
+      "method": "SAITS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/saits/original",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/saits.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_saits.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "jfi:ablation:wojfol:10",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 10,
+      "marker": "w/o JFOL",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " on TEP dataset with point missing. The best results are highlighted in bold. Rate JFI w/o JFOL w/o LPD w/o MCB,CA MAE RMSE MAE RMSE MAE RMSE MAE RMSE 0.1 0.77(0.02) 1.37(0.01) 0.85(0.02) 1.82(0.03) 0.85(0.02) 1.66(0.03) 0.86(0.03) 2.09(0.07) 0.3 0.79(0.02) ",
+      "evidence_context": "Ablation experiments",
+      "method": "w/o JFOL",
+      "variant": "w/o JFOL",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_jfi__without_jfol.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "jfi:ablation:wolpd:10",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 10,
+      "marker": "w/o LPD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ataset with point missing. The best results are highlighted in bold. Rate JFI w/o JFOL w/o LPD w/o MCB,CA MAE RMSE MAE RMSE MAE RMSE MAE RMSE 0.1 0.77(0.02) 1.37(0.01) 0.85(0.02) 1.82(0.03) 0.85(0.02) 1.66(0.03) 0.86(0.03) 2.09(0.07) 0.3 0.79(0.02) 1.49(0.0",
+      "evidence_context": "Ablation experiments",
+      "method": "w/o LPD",
+      "variant": "w/o LPD",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_jfi__without_lpd.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "jfi:ablation:womcbca:10",
+      "paper_id": "jfi",
+      "primary_source_sha256": "0597fb63d9fd680bf4f7346dbb5059c17913ef5300668fd34f63aac566c3e4b5",
+      "pdf_page": 10,
+      "marker": "w/o MCB/CA",
+      "marker_match": "alphanumeric_normalized",
+      "evidence_snippet": null,
+      "evidence_context": "Ablation experiments",
+      "method": "w/o MCB/CA",
+      "variant": "w/o MCB/CA",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_jfi__without_mcb_ca.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

@@ -1,0 +1,267 @@
+{
+  "paper_id": "ganf",
+  "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 5,
+    "ablation": 4
+  },
+  "records": [
+    {
+      "record_id": "ganf:main",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 1,
+      "marker": "Published as a conference paper at ICLR 2022",
+      "method": "ganf",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/ganf/original",
+        "experiments/runs/flow_matching_campaign/sources/ganf/original/models/GANF.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_ganf.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "ganf:baseline:encdecad:7",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 7,
+      "marker": "EncDecAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "selines. We compare with the following representative, state-of-the-art deep methods. • EncDecAD (Malhotra et al., 2016): In this method, an autoencoder based on LSTM is trained. The reconstruction error is used as the anomaly measure. • DeepSVDD (Ruff et al",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "EncDecAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "ganf:baseline:deepsvdd:7",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 7,
+      "marker": "DeepSVDD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "er based on LSTM is trained. The reconstruction error is used as the anomaly measure. • DeepSVDD (Ruff et al., 2018): This method minimizes the volume of a hypersphere that encloses the representations of data. Samples distant from the hypersphere center are",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "DeepSVDD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/pyod/original/pyod/models/deep_svdd.py",
+        "experiments/runs/fm_tsad_baseline_sources/sources/deep_svdd/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/deep_svdd/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "lukasruff/Deep-SVDD-PyTorch",
+          "commit": "1901612d595e23675fb75c4ebb563dd0ffebc21e",
+          "identity_status": "author_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "author_repository; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "ganf:baseline:alocc:7",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 7,
+      "marker": "ALOCC",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ations of data. Samples distant from the hypersphere center are considered anomalies. • ALOCC (Sabokrou et al., 2020): In this GAN-based method, the generator learns to reconstruct normal instances, while the discriminator works as an anomaly detector. • ",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "ALOCC",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "ganf:baseline:drocc:7",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 7,
+      "marker": "DROCC",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "o reconstruct normal instances, while the discriminator works as an anomaly detector. • DROCC (Goyal et al., 2020): This method performs adversarial training to learn robust represen- tations of data and identiﬁes anomalies. • DeepSAD (Ruff et al., 2020):",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "DROCC",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/ganf/original/models/DROCC.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "ganf:baseline:deepsad:7",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 7,
+      "marker": "DeepSAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ersarial training to learn robust represen- tations of data and identiﬁes anomalies. • DeepSAD (Ruff et al., 2020): This method extends DeepSVDD with a semi-supervised loss term for training. We use noisy labels as supervision. To apply these baselines on m",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "DeepSAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/ganf/original/models/DeepSAD.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "ganf:ablation:ganfg:8",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 8,
+      "marker": "GANF\\G",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "BLATION STUDY Table 2: Performance of variants of the proposed method. Dataset Metrics GANF\\G GANF\\D GANF\\T GANFRNVP GANF PMU-B AUC-ROC 0.641 0.643 0.653 0.661 0.678 Log-Density 15.31 8.70 15.09 15.90 16.22 PMU-C AUC-ROC 0.630 0.544 0.688 0.703 0.705 Log-D",
+      "evidence_context": "Section 6.3 Table 2",
+      "method": "GANF\\G",
+      "variant": "GANF\\G",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/ganf/original",
+        "experiments/runs/flow_matching_campaign/sources/ganf/original/models/GANF.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "ganf:ablation:ganfd:8",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 8,
+      "marker": "GANF\\D",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " STUDY Table 2: Performance of variants of the proposed method. Dataset Metrics GANF\\G GANF\\D GANF\\T GANFRNVP GANF PMU-B AUC-ROC 0.641 0.643 0.653 0.661 0.678 Log-Density 15.31 8.70 15.09 15.90 16.22 PMU-C AUC-ROC 0.630 0.544 0.688 0.703 0.705 Log-Density ",
+      "evidence_context": "Section 6.3 Table 2",
+      "method": "GANF\\D",
+      "variant": "GANF\\D",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/ganf/original",
+        "experiments/runs/flow_matching_campaign/sources/ganf/original/models/GANF.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "ganf:ablation:ganft:8",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 8,
+      "marker": "GANF\\T",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "Table 2: Performance of variants of the proposed method. Dataset Metrics GANF\\G GANF\\D GANF\\T GANFRNVP GANF PMU-B AUC-ROC 0.641 0.643 0.653 0.661 0.678 Log-Density 15.31 8.70 15.09 15.90 16.22 PMU-C AUC-ROC 0.630 0.544 0.688 0.703 0.705 Log-Density 15.55 8",
+      "evidence_context": "Section 6.3 Table 2",
+      "method": "GANF\\T",
+      "variant": "GANF\\T",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/ganf/original",
+        "experiments/runs/flow_matching_campaign/sources/ganf/original/models/GANF.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "ganf:ablation:ganfrnvp:8",
+      "paper_id": "ganf",
+      "primary_source_sha256": "f40c13587070e62b632a3410434f03eb67f4aad350a89868a3f156703c3524b7",
+      "pdf_page": 8,
+      "marker": "GANFRNVP",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ": Performance of variants of the proposed method. Dataset Metrics GANF\\G GANF\\D GANF\\T GANFRNVP GANF PMU-B AUC-ROC 0.641 0.643 0.653 0.661 0.678 Log-Density 15.31 8.70 15.09 15.90 16.22 PMU-C AUC-ROC 0.630 0.544 0.688 0.703 0.705 Log-Density 15.55 8.94 15.70",
+      "evidence_context": "Section 6.3 Table 2",
+      "method": "GANFRNVP",
+      "variant": "GANFRNVP",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/ganf/original",
+        "experiments/runs/flow_matching_campaign/sources/ganf/original/models/GANF.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

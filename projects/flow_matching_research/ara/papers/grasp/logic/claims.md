@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 该文数值尚未逐项转录；不能给出未核实的论文指标或本地等效性结论。 mTSBench 的实体数和特征数须与经典五数据集版本分开；作者代码未定位，须重建谱路径、图构造及速度加权。
+**Statement**: 该文数值尚未逐项转录；不能给出未核实的论文指标或本地等效性结论。 代码、主消融或组件已按原文还原；仍缺：author-verified graph estimator/projection convention；exact mTSBench split/window-to-point aggregation；validation schedule/early stopping；MLP/CNN velocity architecture comparison；all sensitivity experiments and 10-seed datasets
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

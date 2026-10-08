@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 原文登记 6 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 正文与附录的 sine 轨迹数、batch size 不一致；作者代码未定位，先冻结采纳版本再复现。
+**Statement**: 原文登记 6 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 代码、主消融或组件已按原文还原；仍缺：author formula interpretation；exact simulation split/count version；author network and dopri5 adjoint NODE baseline；full five-seed MSE experiments
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

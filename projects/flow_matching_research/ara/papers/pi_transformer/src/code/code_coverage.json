@@ -6,7 +6,7 @@
   "primary_source_sha256": "da5c00ebc02675c406ef5228f9a3b9b9e4ccc531c64bba5c97375d879dd7aa44",
   "main_implementation": {
     "status": "third_party_mirror_present",
-    "note": "原论文链接仓库404；现有第三方镜像保留作者关联历史，未获现任作者确认，期刊版本和消融对应待核。"
+    "note": "镜像源码的CPU构造、phase reshape、causal mask与prior支持四项修复及single-head配置已物化；作者现仓库仍仅README/LICENSE，完整期刊等价性待核。"
   },
   "source_resources": [
     {
@@ -19,7 +19,10 @@
     }
   ],
   "local_entrypoints": [],
-  "model_configs": [],
+  "model_configs": [
+    "configs/models/fm_comparator_pi_transformer.json",
+    "configs/models/fm_comparator_pi_transformer_single_head.json"
+  ],
   "paper_ablations": {
     "source_sha256": "da5c00ebc02675c406ef5228f9a3b9b9e4ccc531c64bba5c97375d879dd7aa44",
     "ablation_page_candidates": [
@@ -126,7 +129,24 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_comparator_pi_transformer",
+      "path": "src/model/PiTransformer.py",
+      "markers": [
+        "PiTransformer"
+      ],
+      "status": "missing_file"
+    },
+    {
+      "variant": "fm_comparator_pi_transformer_single_head",
+      "path": "src/model/PiTransformer.py",
+      "markers": [
+        "PiTransformer"
+      ],
+      "status": "missing_file"
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

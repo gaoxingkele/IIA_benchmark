@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 原文登记 5 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 原文说阈值来自 validation，代码校准轨道须独立审计；Table2 是 Transformer/VAE，未找到此前所说 LSTM96.42 行。
+**Statement**: 原文登记 30 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 作者VAE源码保留，五骨干Transformer/VAE/CNN/RNN/LSTM及THM/连续性/高斯KL/评分和部分消融已补；adaptive masking及精确架构仍待对齐。
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

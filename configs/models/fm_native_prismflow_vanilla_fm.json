@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "fm_native_prismflow_vanilla_fm",
+  "family": "paper_derived_native_flow_matching",
+  "task": "time_series_generation",
+  "kind": "window",
+  "entrypoint": "iia_benchmark.models.fm_native:PrismFlowModel",
+  "parameters": {
+    "window": 24,
+    "hidden": 128,
+    "latent": 16,
+    "experts": 4,
+    "delta": 0.01,
+    "beta": 0.1,
+    "alpha_w": 1.0,
+    "alpha_b": 0.1,
+    "gamma": 1.0,
+    "variant": "vanilla_fm",
+    "epochs": 100,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "steps": 100,
+    "seed": 1103,
+    "device": "cpu"
+  },
+  "citation": "https://arxiv.org/abs/2605.28867",
+  "paper_id": "prismflow",
+  "paper_source_sha256": "ef6fb16db620d04eedd6cb776f4b4a94a186478c4dbf2251f81b910fd6b9cb60",
+  "reproduction_status": "executable_paper_derived_reconstruction_not_author_equivalent",
+  "variant": "vanilla_fm",
+  "paper_score_status": "not_reproduced",
+  "design_choices": [
+    "Flat TimeMLP global field/encoder and latent=16/K=4 are explicit defaults; exact paper backbone, projector, schedules, and hyperparameter budget not specified in supplied full text.",
+    "lambda(t)=t and one-step endpoint estimate x+(1-t)*(global.detach()+lambda*residual) are explicit choices.",
+    "Global velocity is detached for WTA loss; selected expert S/R receive gradients, shared encoder/decoder and load-balancing router remain shared.",
+    "Conditional forecasting/imputation guidance, pretrained metric evaluators and comparison baseline experiment pipelines remain pending."
+  ],
+  "data_reference": [
+    "Stocks",
+    "ETTh (baseline uses ETTh1)",
+    "Energy",
+    "fMRI",
+    "Sines(synthetic)",
+    "MuJoCo(synthetic simulation)"
+  ],
+  "evaluation": "frozen grouped train/validation/test protocol required; no test-label threshold tuning; no synthetic benchmark claim"
+}

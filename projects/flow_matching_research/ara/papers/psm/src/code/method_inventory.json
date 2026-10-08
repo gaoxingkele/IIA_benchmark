@@ -1,0 +1,140 @@
+{
+  "paper_id": "psm",
+  "primary_source_sha256": "02e72a9141c878277f15eebf25fad80d00953c1ac29c5fe8ca66a44f93357685",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 2,
+    "ablation": 2
+  },
+  "records": [
+    {
+      "record_id": "psm:main",
+      "paper_id": "psm",
+      "primary_source_sha256": "02e72a9141c878277f15eebf25fad80d00953c1ac29c5fe8ca66a44f93357685",
+      "pdf_page": 1,
+      "marker": "Practical Approach to Asynchronous Multivariate Time Series",
+      "method": "psm",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/psm/original"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_psm.json",
+        "configs/models/fm_supplemental_psm__synchronization_off.json",
+        "configs/models/fm_supplemental_psm__synchronization_on.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "psm:baseline:omnianomaly:7",
+      "paper_id": "psm",
+      "primary_source_sha256": "02e72a9141c878277f15eebf25fad80d00953c1ac29c5fe8ca66a44f93357685",
+      "pdf_page": 7,
+      "marker": "OmniAnomaly",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " and Site-reliability Engineers. 4.2 Benchmark models To benchmark our model, we selected OmniAnomaly [28] and USAD [2], which are two state-of-the-art models based on the latest advancements in deep learning architectures from recent literature. The former mod",
+      "evidence_context": "Section 4.2 Benchmark Models Table 1",
+      "method": "OmniAnomaly",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "USAD* is a separately modified simultaneous-decoder-training baseline."
+      ]
+    },
+    {
+      "record_id": "psm:baseline:usad:7",
+      "paper_id": "psm",
+      "primary_source_sha256": "02e72a9141c878277f15eebf25fad80d00953c1ac29c5fe8ca66a44f93357685",
+      "pdf_page": 7,
+      "marker": "USAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " Engineers. 4.2 Benchmark models To benchmark our model, we selected OmniAnomaly [28] and USAD [2], which are two state-of-the-art models based on the latest advancements in deep learning architectures from recent literature. The former model adopts vari",
+      "evidence_context": "Section 4.2 Benchmark Models Table 1",
+      "method": "USAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/usad_author/original",
+        "experiments/runs/fm_baseline_code_completion/sources/usad_author/original/usad.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "USAD* is a separately modified simultaneous-decoder-training baseline."
+      ]
+    },
+    {
+      "record_id": "psm:ablation:rancoders:8",
+      "paper_id": "psm",
+      "primary_source_sha256": "02e72a9141c878277f15eebf25fad80d00953c1ac29c5fe8ca66a44f93357685",
+      "pdf_page": 8,
+      "marker": "RANCoders",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "wing subsections. 5.1 Impacts of size and synchronization For all datasets, we apply both RANCoders and RANSynCoders, donated by RCoders and RSCoders in Table 1, where the latter in- cludes the embedded synchronization process. While the overall results in bo",
+      "evidence_context": "Section 5.1 Table 1 synchronization comparison",
+      "method": "RANCoders",
+      "variant": "RANCoders",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [
+        "configs/models/fm_supplemental_psm__synchronization_off.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/psm/original"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "psm:ablation:ransyncoders:8",
+      "paper_id": "psm",
+      "primary_source_sha256": "02e72a9141c878277f15eebf25fad80d00953c1ac29c5fe8ca66a44f93357685",
+      "pdf_page": 8,
+      "marker": "RANSynCoders",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ns. 5.1 Impacts of size and synchronization For all datasets, we apply both RANCoders and RANSynCoders, donated by RCoders and RSCoders in Table 1, where the latter in- cludes the embedded synchronization process. While the overall results in both scenarios were",
+      "evidence_context": "Section 5.1 Table 1 synchronization comparison",
+      "method": "RANSynCoders",
+      "variant": "RANSynCoders",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [
+        "configs/models/fm_supplemental_psm__synchronization_on.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/psm/original"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

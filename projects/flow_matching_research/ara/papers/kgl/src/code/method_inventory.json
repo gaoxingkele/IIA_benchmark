@@ -1,0 +1,233 @@
+{
+  "paper_id": "kgl",
+  "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 4,
+    "ablation": 3
+  },
+  "records": [
+    {
+      "record_id": "kgl:main",
+      "paper_id": "kgl",
+      "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+      "pdf_page": 1,
+      "marker": "KGL: An Efficient Time Series Anomaly Detection Approach for",
+      "method": "kgl",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_kgl.json",
+        "configs/models/fm_comparator_kgl_without_gat.json",
+        "configs/models/fm_comparator_kgl_without_kan.json",
+        "configs/models/fm_comparator_kgl_without_lstm.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "kgl:baseline:lstmvae:6",
+      "paper_id": "kgl",
+      "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+      "pdf_page": 6,
+      "marker": "LSTM-VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "MLSC 2025, October 16–18, 2025, Hongkong, China Wang et al. • LSTM-VAE [33]: A sequence-to-sequence framework that combines Long Short-Term Memory (LSTM) networks with a Variational Autoencoder (VAE). The encoder maps input sequen",
+      "evidence_context": "Section 5.2 Table 2",
+      "method": "LSTM-VAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "kgl:baseline:madgan:6",
+      "paper_id": "kgl",
+      "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+      "pdf_page": 6,
+      "marker": "MAD-GAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ucts the original sequence. Anomaly scores are computed based on reconstruction errors. • MAD-GAN [34]: A multivariate anomaly detection method based on Generative Adversarial Networks (GANs). Both the generator and discriminator are implemented with LSTM l",
+      "evidence_context": "Section 5.2 Table 2",
+      "method": "MAD-GAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/mad_gan/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/mad_gan/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "LiDan456/MAD-GANs",
+          "commit": "3139a73a4112d3f3f18182c9a6cdc2c671e7cfe8",
+          "identity_status": "repository_claimed_paper_implementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "repository_claimed_paper_implementation; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "kgl:baseline:gdn:6",
+      "paper_id": "kgl",
+      "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+      "pdf_page": 6,
+      "marker": "GDN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "es and identifies anomalies based on adversarial loss and recon- struction discrepancy. • GDN (Graph Deviation Network) [35]: A graph-based approach that dynamically constructs dependency graphs among variables using correlation statistics. It applies m",
+      "evidence_context": "Section 5.2 Table 2",
+      "method": "GDN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/gdn/original",
+        "experiments/runs/fm_baseline_code_completion/sources/gdn/original/models/GDN.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "kgl:baseline:usad:6",
+      "paper_id": "kgl",
+      "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+      "pdf_page": 6,
+      "marker": "USAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "e spatial–temporal patterns and detects anomalies as deviations from expected behavior. • USAD (UnSupervised Anomaly Detection) [36]: An un- supervised adversarial learning framework built on autoen- coders. It uses two decoders—one for direct reconstruc",
+      "evidence_context": "Section 5.2 Table 2",
+      "method": "USAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/usad_author/original",
+        "experiments/runs/fm_baseline_code_completion/sources/usad_author/original/usad.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "kgl:ablation:wogat:7",
+      "paper_id": "kgl",
+      "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+      "pdf_page": 7,
+      "marker": "w/o GAT",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "electively removing or altering key modules. The following variants are considered: • KGL w/o GAT: Removes the Graph Attention Network, thereby disabling explicit modeling of inter-variable rela- tionships. • KGL w/o KAN: Replaces Kolmogorov–Arnold Networks",
+      "evidence_context": "Section 5.5 Ablation",
+      "method": "w/o GAT",
+      "variant": "w/o GAT",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_kgl_without_gat.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "kgl:ablation:wokan:7",
+      "paper_id": "kgl",
+      "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+      "pdf_page": 7,
+      "marker": "w/o KAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ion Network, thereby disabling explicit modeling of inter-variable rela- tionships. • KGL w/o KAN: Replaces Kolmogorov–Arnold Networks with standard ReLU activation, removing the flexible nonlin- ear mapping. • KGL w/o LSTM: Removes the LSTM layers, disabli",
+      "evidence_context": "Section 5.5 Ablation",
+      "method": "w/o KAN",
+      "variant": "w/o KAN",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_kgl_without_kan.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "kgl:ablation:wolstm:7",
+      "paper_id": "kgl",
+      "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
+      "pdf_page": 7,
+      "marker": "w/o LSTM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " Networks with standard ReLU activation, removing the flexible nonlin- ear mapping. • KGL w/o LSTM: Removes the LSTM layers, disabling tem- poral modeling while retaining only the GAT and KAN mod- ules. Figure 7: F1-Score comparison of KGL variants on SMD an",
+      "evidence_context": "Section 5.5 Ablation",
+      "method": "w/o LSTM",
+      "variant": "w/o LSTM",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_kgl_without_lstm.json"
+      ],
+      "parent_method_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

@@ -1,0 +1,47 @@
+{
+  "task": "forecasting_and_classification",
+  "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+  "parameters": {
+    "source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+    "seq_len": 256,
+    "patch_len": 8,
+    "d_model": 256,
+    "num_layers": 4,
+    "heads": 4,
+    "d_ff": 1024,
+    "forecast_horizon": 96,
+    "task": "forecast",
+    "mixer": "icm",
+    "static_channels": null,
+    "train_beta": true,
+    "freeze_backbone": false,
+    "dropout": 0.1
+  },
+  "functions": {
+    "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+  },
+  "reproduction_status": "paper_derived_full_moment_components_t5_icm_model_callable_untrained",
+  "gaps": [
+    "MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.",
+    "All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.",
+    "Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.",
+    "Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
+  ],
+  "evidence_pages": [
+    3,
+    4,
+    7,
+    8
+  ],
+  "schema_version": 1,
+  "id": "fm_supplemental_moment_long_context_t5",
+  "family": "flow_matching_research_code_completion",
+  "citation": "https://arxiv.org/abs/2409.13530v1",
+  "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+  "paper_score_status": "not_verified",
+  "benchmark_ready": false,
+  "all_paper_ablations_complete": false,
+  "related_author_repository": "https://github.com/moment-timeseries-foundation-model/moment-research",
+  "related_author_commit": "3ab637e413f35f2c317573c0ace280d825c558de",
+  "call_contract": "Input [B,C,T]; forecast or reconstruction tensor output, feature mode [B,C,patches,D]. No Hub request, no pretraining on construction."
+}

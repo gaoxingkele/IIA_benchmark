@@ -1,6 +1,6 @@
 # Subsequence heterogeneity contrastive learning for time series anomaly detection
 
-原文说阈值来自 validation，代码校准轨道须独立审计；Table2 是 Transformer/VAE，未找到此前所说 LSTM96.42 行。
+作者VAE源码保留，五骨干Transformer/VAE/CNN/RNN/LSTM及THM/连续性/高斯KL/评分和部分消融已补；adaptive masking及精确架构仍待对齐。
 
 冻结要求：作者版本与代码提交、数据实体/划分、训练专属归一化、掩码/窗口及回填、种子和预算、积分器/步数、分数聚合、阈值来源、点调整、指标尺度与不确定性。
 

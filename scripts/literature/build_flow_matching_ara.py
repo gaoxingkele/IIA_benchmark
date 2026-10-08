@@ -76,6 +76,11 @@ def code_mapping(root, ident):
         matches += [r for r in read(config)['papers'] if r['id']==alias.get(ident,ident)]
     if ident=='pi_transformer':
         matches+=read(root/'configs/acquisition/fm_project_missing_papers.v1.json')['repositories']
+    coverage_path=root/'configs/reproducibility/fm_code_coverage.v1.json'
+    if coverage_path.is_file():
+        coverage=read(coverage_path)
+        sources={r['id']:r for r in coverage['source_resources']}
+        matches += [sources[s] for s in coverage['paper_source_bindings'].get(ident,[])]
     return matches
 
 
@@ -185,7 +190,7 @@ def build_paper(root, output, cache, paper):
           'FM 库、S4 扩展和基础预训练模型需要各自依赖与权重；硬件/精度/推断成本与训练预算在结果中报告。素材工程本轮不启动训练。')
     write(target/'src/code/README.md',heading+paper['reproduction_gap']+'\n\n'+
           '代码来源、提交、模型 entrypoint 和状态见 implementation_mapping.json。原始代码保留；后续修正存独立副本、补丁和行为检验，不能覆盖作者快照。\n\n'+
-          '单独更新的[代码及消融覆盖审计](code_coverage.json)记录源码树哈希、已定位入口、消融原文页码和未完成项。先运行 scripts.flow_matching.audit_code_coverage 生成；不能由源码存在推断全部方法已实现。')
+          '单独更新的[代码及消融覆盖审计](code_coverage.json)记录源码树哈希、已定位入口、消融原文页码和未完成项。[本篇方法及对比记录](method_inventory.json)绑定原文页码、代码候选与配置；由 scripts.flow_matching.refresh_paper_method_inventory 生成。先运行 scripts.flow_matching.audit_code_coverage 更新审计；不能由源码存在推断全部方法已实现。')
     write(target/'src/configs/README.md',heading+'路径和实验参数以仓库 configs 为真源。dataset_mapping.json 只记录来源与存在性，不能作为精确 split-ready 声明。\n\n'+
           '原始文件只读；预处理写衍生目录并记录输入哈希、输出哈希与实体分组；数据物理位置沿用 F 盘存储配置。')
     tree={'schema_version':1,'paper_id':ident,'nodes':[
@@ -214,7 +219,7 @@ def build(root, config):
           f"本集合含 {len(records)} 篇独立参考论文，按逻辑、证据、实现及追溯四层建档。每篇有来源哈希/版本/页码、方法与约束、可证伪主张、实验设计、代码/数据映射及明确的实验状态。\n\n"+
           '配置真源：benchmark 仓库 configs/reproducibility/flow_matching_ara.v1.json。集合覆盖已注册 FM 及基础、八个指定竞争方法、后续版本、用户补充的数据/方法来源、TAB 与 Anomaly Transformer；并非递归的全部引用网络。\n\n'+
           '本轮只做素材核验和工程建档。原作者结果与本地实验结果分开；当前完整复现与统一异常检测对比仍需实际运行证据。未逐项转录的表格有明确状态，不填造数字。\n\n'+
-          '[补件核对](archive_reconciliation.md) · [方法族映射](method_families.md) · [比较与失配分析](comparison_plan.md) · [全部方法/消融代码审计](code_coverage.md) · [结构化索引](index.json)\n\n'+table+'\n\n'+
+          '[补件核对](archive_reconciliation.md) · [方法族映射](method_families.md) · [比较与失配分析](comparison_plan.md) · [全部方法/消融代码审计](code_coverage.md) · [本轮代码补全](code_completion.md) · [逐篇方法记录](paper_method_inventory.json) · [结构化索引](index.json)\n\n'+table+'\n\n'+
           '更新与验证（从 benchmark 根运行）：\n\n```powershell\npython -m scripts.literature.import_flow_matching_archives\npython -m scripts.literature.build_flow_matching_ara\npython -m scripts.flow_matching.audit_code_coverage\npython -m scripts.literature.verify_flow_matching_ara\n```')
     write(output/'comparison_plan.md','# 比较协议与性能失配分析\n\n'+
           '实验设计以 configs/experiments/fm_mtsad_comparison.v1.json 为准。四轨分别是作者原协议、固定提交 TAB、严格验证集校准、工业迁移；任何测试标签选择阈值的结果只能留在原协议复现轨。\n\n'+

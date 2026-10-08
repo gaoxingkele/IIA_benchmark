@@ -5,8 +5,8 @@
   "ara_artifact": "papers/shcl/PAPER.md",
   "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
   "main_implementation": {
-    "status": "partial_paper_method_release",
-    "note": "作者发布SHCL-VAE；未定位所需SHCL-Transformer完整分支，不能替代其Table2/5结果。"
+    "status": "author_source_and_local_reconstruction_with_gaps",
+    "note": "作者VAE源码保留，五骨干Transformer/VAE/CNN/RNN/LSTM及THM/连续性/高斯KL/评分和部分消融已补；adaptive masking及精确架构仍待对齐。"
   },
   "source_resources": [
     {
@@ -18,8 +18,30 @@
       "code_tree_sha256": "a311502543785b8b592518773ef91790af2270421f46250be8a08c70928ab656"
     }
   ],
-  "local_entrypoints": [],
-  "model_configs": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_comparator_shcl_transformer.json",
+    "configs/models/fm_comparator_shcl_transformer_backbone_cnn.json",
+    "configs/models/fm_comparator_shcl_transformer_backbone_lstm.json",
+    "configs/models/fm_comparator_shcl_transformer_backbone_rnn.json",
+    "configs/models/fm_comparator_shcl_transformer_backbone_vae.json",
+    "configs/models/fm_comparator_shcl_transformer_backbone_vae_only_pair.json",
+    "configs/models/fm_comparator_shcl_transformer_backbone_vae_only_point.json",
+    "configs/models/fm_comparator_shcl_transformer_backbone_vae_random_mask.json",
+    "configs/models/fm_comparator_shcl_transformer_backbone_vae_reconstruction.json",
+    "configs/models/fm_comparator_shcl_transformer_only_pair.json",
+    "configs/models/fm_comparator_shcl_transformer_only_point.json",
+    "configs/models/fm_comparator_shcl_transformer_random_mask.json",
+    "configs/models/fm_comparator_shcl_transformer_reconstruction.json"
+  ],
   "paper_ablations": {
     "source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
     "ablation_page_candidates": [
@@ -119,6 +141,136 @@
         "class SHCLVae"
       ],
       "sha256": "36a4600dd64a7c0f30987699f45d5766eb719d6527399818b7c27801c00285ab",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_backbone_cnn",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_backbone_lstm",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_backbone_rnn",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_backbone_vae",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_backbone_vae_only_pair",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_backbone_vae_only_point",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_backbone_vae_random_mask",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_backbone_vae_reconstruction",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_only_pair",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_only_point",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_random_mask",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_shcl_transformer_reconstruction",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
       "status": "selected_code_markers_present",
       "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
     }

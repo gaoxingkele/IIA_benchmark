@@ -16,7 +16,7 @@
   "task": "time_series_anomaly_detection",
   "family": "stochastic_recurrent_flow",
   "method_summary": "随机循环潜状态结合 planar normalizing flows 及重建概率刻画多变量正常行为；论文引入 SMD。",
-  "reproduction_gap": "随机潜变量与概率阈值校准、实体训练粒度及 PA 固定后再比较。",
+  "reproduction_gap": "官方OmniAnomaly及ZhuSuan/tfsnippet源码在场；TensorFlow1.12/TFP0.5历史环境与精确版本/消融对齐待验收。",
   "sources": [
     {
       "path": "papers/literature/flow_matching/user_supplied/2026-10-07/omnianomaly/2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2.pdf",
@@ -53,8 +53,156 @@
     "MSL",
     "SMAP"
   ],
-  "model_configs": [],
-  "code_url": null,
+  "model_configs": [
+    {
+      "path": "configs/models/fm_supplemental_omnianomaly.json",
+      "configuration": {
+        "task": "multivariate_anomaly_detection",
+        "author_source_path": "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "author_entrypoint": "main.py",
+        "reproduction_status": "complete_downloaded_author_repository_legacy_runtime_not_validated",
+        "variants": [
+          {
+            "id": "posterior_no_flow",
+            "author_config": {
+              "posterior_flow_type": null
+            }
+          },
+          {
+            "id": "disconnected_posterior",
+            "author_config": {
+              "use_connected_z_q": false
+            }
+          },
+          {
+            "id": "disconnected_prior",
+            "author_config": {
+              "use_connected_z_p": false
+            }
+          }
+        ],
+        "gaps": [
+          "TensorFlow GPU 1.12/TFP 0.5 Python 3.5/3.6 historical runtime not executed.",
+          "Author repository and two git dependencies downloaded; latest ZhuSuan commit is a current pinned dependency, not established historical version.",
+          "Flags are present in author source; exact mapping to every paper ablation/table and TAB threshold protocol remain pending."
+        ],
+        "evidence_pages": [
+          3,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_omnianomaly",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1145/3292500.3330672",
+        "paper_primary_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "author_repository": "https://github.com/NetManAIOps/OmniAnomaly",
+        "author_commit": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4"
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_omnianomaly__disconnected_posterior.json",
+      "configuration": {
+        "task": "multivariate_anomaly_detection",
+        "author_source_path": "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "author_entrypoint": "main.py",
+        "reproduction_status": "complete_downloaded_author_repository_legacy_runtime_not_validated",
+        "gaps": [
+          "TensorFlow GPU 1.12/TFP 0.5 Python 3.5/3.6 historical runtime not executed.",
+          "Author repository and two git dependencies downloaded; latest ZhuSuan commit is a current pinned dependency, not established historical version.",
+          "Flags are present in author source; exact mapping to every paper ablation/table and TAB threshold protocol remain pending."
+        ],
+        "evidence_pages": [
+          3,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_omnianomaly__disconnected_posterior",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1145/3292500.3330672",
+        "paper_primary_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "author_repository": "https://github.com/NetManAIOps/OmniAnomaly",
+        "author_commit": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+        "variant_of": "fm_supplemental_omnianomaly",
+        "variant_id": "disconnected_posterior",
+        "author_config": {
+          "use_connected_z_q": false
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_omnianomaly__disconnected_prior.json",
+      "configuration": {
+        "task": "multivariate_anomaly_detection",
+        "author_source_path": "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "author_entrypoint": "main.py",
+        "reproduction_status": "complete_downloaded_author_repository_legacy_runtime_not_validated",
+        "gaps": [
+          "TensorFlow GPU 1.12/TFP 0.5 Python 3.5/3.6 historical runtime not executed.",
+          "Author repository and two git dependencies downloaded; latest ZhuSuan commit is a current pinned dependency, not established historical version.",
+          "Flags are present in author source; exact mapping to every paper ablation/table and TAB threshold protocol remain pending."
+        ],
+        "evidence_pages": [
+          3,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_omnianomaly__disconnected_prior",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1145/3292500.3330672",
+        "paper_primary_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "author_repository": "https://github.com/NetManAIOps/OmniAnomaly",
+        "author_commit": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+        "variant_of": "fm_supplemental_omnianomaly",
+        "variant_id": "disconnected_prior",
+        "author_config": {
+          "use_connected_z_p": false
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_supplemental_omnianomaly__posterior_no_flow.json",
+      "configuration": {
+        "task": "multivariate_anomaly_detection",
+        "author_source_path": "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+        "author_entrypoint": "main.py",
+        "reproduction_status": "complete_downloaded_author_repository_legacy_runtime_not_validated",
+        "gaps": [
+          "TensorFlow GPU 1.12/TFP 0.5 Python 3.5/3.6 historical runtime not executed.",
+          "Author repository and two git dependencies downloaded; latest ZhuSuan commit is a current pinned dependency, not established historical version.",
+          "Flags are present in author source; exact mapping to every paper ablation/table and TAB threshold protocol remain pending."
+        ],
+        "evidence_pages": [
+          3,
+          10
+        ],
+        "schema_version": 1,
+        "id": "fm_supplemental_omnianomaly__posterior_no_flow",
+        "family": "flow_matching_research_code_completion",
+        "citation": "https://doi.org/10.1145/3292500.3330672",
+        "paper_primary_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
+        "paper_score_status": "not_verified",
+        "benchmark_ready": false,
+        "all_paper_ablations_complete": false,
+        "author_repository": "https://github.com/NetManAIOps/OmniAnomaly",
+        "author_commit": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+        "variant_of": "fm_supplemental_omnianomaly",
+        "variant_id": "posterior_no_flow",
+        "author_config": {
+          "posterior_flow_type": null
+        }
+      }
+    }
+  ],
+  "code_url": "https://github.com/NetManAIOps/OmniAnomaly",
   "campaign_status": "not_claimed_reproduced",
   "reported_results": [],
   "scientific_reproduction_status": "not_established_by_this_artifact",

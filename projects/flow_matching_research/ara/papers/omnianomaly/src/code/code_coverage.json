@@ -5,12 +5,42 @@
   "ara_artifact": "papers/omnianomaly/PAPER.md",
   "primary_source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "source_present_legacy_environment_pending",
+    "note": "官方OmniAnomaly及ZhuSuan/tfsnippet源码在场；TensorFlow1.12/TFP0.5历史环境与精确版本/消融对齐待验收。"
   },
-  "source_resources": [],
+  "source_resources": [
+    {
+      "id": "omnianomaly_completion",
+      "path": "experiments/runs/fm_code_completion/sources/omnianomaly/original",
+      "repository": "NetManAIOps/OmniAnomaly",
+      "commit": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "09681265095c0d4ca374e65f624e3c8b42f56405b1cba7aca45c858e65593fda"
+    },
+    {
+      "id": "omnianomaly_zhusuan_completion",
+      "path": "experiments/runs/fm_code_completion/sources/omnianomaly_zhusuan/original",
+      "repository": "thu-ml/zhusuan",
+      "commit": "4386b2a12ae4f4ed8e694e504e51d7dcdfd6f22a",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "0b4ca5b1838bbb4db621196c017065cdae5229bf3fcdebe1d6b2e2879c2c8f4b"
+    },
+    {
+      "id": "omnianomaly_tfsnippet_completion",
+      "path": "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original",
+      "repository": "haowen-xu/tfsnippet",
+      "commit": "7b43abdbdd29f1914dbc11b961b5d45b9de76653",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "bf4b6b8749c7dc05bb182283c9c8d9a2e1e38cc030b0e99247842f308858d151"
+    }
+  ],
   "local_entrypoints": [],
-  "model_configs": [],
+  "model_configs": [
+    "configs/models/fm_supplemental_omnianomaly.json",
+    "configs/models/fm_supplemental_omnianomaly__disconnected_posterior.json",
+    "configs/models/fm_supplemental_omnianomaly__disconnected_prior.json",
+    "configs/models/fm_supplemental_omnianomaly__posterior_no_flow.json"
+  ],
   "paper_ablations": {
     "source_sha256": "2d8bc938a8c1622d5bdd5bf09fba0ebc6dd6eeb99704ee01671c0e531d6f7ae2",
     "ablation_page_candidates": [

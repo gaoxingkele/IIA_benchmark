@@ -1,0 +1,503 @@
+{
+  "paper_id": "giflow",
+  "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 12,
+    "ablation": 7
+  },
+  "records": [
+    {
+      "record_id": "giflow:main",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 1,
+      "marker": "Spatiotemporal Imputation with Graph-Informed Flow Matching",
+      "method": "giflow",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/giflow/original"
+      ],
+      "model_configs": [
+        "configs/models/fm_giflow.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:means:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "Mean-S",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "Spatiotemporal Imputation with Graph-Informed Flow Matching • Mean-S: imputes the missing values using the spatial average, i.e., the mean values of all nodes at a given timestep. • Mean-T: imputes the missing values using the t",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "Mean-S",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:meant:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "Mean-T",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "lues using the spatial average, i.e., the mean values of all nodes at a given timestep. • Mean-T: imputes the missing values using the temporal average, i.e., the mean values of all timesteps for a given node. • Linear: imputes the missing values using tem",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "Mean-T",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:linear:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "Linear",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "es using the temporal average, i.e., the mean values of all timesteps for a given node. • Linear: imputes the missing values using temporal linear interpolation for each node independently. • KNN: imputes the missing values using the average signal of neig",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "Linear",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:knn:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "KNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "tes the missing values using temporal linear interpolation for each node independently. • KNN: imputes the missing values using the average signal of neighboring nodes. • FP (Rossi et al., 2022): performs feature propagation to impute the missing values",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "KNN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/pyod/original/pyod/models/knn.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:fp:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "FP",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ently. • KNN: imputes the missing values using the average signal of neighboring nodes. • FP (Rossi et al., 2022): performs feature propagation to impute the missing values. • BRITS (Cao et al., 2018): a bidirectional RNN-based model. • SAITS (Du et al",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "FP",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:brits:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "BRITS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ". • FP (Rossi et al., 2022): performs feature propagation to impute the missing values. • BRITS (Cao et al., 2018): a bidirectional RNN-based model. • SAITS (Du et al., 2023): a transformer-based model. • SPIN (Marisca et al., 2022): an efficient version ",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "BRITS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original",
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/grin/original/lib/nn/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/brits.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_brits.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:saits:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "SAITS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "impute the missing values. • BRITS (Cao et al., 2018): a bidirectional RNN-based model. • SAITS (Du et al., 2023): a transformer-based model. • SPIN (Marisca et al., 2022): an efficient version of spatio-temporal attention-based method. • GRIN (Cini et al",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "SAITS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/saits/original",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/saits.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_saits.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:spin:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "SPIN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " a bidirectional RNN-based model. • SAITS (Du et al., 2023): a transformer-based model. • SPIN (Marisca et al., 2022): an efficient version of spatio-temporal attention-based method. • GRIN (Cini et al., 2022): a GNN model with bidirectional gated recurr",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "SPIN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:grin:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "GRIN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "(Marisca et al., 2022): an efficient version of spatio-temporal attention-based method. • GRIN (Cini et al., 2022): a GNN model with bidirectional gated recurrent unit. • OPCR (Deng et al., 2024): a GNN model that contains attention-based one-step propag",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "GRIN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/grin/original",
+        "experiments/runs/flow_matching_campaign/sources/grin/original/lib/nn/models/grin.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_grin.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:opcr:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "OPCR",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ethod. • GRIN (Cini et al., 2022): a GNN model with bidirectional gated recurrent unit. • OPCR (Deng et al., 2024): a GNN model that contains attention-based one-step propagation and confidence-based refinement. • PriSTI (Liu et al., 2023a): a conditiona",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "OPCR",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:pristi:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "PriSTI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "del that contains attention-based one-step propagation and confidence-based refinement. • PriSTI (Liu et al., 2023a): a conditional diffusion model. • CoSTI (Sol´ıs-Garc´ıa et al., 2025): a consistency model. C.3. Implementation Details For all the experim",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "PriSTI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/pristi/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/pristi/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/LMZZML/PriSTI",
+          "commit": "8ba37cc1a84cf706e767ae071101b3f02c921c9a",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Actual current author repository source acquired; paper-era commit, runnable environment, all ablations and metric reproduction are not verified."
+        }
+      ]
+    },
+    {
+      "record_id": "giflow:baseline:costi:16",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 16,
+      "marker": "CoSTI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "nfidence-based refinement. • PriSTI (Liu et al., 2023a): a conditional diffusion model. • CoSTI (Sol´ıs-Garc´ıa et al., 2025): a consistency model. C.3. Implementation Details For all the experimental results, we give the average performance and standard ",
+      "evidence_context": "Appendix C.2 compared baselines",
+      "method": "CoSTI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:ablation:fmgauss:8",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 8,
+      "marker": "FM-Gauss",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "poral filtering, we eval- uate several variants of GiFlow. Specifically, we consider: (1) FM-Gauss: a FM model employs the same vector field model architecture as in GiFlow but with a problem-agnostic Gaussian prior; (2) GFM: GiFlow with a spatial-only graph",
+      "evidence_context": "Section 4.3 Tables 4/5",
+      "method": "FM-Gauss",
+      "variant": "FM-Gauss",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/giflow/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:ablation:gfm:8",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 8,
+      "marker": "GFM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "tor field model architecture as in GiFlow but with a problem-agnostic Gaussian prior; (2) GFM: GiFlow with a spatial-only graph- informed prior, i.e., the filtering parameter τη is obtained by optimizing Problem (5) with τξ fixed as 0; (3) TFM: GiFlow w",
+      "evidence_context": "Section 4.3 Tables 4/5",
+      "method": "GFM",
+      "variant": "GFM",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/giflow/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:ablation:tfm:8",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 8,
+      "marker": "TFM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " the filtering parameter τη is obtained by optimizing Problem (5) with τξ fixed as 0; (3) TFM: GiFlow with a temporal-only graph-informed prior, i.e., the filtering parameter τξ is obtained by optimizing Problem (5) with τη fixed as 0. We conduct experi",
+      "evidence_context": "Section 4.3 Tables 4/5",
+      "method": "TFM",
+      "variant": "TFM",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/giflow/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:ablation:wospatialattention:8",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 8,
+      "marker": "w/o spatial attention",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "e of GiFlow with reduced components. MAE RMSE MAPE GiFlow 9.54±0.18 18.10±0.78 21.27±0.33 w/o spatial attention 10.05±0.21 19.97±0.68 21.46±0.52 w/o temporal attention 9.87±0.25 19.59±0.97 21.53±0.71 w/o spatiotemporal attention 10.22±0.22 20.02±0.85 21.88±0.75 w/o spati",
+      "evidence_context": "Section 4.3 Tables 4/5",
+      "method": "w/o spatial attention",
+      "variant": "w/o spatial attention",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/giflow/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:ablation:wotemporalattention:8",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 8,
+      "marker": "w/o temporal attention",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ow 9.54±0.18 18.10±0.78 21.27±0.33 w/o spatial attention 10.05±0.21 19.97±0.68 21.46±0.52 w/o temporal attention 9.87±0.25 19.59±0.97 21.53±0.71 w/o spatiotemporal attention 10.22±0.22 20.02±0.85 21.88±0.75 w/o spatiotemporal propagation 10.40±0.81 19.92±1.06 23.22±2.44 t",
+      "evidence_context": "Section 4.3 Tables 4/5",
+      "method": "w/o temporal attention",
+      "variant": "w/o temporal attention",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/giflow/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:ablation:wospatiotemporalattention:8",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 8,
+      "marker": "w/o spatiotemporal attention",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "n 10.05±0.21 19.97±0.68 21.46±0.52 w/o temporal attention 9.87±0.25 19.59±0.97 21.53±0.71 w/o spatiotemporal attention 10.22±0.22 20.02±0.85 21.88±0.75 w/o spatiotemporal propagation 10.40±0.81 19.92±1.06 23.22±2.44 than several baselines in Table 2, emphasizing that FM with a ",
+      "evidence_context": "Section 4.3 Tables 4/5",
+      "method": "w/o spatiotemporal attention",
+      "variant": "w/o spatiotemporal attention",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/giflow/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "giflow:ablation:wospatiotemporalpropagation:8",
+      "paper_id": "giflow",
+      "primary_source_sha256": "0ee11896233e10c69fba28f02302e6d96afeda2ec4f8a76a4111a339a711e1e9",
+      "pdf_page": 8,
+      "marker": "w/o spatiotemporal propagation",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "±0.25 19.59±0.97 21.53±0.71 w/o spatiotemporal attention 10.22±0.22 20.02±0.85 21.88±0.75 w/o spatiotemporal propagation 10.40±0.81 19.92±1.06 23.22±2.44 than several baselines in Table 2, emphasizing that FM with a Gaussian prior fails to achieve state-of-the-art imputation perf",
+      "evidence_context": "Section 4.3 Tables 4/5",
+      "method": "w/o spatiotemporal propagation",
+      "variant": "w/o spatiotemporal propagation",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/giflow/original"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

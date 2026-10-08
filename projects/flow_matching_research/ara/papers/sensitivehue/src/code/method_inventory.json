@@ -1,0 +1,566 @@
+{
+  "paper_id": "sensitivehue",
+  "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 12,
+    "ablation": 7
+  },
+  "records": [
+    {
+      "record_id": "sensitivehue:main",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 1,
+      "marker": "SensitiveHUE: Multivariate Time Series Anomaly Detection by",
+      "method": "sensitivehue",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+        "src/iia_benchmark/models/fm_supplemental_author.py",
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_sensitivehue.json",
+        "configs/models/fm_supplemental_sensitivehue__mse.json",
+        "configs/models/fm_supplemental_sensitivehue__nll.json",
+        "configs/models/fm_supplemental_sensitivehue__no_sfr.json",
+        "configs/models/fm_supplemental_sensitivehue__paper_sfr.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_beta_nll_05.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_beta_nll_1.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_compression.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_faithful.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_mask.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_natural.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_nll.json",
+        "configs/models/fm_supplemental_sensitivehue__table4_revin.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:lstmvae:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "LSTM-VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "algorithms for MTS anomaly detection are selected as baselines. 1) Reconstruction- based: LSTM-VAE [26], OmniAnomaly [30], USAD [2], TranAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model ",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "LSTM-VAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:omnianomaly:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "OmniAnomaly",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "MTS anomaly detection are selected as baselines. 1) Reconstruction- based: LSTM-VAE [26], OmniAnomaly [30], USAD [2], TranAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model the spatial de- pe",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "OmniAnomaly",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:usad:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "USAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ion are selected as baselines. 1) Reconstruction- based: LSTM-VAE [26], OmniAnomaly [30], USAD [2], TranAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model the spatial de- pendencies us",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "USAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/usad_author/original",
+        "experiments/runs/fm_baseline_code_completion/sources/usad_author/original/usad.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:tranad:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "TranAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "lected as baselines. 1) Reconstruction- based: LSTM-VAE [26], OmniAnomaly [30], USAD [2], TranAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model the spatial de- pendencies using GNN; 3) ",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "TranAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/TranAD/TranAD.py",
+        "src/iia_benchmark/models/mtsad_detectors.py",
+        "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "imperial-qore/TranAD",
+          "commit": "7ffb98d0c18189cc3d9ab732b4cb0278200a0af0",
+          "identity_status": "author_repository_with_third_party_baselines",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "author_repository_with_third_party_baselines; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:anomalytransformer:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "Anomaly Transformer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "elines. 1) Reconstruction- based: LSTM-VAE [26], OmniAnomaly [30], USAD [2], TranAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model the spatial de- pendencies using GNN; 3) probability-based: DAGMM [",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "Anomaly Transformer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/self_impl/Anomaly_trans/AnomalyTransformer.py",
+        "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original",
+        "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original/model/AnomalyTransformer.py",
+        "experiments/runs/fm_code_completion/sources/maelnet/original/models/AnomalyTransformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/models/anomaly_transformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/scripts/development/anomaly_transformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/Anomaly_trans/AnomalyTransformer.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:d3r:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "D3R",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " based: LSTM-VAE [26], OmniAnomaly [30], USAD [2], TranAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model the spatial de- pendencies using GNN; 3) probability-based: DAGMM [38], NSIBF",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "D3R",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:puad:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "PUAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "TM-VAE [26], OmniAnomaly [30], USAD [2], TranAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model the spatial de- pendencies using GNN; 3) probability-based: DAGMM [38], NSIBF [6]; 4) cl",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "PUAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:npsr:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "NPSR",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ", OmniAnomaly [30], USAD [2], TranAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model the spatial de- pendencies using GNN; 3) probability-based: DAGMM [38], NSIBF [6]; 4) classical met",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "NPSR",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:gdn:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "GDN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "nAD [31], Anomaly Transformer [36], D3R [33], PUAD [19], NPSR [18]; 2) forecasting-based: GDN [5], which intends to model the spatial de- pendencies using GNN; 3) probability-based: DAGMM [38], NSIBF [6]; 4) classical methods: Isolation Forest [21]. We ",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "GDN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/gdn/original",
+        "experiments/runs/fm_baseline_code_completion/sources/gdn/original/models/GDN.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:dagmm:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "DAGMM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "N [5], which intends to model the spatial de- pendencies using GNN; 3) probability-based: DAGMM [38], NSIBF [6]; 4) classical methods: Isolation Forest [21]. We try to use the best results presented in the published papers [9, 15]. For some methods, such ",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "DAGMM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/DAGMM.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/dagmm.py",
+        "experiments/runs/fm_baseline_code_completion/sources/tods/original/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/fm_baseline_code_completion/sources/tods/original/tods/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/DAGMM.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/core/dagmm/dagmm.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:nsibf:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "NSIBF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " intends to model the spatial de- pendencies using GNN; 3) probability-based: DAGMM [38], NSIBF [6]; 4) classical methods: Isolation Forest [21]. We try to use the best results presented in the published papers [9, 15]. For some methods, such as D3R [33],",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "NSIBF",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:baseline:isolationforest:6",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 6,
+      "marker": "Isolation Forest",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " pendencies using GNN; 3) probability-based: DAGMM [38], NSIBF [6]; 4) classical methods: Isolation Forest [21]. We try to use the best results presented in the published papers [9, 15]. For some methods, such as D3R [33], PUAD [19] and NPSR [18], detailed results o",
+      "evidence_context": "Experimental Baselines paragraph",
+      "method": "Isolation Forest",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/isolation_forest.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:ablation:compression:8",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 8,
+      "marker": "Compression",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "trategy Loss Function SWaT WADI MSL SMD Count F1∗ F1∗ PA F1∗ F1∗ PA F1∗ F1∗ PA F1∗ F1∗ PA Compression MTS-NLL 75.90 87.97 45.08 65.93 36.62 94.96 38.12 95.79 0 Mask MTS-NLL 80.05 87.95 41.78 79.67 40.78 94.92 39.72 96.97 1 RevIN MTS-NLL 25.82 87.25 18.81 82.69 ",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "Compression",
+      "variant": "Compression",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_sensitivehue__table4_compression.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+        "src/iia_benchmark/models/fm_supplemental_author.py",
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Table 4 reconstruction/loss rows; unlabeled loss row needs visual verification."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:ablation:mask:8",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 8,
+      "marker": "Mask",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "∗ F1∗ PA F1∗ F1∗ PA Compression MTS-NLL 75.90 87.97 45.08 65.93 36.62 94.96 38.12 95.79 0 Mask MTS-NLL 80.05 87.95 41.78 79.67 40.78 94.92 39.72 96.97 1 RevIN MTS-NLL 25.82 87.25 18.81 82.69 26.29 92.84 34.80 95.39 0 SFR NLL 80.19 94.50 59.60 87.29 35.42",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "Mask",
+      "variant": "Mask",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_sensitivehue__table4_mask.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+        "src/iia_benchmark/models/fm_supplemental_author.py",
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Table 4 reconstruction/loss rows; unlabeled loss row needs visual verification."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:ablation:revin:8",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 8,
+      "marker": "RevIN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " 36.62 94.96 38.12 95.79 0 Mask MTS-NLL 80.05 87.95 41.78 79.67 40.78 94.92 39.72 96.97 1 RevIN MTS-NLL 25.82 87.25 18.81 82.69 26.29 92.84 34.80 95.39 0 SFR NLL 80.19 94.50 59.60 87.29 35.42 93.11 38.54 89.40 0 SFR 𝛽-NLL (𝛽= 0.5) 85.15 96.21 49.85 67.57 ",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "RevIN",
+      "variant": "RevIN",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_sensitivehue__table4_revin.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+        "src/iia_benchmark/models/fm_supplemental_author.py",
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Table 4 reconstruction/loss rows; unlabeled loss row needs visual verification."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:ablation:sfr:8",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 8,
+      "marker": "SFR",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "40.78 94.92 39.72 96.97 1 RevIN MTS-NLL 25.82 87.25 18.81 82.69 26.29 92.84 34.80 95.39 0 SFR NLL 80.19 94.50 59.60 87.29 35.42 93.11 38.54 89.40 0 SFR 𝛽-NLL (𝛽= 0.5) 85.15 96.21 49.85 67.57 41.96 96.27 37.85 96.43 0 SFR 𝛽-NLL (𝛽= 1) 87.10 96.58 55.90 7",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "SFR",
+      "variant": "SFR",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+        "src/iia_benchmark/models/fm_supplemental_author.py",
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Table 4 reconstruction/loss rows; unlabeled loss row needs visual verification."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:ablation:mtsnll:8",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 8,
+      "marker": "MTS-NLL",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " Function SWaT WADI MSL SMD Count F1∗ F1∗ PA F1∗ F1∗ PA F1∗ F1∗ PA F1∗ F1∗ PA Compression MTS-NLL 75.90 87.97 45.08 65.93 36.62 94.96 38.12 95.79 0 Mask MTS-NLL 80.05 87.95 41.78 79.67 40.78 94.92 39.72 96.97 1 RevIN MTS-NLL 25.82 87.25 18.81 82.69 26.29 92",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "MTS-NLL",
+      "variant": "MTS-NLL",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+        "src/iia_benchmark/models/fm_supplemental_author.py",
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Table 4 reconstruction/loss rows; unlabeled loss row needs visual verification."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:ablation:faithful:8",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 8,
+      "marker": "Faithful",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "6.27 37.85 96.43 0 SFR 𝛽-NLL (𝛽= 1) 87.10 96.58 55.90 76.08 43.81 98.35 39.37 96.75 0 SFR Faithful 87.57 94.24 61.76 86.82 43.60 97.69 38.02 95.27 0 SFR Natural 87.57 94.79 51.17 85.53 40.18 96.34 29.43 94.52 0 SFR MTS-NLL 91.08 96.75 69.96 92.25 45.16 98.42",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "Faithful",
+      "variant": "Faithful",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_sensitivehue__table4_faithful.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+        "src/iia_benchmark/models/fm_supplemental_author.py",
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Table 4 reconstruction/loss rows; unlabeled loss row needs visual verification."
+      ]
+    },
+    {
+      "record_id": "sensitivehue:ablation:natural:8",
+      "paper_id": "sensitivehue",
+      "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+      "pdf_page": 8,
+      "marker": "Natural",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "81 98.35 39.37 96.75 0 SFR Faithful 87.57 94.24 61.76 86.82 43.60 97.69 38.02 95.27 0 SFR Natural 87.57 94.79 51.17 85.53 40.18 96.34 29.43 94.52 0 SFR MTS-NLL 91.08 96.75 69.96 92.25 45.16 98.42 39.76 96.33 7 Table 4: Ablation study on different reconstruc",
+      "evidence_context": "Ablation/component axes (partial row audit)",
+      "method": "Natural",
+      "variant": "Natural",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_sensitivehue__table4_natural.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+        "src/iia_benchmark/models/fm_supplemental_author.py",
+        "src/iia_benchmark/models/fm_supplemental_variants.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Table 4 reconstruction/loss rows; unlabeled loss row needs visual verification."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

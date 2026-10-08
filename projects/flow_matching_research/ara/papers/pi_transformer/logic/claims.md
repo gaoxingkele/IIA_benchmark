@@ -26,7 +26,7 @@
 
 ## C03
 
-**Statement**: 原文登记 5 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 Algorithm2 使用 train 与 threshold 分数校准，并显式 point-adjust；期刊16页与 arXiv29页须分别引用。代码镜像未经现任作者确认。
+**Statement**: 原文登记 5 条结果，具体数据集、值和页码见 evidence/tables/reported_results.json；其本地等效性尚待原协议重复实验。 镜像源码的CPU构造、phase reshape、causal mask与prior支持四项修复及single-head配置已物化；作者现仓库仍仅README/LICENSE，完整期刊等价性待核。
 
 **Conditions**: 数据实体、掩码、预算、阈值、PA、聚合及不确定性定义相同。
 

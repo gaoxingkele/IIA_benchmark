@@ -1,7 +1,99 @@
 {
   "paper_id": "sf2m",
-  "model_configs": [],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_objective_sf2m.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "fm_objective_sf2m",
+        "task": "time_series_anomaly_detection",
+        "kind": "window",
+        "family": "flow_matching_objective_adapters",
+        "entrypoint": "iia_benchmark.models.fm_objective_detectors:CFMObjectiveDetector",
+        "parameters": {
+          "objective": "sf2m",
+          "sigma": 1.0,
+          "window": 100,
+          "hidden_size": 128,
+          "epochs": 20,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "score_times": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ],
+          "monte_carlo_samples": 4,
+          "score_weight": 1.0,
+          "seed": 1103
+        },
+        "citation": "https://arxiv.org/abs/2307.03672",
+        "source_repository": "atong01/conditional-flow-matching",
+        "source_commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+        "reproduction_status": "paper_objective_transcription_local_tsad_score_adapter_not_original_experiment",
+        "paper_score_status": "not_verified",
+        "deviations": [
+          "Shared MLP backbone and velocity-discrepancy TSAD score are local adaptation choices.",
+          "SciPy exact assignment/log-Sinkhorn replace POT numerical transport solvers.",
+          "Scoring uses independent pairs, not OT rematching or test-distribution calibration.",
+          "Scoring time grid, Monte Carlo seed and batching are frozen; no likelihood claim."
+        ]
+      }
+    },
+    {
+      "path": "configs/models/fm_objective_sf2m_flow_only.json",
+      "configuration": {
+        "schema_version": 1,
+        "id": "fm_objective_sf2m_flow_only",
+        "task": "time_series_anomaly_detection",
+        "kind": "window",
+        "family": "flow_matching_objective_adapters",
+        "entrypoint": "iia_benchmark.models.fm_objective_detectors:CFMObjectiveDetector",
+        "parameters": {
+          "objective": "sf2m",
+          "sigma": 1.0,
+          "window": 100,
+          "hidden_size": 128,
+          "epochs": 20,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "score_times": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ],
+          "monte_carlo_samples": 4,
+          "score_weight": 0.0,
+          "seed": 1103
+        },
+        "citation": "https://arxiv.org/abs/2307.03672",
+        "source_repository": "atong01/conditional-flow-matching",
+        "source_commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+        "reproduction_status": "local_sf2m_flow_only_ablation_not_paper_performance",
+        "paper_score_status": "not_verified",
+        "deviations": [
+          "Shared MLP backbone and velocity-discrepancy TSAD score are local adaptation choices.",
+          "SciPy exact assignment/log-Sinkhorn replace POT numerical transport solvers.",
+          "Scoring uses independent pairs, not OT rematching or test-distribution calibration.",
+          "Scoring time grid, Monte Carlo seed and batching are frozen; no likelihood claim."
+        ]
+      }
+    }
+  ],
   "code_url": "https://github.com/atong01/conditional-flow-matching",
-  "pinned_sources": [],
+  "pinned_sources": [
+    {
+      "id": "ot_cfm",
+      "path": "experiments/runs/flow_matching_campaign/sources/ot_cfm/original",
+      "repository": "atong01/conditional-flow-matching",
+      "commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+      "archive_sha256": "5535c185440b7c1e740c6dbba4445a2cdecc872b897470f9c6947a676976327c",
+      "provenance": "experiments/runs/flow_matching_campaign/sources/ot_cfm/snapshot.json"
+    }
+  ],
   "boundary": "Pinned sources and callable entrypoints are separate evidence; acquisition is not reproduction."
 }

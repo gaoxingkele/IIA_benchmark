@@ -1,0 +1,345 @@
+{
+  "paper_id": "flow_matching",
+  "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 11,
+    "ablation": 2
+  },
+  "records": [
+    {
+      "record_id": "flow_matching:main",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 1,
+      "marker": "FLOW MATCHING FOR GENERATIVE MODELING",
+      "method": "flow_matching",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original",
+        "src/iia_benchmark/models/fm_objective_detectors.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_flow_matching.json",
+        "configs/models/fm_objective_target.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:ddpm:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "DDPM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "mageNet 32×32 ImageNet 64×64 Model NLL↓ FID↓ NFE↓ NLL↓ FID↓ NFE↓ NLL↓ FID↓ NFE↓ Ablations DDPM 3.12 7.48 274 3.54 6.99 262 3.32 17.36 264 Score Matching 3.16 19.94 242 3.56 5.68 178 3.40 19.74 441 ScoreFlow 3.09 20.78 428 3.55 14.14 195 3.36 24.95 601 Ou",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "DDPM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:scorematching:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "Score Matching",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "↓ NLL↓ FID↓ NFE↓ NLL↓ FID↓ NFE↓ Ablations DDPM 3.12 7.48 274 3.54 6.99 262 3.32 17.36 264 Score Matching 3.16 19.94 242 3.56 5.68 178 3.40 19.74 441 ScoreFlow 3.09 20.78 428 3.55 14.14 195 3.36 24.95 601 Ours FM w/ Diffusion 3.10 8.06 183 3.54 6.37 193 3.33 16.88 ",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "Score Matching",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:scoreflow:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "ScoreFlow",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "4 3.54 6.99 262 3.32 17.36 264 Score Matching 3.16 19.94 242 3.56 5.68 178 3.40 19.74 441 ScoreFlow 3.09 20.78 428 3.55 14.14 195 3.36 24.95 601 Ours FM w/ Diffusion 3.10 8.06 183 3.54 6.37 193 3.33 16.88 187 FM w/ OT 2.99 6.35 142 3.53 5.02 122 3.31 14.45 13",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "ScoreFlow",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_foundation_baseline_sources/sources/score_flow/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_foundation_baseline_sources/sources/score_flow/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_foundation_baseline_sources_2026-10-08.json",
+          "repository": "yang-song/score_flow",
+          "commit": "1db7922527768226b36c1c581a741e5feac155da",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Official JAX source; not proof of same architecture/settings used by FM comparison tables."
+        }
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:mgan:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "MGAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " 187 FM w/ OT 2.99 6.35 142 3.53 5.02 122 3.31 14.45 138 ImageNet 128×128 Model NLL↓ FID↓ MGAN (Hoang et al., 2018) – 58.9 PacGAN2 (Lin et al., 2018) – 57.5 Logo-GAN-AE (Sage et al., 2018) – 50.9 Self-cond. GAN (Luˇci´c et al., 2019) – 41.7 Uncond. BigGA",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "MGAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:pacgan2:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "PacGAN2",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "5.02 122 3.31 14.45 138 ImageNet 128×128 Model NLL↓ FID↓ MGAN (Hoang et al., 2018) – 58.9 PacGAN2 (Lin et al., 2018) – 57.5 Logo-GAN-AE (Sage et al., 2018) – 50.9 Self-cond. GAN (Luˇci´c et al., 2019) – 41.7 Uncond. BigGAN (Luˇci´c et al., 2019) – 25.3 PGMG",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "PacGAN2",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:logoganae:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "Logo-GAN-AE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "28×128 Model NLL↓ FID↓ MGAN (Hoang et al., 2018) – 58.9 PacGAN2 (Lin et al., 2018) – 57.5 Logo-GAN-AE (Sage et al., 2018) – 50.9 Self-cond. GAN (Luˇci´c et al., 2019) – 41.7 Uncond. BigGAN (Luˇci´c et al., 2019) – 25.3 PGMGAN (Armandpour et al., 2021) – 21.7 FM",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "Logo-GAN-AE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:selfcondgan:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "Self-cond. GAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "l., 2018) – 58.9 PacGAN2 (Lin et al., 2018) – 57.5 Logo-GAN-AE (Sage et al., 2018) – 50.9 Self-cond. GAN (Luˇci´c et al., 2019) – 41.7 Uncond. BigGAN (Luˇci´c et al., 2019) – 25.3 PGMGAN (Armandpour et al., 2021) – 21.7 FM w/ OT 2.90 20.9 Table 1: Likelihood (BPD)",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "Self-cond. GAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:uncondbiggan:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "Uncond. BigGAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " 57.5 Logo-GAN-AE (Sage et al., 2018) – 50.9 Self-cond. GAN (Luˇci´c et al., 2019) – 41.7 Uncond. BigGAN (Luˇci´c et al., 2019) – 25.3 PGMGAN (Armandpour et al., 2021) – 21.7 FM w/ OT 2.90 20.9 Table 1: Likelihood (BPD), quality of generated samples (FID), and eva",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "Uncond. BigGAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:pgmgan:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "PGMGAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "Self-cond. GAN (Luˇci´c et al., 2019) – 41.7 Uncond. BigGAN (Luˇci´c et al., 2019) – 25.3 PGMGAN (Armandpour et al., 2021) – 21.7 FM w/ OT 2.90 20.9 Table 1: Likelihood (BPD), quality of generated samples (FID), and evaluation time (NFE) for the same model",
+      "evidence_context": "Section 6.1 Table 1",
+      "method": "PGMGAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:regression:9",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 9,
+      "marker": "Regression",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "LING FROM LOW-RESOLUTION IMAGES Model FID↓ IS↑PSNR↑ SSIM↑ Reference 1.9 240.8 – – Regression 15.2 121.1 27.9 0.801 SR3 (Saharia et al., 2022) 5.2 180.1 26.4 0.762 FM w/ OT 3.4 200.8 24.7 0.747 Table 2: Image super-resolution on the ImageNet validation set. Las",
+      "evidence_context": "Table 2 super-resolution",
+      "method": "Regression",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:baseline:sr3:9",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 9,
+      "marker": "SR3",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "odel FID↓ IS↑PSNR↑ SSIM↑ Reference 1.9 240.8 – – Regression 15.2 121.1 27.9 0.801 SR3 (Saharia et al., 2022) 5.2 180.1 26.4 0.762 FM w/ OT 3.4 200.8 24.7 0.747 Table 2: Image super-resolution on the ImageNet validation set. Lastly, we experimented with ",
+      "evidence_context": "Table 2 super-resolution",
+      "method": "SR3",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:ablation:fmwdiffusion:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "FM w/ Diffusion",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " 3.56 5.68 178 3.40 19.74 441 ScoreFlow 3.09 20.78 428 3.55 14.14 195 3.36 24.95 601 Ours FM w/ Diffusion 3.10 8.06 183 3.54 6.37 193 3.33 16.88 187 FM w/ OT 2.99 6.35 142 3.53 5.02 122 3.31 14.45 138 ImageNet 128×128 Model NLL↓ FID↓ MGAN (Hoang et al., 2018) – 58.",
+      "evidence_context": "Table 1 probability-path variants",
+      "method": "FM w/ Diffusion",
+      "variant": "FM w/ Diffusion",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original",
+        "src/iia_benchmark/models/fm_objective_detectors.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "flow_matching:ablation:fmwot:8",
+      "paper_id": "flow_matching",
+      "primary_source_sha256": "5eeb39ba516396924aba4787452f9d0abdee88467a4d0c264d9f66cad0c5ee14",
+      "pdf_page": 8,
+      "marker": "FM w/ OT",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " 14.14 195 3.36 24.95 601 Ours FM w/ Diffusion 3.10 8.06 183 3.54 6.37 193 3.33 16.88 187 FM w/ OT 2.99 6.35 142 3.53 5.02 122 3.31 14.45 138 ImageNet 128×128 Model NLL↓ FID↓ MGAN (Hoang et al., 2018) – 58.9 PacGAN2 (Lin et al., 2018) – 57.5 Logo-GAN-AE (Sag",
+      "evidence_context": "Table 1 probability-path variants",
+      "method": "FM w/ OT",
+      "variant": "FM w/ OT",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original",
+        "src/iia_benchmark/models/fm_objective_detectors.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

@@ -1,6 +1,6 @@
 # SensitiveHUE: Multivariate Time Series Anomaly Detection by Enhancing the Sensitivity to Normal Patterns
 
-需将测试校准和验证校准严格分轨；模型 NLL 与最终 F1 不是同一指标。 PDFp7分别报告best-threshold F1*与点调整F1*_PA；不能当验证集阈值结果。
+官方源码及CPU模型前后向已验证；Table4九行损失/结构变体已实现，论文公式与发布源码的均值缩放差异分开记录；完整训练及数值对齐待验收。
 
 冻结要求：作者版本与代码提交、数据实体/划分、训练专属归一化、掩码/窗口及回填、种子和预算、积分器/步数、分数聚合、阈值来源、点调整、指标尺度与不确定性。
 

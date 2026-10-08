@@ -1,0 +1,423 @@
+{
+  "paper_id": "csdi",
+  "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 11,
+    "ablation": 4
+  },
+  "records": [
+    {
+      "record_id": "csdi:main",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 1,
+      "marker": "CSDI: Conditional Score-based Diffusion Models for",
+      "method": "csdi",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_csdi.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:multitaskgp:7",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 7,
+      "marker": "Multitask GP",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ataset. Results of probabilistic imputation CSDI is compared with three baselines. 1) Multitask GP [31]: the method learns the covariance between timepoints and features simultaneously. 2) GP-VAE [10]: the method showed the state-of-the-art results for probabili",
+      "evidence_context": "Table 2 probabilistic imputation",
+      "method": "Multitask GP",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:gpvae:7",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 7,
+      "marker": "GP-VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ": the method learns the covariance between timepoints and features simultaneously. 2) GP-VAE [10]: the method showed the state-of-the-art results for probabilistic imputation. 3) V-RIN [32]: a deter- ministic imputation method that uses the uncertainty qua",
+      "evidence_context": "Table 2 probabilistic imputation",
+      "method": "GP-VAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/gp_vae/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/gp_vae/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/ratschlab/GP-VAE",
+          "commit": "6e06c93d37d07ede2eb1f578b577c80a59846e2c",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Actual current author repository source acquired; paper-era commit, runnable environment, all ablations and metric reproduction are not verified."
+        }
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:vrin:7",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 7,
+      "marker": "V-RIN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "[10]: the method showed the state-of-the-art results for probabilistic imputation. 3) V-RIN [32]: a deter- ministic imputation method that uses the uncertainty quantiﬁed by VAE to improve imputation. For V-RIN, we regard the quantiﬁed uncertainty as proba",
+      "evidence_context": "Table 2 probabilistic imputation",
+      "method": "V-RIN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:vrin:8",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 8,
+      "marker": "V-RIN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ed from the original paper. healthcare air quality 10% missing 50% missing 90% missing V-RIN [32] 0.271(0.001) 0.365(0.002) 0.606(0.006) 25.4(0.62) BRITS [7] 0.284(0.001) 0.368(0.002) 0.517(0.002) 14.11(0.26) BRITS [7] (*) 0.278 − − 11.56 GLIMA [21] (*) 0",
+      "evidence_context": "Table 3 deterministic imputation",
+      "method": "V-RIN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:brits:8",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 8,
+      "marker": "BRITS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "g 50% missing 90% missing V-RIN [32] 0.271(0.001) 0.365(0.002) 0.606(0.006) 25.4(0.62) BRITS [7] 0.284(0.001) 0.368(0.002) 0.517(0.002) 14.11(0.26) BRITS [7] (*) 0.278 − − 11.56 GLIMA [21] (*) 0.265 − − 10.54 RDIS [20] 0.319(0.002) 0.419(0.002) 0.631(0.00",
+      "evidence_context": "Table 3 deterministic imputation",
+      "method": "BRITS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/brits/original",
+        "experiments/runs/flow_matching_campaign/sources/brits/original/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/grin/original/lib/nn/models/brits.py",
+        "experiments/runs/flow_matching_campaign/sources/saits/original/modeling/brits.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_brits.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:glima:8",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 8,
+      "marker": "GLIMA",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "S [7] 0.284(0.001) 0.368(0.002) 0.517(0.002) 14.11(0.26) BRITS [7] (*) 0.278 − − 11.56 GLIMA [21] (*) 0.265 − − 10.54 RDIS [20] 0.319(0.002) 0.419(0.002) 0.631(0.002) 22.11(0.35) unconditional 0.326(0.008) 0.417(0.010) 0.625(0.010) 12.13(0.07) CSDI (propo",
+      "evidence_context": "Table 3 deterministic imputation",
+      "method": "GLIMA",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:rdis:8",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 8,
+      "marker": "RDIS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " 0.517(0.002) 14.11(0.26) BRITS [7] (*) 0.278 − − 11.56 GLIMA [21] (*) 0.265 − − 10.54 RDIS [20] 0.319(0.002) 0.419(0.002) 0.631(0.002) 22.11(0.35) unconditional 0.326(0.008) 0.417(0.010) 0.625(0.010) 12.13(0.07) CSDI (proposed) 0.217(0.001) 0.301(0.002)",
+      "evidence_context": "Table 3 deterministic imputation",
+      "method": "RDIS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:timegrad:9",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 9,
+      "marker": "TimeGrad",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "0.063(0.003) TLAE [37] 0.124(0.033) 0.040(0.002) 0.069(0.001) 0.130(0.006) 0.241(0.001) TimeGrad [25] 0.287(0.020) 0.021(0.001) 0.044(0.006) 0.114(0.020) 0.049(0.002) CSDI (proposed) 0.298(0.004) 0.017(0.000) 0.020(0.001) 0.123(0.003) 0.047(0.003) 6.3 Time s",
+      "evidence_context": "Forecasting Tables 5/11",
+      "method": "TimeGrad",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_imputation_baseline_sources/sources/timegrad/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_imputation_baseline_sources/sources/timegrad/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_imputation_baseline_sources_2026-10-08.json",
+          "repository": "https://github.com/zalandoresearch/pytorch-ts",
+          "commit": "7860c9693d55b5c086867477cc33c89485ed0167",
+          "identity_status": "author_paper_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Actual current author repository source acquired; paper-era commit, runnable environment, all ablations and metric reproduction are not verified."
+        }
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:gpcopula:9",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 9,
+      "marker": "GP-copula",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "TransMAF’ is the abbreviation for ’Transformer MAF’. solar electricity trafﬁc taxi wiki GP-copula [34] 0.337(0.024) 0.024(0.002) 0.078(0.002) 0.208(0.183) 0.086(0.004) TransMAF [36] 0.301(0.014) 0.021(0.000) 0.056(0.001) 0.179(0.002) 0.063(0.003) TLAE [37] 0.",
+      "evidence_context": "Forecasting Tables 5/11",
+      "method": "GP-copula",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:transmaf:9",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 9,
+      "marker": "TransMAF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "r of CRPS-sum for three trials. The baseline results are cited from the original paper. ’TransMAF’ is the abbreviation for ’Transformer MAF’. solar electricity trafﬁc taxi wiki GP-copula [34] 0.337(0.024) 0.024(0.002) 0.078(0.002) 0.208(0.183) 0.086(0.004) T",
+      "evidence_context": "Forecasting Tables 5/11",
+      "method": "TransMAF",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:baseline:tlae:9",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 9,
+      "marker": "TLAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "6(0.004) TransMAF [36] 0.301(0.014) 0.021(0.000) 0.056(0.001) 0.179(0.002) 0.063(0.003) TLAE [37] 0.124(0.033) 0.040(0.002) 0.069(0.001) 0.130(0.006) 0.241(0.001) TimeGrad [25] 0.287(0.020) 0.021(0.001) 0.044(0.006) 0.114(0.020) 0.049(0.002) CSDI (propos",
+      "evidence_context": "Forecasting Tables 5/11",
+      "method": "TLAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:ablation:unconditional:7",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 7,
+      "marker": "unconditional",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "as probabilistic imputation. In addition, we compare CSDI with imputation using the unconditional diffusion model in order to show the effectiveness of the conditional one (see Appendix C for training and imputation with the unconditional diffusion model). We ﬁrs",
+      "evidence_context": "Tables 2/13 unconditional and target-choice ablations",
+      "method": "unconditional",
+      "variant": "unconditional",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:ablation:random:7",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 7,
+      "marker": "random",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "d dataset contains around 80% missing values. Since the dataset has no ground-truth, we randomly choose 10/50/90% of observed values as ground-truth on the test data. The second one is the air quality dataset [2]. Following previous studies [7, 21], we use",
+      "evidence_context": "Tables 2/13 unconditional and target-choice ablations",
+      "method": "random",
+      "variant": "random",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original/tfsnippet/utils/random.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:ablation:historical:7",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 7,
+      "marker": "historical",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "we adopt the random strategy for the healthcare dataset and the mix of the random and historical strategy for the air quality dataset, based on the missing patterns of each dataset. Results of probabilistic imputation CSDI is compared with three baselines. 1) ",
+      "evidence_context": "Tables 2/13 unconditional and target-choice ablations",
+      "method": "historical",
+      "variant": "historical",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "csdi:ablation:mix:7",
+      "paper_id": "csdi",
+      "primary_source_sha256": "4d5e4402b98af8cb60a77a6fd3cd942d98b6314776b709d425cd87233ff3c809",
+      "pdf_page": 7,
+      "marker": "mix",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "trategy for training, we adopt the random strategy for the healthcare dataset and the mix of the random and historical strategy for the air quality dataset, based on the missing patterns of each dataset. Results of probabilistic imputation CSDI is compa",
+      "evidence_context": "Tables 2/13 unconditional and target-choice ablations",
+      "method": "mix",
+      "variant": "mix",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/cfmi/original/imp_cfm/models/csdi.py",
+        "experiments/runs/flow_matching_campaign/sources/csdi/original",
+        "experiments/runs/flow_matching_campaign/sources/sssd/original/src/imputers/CSDI.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

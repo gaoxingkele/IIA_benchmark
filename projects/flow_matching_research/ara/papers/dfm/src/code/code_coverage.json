@@ -5,13 +5,23 @@
   "ara_artifact": "papers/dfm/PAPER.md",
   "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "local_paper_core_reconstruction_with_gaps",
+    "note": "代码、主消融或组件已按原文还原；仍缺：author U-Net and learnable prior；Dopri5；MLE-CNF and exact published FM/I-CFM U-Net baselines；author SMAP entity/feature protocol；threshold and adjustment protocol；objective degeneracy/bijectivity needs mathematical audit"
   },
   "source_resources": [],
-  "local_entrypoints": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_native:DFMDetector",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
   "model_configs": [
-    "configs/models/fm_dfm.json"
+    "configs/models/fm_dfm.json",
+    "configs/models/fm_native_dfm_exact.json",
+    "configs/models/fm_native_dfm_hutchinson.json"
   ],
   "paper_ablations": {
     "source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
@@ -48,7 +58,28 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_native_dfm_exact",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "markers": [
+        "DFMDetector"
+      ],
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_dfm_hutchinson",
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "markers": [
+        "DFMDetector"
+      ],
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

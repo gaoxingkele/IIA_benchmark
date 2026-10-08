@@ -5,12 +5,49 @@
   "ara_artifact": "papers/moment_long_context/PAPER.md",
   "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "local_paper_component_reconstruction_with_gaps",
+    "note": "代码、主消融或组件已按原文还原；仍缺：MOMENT patching/embedding/RevIN/head reused; T5-efficient-tiny sized random encoder prepared. Original MOMENT-Tiny/ICM checkpoints and exact pretraining not available here.；All context expansion baselines, 26 UEA SVM pipelines, one-epoch Time Series Pile and original forecasting datasets have not been run.；Original T5 relative bias/dropout retained, while compressed-memory aggregation excludes padded keys. Exact unpublished author ICM insertion semantics not independently verified.；Forecast and reconstruction/feature modes available; original SVM classification experiment remains separate."
   },
   "source_resources": [],
-  "local_entrypoints": [],
-  "model_configs": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    },
+    {
+      "entrypoint": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    },
+    {
+      "entrypoint": "iia_benchmark.models.fm_supplemental_moment:MomentICMT5",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_supplemental_moment_long_context.json",
+    "configs/models/fm_supplemental_moment_long_context__concatenation_relative_bias.json",
+    "configs/models/fm_supplemental_moment_long_context__finetune_beta.json",
+    "configs/models/fm_supplemental_moment_long_context__freeze_beta.json",
+    "configs/models/fm_supplemental_moment_long_context__icm_static.json",
+    "configs/models/fm_supplemental_moment_long_context__independent.json",
+    "configs/models/fm_supplemental_moment_long_context_t5.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__features.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__finetune_beta_head.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta_head.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__icm_static.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__independent.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__reconstruction.json"
+  ],
   "paper_ablations": {
     "source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
     "ablation_page_candidates": [
@@ -43,7 +80,148 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_supplemental_moment_long_context",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "InfiniChannelMixer"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context__concatenation_relative_bias",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "InfiniChannelMixer"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context__finetune_beta",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "InfiniChannelMixer"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context__freeze_beta",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "InfiniChannelMixer"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context__icm_static",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "StaticChannelEmbedding"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context__independent",
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "markers": [
+        "InfiniChannelMixer"
+      ],
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context_t5",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "markers": [
+        "MomentICMT5"
+      ],
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context_t5__features",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "markers": [
+        "MomentICMT5"
+      ],
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context_t5__finetune_beta_head",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "markers": [
+        "MomentICMT5"
+      ],
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context_t5__freeze_beta",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "markers": [
+        "MomentICMT5"
+      ],
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context_t5__freeze_beta_head",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "markers": [
+        "MomentICMT5"
+      ],
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context_t5__icm_static",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "markers": [
+        "MomentICMT5"
+      ],
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context_t5__independent",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "markers": [
+        "MomentICMT5"
+      ],
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_moment_long_context_t5__reconstruction",
+      "path": "src/iia_benchmark/models/fm_supplemental_moment.py",
+      "markers": [
+        "MomentICMT5"
+      ],
+      "sha256": "7f49093aa11635d7871a67fdcf4fc3e276c8914f3cbe660a62a3ec98a332e07f",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

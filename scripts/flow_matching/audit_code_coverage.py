@@ -22,7 +22,8 @@ sys.path.insert(0,str(ROOT))
 from scripts.literature.import_flow_matching_archives import contained, normal
 from scripts.literature.build_flow_matching_ara import read, write
 
-EXTENSIONS={'.py','.ipynb','.sh','.json','.yaml','.yml','.toml','.ini','.cfg','.md','.txt'}
+CODE_EXTENSIONS={'.py','.ipynb','.lua','.jl','.m','.r','.c','.cpp','.cu','.h'}
+EXTENSIONS=CODE_EXTENSIONS|{'.sh','.json','.yaml','.yml','.toml','.ini','.cfg','.md','.txt'}
 EXCLUDED={'.git','.venv','venv','__pycache__','__MACOSX','.ipynb_checkpoints'}
 
 
@@ -55,7 +56,7 @@ def inspect_resource(root, resource):
         if re.search(r'(?i)(ablat|reflow|distill|sf2m)',relative.as_posix()):
             candidates.append(relative.as_posix())
     tree=''.join(r['path']+'\0'+r['sha256']+'\n' for r in records).encode('utf-8')
-    report={**resource,'status':'local_code_files_present' if any(Path(r['path']).suffix in {'.py','.ipynb'} for r in records) else 'no_python_or_notebook_located',
+    report={**resource,'status':'local_code_files_present' if any(Path(r['path']).suffix.lower() in CODE_EXTENSIONS for r in records) else 'no_implementation_code_located',
             'registered_text_files':len(records),'python_files':sum(r['path'].endswith('.py') for r in records),
             'notebooks':sum(r['path'].endswith('.ipynb') for r in records),'code_tree_sha256':hashlib.sha256(tree).hexdigest(),
             'python_syntax_issues_current_interpreter':syntax,'python_syntax_warnings_current_interpreter':syntax_warnings,
@@ -224,10 +225,16 @@ def audit(root,config):
             'summary':summary,'code_resources':resources,'papers':papers,
             'baseline_resource_discovery':baseline_discovery(root,config),'run_evidence':run_evidence(root,config),
             'unit_validation':config['unit_validation'],
-            'next_priorities':['GRASP/DFM native TSAD main methods and exact scoring','MaelNet/DT-LA/KGL and SHCL-Transformer; Pi journal/mirror equivalence','JFI/CFM-TS/PrismFlow missing main implementations','Turn verified FM/SF2M components into task-specific adapters','Map each paper ablation and compared baseline to explicit symbols/configurations, then validate and run'],
+            'paper_method_inventory':'ara/paper_method_inventory.json',
+            'completion_reports':config.get('completion_reports',[]),
+            'next_priorities':['Align reconstructed architectures/scoring with author details and resolve ambiguous equations','Validate full MaelNet RL and PSM/OmniAnomaly historical environments; Pi journal/mirror equivalence','Acquire original pretrained weights and private data or preserve explicit gaps','Register remaining table baselines and full appendix ablations with runnable task adapters','Execute independently audited grouped splits, frozen budgets and multi-seed paper/TAB comparisons'],
             'boundary':'A comprehensive local resource/status audit, not a certification that every described method or ablation is implemented. No new vendor execution or scientific training.'}
     write(root/config['output'],report);write(root/config['local_file_ledger'],ledger)
     labels={'source_present_not_end_to_end_verified':'作者源码在场，完整实验未验证','no_registered_main_implementation_located':'主方法未定位本地登记实现',
+            'local_paper_core_reconstruction_with_gaps':'核心及部分消融已还原，原版等价性待核',
+            'local_paper_component_reconstruction_with_gaps':'论文组件已还原，完整集成待做',
+            'author_source_and_local_reconstruction_with_gaps':'作者部分源码及本地补充分支在场',
+            'source_present_legacy_environment_pending':'作者源码在场，历史环境待验收',
             'related_components_only':'只有相关库/组件','components_and_tutorial_present':'组件与教程在场','related_author_libraries_present':'作者相关库在场，原版本待对齐',
             'partial_paper_method_release':'论文方法仅部分发布','third_party_mirror_present':'第三方镜像在场，版本待核',
             'publisher_supplement_present_unverified':'官方补充源码在场，等价性待核','local_reconstruction_with_deviation':'本地还原存在明确消融偏离',
@@ -239,13 +246,13 @@ def audit(root,config):
     available='\n'.join(f"- **{p['paper_id']}**："+'；'.join(f"{v['variant']}（`{v['path']}`，{v['status']}）" for v in p['selected_variant_code_locators']) for p in papers if p['selected_variant_code_locators'])
     text=('# 全方法与消融代码准备情况\n\n**结论：未全部准备好。**论文全文齐全和代码/消融齐全是不同状态。\n\n'+
          f"核对45篇ARA参考，发现{summary['present_code_resources']}个独立源码资源目录，关联{summary['papers_bound_to_source_resources']}篇参考（含共享库、镜像和部分实现）。{summary['papers_with_local_entrypoint_symbols']}篇有可静态定位的本地运行/模型入口；AST定位不代替环境/运行验证。\n\n"+
-         '未定位已登记主方法实现：'+', '.join(summary['missing_registered_main_implementations'])+'。这是本项目已登记/已搜索本地资源范围的结论，未推断网上不存在代码。\n\n'+
+         ('未定位已登记主方法实现：'+', '.join(summary['missing_registered_main_implementations'])+'。这是本项目已登记/已搜索本地资源范围的结论，未推断网上不存在代码。\n\n' if summary['missing_registered_main_implementations'] else '原先13项纯代码空缺已补入作者源码、核心还原或组件。仍有完整架构、任务集成、历史环境及论文等价性缺口；不能由此称全部主方法已完整实现。\n\n')+
          '没有任何一篇被本次审计认证为“全文全部消融均已准备并验收”。已有DCdetector消融脚本、SF2M教程和USAD开关等记录为部分资源；不能以文件名、库类或预检推断全部变体完整。\n\n'+
          table+'\n\n## 已定位的部分变体代码\n\n'+available+'\n\n这些定位只说明相应代码片段在场，不说明论文整套消融配置和实验已经完成。\n\n## 特殊边界\n\n'+notable+'\n\n## 已锚定的消融工作项\n\n'+axes+'\n\n'+
          '上述是选定原文段落中的消融轴，并非全部附录、超参数组合或全部比较基线。各项仍须绑定代码、冻结配置、输出差异与行为测试；不是已执行任务。\n\n'+
-         '论文中引用/比较的全部基线尚未逐表建立完整注册。TAB和TSLib存在大量模型及封装，缺依赖的封装、普通层类和第三方移植不能按完整基线计数。结构化报告保存类/文件定位候选与边界。\n\n'+
-         '当前Python语法检查发现原始BRITS的main.py仍使用Python 2 print语句；本地BRITS运行入口采用SAITS发布版中的实现，两者算法/版本等价性尚未验收。其他源码通过语法解析也不代表依赖、CUDA扩展、checkpoint或完整实验已经可用。\n\n'+
-         '本地CPU接口测试10项通过；合成输入仅验证可调用接口。已有插补预检和原结果比较单独引用，未改变运行队列；重复次数不完整的结果不标记复现完成。\n\n'+
+         '新增[逐篇方法清单](paper_method_inventory.json)记录45篇主项、515条对比基线提及和121条变体/组件轴，共681条原文页码锚点。304个基线名称标签含别名，不是304个独立算法。候选源码不代表作者等效流程；尚未穷尽全部表和附录。\n\n'+
+         '当前Python语法检查发现部分历史代码仍使用Python 2语法；本地BRITS运行入口采用SAITS发布版中的实现，两者算法/版本等价性尚未验收。其他源码通过语法解析也不代表依赖、CUDA扩展、checkpoint或完整实验已经可用。\n\n'+
+         '既有CPU接口测试记录与[本轮代码补全和验证](code_completion.md)分别保存。合成输入及PSM训练集小片段预检仅验证实现行为和接线，不是论文或TAB成绩。已有插补预检和原结果比较单独引用，未改变运行队列；重复次数不完整的结果不标记复现完成。\n\n'+
          '完成门槛：论文算法/表行与原文版本 → 源码符号和哈希 → 每个变体冻结配置与训练/评分入口 → 数据/依赖/掩码协议 → 行为与恢复测试 → 原数据多种子运行。\n\n'+
          '[结构化总表](code_coverage.json)；每篇 `src/code/code_coverage.json` 提供其来源、入口、消融页码、补丁哈希与缺口。配置真源为benchmark的 `configs/reproducibility/fm_code_coverage.v1.json`。')
     write(root/config['markdown_output'],text)

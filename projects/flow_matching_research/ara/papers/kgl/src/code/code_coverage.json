@@ -5,12 +5,25 @@
   "ara_artifact": "papers/kgl/PAPER.md",
   "primary_source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "local_paper_core_reconstruction_with_gaps",
+    "note": "GAT、cubic B-spline KAN、LSTM与去模块消融已还原；论文未公开训练目标/输出头/图邻域，本地选择显式登记，非完整原版。"
   },
   "source_resources": [],
-  "local_entrypoints": [],
-  "model_configs": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_comparator_kgl.json",
+    "configs/models/fm_comparator_kgl_without_gat.json",
+    "configs/models/fm_comparator_kgl_without_kan.json",
+    "configs/models/fm_comparator_kgl_without_lstm.json"
+  ],
   "paper_ablations": {
     "source_sha256": "fc653bdc799f8dadc51dba920a74ef218a832f519170a05a839705f9dda2db7d",
     "ablation_page_candidates": [
@@ -53,7 +66,48 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_comparator_kgl",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_kgl_without_gat",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_kgl_without_kan",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_comparator_kgl_without_lstm",
+      "path": "src/iia_benchmark/models/fm_comparator_reconstructions.py",
+      "markers": [
+        "ComparatorWindowDetector"
+      ],
+      "sha256": "96b8b03ced209351108b7a29f194857b9a4ed287181041d8a1d0a6eaad8969c4",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

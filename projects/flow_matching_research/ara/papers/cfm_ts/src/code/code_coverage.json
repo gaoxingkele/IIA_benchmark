@@ -5,12 +5,25 @@
   "ara_artifact": "papers/cfm_ts/PAPER.md",
   "primary_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "local_paper_core_reconstruction_with_gaps",
+    "note": "代码、主消融或组件已按原文还原；仍缺：author formula interpretation；exact simulation split/count version；author network and dopri5 adjoint NODE baseline；full five-seed MSE experiments"
   },
   "source_resources": [],
-  "local_entrypoints": [],
-  "model_configs": [],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_native_trajectory:CFMTSModel",
+      "path": "src/iia_benchmark/models/fm_native_trajectory.py",
+      "sha256": "6dc42026407f52957f2740af834e5d20a083e6a1c6d860e0d3925ef784f1f992",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_native_cfm_ts_bb_gaussian_consistent.json",
+    "configs/models/fm_native_cfm_ts_bb_paper_literal.json",
+    "configs/models/fm_native_cfm_ts_gp_gaussian_conditional.json",
+    "configs/models/fm_native_cfm_ts_gp_paper_literal.json"
+  ],
   "paper_ablations": {
     "source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
     "ablation_page_candidates": [],
@@ -49,7 +62,48 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_native_cfm_ts_bb_gaussian_consistent",
+      "path": "src/iia_benchmark/models/fm_native_trajectory.py",
+      "markers": [
+        "CFMTSModel"
+      ],
+      "sha256": "6dc42026407f52957f2740af834e5d20a083e6a1c6d860e0d3925ef784f1f992",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_cfm_ts_bb_paper_literal",
+      "path": "src/iia_benchmark/models/fm_native_trajectory.py",
+      "markers": [
+        "CFMTSModel"
+      ],
+      "sha256": "6dc42026407f52957f2740af834e5d20a083e6a1c6d860e0d3925ef784f1f992",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_cfm_ts_gp_gaussian_conditional",
+      "path": "src/iia_benchmark/models/fm_native_trajectory.py",
+      "markers": [
+        "CFMTSModel"
+      ],
+      "sha256": "6dc42026407f52957f2740af834e5d20a083e6a1c6d860e0d3925ef784f1f992",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_native_cfm_ts_gp_paper_literal",
+      "path": "src/iia_benchmark/models/fm_native_trajectory.py",
+      "markers": [
+        "CFMTSModel"
+      ],
+      "sha256": "6dc42026407f52957f2740af834e5d20a083e6a1c6d860e0d3925ef784f1f992",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

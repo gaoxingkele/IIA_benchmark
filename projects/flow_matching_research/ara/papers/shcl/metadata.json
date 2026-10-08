@@ -16,7 +16,7 @@
   "task": "time_series_anomaly_detection",
   "family": "subsequence_contrastive",
   "method_summary": "固定间隔和时间层次掩码生成异质子序列，以对比目标增强任意时序骨干的正常模式学习。",
-  "reproduction_gap": "原文说阈值来自 validation，代码校准轨道须独立审计；Table2 是 Transformer/VAE，未找到此前所说 LSTM96.42 行。",
+  "reproduction_gap": "作者VAE源码保留，五骨干Transformer/VAE/CNN/RNN/LSTM及THM/连续性/高斯KL/评分和部分消融已补；adaptive masking及精确架构仍待对齐。",
   "sources": [
     {
       "path": "papers/literature/flow_matching/user_supplied/2026-10-07/shcl/456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0.pdf",
@@ -108,7 +108,1264 @@
     "SWAN",
     "UCR"
   ],
-  "model_configs": [],
+  "model_configs": [
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_mask_loss_score_reconstruction_transformer_branch_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "transformer"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_backbone_cnn.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_backbone_cnn",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_THM_loss_score_and_backbone_architecture_reconstruction_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "cnn"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_backbone_lstm.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_backbone_lstm",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_THM_loss_score_and_backbone_architecture_reconstruction_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "lstm"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_backbone_rnn.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_backbone_rnn",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_THM_loss_score_and_backbone_architecture_reconstruction_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "rnn"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_backbone_vae.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_backbone_vae",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_THM_loss_score_and_backbone_architecture_reconstruction_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "vae"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_backbone_vae_only_pair.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_backbone_vae_only_pair",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_THM_loss_score_and_backbone_architecture_reconstruction_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer_backbone_vae",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "vae"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_backbone_vae_only_point.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_backbone_vae_only_point",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_THM_loss_score_and_backbone_architecture_reconstruction_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer_backbone_vae",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "vae"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_backbone_vae_random_mask.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_backbone_vae_random_mask",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_THM_loss_score_and_backbone_architecture_reconstruction_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer_backbone_vae",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "random",
+            "objective": "heterogeneity",
+            "backbone": "vae"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_backbone_vae_reconstruction.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_backbone_vae_reconstruction",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_THM_loss_score_and_backbone_architecture_reconstruction_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer_backbone_vae",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "reconstruction",
+            "backbone": "vae"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_only_pair.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_only_pair",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_mask_loss_score_reconstruction_transformer_branch_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "transformer"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_only_point.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_only_point",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_mask_loss_score_reconstruction_transformer_branch_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point"
+            ],
+            "masking": "thm",
+            "objective": "heterogeneity",
+            "backbone": "transformer"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_random_mask.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_random_mask",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_mask_loss_score_reconstruction_transformer_branch_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "random",
+            "objective": "heterogeneity",
+            "backbone": "transformer"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    },
+    {
+      "path": "configs/models/fm_comparator_shcl_transformer_reconstruction.json",
+      "configuration": {
+        "schema_version": 1,
+        "family": "mtsad",
+        "task": "time_series_anomaly_detection",
+        "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+        "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+        "data_citations": [
+          "https://github.com/decisionintelligence/TAB"
+        ],
+        "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+        "id": "fm_comparator_shcl_transformer_reconstruction",
+        "paper_id": "shcl",
+        "reproduction_status": "paper_mask_loss_score_reconstruction_transformer_branch_unverified",
+        "citation": "https://doi.org/10.1016/j.ins.2025.122680",
+        "anchors": {
+          "THM_Eqs1_5": [
+            4,
+            5
+          ],
+          "continuity_KL_total_score_Eqs11_14": [
+            6
+          ],
+          "settings": [
+            8
+          ],
+          "ablations": [
+            10
+          ],
+          "backbone_Table7_Sec4_7": [
+            12
+          ]
+        },
+        "ablations": {
+          "branches": [
+            [
+              "point"
+            ],
+            [
+              "pair"
+            ],
+            [
+              "point",
+              "pair"
+            ]
+          ],
+          "masking": [
+            "thm",
+            "random"
+          ],
+          "objective": [
+            "heterogeneity",
+            "reconstruction"
+          ]
+        },
+        "assumptions": [
+          "Official local release contains VAE branch only; this Transformer branch is independent paper reconstruction.",
+          "Point/pair each has its own encoder, shared between even/odd, following author VAE branch organization.",
+          "Transformer mean/logvariance are learned heads; paper does not specify how these statistics are obtained for deterministic Transformer.",
+          "Sinusoidal positions and heads=8 are explicit architecture choices; paper specifies width128 and layers3.",
+          "Random mask uses frozen seed1103 at train and test for repeatable ablation; exact paper random/adaptive algorithms unspecified.",
+          "Adaptive mask ablation remains unimplemented; VAE baseline uses preserved original author code separately.",
+          "Reconstruction alternative is paired branch channel-mean MSE; exact Recon ablation recipe absent.",
+          "CNN kernel3/depthwise+pointwise, RNN/LSTM hidden=128/layers3 are explicit unpublished architecture choices.",
+          "Independent VAE reconstruction follows per-time MLP hidden256 layout; deterministic mean-latent inference differs from published code stochastic sampling."
+        ],
+        "backbone_family": [
+          "transformer",
+          "vae",
+          "cnn",
+          "rnn",
+          "lstm"
+        ],
+        "variant_of": "fm_comparator_shcl_transformer",
+        "parameters": {
+          "method": "shcl_transformer",
+          "options": {
+            "d_model": 128,
+            "heads": 8,
+            "layers": 3,
+            "branches": [
+              "point",
+              "pair"
+            ],
+            "masking": "thm",
+            "objective": "reconstruction",
+            "backbone": "transformer"
+          },
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.0001,
+          "seed": 1103,
+          "device": "cpu"
+        }
+      }
+    }
+  ],
   "code_url": null,
   "campaign_status": "not_claimed_reproduced",
   "reported_results": [
@@ -166,6 +1423,281 @@
       "method_row": "SHCL-Transformer",
       "verification": "visual",
       "protocol": "paper states validation thresholds and adjustment strategy"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "MSL",
+      "value": 95.06,
+      "method_row": "SHCL-Transformer",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "PSM",
+      "value": 98.97,
+      "method_row": "SHCL-Transformer",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMD",
+      "value": 92.07,
+      "method_row": "SHCL-Transformer",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMAP",
+      "value": 97.6,
+      "method_row": "SHCL-Transformer",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SWaT",
+      "value": 98.81,
+      "method_row": "SHCL-Transformer",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "MSL",
+      "value": 93.75,
+      "method_row": "SHCL-VAE",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "PSM",
+      "value": 99.19,
+      "method_row": "SHCL-VAE",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMD",
+      "value": 91.78,
+      "method_row": "SHCL-VAE",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMAP",
+      "value": 84.22,
+      "method_row": "SHCL-VAE",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SWaT",
+      "value": 96.48,
+      "method_row": "SHCL-VAE",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "MSL",
+      "value": 78.81,
+      "method_row": "SHCL-CNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "PSM",
+      "value": 91.41,
+      "method_row": "SHCL-CNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMD",
+      "value": 79.78,
+      "method_row": "SHCL-CNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMAP",
+      "value": 66.31,
+      "method_row": "SHCL-CNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SWaT",
+      "value": 89.39,
+      "method_row": "SHCL-CNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "MSL",
+      "value": 85.75,
+      "method_row": "SHCL-RNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "PSM",
+      "value": 93.16,
+      "method_row": "SHCL-RNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMD",
+      "value": 70.64,
+      "method_row": "SHCL-RNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMAP",
+      "value": 73.34,
+      "method_row": "SHCL-RNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SWaT",
+      "value": 89.47,
+      "method_row": "SHCL-RNN",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "MSL",
+      "value": 71.84,
+      "method_row": "SHCL-LSTM",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "PSM",
+      "value": 96.42,
+      "method_row": "SHCL-LSTM",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMD",
+      "value": 83.51,
+      "method_row": "SHCL-LSTM",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SMAP",
+      "value": 73.54,
+      "method_row": "SHCL-LSTM",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
+    },
+    {
+      "pdf_page": 12,
+      "table": "7",
+      "metric": "F1_percent",
+      "dataset": "SWaT",
+      "value": 88.49,
+      "method_row": "SHCL-LSTM",
+      "status": "author_reported_not_locally_reproduced",
+      "verification": "primary_pdf_text_table_review",
+      "protocol": "paper validation/adjustment protocol; not established TAB raw-F1 equivalence"
     }
   ],
   "scientific_reproduction_status": "not_established_by_this_artifact",
@@ -174,5 +1706,6 @@
     "file_hashes_distinct": true,
     "normalized_text_equal": true,
     "boundary": "Whitespace/punctuation-insensitive extracted-text comparison; does not compare figures or certify scientific equivalence. Keep edition-specific page anchors."
-  }
+  },
+  "table_caveat": "Table7 confirms all five backbones and SHCL-LSTM PSM96.42. Earlier Table2-only audit omitted Table7; 2026-10-08 correction. Original paper evaluation remains separate from TAB and strict deployment."
 }

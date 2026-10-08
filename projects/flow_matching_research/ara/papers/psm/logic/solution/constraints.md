@@ -1,6 +1,6 @@
 # Practical Approach to Asynchronous Multivariate Time Series Anomaly Detection and Localization
 
-数据来源论文不等于当前 PSM 检测器；eBay 内部数据与公开 PSM 的可获取性分开。
+官方RANSynCoders源码及同步开关在场；历史TensorFlow环境、私有生产模型与BKPI、全消融及TAB适配待验收。
 
 冻结要求：作者版本与代码提交、数据实体/划分、训练专属归一化、掩码/窗口及回填、种子和预算、积分器/步数、分数聚合、阈值来源、点调整、指标尺度与不确定性。
 

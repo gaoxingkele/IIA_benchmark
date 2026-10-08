@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：mTSBench 的实体数和特征数须与经典五数据集版本分开；作者代码未定位，须重建谱路径、图构造及速度加权。
+主要复现问题：代码、主消融或组件已按原文还原；仍缺：author-verified graph estimator/projection convention；exact mTSBench split/window-to-point aggregation；validation schedule/early stopping；MLP/CNN velocity architecture comparison；all sensitivity experiments and 10-seed datasets

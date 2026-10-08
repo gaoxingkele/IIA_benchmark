@@ -1,0 +1,48 @@
+{
+  "task": "multivariate_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_supplemental_author:load_sensitivehue",
+  "parameters": {
+    "source_root": "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+    "step_num_in": 24,
+    "f_in": 51,
+    "dim_model": 128,
+    "head_num": 4,
+    "dim_hidden_fc": 256,
+    "encode_layer_num": 1,
+    "dropout": 0.1,
+    "statistical_removal": false
+  },
+  "functions": {
+    "objective": "iia_benchmark.models.fm_supplemental_author:sensitivehue_loss"
+  },
+  "objective": {
+    "alpha": 1,
+    "probabilistic": true,
+    "weighted": true
+  },
+  "reproduction_status": "complete_author_repository_model_cpu_validated_partial_local_ablation_glue",
+  "gaps": [
+    "Separate paper-formula Table4 losses/reconstruction configurations are now prepared; exact unpublished author ablation experiment scripts remain unavailable.",
+    "Provided author RevIN removes input statistics and reconstructs output statistics, unlike usual original-statistics-restoring RevIN; retained exactly.",
+    "Main config defaults correspond to supplied SWaT YAML; other datasets require their configs and data audits.",
+    "Best-threshold F1*/F1*_PA in release must not be conflated with TAB validation-fixed-threshold results.",
+    "CPU forward/backward validated, not full data training or certified paper score."
+  ],
+  "evidence_pages": [
+    1,
+    7,
+    8
+  ],
+  "schema_version": 1,
+  "id": "fm_supplemental_sensitivehue__no_sfr",
+  "family": "flow_matching_research_code_completion",
+  "citation": "https://doi.org/10.1145/3637528.3671919",
+  "paper_primary_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+  "paper_score_status": "not_verified",
+  "benchmark_ready": false,
+  "all_paper_ablations_complete": false,
+  "author_repository": "https://github.com/yuesuoqingqiu/SensitiveHUE",
+  "author_commit": "a50047883ab22957ed7fd9c168a3bbcb8d836546",
+  "variant_of": "fm_supplemental_sensitivehue",
+  "variant_id": "no_sfr"
+}

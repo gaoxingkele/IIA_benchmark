@@ -1,0 +1,1076 @@
+{
+  "paper_id": "shcl",
+  "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 25,
+    "ablation": 11
+  },
+  "records": [
+    {
+      "record_id": "shcl:main",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 1,
+      "marker": "Contents lists available at ScienceDirect",
+      "method": "shcl",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_shcl_transformer.json",
+        "configs/models/fm_comparator_shcl_transformer_backbone_cnn.json",
+        "configs/models/fm_comparator_shcl_transformer_backbone_lstm.json",
+        "configs/models/fm_comparator_shcl_transformer_backbone_rnn.json",
+        "configs/models/fm_comparator_shcl_transformer_backbone_vae.json",
+        "configs/models/fm_comparator_shcl_transformer_backbone_vae_only_pair.json",
+        "configs/models/fm_comparator_shcl_transformer_backbone_vae_only_point.json",
+        "configs/models/fm_comparator_shcl_transformer_backbone_vae_random_mask.json",
+        "configs/models/fm_comparator_shcl_transformer_backbone_vae_reconstruction.json",
+        "configs/models/fm_comparator_shcl_transformer_only_pair.json",
+        "configs/models/fm_comparator_shcl_transformer_only_point.json",
+        "configs/models/fm_comparator_shcl_transformer_random_mask.json",
+        "configs/models/fm_comparator_shcl_transformer_reconstruction.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:omnianomaly:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "OmniAnomaly",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " methods are categorized into five representative groups: Prediction-based models include OmniAnomaly [20], which detects anomalies by forecasting future values and identifying large deviations. Reconstruction-based models are among the most widely used approac",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "OmniAnomaly",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:lstmvae:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "LSTM-VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "tions. Reconstruction-based models are among the most widely used approaches. We consider LSTM-VAE [17], USAD [3], BeatGAN [34], DAEMON [35], and TranAD [18], which rely on the assumption that anomalies cannot be well reconstructed by models trained on norma",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "LSTM-VAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/vae_lstm_lin2020/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/vae_lstm_lin2020/original",
+          "role": "reference_identity_reviewed_source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "lin-shuyu/VAE-LSTM-for-anomaly-detection",
+          "commit": "10389bd71265d8d19fdf9b15793fbbd400cc00c7",
+          "identity_status": "author_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "author_repository; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:usad:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "USAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "uction-based models are among the most widely used approaches. We consider LSTM-VAE [17], USAD [3], BeatGAN [34], DAEMON [35], and TranAD [18], which rely on the assumption that anomalies cannot be well reconstructed by models trained on normal data. Dis",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "USAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/usad_author/original",
+        "experiments/runs/fm_baseline_code_completion/sources/usad_author/original/usad.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:beatgan:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "BeatGAN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ed models are among the most widely used approaches. We consider LSTM-VAE [17], USAD [3], BeatGAN [34], DAEMON [35], and TranAD [18], which rely on the assumption that anomalies cannot be well reconstructed by models trained on normal data. Distribution-bas",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "BeatGAN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/beatgan/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/beatgan/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "imbingox/BeatGAN",
+          "commit": "d7b0e8802073558479164a6cf6a2ae43726a371b",
+          "identity_status": "repository_claimed_paper_implementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "repository_claimed_paper_implementation; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:daemon:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "DAEMON",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "among the most widely used approaches. We consider LSTM-VAE [17], USAD [3], BeatGAN [34], DAEMON [35], and TranAD [18], which rely on the assumption that anomalies cannot be well reconstructed by models trained on normal data. Distribution-based methods id",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "DAEMON",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/daemon/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/daemon/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "Sherlock-C/DAEMON",
+          "commit": "411b371e048d94d1b7246bef341eae66cb290b6b",
+          "identity_status": "paper_related_author_release_ICDE2021_equivalence_pending",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "Author-related WSDM2023 DAEMON source; not certified as the ICDE2021 release used in SHCL comparison."
+        }
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:tranad:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "TranAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "dely used approaches. We consider LSTM-VAE [17], USAD [3], BeatGAN [34], DAEMON [35], and TranAD [18], which rely on the assumption that anomalies cannot be well reconstructed by models trained on normal data. Distribution-based methods identify anomalies ",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "TranAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/TranAD/TranAD.py",
+        "src/iia_benchmark/models/mtsad_detectors.py",
+        "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "imperial-qore/TranAD",
+          "commit": "7ffb98d0c18189cc3d9ab732b4cb0278200a0af0",
+          "identity_status": "author_repository_with_third_party_baselines",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "author_repository_with_third_party_baselines; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:lof:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "LOF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "nomalies based on statistical rarity. This category includes classical algorithms such as LOF [4] and Isolation Forest [16], as well as deep models like DAGMM [21], Deep SVDD [36], and THOC [37]. Contrastive learning methods explicitly learn representat",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "LOF",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/self_impl/LOF/lof.py",
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/lof.py",
+        "experiments/runs/fm_baseline_code_completion/sources/pyod/original/pyod/models/lof.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/LOF/lof.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:isolationforest:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "Isolation Forest",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ed on statistical rarity. This category includes classical algorithms such as LOF [4] and Isolation Forest [16], as well as deep models like DAGMM [21], Deep SVDD [36], and THOC [37]. Contrastive learning methods explicitly learn representations by distinguishing be",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "Isolation Forest",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/isolation_forest.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:dagmm:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "DAGMM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "assical algorithms such as LOF [4] and Isolation Forest [16], as well as deep models like DAGMM [21], Deep SVDD [36], and THOC [37]. Contrastive learning methods explicitly learn representations by distinguishing between similar and dissimilar samples. We",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "DAGMM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/DAGMM.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/fm_baseline_code_completion/sources/merlion/original/merlion/models/anomaly/dagmm.py",
+        "experiments/runs/fm_baseline_code_completion/sources/tods/original/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/fm_baseline_code_completion/sources/tods/original/tods/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/DAGMM.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/detection_algorithm/core/dagmm/dagmm.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/DAGMM.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/tods/third_party/tods/detection_algorithm/core/dagmm/dagmm.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:deepsvdd:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "DeepSVDD",
+      "marker_match": "alphanumeric_normalized",
+      "evidence_snippet": null,
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "DeepSVDD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_baseline_code_completion/sources/pyod/original/pyod/models/deep_svdd.py",
+        "experiments/runs/fm_tsad_baseline_sources/sources/deep_svdd/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/deep_svdd/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "lukasruff/Deep-SVDD-PyTorch",
+          "commit": "1901612d595e23675fb75c4ebb563dd0ffebc21e",
+          "identity_status": "author_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "author_repository; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:thoc:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "THOC",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "4] and Isolation Forest [16], as well as deep models like DAGMM [21], Deep SVDD [36], and THOC [37]. Contrastive learning methods explicitly learn representations by distinguishing between similar and dissimilar samples. We include Anomaly Transformer [9",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "THOC",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/timesead_baselines/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/timesead_baselines/original",
+          "role": "maintainer_component_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "wagner-d/TimeSeAD",
+          "commit": "bb8efa9ce17f9cfb0bab77df08c32d986de8429e",
+          "identity_status": "benchmark_author_repository_with_method_reimplementations",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "benchmark_author_repository_with_method_reimplementations; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:anomalytransformer:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "Anomaly Transformer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "earn representations by distinguishing between similar and dissimilar samples. We include Anomaly Transformer [9], DCdetector [10], TFMAE [11], MulGad [27], and CARLA [1]. General-purpose models refer to large-scale architectures originally designed for various time se",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "Anomaly Transformer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/self_impl/Anomaly_trans/AnomalyTransformer.py",
+        "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original",
+        "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original/model/AnomalyTransformer.py",
+        "experiments/runs/fm_code_completion/sources/maelnet/original/models/AnomalyTransformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/models/anomaly_transformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/scripts/development/anomaly_transformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/Anomaly_trans/AnomalyTransformer.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:dcdetector:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "DCdetector",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "istinguishing between similar and dissimilar samples. We include Anomaly Transformer [9], DCdetector [10], TFMAE [11], MulGad [27], and CARLA [1]. General-purpose models refer to large-scale architectures originally designed for various time series tasks but a",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "DCdetector",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/self_impl/DCdetector/DCdetector.py",
+        "experiments/runs/flow_matching_campaign/sources/dcdetector/original",
+        "experiments/runs/flow_matching_campaign/sources/dcdetector/original/model/DCdetector.py",
+        "experiments/runs/fm_code_completion/sources/maelnet/original/models/DCDetector.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/DCdetector/DCdetector.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_dcdetector.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:tfmae:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "TFMAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ween similar and dissimilar samples. We include Anomaly Transformer [9], DCdetector [10], TFMAE [11], MulGad [27], and CARLA [1]. General-purpose models refer to large-scale architectures originally designed for various time series tasks but adapted for a",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "TFMAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/tfmae/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/tfmae/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "LMissher/TFMAE",
+          "commit": "b1e794c6ec27c2b0639c182bc4b6fa0f5f0ba563",
+          "identity_status": "repository_claimed_official_implementation",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "repository_claimed_official_implementation; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:mulgad:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "MulGad",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " and dissimilar samples. We include Anomaly Transformer [9], DCdetector [10], TFMAE [11], MulGad [27], and CARLA [1]. General-purpose models refer to large-scale architectures originally designed for various time series tasks but adapted for anomaly detect",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "MulGad",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:carla:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "CARLA",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "amples. We include Anomaly Transformer [9], DCdetector [10], TFMAE [11], MulGad [27], and CARLA [1]. General-purpose models refer to large-scale architectures originally designed for various time series tasks but adapted for anomaly detection. This group ",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "CARLA",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_tsad_baseline_sources/sources/carla/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/carla/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "zamanzadeh/CARLA",
+          "commit": "600d4f2af3e625e63e0204617f8b29d227ca2973",
+          "identity_status": "author_repository",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "author_repository; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:timesnet:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "TimesNet",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "gned for various time series tasks but adapted for anomaly detection. This group includes TimesNet [22], GPT4TS [23], and UniTS [24]. We also consider PeFAD [25], which focuses on federated efficiency. 4.3. Experiment setups Consistent with previous studies ",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "TimesNet",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/time_series_library/models/TimesNet.py",
+        "experiments/runs/fm_code_completion/sources/maelnet/original/models/TimesNet.py",
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/models/timesnet.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/time_series_library/models/TimesNet.py",
+        "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/TimesNet.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:gpt4ts:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "GPT4TS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "s time series tasks but adapted for anomaly detection. This group includes TimesNet [22], GPT4TS [23], and UniTS [24]. We also consider PeFAD [25], which focuses on federated efficiency. 4.3. Experiment setups Consistent with previous studies [10,11], we s",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "GPT4TS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/models/gpt4ts.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/LLM/submodules/GPT4TS/GPT4TS.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:units:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "UniTS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ks but adapted for anomaly detection. This group includes TimesNet [22], GPT4TS [23], and UniTS [24]. We also consider PeFAD [25], which focuses on federated efficiency. 4.3. Experiment setups Consistent with previous studies [10,11], we set the initial l",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "UniTS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/pre_train/model/units.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/pre_train/submodules/UniTS-ckpt/models/UniTS.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:pefad:8",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 8,
+      "marker": "PeFAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "tection. This group includes TimesNet [22], GPT4TS [23], and UniTS [24]. We also consider PeFAD [25], which focuses on federated efficiency. 4.3. Experiment setups Consistent with previous studies [10,11], we set the initial learning rate to 10 −4 and the",
+      "evidence_context": "Section 4.2 Baselines",
+      "method": "PeFAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:transformer:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "Transformer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "of our framework, we integrate SHCL with five widely used neural network architec- tures: Transformer, VAE, CNN, RNN, and LSTM. As shown in Table 7, SHCL consistently enhances the anomaly detection capability of all backbone models, significantly improving thei",
+      "evidence_context": "Table 7 plain backbone comparison",
+      "method": "Transformer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Plain backbone comparison, not a claim that all same-named library architectures match the paper."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:vae:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ork, we integrate SHCL with five widely used neural network architec- tures: Transformer, VAE, CNN, RNN, and LSTM. As shown in Table 7, SHCL consistently enhances the anomaly detection capability of all backbone models, significantly improving their dis",
+      "evidence_context": "Table 7 plain backbone comparison",
+      "method": "VAE",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Plain backbone comparison, not a claim that all same-named library architectures match the paper."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:cnn:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "CNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "nificantly faster inference speeds compared to baseline methods. With 𝑑 model = 128, SHCL-CNN achieves 7–9 times faster inference than AnoTrans and DCdetector. More importantly, this advantage persists and even amplifies as model complexity increases. A",
+      "evidence_context": "Table 7 plain backbone comparison",
+      "method": "CNN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Plain backbone comparison, not a claim that all same-named library architectures match the paper."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:rnn:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "RNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "tegrate SHCL with five widely used neural network architec- tures: Transformer, VAE, CNN, RNN, and LSTM. As shown in Table 7, SHCL consistently enhances the anomaly detection capability of all backbone models, significantly improving their discriminativ",
+      "evidence_context": "Table 7 plain backbone comparison",
+      "method": "RNN",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Plain backbone comparison, not a claim that all same-named library architectures match the paper."
+      ]
+    },
+    {
+      "record_id": "shcl:baseline:lstm:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "LSTM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "HCL with five widely used neural network architec- tures: Transformer, VAE, CNN, RNN, and LSTM. As shown in Table 7, SHCL consistently enhances the anomaly detection capability of all backbone models, significantly improving their discriminative power in",
+      "evidence_context": "Table 7 plain backbone comparison",
+      "method": "LSTM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Plain backbone comparison, not a claim that all same-named library architectures match the paper."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:recon:10",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 10,
+      "marker": "Recon",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "former SWaT PSM SMD MSL SMAP Avg. F1 Mask Str. Crit. P R F1 P R F1 P R F1 P R F1 P R F1 ✘ Recon 97.72 81.71 89 98.58 83.05 90.15 77.59 85.73 81.46 80.67 43.83 56.80 87.13 54.68 67.19 76.92 Adaptive SH 91.42 81.86 86.38 98.13 82.51 89.64 70.16 85.29 76.99 ",
+      "evidence_context": "Tables 5/6 masking/anomaly-criterion axes",
+      "method": "Recon",
+      "variant": "Recon",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Axes are observed labels, not an inferred Cartesian product; both Transformer and VAE tables."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:adaptive:10",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 10,
+      "marker": "Adaptive",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "72 81.71 89 98.58 83.05 90.15 77.59 85.73 81.46 80.67 43.83 56.80 87.13 54.68 67.19 76.92 Adaptive SH 91.42 81.86 86.38 98.13 82.51 89.64 70.16 85.29 76.99 77.98 31.19 44.55 86.11 53.20 65.77 72.67 Random SH 99.04 87.28 92.79 98.64 96.92 97.77 86.58 73.25 79",
+      "evidence_context": "Tables 5/6 masking/anomaly-criterion axes",
+      "method": "Adaptive",
+      "variant": "Adaptive",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Axes are observed labels, not an inferred Cartesian product; both Transformer and VAE tables."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:random:10",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 10,
+      "marker": "Random",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "81.86 86.38 98.13 82.51 89.64 70.16 85.29 76.99 77.98 31.19 44.55 86.11 53.20 65.77 72.67 Random SH 99.04 87.28 92.79 98.64 96.92 97.77 86.58 73.25 79.36 91.99 86.12 88.96 96.34 96.78 96.56 91.09 Point-wise SH 98.91 83.45 90.53 98.50 96.58 97.53 80.09 88.7",
+      "evidence_context": "Tables 5/6 masking/anomaly-criterion axes",
+      "method": "Random",
+      "variant": "Random",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly_tfsnippet/original/tfsnippet/utils/random.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Axes are observed labels, not an inferred Cartesian product; both Transformer and VAE tables."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:pointwise:10",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 10,
+      "marker": "Point-wise",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "87.28 92.79 98.64 96.92 97.77 86.58 73.25 79.36 91.99 86.12 88.96 96.34 96.78 96.56 91.09 Point-wise SH 98.91 83.45 90.53 98.50 96.58 97.53 80.09 88.79 84.21 91.79 96.97 94.31 93.54 98.68 96.04 92.52 Pair-wise SH 99.16 82.13 89.85 98.90 94.96 96.89 80.96 93.82",
+      "evidence_context": "Tables 5/6 masking/anomaly-criterion axes",
+      "method": "Point-wise",
+      "variant": "Point-wise",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Axes are observed labels, not an inferred Cartesian product; both Transformer and VAE tables."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:pairwise:10",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 10,
+      "marker": "Pair-wise",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "83.45 90.53 98.50 96.58 97.53 80.09 88.79 84.21 91.79 96.97 94.31 93.54 98.68 96.04 92.52 Pair-wise SH 99.16 82.13 89.85 98.90 94.96 96.89 80.96 93.82 86.92 91.84 95.31 93.54 93.58 99.36 96.38 92.72 THM SH 98.41 84.00 90.63 99.02 83.31 90.49 80.03 83.76 81.85",
+      "evidence_context": "Tables 5/6 masking/anomaly-criterion axes",
+      "method": "Pair-wise",
+      "variant": "Pair-wise",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Axes are observed labels, not an inferred Cartesian product; both Transformer and VAE tables."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:thm:10",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 10,
+      "marker": "THM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "n results of masking strategy (Mask Str.) and anomaly criterion (Crit.) with transformer. THM represents the temporal hierarchical masking strategy. SH represents the subsequence-heterogeneity. All results are reported in %. SHCL-Transformer SWaT PSM SM",
+      "evidence_context": "Tables 5/6 masking/anomaly-criterion axes",
+      "method": "THM",
+      "variant": "THM",
+      "variant_kind": "component_axis_or_label_partial_row_mapping",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Axes are observed labels, not an inferred Cartesian product; both Transformer and VAE tables."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:shcltransformer:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "SHCL-Transformer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "s are reported in %. Model MSL PSM SMD SMAP SWaT Transformer 56.8 90.15 81.46 67.19 89.00 SHCL-Transformer 95.06 (↑67.36 %) 98.97 (↑ 9.78 %) 92.07 (↑13.02 %) 97.60 (↑45.26 %) 98.81 (↑11.02 %) VAE 81.63 88.21 10.40 58.06 87.60 SHCL-VAE 93.75 (↑14.85 %) 99.19 (↑12.45 ",
+      "evidence_context": "Section 4.7 Table 7 SHCL backbone variants",
+      "method": "SHCL-Transformer",
+      "variant": "SHCL-Transformer",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_shcl_transformer.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:shclvae:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "SHCL-VAE",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "8 %) 92.07 (↑13.02 %) 97.60 (↑45.26 %) 98.81 (↑11.02 %) VAE 81.63 88.21 10.40 58.06 87.60 SHCL-VAE 93.75 (↑14.85 %) 99.19 (↑12.45 %) 91.78 (↑782.50 %) 84.22 (↑45.06 %) 96.48 (↑10.14 %) CNN 44.42 89.91 79.64 65.26 87.27 SHCL-CNN 78.81 (↑77.42 %) 91.41 (↑1.67 ",
+      "evidence_context": "Section 4.7 Table 7 SHCL backbone variants",
+      "method": "SHCL-VAE",
+      "variant": "SHCL-VAE",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_shcl_transformer_backbone_vae.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:shclcnn:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "SHCL-CNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "t significantly faster inference speeds compared to baseline methods. With 𝑑 model = 128, SHCL-CNN achieves 7–9 times faster inference than AnoTrans and DCdetector. More importantly, this advantage persists and even amplifies as model complexity increases. A",
+      "evidence_context": "Section 4.7 Table 7 SHCL backbone variants",
+      "method": "SHCL-CNN",
+      "variant": "SHCL-CNN",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_shcl_transformer_backbone_cnn.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:shclrnn:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "SHCL-RNN",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ".67 %) 79.78 (↑0.18 %) 66.31 (↑2.30 %) 89.39 (↑ 2.43 %) RNN 31.15 81.34 65.12 65.84 85.64 SHCL-RNN 85.75 (↑175.28 %) 93.16 (↑14.53 %) 70.64 (↑8.48 %) 73.34 (↑11.39 %) 89.47 (↑4.47 %) LSTM 24.81 81.52 54.25 65.69 84.63 SHCL-LSTM 71.84 (↑189.56 %) 96.42 (↑18.2",
+      "evidence_context": "Section 4.7 Table 7 SHCL backbone variants",
+      "method": "SHCL-RNN",
+      "variant": "SHCL-RNN",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_shcl_transformer_backbone_rnn.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "shcl:ablation:shcllstm:12",
+      "paper_id": "shcl",
+      "primary_source_sha256": "456b002acc917aa972d4a76f9bb84acaf467dcce210b48b8288ee3a950926ce0",
+      "pdf_page": 12,
+      "marker": "SHCL-LSTM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "53 %) 70.64 (↑8.48 %) 73.34 (↑11.39 %) 89.47 (↑4.47 %) LSTM 24.81 81.52 54.25 65.69 84.63 SHCL-LSTM 71.84 (↑189.56 %) 96.42 (↑18.28 %) 83.51 (↑53.94 %) 73.54 (↑11.95 %) 88.49 (↑4.56 %) Information Sciences 723 (2026) 122680 12",
+      "evidence_context": "Section 4.7 Table 7 SHCL backbone variants",
+      "method": "SHCL-LSTM",
+      "variant": "SHCL-LSTM",
+      "variant_kind": "named_paper_variant",
+      "role": "ablation",
+      "compared_baseline": false,
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_comparator_shcl_transformer_backbone_lstm.json"
+      ],
+      "parent_method_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/shcl/original",
+        "src/iia_benchmark/models/fm_comparator_reconstructions.py"
+      ],
+      "coverage": "local_paper_derived_variant_configured_not_author_equivalent",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

@@ -1,0 +1,194 @@
+{
+  "paper_id": "moment_long_context",
+  "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 6
+  },
+  "records": [
+    {
+      "record_id": "moment_long_context:main",
+      "paper_id": "moment_long_context",
+      "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+      "pdf_page": 1,
+      "marker": "Towards Long-Context Time Series Foundation Models With",
+      "method": "moment_long_context",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_supplemental.py",
+        "src/iia_benchmark/models/fm_supplemental_moment.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_supplemental_moment_long_context.json",
+        "configs/models/fm_supplemental_moment_long_context__concatenation_relative_bias.json",
+        "configs/models/fm_supplemental_moment_long_context__finetune_beta.json",
+        "configs/models/fm_supplemental_moment_long_context__freeze_beta.json",
+        "configs/models/fm_supplemental_moment_long_context__icm_static.json",
+        "configs/models/fm_supplemental_moment_long_context__independent.json",
+        "configs/models/fm_supplemental_moment_long_context_t5.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__features.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__finetune_beta_head.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta_head.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__icm_static.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__independent.json",
+        "configs/models/fm_supplemental_moment_long_context_t5__reconstruction.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "moment_long_context:baseline:nbeats:3",
+      "paper_id": "moment_long_context",
+      "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+      "pdf_page": 3,
+      "marker": "N-BEATS",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "ate classification. Model / Example Class Design Exchange ETTh1 ETTh2 ETTm1 ETTm2 Weather N-BEATS [16] No Channel Mixing Channel Independence 0.524 0.461 0.410 0.346 0.278 0.211 MOMENT-Tiny [8] 0.249 0.418 0.359 0.339 0.234 0.206 UP2ME [23] Adapter Graph Tr",
+      "evidence_context": "Section 4 Table 1 context expansion comparison",
+      "method": "N-BEATS",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/models/nbeats.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Names denote context-expansion designs implemented on common MOMENT-Tiny architecture; not original full upstream model pipelines."
+      ]
+    },
+    {
+      "record_id": "moment_long_context:baseline:momenttiny:3",
+      "paper_id": "moment_long_context",
+      "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+      "pdf_page": 3,
+      "marker": "MOMENT-Tiny",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "r N-BEATS [16] No Channel Mixing Channel Independence 0.524 0.461 0.410 0.346 0.278 0.211 MOMENT-Tiny [8] 0.249 0.418 0.359 0.339 0.234 0.206 UP2ME [23] Adapter Graph Transformer 0.240 0.435 0.367 0.340 0.237 0.204 Crossformer [22] Non-homogeneous End-to-End Mi",
+      "evidence_context": "Section 4 Table 1 context expansion comparison",
+      "method": "MOMENT-Tiny",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Names denote context-expansion designs implemented on common MOMENT-Tiny architecture; not original full upstream model pipelines."
+      ]
+    },
+    {
+      "record_id": "moment_long_context:baseline:up2me:3",
+      "paper_id": "moment_long_context",
+      "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+      "pdf_page": 3,
+      "marker": "UP2ME",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "e 0.524 0.461 0.410 0.346 0.278 0.211 MOMENT-Tiny [8] 0.249 0.418 0.359 0.339 0.234 0.206 UP2ME [23] Adapter Graph Transformer 0.240 0.435 0.367 0.340 0.237 0.204 Crossformer [22] Non-homogeneous End-to-End Mixer Dedicated Intra- Channel Attention 0.559 0",
+      "evidence_context": "Section 4 Table 1 context expansion comparison",
+      "method": "UP2ME",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Names denote context-expansion designs implemented on common MOMENT-Tiny architecture; not original full upstream model pipelines."
+      ]
+    },
+    {
+      "record_id": "moment_long_context:baseline:crossformer:3",
+      "paper_id": "moment_long_context",
+      "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+      "pdf_page": 3,
+      "marker": "Crossformer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": ".339 0.234 0.206 UP2ME [23] Adapter Graph Transformer 0.240 0.435 0.367 0.340 0.237 0.204 Crossformer [22] Non-homogeneous End-to-End Mixer Dedicated Intra- Channel Attention 0.559 0.571 0.654 0.390 0.515 0.227 iTransformer [13] Homogeneous End-to-End Channel M",
+      "evidence_context": "Section 4 Table 1 context expansion comparison",
+      "method": "Crossformer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/time_series_library/models/Crossformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/time_series_library/models/Crossformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/Crossformer.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Names denote context-expansion designs implemented on common MOMENT-Tiny architecture; not original full upstream model pipelines."
+      ]
+    },
+    {
+      "record_id": "moment_long_context:baseline:itransformer:3",
+      "paper_id": "moment_long_context",
+      "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+      "pdf_page": 3,
+      "marker": "iTransformer",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "s End-to-End Mixer Dedicated Intra- Channel Attention 0.559 0.571 0.654 0.390 0.515 0.227 iTransformer [13] Homogeneous End-to-End Channel Mixer Multivariate Patching 0.245 0.429 0.380 0.353 0.251 0.212 MOIRAI [21] Concatentation + Relative Encoding 0.243 0.426 ",
+      "evidence_context": "Section 4 Table 1 context expansion comparison",
+      "method": "iTransformer",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/catch/original/ts_benchmark/baselines/time_series_library/models/iTransformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/time_series_library/models/iTransformer.py",
+        "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/iTransformer.py",
+        "src/iia_benchmark/models/mtsad_detectors.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Names denote context-expansion designs implemented on common MOMENT-Tiny architecture; not original full upstream model pipelines."
+      ]
+    },
+    {
+      "record_id": "moment_long_context:baseline:moirai:3",
+      "paper_id": "moment_long_context",
+      "primary_source_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+      "pdf_page": 3,
+      "marker": "MOIRAI",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "eneous End-to-End Channel Mixer Multivariate Patching 0.245 0.429 0.380 0.353 0.251 0.212 MOIRAI [21] Concatentation + Relative Encoding 0.243 0.426 0.357 0.340 0.249 0.216 ICM (Ours) Compressive Memory 0.232 0.416 0.349 0.333 0.234 0.205 Table 1: Forecast",
+      "evidence_context": "Section 4 Table 1 context expansion comparison",
+      "method": "MOIRAI",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/Moirai.py"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Names denote context-expansion designs implemented on common MOMENT-Tiny architecture; not original full upstream model pipelines."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

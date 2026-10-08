@@ -1,0 +1,85 @@
+{
+  "task": "forecasting_and_classification",
+  "entrypoint": "iia_benchmark.models.fm_supplemental:InfiniChannelMixer",
+  "parameters": {
+    "heads": 4,
+    "mode": "icm",
+    "train_beta": true,
+    "epsilon": 1e-06
+  },
+  "functions": {
+    "static_embedding": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding"
+  },
+  "variants": [
+    {
+      "id": "independent",
+      "parameters": {
+        "mode": "independent"
+      }
+    },
+    {
+      "id": "concatenation_relative_bias",
+      "parameters": {
+        "mode": "concatenation"
+      }
+    },
+    {
+      "id": "icm_static",
+      "module": "iia_benchmark.models.fm_supplemental:StaticChannelEmbedding",
+      "requires": [
+        "channel_count",
+        "embedding_dimension"
+      ]
+    },
+    {
+      "id": "freeze_beta",
+      "parameters": {
+        "train_beta": false
+      }
+    },
+    {
+      "id": "finetune_beta",
+      "parameters": {
+        "train_beta": true
+      }
+    }
+  ],
+  "reproduction_status": "paper_derived_attention_components_not_complete_moment_integration",
+  "gaps": [
+    "No dedicated ICM author repository located.",
+    "This is a standalone attention/embedding primitive. Full MomentICMT5 integration is prepared in separate configs; original pretrained ICM weights remain unavailable.",
+    "Graph Transformer adapter, Crossformer, iTransformer/multivariate patching, N-BEATS and all experiment scripts have not been aligned to this paper setting.",
+    "One-epoch Time Series Pile pretraining, 26 UEA SVM classification and forecasting experiment pipelines remain pending.",
+    "Q/K/V projections are supplied by caller; local dot-product scale is standard sqrt(key dimension).",
+    "All components are for original forecast/classification task; no anomaly detection performance implied."
+  ],
+  "evidence_pages": [
+    3,
+    4,
+    7,
+    8
+  ],
+  "schema_version": 1,
+  "id": "fm_supplemental_moment_long_context",
+  "family": "flow_matching_research_code_completion",
+  "citation": "https://arxiv.org/abs/2409.13530v1",
+  "paper_primary_sha256": "3e67405b691183dab729d6f2e56421280d8bb1268761f190468d8bce9e326413",
+  "paper_score_status": "not_verified",
+  "benchmark_ready": false,
+  "all_paper_ablations_complete": false,
+  "prepared_additional_configs": [
+    "configs/models/fm_supplemental_moment_long_context__concatenation_relative_bias.json",
+    "configs/models/fm_supplemental_moment_long_context__finetune_beta.json",
+    "configs/models/fm_supplemental_moment_long_context__freeze_beta.json",
+    "configs/models/fm_supplemental_moment_long_context__icm_static.json",
+    "configs/models/fm_supplemental_moment_long_context__independent.json",
+    "configs/models/fm_supplemental_moment_long_context_t5.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__features.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__finetune_beta_head.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__freeze_beta_head.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__icm_static.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__independent.json",
+    "configs/models/fm_supplemental_moment_long_context_t5__reconstruction.json"
+  ]
+}

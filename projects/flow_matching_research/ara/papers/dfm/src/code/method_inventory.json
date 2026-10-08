@@ -1,0 +1,214 @@
+{
+  "paper_id": "dfm",
+  "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+  "record_counts_by_role": {
+    "main": 1,
+    "baseline": 7
+  },
+  "records": [
+    {
+      "record_id": "dfm:main",
+      "paper_id": "dfm",
+      "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+      "pdf_page": 1,
+      "marker": "DFM: Interpolant-free Dual Flow Matching",
+      "method": "dfm",
+      "variant": null,
+      "role": "main",
+      "evidence_context": "Primary paper identification; method synopsis and protocol remain governed by ARA",
+      "artifact_type": "paper_proposed_method_or_framework",
+      "matched_code_paths": [
+        "src/iia_benchmark/models/fm_native.py"
+      ],
+      "model_configs": [
+        "configs/models/fm_dfm.json",
+        "configs/models/fm_native_dfm_exact.json",
+        "configs/models/fm_native_dfm_hutchinson.json"
+      ],
+      "coverage": "local_material_present_protocol_unverified",
+      "remaining_review": [
+        "Full author-equivalent experiment pipeline and all reported tables/ablations have not been certified by this inventory."
+      ]
+    },
+    {
+      "record_id": "dfm:baseline:omnianomaly:4",
+      "paper_id": "dfm",
+      "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+      "pdf_page": 4,
+      "marker": "OmniAnom",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "supervised anomaly detection. The best and the second best metrics, %. Model R P R AUC F1 OmniAnom. ✗ 81.3 94.2 98.9 87.3 CAE-M ✗ 81.9 95.7 99.0 88.3 TranAD ✗ 80.4 99.9 99.2 89.2 Glow DNF ✗ 87.4 84.9 91.6 86.1 Base CNF F 87.5 98.8 98.4 92.8 FM F 88.2 98.9 98",
+      "evidence_context": "Table 2",
+      "method": "OmniAnomaly",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/fm_code_completion/sources/omnianomaly/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dfm:baseline:caem:4",
+      "paper_id": "dfm",
+      "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+      "pdf_page": 4,
+      "marker": "CAE-M",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "e best and the second best metrics, %. Model R P R AUC F1 OmniAnom. ✗ 81.3 94.2 98.9 87.3 CAE-M ✗ 81.9 95.7 99.0 88.3 TranAD ✗ 80.4 99.9 99.2 89.2 Glow DNF ✗ 87.4 84.9 91.6 86.1 Base CNF F 87.5 98.8 98.4 92.8 FM F 88.2 98.9 98.5 93.3 I-CFM F 88.0 99.2 98.",
+      "evidence_context": "Table 2",
+      "method": "CAE-M",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dfm:baseline:tranad:4",
+      "paper_id": "dfm",
+      "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+      "pdf_page": 4,
+      "marker": "TranAD",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "etrics, %. Model R P R AUC F1 OmniAnom. ✗ 81.3 94.2 98.9 87.3 CAE-M ✗ 81.9 95.7 99.0 88.3 TranAD ✗ 80.4 99.9 99.2 89.2 Glow DNF ✗ 87.4 84.9 91.6 86.1 Base CNF F 87.5 98.8 98.4 92.8 FM F 88.2 98.9 98.5 93.3 I-CFM F 88.0 99.2 98.6 93.3 DFM (ours) F 94.7 98.1",
+      "evidence_context": "Table 2",
+      "method": "TranAD",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/mtsad_protocol_audit/sources/tab/original/ts_benchmark/baselines/self_impl/TranAD/TranAD.py",
+        "src/iia_benchmark/models/mtsad_detectors.py",
+        "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original"
+      ],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_source_present_method_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ],
+      "candidate_provenance": [
+        {
+          "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original",
+          "role": "source_candidate",
+          "registry": "configs/acquisition/fm_tsad_baseline_sources_2026-10-08.json",
+          "repository": "imperial-qore/TranAD",
+          "commit": "7ffb98d0c18189cc3d9ab732b4cb0278200a0af0",
+          "identity_status": "author_repository_with_third_party_baselines",
+          "equivalence_status": "not_certified",
+          "runtime_status": "not_validated_by_inventory",
+          "boundary": "author_repository_with_third_party_baselines; source presence only, no runtime/equivalence acceptance"
+        }
+      ]
+    },
+    {
+      "record_id": "dfm:baseline:glowdnf:4",
+      "paper_id": "dfm",
+      "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+      "pdf_page": 4,
+      "marker": "Glow DNF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " OmniAnom. ✗ 81.3 94.2 98.9 87.3 CAE-M ✗ 81.9 95.7 99.0 88.3 TranAD ✗ 80.4 99.9 99.2 89.2 Glow DNF ✗ 87.4 84.9 91.6 86.1 Base CNF F 87.5 98.8 98.4 92.8 FM F 88.2 98.9 98.5 93.3 I-CFM F 88.0 99.2 98.6 93.3 DFM (ours) F 94.7 98.1 98.7 96.4 Base CNF V 86.5 91.9",
+      "evidence_context": "Table 2",
+      "method": "Glow DNF",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dfm:baseline:basecnf:4",
+      "paper_id": "dfm",
+      "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+      "pdf_page": 4,
+      "marker": "Base CNF",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "3 CAE-M ✗ 81.9 95.7 99.0 88.3 TranAD ✗ 80.4 99.9 99.2 89.2 Glow DNF ✗ 87.4 84.9 91.6 86.1 Base CNF F 87.5 98.8 98.4 92.8 FM F 88.2 98.9 98.5 93.3 I-CFM F 88.0 99.2 98.6 93.3 DFM (ours) F 94.7 98.1 98.7 96.4 Base CNF V 86.5 91.9 94.9 89.1 FM V 87.4 99.6 98.7 ",
+      "evidence_context": "Table 2",
+      "method": "Base CNF",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dfm:baseline:fm:4",
+      "paper_id": "dfm",
+      "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+      "pdf_page": 4,
+      "marker": "FM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": " be achieved by minimizing the cosine distance between two unit vectors as \\l abel { eq:d fm _loss} \\argmin \\nolimits _{\\ vtheta , \\vla mbda } \\m athc al {L}_\\textrm {DFM} := \\E _{t \\sim \\gU (0,1), \\vx _t \\sim \\hat {q}(\\vx _1), \\vy _t \\sim q(\\vx _0)~} ",
+      "evidence_context": "Table 2",
+      "method": "FM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [],
+      "model_configs": [],
+      "parent_method_code_paths": [],
+      "coverage": "explicit_paper_method_code_mapping_pending",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    },
+    {
+      "record_id": "dfm:baseline:icfm:4",
+      "paper_id": "dfm",
+      "primary_source_sha256": "05d2ed8aebd23c6377b22e04a372ffcf6c4f5cc45f64c3003c3587271f4da889",
+      "pdf_page": 4,
+      "marker": "I-CFM",
+      "marker_match": "literal_whitespace_normalized",
+      "evidence_snippet": "2 and the CNF trained using the CFM framework i.e., the FM from [Lipman et al., 2023] and I-CFM from [Tong et al., 2024]. All CNF models have exactly the same U-Net architecture [Ronneberger et al., 2015], learnable N(µ, σ2I) prior and identical evaluatio",
+      "evidence_context": "Table 2",
+      "method": "I-CFM",
+      "variant": null,
+      "variant_kind": null,
+      "role": "baseline",
+      "compared_baseline": true,
+      "matched_code_paths": [
+        "experiments/runs/flow_matching_campaign/sources/ot_cfm/original"
+      ],
+      "model_configs": [
+        "configs/models/fm_ot_cfm.json"
+      ],
+      "parent_method_code_paths": [],
+      "coverage": "candidate_code_present_paper_equivalence_unverified",
+      "remaining_review": [
+        "Verify data/metric/implementation identity before reproduction; this record certifies experimental mention only."
+      ]
+    }
+  ],
+  "all_methods_complete": false,
+  "all_ablations_complete": false,
+  "boundary": "Selected primary-page records and candidate source locators; not exhaustive experiment or runtime acceptance."
+}

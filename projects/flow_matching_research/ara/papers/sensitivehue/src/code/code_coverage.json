@@ -5,12 +5,50 @@
   "ara_artifact": "papers/sensitivehue/PAPER.md",
   "primary_source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
   "main_implementation": {
-    "status": "no_registered_main_implementation_located",
-    "note": "本地已登记资源未定位该篇主方法实现；全文和ARA描述不能代替代码。"
+    "status": "source_present_not_end_to_end_verified",
+    "note": "官方源码及CPU模型前后向已验证；Table4九行损失/结构变体已实现，论文公式与发布源码的均值缩放差异分开记录；完整训练及数值对齐待验收。"
   },
-  "source_resources": [],
-  "local_entrypoints": [],
-  "model_configs": [],
+  "source_resources": [
+    {
+      "id": "sensitivehue_completion",
+      "path": "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+      "repository": "yuesuoqingqiu/SensitiveHUE",
+      "commit": "a50047883ab22957ed7fd9c168a3bbcb8d836546",
+      "status": "local_code_files_present",
+      "code_tree_sha256": "28852ad45a0ea92b8423eaecf8c581587f571b6a149247bffe3fd0df2c800297"
+    }
+  ],
+  "local_entrypoints": [
+    {
+      "entrypoint": "iia_benchmark.models.fm_supplemental_author:load_sensitivehue",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    },
+    {
+      "entrypoint": "iia_benchmark.models.fm_supplemental_variants:SensitiveHUEAblation",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "top_level_symbol_found",
+      "boundary": "AST only; not a runtime import or end-to-end training test."
+    }
+  ],
+  "model_configs": [
+    "configs/models/fm_supplemental_sensitivehue.json",
+    "configs/models/fm_supplemental_sensitivehue__mse.json",
+    "configs/models/fm_supplemental_sensitivehue__nll.json",
+    "configs/models/fm_supplemental_sensitivehue__no_sfr.json",
+    "configs/models/fm_supplemental_sensitivehue__paper_sfr.json",
+    "configs/models/fm_supplemental_sensitivehue__table4_beta_nll_05.json",
+    "configs/models/fm_supplemental_sensitivehue__table4_beta_nll_1.json",
+    "configs/models/fm_supplemental_sensitivehue__table4_compression.json",
+    "configs/models/fm_supplemental_sensitivehue__table4_faithful.json",
+    "configs/models/fm_supplemental_sensitivehue__table4_mask.json",
+    "configs/models/fm_supplemental_sensitivehue__table4_natural.json",
+    "configs/models/fm_supplemental_sensitivehue__table4_nll.json",
+    "configs/models/fm_supplemental_sensitivehue__table4_revin.json"
+  ],
   "paper_ablations": {
     "source_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
     "ablation_page_candidates": [
@@ -70,7 +108,138 @@
     "boundary": "Selected axes and automatic navigation do not cover all appendix ablations or all baselines."
   },
   "ablation_code_candidates": [],
-  "selected_variant_code_locators": [],
+  "selected_variant_code_locators": [
+    {
+      "variant": "fm_supplemental_sensitivehue",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "load_sensitivehue"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__mse",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "load_sensitivehue"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__nll",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "load_sensitivehue"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__no_sfr",
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "markers": [
+        "load_sensitivehue"
+      ],
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__paper_sfr",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__table4_beta_nll_05",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__table4_beta_nll_1",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__table4_compression",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__table4_faithful",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__table4_mask",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__table4_natural",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__table4_nll",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    },
+    {
+      "variant": "fm_supplemental_sensitivehue__table4_revin",
+      "path": "src/iia_benchmark/models/fm_supplemental_variants.py",
+      "markers": [
+        "SensitiveHUEAblation"
+      ],
+      "sha256": "20560c790a495c826e2c21039a48101dc3d45e64be221cea9bb634b0c89d97a7",
+      "status": "selected_code_markers_present",
+      "boundary": "Selected source anchors only; not full paper-variant equivalence, dependency or execution acceptance."
+    }
+  ],
   "ablation_coverage_status": "not_fully_verified",
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",

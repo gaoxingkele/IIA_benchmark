@@ -6,4 +6,4 @@
 
 四层入口：`logic/problem.md`、`logic/claims.md`、`logic/experiments.md`、`evidence/source/source_manifest.json`、`src/code/implementation_mapping.json`、`trace/exploration_tree.yaml`。
 
-主要复现问题：须复核 latent amplification、阈值和点调整原算法；已注册本地实现不代表97%以上论文分数已复现。
+主要复现问题：MRH、双编码器、注意力熵、scaled-softmax及fit/score和显式消融已还原；未公开架构/归约/验证搜索细节待核。

@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "family": "mtsad",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_comparator_reconstructions:ComparatorWindowDetector",
+  "score_contract": "finite [B,T,C] preprocessed grouped windows -> [B,T] continuous scores; evaluator handles overlap/threshold/PA",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "benchmark_acceptance": "not_run; CPU behavioral checks do not establish paper performance",
+  "id": "fm_comparator_dt_la_l2_no_sparse",
+  "paper_id": "dt_la",
+  "reproduction_status": "paper_equations_implemented_architecture_choices_unverified",
+  "citation": "https://doi.org/10.1109/ACCESS.2025.3594473",
+  "anchors": {
+    "architecture": [
+      4,
+      5
+    ],
+    "MRH_Eq6": [
+      5
+    ],
+    "entropy_Eq9_total_Eq10": [
+      6
+    ],
+    "scaled_softmax_Eq14": [
+      7
+    ],
+    "ablations_Tables4_5_6": [
+      9,
+      10
+    ]
+  },
+  "ablations": {
+    "loss_sparse_cross_product": {
+      "latent_loss": [
+        "l2",
+        "mrh"
+      ],
+      "sparse_weight": [
+        0,
+        0.5
+      ]
+    },
+    "score_mode": [
+      "input",
+      "latent",
+      "softmax",
+      "scaled_softmax"
+    ],
+    "sparse_weight": [
+      0.1,
+      0.3,
+      0.5,
+      0.7,
+      1.0
+    ],
+    "delta": "supported positive parameter; validation-only grid not frozen in paper text"
+  },
+  "assumptions": [
+    "Paper defines attention map L x L but also calls it sensor attention; implement temporal token attention per Eq7/8.",
+    "Input and latent loss use squared channel sum then average batch/time. Entropy sums query/key axes and averages heads/layers/batch; paper does not fix these multihead reductions.",
+    "Secondary encoder has independent input embedding; exact embedding/position architecture unspecified.",
+    "delta=1.0 is a runnable placeholder, not a reported dataset optimum.",
+    "100 epochs configured; early stopping/validation search belong to runner and are not implemented in this detector.",
+    "Published MRH is discontinuous at delta when delta != 1; formula preserved, not silently smoothed."
+  ],
+  "variant_of": "fm_comparator_dt_la",
+  "parameters": {
+    "method": "dt_la",
+    "options": {
+      "d_model": 512,
+      "heads": 8,
+      "layers": 3,
+      "delta": 1.0,
+      "sparse_weight": 0,
+      "latent_loss": "l2",
+      "score_mode": "scaled_softmax"
+    },
+    "epochs": 100,
+    "batch_size": 256,
+    "learning_rate": 1e-05,
+    "seed": 1103,
+    "device": "cpu"
+  }
+}

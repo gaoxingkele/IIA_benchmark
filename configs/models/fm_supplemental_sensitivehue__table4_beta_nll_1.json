@@ -1,0 +1,52 @@
+{
+  "task": "multivariate_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_supplemental_variants:SensitiveHUEAblation",
+  "reproduction_status": "paper_formula_derived_table4_model_loss_and_reconstruction_variant",
+  "gaps": [
+    "Exact Table4 training scripts are not publicly included in author snapshot.",
+    "Formula SFR reconstructs directly via linear mean head Eq.15; released code additionally transforms reconstruction with statistics of its own output. Both versions are preserved and distinguished.",
+    "Full data/preprocessing/early stopping/three-seed experiment and TAB validation-fixed threshold reproduction are pending.",
+    "Natural variant uses referenced Gaussian natural heads without optional Laplace regularization; exact SensitiveHUE Table4 implementation is unpublished."
+  ],
+  "evidence_pages": [
+    1,
+    7,
+    8
+  ],
+  "schema_version": 1,
+  "id": "fm_supplemental_sensitivehue__table4_beta_nll_1",
+  "family": "flow_matching_research_code_completion",
+  "citation": "https://doi.org/10.1145/3637528.3671919",
+  "paper_primary_sha256": "2612f7b3ff912428123a889250c1987d6596f186e596bbdfff6c160e68ba4239",
+  "paper_score_status": "not_verified",
+  "benchmark_ready": false,
+  "all_paper_ablations_complete": false,
+  "author_repository": "https://github.com/yuesuoqingqiu/SensitiveHUE",
+  "author_commit": "a50047883ab22957ed7fd9c168a3bbcb8d836546",
+  "parameters": {
+    "source_root": "experiments/runs/fm_code_completion/sources/sensitivehue/original",
+    "step_num_in": 24,
+    "f_in": 51,
+    "dim_model": 128,
+    "head_num": 4,
+    "dim_hidden_fc": 256,
+    "encode_layer_num": 1,
+    "dropout": 0.1,
+    "strategy": "sfr",
+    "loss_mode": "beta_nll",
+    "alpha": 1,
+    "beta": 1,
+    "mask_ratio": 0.2
+  },
+  "source_equations": {
+    "sfr": "SensitiveHUE Eq.3 and Eq.15",
+    "beta_nll": "SensitiveHUE Eq.8",
+    "faithful": "https://proceedings.mlr.press/v206/stirn23a.html Eq.5",
+    "natural": "https://proceedings.mlr.press/v202/immer23a.html Sec.3.2 Eq.2"
+  },
+  "gap_note": "Exact unpublished Table4 implementation choices, training outcomes and benchmark threshold alignment are not verified.",
+  "loss_scale_note": "Formula variants use Gaussian 1/2 factor; released author loss omits that global factor. Author snapshot is retained separately.",
+  "variant_of": "fm_supplemental_sensitivehue",
+  "variant_id": "table4_beta_nll_1",
+  "call_contract": "Pass x [B,T,F] to model, then model.objective(x,predictions). Mask variant: create_mask(x), use the same explicit mask in forward and objective."
+}
