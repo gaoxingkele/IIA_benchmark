@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "fm_objective_sf2m_flow_only__stable_numerics_v2",
+  "task": "time_series_anomaly_detection",
+  "kind": "window",
+  "family": "flow_matching_objective_adapters",
+  "entrypoint": "iia_benchmark.models.fm_objective_stable:StableCFMObjectiveDetector",
+  "parameters": {
+    "objective": "sf2m",
+    "sigma": 1.0,
+    "window": 100,
+    "hidden_size": 128,
+    "epochs": 20,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "score_times": [
+      0.1,
+      0.3,
+      0.5,
+      0.7,
+      0.9
+    ],
+    "monte_carlo_samples": 4,
+    "score_weight": 0.0,
+    "seed": 1103
+  },
+  "citation": "https://arxiv.org/abs/2307.03672",
+  "source_repository": "atong01/conditional-flow-matching",
+  "source_commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+  "reproduction_status": "local_sf2m_flow_only_ablation_not_paper_performance",
+  "paper_score_status": "not_verified",
+  "deviations": [
+    "Shared MLP backbone and velocity-discrepancy TSAD score are local adaptation choices.",
+    "SciPy exact assignment/log-Sinkhorn replace POT numerical transport solvers.",
+    "Scoring uses independent pairs, not OT rematching or test-distribution calibration.",
+    "Scoring time grid, Monte Carlo seed and batching are frozen; no likelihood claim."
+  ],
+  "numerical_repair": {
+    "original_config": "configs/models/fm_objective_sf2m_flow_only.json",
+    "original_source": "src/iia_benchmark/models/fm_objective_detectors.py",
+    "failure": "Full PSM Sinkhorn marginal error exceeds 1e-6 after 2000 iterations",
+    "repair": "12-stage epsilon continuation and 20000 final iterations; unchanged final regularization, path, backbone, RNG, epochs and tolerance",
+    "checks": "tests/test_fm_objective_stable.py; 4 passed; small-problem objective/score equivalence and high-dimensional marginals verified",
+    "status": "corrected numerical implementation; separate full runs required"
+  }
+}

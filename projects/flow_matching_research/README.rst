@@ -109,4 +109,23 @@ ARA 参考文献工程
 ------------------
 
 完整指标表 <results/2026-10-08/README.md>_ 记录540个冻结任务、328条聚合指标、126条每折指标及论文来源。
-Excel下载 <results/2026-10-08/experiment_results.xlsx>_ 含全部记录及未完成项；当前异常检测正式成绩仍未建立。
+Excel下载 <results/2026-10-08/experiment_results.xlsx>_ 含该FM队列快照的全部记录及未完成项。
+
+完整未完成实验续跑
+----------------
+
+2026-10-09执行进度 <results/2026-10-09/README.md>_ 已冻结42个可训练窗口主方法/消融、7个完整数据集、5个种子，
+合计1470个基础实验；另登记105个不改变最终目标的SB/SF2M数值修复重跑。CPU续跑及修复队列已启动，
+GPU续跑等待现有插补队列完成。原论文、其他任务、工业异常检测、作者适配器和完整TAB指标仍是未完成义务。
+
+2026-10-08表未覆盖旧MTSAD目录的137份历史运行记录；不能据该表推断整个项目没有异常检测成绩。
+历史数值、协议和来源已补入2026-10-09报告，并与新验证集校准、无PA、完整时间点覆盖的本地严格轨分开。
+
+.. code-block:: powershell
+
+   python -m scripts.flow_matching.register_tsad_execution
+   python -m scripts.flow_matching.start_tsad_execution
+   python -m scripts.flow_matching.register_entropic_repair
+   python -m scripts.flow_matching.summarize_tsad_execution
+
+以上命令从benchmark根目录运行；已冻结输入和结果有哈希门禁，不覆盖原始数据或历史实验。
