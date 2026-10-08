@@ -1,11 +1,11 @@
 {
-  "captured_utc": "2026-10-08T22:55:00.167736+00:00",
+  "captured_utc": "2026-10-08T23:02:00.735486+00:00",
   "objective": "Run every known unfinished experiment in this research direction",
   "goal_achieved": false,
   "new_job_counts": {
-    "completed": 901,
-    "partial_or_failed": 196,
-    "pending": 2262,
+    "completed": 907,
+    "partial_or_failed": 195,
+    "pending": 2257,
     "running": 3
   },
   "new_registered_attempts_including_numerical_retries": 3362,
@@ -201559,8 +201559,10 @@
         ]
       },
       "kind": "strict",
-      "status": "not_completed",
-      "selection_policy": "Original completed attempt preferred; otherwise first valid completed recovery in registered queue order. No metric-based selection or extra independent seed."
+      "status": "completed",
+      "selection_policy": "Original completed attempt preferred; otherwise first valid completed recovery in registered queue order. No metric-based selection or extra independent seed.",
+      "result_path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2/result.json",
+      "result_sha256": "872213dad4d6b2e4c675688d747869901bddbd3460349887d3492406b7034872"
     },
     {
       "queue": "configs/experiments/fm_resource_recovery_queue.v3.json",
@@ -211490,7 +211492,7 @@
       "selection_policy": "Original completed attempt preferred; otherwise first valid completed recovery in registered queue order. No metric-based selection or extra independent seed."
     }
   ],
-  "strict_runs_resolved_from_recovery": 4,
+  "strict_runs_resolved_from_recovery": 5,
   "process_observations": [
     {
       "lane": "cpu",
@@ -211524,8 +211526,8 @@
       "state": "running",
       "queue_pid": 46056,
       "queue_process_verified_live": true,
-      "active_job": "fm_strict_anomaly_transformer__msl__registered__seed1103",
-      "active_pid": 46024,
+      "active_job": "fm_strict_dcdetector__msl__registered__seed1103",
+      "active_pid": 29984,
       "active_process_verified_live": true
     },
     {
@@ -240205,6 +240207,251 @@
       "score_seconds": 877.063000000082
     },
     {
+      "id": "fm_strict_timesnet__smap__registered__seed1105",
+      "dataset": "smap",
+      "model_config": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+      "seed": 1105,
+      "execution_id": "fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2",
+      "recovery_resolution": {
+        "queue": "configs/experiments/fm_resource_recovery_queue.v3.json",
+        "original_id": "fm_strict_timesnet__smap__registered__seed1105",
+        "original_job": {
+          "id": "fm_strict_timesnet__smap__registered__seed1105",
+          "dataset": "smap",
+          "seed": 1105,
+          "window": 100,
+          "model_config": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+          "dataset_manifest_path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+          "parameter_overrides": {
+            "seed": 1105,
+            "device": "cpu"
+          },
+          "output_directory": "experiments/runs/fm_strict_baseline_execution_v1/jobs/fm_strict_timesnet__smap__registered__seed1105",
+          "frozen_files": [
+            {
+              "path": "configs/experiments/fm_strict_baseline_execution.v1.json",
+              "sha256": "87adbf8e5a8f2b80a4868201951b88a0a3539d3f916d1fdb377f8fc0c6d45bb3"
+            },
+            {
+              "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+              "sha256": "a0105fdaabe762406544b9e006285972146fc190c19cc93a29d867f80c43bfa0"
+            },
+            {
+              "path": "scripts/flow_matching/run_tsad_experiment.py",
+              "sha256": "ff6d01a0cbb50156454564c386c37c806d2d58df1a5b26756608899ef7cbcd96"
+            },
+            {
+              "path": "scripts/flow_matching/prepare_tsad_execution.py",
+              "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+            },
+            {
+              "path": "scripts/flow_matching/model_registry.py",
+              "sha256": "b922822ed4013eebb9938b8e707b03eee503551da3142e77029c7dbc060692fc"
+            },
+            {
+              "path": "src/iia_benchmark/models/mtsad_detectors.py",
+              "sha256": "5ee2fea31587eb31bba91f1d2aa9f2a01a9ad66820651e93d9397cde7e4fa085"
+            },
+            {
+              "path": "src/iia_benchmark/models/fm_legacy_window_adapter.py",
+              "sha256": "0f353033a331268c1378c52da10d5656a109eed11966288d39e9049e149ce91d"
+            },
+            {
+              "path": "src/iia_benchmark/evaluation/mtsad_strict.py",
+              "sha256": "c2d9bffa3d6a9f444ae68e26bd0450e1f4ce5ff9974f3d27540010914f82e7ec"
+            },
+            {
+              "path": "src/iia_benchmark/evaluation/mtsad_metrics.py",
+              "sha256": "5c65f924a059966d734a23da79a12cc36396ae0b2158f392c9b9c90ef7116aae"
+            },
+            {
+              "path": "configs/models/mtsad_timesnet.json",
+              "sha256": "d80dc9199b8a71336ff03a8e41835e07114ce84db43846980da5657b316a3d03"
+            },
+            {
+              "path": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+              "sha256": "873179e950bf40a22da7a24f380fdb7a88df234c585185a0e249c7ecb4dc8857"
+            },
+            {
+              "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/smap.npz",
+              "sha256": "ceeacd8f5948046ce1349fae9504876fdab9061898337e212e8080f092ab7cba"
+            }
+          ]
+        },
+        "recovery_job": {
+          "id": "fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2",
+          "dataset": "smap",
+          "seed": 1105,
+          "window": 100,
+          "model_config": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+          "dataset_manifest_path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+          "parameter_overrides": {
+            "seed": 1105,
+            "device": "cpu"
+          },
+          "output_directory": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2",
+          "frozen_files": [
+            {
+              "path": "configs/experiments/fm_strict_baseline_execution.v1.json",
+              "sha256": "87adbf8e5a8f2b80a4868201951b88a0a3539d3f916d1fdb377f8fc0c6d45bb3"
+            },
+            {
+              "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+              "sha256": "a0105fdaabe762406544b9e006285972146fc190c19cc93a29d867f80c43bfa0"
+            },
+            {
+              "path": "scripts/flow_matching/run_tsad_experiment.py",
+              "sha256": "ff6d01a0cbb50156454564c386c37c806d2d58df1a5b26756608899ef7cbcd96"
+            },
+            {
+              "path": "scripts/flow_matching/prepare_tsad_execution.py",
+              "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+            },
+            {
+              "path": "scripts/flow_matching/model_registry.py",
+              "sha256": "b922822ed4013eebb9938b8e707b03eee503551da3142e77029c7dbc060692fc"
+            },
+            {
+              "path": "src/iia_benchmark/models/mtsad_detectors.py",
+              "sha256": "5ee2fea31587eb31bba91f1d2aa9f2a01a9ad66820651e93d9397cde7e4fa085"
+            },
+            {
+              "path": "src/iia_benchmark/models/fm_legacy_window_adapter.py",
+              "sha256": "0f353033a331268c1378c52da10d5656a109eed11966288d39e9049e149ce91d"
+            },
+            {
+              "path": "src/iia_benchmark/evaluation/mtsad_strict.py",
+              "sha256": "c2d9bffa3d6a9f444ae68e26bd0450e1f4ce5ff9974f3d27540010914f82e7ec"
+            },
+            {
+              "path": "src/iia_benchmark/evaluation/mtsad_metrics.py",
+              "sha256": "5c65f924a059966d734a23da79a12cc36396ae0b2158f392c9b9c90ef7116aae"
+            },
+            {
+              "path": "configs/models/mtsad_timesnet.json",
+              "sha256": "d80dc9199b8a71336ff03a8e41835e07114ce84db43846980da5657b316a3d03"
+            },
+            {
+              "path": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+              "sha256": "873179e950bf40a22da7a24f380fdb7a88df234c585185a0e249c7ecb4dc8857"
+            },
+            {
+              "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/smap.npz",
+              "sha256": "ceeacd8f5948046ce1349fae9504876fdab9061898337e212e8080f092ab7cba"
+            }
+          ]
+        },
+        "kind": "strict",
+        "status": "completed",
+        "selection_policy": "Original completed attempt preferred; otherwise first valid completed recovery in registered queue order. No metric-based selection or extra independent seed.",
+        "result_path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2/result.json",
+        "result_sha256": "872213dad4d6b2e4c675688d747869901bddbd3460349887d3492406b7034872"
+      },
+      "result_path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2/result.json",
+      "result_sha256": "872213dad4d6b2e4c675688d747869901bddbd3460349887d3492406b7034872",
+      "scores_sha256": "bc3dde297708f059668bc8eed3dd60224c67558e963e26ab2752eecf94649dc4",
+      "checkpoint_sha256": "8f87ae274b26d8d264f856dfe022b6099df12d4b45c0acdd9d3819fdfacf9a52",
+      "metrics": {
+        "precision": 0.07377130400317083,
+        "recall": 0.029042891415865336,
+        "f1": 0.04167774621079592,
+        "true_positives": 1489.0,
+        "false_positives": 18695.0,
+        "false_negatives": 49780.0,
+        "auroc": 0.41001234962662625,
+        "average_precision": 0.10458096277395496
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.015303267383279674,
+        "high": 0.09824144548179134,
+        "resamples": 200,
+        "seed": 11105,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 10737423.0,
+            "f_score": 0.006082913599380084,
+            "adjust_f_score": 0.00839783281733746
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 10737418.0,
+            "f_score": 0.006006006006006006,
+            "adjust_f_score": 0.008291778911369672
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 10737418.0,
+            "f_score": 0.006006006006006006,
+            "adjust_f_score": 0.008291778911369672
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 10737418.0,
+            "f_score": 0.006006006006006006,
+            "adjust_f_score": 0.008291778911369672
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 10737418.0,
+            "f_score": 0.006006006006006006,
+            "adjust_f_score": 0.008291778911369672
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 2.770203018188475,
+            "f_score": 0.04667096566177656,
+            "adjust_f_score": 0.6685530617290734
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.35307244658470244,
+            "f_score": 0.08215476662770874,
+            "adjust_f_score": 0.587640751093634
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 0.16348428726196276,
+            "f_score": 0.1031458225405956,
+            "adjust_f_score": 0.5200320568660929
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 0.0849201247096062,
+            "f_score": 0.1210565991761024,
+            "adjust_f_score": 0.4819873025247305
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 0.04598970338702202,
+            "f_score": 0.13124608474282592,
+            "adjust_f_score": 0.4535964220522465
+          }
+        ],
+        "best_grid_f_score": 0.13124608474282592,
+        "best_grid_adjust_f_score": 0.6685530617290734,
+        "auc_roc": 0.41001234962662625,
+        "auc_pr": 0.10458096277395496,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 1363.530999999959,
+      "score_seconds": 850.905999999959
+    },
+    {
       "id": "fm_strict_timesnet__smap__registered__seed1106",
       "dataset": "smap",
       "model_config": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
@@ -243755,6 +244002,561 @@
       "paper_equivalence": false,
       "training_seconds": 3.719000000040978,
       "score_seconds": 3.25
+    },
+    {
+      "id": "fm_strict_anomaly_transformer__msl__registered__seed1103",
+      "dataset": "msl",
+      "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
+      "seed": 1103,
+      "execution_id": "fm_strict_anomaly_transformer__msl__registered__seed1103",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_strict_baseline_execution_v1/jobs/fm_strict_anomaly_transformer__msl__registered__seed1103/result.json",
+      "result_sha256": "9ef12c8094a4659a8a202592e8735ddc9f75f9d76ba3e50d0e3a26a0bf1825c0",
+      "scores_sha256": "832c2b570e0d76fdbca369393d25331f91aea2d49e341ba6566d5b80b5ba89df",
+      "checkpoint_sha256": "fd21babecbe9e9d3cc6badc187c982c118b3de088733df46098110f9c4a7f1e6",
+      "metrics": {
+        "precision": 0.061748195669607056,
+        "recall": 0.010194624652455977,
+        "f1": 0.017499999999999998,
+        "true_positives": 77.0,
+        "false_positives": 1170.0,
+        "false_negatives": 7476.0,
+        "auroc": 0.5552485984659837,
+        "average_precision": 0.11442314655901054
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.011410207371295594,
+        "high": 0.02350686270995089,
+        "resamples": 200,
+        "seed": 11103,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 24.76522478866848,
+            "f_score": 0.0018293479681170783,
+            "adjust_f_score": 0.14214554732110313
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 0.6047592914104465,
+            "f_score": 0.007764558547276143,
+            "adjust_f_score": 0.5437568656169901
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 0.33142568349838325,
+            "f_score": 0.010139118132515916,
+            "adjust_f_score": 0.6390904692791485
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 0.06025689166039135,
+            "f_score": 0.03108695652173913,
+            "adjust_f_score": 0.88590934251799
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 0.025042164400219846,
+            "f_score": 0.046695766927215505,
+            "adjust_f_score": 0.8643767705382437
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 0.008127967640757513,
+            "f_score": 0.06455617628801988,
+            "adjust_f_score": 0.8097289632982493
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.001104850671254102,
+            "f_score": 0.09165186500888099,
+            "adjust_f_score": 0.7119976982833031
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 4.4064867506675616e-05,
+            "f_score": 0.10142358927448403,
+            "adjust_f_score": 0.6214454730374859
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 1.2687938344413514e-08,
+            "f_score": 0.10690487687107676,
+            "adjust_f_score": 0.5545642235658458
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 1.0777412169220854e-15,
+            "f_score": 0.12824278022515906,
+            "adjust_f_score": 0.49429058931618325
+          }
+        ],
+        "best_grid_f_score": 0.12824278022515906,
+        "best_grid_adjust_f_score": 0.88590934251799,
+        "auc_roc": 0.5552485984659837,
+        "auc_pr": 0.11442314655901054,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 56.54700000002049,
+      "score_seconds": 15.264999999897555
+    },
+    {
+      "id": "fm_strict_anomaly_transformer__msl__registered__seed1104",
+      "dataset": "msl",
+      "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
+      "seed": 1104,
+      "execution_id": "fm_strict_anomaly_transformer__msl__registered__seed1104",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_strict_baseline_execution_v1/jobs/fm_strict_anomaly_transformer__msl__registered__seed1104/result.json",
+      "result_sha256": "70656bcf0d2b6cb9cbcd6b04c670a4913d7e0087b88ea485bc91016f6456fbfb",
+      "scores_sha256": "2ebfdf0d008e883d0470cb1cb9912584677cc181aba0e8d3932e8f2b8fc8d857",
+      "checkpoint_sha256": "1fb860dcbeb947196b486c77ccbe48c8bcc6e4a1d2d0c106d6c4e6e2374be2bb",
+      "metrics": {
+        "precision": 0.058694057226705794,
+        "recall": 0.010591817820733483,
+        "f1": 0.017945266935845673,
+        "true_positives": 80.0,
+        "false_positives": 1283.0,
+        "false_negatives": 7473.0,
+        "auroc": 0.4427204237838303,
+        "average_precision": 0.08999013621455622
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.014154620446295924,
+        "high": 0.022653556258649864,
+        "resamples": 200,
+        "seed": 11104,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 13.7924831686023,
+            "f_score": 0.0018274376713222817,
+            "adjust_f_score": 0.14852443154329947
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 0.6239831086993218,
+            "f_score": 0.005283018867924529,
+            "adjust_f_score": 0.6518745218056619
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 0.47688517600298036,
+            "f_score": 0.009920869257115862,
+            "adjust_f_score": 0.823570481044474
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 0.12691027104854533,
+            "f_score": 0.02617348042396712,
+            "adjust_f_score": 0.869268897149938
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 0.03453285407274945,
+            "f_score": 0.03671945929587411,
+            "adjust_f_score": 0.8420301065032427
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 0.008249107329174787,
+            "f_score": 0.05507039743361255,
+            "adjust_f_score": 0.8104425550468717
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.0008681140374392277,
+            "f_score": 0.05876451196789451,
+            "adjust_f_score": 0.7104022851701977
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 4.5286585191206195e-06,
+            "f_score": 0.0761397824577644,
+            "adjust_f_score": 0.6195042969236517
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 6.306867916805471e-09,
+            "f_score": 0.0970288502942443,
+            "adjust_f_score": 0.5456340500219395
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 4.219830561369431e-11,
+            "f_score": 0.10778394255874674,
+            "adjust_f_score": 0.4868197833746575
+          }
+        ],
+        "best_grid_f_score": 0.10778394255874674,
+        "best_grid_adjust_f_score": 0.869268897149938,
+        "auc_roc": 0.4427204237838303,
+        "auc_pr": 0.08999013621455622,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 53.765000000130385,
+      "score_seconds": 14.687999999849126
+    },
+    {
+      "id": "fm_strict_anomaly_transformer__msl__registered__seed1105",
+      "dataset": "msl",
+      "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
+      "seed": 1105,
+      "execution_id": "fm_strict_anomaly_transformer__msl__registered__seed1105",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_strict_baseline_execution_v1/jobs/fm_strict_anomaly_transformer__msl__registered__seed1105/result.json",
+      "result_sha256": "021266ebbf02068a080d1b79cfd18a6ca8ffb0fdaad8844d23e6f00e9f60073c",
+      "scores_sha256": "ccebc8da74a3db2d024e293a4aeb235883b807323898a8a741297dcf8b0ab616",
+      "checkpoint_sha256": "76c5469fd35a6e31538828b32ce807530bfe895fcd965e6b4bde39ea3ac68cb8",
+      "metrics": {
+        "precision": 0.07666442501681238,
+        "recall": 0.015093340394545214,
+        "f1": 0.0252212389380531,
+        "true_positives": 114.0,
+        "false_positives": 1373.0,
+        "false_negatives": 7439.0,
+        "auroc": 0.45423450218730926,
+        "average_precision": 0.09414114723957437
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.019730988955613784,
+        "high": 0.03064526949462884,
+        "resamples": 200,
+        "seed": 11105,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 20.19412112618082,
+            "f_score": 0.0018283923207522527,
+            "adjust_f_score": 0.2103169961398994
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 1.6413432574272189,
+            "f_score": 0.012316199572703279,
+            "adjust_f_score": 0.819877630204447
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 0.6350249040126813,
+            "f_score": 0.017434917602101745,
+            "adjust_f_score": 0.8864444295392045
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 0.05433459267020223,
+            "f_score": 0.02762192490289167,
+            "adjust_f_score": 0.8801764273462386
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 0.010628364635631419,
+            "f_score": 0.04071043703851527,
+            "adjust_f_score": 0.8532383344040181
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 0.0042115473421290486,
+            "f_score": 0.04590334314914256,
+            "adjust_f_score": 0.7860755407295813
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.0019958868157118666,
+            "f_score": 0.05108502312344362,
+            "adjust_f_score": 0.6956811580400933
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 0.0001540347278933039,
+            "f_score": 0.07609699769053116,
+            "adjust_f_score": 0.6096136192939998
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 1.0742122569240787e-08,
+            "f_score": 0.09481537444517897,
+            "adjust_f_score": 0.5344520722095093
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 2.6062296445321723e-13,
+            "f_score": 0.13059626981908223,
+            "adjust_f_score": 0.4783329540652125
+          }
+        ],
+        "best_grid_f_score": 0.13059626981908223,
+        "best_grid_adjust_f_score": 0.8864444295392045,
+        "auc_roc": 0.45423450218730926,
+        "auc_pr": 0.09414114723957437,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 54.375,
+      "score_seconds": 14.155999999959022
+    },
+    {
+      "id": "fm_strict_anomaly_transformer__msl__registered__seed1106",
+      "dataset": "msl",
+      "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
+      "seed": 1106,
+      "execution_id": "fm_strict_anomaly_transformer__msl__registered__seed1106",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_strict_baseline_execution_v1/jobs/fm_strict_anomaly_transformer__msl__registered__seed1106/result.json",
+      "result_sha256": "be69a302885560684bbfa096b983760610f904189333944594176163db01160e",
+      "scores_sha256": "dd02ad23298b410886423896b494c30a1abb1df65e5b77ffca42a1d1225626e8",
+      "checkpoint_sha256": "3921f8b8792221eca823e98a3d4a18609d6633c5e3d59af87cddb7962c373591",
+      "metrics": {
+        "precision": 0.07401924500370097,
+        "recall": 0.013239772275916854,
+        "f1": 0.022461814914645103,
+        "true_positives": 100.0,
+        "false_positives": 1251.0,
+        "false_negatives": 7453.0,
+        "auroc": 0.47595930276641374,
+        "average_precision": 0.09582646257889685
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.017154459594075758,
+        "high": 0.028005879914196237,
+        "resamples": 200,
+        "seed": 11106,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 28.42387345314965,
+            "f_score": 0.0015686274509803923,
+            "adjust_f_score": 0.2252147666589273
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 0.6250751978158964,
+            "f_score": 0.007464543418760886,
+            "adjust_f_score": 0.6409843020789139
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 0.25853970825672246,
+            "f_score": 0.011482132396016404,
+            "adjust_f_score": 0.8155488868727755
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 0.06121304959058703,
+            "f_score": 0.03049307958477509,
+            "adjust_f_score": 0.8855849241311797
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 0.02772723473608482,
+            "f_score": 0.040853290400482994,
+            "adjust_f_score": 0.8528164034880981
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 0.010716199735179515,
+            "f_score": 0.06374643874643873,
+            "adjust_f_score": 0.8058423017790467
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.002951097209006548,
+            "f_score": 0.08439951933272072,
+            "adjust_f_score": 0.7026043661432401
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 0.000772419455461203,
+            "f_score": 0.08932564434506297,
+            "adjust_f_score": 0.6225766767064014
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 0.00014917199150659154,
+            "f_score": 0.09484495552607007,
+            "adjust_f_score": 0.5492103884439787
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 2.245513269372168e-05,
+            "f_score": 0.10264648685211802,
+            "adjust_f_score": 0.49774058577405855
+          }
+        ],
+        "best_grid_f_score": 0.10264648685211802,
+        "best_grid_adjust_f_score": 0.8855849241311797,
+        "auc_roc": 0.47595930276641374,
+        "auc_pr": 0.09582646257889685,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 53.78099999995902,
+      "score_seconds": 13.984000000171363
+    },
+    {
+      "id": "fm_strict_anomaly_transformer__msl__registered__seed1107",
+      "dataset": "msl",
+      "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
+      "seed": 1107,
+      "execution_id": "fm_strict_anomaly_transformer__msl__registered__seed1107",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_strict_baseline_execution_v1/jobs/fm_strict_anomaly_transformer__msl__registered__seed1107/result.json",
+      "result_sha256": "465423b5f0ccb8083268d0bf0243433d8e3c42fa4b41bb9832646338b352a87f",
+      "scores_sha256": "51ff78cbf271df3277b50b7e4a5e6ffd06435570c4222cd85d588e442c28c01f",
+      "checkpoint_sha256": "de79598522912bfc71b9a927ae1ffa47b7f78a5d56453192be09f38a46565c44",
+      "metrics": {
+        "precision": 0.06890756302521009,
+        "recall": 0.01085661326625182,
+        "f1": 0.018757863433604027,
+        "true_positives": 82.0,
+        "false_positives": 1108.0,
+        "false_negatives": 7471.0,
+        "auroc": 0.5693444863635373,
+        "average_precision": 0.12136643740956221
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.013360641990461598,
+        "high": 0.0249068391615015,
+        "resamples": 200,
+        "seed": 11107,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 28.059649356842833,
+            "f_score": 0.0015671934177876453,
+            "adjust_f_score": 0.10712518555170707
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 1.6312727767229491,
+            "f_score": 0.008582607598132022,
+            "adjust_f_score": 0.6773409338586638
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 0.4902994039654747,
+            "f_score": 0.014072748956469887,
+            "adjust_f_score": 0.7921079355868272
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 0.06347449064254619,
+            "f_score": 0.031181857828172697,
+            "adjust_f_score": 0.8976925894274204
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 0.016017512232065184,
+            "f_score": 0.048874859993890636,
+            "adjust_f_score": 0.8751394188435574
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 0.004041845677420488,
+            "f_score": 0.06819193447876792,
+            "adjust_f_score": 0.8144667832167832
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.0002088587702019143,
+            "f_score": 0.10382667416994935,
+            "adjust_f_score": 0.7147284604014684
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 1.0782904200823384e-05,
+            "f_score": 0.13034929447143187,
+            "adjust_f_score": 0.6335587489433643
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 8.031934271457447e-07,
+            "f_score": 0.159687112467805,
+            "adjust_f_score": 0.5607281408534766
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 7.017989389623835e-08,
+            "f_score": 0.18122402872473473,
+            "adjust_f_score": 0.5001164454203679
+          }
+        ],
+        "best_grid_f_score": 0.18122402872473473,
+        "best_grid_adjust_f_score": 0.8976925894274204,
+        "auc_roc": 0.5693444863635373,
+        "auc_pr": 0.12136643740956221,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 53.14100000006147,
+      "score_seconds": 14.078999999910593
     },
     {
       "id": "fm_reflow_2stage__psm__seed1103",
@@ -317281,68 +318083,68 @@
       "required_seeds": 5,
       "metrics": {
         "precision": {
-          "n": 4,
-          "mean": 0.06843279317307309,
-          "std": 0.0024847285974774866,
-          "se": 0.0012423642987387433,
-          "ci95_low": 0.0644790355007356,
-          "ci95_high": 0.07238655084541058
+          "n": 5,
+          "mean": 0.06950049533909264,
+          "std": 0.003214085675422485,
+          "se": 0.0014373828111506003,
+          "ci95_low": 0.0655096808687781,
+          "ci95_high": 0.07349130980940717
         },
         "recall": {
-          "n": 4,
-          "mean": 0.026521874817140963,
-          "std": 0.0011346877653859795,
-          "se": 0.0005673438826929898,
-          "ci95_low": 0.024716333373839345,
-          "ci95_high": 0.028327416260442582
+          "n": 5,
+          "mean": 0.027026078136885838,
+          "std": 0.0014955741980578006,
+          "se": 0.0006688411144503952,
+          "ci95_low": 0.025169077498515,
+          "ci95_high": 0.028883078775256674
         },
         "f1": {
-          "n": 4,
-          "mean": 0.038227719500909876,
-          "std": 0.0015647722255253498,
-          "se": 0.0007823861127626749,
-          "ci95_low": 0.03573781770704302,
-          "ci95_high": 0.04071762129477673
+          "n": 5,
+          "mean": 0.03891772484288708,
+          "std": 0.0020535142921628497,
+          "se": 0.0009183595100086991,
+          "ci95_low": 0.036367950076511585,
+          "ci95_high": 0.041467499609262576
         },
         "true_positives": {
-          "n": 4,
-          "mean": 1359.75,
-          "std": 58.1743070435738,
-          "se": 29.0871535217869,
-          "ci95_low": 1267.1816957433693,
-          "ci95_high": 1452.3183042566307
+          "n": 5,
+          "mean": 1385.6,
+          "std": 76.6765935602254,
+          "se": 34.29081509675732,
+          "ci95_low": 1290.3934342713655,
+          "ci95_high": 1480.8065657286343
         },
         "false_positives": {
-          "n": 4,
-          "mean": 18506.75,
-          "std": 103.17420543268878,
-          "se": 51.58710271634439,
-          "ci95_low": 18342.576815560078,
-          "ci95_high": 18670.923184439922
+          "n": 5,
+          "mean": 18544.4,
+          "std": 122.76522308862555,
+          "se": 54.90227681981868,
+          "ci95_low": 18391.9668422594,
+          "ci95_high": 18696.833157740602
         },
         "false_negatives": {
-          "n": 4,
-          "mean": 49909.25,
-          "std": 58.1743070435738,
-          "se": 29.0871535217869,
-          "ci95_low": 49816.68169574337,
-          "ci95_high": 50001.81830425663
+          "n": 5,
+          "mean": 49883.4,
+          "std": 76.6765935602254,
+          "se": 34.29081509675732,
+          "ci95_low": 49788.193434271365,
+          "ci95_high": 49978.60656572864
         },
         "auroc": {
-          "n": 4,
-          "mean": 0.41155500437269554,
-          "std": 0.0015714535665417168,
-          "se": 0.0007857267832708584,
-          "ci95_low": 0.40905447107431275,
-          "ci95_high": 0.41405553767107833
+          "n": 5,
+          "mean": 0.4112464734234817,
+          "std": 0.0015257969940203524,
+          "se": 0.0006823571596988696,
+          "ci95_low": 0.4093519462274391,
+          "ci95_high": 0.4131410006195243
         },
         "average_precision": {
-          "n": 4,
-          "mean": 0.10449656745009062,
-          "std": 0.0004784477046656044,
-          "se": 0.0002392238523328022,
-          "ci95_low": 0.10373525038509836,
-          "ci95_high": 0.10525788451508288
+          "n": 5,
+          "mean": 0.10451344651486348,
+          "std": 0.00041606329892562307,
+          "se": 0.00018606916386810167,
+          "ci95_low": 0.10399683569561365,
+          "ci95_high": 0.10503005733411332
         }
       },
       "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
@@ -317775,6 +318577,78 @@
           "se": 0.0005757722892032676,
           "ci95_low": 0.1345196464504318,
           "ci95_high": 0.13771684675856566
+        }
+      },
+      "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
+    },
+    {
+      "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
+      "dataset": "msl",
+      "required_seeds": 5,
+      "metrics": {
+        "precision": {
+          "n": 5,
+          "mean": 0.06800669718840725,
+          "std": 0.007710587622791073,
+          "se": 0.0034482796142058687,
+          "ci95_low": 0.05843273813219203,
+          "ci95_high": 0.07758065624462247
+        },
+        "recall": {
+          "n": 5,
+          "mean": 0.011995233681980669,
+          "std": 0.0021009144986264146,
+          "se": 0.0009395575267687103,
+          "ci95_low": 0.009386603785731938,
+          "ci95_high": 0.0146038635782294
+        },
+        "f1": {
+          "n": 5,
+          "mean": 0.020377236844429582,
+          "std": 0.0033401033574105912,
+          "se": 0.0014937396318090714,
+          "ci95_low": 0.016229950755253332,
+          "ci95_high": 0.02452452293360583
+        },
+        "true_positives": {
+          "n": 5,
+          "mean": 90.6,
+          "std": 15.868207208125309,
+          "se": 7.096477999684068,
+          "ci95_low": 70.89701839363333,
+          "ci95_high": 110.30298160636666
+        },
+        "false_positives": {
+          "n": 5,
+          "mean": 1237.0,
+          "std": 102.39384747141793,
+          "se": 45.791920684767085,
+          "ci95_low": 1109.8612459571727,
+          "ci95_high": 1364.1387540428273
+        },
+        "false_negatives": {
+          "n": 5,
+          "mean": 7462.4,
+          "std": 15.868207208125309,
+          "se": 7.096477999684068,
+          "ci95_low": 7442.697018393633,
+          "ci95_high": 7482.1029816063665
+        },
+        "auroc": {
+          "n": 5,
+          "mean": 0.4995014627134149,
+          "std": 0.058764803431501596,
+          "se": 0.026280419031450095,
+          "ci95_low": 0.42653532193099836,
+          "ci95_high": 0.5724676034958315
+        },
+        "average_precision": {
+          "n": 5,
+          "mean": 0.10314946600032003,
+          "std": 0.01384646224745162,
+          "se": 0.006192326166637267,
+          "ci95_low": 0.08595681232517177,
+          "ci95_high": 0.12034211967546829
         }
       },
       "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
@@ -343195,9 +344069,143 @@
       "model_config": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
       "seed": 1105,
       "lane": "strict_baselines",
-      "status": "partial_or_failed",
+      "status": "completed",
       "original_attempt_status": "partial_or_failed",
-      "recovery_resolution": null
+      "recovery_resolution": {
+        "queue": "configs/experiments/fm_resource_recovery_queue.v3.json",
+        "original_id": "fm_strict_timesnet__smap__registered__seed1105",
+        "original_job": {
+          "id": "fm_strict_timesnet__smap__registered__seed1105",
+          "dataset": "smap",
+          "seed": 1105,
+          "window": 100,
+          "model_config": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+          "dataset_manifest_path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+          "parameter_overrides": {
+            "seed": 1105,
+            "device": "cpu"
+          },
+          "output_directory": "experiments/runs/fm_strict_baseline_execution_v1/jobs/fm_strict_timesnet__smap__registered__seed1105",
+          "frozen_files": [
+            {
+              "path": "configs/experiments/fm_strict_baseline_execution.v1.json",
+              "sha256": "87adbf8e5a8f2b80a4868201951b88a0a3539d3f916d1fdb377f8fc0c6d45bb3"
+            },
+            {
+              "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+              "sha256": "a0105fdaabe762406544b9e006285972146fc190c19cc93a29d867f80c43bfa0"
+            },
+            {
+              "path": "scripts/flow_matching/run_tsad_experiment.py",
+              "sha256": "ff6d01a0cbb50156454564c386c37c806d2d58df1a5b26756608899ef7cbcd96"
+            },
+            {
+              "path": "scripts/flow_matching/prepare_tsad_execution.py",
+              "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+            },
+            {
+              "path": "scripts/flow_matching/model_registry.py",
+              "sha256": "b922822ed4013eebb9938b8e707b03eee503551da3142e77029c7dbc060692fc"
+            },
+            {
+              "path": "src/iia_benchmark/models/mtsad_detectors.py",
+              "sha256": "5ee2fea31587eb31bba91f1d2aa9f2a01a9ad66820651e93d9397cde7e4fa085"
+            },
+            {
+              "path": "src/iia_benchmark/models/fm_legacy_window_adapter.py",
+              "sha256": "0f353033a331268c1378c52da10d5656a109eed11966288d39e9049e149ce91d"
+            },
+            {
+              "path": "src/iia_benchmark/evaluation/mtsad_strict.py",
+              "sha256": "c2d9bffa3d6a9f444ae68e26bd0450e1f4ce5ff9974f3d27540010914f82e7ec"
+            },
+            {
+              "path": "src/iia_benchmark/evaluation/mtsad_metrics.py",
+              "sha256": "5c65f924a059966d734a23da79a12cc36396ae0b2158f392c9b9c90ef7116aae"
+            },
+            {
+              "path": "configs/models/mtsad_timesnet.json",
+              "sha256": "d80dc9199b8a71336ff03a8e41835e07114ce84db43846980da5657b316a3d03"
+            },
+            {
+              "path": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+              "sha256": "873179e950bf40a22da7a24f380fdb7a88df234c585185a0e249c7ecb4dc8857"
+            },
+            {
+              "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/smap.npz",
+              "sha256": "ceeacd8f5948046ce1349fae9504876fdab9061898337e212e8080f092ab7cba"
+            }
+          ]
+        },
+        "recovery_job": {
+          "id": "fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2",
+          "dataset": "smap",
+          "seed": 1105,
+          "window": 100,
+          "model_config": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+          "dataset_manifest_path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+          "parameter_overrides": {
+            "seed": 1105,
+            "device": "cpu"
+          },
+          "output_directory": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2",
+          "frozen_files": [
+            {
+              "path": "configs/experiments/fm_strict_baseline_execution.v1.json",
+              "sha256": "87adbf8e5a8f2b80a4868201951b88a0a3539d3f916d1fdb377f8fc0c6d45bb3"
+            },
+            {
+              "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+              "sha256": "a0105fdaabe762406544b9e006285972146fc190c19cc93a29d867f80c43bfa0"
+            },
+            {
+              "path": "scripts/flow_matching/run_tsad_experiment.py",
+              "sha256": "ff6d01a0cbb50156454564c386c37c806d2d58df1a5b26756608899ef7cbcd96"
+            },
+            {
+              "path": "scripts/flow_matching/prepare_tsad_execution.py",
+              "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+            },
+            {
+              "path": "scripts/flow_matching/model_registry.py",
+              "sha256": "b922822ed4013eebb9938b8e707b03eee503551da3142e77029c7dbc060692fc"
+            },
+            {
+              "path": "src/iia_benchmark/models/mtsad_detectors.py",
+              "sha256": "5ee2fea31587eb31bba91f1d2aa9f2a01a9ad66820651e93d9397cde7e4fa085"
+            },
+            {
+              "path": "src/iia_benchmark/models/fm_legacy_window_adapter.py",
+              "sha256": "0f353033a331268c1378c52da10d5656a109eed11966288d39e9049e149ce91d"
+            },
+            {
+              "path": "src/iia_benchmark/evaluation/mtsad_strict.py",
+              "sha256": "c2d9bffa3d6a9f444ae68e26bd0450e1f4ce5ff9974f3d27540010914f82e7ec"
+            },
+            {
+              "path": "src/iia_benchmark/evaluation/mtsad_metrics.py",
+              "sha256": "5c65f924a059966d734a23da79a12cc36396ae0b2158f392c9b9c90ef7116aae"
+            },
+            {
+              "path": "configs/models/mtsad_timesnet.json",
+              "sha256": "d80dc9199b8a71336ff03a8e41835e07114ce84db43846980da5657b316a3d03"
+            },
+            {
+              "path": "configs/models/fm_strict_baselines/fm_strict_timesnet__smap__registered.json",
+              "sha256": "873179e950bf40a22da7a24f380fdb7a88df234c585185a0e249c7ecb4dc8857"
+            },
+            {
+              "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/smap.npz",
+              "sha256": "ceeacd8f5948046ce1349fae9504876fdab9061898337e212e8080f092ab7cba"
+            }
+          ]
+        },
+        "kind": "strict",
+        "status": "completed",
+        "selection_policy": "Original completed attempt preferred; otherwise first valid completed recovery in registered queue order. No metric-based selection or extra independent seed.",
+        "result_path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2/result.json",
+        "result_sha256": "872213dad4d6b2e4c675688d747869901bddbd3460349887d3492406b7034872"
+      }
     },
     {
       "id": "fm_strict_timesnet__smap__registered__seed1106",
@@ -343575,8 +344583,8 @@
       "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
       "seed": 1103,
       "lane": "strict_baselines",
-      "status": "running",
-      "original_attempt_status": "running",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -343585,8 +344593,8 @@
       "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
       "seed": 1104,
       "lane": "strict_baselines",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -343595,8 +344603,8 @@
       "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
       "seed": 1105,
       "lane": "strict_baselines",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -343605,8 +344613,8 @@
       "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
       "seed": 1106,
       "lane": "strict_baselines",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -343615,8 +344623,8 @@
       "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__msl__registered.json",
       "seed": 1107,
       "lane": "strict_baselines",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -343625,8 +344633,8 @@
       "model_config": "configs/models/fm_strict_baselines/fm_strict_dcdetector__msl__registered.json",
       "seed": 1103,
       "lane": "strict_baselines",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "running",
+      "original_attempt_status": "running",
       "recovery_resolution": null
     },
     {
