@@ -99,12 +99,14 @@ def main():
         if sha(source) != record['result_sha256']:
             raise ValueError(f"Result changed: {source}")
         result = read(source)
-        common = {'run_id': record['id'], 'algorithm_config': Path(record['model_config']).stem,
+        common = {'run_id': record['id'], 'source_execution_id':record.get('execution_id',record['id']),
+                  'recovered_original_attempt':record.get('recovery_resolution') is not None,
+                  'algorithm_config': Path(record['model_config']).stem,
                   'dataset': record['dataset'].upper(), 'seed': record['seed'],
                   'result_path': record['result_path'], 'result_sha256': record['result_sha256'],
                   'checkpoint_sha256': record['checkpoint_sha256'], 'scores_sha256': record['scores_sha256']}
         sources.append({'path': record['result_path'], 'sha256': record['result_sha256']})
-        range_record = ranges.get(record['id'])
+        range_record = ranges.get(record.get('execution_id',record['id']))
         if range_record:
             rp = ROOT / range_record['evaluation_path']
             if sha(rp) != range_record['evaluation_sha256']:

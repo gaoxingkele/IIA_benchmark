@@ -81,7 +81,8 @@ def _one_range_snapshot(root, project, path):
         process = psutil.Process(state.get('pid', -1))
         process_live = light_worker_matches(process, path, root) or any(any(worker in argument for worker in (
             'run_tab_ranges_when_ready.py', 'run_tab_ranges_for_config.py',
-            'scripts.flow_matching.run_tab_ranges_sparse_queue')) for argument in process.cmdline())
+            'scripts.flow_matching.run_tab_ranges_sparse_queue',
+            'scripts.flow_matching.run_recovery_tab_ranges')) for argument in process.cmdline())
     except (psutil.NoSuchProcess, psutil.AccessDenied):
         pass
     return {'completed_evaluations': len(records), 'records': records, 'seed_aggregates': aggregates,
@@ -90,23 +91,39 @@ def _one_range_snapshot(root, project, path):
             'boundary': 'Pinned TAB metric evaluators, not full TAB model training harness.'}
 
 
-def range_snapshot(root, project):
+def range_snapshot(root, project, execution_ids=None):
     paths = [project['tab_range_execution_config']] if project.get('tab_range_execution_config') else []
     paths += project.get('additional_tab_range_execution_configs', [])
     snapshots = [_one_range_snapshot(root, project, path) for path in paths]
     records = [r for snapshot in snapshots for r in snapshot['records']]
     if len({r['id'] for r in records}) != len(records):
         raise ValueError('Duplicate range evaluation runs across configurations')
+    groups = defaultdict(lambda: defaultdict(list))
+    selected = [r for r in records if execution_ids is None or r['id'] in execution_ids]
+    identities = set()
+    for record in selected:
+        identity = (record['model_config'], record['dataset'], record['seed'])
+        if identity in identities:
+            raise ValueError('Same model-dataset seed counted twice in selected range results')
+        identities.add(identity)
+        metrics = {**record['VUS_entity_macro'], **record['strict_affiliation_entity_macro']['1']}
+        for key, value in metrics.items():
+            if value['mean_over_defined_entities'] is not None:
+                groups[(record['model_config'], record['dataset'])][key].append(value['mean_over_defined_entities'])
+    aggregates = [{'model_config':model,'dataset':dataset,'metrics':{k:intervals(v) for k,v in metrics.items()},
+                   'boundary':'One selected execution per original seed; original complete preferred, recovered attempts substitute failures, never add repeats. Defined entity macro semantics retained.'}
+                  for (model,dataset),metrics in groups.items()]
     return {'completed_evaluations': len(records), 'records': records,
-            'seed_aggregates': [g for snapshot in snapshots for g in snapshot['seed_aggregates']],
+            'selected_evaluations':len(selected), 'seed_aggregates': aggregates,
             'process_observation': snapshots[0]['process_observation'] if snapshots else {},
             'additional_process_observations': [s['process_observation'] for s in snapshots[1:]],
             'full_psm_reference_differential': project.get('tab_range_differential_report'),
             'boundary': 'Pinned TAB metric evaluators, not full TAB model training harness.'}
 
 
-def author_pipeline_snapshot(root, project):
+def author_pipeline_snapshot(root, project, recovery_attempts=()):
     from scripts.flow_matching.run_maelnet_author_queue import verify_artifacts
+    from scripts.flow_matching.recovery_results import resolve
     snapshots = []
     for name, queue_path in project.get('author_execution_queues', {}).items():
         queue = json.loads((root / queue_path).read_text(encoding='utf-8'))
@@ -127,9 +144,17 @@ def author_pipeline_snapshot(root, project):
             output = root / job['output_directory']
             result = output / 'result.json'
             row = {key: job[key] for key in ['id', 'dataset', 'seed', 'author_recipe', 'output_directory']}
+            recovered = resolve(job, recovery_attempts) if not result.exists() else None
+            if recovered:
+                row['original_output_directory'] = row['output_directory']
+                row['output_directory'] = recovered['recovery_job']['output_directory']
+                row['recovery_resolution'] = recovered
+                output = root / row['output_directory']
+                result = root / recovered['result_path']
             if result.exists():
                 receipt = json.loads(result.read_text(encoding='utf-8'))
-                if receipt['experiment_sha256'] != hashlib.sha256(json.dumps(job, sort_keys=True).encode()).hexdigest():
+                source_job = recovered['recovery_job'] if recovered else job
+                if receipt['experiment_sha256'] != hashlib.sha256(json.dumps(source_job, sort_keys=True).encode()).hexdigest():
                     raise ValueError('Author result belongs to another job')
                 verify_artifacts(receipt, root)
                 row.update(status='completed', result_path=result.relative_to(root).as_posix(), result_sha256=sha(result), metrics=receipt['metrics'])
@@ -152,11 +177,13 @@ def author_pipeline_snapshot(root, project):
 
 
 def snapshot(root):
+    from scripts.flow_matching.recovery_results import resolve, verified_attempts
     settings = json.loads((root / 'configs/experiments/fm_tsad_execution.v1.json').read_text(encoding='utf-8'))
     base = root / settings['output_root']
     completed, jobs, live = [], [], []
     aggregates = defaultdict(lambda: defaultdict(list))
     project = json.loads((root / 'configs/projects/flow_matching_research.v1.json').read_text(encoding='utf-8'))
+    recovery_attempts = verified_attempts(root, project.get('resource_recovery_queues', []))
     queue_paths = list(settings['queue_paths'].items()) + list(project.get('additional_execution_queues', {}).items())
     queue_paths += [('industrial_' + lane, path) for lane, path in project.get('industrial_execution_queues', {}).items()]
     for lane, queue_path in queue_paths:
@@ -179,12 +206,20 @@ def snapshot(root):
             output = root / job['output_directory']
             done = complete_result(root, job)
             status = 'completed' if done else 'running' if process and state.get('active_job') == job['id'] and psutil.pid_exists(state.get('active_pid', -1)) else 'partial_or_failed' if output.exists() else 'pending'
-            jobs.append({'id': job['id'], 'dataset': job['dataset'], 'model_config': job['model_config'], 'seed': job['seed'], 'lane': lane, 'status': status})
+            original_status = status
+            recovered = resolve(job, recovery_attempts) if not done and status != 'running' else None
+            if recovered:
+                done, status = True, 'completed'
+                output = root / recovered['recovery_job']['output_directory']
+            jobs.append({'id': job['id'], 'dataset': job['dataset'], 'model_config': job['model_config'], 'seed': job['seed'], 'lane': lane, 'status': status,
+                         'original_attempt_status':original_status,'recovery_resolution':recovered})
             if done:
                 result_path = output / 'result.json'
                 result = json.loads(result_path.read_text(encoding='utf-8'))
                 strict = result['metrics']['strict'][str(settings['evaluation']['primary_false_alarm_percent'])]
                 record = {'id': job['id'], 'dataset': job['dataset'], 'model_config': job['model_config'], 'seed': job['seed'],
+                          'execution_id': recovered['recovery_job']['id'] if recovered else job['id'],
+                          'recovery_resolution': recovered,
                           'result_path': result_path.relative_to(root).as_posix(), 'result_sha256': sha(result_path),
                           'scores_sha256': result['scores_sha256'], 'checkpoint_sha256': result['checkpoint_sha256'],
                           'metrics': strict['micro'], 'block_or_cluster_f1_ci95': strict['f1_ci95'],
@@ -217,7 +252,7 @@ def snapshot(root):
                'model_configs': paper['model_configs'], 'remaining_original_reproduction_gap': paper['reproduction_gap'],
                'status': 'all_original_experiments_not_proven_complete',
                'known_method_records': sum(r['paper_id'] == paper['id'] for r in inventory['records'])} for paper in ara['papers']]
-    ranges = range_snapshot(root, project)
+    ranges = range_snapshot(root, project, {r['execution_id'] for r in completed})
     report = {'captured_utc': datetime.now(timezone.utc).isoformat(), 'objective': 'Run every known unfinished experiment in this research direction',
               'goal_achieved': False, 'new_job_counts': dict(Counter(j['status'] for j in jobs)),
               'new_registered_attempts_including_numerical_retries': len(jobs),
@@ -228,7 +263,9 @@ def snapshot(root):
               'industrial_registered_jobs': sum(j['lane'].startswith('industrial_') for j in jobs),
               'industrial_job_counts': dict(Counter(j['status'] for j in jobs if j['lane'].startswith('industrial_'))),
               'tab_range_evaluations': ranges,
-              'author_pipeline_experiments': author_pipeline_snapshot(root, project),
+              'author_pipeline_experiments': author_pipeline_snapshot(root, project, recovery_attempts),
+              'resource_recovery_attempts': recovery_attempts,
+              'strict_runs_resolved_from_recovery':sum(r['recovery_resolution'] is not None for r in completed),
               'process_observations': live, 'completed_new_runs': completed, 'seed_aggregates': grouped,
               'new_jobs': jobs, 'legacy_mtsad_records': history, 'legacy_record_count': len(history),
               'original_paper_scope': papers, 'known_method_inventory_records': len(inventory['records']),

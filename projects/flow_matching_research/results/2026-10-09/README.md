@@ -1,15 +1,15 @@
 # 未完成实验执行进度
 
-快照时间：2026-10-08T22:06:24.685388+00:00。目标仍为全部已知未完成实验；尚未完成。
+快照时间：2026-10-08T22:32:16.893261+00:00。目标仍为全部已知未完成实验；尚未完成。
 
 42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。
 另加入 175 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。
 另加入 140 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。
-独立作者/镜像完整流程：maelnet 150个任务、600个阶段，{'failed_or_partial_preserved': 2, 'running': 1, 'pending': 147}；pi_transformer_historical_mirror 1140个任务、2280个阶段，{'failed_or_partial_preserved': 3, 'running': 1, 'pending': 1136}；crossad_complete 139个任务、556个阶段，{'completed': 2, 'failed_or_partial_preserved': 1, 'pending': 136}。原协议单列，不计入严格无PA成绩。
-另有工业异常检测任务 1400 项，状态 {'completed': 414, 'partial_or_failed': 87, 'running': 1, 'pending': 898}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
+独立作者/镜像完整流程：maelnet 150个任务、600个阶段，{'failed_or_partial_preserved': 2, 'running': 1, 'pending': 147}；pi_transformer_historical_mirror 1140个任务、2280个阶段，{'failed_or_partial_preserved': 3, 'running': 1, 'pending': 1136}；crossad_complete 139个任务、556个阶段，{'completed': 2, 'failed_or_partial_preserved': 2, 'pending': 135}。原协议单列，不计入严格无PA成绩。
+另有工业异常检测任务 1400 项，状态 {'completed': 466, 'partial_or_failed': 84, 'pending': 850}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
 保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。
 关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。
-当前任务记录：{'completed': 821, 'partial_or_failed': 194, 'pending': 2343, 'running': 4}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
+当前任务记录：{'completed': 878, 'partial_or_failed': 191, 'pending': 2290, 'running': 3}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
 
 CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。
 
@@ -62,7 +62,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_sf2m_flow_only_stable_v2 | smap | 5/5 | 0.233867 | 0.540958 | 0.147982 |
 | fm_objective_sb_stable_v2 | msl | 5/5 | 0.076244 | 0.534781 | 0.113941 |
 | fm_objective_sf2m_stable_v2 | msl | 5/5 | 0.075694 | 0.533194 | 0.115100 |
-| fm_objective_sf2m_flow_only_stable_v2 | msl | 3/5 | 0.076258 | 0.534397 | 0.113644 |
+| fm_objective_sf2m_flow_only_stable_v2 | msl | 5/5 | 0.076244 | 0.534781 | 0.113941 |
 | fm_strict_timesnet__psm__registered | psm | 5/5 | 0.053941 | 0.598985 | 0.396761 |
 | fm_strict_anomaly_transformer__psm__registered | psm | 5/5 | 0.014575 | 0.513439 | 0.295091 |
 | fm_strict_dcdetector__psm__registered | psm | 5/5 | 0.017267 | 0.501093 | 0.278458 |
@@ -72,7 +72,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_itransformer__psm__registered | psm | 5/5 | 0.048369 | 0.593232 | 0.385533 |
 | fm_strict_timesnet__smap__registered | smap | 4/5 | 0.038228 | 0.411555 | 0.104497 |
 | fm_strict_anomaly_transformer__smap__registered | smap | 5/5 | 0.040822 | 0.547435 | 0.144792 |
-| fm_strict_dcdetector__smap__registered | smap | 1/5 | 0.010629 | 0.548624 | 0.135395 |
+| fm_strict_dcdetector__smap__registered | smap | 3/5 | 0.009428 | 0.556029 | 0.137133 |
 | fm_reflow_2stage | psm | 5/5 | 0.029949 | 0.725765 | 0.552078 |
 | fm_reflow_2stage | smap | 5/5 | 0.230333 | 0.547532 | 0.148794 |
 | fm_reflow_2stage | msl | 5/5 | 0.075546 | 0.539035 | 0.117010 |
@@ -99,7 +99,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_rectified_60epoch_budget_control | msl | 5/5 | 0.072324 | 0.543456 | 0.114749 |
 | fm_rectified_60epoch_budget_control | smd | 5/5 | 0.413955 | 0.774513 | 0.341945 |
 | fm_rectified_60epoch_budget_control | swat | 5/5 | 0.287477 | 0.821908 | 0.723513 |
-| fm_rectified_60epoch_budget_control | swan | 4/5 | 0.558538 | 0.806859 | 0.675088 |
+| fm_rectified_60epoch_budget_control | swan | 5/5 | 0.558325 | 0.806741 | 0.675242 |
 | fm_rectified_60epoch_budget_control | cicids | 4/5 | 0.048355 | 0.615679 | 0.392124 |
 | fm_moment_pretrained_small__release512 | psm | 1/1 | 0.036639 | 0.555556 | 0.337271 |
 | fm_moment_pretrained_small__release512 | smap | 1/1 | 0.105609 | 0.454654 | 0.126343 |
@@ -139,8 +139,8 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_rectified_40epoch_budget_control | skab | 5/5 | 0.507581 | 0.624892 | 0.527667 |
 | fm_rectified_60epoch_budget_control | skab | 5/5 | 0.507144 | 0.619909 | 0.521104 |
 | fm_strict_timesnet__psm__registered | skab | 5/5 | 0.198290 | 0.554765 | 0.430283 |
-| fm_strict_anomaly_transformer__psm__registered | skab | 4/5 | 0.019385 | 0.426752 | 0.319806 |
-| fm_strict_dcdetector__psm__registered | skab | 3/5 | 0.023938 | 0.472241 | 0.338007 |
+| fm_strict_anomaly_transformer__psm__registered | skab | 5/5 | 0.019442 | 0.427430 | 0.320380 |
+| fm_strict_dcdetector__psm__registered | skab | 5/5 | 0.022592 | 0.472803 | 0.338942 |
 | fm_strict_tranad__psm__registered | skab | 5/5 | 0.509802 | 0.677208 | 0.637654 |
 | fm_strict_usad__psm__registered | skab | 5/5 | 0.516005 | 0.674037 | 0.633656 |
 | fm_strict_itransformer__psm__registered | skab | 5/5 | 0.195811 | 0.555937 | 0.431904 |
@@ -192,7 +192,16 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_sf2m_stable_v2 | pronto_day3 | 4/5 | 0.178907 | 0.393857 | 0.733293 |
 | fm_objective_sf2m_flow_only_stable_v2 | pronto_day3 | 4/5 | 0.173649 | 0.396407 | 0.733941 |
 | fm_reflow_2stage | pronto_day3 | 5/5 | 0.174145 | 0.385813 | 0.729001 |
-| fm_reflow_3stage | pronto_day3 | 1/5 | 0.134896 | 0.393738 | 0.730980 |
+| fm_reflow_3stage | pronto_day3 | 5/5 | 0.130011 | 0.385244 | 0.728009 |
+| fm_rectified_40epoch_budget_control | pronto_day3 | 5/5 | 0.203669 | 0.426199 | 0.741105 |
+| fm_rectified_60epoch_budget_control | pronto_day3 | 5/5 | 0.199669 | 0.441464 | 0.745232 |
+| fm_strict_timesnet__psm__registered | pronto_day3 | 5/5 | 0.039603 | 0.315425 | 0.703740 |
+| fm_strict_anomaly_transformer__psm__registered | pronto_day3 | 5/5 | 0.013840 | 0.566628 | 0.813593 |
+| fm_strict_dcdetector__psm__registered | pronto_day3 | 5/5 | 0.021622 | 0.598332 | 0.828335 |
+| fm_strict_tranad__psm__registered | pronto_day3 | 5/5 | 0.234463 | 0.395507 | 0.735216 |
+| fm_strict_usad__psm__registered | pronto_day3 | 5/5 | 0.252246 | 0.354380 | 0.724316 |
+| fm_strict_itransformer__psm__registered | pronto_day3 | 5/5 | 0.035969 | 0.341709 | 0.714053 |
+| fm_strict_usad__psm__signed_paper_loss | pronto_day3 | 5/5 | 0.071241 | 0.338023 | 0.706692 |
 
 逐种子结果、标准误/种子区间、时间块或实体区间、检查点及分数哈希均保存在 [execution_snapshot.json](execution_snapshot.json)。单种子块区间不替代跨算法配对检验。
 
@@ -200,10 +209,11 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 
 ## 已补算的固定版本 TAB 范围指标
 
-已核验 617 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
+已核验 625 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
 
 | 模型配置 | 数据集 | VUS 已完成种子 | VUS ROC 均值 | VUS PR 均值 | 严格阈值 Affiliation F 均值 |
 |---|---|---:|---:|---:|---:|
+| fm_objective_independent | cicids | 1 | 0.695999 | 0.342319 | 0.346026 |
 | fm_objective_independent | msl | 5 | 0.705197 | 0.278498 | 0.725564 |
 | fm_objective_independent | psm | 5 | 0.698167 | 0.501818 | 0.585950 |
 | fm_objective_independent | smap | 5 | 0.690551 | 0.294041 | 0.537718 |
@@ -239,7 +249,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_anomaly_transformer__psm__registered | psm | 5 | 0.432373 | 0.291488 | 0.635304 |
 | fm_strict_dcdetector__psm__registered | psm | 2 | 0.439577 | 0.280859 | 0.642914 |
 | fm_strict_timesnet__psm__registered | psm | 5 | 0.597688 | 0.398548 | 0.767881 |
-| fm_reflow_2stage | cicids | 2 | 0.698541 | 0.345371 | 0.347460 |
+| fm_reflow_2stage | cicids | 4 | 0.697292 | 0.345104 | 0.348105 |
 | fm_reflow_2stage | msl | 5 | 0.700867 | 0.285871 | 0.732293 |
 | fm_reflow_2stage | psm | 5 | 0.685073 | 0.497841 | 0.547103 |
 | fm_reflow_2stage | smap | 5 | 0.692927 | 0.291242 | 0.535977 |
@@ -295,6 +305,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_rectified_60epoch_budget_control | skab | 5 | 0.774063 | 0.706324 | 0.775239 |
 | fm_rectified_60epoch_budget_control | tep_classic | 5 | 0.976417 | 0.995317 | 0.941918 |
 | fm_reflow_2stage | pronto_day2 | 5 | 0.977087 | 0.998712 | 0.554312 |
+| fm_reflow_2stage | pronto_day3 | 5 | 0.904377 | 0.970878 | 0.653527 |
 | fm_reflow_2stage | pronto_day4 | 5 | 0.611032 | 0.595473 | 0.390340 |
 | fm_reflow_2stage | skab | 5 | 0.803590 | 0.745465 | 0.774031 |
 | fm_reflow_2stage | tep_classic | 5 | 0.976223 | 0.995191 | 0.939546 |
