@@ -194,6 +194,7 @@ def main():
             continue
         lines.append(f"| {r['algorithm_config']} | {r['dataset']} | {r['completed_seeds']}/{r['required_seeds']} | {fmt(r['precision_mean'])} | {fmt(r['recall_mean'])} | {fmt(r['f1_mean'])} | {fmt(r['auroc_mean'])} | {fmt(r['average_precision_mean'])} | {fmt(r['VUS_ROC_mean'])} ({r['VUS_ROC_n'] or 0}) | {fmt(r['VUS_PR_mean'])} | {fmt(r['affiliation_f_mean'])} ({r['affiliation_f_n'] or 0}) |")
     lines += ['', '各指标可能由不同数量的已完成种子产生，范围指标种子数必须一起读取；不混合缺失值为零。独立 CFM 与单阶段 Rectified 在这里 sigma=0 时等价。迭代 reflow 独立列行，其完整队列尚未全部完成。', '',
+              '工业数据的边界：TEP为经典单工况整运行；SKAB校准实验包含原生异常，1%只表示验证分数尾部分位数；PRONTO训练/校准的正常段选择使用标签，三个整日轮换相关。PSM基线超参数直接迁移，未做目标数据调优。工业结果不是原论文等效复现。', '',
               '## 插补实验已有结果', '', '| 算法 | 数据集 | 缺失率 | 掩码/协议 | 指标 | 均值 | SE | 完成/预定折或种子 | 论文值 | 比较状态 |',
               '|---|---|---:|---|---|---:|---:|---:|---:|---|']
     for r in imputation['formal_results']:

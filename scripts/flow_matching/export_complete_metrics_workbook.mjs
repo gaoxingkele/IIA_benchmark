@@ -40,7 +40,7 @@ const mainHeaders=['算法配置','数据集','完成种子数','预定种子数
 for(const s of stats)mainHeaders.push(s+' STD',s+' SE',s+' CI95下界',s+' CI95上界');
 mainHeaders.push('协议','模型配置文件','作者等价已证明');
 add('严格结果','算法—数据集严格异常检测结果',
- '验证段1%阈值，无PA。缺失值留空。非重叠窗口训练预算未与作者stride=1对齐。',mainHeaders,
+ '验证分数1%尾部阈值，无PA。缺失留空。窗口预算未与作者stride=1对齐；PRONTO正常段选择使用标签，SKAB校准含异常。',mainHeaders,
  summary.map(r=>[r.algorithm_config,r.dataset,r.completed_seeds,r.required_seeds,...stats.map(s=>r[s+'_mean']),r.VUS_ROC_mean,r.VUS_PR_mean,r.affiliation_f_mean,r.VUS_ROC_n,r.affiliation_f_n,r.status,r.running,r.partial_or_failed,r.pending,
  ...stats.flatMap(s=>['std','se','ci95_low','ci95_high'].map(t=>r[s+'_'+t])),r.protocol,r.model_config,false]),
  [5,6,7,8,9,10,11,12,...Array.from({length:20},(_,i)=>i+19)],{A:55,B:14,C:16,D:16,E:20,F:20,G:20,H:20,I:20,J:20,K:20,L:24,O:25,AN:65});
