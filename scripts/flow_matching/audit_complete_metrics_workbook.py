@@ -97,6 +97,15 @@ with zipfile.ZipFile(target / 'complete_experiment_metrics.xlsx') as archive:
                                 ('D', 'seed'), ('E', 'metric_path'), ('F', 'value'),
                                 ('G', 'run_id'), ('H', 'result_path'), ('I', 'result_sha256')]:
                 equal(sheet_index, f'{column}{i}', row[key])
+    native_jobs = data.get('additional_native_paper_jobs', [])
+    if native_jobs:
+        sheet_index = next(i for i, s in enumerate(manifest['sheets']) if s['name'] == '原生流匹配状态')
+        for i, row in enumerate(native_jobs, 6):
+            for column, key in [('A', 'algorithm'), ('B', 'dataset'), ('C', 'track'),
+                                ('D', 'recipe'), ('E', 'seed'), ('F', 'status'), ('G', 'metrics'),
+                                ('H', 'id'), ('I', 'queue'), ('J', 'queue_sha256'),
+                                ('K', 'output_directory'), ('L', 'result_sha256')]:
+                equal(sheet_index, f'{column}{i}', row.get(key))
     assert len(tables) == len(manifest['sheets'])
     assert all(ET.fromstring(archive.read(p)).find('m:autoFilter', ns) is not None for p in tables)
 validation = json.loads((target / 'validation.json').read_text(encoding='utf-8'))

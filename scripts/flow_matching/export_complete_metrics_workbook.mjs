@@ -91,6 +91,12 @@ if(data.author_pipeline_numeric_metrics?.length){
  data.author_pipeline_numeric_metrics.map(r=>[r.algorithm,r.author_recipe,r.dataset,r.seed,r.metric_path,r.value,r.run_id,r.result_path,r.result_sha256]),
  [6],{A:23,B:28,C:16,D:12,E:80,F:23,G:90,H:130,I:75});
 }
+if(data.additional_native_paper_jobs?.length){
+ add('原生流匹配状态','原生流匹配方法与消融的完整任务状态','完整运行通过来源及产物核验才显示指标。集成检查不计入正式结果。',
+ ['算法','数据集','协议轨道','主方法/消融','种子','状态','技术指标','任务ID','队列配置','队列SHA256','输出来源','结果SHA256'],
+ data.additional_native_paper_jobs.map(r=>[r.algorithm,r.dataset,r.track,r.recipe,r.seed,r.status,r.metrics,r.id,r.queue,r.queue_sha256,r.output_directory,r.result_sha256]),
+ [],{A:20,B:15,C:28,D:32,E:12,F:30,G:85,H:105,I:95,J:75,K:130,L:75});
+}
 workbook.recalculate();
 console.log((await workbook.inspect({kind:'table',range:'严格结果!A5:N10',include:'values,formulas',tableMaxRows:6,tableMaxCols:14,maxChars:1800})).ndjson);
 console.log((await workbook.inspect({kind:'match',searchTerm:'#REF!|#DIV/0!|#VALUE!|#NAME\\?|#NUM!|#NULL!|#SPILL!|#CALC!',options:{useRegex:true,maxResults:30},maxChars:1200})).ndjson);

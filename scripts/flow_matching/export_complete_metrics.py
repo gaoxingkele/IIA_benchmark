@@ -150,6 +150,31 @@ def main():
                             'record_id': record['path'], 'protocol': protocol,
                             'parameters': json.dumps(record['parameters'], ensure_ascii=False), **metrics,
                             'source_sha256': record['sha256'], 'status': record['status']})
+    native_jobs = []
+    for algorithm, queue_path in settings.get('additional_native_paper_queues', {}).items():
+        if algorithm != 'giflow':
+            raise ValueError(f'No result verifier registered for native queue: {algorithm}')
+        from scripts.flow_matching.giflow_native_protocol import complete, verify
+        queue = read(ROOT / queue_path)
+        verify(queue, ROOT)
+        queue_sha = sha(ROOT / queue_path)
+        sources.append({'path': queue_path, 'sha256': queue_sha})
+        for job in queue['jobs']:
+            output = ROOT / job['output_directory']
+            completed = complete(job, ROOT)
+            result_path = output / 'result.json'
+            record = read(result_path) if completed else None
+            status = ('completed' if completed else 'partial_or_failed_preserved'
+                      if output.exists() else 'pending')
+            native_jobs.append({'algorithm': algorithm, 'dataset': job['dataset'],
+                                'track': job['track'], 'recipe': job['recipe'], 'seed': job['seed'],
+                                'status': status, 'id': job['id'], 'queue': queue_path,
+                                'queue_sha256': queue_sha, 'output_directory': job['output_directory'],
+                                'metrics': record.get('metrics') if record else None,
+                                'result_sha256': sha(result_path) if record else None,
+                                'strict_TAB_result': False})
+            if record:
+                sources.append({'path': result_path.relative_to(ROOT).as_posix(), 'sha256': sha(result_path)})
     report = {'captured_utc': datetime.now(timezone.utc).isoformat(), 'tsad_capture_utc': snapshot['captured_utc'],
               'summary': {'registered_tsad_attempts': len(snapshot['new_jobs']), 'tsad_counts': snapshot['new_job_counts'],
                           'tsad_model_dataset_groups': len(summary), 'complete_tsad_runs': len(snapshot['completed_new_runs']),
@@ -162,6 +187,7 @@ def main():
               'imputation': imputation, 'tsad_jobs': snapshot['new_jobs'], 'sources': sources,
               'author_pipeline_tracks': author_tracks, 'author_pipeline_jobs': author_jobs,
               'author_pipeline_numeric_metrics': author_leaves,
+              'additional_native_paper_jobs': native_jobs,
               'paper_scope': snapshot['original_paper_scope'], 'remaining_obligations': snapshot['other_remaining_obligations'],
               'boundary': 'Complete registered-source snapshot, not proof all papers/ablations executed or all paper tables transcribed. Strict point F1, PA F1, affiliation F, VUS and imputation errors are separate. Nonoverlapping training differs from stride=1 author budgets.'}
     (target / 'complete_results.json').write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n', encoding='utf-8')
@@ -173,6 +199,8 @@ def main():
                'paper_claims': imputation['author_claims'], 'original_dataset_scope': imputation['original_dataset_scope']}
     exports['author_pipeline_jobs'] = author_jobs
     exports['author_pipeline_numeric_metrics'] = author_leaves
+    if native_jobs:
+        exports['additional_native_paper_jobs'] = native_jobs
     for name, rows in exports.items():
         flat = [{k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v for k, v in row.items()} for row in rows]
         headers = list(dict.fromkeys(k for r in flat for k in r))
@@ -213,6 +241,10 @@ def main():
         stream.write('逐项配方、数据集、种子和阶段状态见 author_pipeline_jobs.csv；尚无完整流程指标时保留空值，不计入严格成绩。\n')
         if author_leaves:
             stream.write('\n已完成作者流程的全部数值字段见 [作者流程技术指标](author_pipeline_numeric_metrics.csv)，作者协议与附加验证阈值对照均保留原字段路径，分别解释。\n')
+        if native_jobs:
+            stream.write('\n## 新登记的原生流匹配实验\n\n')
+            stream.write(f"GiFlow 另登记 {len(native_jobs)} 个作者镜像/已审修正实验，状态 {dict(Counter(j['status'] for j in native_jobs))}。")
+            stream.write('逐项方法、消融、数据集、种子和状态见 [原生实验清单](additional_native_paper_jobs.csv)。正式完整运行才列指标；集成检查不计入。\n')
     validation = {'captured_utc': report['captured_utc'], 'checks': {
         'tsad_job_accounting': sum(snapshot['new_job_counts'].values()) == len(snapshot['new_jobs']),
         'all_registered_tsad_groups_present': sum(r['required_seeds'] for r in summary) == len(snapshot['new_jobs']),
@@ -223,6 +255,9 @@ def main():
         'author_pipeline_jobs_all_accounted_for': len(author_jobs) == sum(t['registered_jobs'] for t in author_tracks),
         'author_pipeline_not_promoted_to_strict_results': all(not j['strict_TAB_result'] for j in author_jobs),
         'imputation_jobs_all_accounted_for': len(imputation['jobs']) == 540,
+        'native_paper_jobs_all_accounted_for': len(native_jobs) == sum(
+            len(read(ROOT / path)['jobs']) for path in settings.get('additional_native_paper_queues', {}).values()),
+        'pending_native_metrics_remain_blank': all(j['metrics'] is None for j in native_jobs if j['status'] != 'completed'),
         'paper_claims_not_promoted_to_local_results': all(r['local_value'] is None for r in imputation['author_claims'])},
         'csv_row_counts': {name: len(rows) for name, rows in exports.items()},
         'source_count': len(sources), 'outputs': {p.name: sha(p) for p in target.iterdir() if p.is_file() and p.name != 'validation.json'}}
