@@ -1,0 +1,3197 @@
+{
+  "jobs": [
+    {
+      "original_queue": "configs/experiments/fm_crossad_complete_queue.v7.json",
+      "original_queue_sha256": "ee661402cf82d4ecc6ab0ddf99923b92b28edbaac291c8e6c1ffb2d7b0563921",
+      "original_id": "crossad_author__release_checkpoint__psm__seed2025",
+      "original_job": {
+        "id": "crossad_author__release_checkpoint__psm__seed2025",
+        "dataset": "PSM",
+        "seed": 2025,
+        "mode": "release_checkpoint",
+        "author_recipe": "release_checkpoint",
+        "model_parameters": {
+          "seq_len": 192,
+          "patch_len": 6,
+          "ms_kernels": [
+            32,
+            16,
+            8,
+            4,
+            2
+          ],
+          "ms_method": "average_pooling",
+          "topk": 10,
+          "n_query": 5,
+          "query_len": 5,
+          "bank_size": 32,
+          "decay": 0.95,
+          "epsilon": 1e-05,
+          "e_layers": 2,
+          "d_layers": 2,
+          "m_layers": 2,
+          "n_heads": 4,
+          "attn_dropout": 0.1,
+          "proj_dropout": 0.1,
+          "d_model": 128,
+          "d_ff": null,
+          "ff_dropout": 0.1,
+          "norm": "layernorm",
+          "activation": "gelu"
+        },
+        "train_parameters": {
+          "train_epochs": 20,
+          "batch_size": 128,
+          "optim": "adam",
+          "learning_rate": 0.0001,
+          "lradj": "type2",
+          "patience": 3
+        },
+        "raw_sha256": "38e446209e82df94b82c11aa43d87e3671da86167ed794c1b7be5eb91fc0e8ac",
+        "train_length": 132481,
+        "release_checkpoint": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/checkpoints_0/checkpoint.pth",
+        "output_directory": "experiments/runs/fm_crossad_author_v2/jobs/crossad_author__release_checkpoint__psm__seed2025",
+        "frozen_files": [
+          {
+            "path": "configs/experiments/fm_crossad_author_execution.v1.json",
+            "sha256": "e0178528bdd219c60e0d82aa48ed0a4f5e5722450125d86b3e8957fe88e1acf4"
+          },
+          {
+            "path": "configs/models/fm_crossad_author_pipeline.json",
+            "sha256": "5b56c31767692525622fa60f61d136a3c03d4afbcbca969f56a416557f60dcf8"
+          },
+          {
+            "path": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+            "sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_author_runtime.py",
+            "sha256": "9f8ca7ff9508191f295ff304ec2a9f237e1ca300c4adf47c492af952502ad02e"
+          },
+          {
+            "path": "scripts/flow_matching/prepare_crossad_author.py",
+            "sha256": "c7ebb0a260274c11bbfff4029de28c2ebc68f4acba52a423398872032fc7542c"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_author.py",
+            "sha256": "8f35b62d6776adc7b7bf1849f9d0e1c75f302dea17bc432878365232f157d6e7"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_author_job.py",
+            "sha256": "d6e8815b80cf96bffe18833c9d1642ff084cae48d64098cd2beffecb8d2bbae7"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_author_queue.py",
+            "sha256": "9cf4a3cc6b94f60d6598548123b883d1b30423f47d7bfc3c7e2c3057d552312d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/evaluator.py",
+            "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "4e397204c1d96f05486c228a526818f924163350f3909c1f21f58336fe951366"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/evaluator.py",
+            "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/runtime_manifest.json",
+            "sha256": "2d3596d03b4ee876ae70ad90e290d315e12a275ae319020daec7624651cd9020"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/DETECT_META.csv",
+            "sha256": "9b5c9d3f02dd45e3f57d465ae7dfedda6d1ff7f88c53aad66c1b5e3dec2a0775"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/data/PSM.csv",
+            "sha256": "38e446209e82df94b82c11aa43d87e3671da86167ed794c1b7be5eb91fc0e8ac"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/PSM.pkl",
+            "sha256": "f807cf5b0bcd837550468996b6995b836cc49b78a8e814236adc2bd39d2a88ba"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/PSM.json",
+            "sha256": "10f22a83e634451eb0c3a4020403a34ccff82c3302c518ab405e4cece2f9787c"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/model_configs_0.json",
+            "sha256": "b1a552a0ec3c76c4082a8bd3aca9d3e132004e77e5ad9d0f83558a7649dfd0ac"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/train_configs.json",
+            "sha256": "b0d8bd8476a2794db17dc52fd114e249c593199f3109d7ed3dc1d66eecd9b9ab"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/checkpoints_0/checkpoint.pth",
+            "sha256": "3c18f59ab6e6dd0a81ab9eeb2760acf38edf145797f07d379478e8174f6c84f4"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_memory.py",
+            "sha256": "e7b146b257b02576ba6b3c1587684844bea7ffd2e14207b7f6843ed86f5e0375"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_memory_job.py",
+            "sha256": "06352d030a795bd316cab5db0592140dbca21b13f3e28a374a57855736182d91"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_complete_queue.py",
+            "sha256": "cba1475a43c90e8685c95163aee5adf643b47ddde2bd86c006398c0a6c11020e"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_complete.py",
+            "sha256": "9c95418d7f8ed808476fa44427ff4161a21c7bb17891d6bb3718b4acd72dc32d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/snapshot.json",
+            "sha256": "e3fab484325aab1087ffd42ac734ccb1f6e5e2f0f7dd725a59386758185add9d"
+          },
+          {
+            "path": "scripts/flow_matching/heavy_resources.py",
+            "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+          },
+          {
+            "path": "docs/reports/fm_crossad_protocol_audit_2026-10-09_v2.json",
+            "sha256": "9c36444678effb882769ad2af5c1887f230f7030d4a9d0e4a14bc47b5d5574f7"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_memory_v2.py",
+            "sha256": "7c581f431e162b328170c6a2e31f426a32becb7cb7a0163e540fa0ff18e257e4"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+            "sha256": "610e87f274c07e79b7a4fc61761e8504136ab4b9394c5e0cbde7c06106fd7319"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_ablation_v2_job.py",
+            "sha256": "72aa61072003593e32b4ede284960524fb24cabd69f376af3d91801ade2edce2"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_deep_complete.py",
+            "sha256": "4d5ecd23d3b6a6bb7dacb9f0448e046542c86eccfcd7584f143fa8034ac1b4b2"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_case_gated.py",
+            "sha256": "c0fdbc91118889d6a149d5216164e6b598aa41d86baf0b55288e48ad0a3872e6"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_case_gated_queue.py",
+            "sha256": "d582373b36e64f0ef885302b812a0b97afa1f2c19c6959f8ddfe10282fedb3c3"
+          },
+          {
+            "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+            "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+          },
+          {
+            "path": "scripts/flow_matching/register_heavy_scheduler_v2.py",
+            "sha256": "fd014f190023b8e879f6a1b40bc9385e8d19c5198bd3762c344db23bf61ab11c"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_case_gated_queue_v2.py",
+            "sha256": "4ce2ac95d66380000ff147293a5ba9a80de73703ad3367ba91012cf15c7a424a"
+          },
+          {
+            "path": "scripts/flow_matching/preflight_crossad_complete_v2.py",
+            "sha256": "f334873a4da606e9470193188182bd5c291612a21cdb4ed9caa807e2dfae020b"
+          },
+          {
+            "path": "scripts/flow_matching/preflight_crossad_complete.py",
+            "sha256": "3fb6f892de75cf2b1e0281fd8c41608be1bde348641b6514fccb56ecfaa5a518"
+          },
+          {
+            "path": "scripts/flow_matching/run_resource_recovery_v2.py",
+            "sha256": "5c81b64c0cf4ef2f13b362395f82f50c9388bed3aa8583eaf8d5c2ee2452c07f"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_evaluator_compat.py",
+            "sha256": "4b06a45805ccb303656529e64376abe5f29c82d2eb89d33d76fc6ec73b672656"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_evaluator_compat.py",
+            "sha256": "db850821d32104a6ed8b7ca54a7fba57d85793aee77f4dc3e176a0cc2bc62595"
+          },
+          {
+            "path": "docs/reports/fm_crossad_evaluator_compat_2026-10-09.json",
+            "sha256": "d4881bbb2187c04ca376cc3ab921969bac3fac748ad062586a375c4a3edc13b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/runtime_manifest.json",
+            "sha256": "1164e4b8bd1e17e268c4775590c9a7553f15af254cb83252e8569f01a3386d01"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/evaluator.py",
+            "sha256": "8680e7cafda7f32ab1a7083b97a048e437f28fe328e2f16f904d81d21e9e2d20"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          }
+        ],
+        "stages": [
+          {
+            "id": "weights"
+          },
+          {
+            "id": "author_test"
+          },
+          {
+            "id": "author_spot"
+          },
+          {
+            "id": "native_control"
+          }
+        ],
+        "runner": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+        "activation_checkpointing": "pure_layer_v2",
+        "reconstructed_ablation": false
+      },
+      "job": {
+        "id": "crossad_author__release_checkpoint__psm__seed2025__resource_recovery_v1",
+        "dataset": "PSM",
+        "seed": 2025,
+        "mode": "release_checkpoint",
+        "author_recipe": "release_checkpoint",
+        "model_parameters": {
+          "seq_len": 192,
+          "patch_len": 6,
+          "ms_kernels": [
+            32,
+            16,
+            8,
+            4,
+            2
+          ],
+          "ms_method": "average_pooling",
+          "topk": 10,
+          "n_query": 5,
+          "query_len": 5,
+          "bank_size": 32,
+          "decay": 0.95,
+          "epsilon": 1e-05,
+          "e_layers": 2,
+          "d_layers": 2,
+          "m_layers": 2,
+          "n_heads": 4,
+          "attn_dropout": 0.1,
+          "proj_dropout": 0.1,
+          "d_model": 128,
+          "d_ff": null,
+          "ff_dropout": 0.1,
+          "norm": "layernorm",
+          "activation": "gelu"
+        },
+        "train_parameters": {
+          "train_epochs": 20,
+          "batch_size": 128,
+          "optim": "adam",
+          "learning_rate": 0.0001,
+          "lradj": "type2",
+          "patience": 3
+        },
+        "raw_sha256": "38e446209e82df94b82c11aa43d87e3671da86167ed794c1b7be5eb91fc0e8ac",
+        "train_length": 132481,
+        "release_checkpoint": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/checkpoints_0/checkpoint.pth",
+        "output_directory": "experiments/runs/fm_crossad_resource_recovery_v1/jobs/crossad_author__release_checkpoint__psm__seed2025__resource_recovery_v1",
+        "frozen_files": [
+          {
+            "path": "configs/experiments/fm_crossad_author_execution.v1.json",
+            "sha256": "e0178528bdd219c60e0d82aa48ed0a4f5e5722450125d86b3e8957fe88e1acf4"
+          },
+          {
+            "path": "configs/models/fm_crossad_author_pipeline.json",
+            "sha256": "5b56c31767692525622fa60f61d136a3c03d4afbcbca969f56a416557f60dcf8"
+          },
+          {
+            "path": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+            "sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_author_runtime.py",
+            "sha256": "9f8ca7ff9508191f295ff304ec2a9f237e1ca300c4adf47c492af952502ad02e"
+          },
+          {
+            "path": "scripts/flow_matching/prepare_crossad_author.py",
+            "sha256": "c7ebb0a260274c11bbfff4029de28c2ebc68f4acba52a423398872032fc7542c"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_author.py",
+            "sha256": "8f35b62d6776adc7b7bf1849f9d0e1c75f302dea17bc432878365232f157d6e7"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_author_job.py",
+            "sha256": "d6e8815b80cf96bffe18833c9d1642ff084cae48d64098cd2beffecb8d2bbae7"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_author_queue.py",
+            "sha256": "9cf4a3cc6b94f60d6598548123b883d1b30423f47d7bfc3c7e2c3057d552312d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/evaluator.py",
+            "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "4e397204c1d96f05486c228a526818f924163350f3909c1f21f58336fe951366"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/evaluator.py",
+            "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/runtime_manifest.json",
+            "sha256": "2d3596d03b4ee876ae70ad90e290d315e12a275ae319020daec7624651cd9020"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/DETECT_META.csv",
+            "sha256": "9b5c9d3f02dd45e3f57d465ae7dfedda6d1ff7f88c53aad66c1b5e3dec2a0775"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/data/PSM.csv",
+            "sha256": "38e446209e82df94b82c11aa43d87e3671da86167ed794c1b7be5eb91fc0e8ac"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/PSM.pkl",
+            "sha256": "f807cf5b0bcd837550468996b6995b836cc49b78a8e814236adc2bd39d2a88ba"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/PSM.json",
+            "sha256": "10f22a83e634451eb0c3a4020403a34ccff82c3302c518ab405e4cece2f9787c"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/model_configs_0.json",
+            "sha256": "b1a552a0ec3c76c4082a8bd3aca9d3e132004e77e5ad9d0f83558a7649dfd0ac"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/train_configs.json",
+            "sha256": "b0d8bd8476a2794db17dc52fd114e249c593199f3109d7ed3dc1d66eecd9b9ab"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/checkpoints_0/checkpoint.pth",
+            "sha256": "3c18f59ab6e6dd0a81ab9eeb2760acf38edf145797f07d379478e8174f6c84f4"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_memory.py",
+            "sha256": "e7b146b257b02576ba6b3c1587684844bea7ffd2e14207b7f6843ed86f5e0375"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_memory_job.py",
+            "sha256": "06352d030a795bd316cab5db0592140dbca21b13f3e28a374a57855736182d91"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_complete_queue.py",
+            "sha256": "cba1475a43c90e8685c95163aee5adf643b47ddde2bd86c006398c0a6c11020e"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_complete.py",
+            "sha256": "9c95418d7f8ed808476fa44427ff4161a21c7bb17891d6bb3718b4acd72dc32d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/snapshot.json",
+            "sha256": "e3fab484325aab1087ffd42ac734ccb1f6e5e2f0f7dd725a59386758185add9d"
+          },
+          {
+            "path": "scripts/flow_matching/heavy_resources.py",
+            "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+          },
+          {
+            "path": "docs/reports/fm_crossad_protocol_audit_2026-10-09_v2.json",
+            "sha256": "9c36444678effb882769ad2af5c1887f230f7030d4a9d0e4a14bc47b5d5574f7"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_memory_v2.py",
+            "sha256": "7c581f431e162b328170c6a2e31f426a32becb7cb7a0163e540fa0ff18e257e4"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+            "sha256": "610e87f274c07e79b7a4fc61761e8504136ab4b9394c5e0cbde7c06106fd7319"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_ablation_v2_job.py",
+            "sha256": "72aa61072003593e32b4ede284960524fb24cabd69f376af3d91801ade2edce2"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_deep_complete.py",
+            "sha256": "4d5ecd23d3b6a6bb7dacb9f0448e046542c86eccfcd7584f143fa8034ac1b4b2"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_case_gated.py",
+            "sha256": "c0fdbc91118889d6a149d5216164e6b598aa41d86baf0b55288e48ad0a3872e6"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_case_gated_queue.py",
+            "sha256": "d582373b36e64f0ef885302b812a0b97afa1f2c19c6959f8ddfe10282fedb3c3"
+          },
+          {
+            "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+            "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+          },
+          {
+            "path": "scripts/flow_matching/register_heavy_scheduler_v2.py",
+            "sha256": "fd014f190023b8e879f6a1b40bc9385e8d19c5198bd3762c344db23bf61ab11c"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_case_gated_queue_v2.py",
+            "sha256": "4ce2ac95d66380000ff147293a5ba9a80de73703ad3367ba91012cf15c7a424a"
+          },
+          {
+            "path": "scripts/flow_matching/preflight_crossad_complete_v2.py",
+            "sha256": "f334873a4da606e9470193188182bd5c291612a21cdb4ed9caa807e2dfae020b"
+          },
+          {
+            "path": "scripts/flow_matching/preflight_crossad_complete.py",
+            "sha256": "3fb6f892de75cf2b1e0281fd8c41608be1bde348641b6514fccb56ecfaa5a518"
+          },
+          {
+            "path": "scripts/flow_matching/run_resource_recovery_v2.py",
+            "sha256": "5c81b64c0cf4ef2f13b362395f82f50c9388bed3aa8583eaf8d5c2ee2452c07f"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_evaluator_compat.py",
+            "sha256": "4b06a45805ccb303656529e64376abe5f29c82d2eb89d33d76fc6ec73b672656"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_evaluator_compat.py",
+            "sha256": "db850821d32104a6ed8b7ca54a7fba57d85793aee77f4dc3e176a0cc2bc62595"
+          },
+          {
+            "path": "docs/reports/fm_crossad_evaluator_compat_2026-10-09.json",
+            "sha256": "d4881bbb2187c04ca376cc3ab921969bac3fac748ad062586a375c4a3edc13b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/runtime_manifest.json",
+            "sha256": "1164e4b8bd1e17e268c4775590c9a7553f15af254cb83252e8569f01a3386d01"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/evaluator.py",
+            "sha256": "8680e7cafda7f32ab1a7083b97a048e437f28fe328e2f16f904d81d21e9e2d20"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          }
+        ],
+        "stages": [
+          {
+            "id": "weights"
+          },
+          {
+            "id": "author_test"
+          },
+          {
+            "id": "author_spot"
+          },
+          {
+            "id": "native_control"
+          }
+        ],
+        "runner": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+        "activation_checkpointing": "pure_layer_v2",
+        "reconstructed_ablation": false
+      },
+      "kind": "crossad",
+      "settings": {
+        "source": "experiments/runs/mtsad_protocol_audit/sources/crossad/original",
+        "source_revision": "ff0fb2d41291b76452898910312dd38ed3389bf3",
+        "source_url": "https://github.com/decisionintelligence/CrossAD/tree/ff0fb2d41291b76452898910312dd38ed3389bf3",
+        "paper": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+        "raw_root": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset",
+        "runtime_root": "data/public_datasets/flow_matching/crossad_author_runtime_v2",
+        "cache_root": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1",
+        "model_config": "configs/models/fm_crossad_author_pipeline.json",
+        "output_root": "experiments/runs/fm_crossad_author_v2",
+        "queue_path": "configs/experiments/fm_crossad_complete_queue.v7.json",
+        "python": ".venv/crossad-author-py312/Scripts/python.exe",
+        "datasets": [
+          "GECCO",
+          "MSL",
+          "PSM",
+          "SMAP",
+          "SMD",
+          "SWAN",
+          "SWAT"
+        ],
+        "seeds": [
+          2025,
+          1103,
+          1104,
+          1105,
+          1106,
+          1107
+        ],
+        "cpu_threads": 2,
+        "author_metrics": [
+          "best_f1",
+          "auc",
+          "r_auc",
+          "vus"
+        ],
+        "spot_q": [
+          0.1
+        ],
+        "evaluation": {
+          "cpu_threads": 2,
+          "strict_false_alarm_percent": [
+            0.1,
+            1,
+            5
+          ],
+          "primary_false_alarm_percent": 1,
+          "bootstrap_resamples": 200,
+          "bootstrap_block_points": 1024,
+          "tab_threshold_ratios_percent": [
+            0.1,
+            0.5,
+            1,
+            2,
+            3,
+            5,
+            10,
+            15,
+            20,
+            25
+          ],
+          "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2"
+        },
+        "boundary": "Full official flat-author-data pipeline, not entity-grouped strict TAB equivalence. Preserve author channel deletion, scaler fitted on all nominal training data before 80/20 split, stride=1 training, nonoverlap validation/test and author early stopping. Release checkpoint evaluation is separate from six fresh-training seeds. CPU/runtime and framework-version differences disclosed; original Table 3 ablations, other original tasks and transfer obligations remain pending. Reconstructed rows 1..5 explicitly distinguished. Pure encoder/decoder activation checkpointing preserves full batches and EMA single updates; low-memory starts wait. Evaluator optional PATE import/call made conditional in a new runtime; the four requested author metric calculations are unchanged and bit-exact in a diagnostic comparison. Original failed full GECCO inference artifacts retained in the previous output root. PATE dependency compatibility when PATE is requested remains a separate obligation.",
+        "minimum_available_memory_bytes": 25769803776,
+        "minimum_commit_headroom_bytes": 17179869184,
+        "emergency_commit_headroom_bytes": 8589934592,
+        "preflight_report": "docs/reports/fm_crossad_deep_preflight_2026-10-09.json",
+        "preflight_parent_queue": "configs/experiments/fm_crossad_complete_queue.v4.json",
+        "preflight_parent_sha256": "77c2890881936c2435b6c0e0dc5c96d6d1ca446daf3d26ef53e9ef7baa8a2b0e"
+      },
+      "evaluation": null,
+      "original_failure_path": "experiments/runs/fm_crossad_author_v2/jobs/crossad_author__release_checkpoint__psm__seed2025/failure.json",
+      "original_failure_sha256": "e2497f4a96b1172fe9d3937de57df5f6f584b651d4c49f5102166772e4a8c230"
+    },
+    {
+      "original_queue": "configs/experiments/fm_crossad_complete_queue.v7.json",
+      "original_queue_sha256": "ee661402cf82d4ecc6ab0ddf99923b92b28edbaac291c8e6c1ffb2d7b0563921",
+      "original_id": "crossad_author__release_checkpoint__smap__seed2025",
+      "original_job": {
+        "id": "crossad_author__release_checkpoint__smap__seed2025",
+        "dataset": "SMAP",
+        "seed": 2025,
+        "mode": "release_checkpoint",
+        "author_recipe": "release_checkpoint",
+        "model_parameters": {
+          "seq_len": 192,
+          "patch_len": 8,
+          "ms_kernels": [
+            24,
+            12,
+            6
+          ],
+          "ms_method": "average_pooling",
+          "topk": 10,
+          "n_query": 5,
+          "query_len": 5,
+          "bank_size": 32,
+          "decay": 0.9,
+          "epsilon": 1e-05,
+          "e_layers": 1,
+          "d_layers": 1,
+          "m_layers": 1,
+          "n_heads": 8,
+          "attn_dropout": 0,
+          "proj_dropout": 0,
+          "d_model": 256,
+          "d_ff": null,
+          "ff_dropout": 0,
+          "norm": "layernorm",
+          "activation": "gelu"
+        },
+        "train_parameters": {
+          "train_epochs": 20,
+          "batch_size": 128,
+          "optim": "adam",
+          "learning_rate": 0.0001,
+          "lradj": "type1",
+          "patience": 3
+        },
+        "raw_sha256": "b0b4b5ab7c731d9ea0222b741f7cf14934638956534b0f91772dd25b841d2ac0",
+        "train_length": 135183,
+        "release_checkpoint": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/checkpoints_0/checkpoint.pth",
+        "output_directory": "experiments/runs/fm_crossad_author_v2/jobs/crossad_author__release_checkpoint__smap__seed2025",
+        "frozen_files": [
+          {
+            "path": "configs/experiments/fm_crossad_author_execution.v1.json",
+            "sha256": "e0178528bdd219c60e0d82aa48ed0a4f5e5722450125d86b3e8957fe88e1acf4"
+          },
+          {
+            "path": "configs/models/fm_crossad_author_pipeline.json",
+            "sha256": "5b56c31767692525622fa60f61d136a3c03d4afbcbca969f56a416557f60dcf8"
+          },
+          {
+            "path": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+            "sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_author_runtime.py",
+            "sha256": "9f8ca7ff9508191f295ff304ec2a9f237e1ca300c4adf47c492af952502ad02e"
+          },
+          {
+            "path": "scripts/flow_matching/prepare_crossad_author.py",
+            "sha256": "c7ebb0a260274c11bbfff4029de28c2ebc68f4acba52a423398872032fc7542c"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_author.py",
+            "sha256": "8f35b62d6776adc7b7bf1849f9d0e1c75f302dea17bc432878365232f157d6e7"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_author_job.py",
+            "sha256": "d6e8815b80cf96bffe18833c9d1642ff084cae48d64098cd2beffecb8d2bbae7"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_author_queue.py",
+            "sha256": "9cf4a3cc6b94f60d6598548123b883d1b30423f47d7bfc3c7e2c3057d552312d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/evaluator.py",
+            "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "4e397204c1d96f05486c228a526818f924163350f3909c1f21f58336fe951366"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/evaluator.py",
+            "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/runtime_manifest.json",
+            "sha256": "2d3596d03b4ee876ae70ad90e290d315e12a275ae319020daec7624651cd9020"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/DETECT_META.csv",
+            "sha256": "9b5c9d3f02dd45e3f57d465ae7dfedda6d1ff7f88c53aad66c1b5e3dec2a0775"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/data/SMAP.csv",
+            "sha256": "b0b4b5ab7c731d9ea0222b741f7cf14934638956534b0f91772dd25b841d2ac0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/SMAP.pkl",
+            "sha256": "84d3791031cc93e73c52f837a6fa4a78e2b4f21c38e583db02cdcb54a2db1f37"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/SMAP.json",
+            "sha256": "72907385f1e13a153c11ea1399dfc4803eba997e87908a79d0f7741a6ff563cf"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/model_configs_0.json",
+            "sha256": "413252c8e8b55752cbf128bb0c07a7b42f6f84995f139b6b63568206b8d8d972"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/train_configs.json",
+            "sha256": "0a6b4cc8bb0b53f8ed63bfd1ad71741a15114ab7b458827b819054a90bbf6995"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/checkpoints_0/checkpoint.pth",
+            "sha256": "17eebfe9e04a66f65c9efc6d1604da4ea3e280c960bca0badbad2fdc9c510296"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_memory.py",
+            "sha256": "e7b146b257b02576ba6b3c1587684844bea7ffd2e14207b7f6843ed86f5e0375"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_memory_job.py",
+            "sha256": "06352d030a795bd316cab5db0592140dbca21b13f3e28a374a57855736182d91"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_complete_queue.py",
+            "sha256": "cba1475a43c90e8685c95163aee5adf643b47ddde2bd86c006398c0a6c11020e"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_complete.py",
+            "sha256": "9c95418d7f8ed808476fa44427ff4161a21c7bb17891d6bb3718b4acd72dc32d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/snapshot.json",
+            "sha256": "e3fab484325aab1087ffd42ac734ccb1f6e5e2f0f7dd725a59386758185add9d"
+          },
+          {
+            "path": "scripts/flow_matching/heavy_resources.py",
+            "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+          },
+          {
+            "path": "docs/reports/fm_crossad_protocol_audit_2026-10-09_v2.json",
+            "sha256": "9c36444678effb882769ad2af5c1887f230f7030d4a9d0e4a14bc47b5d5574f7"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_memory_v2.py",
+            "sha256": "7c581f431e162b328170c6a2e31f426a32becb7cb7a0163e540fa0ff18e257e4"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+            "sha256": "610e87f274c07e79b7a4fc61761e8504136ab4b9394c5e0cbde7c06106fd7319"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_ablation_v2_job.py",
+            "sha256": "72aa61072003593e32b4ede284960524fb24cabd69f376af3d91801ade2edce2"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_deep_complete.py",
+            "sha256": "4d5ecd23d3b6a6bb7dacb9f0448e046542c86eccfcd7584f143fa8034ac1b4b2"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_case_gated.py",
+            "sha256": "c0fdbc91118889d6a149d5216164e6b598aa41d86baf0b55288e48ad0a3872e6"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_case_gated_queue.py",
+            "sha256": "d582373b36e64f0ef885302b812a0b97afa1f2c19c6959f8ddfe10282fedb3c3"
+          },
+          {
+            "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+            "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+          },
+          {
+            "path": "scripts/flow_matching/register_heavy_scheduler_v2.py",
+            "sha256": "fd014f190023b8e879f6a1b40bc9385e8d19c5198bd3762c344db23bf61ab11c"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_case_gated_queue_v2.py",
+            "sha256": "4ce2ac95d66380000ff147293a5ba9a80de73703ad3367ba91012cf15c7a424a"
+          },
+          {
+            "path": "scripts/flow_matching/preflight_crossad_complete_v2.py",
+            "sha256": "f334873a4da606e9470193188182bd5c291612a21cdb4ed9caa807e2dfae020b"
+          },
+          {
+            "path": "scripts/flow_matching/preflight_crossad_complete.py",
+            "sha256": "3fb6f892de75cf2b1e0281fd8c41608be1bde348641b6514fccb56ecfaa5a518"
+          },
+          {
+            "path": "scripts/flow_matching/run_resource_recovery_v2.py",
+            "sha256": "5c81b64c0cf4ef2f13b362395f82f50c9388bed3aa8583eaf8d5c2ee2452c07f"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_evaluator_compat.py",
+            "sha256": "4b06a45805ccb303656529e64376abe5f29c82d2eb89d33d76fc6ec73b672656"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_evaluator_compat.py",
+            "sha256": "db850821d32104a6ed8b7ca54a7fba57d85793aee77f4dc3e176a0cc2bc62595"
+          },
+          {
+            "path": "docs/reports/fm_crossad_evaluator_compat_2026-10-09.json",
+            "sha256": "d4881bbb2187c04ca376cc3ab921969bac3fac748ad062586a375c4a3edc13b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/runtime_manifest.json",
+            "sha256": "1164e4b8bd1e17e268c4775590c9a7553f15af254cb83252e8569f01a3386d01"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/evaluator.py",
+            "sha256": "8680e7cafda7f32ab1a7083b97a048e437f28fe328e2f16f904d81d21e9e2d20"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          }
+        ],
+        "stages": [
+          {
+            "id": "weights"
+          },
+          {
+            "id": "author_test"
+          },
+          {
+            "id": "author_spot"
+          },
+          {
+            "id": "native_control"
+          }
+        ],
+        "runner": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+        "activation_checkpointing": "pure_layer_v2",
+        "reconstructed_ablation": false
+      },
+      "job": {
+        "id": "crossad_author__release_checkpoint__smap__seed2025__resource_recovery_v1",
+        "dataset": "SMAP",
+        "seed": 2025,
+        "mode": "release_checkpoint",
+        "author_recipe": "release_checkpoint",
+        "model_parameters": {
+          "seq_len": 192,
+          "patch_len": 8,
+          "ms_kernels": [
+            24,
+            12,
+            6
+          ],
+          "ms_method": "average_pooling",
+          "topk": 10,
+          "n_query": 5,
+          "query_len": 5,
+          "bank_size": 32,
+          "decay": 0.9,
+          "epsilon": 1e-05,
+          "e_layers": 1,
+          "d_layers": 1,
+          "m_layers": 1,
+          "n_heads": 8,
+          "attn_dropout": 0,
+          "proj_dropout": 0,
+          "d_model": 256,
+          "d_ff": null,
+          "ff_dropout": 0,
+          "norm": "layernorm",
+          "activation": "gelu"
+        },
+        "train_parameters": {
+          "train_epochs": 20,
+          "batch_size": 128,
+          "optim": "adam",
+          "learning_rate": 0.0001,
+          "lradj": "type1",
+          "patience": 3
+        },
+        "raw_sha256": "b0b4b5ab7c731d9ea0222b741f7cf14934638956534b0f91772dd25b841d2ac0",
+        "train_length": 135183,
+        "release_checkpoint": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/checkpoints_0/checkpoint.pth",
+        "output_directory": "experiments/runs/fm_crossad_resource_recovery_v1/jobs/crossad_author__release_checkpoint__smap__seed2025__resource_recovery_v1",
+        "frozen_files": [
+          {
+            "path": "configs/experiments/fm_crossad_author_execution.v1.json",
+            "sha256": "e0178528bdd219c60e0d82aa48ed0a4f5e5722450125d86b3e8957fe88e1acf4"
+          },
+          {
+            "path": "configs/models/fm_crossad_author_pipeline.json",
+            "sha256": "5b56c31767692525622fa60f61d136a3c03d4afbcbca969f56a416557f60dcf8"
+          },
+          {
+            "path": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+            "sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_author_runtime.py",
+            "sha256": "9f8ca7ff9508191f295ff304ec2a9f237e1ca300c4adf47c492af952502ad02e"
+          },
+          {
+            "path": "scripts/flow_matching/prepare_crossad_author.py",
+            "sha256": "c7ebb0a260274c11bbfff4029de28c2ebc68f4acba52a423398872032fc7542c"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_author.py",
+            "sha256": "8f35b62d6776adc7b7bf1849f9d0e1c75f302dea17bc432878365232f157d6e7"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_author_job.py",
+            "sha256": "d6e8815b80cf96bffe18833c9d1642ff084cae48d64098cd2beffecb8d2bbae7"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_author_queue.py",
+            "sha256": "9cf4a3cc6b94f60d6598548123b883d1b30423f47d7bfc3c7e2c3057d552312d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/evaluator.py",
+            "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "4e397204c1d96f05486c228a526818f924163350f3909c1f21f58336fe951366"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/evaluator.py",
+            "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/runtime_manifest.json",
+            "sha256": "2d3596d03b4ee876ae70ad90e290d315e12a275ae319020daec7624651cd9020"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/DETECT_META.csv",
+            "sha256": "9b5c9d3f02dd45e3f57d465ae7dfedda6d1ff7f88c53aad66c1b5e3dec2a0775"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/data/SMAP.csv",
+            "sha256": "b0b4b5ab7c731d9ea0222b741f7cf14934638956534b0f91772dd25b841d2ac0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/SMAP.pkl",
+            "sha256": "84d3791031cc93e73c52f837a6fa4a78e2b4f21c38e583db02cdcb54a2db1f37"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/SMAP.json",
+            "sha256": "72907385f1e13a153c11ea1399dfc4803eba997e87908a79d0f7741a6ff563cf"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/model_configs_0.json",
+            "sha256": "413252c8e8b55752cbf128bb0c07a7b42f6f84995f139b6b63568206b8d8d972"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/train_configs.json",
+            "sha256": "0a6b4cc8bb0b53f8ed63bfd1ad71741a15114ab7b458827b819054a90bbf6995"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/checkpoints_0/checkpoint.pth",
+            "sha256": "17eebfe9e04a66f65c9efc6d1604da4ea3e280c960bca0badbad2fdc9c510296"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_memory.py",
+            "sha256": "e7b146b257b02576ba6b3c1587684844bea7ffd2e14207b7f6843ed86f5e0375"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_memory_job.py",
+            "sha256": "06352d030a795bd316cab5db0592140dbca21b13f3e28a374a57855736182d91"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_complete_queue.py",
+            "sha256": "cba1475a43c90e8685c95163aee5adf643b47ddde2bd86c006398c0a6c11020e"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_complete.py",
+            "sha256": "9c95418d7f8ed808476fa44427ff4161a21c7bb17891d6bb3718b4acd72dc32d"
+          },
+          {
+            "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/snapshot.json",
+            "sha256": "e3fab484325aab1087ffd42ac734ccb1f6e5e2f0f7dd725a59386758185add9d"
+          },
+          {
+            "path": "scripts/flow_matching/heavy_resources.py",
+            "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+          },
+          {
+            "path": "docs/reports/fm_crossad_protocol_audit_2026-10-09_v2.json",
+            "sha256": "9c36444678effb882769ad2af5c1887f230f7030d4a9d0e4a14bc47b5d5574f7"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_memory_v2.py",
+            "sha256": "7c581f431e162b328170c6a2e31f426a32becb7cb7a0163e540fa0ff18e257e4"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+            "sha256": "610e87f274c07e79b7a4fc61761e8504136ab4b9394c5e0cbde7c06106fd7319"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_ablation_v2_job.py",
+            "sha256": "72aa61072003593e32b4ede284960524fb24cabd69f376af3d91801ade2edce2"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_deep_complete.py",
+            "sha256": "4d5ecd23d3b6a6bb7dacb9f0448e046542c86eccfcd7584f143fa8034ac1b4b2"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_case_gated.py",
+            "sha256": "c0fdbc91118889d6a149d5216164e6b598aa41d86baf0b55288e48ad0a3872e6"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_case_gated_queue.py",
+            "sha256": "d582373b36e64f0ef885302b812a0b97afa1f2c19c6959f8ddfe10282fedb3c3"
+          },
+          {
+            "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+            "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+          },
+          {
+            "path": "scripts/flow_matching/register_heavy_scheduler_v2.py",
+            "sha256": "fd014f190023b8e879f6a1b40bc9385e8d19c5198bd3762c344db23bf61ab11c"
+          },
+          {
+            "path": "scripts/flow_matching/run_crossad_case_gated_queue_v2.py",
+            "sha256": "4ce2ac95d66380000ff147293a5ba9a80de73703ad3367ba91012cf15c7a424a"
+          },
+          {
+            "path": "scripts/flow_matching/preflight_crossad_complete_v2.py",
+            "sha256": "f334873a4da606e9470193188182bd5c291612a21cdb4ed9caa807e2dfae020b"
+          },
+          {
+            "path": "scripts/flow_matching/preflight_crossad_complete.py",
+            "sha256": "3fb6f892de75cf2b1e0281fd8c41608be1bde348641b6514fccb56ecfaa5a518"
+          },
+          {
+            "path": "scripts/flow_matching/run_resource_recovery_v2.py",
+            "sha256": "5c81b64c0cf4ef2f13b362395f82f50c9388bed3aa8583eaf8d5c2ee2452c07f"
+          },
+          {
+            "path": "src/iia_benchmark/models/fm_crossad_evaluator_compat.py",
+            "sha256": "4b06a45805ccb303656529e64376abe5f29c82d2eb89d33d76fc6ec73b672656"
+          },
+          {
+            "path": "scripts/flow_matching/register_crossad_evaluator_compat.py",
+            "sha256": "db850821d32104a6ed8b7ca54a7fba57d85793aee77f4dc3e176a0cc2bc62595"
+          },
+          {
+            "path": "docs/reports/fm_crossad_evaluator_compat_2026-10-09.json",
+            "sha256": "d4881bbb2187c04ca376cc3ab921969bac3fac748ad062586a375c4a3edc13b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/runtime_manifest.json",
+            "sha256": "1164e4b8bd1e17e268c4775590c9a7553f15af254cb83252e8569f01a3386d01"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider.py",
+            "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider_UCR.py",
+            "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_anomaly_detection.py",
+            "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_TSBAD.py",
+            "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Attention_Blocks.py",
+            "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Basic_CrossAD.py",
+            "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Context_Blocks.py",
+            "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/EncDec.py",
+            "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run.py",
+            "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_TSBAD.py",
+            "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_UCR.py",
+            "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/__init__.py",
+            "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/metrics.py",
+            "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/__init__.py",
+            "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+            "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_integral_interval.py",
+            "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+            "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/generics.py",
+            "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/metrics.py",
+            "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/metrics.py",
+            "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/evaluator.py",
+            "sha256": "8680e7cafda7f32ab1a7083b97a048e437f28fe328e2f16f904d81d21e9e2d20"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/metrics.py",
+            "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/__init__.py",
+            "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/metrics.py",
+            "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_metric.py",
+            "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_utils.py",
+            "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+          },
+          {
+            "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/spot.py",
+            "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+          }
+        ],
+        "stages": [
+          {
+            "id": "weights"
+          },
+          {
+            "id": "author_test"
+          },
+          {
+            "id": "author_spot"
+          },
+          {
+            "id": "native_control"
+          }
+        ],
+        "runner": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+        "activation_checkpointing": "pure_layer_v2",
+        "reconstructed_ablation": false
+      },
+      "kind": "crossad",
+      "settings": {
+        "source": "experiments/runs/mtsad_protocol_audit/sources/crossad/original",
+        "source_revision": "ff0fb2d41291b76452898910312dd38ed3389bf3",
+        "source_url": "https://github.com/decisionintelligence/CrossAD/tree/ff0fb2d41291b76452898910312dd38ed3389bf3",
+        "paper": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+        "raw_root": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset",
+        "runtime_root": "data/public_datasets/flow_matching/crossad_author_runtime_v2",
+        "cache_root": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1",
+        "model_config": "configs/models/fm_crossad_author_pipeline.json",
+        "output_root": "experiments/runs/fm_crossad_author_v2",
+        "queue_path": "configs/experiments/fm_crossad_complete_queue.v7.json",
+        "python": ".venv/crossad-author-py312/Scripts/python.exe",
+        "datasets": [
+          "GECCO",
+          "MSL",
+          "PSM",
+          "SMAP",
+          "SMD",
+          "SWAN",
+          "SWAT"
+        ],
+        "seeds": [
+          2025,
+          1103,
+          1104,
+          1105,
+          1106,
+          1107
+        ],
+        "cpu_threads": 2,
+        "author_metrics": [
+          "best_f1",
+          "auc",
+          "r_auc",
+          "vus"
+        ],
+        "spot_q": [
+          0.1
+        ],
+        "evaluation": {
+          "cpu_threads": 2,
+          "strict_false_alarm_percent": [
+            0.1,
+            1,
+            5
+          ],
+          "primary_false_alarm_percent": 1,
+          "bootstrap_resamples": 200,
+          "bootstrap_block_points": 1024,
+          "tab_threshold_ratios_percent": [
+            0.1,
+            0.5,
+            1,
+            2,
+            3,
+            5,
+            10,
+            15,
+            20,
+            25
+          ],
+          "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2"
+        },
+        "boundary": "Full official flat-author-data pipeline, not entity-grouped strict TAB equivalence. Preserve author channel deletion, scaler fitted on all nominal training data before 80/20 split, stride=1 training, nonoverlap validation/test and author early stopping. Release checkpoint evaluation is separate from six fresh-training seeds. CPU/runtime and framework-version differences disclosed; original Table 3 ablations, other original tasks and transfer obligations remain pending. Reconstructed rows 1..5 explicitly distinguished. Pure encoder/decoder activation checkpointing preserves full batches and EMA single updates; low-memory starts wait. Evaluator optional PATE import/call made conditional in a new runtime; the four requested author metric calculations are unchanged and bit-exact in a diagnostic comparison. Original failed full GECCO inference artifacts retained in the previous output root. PATE dependency compatibility when PATE is requested remains a separate obligation.",
+        "minimum_available_memory_bytes": 25769803776,
+        "minimum_commit_headroom_bytes": 17179869184,
+        "emergency_commit_headroom_bytes": 8589934592,
+        "preflight_report": "docs/reports/fm_crossad_deep_preflight_2026-10-09.json",
+        "preflight_parent_queue": "configs/experiments/fm_crossad_complete_queue.v4.json",
+        "preflight_parent_sha256": "77c2890881936c2435b6c0e0dc5c96d6d1ca446daf3d26ef53e9ef7baa8a2b0e"
+      },
+      "evaluation": null,
+      "original_failure_path": "experiments/runs/fm_crossad_author_v2/jobs/crossad_author__release_checkpoint__smap__seed2025/failure.json",
+      "original_failure_sha256": "fbaef4fcb85a5c33e1218d30b4986142bece605c090a17cf181d48c390f98b46"
+    }
+  ],
+  "settings": {
+    "source": "experiments/runs/mtsad_protocol_audit/sources/crossad/original",
+    "source_revision": "ff0fb2d41291b76452898910312dd38ed3389bf3",
+    "source_url": "https://github.com/decisionintelligence/CrossAD/tree/ff0fb2d41291b76452898910312dd38ed3389bf3",
+    "paper": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+    "raw_root": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset",
+    "runtime_root": "data/public_datasets/flow_matching/crossad_author_runtime_v2",
+    "cache_root": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1",
+    "model_config": "configs/models/fm_crossad_author_pipeline.json",
+    "output_root": "experiments/runs/fm_crossad_author_v2",
+    "queue_path": "configs/experiments/fm_crossad_complete_queue.v7.json",
+    "python": ".venv/crossad-author-py312/Scripts/python.exe",
+    "datasets": [
+      "GECCO",
+      "MSL",
+      "PSM",
+      "SMAP",
+      "SMD",
+      "SWAN",
+      "SWAT"
+    ],
+    "seeds": [
+      2025,
+      1103,
+      1104,
+      1105,
+      1106,
+      1107
+    ],
+    "cpu_threads": 2,
+    "author_metrics": [
+      "best_f1",
+      "auc",
+      "r_auc",
+      "vus"
+    ],
+    "spot_q": [
+      0.1
+    ],
+    "evaluation": {
+      "cpu_threads": 2,
+      "strict_false_alarm_percent": [
+        0.1,
+        1,
+        5
+      ],
+      "primary_false_alarm_percent": 1,
+      "bootstrap_resamples": 200,
+      "bootstrap_block_points": 1024,
+      "tab_threshold_ratios_percent": [
+        0.1,
+        0.5,
+        1,
+        2,
+        3,
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2"
+    },
+    "boundary": "Full official flat-author-data pipeline, not entity-grouped strict TAB equivalence. Preserve author channel deletion, scaler fitted on all nominal training data before 80/20 split, stride=1 training, nonoverlap validation/test and author early stopping. Release checkpoint evaluation is separate from six fresh-training seeds. CPU/runtime and framework-version differences disclosed; original Table 3 ablations, other original tasks and transfer obligations remain pending. Reconstructed rows 1..5 explicitly distinguished. Pure encoder/decoder activation checkpointing preserves full batches and EMA single updates; low-memory starts wait. Evaluator optional PATE import/call made conditional in a new runtime; the four requested author metric calculations are unchanged and bit-exact in a diagnostic comparison. Original failed full GECCO inference artifacts retained in the previous output root. PATE dependency compatibility when PATE is requested remains a separate obligation.",
+    "minimum_available_memory_bytes": 25769803776,
+    "minimum_commit_headroom_bytes": 25769803776,
+    "emergency_commit_headroom_bytes": 8589934592,
+    "preflight_report": "docs/reports/fm_crossad_deep_preflight_2026-10-09.json",
+    "preflight_parent_queue": "configs/experiments/fm_crossad_complete_queue.v4.json",
+    "preflight_parent_sha256": "77c2890881936c2435b6c0e0dc5c96d6d1ca446daf3d26ef53e9ef7baa8a2b0e"
+  },
+  "native_queue": "configs/experiments/fm_crossad_resource_recovery_native.v1.json",
+  "runtime_config": "configs/runtime/fm_light_controllers.v1.json",
+  "output_root": "experiments/runs/fm_crossad_resource_recovery_v1",
+  "boundary": "Retry only preserved resource-aborted release pipelines. Original author source, batch, weights, seed, all metrics and native-tail control unchanged. Fresh identity/output; same original slot, no added repeat. Start reservation raised; emergency guard unchanged.",
+  "source_receipts": [
+    {
+      "path": "configs/experiments/fm_crossad_author_execution.v1.json",
+      "sha256": "e0178528bdd219c60e0d82aa48ed0a4f5e5722450125d86b3e8957fe88e1acf4"
+    },
+    {
+      "path": "configs/experiments/fm_crossad_complete_queue.v7.json",
+      "sha256": "ee661402cf82d4ecc6ab0ddf99923b92b28edbaac291c8e6c1ffb2d7b0563921"
+    },
+    {
+      "path": "configs/experiments/fm_crossad_resource_recovery_native.v1.json",
+      "sha256": "9f63ff1dcabcdafb5369b539d630a3e5a227df75c92842fcc23129415ef5947f"
+    },
+    {
+      "path": "configs/models/fm_crossad_author_pipeline.json",
+      "sha256": "5b56c31767692525622fa60f61d136a3c03d4afbcbca969f56a416557f60dcf8"
+    },
+    {
+      "path": "configs/runtime/fm_light_controllers.v1.json",
+      "sha256": "3c713c20e966d6914a0e45b4ccd43ae98108dd69900f5e0070c742c79ceb9822"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider.py",
+      "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/data_provider/data_provider_UCR.py",
+      "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_TSBAD.py",
+      "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/exp/exp_anomaly_detection.py",
+      "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Attention_Blocks.py",
+      "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Basic_CrossAD.py",
+      "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/Context_Blocks.py",
+      "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/models/CrossAD/EncDec.py",
+      "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run.py",
+      "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_TSBAD.py",
+      "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/run_UCR.py",
+      "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/runtime_manifest.json",
+      "sha256": "2d3596d03b4ee876ae70ad90e290d315e12a275ae319020daec7624651cd9020"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/__init__.py",
+      "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/__init__.py",
+      "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/accomplish_UCR/metrics.py",
+      "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/__init__.py",
+      "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+      "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_integral_interval.py",
+      "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+      "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/generics.py",
+      "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/affiliation/metrics.py",
+      "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/auc_vus/metrics.py",
+      "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/evaluator.py",
+      "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/f1/metrics.py",
+      "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_metric.py",
+      "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/PATE_utils.py",
+      "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/pate/metrics.py",
+      "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v1/ts_ad_evaluation/spot.py",
+      "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider.py",
+      "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/data_provider/data_provider_UCR.py",
+      "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_TSBAD.py",
+      "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/exp/exp_anomaly_detection.py",
+      "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Attention_Blocks.py",
+      "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Basic_CrossAD.py",
+      "sha256": "659f6ec46cfa882b6f8a5d3bf75342eef740cce4a9e3699cb1e471f7b082495e"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/Context_Blocks.py",
+      "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/models/CrossAD/EncDec.py",
+      "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run.py",
+      "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_TSBAD.py",
+      "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/run_UCR.py",
+      "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/runtime_manifest.json",
+      "sha256": "1164e4b8bd1e17e268c4775590c9a7553f15af254cb83252e8569f01a3386d01"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/__init__.py",
+      "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/__init__.py",
+      "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/accomplish_UCR/metrics.py",
+      "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/__init__.py",
+      "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+      "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_integral_interval.py",
+      "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+      "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/generics.py",
+      "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/affiliation/metrics.py",
+      "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/auc_vus/metrics.py",
+      "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/evaluator.py",
+      "sha256": "8680e7cafda7f32ab1a7083b97a048e437f28fe328e2f16f904d81d21e9e2d20"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/f1/metrics.py",
+      "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_metric.py",
+      "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/PATE_utils.py",
+      "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/pate/metrics.py",
+      "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_runtime_v2/ts_ad_evaluation/spot.py",
+      "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/PSM.json",
+      "sha256": "10f22a83e634451eb0c3a4020403a34ccff82c3302c518ab405e4cece2f9787c"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/PSM.pkl",
+      "sha256": "f807cf5b0bcd837550468996b6995b836cc49b78a8e814236adc2bd39d2a88ba"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/SMAP.json",
+      "sha256": "72907385f1e13a153c11ea1399dfc4803eba997e87908a79d0f7741a6ff563cf"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/crossad_author_wide_cache_v1/SMAP.pkl",
+      "sha256": "84d3791031cc93e73c52f837a6fa4a78e2b4f21c38e583db02cdcb54a2db1f37"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/DETECT_META.csv",
+      "sha256": "9b5c9d3f02dd45e3f57d465ae7dfedda6d1ff7f88c53aad66c1b5e3dec2a0775"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/data/PSM.csv",
+      "sha256": "38e446209e82df94b82c11aa43d87e3671da86167ed794c1b7be5eb91fc0e8ac"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/project_additions/crossad_author_preprocessed_bundle/extracted/dataset/data/SMAP.csv",
+      "sha256": "b0b4b5ab7c731d9ea0222b741f7cf14934638956534b0f91772dd25b841d2ac0"
+    },
+    {
+      "path": "docs/reports/fm_crossad_evaluator_compat_2026-10-09.json",
+      "sha256": "d4881bbb2187c04ca376cc3ab921969bac3fac748ad062586a375c4a3edc13b3"
+    },
+    {
+      "path": "docs/reports/fm_crossad_protocol_audit_2026-10-09_v2.json",
+      "sha256": "9c36444678effb882769ad2af5c1887f230f7030d4a9d0e4a14bc47b5d5574f7"
+    },
+    {
+      "path": "experiments/runs/fm_crossad_author_v2/jobs/crossad_author__release_checkpoint__psm__seed2025/failure.json",
+      "sha256": "e2497f4a96b1172fe9d3937de57df5f6f584b651d4c49f5102166772e4a8c230"
+    },
+    {
+      "path": "experiments/runs/fm_crossad_author_v2/jobs/crossad_author__release_checkpoint__smap__seed2025/failure.json",
+      "sha256": "fbaef4fcb85a5c33e1218d30b4986142bece605c090a17cf181d48c390f98b46"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/checkpoints_0/checkpoint.pth",
+      "sha256": "3c18f59ab6e6dd0a81ab9eeb2760acf38edf145797f07d379478e8174f6c84f4"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/model_configs_0.json",
+      "sha256": "b1a552a0ec3c76c4082a8bd3aca9d3e132004e77e5ad9d0f83558a7649dfd0ac"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/PSM/train_configs.json",
+      "sha256": "b0d8bd8476a2794db17dc52fd114e249c593199f3109d7ed3dc1d66eecd9b9ab"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/checkpoints_0/checkpoint.pth",
+      "sha256": "17eebfe9e04a66f65c9efc6d1604da4ea3e280c960bca0badbad2fdc9c510296"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/model_configs_0.json",
+      "sha256": "413252c8e8b55752cbf128bb0c07a7b42f6f84995f139b6b63568206b8d8d972"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/configs/SMAP/train_configs.json",
+      "sha256": "0a6b4cc8bb0b53f8ed63bfd1ad71741a15114ab7b458827b819054a90bbf6995"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider.py",
+      "sha256": "21303b72bf127e3c338df4af2a79f3387185f04def7877404e9525468acfda80"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/data_provider/data_provider_UCR.py",
+      "sha256": "58b2e7ecb78a18ccc28b2e9e07d30efc03c9f143052012345226643c464a4246"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_TSBAD.py",
+      "sha256": "7626bdc5f7258df5d328a296b1823da42e35fc8cbb24f1572cae6da8559689e0"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/exp/exp_anomaly_detection.py",
+      "sha256": "23382d49645b224a381e681b19ba44d40e512c5b442715e7032f1a0900cd1f49"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Attention_Blocks.py",
+      "sha256": "c0460930efcb8c8c4375ea6b80bd0ca14246d7f4c8feaa493f692d2c93c95ce1"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Basic_CrossAD.py",
+      "sha256": "4e397204c1d96f05486c228a526818f924163350f3909c1f21f58336fe951366"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/Context_Blocks.py",
+      "sha256": "0fad86b3c9bb4984bd4f09743abcf784b44513a6e601606e9134b17ffbcf09a4"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/models/CrossAD/EncDec.py",
+      "sha256": "c3c68f63fdd5cda3c219687d52bdd6c2a97d0ce416da747399dde92d3408f36c"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run.py",
+      "sha256": "006df6c331a8f85f3214fa187c23fd3d3cc3fa9eea8b518564946b48ef7f9f89"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_TSBAD.py",
+      "sha256": "07aa7e8d0c98a6ad58d4bbabaddb3f0836f63863e6af19b859e2ed59e1f31a8d"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/run_UCR.py",
+      "sha256": "f724f651fbe0b1f5f5a3f16aae8bfc620cf2e738fa3e42e1a8d4a80025c5f831"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/__init__.py",
+      "sha256": "aee80390b46df2bd5ec74ad6c024d8f233beba1cbc745c4914a91b60ba9d46bc"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/__init__.py",
+      "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/accomplish_UCR/metrics.py",
+      "sha256": "82a24dcff6998f0ede70dc35f344ceb1acdbfb85000aee6b30ef7f47ef7d4a63"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/__init__.py",
+      "sha256": "15c801cfb3a60060383c096e5afd2b01a57c7d65bb2a0a6fa012dddd417c01d7"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_affiliation_zone.py",
+      "sha256": "3b289bf11cebe614afabe353c873de90ba9debf8831aef8f73532870dce01ba2"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_integral_interval.py",
+      "sha256": "8177e69eccb0ae4ea76b2f54f6799ae61758b5a103603fae3d1a3a8d331e7cda"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/_single_ground_truth_event.py",
+      "sha256": "a04b5daa0fb0ef68893807c7ab5d4353b43f0d5231ae06ef0006b2e6cf939165"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/generics.py",
+      "sha256": "16743b204d24feb8ba9deaabceb7b0cf900520136e8a3b77e499448fcaafbfc9"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/affiliation/metrics.py",
+      "sha256": "cc0e40e3ed69330436b05ccde2443f86f363041f89d95cc3521dd54ee03faa23"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/auc_vus/metrics.py",
+      "sha256": "808a07460a84d31c87edce1d803e1df231111ec53ffa702ee32eb54a79897dfc"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/evaluator.py",
+      "sha256": "13d978a7af0ba0490b8d2be892e81b294658c060e529aadc9d9b81431f049376"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/f1/metrics.py",
+      "sha256": "97e81c909ed737fd249f991153e3106e47a987b600f44bbada2fa87b8d78d2f0"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_metric.py",
+      "sha256": "249db2639ace9efe941ba05510bc850e52171168dfb46d14ff6a7008ea273e4d"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/PATE_utils.py",
+      "sha256": "ada2f8150193b7bb56cb1457e72996770e5bbdd51e85498a01e4110135b21be0"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/__init__.py",
+      "sha256": "4c0fc722c785142c82c9578168cc4a2c0361f98bb741c933032fcd38b181ec3a"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/pate/metrics.py",
+      "sha256": "f47cb1c8f6f8db2a1026b331ab7b2d790c198a6293a45fd34c2e009e3aea73b3"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/original/ts_ad_evaluation/spot.py",
+      "sha256": "ab3d9731fb7eef05f4a2e4fa18bd86eac388b9803f0262c66505dedb9f4f97f6"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/crossad/snapshot.json",
+      "sha256": "e3fab484325aab1087ffd42ac734ccb1f6e5e2f0f7dd725a59386758185add9d"
+    },
+    {
+      "path": "papers/literature/mtsad_pdfs/li2025_crossad.pdf",
+      "sha256": "03704683cc43303062227fa17de375ca7eeb8d9cdae3a7e9d68875a6cd887add"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+      "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+    },
+    {
+      "path": "scripts/flow_matching/preflight_crossad_complete.py",
+      "sha256": "3fb6f892de75cf2b1e0281fd8c41608be1bde348641b6514fccb56ecfaa5a518"
+    },
+    {
+      "path": "scripts/flow_matching/preflight_crossad_complete_v2.py",
+      "sha256": "f334873a4da606e9470193188182bd5c291612a21cdb4ed9caa807e2dfae020b"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_crossad_author.py",
+      "sha256": "c7ebb0a260274c11bbfff4029de28c2ebc68f4acba52a423398872032fc7542c"
+    },
+    {
+      "path": "scripts/flow_matching/register_crossad_author.py",
+      "sha256": "8f35b62d6776adc7b7bf1849f9d0e1c75f302dea17bc432878365232f157d6e7"
+    },
+    {
+      "path": "scripts/flow_matching/register_crossad_case_gated.py",
+      "sha256": "c0fdbc91118889d6a149d5216164e6b598aa41d86baf0b55288e48ad0a3872e6"
+    },
+    {
+      "path": "scripts/flow_matching/register_crossad_complete.py",
+      "sha256": "9c95418d7f8ed808476fa44427ff4161a21c7bb17891d6bb3718b4acd72dc32d"
+    },
+    {
+      "path": "scripts/flow_matching/register_crossad_deep_complete.py",
+      "sha256": "4d5ecd23d3b6a6bb7dacb9f0448e046542c86eccfcd7584f143fa8034ac1b4b2"
+    },
+    {
+      "path": "scripts/flow_matching/register_crossad_evaluator_compat.py",
+      "sha256": "db850821d32104a6ed8b7ca54a7fba57d85793aee77f4dc3e176a0cc2bc62595"
+    },
+    {
+      "path": "scripts/flow_matching/register_crossad_resource_recovery.py",
+      "sha256": "bfa03ea6030805fc1e46e93d82403f8c0d7f9332bd79889722af3454b7736c5f"
+    },
+    {
+      "path": "scripts/flow_matching/register_heavy_scheduler_v2.py",
+      "sha256": "fd014f190023b8e879f6a1b40bc9385e8d19c5198bd3762c344db23bf61ab11c"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_ablation_v2_job.py",
+      "sha256": "72aa61072003593e32b4ede284960524fb24cabd69f376af3d91801ade2edce2"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_author_job.py",
+      "sha256": "d6e8815b80cf96bffe18833c9d1642ff084cae48d64098cd2beffecb8d2bbae7"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_author_queue.py",
+      "sha256": "9cf4a3cc6b94f60d6598548123b883d1b30423f47d7bfc3c7e2c3057d552312d"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_case_gated_queue.py",
+      "sha256": "d582373b36e64f0ef885302b812a0b97afa1f2c19c6959f8ddfe10282fedb3c3"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_case_gated_queue_v2.py",
+      "sha256": "4ce2ac95d66380000ff147293a5ba9a80de73703ad3367ba91012cf15c7a424a"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_complete_queue.py",
+      "sha256": "cba1475a43c90e8685c95163aee5adf643b47ddde2bd86c006398c0a6c11020e"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_memory_job.py",
+      "sha256": "06352d030a795bd316cab5db0592140dbca21b13f3e28a374a57855736182d91"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_memory_v2_job.py",
+      "sha256": "610e87f274c07e79b7a4fc61761e8504136ab4b9394c5e0cbde7c06106fd7319"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_resource_recovery.py",
+      "sha256": "19320d709c8a8ca33cb06253d4a60d5c178d068f2c64976124ac0970f7d75df2"
+    },
+    {
+      "path": "scripts/flow_matching/run_resource_recovery_v2.py",
+      "sha256": "5c81b64c0cf4ef2f13b362395f82f50c9388bed3aa8583eaf8d5c2ee2452c07f"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_crossad_author_runtime.py",
+      "sha256": "9f8ca7ff9508191f295ff304ec2a9f237e1ca300c4adf47c492af952502ad02e"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_crossad_evaluator_compat.py",
+      "sha256": "4b06a45805ccb303656529e64376abe5f29c82d2eb89d33d76fc6ec73b672656"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_crossad_memory.py",
+      "sha256": "e7b146b257b02576ba6b3c1587684844bea7ffd2e14207b7f6843ed86f5e0375"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_crossad_memory_v2.py",
+      "sha256": "7c581f431e162b328170c6a2e31f426a32becb7cb7a0163e540fa0ff18e257e4"
+    }
+  ]
+}
