@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "id": "fm_result_table_v1",
+  "output_directory": "projects/flow_matching_research/results/2026-10-08",
+  "formal_references": "configs/reproducibility/flow_matching_references.v1.json",
+  "saits_references": "configs/reproducibility/saits/references.v1.json",
+  "saits_timeseries_references": "configs/reproducibility/saits/timeseries_references.v1.json",
+  "grin_references": "configs/reproducibility/grin_references.v1.json",
+  "ara_config": "configs/reproducibility/flow_matching_ara.v1.json",
+  "preflight_report": "docs/reports/fm_real_train_code_preflight_2026-10-08.json",
+  "comparison_plan": "configs/experiments/fm_mtsad_comparison.v1.json",
+  "queues": [
+    {
+      "path": "configs/experiments/fm_original_queue.v1.json",
+      "track": "author_protocol",
+      "family": "csdi_cfmi"
+    },
+    {
+      "path": "configs/experiments/fm_air36_original_queue.v1.json",
+      "track": "author_protocol",
+      "family": "csdi_cfmi"
+    },
+    {
+      "path": "configs/experiments/fm_saits_physio_original_queue.v1.json",
+      "track": "author_protocol",
+      "family": "saits_physio"
+    },
+    {
+      "path": "configs/experiments/fm_saits_timeseries_queue.v1.json",
+      "track": "config_variant",
+      "family": "saits_timeseries"
+    },
+    {
+      "path": "configs/experiments/fm_grin_original_queue.v1.json",
+      "track": "author_protocol",
+      "family": "grin"
+    },
+    {
+      "path": "configs/experiments/fm_transfer_queue.v1.json",
+      "track": "industrial_imputation_transfer",
+      "family": "transfer"
+    }
+  ],
+  "runner_methods": {
+    "run_csdi.py": "csdi",
+    "run_cfmi.py": "cfmi",
+    "run_saits.py": "from_config",
+    "run_grin.py": "grin"
+  },
+  "metric_families": {
+    "csdi": [
+      "mae",
+      "rmse",
+      "normalized_crps"
+    ],
+    "cfmi": [
+      "mae",
+      "rmse",
+      "crps",
+      "normalized_crps"
+    ],
+    "saits": [
+      "mae",
+      "rmse",
+      "mre"
+    ],
+    "saits_base": [
+      "mae",
+      "rmse",
+      "mre"
+    ],
+    "brits": [
+      "mae",
+      "rmse",
+      "mre"
+    ],
+    "grin": [
+      "mae",
+      "mse",
+      "mre"
+    ],
+    "transfer": [
+      "mae",
+      "rmse",
+      "crps"
+    ]
+  },
+  "dataset_labels": {
+    "physionet2012": "PhysioNet2012",
+    "physio": "PhysioNet2012",
+    "air36": "Air-36",
+    "air": "AQI-437",
+    "air_quality_132": "AirQuality-132",
+    "electricity": "Electricity",
+    "ett": "ETT",
+    "tep": "TEP",
+    "skab": "SKAB",
+    "pronto": "PRONTO"
+  },
+  "dataset_aliases": {
+    "PhysioNet/Computing in Cardiology Challenge2012 set-a": "physionet2012",
+    "PM2.5/STMVL Air-36": "air36",
+    "Air-36 (36 stations,8760 hourly samples)": "air36",
+    "AQI (437 stations,43 cities,8760 hourly samples)": "air",
+    "PhysioNet2012 set-a": "physionet2012",
+    "STMVL Beijing PM2.5 36 stations": "air36",
+    "PhysioNet2012 sets a,b,c and outcomes": "physio",
+    "UCI Beijing Multi-Site Air Quality": "air_quality_132",
+    "Electricity Load Diagrams 2011-2014": "electricity",
+    "ETTm1": "ett",
+    "AQI-36": "air36",
+    "AQI-437": "air"
+  },
+  "diagnostic_results": [
+    "experiments/runs/flow_matching_campaign/csdi_physio_pretrained_diagnostic/result.json"
+  ],
+  "rules": [
+    "Read-only snapshot of frozen queues and existing result files; never train or overwrite source reports.",
+    "Include every preregistered job; keep absent metrics null, never zero.",
+    "Group only within the same algorithm, dataset, protocol, mask pattern and missing ratio.",
+    "Required folds/seeds, diagnostic flags, sample counts and config fingerprints govern comparison eligibility.",
+    "No original-paper or TAB anomaly-detection performance is inferred from imputation metrics or preflight scores.",
+    "Author tables retain original units and provenance; untranscribed rows remain explicit gaps."
+  ]
+}
