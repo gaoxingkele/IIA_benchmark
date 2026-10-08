@@ -28,8 +28,7 @@ def intervals(values):
             'ci95_high': mean + margin if margin is not None else None}
 
 
-def range_snapshot(root, project):
-    path = project.get('tab_range_execution_config')
+def _one_range_snapshot(root, project, path):
     if not path:
         return {'completed_evaluations': 0, 'records': [], 'seed_aggregates': []}
     config = json.loads((root / path).read_text(encoding='utf-8'))
@@ -66,11 +65,26 @@ def range_snapshot(root, project):
     process_live = False
     try:
         process = psutil.Process(state.get('pid', -1))
-        process_live = any('run_tab_ranges_when_ready.py' in argument for argument in process.cmdline())
+        process_live = any('run_tab_ranges_when_ready.py' in argument or 'run_tab_ranges_for_config.py' in argument for argument in process.cmdline())
     except (psutil.NoSuchProcess, psutil.AccessDenied):
         pass
     return {'completed_evaluations': len(records), 'records': records, 'seed_aggregates': aggregates,
             'process_observation': {'pid': state.get('pid'), 'verified_live': process_live, 'status': state.get('status'), 'active_job': state.get('active_job')},
+            'full_psm_reference_differential': project.get('tab_range_differential_report'),
+            'boundary': 'Pinned TAB metric evaluators, not full TAB model training harness.'}
+
+
+def range_snapshot(root, project):
+    paths = [project['tab_range_execution_config']] if project.get('tab_range_execution_config') else []
+    paths += project.get('additional_tab_range_execution_configs', [])
+    snapshots = [_one_range_snapshot(root, project, path) for path in paths]
+    records = [r for snapshot in snapshots for r in snapshot['records']]
+    if len({r['id'] for r in records}) != len(records):
+        raise ValueError('Duplicate range evaluation runs across configurations')
+    return {'completed_evaluations': len(records), 'records': records,
+            'seed_aggregates': [g for snapshot in snapshots for g in snapshot['seed_aggregates']],
+            'process_observation': snapshots[0]['process_observation'] if snapshots else {},
+            'additional_process_observations': [s['process_observation'] for s in snapshots[1:]],
             'full_psm_reference_differential': project.get('tab_range_differential_report'),
             'boundary': 'Pinned TAB metric evaluators, not full TAB model training harness.'}
 
@@ -145,6 +159,7 @@ def snapshot(root):
               'base_registered_experiments': len(settings['model_configs']) * len(settings['datasets']) * len(settings['seeds']),
               'new_method_configs': len(settings['model_configs']),
               'strict_baseline_registered_jobs': sum(j['lane'] == 'strict_baselines' for j in jobs),
+              'iterative_reflow_and_epoch_control_jobs': sum(j['lane'] == 'iterative_reflow' for j in jobs),
               'tab_range_evaluations': ranges,
               'process_observations': live, 'completed_new_runs': completed, 'seed_aggregates': grouped,
               'new_jobs': jobs, 'legacy_mtsad_records': history, 'legacy_record_count': len(history),
@@ -155,7 +170,7 @@ def snapshot(root):
                   'GiFlow/forecasting/generation/continuous-time/image/single-cell and tabular original experiments',
                   'TEP/SKAB/PRONTO anomaly-detection manifests and adapters (imputation splits do not qualify)',
                   'Finish VUS/Affiliation for all remaining saved-score jobs and full pinned TAB author training-harness alignment',
-                  'Rectified Flow iterative reflow experiments; current sigma-zero straight-path adapter is single-stage and matches independent CFM',
+                  'Finish iterative reflow and equal-total-epoch controls; original image/transfer protocols and one-step distillation remain pending',
                   'Hyperparameter/fidelity gaps and material availability recorded in each ARA source'],
               'boundary': 'New queues are concrete progress, not a redefinition of completion. Historical results were absent from the 2026-10-08 FM-only table and are retained here without upgrading their protocol or fidelity.'}
     target = root / 'docs/reports/fm_full_execution_progress_2026-10-09.json'
@@ -181,6 +196,7 @@ def snapshot(root):
     lines = ['# 未完成实验执行进度', '', f"快照时间：{report['captured_utc']}。目标仍为全部已知未完成实验；尚未完成。", '',
              '42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。',
              f"另加入 {report['strict_baseline_registered_jobs']} 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。",
+             f"另加入 {report['iterative_reflow_and_epoch_control_jobs']} 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。",
              '保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。',
              '关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。',
              f"当前任务记录：{dict(Counter(j['status'] for j in jobs))}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。", '',
@@ -194,7 +210,7 @@ def snapshot(root):
         fmt = lambda name: f"{metrics[name]['mean']:.6f}" if name in metrics else '—'
         lines.append(f"| {Path(group['model_config']).stem} | {group['dataset']} | {metrics['f1']['n']}/{group['required_seeds']} | {fmt('f1')} | {fmt('auroc')} | {fmt('average_precision')} |")
     lines += ['', '逐种子结果、标准误/种子区间、时间块或实体区间、检查点及分数哈希均保存在 [execution_snapshot.json](execution_snapshot.json)。单种子块区间不替代跨算法配对检验。', '',
-              '独立 CFM 与此处单阶段 Rectified 适配器在 sigma=0、相同种子/骨干下使用同一条直线路径，数值相同是预期行为；不应视为两个独立算法的证据。迭代 reflow 尚待另行实现和实验。', '',
+              '独立 CFM 与单阶段 Rectified 在 sigma=0 时使用同一条直线路径，数值相同是预期行为。新增两/三阶段 reflow 真正生成前一流的端点配对，并在配对上重新训练；其本地异常分数仍不是原图像实验等价证明。', '',
               '## 已补算的固定版本 TAB 范围指标', '',
               f"已核验 {ranges['completed_evaluations']} 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。", '',
               '| 模型配置 | 数据集 | VUS 已完成种子 | VUS ROC 均值 | VUS PR 均值 | 严格阈值 Affiliation F 均值 |',

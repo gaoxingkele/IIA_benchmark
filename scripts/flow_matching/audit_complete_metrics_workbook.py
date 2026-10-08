@@ -1,4 +1,5 @@
 import hashlib
+import argparse
 import json
 import math
 import zipfile
@@ -6,9 +7,14 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 root = Path(__file__).resolve().parents[2]
-target = root / 'projects/flow_matching_research/results/2026-10-09/complete_metrics'
+parser = argparse.ArgumentParser()
+parser.add_argument('--source', default='projects/flow_matching_research/results/2026-10-09/complete_metrics')
+parser.add_argument('--manifest', default='outputs/fm_complete_metrics_20261009/workbook_manifest.json')
+parser.add_argument('--visually-reviewed', action='store_true')
+args = parser.parse_args()
+target = root / args.source
 data = json.loads((target / 'complete_results.json').read_text(encoding='utf-8'))
-manifest = json.loads((root / 'outputs/fm_complete_metrics_20261009/workbook_manifest.json').read_text(encoding='utf-8'))
+manifest = json.loads((root / args.manifest).read_text(encoding='utf-8'))
 ns = {'m': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 checked = 0
 with zipfile.ZipFile(target / 'complete_experiment_metrics.xlsx') as archive:
@@ -81,7 +87,7 @@ with zipfile.ZipFile(target / 'complete_experiment_metrics.xlsx') as archive:
 validation = json.loads((target / 'validation.json').read_text(encoding='utf-8'))
 validation['workbook'] = {'sheets_verified': len(matrices), 'rows': sum(s['rows'] for s in manifest['sheets']),
                           'exported_cells_compared_to_source': checked, 'all_filter_tables_and_panes_verified': True,
-                          'all_sheets_visually_reviewed': True}
+                          'all_sheets_visually_reviewed': args.visually_reviewed}
 validation['outputs'] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in target.iterdir()
                          if p.is_file() and p.name != 'validation.json'}
 (target / 'validation.json').write_text(json.dumps(validation, indent=2) + '\n', encoding='utf-8')

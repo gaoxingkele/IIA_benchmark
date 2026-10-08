@@ -1,12 +1,13 @@
 # 未完成实验执行进度
 
-快照时间：2026-10-08T17:50:39.885177+00:00。目标仍为全部已知未完成实验；尚未完成。
+快照时间：2026-10-08T18:16:27.603235+00:00。目标仍为全部已知未完成实验；尚未完成。
 
 42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。
 另加入 175 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。
+另加入 140 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。
 保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。
 关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。
-当前任务记录：{'completed': 102, 'partial_or_failed': 60, 'running': 3, 'pending': 1585}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
+当前任务记录：{'completed': 165, 'partial_or_failed': 75, 'running': 4, 'pending': 1646}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
 
 CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。
 
@@ -34,36 +35,67 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_independent | smd | 5/5 | 0.410668 | 0.767886 | 0.337081 |
 | fm_objective_ot | smd | 5/5 | 0.412128 | 0.767478 | 0.337461 |
 | fm_objective_rectified | smd | 5/5 | 0.410668 | 0.767886 | 0.337081 |
-| fm_objective_target | smd | 3/5 | 0.410632 | 0.767544 | 0.334653 |
+| fm_objective_target | smd | 5/5 | 0.409530 | 0.767068 | 0.334713 |
+| fm_objective_vp | smd | 5/5 | 0.392979 | 0.756467 | 0.324163 |
+| fm_objective_independent | swat | 5/5 | 0.289642 | 0.822661 | 0.727248 |
+| fm_objective_ot | swat | 5/5 | 0.289527 | 0.821859 | 0.724678 |
+| fm_objective_rectified | swat | 5/5 | 0.289642 | 0.822661 | 0.727248 |
+| fm_objective_target | swat | 5/5 | 0.289505 | 0.823257 | 0.726629 |
+| fm_objective_vp | swat | 4/5 | 0.300606 | 0.821763 | 0.728644 |
 | fm_objective_sb_stable_v2 | psm | 5/5 | 0.033416 | 0.717722 | 0.545647 |
-| fm_strict_timesnet__psm__registered | psm | 4/5 | 0.052776 | 0.598452 | 0.396600 |
+| fm_objective_sf2m_stable_v2 | psm | 4/5 | 0.032222 | 0.719697 | 0.548439 |
+| fm_strict_timesnet__psm__registered | psm | 5/5 | 0.053941 | 0.598985 | 0.396761 |
+| fm_strict_anomaly_transformer__psm__registered | psm | 5/5 | 0.014575 | 0.513439 | 0.295091 |
+| fm_strict_dcdetector__psm__registered | psm | 2/5 | 0.017919 | 0.501045 | 0.278295 |
+| fm_reflow_2stage | psm | 5/5 | 0.029949 | 0.725765 | 0.552078 |
+| fm_reflow_2stage | smap | 5/5 | 0.230333 | 0.547532 | 0.148794 |
+| fm_reflow_2stage | msl | 5/5 | 0.075546 | 0.539035 | 0.117010 |
+| fm_reflow_2stage | smd | 5/5 | 0.390249 | 0.753078 | 0.322908 |
 
 逐种子结果、标准误/种子区间、时间块或实体区间、检查点及分数哈希均保存在 [execution_snapshot.json](execution_snapshot.json)。单种子块区间不替代跨算法配对检验。
 
-独立 CFM 与此处单阶段 Rectified 适配器在 sigma=0、相同种子/骨干下使用同一条直线路径，数值相同是预期行为；不应视为两个独立算法的证据。迭代 reflow 尚待另行实现和实验。
+独立 CFM 与单阶段 Rectified 在 sigma=0 时使用同一条直线路径，数值相同是预期行为。新增两/三阶段 reflow 真正生成前一流的端点配对，并在配对上重新训练；其本地异常分数仍不是原图像实验等价证明。
 
 ## 已补算的固定版本 TAB 范围指标
 
-已核验 78 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
+已核验 164 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
 
 | 模型配置 | 数据集 | VUS 已完成种子 | VUS ROC 均值 | VUS PR 均值 | 严格阈值 Affiliation F 均值 |
 |---|---|---:|---:|---:|---:|
 | fm_objective_independent | msl | 5 | 0.705197 | 0.278498 | 0.725564 |
 | fm_objective_independent | psm | 5 | 0.698167 | 0.501818 | 0.585950 |
 | fm_objective_independent | smap | 5 | 0.690551 | 0.294041 | 0.537718 |
-| fm_objective_independent | smd | 3 | 0.814596 | 0.435263 | 0.801388 |
+| fm_objective_independent | smd | 5 | 0.814265 | 0.433968 | 0.799890 |
+| fm_objective_independent | swat | 5 | 0.678608 | 0.482889 | 0.717671 |
 | fm_objective_ot | msl | 5 | 0.706013 | 0.277971 | 0.728107 |
 | fm_objective_ot | psm | 5 | 0.697567 | 0.502244 | 0.578248 |
 | fm_objective_ot | smap | 5 | 0.691844 | 0.294302 | 0.536096 |
+| fm_objective_ot | smd | 5 | 0.814468 | 0.436098 | 0.799317 |
+| fm_objective_ot | swat | 5 | 0.679549 | 0.485110 | 0.715820 |
 | fm_objective_rectified | msl | 5 | 0.705197 | 0.278498 | 0.725564 |
 | fm_objective_rectified | psm | 5 | 0.698167 | 0.501818 | 0.585950 |
 | fm_objective_rectified | smap | 5 | 0.690551 | 0.294041 | 0.537718 |
+| fm_objective_rectified | smd | 5 | 0.814265 | 0.433968 | 0.799890 |
+| fm_objective_rectified | swat | 5 | 0.678608 | 0.482889 | 0.717671 |
+| fm_objective_sb_stable_v2 | psm | 5 | 0.687497 | 0.497809 | 0.587712 |
+| fm_objective_sf2m_stable_v2 | psm | 4 | 0.687794 | 0.499966 | 0.578675 |
 | fm_objective_target | msl | 5 | 0.704934 | 0.279624 | 0.724266 |
 | fm_objective_target | psm | 5 | 0.701574 | 0.502289 | 0.581274 |
 | fm_objective_target | smap | 5 | 0.690140 | 0.294203 | 0.537754 |
+| fm_objective_target | smd | 5 | 0.813133 | 0.433818 | 0.800311 |
+| fm_objective_target | swat | 5 | 0.680010 | 0.485990 | 0.718252 |
 | fm_objective_vp | msl | 5 | 0.702600 | 0.284205 | 0.733116 |
 | fm_objective_vp | psm | 5 | 0.671146 | 0.492057 | 0.522960 |
 | fm_objective_vp | smap | 5 | 0.691672 | 0.289387 | 0.533601 |
+| fm_objective_vp | smd | 5 | 0.804581 | 0.431433 | 0.798092 |
+| fm_objective_vp | swat | 3 | 0.683171 | 0.490392 | 0.703010 |
+| fm_strict_anomaly_transformer__psm__registered | psm | 5 | 0.432373 | 0.291488 | 0.635304 |
+| fm_strict_dcdetector__psm__registered | psm | 2 | 0.439577 | 0.280859 | 0.642914 |
+| fm_strict_timesnet__psm__registered | psm | 5 | 0.597688 | 0.398548 | 0.767881 |
+| fm_reflow_2stage | msl | 5 | 0.700867 | 0.285871 | 0.732293 |
+| fm_reflow_2stage | psm | 5 | 0.685073 | 0.497841 | 0.547103 |
+| fm_reflow_2stage | smap | 5 | 0.692927 | 0.291242 | 0.535977 |
+| fm_reflow_2stage | smd | 5 | 0.795336 | 0.420790 | 0.799751 |
 
 每个实体独立评价；macro仅平均原参考函数有定义的结果，未定义实体/种子数保留，不填零。Affiliation F、点级 F1 和 PA-F1 是不同指标，不能直接混比。VUS缓冲按测试标签事件长度产生，是已披露的评价依赖；严格阈值仍只来自验证段。完整TAB训练流程未等效认证。
 

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "fm_reflow_execution_v1",
+  "template_model": "configs/models/fm_objective_rectified.json",
+  "template_queue": "configs/experiments/fm_tsad_cpu_queue.v1.json",
+  "queue_path": "configs/experiments/fm_reflow_queue.v1.json",
+  "output_root": "experiments/runs/fm_reflow_execution_v1",
+  "variants": [
+    {"id": "fm_reflow_2stage", "stages": 2, "initial_epochs": 20, "reflow_epochs": 20},
+    {"id": "fm_reflow_3stage", "stages": 3, "initial_epochs": 20, "reflow_epochs": 20},
+    {"id": "fm_rectified_40epoch_budget_control", "stages": 1, "initial_epochs": 40},
+    {"id": "fm_rectified_60epoch_budget_control", "stages": 1, "initial_epochs": 60}
+  ],
+  "ode_steps": 50,
+  "ode_solver": "heun",
+  "cpu_threads": 2,
+  "author_source_root": "experiments/runs/flow_matching_campaign/sources/rectified_flow/original",
+  "author_commit": "5a1fd4dd3ea7db764ce370a84ce35f9c8b15fde6",
+  "author_version_boundary": "Acquired author snapshot; paper-era commit not established",
+  "literature_pdf": "papers/literature/flow_matching/pdfs/rectified_flow.pdf",
+  "literature_pdf_sha256": "d81790cb6988ef480002adcc84000d4f44855b11fb868001fd53aad133bc3a74",
+  "boundary": "Uniform-time L2 iterative reflow, fresh teacher-generated endpoint pairs, warm start and reset Adam. Full local TSAD inputs and fixed residual score; not original image/transfer reproduction. Controls match total epochs and architecture, not exact compute (reflow additionally generates ODE pairs). One-step distillation and original image-task experiments remain pending."
+}

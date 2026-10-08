@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "fm_rectified_40epoch_budget_control",
+  "task": "time_series_anomaly_detection",
+  "kind": "window",
+  "family": "rectified_flow_iterative_reflow_local_tsad",
+  "entrypoint": "iia_benchmark.models.fm_objective_detectors:CFMObjectiveDetector",
+  "parameters": {
+    "objective": "rectified",
+    "sigma": 0.0,
+    "window": 100,
+    "hidden_size": 128,
+    "epochs": 40,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "score_times": [
+      0.1,
+      0.3,
+      0.5,
+      0.7,
+      0.9
+    ],
+    "monte_carlo_samples": 4,
+    "score_weight": 1.0,
+    "seed": 1103
+  },
+  "citation": "https://arxiv.org/abs/2209.03003",
+  "source_repository": "gnobitab/RectifiedFlow",
+  "source_commit": "5a1fd4dd3ea7db764ce370a84ce35f9c8b15fde6",
+  "reproduction_status": "iterative_reflow_transcription_full_local_tsad_not_original_image_reproduction",
+  "paper_score_status": "not_verified",
+  "deviations": [
+    "Uniform-time L2 iterative reflow, fresh teacher-generated endpoint pairs, warm start and reset Adam. Full local TSAD inputs and fixed residual score; not original image/transfer reproduction. Controls match total epochs and architecture, not exact compute (reflow additionally generates ODE pairs). One-step distillation and original image-task experiments remain pending.",
+    "No EMA; warm-start shared MLP with a fresh Adam at each reflow stage. Initial rectification retains the registered local CFM time/RNG convention.",
+    "Couplings use as many generated pairs as full nonoverlapping training windows. Pair data, teacher states and per-stage metadata persist in checkpoint buffers."
+  ],
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ]
+}

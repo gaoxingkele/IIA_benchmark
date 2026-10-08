@@ -2,12 +2,14 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import {createRequire} from 'node:module';
+import {pathToFileURL} from 'node:url';
 const runtimeRequire=createRequire(path.join(os.homedir(),'.cache/codex-runtimes/codex-primary-runtime/dependencies/node/package.json'));
-const {Workbook, SpreadsheetFile}=await import(runtimeRequire.resolve('@oai/artifact-tool'));
+const {Workbook, SpreadsheetFile}=await import(pathToFileURL(runtimeRequire.resolve('@oai/artifact-tool')).href);
 
 const root=process.cwd();
-const source=path.join(root,'projects/flow_matching_research/results/2026-10-09/complete_metrics');
-const outputDir=path.join(root,'outputs/fm_complete_metrics_20261009');
+function option(flag,fallback){const i=process.argv.indexOf(flag);return i<0?fallback:process.argv[i+1];}
+const source=path.resolve(root,option('--source','projects/flow_matching_research/results/2026-10-09/complete_metrics'));
+const outputDir=path.resolve(root,option('--output','outputs/fm_complete_metrics_20261009'));
 await fs.mkdir(outputDir,{recursive:true});
 const data=JSON.parse(await fs.readFile(path.join(source,'complete_results.json'),'utf8'));
 const workbook=Workbook.create();
@@ -66,7 +68,7 @@ add('插补每次运行','插补每个折或种子的原始指标','耗时与che
  imputation.per_run_metrics.map(r=>perKeys.map(k=>r[k])),[3,9,10,11],{A:23,B:23,D:35,H:26,P:80,Q:110,S:130});
 const allJobs=[...data.tsad_jobs.map(r=>[path.basename(r.model_config,'.json'),r.dataset.toUpperCase(),'异常检测',r.lane,null,null,r.seed,r.status,r.id,r.model_config,null]),
  ...imputation.jobs.map(r=>[r.algorithm,r.dataset,'插补',r.track,r.missing_ratio,r.fold,r.seed,r.status,r.id,r.config,r.pattern])];
-add('全部登记任务','全部登记实验任务','异常检测1750项含105次修复重跑。另有540项插补任务。无结果项不计零分。',
+add('全部登记任务','全部登记实验任务',`异常检测${data.tsad_jobs.length}项含数值修复重跑及reflow对照。另有${imputation.jobs.length}项插补任务。无结果项不计零分。`,
  ['算法配置','数据集','任务','执行轨道','缺失率','折','种子','状态','任务ID','配置来源','掩码'],allJobs,[5],{A:55,D:35,H:25,I:100,J:110,K:24});
 add('论文报告值','ARA已核验转录的论文指标','论文原单位保留。F1_percent为0–100，F1为0–1。未转录表格仍待核验。',
  ['算法/表行','数据集','缺失率','指标','论文数值','SE','STD','重复数','PDF页','表号','原协议','转录核验','论文ID','参考ID','论文URL','全文SHA256'],

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import csv
+import argparse
 import hashlib
 import gzip
 import json
@@ -39,13 +40,18 @@ def write_csv(target, rows, headers):
 
 
 def main():
-    config_path = ROOT / 'configs/reproducibility/fm_result_table.2026-10-09.json'
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--config', default='configs/reproducibility/fm_result_table.2026-10-09.json')
+    args = parser.parse_args()
+    config_path = ROOT / args.config
     settings = read(config_path)
     snapshot_path = ROOT / settings['tsad_snapshot']
     snapshot = read(snapshot_path)
     imputation = build(ROOT, read(ROOT / settings['imputation_settings']))
     target = ROOT / settings['output_directory']
     target.mkdir(parents=True, exist_ok=True)
+    archived_snapshot = target / 'tsad_source_snapshot.json'
+    archived_snapshot.write_bytes(snapshot_path.read_bytes())
     ranges = {r['id']: r for r in snapshot['tab_range_evaluations']['records']}
     groups = defaultdict(list)
     for job in snapshot['new_jobs']:
@@ -53,7 +59,7 @@ def main():
     seed_stats = {(r['model_config'], r['dataset']): r for r in snapshot['seed_aggregates']}
     range_stats = {(r['model_config'], r['dataset']): r for r in snapshot['tab_range_evaluations']['seed_aggregates']}
     summary, strict_runs, diagnostic, leaves, entity_runs = [], [], [], [], []
-    sources = [{'path': settings['tsad_snapshot'], 'sha256': sha(snapshot_path)},
+    sources = [{'path': archived_snapshot.relative_to(ROOT).as_posix(), 'sha256': sha(archived_snapshot)},
                {'path': str(config_path.relative_to(ROOT)).replace('\\', '/'), 'sha256': sha(config_path)}]
     for (model, dataset), jobs in groups.items():
         metrics = seed_stats.get((model, dataset), {}).get('metrics', {})
@@ -162,7 +168,7 @@ def main():
         if not r['completed_seeds']:
             continue
         lines.append(f"| {r['algorithm_config']} | {r['dataset']} | {r['completed_seeds']}/{r['required_seeds']} | {fmt(r['precision_mean'])} | {fmt(r['recall_mean'])} | {fmt(r['f1_mean'])} | {fmt(r['auroc_mean'])} | {fmt(r['average_precision_mean'])} | {fmt(r['VUS_ROC_mean'])} ({r['VUS_ROC_n'] or 0}) | {fmt(r['VUS_PR_mean'])} | {fmt(r['affiliation_f_mean'])} ({r['affiliation_f_n'] or 0}) |")
-    lines += ['', '各指标可能由不同数量的已完成种子产生，范围指标种子数必须一起读取；不混合缺失值为零。独立 CFM 与单阶段 Rectified 在这里 sigma=0 时等价，迭代 reflow 尚未完成。', '',
+    lines += ['', '各指标可能由不同数量的已完成种子产生，范围指标种子数必须一起读取；不混合缺失值为零。独立 CFM 与单阶段 Rectified 在这里 sigma=0 时等价。迭代 reflow 独立列行，其完整队列尚未全部完成。', '',
               '## 插补实验已有结果', '', '| 算法 | 数据集 | 缺失率 | 掩码/协议 | 指标 | 均值 | SE | 完成/预定折或种子 | 论文值 | 比较状态 |',
               '|---|---|---:|---|---|---:|---:|---:|---:|---|']
     for r in imputation['formal_results']:
