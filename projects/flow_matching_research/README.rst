@@ -122,6 +122,9 @@ ARA 参考文献工程
 另加入175个窗口基线任务：6种既有方法以及USAD有符号损失对照。GPU续跑等待现有插补队列完成。
 另加入140个真实两/三阶段reflow与40/60轮训练对照任务，保存教师参数、ODE端点配对、损失及几何统计。
 该轨匹配异常检测输入，尚未证明等效于原图像实验；总epoch对照未匹配额外ODE计算开销。
+另已启动MaelNet官方作者轨：6套发布配方、5个完整原生数据集、5个种子，共150个流水线任务和600个阶段。
+依次训练AnomalyTransformer、DCDetector、MaelNetS2并运行完整作者DQN流程；各种子隔离检查点，保留原stride、轮数和早停。
+此轨保留测试标签奖励与PA环境状态，独立记录为作者协议诊断，不并入严格TAB成绩。Python/Torch版本差异及接口预检结果已登记。
 固定版本TAB的VUS和Affiliation正在对完整保存分数逐项补算；原论文、其他任务、工业异常检测、作者适配器和完整TAB训练流程仍是未完成义务。
 非重叠训练窗口比部分作者stride=1少很多梯度更新，相同epoch数不等于相同训练预算，不能据当前低分判定原论文无效。
 
@@ -133,6 +136,8 @@ ARA 参考文献工程
    python -m scripts.flow_matching.register_tsad_execution
    python -m scripts.flow_matching.start_tsad_execution
    python -m scripts.flow_matching.register_entropic_repair
+   python -m scripts.flow_matching.register_maelnet_author
+   python -m scripts.flow_matching.start_maelnet_author_execution
    python -m scripts.flow_matching.summarize_tsad_execution
    python -m scripts.flow_matching.export_complete_metrics
 

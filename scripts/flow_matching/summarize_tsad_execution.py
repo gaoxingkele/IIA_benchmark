@@ -4,6 +4,7 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 import csv
+import hashlib
 import json
 from pathlib import Path
 import statistics
@@ -89,6 +90,51 @@ def range_snapshot(root, project):
             'boundary': 'Pinned TAB metric evaluators, not full TAB model training harness.'}
 
 
+def author_pipeline_snapshot(root, project):
+    from scripts.flow_matching.run_maelnet_author_queue import verify_artifacts
+    snapshots = []
+    for name, queue_path in project.get('author_execution_queues', {}).items():
+        queue = json.loads((root / queue_path).read_text(encoding='utf-8'))
+        base = root / queue['settings']['output_root']
+        state = json.loads((base / 'status.json').read_text(encoding='utf-8')) if (base / 'status.json').exists() else {}
+        def matches(pid, fragment):
+            if not pid or pid <= 0:
+                return False
+            try:
+                return any(fragment in a for a in psutil.Process(pid).cmdline())
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                return False
+        worker_live = matches(state.get('pid'), 'run_maelnet_author_queue.py')
+        child_live = matches(state.get('active_pid'), 'run_anomaly.py')
+        jobs = []
+        for job in queue['jobs']:
+            output = root / job['output_directory']
+            result = output / 'result.json'
+            row = {key: job[key] for key in ['id', 'dataset', 'seed', 'author_recipe', 'output_directory']}
+            if result.exists():
+                receipt = json.loads(result.read_text(encoding='utf-8'))
+                if receipt['experiment_sha256'] != hashlib.sha256(json.dumps(job, sort_keys=True).encode()).hexdigest():
+                    raise ValueError('Author result belongs to another job')
+                verify_artifacts(receipt, root)
+                row.update(status='completed', result_path=result.relative_to(root).as_posix(), result_sha256=sha(result), metrics=receipt['metrics'])
+            else:
+                row['status'] = ('running' if worker_live and child_live and state.get('active_job') == job['id'] else
+                                 'failed_or_partial_preserved' if (output / 'failure.json').exists() else
+                                 'preparing_or_partial' if output.exists() else 'pending')
+            row['stage_receipts'] = [{'path': p.relative_to(root).as_posix(), 'sha256': sha(p),
+                                      'status': json.loads(p.read_text(encoding='utf-8'))['status']}
+                                     for p in sorted((output / 'stages').glob('*/receipt.json'))]
+            jobs.append(row)
+        snapshots.append({'name': name, 'queue': queue_path, 'queue_sha256': sha(root / queue_path),
+                          'registered_jobs': len(jobs), 'registered_stages': sum(len(j['stages']) for j in queue['jobs']),
+                          'counts': dict(Counter(j['status'] for j in jobs)), 'jobs': jobs,
+                          'process_observation': {'pid': state.get('pid'), 'verified_live': worker_live,
+                                                  'active_pid': state.get('active_pid'), 'active_process_verified_live': child_live,
+                                                  'active_job': state.get('active_job'), 'active_stage': state.get('active_stage')},
+                          'boundary': queue['boundary'], 'strict_TAB_result': False})
+    return snapshots
+
+
 def snapshot(root):
     settings = json.loads((root / 'configs/experiments/fm_tsad_execution.v1.json').read_text(encoding='utf-8'))
     base = root / settings['output_root']
@@ -161,6 +207,7 @@ def snapshot(root):
               'strict_baseline_registered_jobs': sum(j['lane'] == 'strict_baselines' for j in jobs),
               'iterative_reflow_and_epoch_control_jobs': sum(j['lane'] == 'iterative_reflow' for j in jobs),
               'tab_range_evaluations': ranges,
+              'author_pipeline_experiments': author_pipeline_snapshot(root, project),
               'process_observations': live, 'completed_new_runs': completed, 'seed_aggregates': grouped,
               'new_jobs': jobs, 'legacy_mtsad_records': history, 'legacy_record_count': len(history),
               'original_paper_scope': papers, 'known_method_inventory_records': len(inventory['records']),
@@ -197,6 +244,7 @@ def snapshot(root):
              '42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。',
              f"另加入 {report['strict_baseline_registered_jobs']} 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。",
              f"另加入 {report['iterative_reflow_and_epoch_control_jobs']} 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。",
+             '另有独立的MaelNet官方作者轨：150个配方—数据集—种子任务、600个训练/RL阶段。状态及原协议指标见execution_snapshot.json的author_pipeline_experiments，不计入严格无PA成绩。',
              '保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。',
              '关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。',
              f"当前任务记录：{dict(Counter(j['status'] for j in jobs))}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。", '',

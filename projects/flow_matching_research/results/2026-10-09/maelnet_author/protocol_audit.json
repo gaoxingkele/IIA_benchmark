@@ -1,0 +1,265 @@
+{
+  "author_repository": "https://github.com/hpc-inspirasi/ModMaelNet",
+  "commit": "a5f5bb5a23b90773fd15a5059a6f0c0ef2853c56",
+  "config_sha256": "6ce13bc574efa90b0d169a66cc14d9209d1ac52bfb21ebb44eb1864b96a1c23b",
+  "preflight": "docs/reports/fm_maelnet_author_preflight_2026-10-09.json",
+  "preflight_sha256": "be054eca1cf5a1612ef32ca772af37d85c7e55daafee3108129c3817441b69a5",
+  "source_version_boundary": "Pinned acquired author repository, publication-era commit and exact paper table-row mapping not established",
+  "source_protocol_evidence": [
+    {
+      "id": "validation_overlap",
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/data_provider/data_loader.py",
+      "sha256": "c2cd4ef41f058675dda856bab50a4dff048f28ac9911c2b1f93a7e168d07e8e0",
+      "lines": [
+        27,
+        76,
+        119,
+        161,
+        208
+      ],
+      "observation": "Validation is the last20% of the same full array used for training, retained in all five actual native loader audits."
+    },
+    {
+      "id": "flattened_overlapping_scores",
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/exp/opt_rl2_anomaly.py",
+      "sha256": "14cac81b154e93a9283def6aca798a42351cac9e2d9d0eefa3090c2165f733aa",
+      "lines": [
+        151
+      ],
+      "observation": "Overlapping window scores are flattened without aggregation to one score per timestamp. Multiplicity and event geometry differ from strict pointwise evaluation."
+    },
+    {
+      "id": "test_score_threshold",
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/exp/opt_rl2_anomaly.py",
+      "sha256": "14cac81b154e93a9283def6aca798a42351cac9e2d9d0eefa3090c2165f733aa",
+      "lines": [
+        183,
+        215
+      ],
+      "observation": "Threshold calibration includes threshold-loader scores drawn from the test payload; this is not validation-only calibration."
+    },
+    {
+      "id": "PA_label_dependent_state",
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/utils/agentreward.py",
+      "sha256": "74710f1259da047d02018e7535a3fa3b5642a614ed85406946a7f70a4257bcfc",
+      "lines": [
+        155
+      ],
+      "observation": "Ground-truth-dependent PA predictions are constructed before the environment states; their predictions become observation coordinate2."
+    },
+    {
+      "id": "label_reward",
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/utils/agentreward.py",
+      "sha256": "74710f1259da047d02018e7535a3fa3b5642a614ed85406946a7f70a4257bcfc",
+      "lines": [
+        235
+      ],
+      "observation": "TP/FN/FP/TN rewards depend on test labels. The frozen reward values remain1,-1.5,-0.6,.01."
+    },
+    {
+      "id": "train_evaluate_same_environment",
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/exp/opt_rl2_anomaly.py",
+      "sha256": "14cac81b154e93a9283def6aca798a42351cac9e2d9d0eefa3090c2165f733aa",
+      "lines": [
+        257
+      ],
+      "observation": "DQN learns on env_off for the entire flattened test sequence and is evaluated on that same env_off."
+    },
+    {
+      "id": "DQN_seed_not_explicit",
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/exp/opt_rl2_anomaly.py",
+      "sha256": "14cac81b154e93a9283def6aca798a42351cac9e2d9d0eefa3090c2165f733aa",
+      "lines": [
+        255
+      ],
+      "observation": "The original DQN call does not pass seed. Top-level Python/NumPy/Torch seeds are retained, but do not establish deterministic SB3 initialization."
+    }
+  ],
+  "native_datasets": {
+    "PSM": {
+      "shapes": {
+        "train": [
+          132481,
+          25
+        ],
+        "test": [
+          87841,
+          25
+        ]
+      },
+      "window": 100,
+      "stride": 1,
+      "window_counts": {
+        "train": 132382,
+        "val": 26398,
+        "test": 87742,
+        "threshold": 878
+      },
+      "label_shape": [
+        87841,
+        1
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 8774200,
+      "config": "configs/datasets/mtsad_psm.json"
+    },
+    "SMAP": {
+      "shapes": {
+        "train": [
+          135183,
+          25
+        ],
+        "test": [
+          427617,
+          25
+        ]
+      },
+      "window": 100,
+      "stride": 1,
+      "window_counts": {
+        "train": 135084,
+        "val": 26938,
+        "test": 427518,
+        "threshold": 4276
+      },
+      "label_shape": [
+        427617
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 42751800,
+      "config": "configs/datasets/mtsad_smap.json"
+    },
+    "MSL": {
+      "shapes": {
+        "train": [
+          58317,
+          55
+        ],
+        "test": [
+          73729,
+          55
+        ]
+      },
+      "window": 100,
+      "stride": 1,
+      "window_counts": {
+        "train": 58218,
+        "val": 11565,
+        "test": 73630,
+        "threshold": 737
+      },
+      "label_shape": [
+        73729
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 7363000,
+      "config": "configs/datasets/mtsad_msl.json"
+    },
+    "SMD": {
+      "shapes": {
+        "train": [
+          708405,
+          38
+        ],
+        "test": [
+          708420,
+          38
+        ]
+      },
+      "window": 100,
+      "stride": 100,
+      "window_counts": {
+        "train": 7084,
+        "val": 1416,
+        "test": 7084,
+        "threshold": 7084
+      },
+      "label_shape": [
+        708420
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 708400,
+      "config": "configs/datasets/mtsad_smd.json"
+    },
+    "SWaT": {
+      "shapes": {
+        "train": [
+          495000,
+          51
+        ],
+        "test": [
+          449919,
+          51
+        ]
+      },
+      "window": 100,
+      "stride": 1,
+      "window_counts": {
+        "train": 494901,
+        "val": 98901,
+        "test": 449820,
+        "threshold": 4499
+      },
+      "label_shape": [
+        449919,
+        1
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 44982000,
+      "config": "configs/datasets/mtsad_swat.json"
+    }
+  },
+  "decoder_argument_audit": {
+    "AnomalyTransformer": {
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/models/AnomalyTransformer.py",
+      "sha256": "5e287c6b83f4cd0c7473ef2258a2dd2cee9f7abe5ecc8b669e68502727f6511c",
+      "d_layers_token_count_in_model_file": 0
+    },
+    "DCDetector": {
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/models/DCDetector.py",
+      "sha256": "06561845ae42d8b791d1838231158ad1889222cdf861fe9fda9738b2b16e9d13",
+      "d_layers_token_count_in_model_file": 0
+    },
+    "MaelNetS2": {
+      "path": "experiments/runs/fm_code_completion/sources/maelnet/original/models/MaelNetS2.py",
+      "sha256": "547b5e449c2462d7d7ba6d7f6647e2974988c2ca4b4276009aebb6dd6319cd11",
+      "d_layers_token_count_in_model_file": 0
+    }
+  },
+  "decoder_argument_inference": "The three selected model files do not read d_layers. Matching parameter counts in preflight are consistent with repository decoder-depth recipes being naming changes rather than separate decoder architectures; paper architectural fidelity remains unproven.",
+  "observed_label_dependence": {
+    "diagnostic_inputs": "64-point interface probe, fixed scores and thresholds",
+    "changed_PA_predictions_when_labels_change": 37,
+    "benchmark_performance": false
+  },
+  "environment_deviations": {
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "executable": "D:\\aicoding\\IIA_benchmark\\.venv\\maelnet-author-py312\\Scripts\\python.exe",
+    "versions": {
+      "numpy": "2.1.3",
+      "pandas": "2.2.3",
+      "torch": "2.13.0+cu126",
+      "gym": "0.26.2",
+      "gymnasium": "1.1.1",
+      "shimmy": "2.0.0",
+      "stable-baselines3": "2.6.0",
+      "sktime": "0.36.1",
+      "scikit-learn": "1.6.1",
+      "einops": "0.8.1",
+      "tensorboard": "2.19.0"
+    },
+    "deviations": [
+      "Python 3.12, inherited Torch 2.13.0+cu126 vs listed Torch2.6.0; CPU execution",
+      "Author DQN call leaves seed=None; preflight DQN seed is explicit and is not a paper result"
+    ]
+  },
+  "runtime_repairs": [
+    "Integer chunk argument; non-MSL loaders receive only supported arguments",
+    "NumPy 2 infinity spelling, retaining early-stopping comparisons",
+    "Attention distances follow model/tensor device; checkpoint parameter keys unchanged",
+    "Gym observation dtype/bounds match actual unclipped score and confidence values",
+    "Instrumentation persists raw base scores, labels, thresholds, policy and original RL metrics"
+  ],
+  "all_original_experiments_complete": false,
+  "paper_metrics_reproduced": false
+}

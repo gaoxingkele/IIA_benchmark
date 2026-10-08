@@ -1,0 +1,423 @@
+{
+  "purpose": "full_native_data_and_runtime_interface_preflight_not_benchmark_performance",
+  "original_gym_failure": {
+    "original_env_rejected": true,
+    "exception": "The observation returned by the `reset()` method does not match the data type (cannot cast) of the given observation space Box(0.0, 1.0, (4,), float32). Expected: float32, actual dtype: float64",
+    "source_sha256": "74710f1259da047d02018e7535a3fa3b5642a614ed85406946a7f70a4257bcfc"
+  },
+  "source_commit": "a5f5bb5a23b90773fd15a5059a6f0c0ef2853c56",
+  "original_source_preserved": true,
+  "gym_observation_checker_passed": true,
+  "diagnostic_DQN_steps": 64,
+  "test_label_dependent_PA_prediction_changes": 37,
+  "native_datasets": {
+    "PSM": {
+      "shapes": {
+        "train": [
+          132481,
+          25
+        ],
+        "test": [
+          87841,
+          25
+        ]
+      },
+      "window": 100,
+      "stride": 1,
+      "window_counts": {
+        "train": 132382,
+        "val": 26398,
+        "test": 87742,
+        "threshold": 878
+      },
+      "label_shape": [
+        87841,
+        1
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 8774200,
+      "config": "configs/datasets/mtsad_psm.json"
+    },
+    "SMAP": {
+      "shapes": {
+        "train": [
+          135183,
+          25
+        ],
+        "test": [
+          427617,
+          25
+        ]
+      },
+      "window": 100,
+      "stride": 1,
+      "window_counts": {
+        "train": 135084,
+        "val": 26938,
+        "test": 427518,
+        "threshold": 4276
+      },
+      "label_shape": [
+        427617
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 42751800,
+      "config": "configs/datasets/mtsad_smap.json"
+    },
+    "MSL": {
+      "shapes": {
+        "train": [
+          58317,
+          55
+        ],
+        "test": [
+          73729,
+          55
+        ]
+      },
+      "window": 100,
+      "stride": 1,
+      "window_counts": {
+        "train": 58218,
+        "val": 11565,
+        "test": 73630,
+        "threshold": 737
+      },
+      "label_shape": [
+        73729
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 7363000,
+      "config": "configs/datasets/mtsad_msl.json"
+    },
+    "SMD": {
+      "shapes": {
+        "train": [
+          708405,
+          38
+        ],
+        "test": [
+          708420,
+          38
+        ]
+      },
+      "window": 100,
+      "stride": 100,
+      "window_counts": {
+        "train": 7084,
+        "val": 1416,
+        "test": 7084,
+        "threshold": 7084
+      },
+      "label_shape": [
+        708420
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 708400,
+      "config": "configs/datasets/mtsad_smd.json"
+    },
+    "SWaT": {
+      "shapes": {
+        "train": [
+          495000,
+          51
+        ],
+        "test": [
+          449919,
+          51
+        ]
+      },
+      "window": 100,
+      "stride": 1,
+      "window_counts": {
+        "train": 494901,
+        "val": 98901,
+        "test": 449820,
+        "threshold": 4499
+      },
+      "label_shape": [
+        449919,
+        1
+      ],
+      "train_validation_overlap_retained": true,
+      "flattened_test_points": 44982000,
+      "config": "configs/datasets/mtsad_swat.json"
+    }
+  },
+  "model_interfaces": [
+    {
+      "recipe": "EXP_1_e3d1",
+      "model": "AnomalyTransformer",
+      "e_layers": 3,
+      "d_layers_argument": 1,
+      "d_model": 512,
+      "parameter_count": 4837425,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_1_e3d1",
+      "model": "DCDetector",
+      "e_layers": 3,
+      "d_layers_argument": 1,
+      "d_model": 512,
+      "parameter_count": 3362329,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_1_e3d1",
+      "model": "MaelNetS2",
+      "e_layers": 3,
+      "d_layers_argument": 1,
+      "d_model": 512,
+      "parameter_count": 3593269,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_2_e4d1",
+      "model": "AnomalyTransformer",
+      "e_layers": 4,
+      "d_layers_argument": 1,
+      "d_model": 512,
+      "parameter_count": 6419513,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_2_e4d1",
+      "model": "DCDetector",
+      "e_layers": 4,
+      "d_layers_argument": 1,
+      "d_model": 512,
+      "parameter_count": 4413977,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_2_e4d1",
+      "model": "MaelNetS2",
+      "e_layers": 4,
+      "d_layers_argument": 1,
+      "d_model": 512,
+      "parameter_count": 4753057,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_3_e3d2",
+      "model": "AnomalyTransformer",
+      "e_layers": 3,
+      "d_layers_argument": 2,
+      "d_model": 512,
+      "parameter_count": 4837425,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_3_e3d2",
+      "model": "DCDetector",
+      "e_layers": 3,
+      "d_layers_argument": 2,
+      "d_model": 512,
+      "parameter_count": 3362329,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_3_e3d2",
+      "model": "MaelNetS2",
+      "e_layers": 3,
+      "d_layers_argument": 2,
+      "d_model": 512,
+      "parameter_count": 3593269,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_4_e4d2",
+      "model": "AnomalyTransformer",
+      "e_layers": 4,
+      "d_layers_argument": 2,
+      "d_model": 512,
+      "parameter_count": 6419513,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_4_e4d2",
+      "model": "DCDetector",
+      "e_layers": 4,
+      "d_layers_argument": 2,
+      "d_model": 512,
+      "parameter_count": 4413977,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_4_e4d2",
+      "model": "MaelNetS2",
+      "e_layers": 4,
+      "d_layers_argument": 2,
+      "d_model": 512,
+      "parameter_count": 4753057,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_5_e3d3",
+      "model": "AnomalyTransformer",
+      "e_layers": 3,
+      "d_layers_argument": 3,
+      "d_model": 512,
+      "parameter_count": 4837425,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_5_e3d3",
+      "model": "DCDetector",
+      "e_layers": 3,
+      "d_layers_argument": 3,
+      "d_model": 512,
+      "parameter_count": 3362329,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_5_e3d3",
+      "model": "MaelNetS2",
+      "e_layers": 3,
+      "d_layers_argument": 3,
+      "d_model": 512,
+      "parameter_count": 3593269,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_6_e4d3",
+      "model": "AnomalyTransformer",
+      "e_layers": 4,
+      "d_layers_argument": 3,
+      "d_model": 512,
+      "parameter_count": 6419513,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_6_e4d3",
+      "model": "DCDetector",
+      "e_layers": 4,
+      "d_layers_argument": 3,
+      "d_model": 512,
+      "parameter_count": 4413977,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    },
+    {
+      "recipe": "EXP_6_e4d3",
+      "model": "MaelNetS2",
+      "e_layers": 4,
+      "d_layers_argument": 3,
+      "d_model": 512,
+      "parameter_count": 4753057,
+      "real_input_shape": [
+        1,
+        100,
+        25
+      ],
+      "backward_finite": true
+    }
+  ],
+  "environment": {
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "executable": "D:\\aicoding\\IIA_benchmark\\.venv\\maelnet-author-py312\\Scripts\\python.exe",
+    "versions": {
+      "numpy": "2.1.3",
+      "pandas": "2.2.3",
+      "torch": "2.13.0+cu126",
+      "gym": "0.26.2",
+      "gymnasium": "1.1.1",
+      "shimmy": "2.0.0",
+      "stable-baselines3": "2.6.0",
+      "sktime": "0.36.1",
+      "scikit-learn": "1.6.1",
+      "einops": "0.8.1",
+      "tensorboard": "2.19.0"
+    },
+    "deviations": [
+      "Python 3.12, inherited Torch 2.13.0+cu126 vs listed Torch2.6.0; CPU execution",
+      "Author DQN call leaves seed=None; preflight DQN seed is explicit and is not a paper result"
+    ]
+  },
+  "numpy2_early_stopping_constructed": true
+}
