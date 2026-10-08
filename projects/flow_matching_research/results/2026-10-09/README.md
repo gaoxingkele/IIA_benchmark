@@ -1,15 +1,15 @@
 # 未完成实验执行进度
 
-快照时间：2026-10-08T21:10:34.255235+00:00。目标仍为全部已知未完成实验；尚未完成。
+快照时间：2026-10-08T21:26:21.206213+00:00。目标仍为全部已知未完成实验；尚未完成。
 
 42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。
 另加入 175 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。
 另加入 140 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。
 独立作者/镜像完整流程：maelnet 150个任务、600个阶段，{'failed_or_partial_preserved': 2, 'running': 1, 'pending': 147}；pi_transformer_historical_mirror 1140个任务、2280个阶段，{'failed_or_partial_preserved': 3, 'running': 1, 'pending': 1136}；crossad_complete 139个任务、556个阶段，{'pending': 139}。原协议单列，不计入严格无PA成绩。
-另有工业异常检测任务 1400 项，状态 {'completed': 301, 'partial_or_failed': 69, 'running': 1, 'pending': 1029}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
+另有工业异常检测任务 1400 项，状态 {'completed': 338, 'partial_or_failed': 69, 'running': 1, 'pending': 992}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
 保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。
 关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。
-当前任务记录：{'completed': 685, 'partial_or_failed': 176, 'pending': 2497, 'running': 4}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
+当前任务记录：{'completed': 728, 'partial_or_failed': 176, 'pending': 2454, 'running': 4}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
 
 CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。
 
@@ -59,7 +59,8 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_sf2m_flow_only_stable_v2 | psm | 5/5 | 0.033416 | 0.717722 | 0.545647 |
 | fm_objective_sb_stable_v2 | smap | 5/5 | 0.233867 | 0.540958 | 0.147982 |
 | fm_objective_sf2m_stable_v2 | smap | 5/5 | 0.232735 | 0.541786 | 0.148027 |
-| fm_objective_sf2m_flow_only_stable_v2 | smap | 4/5 | 0.233552 | 0.541598 | 0.148105 |
+| fm_objective_sf2m_flow_only_stable_v2 | smap | 5/5 | 0.233867 | 0.540958 | 0.147982 |
+| fm_objective_sb_stable_v2 | msl | 3/5 | 0.076258 | 0.534397 | 0.113644 |
 | fm_strict_timesnet__psm__registered | psm | 5/5 | 0.053941 | 0.598985 | 0.396761 |
 | fm_strict_anomaly_transformer__psm__registered | psm | 5/5 | 0.014575 | 0.513439 | 0.295091 |
 | fm_strict_dcdetector__psm__registered | psm | 5/5 | 0.017267 | 0.501093 | 0.278458 |
@@ -100,6 +101,8 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_moment_pretrained_small__release512 | smap | 1/1 | 0.105609 | 0.454654 | 0.126343 |
 | fm_moment_pretrained_small__release512 | msl | 1/1 | 0.086996 | 0.559740 | 0.132951 |
 | fm_moment_pretrained_small__release512 | smd | 1/1 | 0.174824 | 0.813581 | 0.260849 |
+| fm_moment_pretrained_small__release512 | swat | 1/1 | 0.083518 | 0.262044 | 0.113999 |
+| fm_moment_pretrained_small__release512 | swan | 1/1 | 0.426205 | 0.684565 | 0.495399 |
 | fm_objective_independent | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |
 | fm_objective_ot | tep_classic | 5/5 | 0.731832 | 0.890985 | 0.977679 |
 | fm_objective_rectified | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |
@@ -162,6 +165,14 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_rectified | pronto_day2 | 5/5 | 0.164760 | 0.717108 | 0.975313 |
 | fm_objective_target | pronto_day2 | 5/5 | 0.164299 | 0.718803 | 0.975536 |
 | fm_objective_vp | pronto_day2 | 5/5 | 0.110471 | 0.710927 | 0.974623 |
+| fm_objective_sb_stable_v2 | pronto_day2 | 5/5 | 0.155779 | 0.710824 | 0.974961 |
+| fm_objective_sf2m_stable_v2 | pronto_day2 | 5/5 | 0.154316 | 0.708870 | 0.974728 |
+| fm_objective_sf2m_flow_only_stable_v2 | pronto_day2 | 5/5 | 0.155779 | 0.710824 | 0.974961 |
+| fm_reflow_2stage | pronto_day2 | 5/5 | 0.086194 | 0.726795 | 0.976459 |
+| fm_reflow_3stage | pronto_day2 | 5/5 | 0.012962 | 0.733609 | 0.977437 |
+| fm_rectified_40epoch_budget_control | pronto_day2 | 5/5 | 0.166917 | 0.747698 | 0.978831 |
+| fm_rectified_60epoch_budget_control | pronto_day2 | 5/5 | 0.166946 | 0.740475 | 0.978277 |
+| fm_strict_timesnet__psm__registered | pronto_day2 | 2/5 | 0.014837 | 0.547997 | 0.952566 |
 
 逐种子结果、标准误/种子区间、时间块或实体区间、检查点及分数哈希均保存在 [execution_snapshot.json](execution_snapshot.json)。单种子块区间不替代跨算法配对检验。
 
@@ -169,7 +180,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 
 ## 已补算的固定版本 TAB 范围指标
 
-已核验 506 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
+已核验 543 个完整分数文件的 VUS 与 Affiliation。VUS保留原250阈值、全部整数缓冲长度、inclusive ties与积分公式；完整PSM87841点与原代码执行差异为约1e-16。
 
 | 模型配置 | 数据集 | VUS 已完成种子 | VUS ROC 均值 | VUS PR 均值 | 严格阈值 Affiliation F 均值 |
 |---|---|---:|---:|---:|---:|
@@ -227,12 +238,15 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_rectified | pronto_day4 | 5 | 0.646314 | 0.629969 | 0.390340 |
 | fm_objective_rectified | skab | 5 | 0.797160 | 0.736057 | 0.774492 |
 | fm_objective_rectified | tep_classic | 5 | 0.976290 | 0.995223 | 0.942948 |
+| fm_objective_sb_stable_v2 | pronto_day2 | 5 | 0.976188 | 0.998645 | 0.557018 |
 | fm_objective_sb_stable_v2 | pronto_day4 | 3 | 0.636532 | 0.616044 | 0.390422 |
 | fm_objective_sb_stable_v2 | skab | 5 | 0.807162 | 0.750735 | 0.773940 |
 | fm_objective_sb_stable_v2 | tep_classic | 5 | 0.975428 | 0.995032 | 0.948819 |
+| fm_objective_sf2m_stable_v2 | pronto_day2 | 5 | 0.975919 | 0.998628 | 0.557062 |
 | fm_objective_sf2m_stable_v2 | pronto_day4 | 3 | 0.637129 | 0.618050 | 0.390340 |
 | fm_objective_sf2m_stable_v2 | skab | 5 | 0.811590 | 0.756376 | 0.774487 |
 | fm_objective_sf2m_stable_v2 | tep_classic | 5 | 0.975403 | 0.995018 | 0.944569 |
+| fm_objective_sf2m_flow_only_stable_v2 | pronto_day2 | 5 | 0.976188 | 0.998645 | 0.557018 |
 | fm_objective_sf2m_flow_only_stable_v2 | pronto_day4 | 3 | 0.636532 | 0.616044 | 0.390422 |
 | fm_objective_sf2m_flow_only_stable_v2 | skab | 5 | 0.807162 | 0.750735 | 0.773940 |
 | fm_objective_sf2m_flow_only_stable_v2 | tep_classic | 5 | 0.975428 | 0.995032 | 0.948819 |
@@ -244,15 +258,19 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_vp | pronto_day4 | 5 | 0.616521 | 0.600420 | 0.390340 |
 | fm_objective_vp | skab | 5 | 0.831504 | 0.783663 | 0.776964 |
 | fm_objective_vp | tep_classic | 5 | 0.976332 | 0.995198 | 0.938951 |
+| fm_rectified_40epoch_budget_control | pronto_day2 | 5 | 0.979421 | 0.998867 | 0.557791 |
 | fm_rectified_40epoch_budget_control | pronto_day4 | 5 | 0.653947 | 0.641289 | 0.390389 |
 | fm_rectified_40epoch_budget_control | skab | 5 | 0.780206 | 0.712742 | 0.773067 |
 | fm_rectified_40epoch_budget_control | tep_classic | 5 | 0.976414 | 0.995308 | 0.944949 |
+| fm_rectified_60epoch_budget_control | pronto_day2 | 5 | 0.978899 | 0.998840 | 0.557825 |
 | fm_rectified_60epoch_budget_control | pronto_day4 | 5 | 0.655000 | 0.643326 | 0.390340 |
 | fm_rectified_60epoch_budget_control | skab | 5 | 0.774063 | 0.706324 | 0.775239 |
 | fm_rectified_60epoch_budget_control | tep_classic | 5 | 0.976417 | 0.995317 | 0.941918 |
+| fm_reflow_2stage | pronto_day2 | 5 | 0.977087 | 0.998712 | 0.554312 |
 | fm_reflow_2stage | pronto_day4 | 5 | 0.611032 | 0.595473 | 0.390340 |
 | fm_reflow_2stage | skab | 5 | 0.803590 | 0.745465 | 0.774031 |
 | fm_reflow_2stage | tep_classic | 5 | 0.976223 | 0.995191 | 0.939546 |
+| fm_reflow_3stage | pronto_day2 | 5 | 0.977928 | 0.998776 | 0.494028 |
 | fm_reflow_3stage | pronto_day4 | 5 | 0.595280 | 0.579246 | 0.390389 |
 | fm_reflow_3stage | skab | 5 | 0.804914 | 0.747594 | 0.777073 |
 | fm_reflow_3stage | tep_classic | 5 | 0.976181 | 0.995186 | 0.939388 |
@@ -265,6 +283,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_itransformer__psm__registered | pronto_day4 | 5 | 0.745938 | 0.724188 | 0.649683 |
 | fm_strict_itransformer__psm__registered | skab | 5 | 0.747270 | 0.673080 | 0.721763 |
 | fm_strict_itransformer__psm__registered | tep_classic | 5 | 0.950915 | 0.989562 | 0.914512 |
+| fm_strict_timesnet__psm__registered | pronto_day2 | 1 | 0.983696 | 0.998925 | 0.861674 |
 | fm_strict_timesnet__psm__registered | pronto_day4 | 5 | 0.761214 | 0.735129 | 0.545347 |
 | fm_strict_timesnet__psm__registered | skab | 5 | 0.748035 | 0.674873 | 0.711315 |
 | fm_strict_timesnet__psm__registered | tep_classic | 5 | 0.955354 | 0.990342 | 0.921253 |
@@ -281,6 +300,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_moment_pretrained_small__release512 | psm | 1 | 0.547813 | 0.333540 | 0.658476 |
 | fm_moment_pretrained_small__release512 | smap | 1 | 0.674969 | 0.251157 | 0.545930 |
 | fm_moment_pretrained_small__release512 | smd | 1 | 0.810018 | 0.326123 | 0.543465 |
+| fm_moment_pretrained_small__release512 | swat | 1 | 0.369082 | 0.162870 | 0.704033 |
 
 每个实体独立评价；macro仅平均原参考函数有定义的结果，未定义实体/种子数保留，不填零。Affiliation F、点级 F1 和 PA-F1 是不同指标，不能直接混比。VUS缓冲按测试标签事件长度产生，是已披露的评价依赖；严格阈值仍只来自验证段。完整TAB训练流程未等效认证。
 
