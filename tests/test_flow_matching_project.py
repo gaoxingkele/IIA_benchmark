@@ -1,4 +1,5 @@
 import importlib.util
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -31,3 +32,17 @@ def test_missing_and_wrong_size_are_distinct(tmp_path):
     assert MODULE.inspect(tmp_path, {"path": "data.csv"}) == "missing"
     (tmp_path / "data.csv").write_bytes(b"x")
     assert MODULE.inspect(tmp_path, {"path": "data.csv", "bytes": 2}) == "invalid_size"
+
+
+def test_explicit_empty_python_package_marker_is_valid_source(tmp_path):
+    (tmp_path/'__init__.py').write_bytes(b'')
+    artifact={'path':'__init__.py','format':'py','bytes':0,'sha256':hashlib.sha256(b'').hexdigest()}
+    assert MODULE.inspect(tmp_path,artifact)=='sha256_verified'
+    assert MODULE.inspect(tmp_path,artifact,True)=='sha256_verified'
+
+
+@pytest.mark.parametrize('change',[{'format':'csv'},{'sha256':'0'*64},{'bytes':None},{'path':'data.csv'}])
+def test_empty_downloads_do_not_inherit_package_marker_exception(tmp_path,change):
+    (tmp_path/'__init__.py').write_bytes(b''); (tmp_path/'data.csv').write_bytes(b'')
+    artifact={'path':'__init__.py','format':'py','bytes':0,'sha256':hashlib.sha256(b'').hexdigest(),**change}
+    assert MODULE.inspect(tmp_path,artifact)=='invalid_size'

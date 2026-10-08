@@ -53,3 +53,5 @@ python -m scripts.literature.verify_flow_matching_ara
 配置调用入口是 `scripts/flow_matching/model_registry.py`；原始窗口评分执行器是 `scripts/flow_matching/run_configured_windows.py`。
 完整预检结果位于benchmark的 `docs/reports/fm_real_train_code_preflight_2026-10-08.json`，本轮结构化汇总为 `docs/reports/flow_matching_code_completion_2026-10-08.json`。
 原始论文、源码和数据保留本地，Git保存实现、配置、版本/哈希和审计证据。
+
+素材检查追加验证：10项检查器测试通过；16个有明确空文件SHA256的Python包标记通过验证，空数据文件仍拒绝。5611个登记素材检查无新增失败，18项授权/私有等既有缺口继续保留。

@@ -25,6 +25,12 @@ def inspect(root, artifact, verify_hash=False):
     if target.is_dir():
         return "directory_present_not_fully_verified"
     size = target.stat().st_size
+    if (size == 0 and target.name == '__init__.py' and artifact.get('format') == 'py'
+            and artifact.get('bytes') == 0
+            and artifact.get('sha256') == hashlib.sha256(b'').hexdigest()):
+        # An explicitly fingerprinted empty Python package marker is source,
+        # not a failed dataset download. Its digest is known without reading.
+        return 'sha256_verified'
     if not size or (artifact.get("bytes") is not None and size != artifact["bytes"]):
         return "invalid_size"
     with target.open("rb") as stream:
