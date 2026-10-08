@@ -159,6 +159,7 @@ def main():
               'strict_runs': strict_runs, 'tab_ratio_diagnostic': diagnostic, 'historical_runs': history,
               'imputation': imputation, 'tsad_jobs': snapshot['new_jobs'], 'sources': sources,
               'author_pipeline_tracks': author_tracks, 'author_pipeline_jobs': author_jobs,
+              'author_pipeline_numeric_metrics': author_leaves,
               'paper_scope': snapshot['original_paper_scope'], 'remaining_obligations': snapshot['other_remaining_obligations'],
               'boundary': 'Complete registered-source snapshot, not proof all papers/ablations executed or all paper tables transcribed. Strict point F1, PA F1, affiliation F, VUS and imputation errors are separate. Nonoverlapping training differs from stride=1 author budgets.'}
     (target / 'complete_results.json').write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n', encoding='utf-8')
@@ -186,7 +187,7 @@ def main():
              '', '这里完整列出已登记任务和已有指标，未完成项留空。全论文、全消融实验尚未全部完成。', '',
              'strict_summary.csv 覆盖所有已登记算法配置—数据集组合；strict_per_seed.csv 保留三档验证阈值、P/R/F1、AUROC、AP、事件召回、延迟、误报率、置信区间、参数量、耗时和显存。',
              'TAB 的 VUS/Affiliation 单列，已保存全实体及未定义计数。all_tsad_numeric_metrics.csv 保留每个数值及原字段路径。历史与论文报告值分别存储。', '',
-             '**比较约束：**严格主表只在验证段按 1% 分位数定阈值，不做 PA。TAB 比例诊断合并训练/测试分数校准，最优比例依赖测试标签，不能充当严格泛化成绩。非重叠训练比部分作者 stride=1 少很多梯度更新，不能据此判定原论文无效。', '',
+             '**比较约束：**严格主表使用验证分数第99百分位（1%尾部报警比例）定阈值，不做 PA。TAB 比例诊断合并训练/测试分数校准，最优比例依赖测试标签，不能充当严格泛化成绩。非重叠训练比部分作者 stride=1 少很多梯度更新，不能据此判定原论文无效。', '',
              '| 算法配置 | 数据集 | 完成/预定种子 | Precision | Recall | 点级 F1 | AUROC | AP | VUS ROC（种子数） | VUS PR | Affiliation F（种子数） |',
              '|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
     for r in report['strict_summary']:
@@ -208,6 +209,8 @@ def main():
         stream.write('\n## 作者完整流程\n\n')
         stream.write(f"独立作者流程登记 {len(author_jobs)} 项，状态 {dict(Counter(j['status'] for j in author_jobs))}。")
         stream.write('逐项配方、数据集、种子和阶段状态见 author_pipeline_jobs.csv；尚无完整流程指标时保留空值，不计入严格成绩。\n')
+        if author_leaves:
+            stream.write('\n已完成作者流程的全部数值字段见 [作者流程技术指标](author_pipeline_numeric_metrics.csv)，作者协议与附加验证阈值对照均保留原字段路径，分别解释。\n')
     validation = {'captured_utc': report['captured_utc'], 'checks': {
         'tsad_job_accounting': sum(snapshot['new_job_counts'].values()) == len(snapshot['new_jobs']),
         'all_registered_tsad_groups_present': sum(r['required_seeds'] for r in summary) == len(snapshot['new_jobs']),

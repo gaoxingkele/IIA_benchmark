@@ -85,6 +85,12 @@ if(data.author_pipeline_jobs?.length){
  data.author_pipeline_jobs.map(r=>[r.algorithm,r.author_recipe,r.dataset,r.seed,r.status,r.stage_receipts.length,r.strict_TAB_result,r.metrics??null,r.id,r.output_directory,r.stage_receipts,r.boundary]),
  [],{A:20,B:23,C:15,D:12,E:30,F:28,G:23,H:85,I:100,J:125,K:140,L:160});
 }
+if(data.author_pipeline_numeric_metrics?.length){
+ add('作者流程指标','已完成作者流程的技术指标','作者测试阈值、SPOT和附加验证阈值对照按字段分别列出；发布权重评价不代表重新训练复现。',
+ ['算法','配方','数据集','种子','指标字段','数值','任务ID','结果来源','来源SHA256'],
+ data.author_pipeline_numeric_metrics.map(r=>[r.algorithm,r.author_recipe,r.dataset,r.seed,r.metric_path,r.value,r.run_id,r.result_path,r.result_sha256]),
+ [6],{A:23,B:28,C:16,D:12,E:80,F:23,G:90,H:130,I:75});
+}
 workbook.recalculate();
 console.log((await workbook.inspect({kind:'table',range:'严格结果!A5:N10',include:'values,formulas',tableMaxRows:6,tableMaxCols:14,maxChars:1800})).ndjson);
 console.log((await workbook.inspect({kind:'match',searchTerm:'#REF!|#DIV/0!|#VALUE!|#NAME\\?|#NUM!|#NULL!|#SPILL!|#CALC!',options:{useRegex:true,maxResults:30},maxChars:1200})).ndjson);

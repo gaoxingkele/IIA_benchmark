@@ -66,7 +66,9 @@ def _one_range_snapshot(root, project, path):
     process_live = False
     try:
         process = psutil.Process(state.get('pid', -1))
-        process_live = any('run_tab_ranges_when_ready.py' in argument or 'run_tab_ranges_for_config.py' in argument for argument in process.cmdline())
+        process_live = any(any(worker in argument for worker in (
+            'run_tab_ranges_when_ready.py', 'run_tab_ranges_for_config.py',
+            'scripts.flow_matching.run_tab_ranges_sparse_queue')) for argument in process.cmdline())
     except (psutil.NoSuchProcess, psutil.AccessDenied):
         pass
     return {'completed_evaluations': len(records), 'records': records, 'seed_aggregates': aggregates,

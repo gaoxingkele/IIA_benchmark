@@ -52,6 +52,8 @@ with zipfile.ZipFile(target / 'complete_experiment_metrics.xlsx') as archive:
             assert actual is None, (i, address, actual, expected)
         elif isinstance(expected, (int, float)):
             assert math.isclose(actual, expected, rel_tol=1e-12, abs_tol=1e-12), (i, address, actual, expected)
+        elif isinstance(expected, (dict, list)):
+            assert json.loads(actual) == expected, (i, address, 'JSON source values differ')
         else:
             assert actual == expected, (i, address, actual, expected)
         checked += 1
@@ -85,8 +87,16 @@ with zipfile.ZipFile(target / 'complete_experiment_metrics.xlsx') as archive:
         for column, key in [('A', 'algorithm'), ('B', 'author_recipe'), ('C', 'dataset'),
                             ('D', 'seed'), ('E', 'status'), ('G', 'strict_TAB_result'), ('I', 'id')]:
             equal(9, f'{column}{i}', row[key])
-        equal(9, f'H{i}', json.dumps(row['metrics'], ensure_ascii=False, separators=(',', ':')) if 'metrics' in row else None)
+        equal(9, f'H{i}', row.get('metrics'))
     tables = [p for p in archive.namelist() if p.startswith('xl/tables/table') and p.endswith('.xml')]
+    author_metrics = data.get('author_pipeline_numeric_metrics', [])
+    if author_metrics:
+        sheet_index = next(i for i, s in enumerate(manifest['sheets']) if s['name'] == '作者流程指标')
+        for i, row in enumerate(author_metrics, 6):
+            for column, key in [('A', 'algorithm'), ('B', 'author_recipe'), ('C', 'dataset'),
+                                ('D', 'seed'), ('E', 'metric_path'), ('F', 'value'),
+                                ('G', 'run_id'), ('H', 'result_path'), ('I', 'result_sha256')]:
+                equal(sheet_index, f'{column}{i}', row[key])
     assert len(tables) == len(manifest['sheets'])
     assert all(ET.fromstring(archive.read(p)).find('m:autoFilter', ns) is not None for p in tables)
 validation = json.loads((target / 'validation.json').read_text(encoding='utf-8'))
