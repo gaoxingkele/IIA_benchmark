@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "fm_industrial_grouped_tsad_v1",
+  "scope": "All 42 full-window main/ablation models, three registered numerical repairs, four iterative reflow/budget controls and seven frozen PSM baseline presets on complete industrial test runs. Original-paper and other-task obligations remain separate.",
+  "seeds": [1103, 1104, 1105, 1106, 1107],
+  "model_roster_config": "configs/experiments/fm_tsad_execution.v1.json",
+  "additional_model_queue_rosters": [
+    "configs/experiments/fm_tsad_entropic_repair_queue.v1.json",
+    "configs/experiments/fm_reflow_queue.v1.json"
+  ],
+  "baseline_models": [
+    "configs/models/fm_strict_baselines/fm_strict_timesnet__psm__registered.json",
+    "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__psm__registered.json",
+    "configs/models/fm_strict_baselines/fm_strict_dcdetector__psm__registered.json",
+    "configs/models/fm_strict_baselines/fm_strict_tranad__psm__registered.json",
+    "configs/models/fm_strict_baselines/fm_strict_usad__psm__registered.json",
+    "configs/models/fm_strict_baselines/fm_strict_itransformer__psm__registered.json",
+    "configs/models/fm_strict_baselines/fm_strict_usad__psm__signed_paper_loss.json"
+  ],
+  "expected_model_configs": 56,
+  "allowed_fit_score_classes": ["CFMObjectiveDetector", "StableCFMObjectiveDetector", "ReflowCFMDetector", "LegacyWindowAdapter", "ComparatorWindowDetector", "DFMDetector", "GRASPDetector"],
+  "cpu_classes": ["CFMObjectiveDetector", "StableCFMObjectiveDetector", "ReflowCFMDetector", "LegacyWindowAdapter"],
+  "default_window": 100,
+  "datasets": [
+    {
+      "id": "tep_classic", "loader": "tep_whole_runs", "source_config": "configs/datasets/tep_classic_public.json",
+      "validation_path": "data/public_datasets/tep_classic/data/d00_te.dat",
+      "expected_test_entities": 21,
+      "source_track": "Whole d00 train, whole independent d00_te calibration, all d01_te..d21_te fault tests. Fixed onset index160. Classic single-mode release, not multimode HDF5."
+    },
+    {
+      "id": "skab", "loader": "skab_whole_experiments", "source_config": "configs/datasets/skab_public.json",
+      "validation_path": "data/public_datasets/skab/data/other/1.csv",
+      "expected_test_entities": 33,
+      "source_track": "Whole anomaly-free training, other/1.csv reserved before outcomes for calibration, all other labelled experiment files tested. Calibration includes its native anomalies; nominal quantile is not a normal-only false alarm guarantee."
+    },
+    {
+      "id": "pronto_day4", "loader": "pronto_whole_day", "source_config": "configs/datasets/pronto_public.json",
+      "training_day": "Testday2_merged", "validation_day": "Testday3_merged", "test_day": "Testday4_merged",
+      "expected_test_entities": 1,
+      "source_track": "Process-only17 shared channels; whole-day disjoint roles. All contiguous native Normal segments on train/validation days retained separately; full held-out day4 test. Label-assisted normal-only fit/calibration, not fully label-free."
+    },
+    {
+      "id": "pronto_day2", "loader": "pronto_whole_day", "source_config": "configs/datasets/pronto_public.json",
+      "training_day": "Testday3_merged", "validation_day": "Testday4_merged", "test_day": "Testday2_merged",
+      "expected_test_entities": 1,
+      "source_track": "Process-only17 shared channels; whole-day disjoint roles. All contiguous native Normal segments on train/validation days retained separately; full held-out day2 test. Label-assisted normal-only fit/calibration, not fully label-free."
+    },
+    {
+      "id": "pronto_day3", "loader": "pronto_whole_day", "source_config": "configs/datasets/pronto_public.json",
+      "training_day": "Testday4_merged", "validation_day": "Testday2_merged", "test_day": "Testday3_merged",
+      "expected_test_entities": 1,
+      "source_track": "Process-only17 shared channels; whole-day disjoint roles. All contiguous native Normal segments on train/validation days retained separately; full held-out day3 test. Label-assisted normal-only fit/calibration, not fully label-free."
+    }
+  ],
+  "prepared_root": "data/public_datasets/flow_matching/processed_industrial_tsad_v1",
+  "output_root": "experiments/runs/fm_industrial_tsad_v1",
+  "queue_paths": {"cpu": "configs/experiments/fm_industrial_tsad_cpu_queue.v1.json", "gpu": "configs/experiments/fm_industrial_tsad_gpu_queue.v1.json"},
+  "evaluation_reference_queue": "configs/experiments/fm_tsad_cpu_queue.v1.json",
+  "evaluation_overrides": {"cpu_threads": 2},
+  "gpu_prerequisite_queues": ["configs/experiments/fm_air36_original_queue.v1.json", "configs/experiments/fm_saits_physio_original_queue.v1.json", "configs/experiments/fm_saits_timeseries_queue.v1.json", "configs/experiments/fm_grin_original_queue.v1.json"],
+  "gpu_prior_tsad_queues": ["configs/experiments/fm_tsad_gpu_queue.v1.json"],
+  "registration_report": "docs/reports/fm_industrial_tsad_registration_2026-10-09.json",
+  "preflight_report": "docs/reports/fm_industrial_tsad_preflight_2026-10-09.json",
+  "range_template_config": "configs/experiments/fm_reflow_tab_range.v1.json",
+  "range_config": "configs/experiments/fm_industrial_tab_range.v1.json",
+  "range_output_root": "experiments/runs/fm_industrial_tab_range_v1",
+  "recipe": {"normalization": "Finite medians and mean/std fitted on unique training groups once; validation/test never enter fit", "window_policy": "Nonoverlap plus end-aligned tail within each contiguous segment; never cross source runs, dates or fault gaps", "calibration": "Pooled unique validation group scores only; no point adjustment", "test_policy": "Every timestamp of every registered held-out source, no sampling or dropped tails"},
+  "citations": ["https://doi.org/10.1016/0098-1354(93)80018-I", "https://doi.org/10.1007/s41060-022-00355-4", "https://doi.org/10.5281/zenodo.1341583", "https://github.com/decisionintelligence/TAB"],
+  "boundary": "New frozen industrial transfer protocols, not original-paper industrial scores. PSM baseline hyperparameters transferred without target tuning. Shared normal training is pooled once, not duplicated per fault test entity. Three PRONTO rotations are correlated folds, not independent datasets. Classic TEP does not discharge all multimode obligations."
+}

@@ -142,6 +142,7 @@ def snapshot(root):
     aggregates = defaultdict(lambda: defaultdict(list))
     project = json.loads((root / 'configs/projects/flow_matching_research.v1.json').read_text(encoding='utf-8'))
     queue_paths = list(settings['queue_paths'].items()) + list(project.get('additional_execution_queues', {}).items())
+    queue_paths += [('industrial_' + lane, path) for lane, path in project.get('industrial_execution_queues', {}).items()]
     for lane, queue_path in queue_paths:
         queue = json.loads((root / queue_path).read_text(encoding='utf-8'))
         state_path = root / queue['state_root'] / (queue['lane'] + '_status.json')
@@ -149,7 +150,8 @@ def snapshot(root):
         process = None
         try:
             process = psutil.Process(state.get('pid', -1))
-            if not any('run_tsad_queue.py' in a for a in process.cmdline()):
+            worker = 'run_industrial_tsad_queue.py' if lane.startswith('industrial_') else 'run_tsad_queue.py'
+            if not any(worker in a for a in process.cmdline()):
                 process = None
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             process = None
@@ -206,6 +208,8 @@ def snapshot(root):
               'new_method_configs': len(settings['model_configs']),
               'strict_baseline_registered_jobs': sum(j['lane'] == 'strict_baselines' for j in jobs),
               'iterative_reflow_and_epoch_control_jobs': sum(j['lane'] == 'iterative_reflow' for j in jobs),
+              'industrial_registered_jobs': sum(j['lane'].startswith('industrial_') for j in jobs),
+              'industrial_job_counts': dict(Counter(j['status'] for j in jobs if j['lane'].startswith('industrial_'))),
               'tab_range_evaluations': ranges,
               'author_pipeline_experiments': author_pipeline_snapshot(root, project),
               'process_observations': live, 'completed_new_runs': completed, 'seed_aggregates': grouped,
@@ -215,7 +219,7 @@ def snapshot(root):
                   'Author MaelNet full RL, Pi journal equivalence, CrossAD, MOMENT pretrained adapters and source-only baselines',
                   'Exact original-paper datasets/settings and all inspected ablation axes across all 45 ARA artifacts',
                   'GiFlow/forecasting/generation/continuous-time/image/single-cell and tabular original experiments',
-                  'TEP/SKAB/PRONTO anomaly-detection manifests and adapters (imputation splits do not qualify)',
+                  'Complete all registered grouped TEP/SKAB/PRONTO detection jobs and metrics; classic TEP is not multimode equivalence; PRONTO normal selection is label-assisted',
                   'Finish VUS/Affiliation for all remaining saved-score jobs and full pinned TAB author training-harness alignment',
                   'Finish iterative reflow and equal-total-epoch controls; original image/transfer protocols and one-step distillation remain pending',
                   'Hyperparameter/fidelity gaps and material availability recorded in each ARA source'],
@@ -245,6 +249,7 @@ def snapshot(root):
              f"另加入 {report['strict_baseline_registered_jobs']} 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。",
              f"另加入 {report['iterative_reflow_and_epoch_control_jobs']} 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。",
              '另有独立的MaelNet官方作者轨：150个配方—数据集—种子任务、600个训练/RL阶段。状态及原协议指标见execution_snapshot.json的author_pipeline_experiments，不计入严格无PA成绩。',
+             f"另有工业异常检测任务 {report['industrial_registered_jobs']} 项，状态 {report['industrial_job_counts']}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。",
              '保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。',
              '关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。',
              f"当前任务记录：{dict(Counter(j['status'] for j in jobs))}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。", '',
