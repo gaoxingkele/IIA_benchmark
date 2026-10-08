@@ -1,0 +1,1001 @@
+{
+  "controller_observations": [
+    {
+      "controller": "crossad",
+      "pid": 37180,
+      "verified_live": true,
+      "private_bytes": 866467840,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_crossad_case_gated_queue_v2.py",
+        "--queue",
+        "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_crossad_complete_queue.v7.json"
+      ],
+      "children": [
+        {
+          "pid": 20596,
+          "cmd": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ]
+        }
+      ],
+      "state": {
+        "pid": 37180,
+        "queue_sha256": "ee661402cf82d4ecc6ab0ddf99923b92b28edbaac291c8e6c1ffb2d7b0563921",
+        "active_job": null,
+        "active_pid": null,
+        "jobs": {
+          "crossad_author__release_checkpoint__gecco__seed2025": "completed",
+          "crossad_author__release_checkpoint__msl__seed2025": "completed",
+          "crossad_author__release_checkpoint__psm__seed2025": "failed_or_partial_preserved",
+          "crossad_author__release_checkpoint__smap__seed2025": "failed_or_partial_preserved",
+          "crossad_author__release_checkpoint__smd__seed2025": "awaiting_full_native_batch_preflight",
+          "crossad_author__release_checkpoint__swan__seed2025": "awaiting_full_native_batch_preflight",
+          "crossad_author__release_checkpoint__swat__seed2025": "awaiting_full_native_batch_preflight"
+        },
+        "state": "waiting_for_heavy_lock",
+        "frozen_files_verified": 179,
+        "physical_available_bytes": 35007881216,
+        "commit_available_bytes": 18332266496,
+        "shared_lock_owned": false,
+        "active_stage": null,
+        "peak_tree_rss_bytes": 822759424,
+        "peak_tree_private_bytes": 1203621888,
+        "minimum_commit_available_bytes": 8319979520,
+        "resource_guard_aborted": true,
+        "abort_resource_snapshot": {
+          "physical_available_bytes": 30382759936,
+          "commit_available_bytes": 8319979520
+        }
+      }
+    },
+    {
+      "controller": "preflight",
+      "pid": 17320,
+      "verified_live": true,
+      "private_bytes": 26468352,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "preflight"
+      ],
+      "children": [],
+      "state": {
+        "pid": 17320,
+        "queue_sha256": "77c2890881936c2435b6c0e0dc5c96d6d1ca446daf3d26ef53e9ef7baa8a2b0e",
+        "state": "waiting_for_memory",
+        "active_case": null,
+        "physical_available_bytes": 33914970112,
+        "commit_available_bytes": 16673947648,
+        "shared_lock_owned": false,
+        "active_pid": null,
+        "started_unix": 1791498146.026241,
+        "completed_cases": 13,
+        "peak_tree_rss_bytes": 12950650880,
+        "peak_tree_private_bytes": 16466898944,
+        "minimum_commit_available_bytes": 8546496512,
+        "resource_guard_aborted": true,
+        "abort_resource_snapshot": {
+          "physical_available_bytes": 29050462208,
+          "commit_available_bytes": 8546496512
+        }
+      }
+    },
+    {
+      "controller": "recovery",
+      "pid": 12828,
+      "verified_live": true,
+      "private_bytes": 17186816,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "recovery"
+      ],
+      "children": [
+        {
+          "pid": 24720,
+          "cmd": [
+            "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_resource_recovery_job",
+            "--queue",
+            "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_resource_recovery_queue.v3.json",
+            "--job-id",
+            "fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2"
+          ]
+        },
+        {
+          "pid": 17500,
+          "cmd": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ]
+        }
+      ],
+      "state": {
+        "pid": 12828,
+        "queue_sha256": "7f3f1800f7ee099ca2ba8e72d032ab440da53c75d3a46d424587d2692a7852f8",
+        "active_job": "fm_strict_timesnet__smap__registered__seed1105__resource_recovery_v2",
+        "active_pid": 24720,
+        "jobs": {
+          "fm_strict_anomaly_transformer__psm__registered__industrial_v1__skab__seed1106__resource_recovery_v2": "completed",
+          "fm_strict_dcdetector__psm__registered__industrial_v1__skab__seed1106__resource_recovery_v2": "completed",
+          "fm_strict_dcdetector__psm__registered__industrial_v1__skab__seed1107__resource_recovery_v2": "completed",
+          "fm_rectified_60epoch_budget_control__swan__seed1107__resource_recovery_v2": "completed",
+          "fm_rectified_60epoch_budget_control__cicids__seed1103__resource_recovery_v2": "partial_preserved"
+        },
+        "physical_available_bytes": 42685292544,
+        "commit_available_bytes": 26703237120,
+        "state": "running",
+        "shared_lock_owned": false
+      }
+    },
+    {
+      "controller": "range_main",
+      "pid": 6692,
+      "verified_live": true,
+      "private_bytes": 24875008,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "range_main"
+      ],
+      "children": [],
+      "state": {
+        "pid": 6692,
+        "config_sha256": "b429a9fab6c65c494ee00ae4befd74c3f388f69ccca74893a8337c709b600cd4",
+        "active_pid": null,
+        "active_job": null,
+        "registered_attempts": 1750,
+        "physical_available_bytes": 34112290816,
+        "commit_available_bytes": 16841551872,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false,
+        "status": "evaluating",
+        "completed_jobs": 150,
+        "failed_jobs": 0
+      }
+    },
+    {
+      "controller": "range_reflow",
+      "pid": 15664,
+      "verified_live": true,
+      "private_bytes": 15642624,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "range_reflow"
+      ],
+      "children": [],
+      "state": {
+        "pid": 15664,
+        "config_sha256": "478ea2038519fbc65ecbc513c05aa2010f368638c8e92e56840aeea6f802a39a",
+        "active_pid": null,
+        "active_job": null,
+        "registered_attempts": 140,
+        "physical_available_bytes": 33191411712,
+        "commit_available_bytes": 15668449280,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false,
+        "status": "evaluating",
+        "completed_jobs": 31,
+        "failed_jobs": 0
+      }
+    },
+    {
+      "controller": "range_industrial",
+      "pid": 44820,
+      "verified_live": true,
+      "private_bytes": 45056000,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "range_industrial"
+      ],
+      "children": [],
+      "state": {
+        "pid": 44820,
+        "config_sha256": "d0b6ee2224b96209c31d0fc6b45c2bc8f87a5dacb2bdf8faef85e1bd9554f3d0",
+        "active_pid": null,
+        "active_job": null,
+        "registered_attempts": 1400,
+        "physical_available_bytes": 36954308608,
+        "commit_available_bytes": 20671729664,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false,
+        "status": "evaluating",
+        "completed_jobs": 412,
+        "failed_jobs": 0
+      }
+    },
+    {
+      "controller": "range_moment",
+      "pid": 33644,
+      "verified_live": true,
+      "private_bytes": 844476416,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_tab_ranges_sparse_queue",
+        "--config",
+        "configs/experiments/fm_moment_pretrained_tab_range.sparse.v2.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 33644,
+        "config_sha256": "c45c8c6964c4c9c406c4222d941b6cd696a8efbfa988361070888daf47ad6d32",
+        "active_pid": null,
+        "active_job": null,
+        "registered_attempts": 72,
+        "status": "waiting_training_results",
+        "state": "waiting_training_results",
+        "completed": {
+          "fm_moment_pretrained_small__release512__psm__seed42": {
+            "evaluation_identity": "e9bd4810ed1e75d50cbc3c0a18d69392b701a9f727ac7141d1b403c5bbba6758",
+            "reused_original": true
+          },
+          "fm_moment_pretrained_small__release512__smap__seed42": {
+            "evaluation_identity": "beab9518b08b3f422425de4daba9dfbca0ebd2206cdc1776f7a000627dc96a93",
+            "reused_original": true
+          },
+          "fm_moment_pretrained_small__release512__msl__seed42": {
+            "evaluation_identity": "3313a0d6aecd6d2e764661d6de7d1d6e63074439a623fea11958149b6ee9e9e2",
+            "reused_original": true
+          },
+          "fm_moment_pretrained_small__release512__smd__seed42": {
+            "evaluation_identity": "be2bfb3be60fe353df743ddfa3ef9d710701c71b176517815175c4aedbb9987c",
+            "reused_original": true
+          },
+          "fm_moment_pretrained_small__release512__swat__seed42": {
+            "evaluation_identity": "e662d8d629f8f0ded91738449e1d58d59b54f9587845d8174c48d388ea107c69",
+            "reused_original": true
+          },
+          "fm_moment_pretrained_small__release512__swan__seed42": {
+            "evaluation_identity": "6c5620c1428898c278b355ef687a933820cf3dce519386022917197faede41f8",
+            "reused_original": true
+          }
+        },
+        "failures": {},
+        "completed_jobs": 6,
+        "failed_jobs": 0,
+        "pending_model_results": 66,
+        "superseded_original_attempts": {}
+      }
+    }
+  ],
+  "verified_completed_recoveries": [
+    {
+      "id": "fm_strict_anomaly_transformer__psm__registered__industrial_v1__skab__seed1106__resource_recovery_v2",
+      "original_id": "fm_strict_anomaly_transformer__psm__registered__industrial_v1__skab__seed1106",
+      "kind": "industrial",
+      "dataset": "skab",
+      "seed": 1106,
+      "result_path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_anomaly_transformer__psm__registered__industrial_v1__skab__seed1106__resource_recovery_v2/result.json",
+      "result_sha256": "15282f6ed154d094f95f0260767ce36f704d3e47c89b9541baf7030514e105d2",
+      "strict_1_percent_micro": {
+        "precision": 0.3857566765578635,
+        "recall": 0.01009395139374175,
+        "f1": 0.019673123486682806,
+        "true_positives": 130.0,
+        "false_positives": 207.0,
+        "false_negatives": 12749.0,
+        "auroc": 0.43014113626756667,
+        "average_precision": 0.32267722422240463
+      },
+      "not_an_additional_independent_seed": true
+    },
+    {
+      "id": "fm_strict_dcdetector__psm__registered__industrial_v1__skab__seed1106__resource_recovery_v2",
+      "original_id": "fm_strict_dcdetector__psm__registered__industrial_v1__skab__seed1106",
+      "kind": "industrial",
+      "dataset": "skab",
+      "seed": 1106,
+      "result_path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_dcdetector__psm__registered__industrial_v1__skab__seed1106__resource_recovery_v2/result.json",
+      "result_sha256": "de2a05253cc80f800352dfcc2b92eea1cad9d2f3e504bd2feaa06270eebfee71",
+      "strict_1_percent_micro": {
+        "precision": 0.3694915254237288,
+        "recall": 0.008463390014752699,
+        "f1": 0.01654774555943525,
+        "true_positives": 109.0,
+        "false_positives": 186.0,
+        "false_negatives": 12770.0,
+        "auroc": 0.47747219720540307,
+        "average_precision": 0.342614545981135
+      },
+      "not_an_additional_independent_seed": true
+    },
+    {
+      "id": "fm_strict_dcdetector__psm__registered__industrial_v1__skab__seed1107__resource_recovery_v2",
+      "original_id": "fm_strict_dcdetector__psm__registered__industrial_v1__skab__seed1107",
+      "kind": "industrial",
+      "dataset": "skab",
+      "seed": 1107,
+      "result_path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_strict_dcdetector__psm__registered__industrial_v1__skab__seed1107__resource_recovery_v2/result.json",
+      "result_sha256": "591791ed35e439193d491fcbba51755973af0c4b41f8987e137c8030f9f0a1c7",
+      "strict_1_percent_micro": {
+        "precision": 0.36123348017621143,
+        "recall": 0.012733907912104978,
+        "f1": 0.02460061501537538,
+        "true_positives": 164.0,
+        "false_positives": 290.0,
+        "false_negatives": 12715.0,
+        "auroc": 0.46982095128714985,
+        "average_precision": 0.33807568112631625
+      },
+      "not_an_additional_independent_seed": true
+    },
+    {
+      "id": "fm_rectified_60epoch_budget_control__swan__seed1107__resource_recovery_v2",
+      "original_id": "fm_rectified_60epoch_budget_control__swan__seed1107",
+      "kind": "strict",
+      "dataset": "swan",
+      "seed": 1107,
+      "result_path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/fm_rectified_60epoch_budget_control__swan__seed1107__resource_recovery_v2/result.json",
+      "result_sha256": "9d97eb4ee6f89c83023f3e5188da4ad727311ce4af8b9082ab0e5c83fc11e695",
+      "strict_1_percent_micro": {
+        "precision": 0.7577156535863897,
+        "recall": 0.4409452736318408,
+        "f1": 0.557473975532283,
+        "true_positives": 8863.0,
+        "false_positives": 2834.0,
+        "false_negatives": 11237.0,
+        "auroc": 0.8062709885064083,
+        "average_precision": 0.6758597812936628
+      },
+      "not_an_additional_independent_seed": true
+    }
+  ],
+  "tests": "16 passed: light-controller, shared-scheduler, liveness and full native retry tests",
+  "baseline_import_private_bytes": 839278592,
+  "light_probe_private_bytes": 14417920,
+  "private_bytes_saved_per_idle_probe": 824860672,
+  "models_and_original_experiment_dictionaries_unchanged": true,
+  "all_experiments_complete": false,
+  "verified_native_preflights": [
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_GECCO_2026-10-09.json",
+      "sha256": "e0770b5335d0c5794fafdcff7a59624533810e648e7faf08d15192bdd48cce1b",
+      "record": {
+        "dataset": "GECCO",
+        "checkpoint": {
+          "checkpoint_sha256": "d0928081643caea02526d0d4e338b9805d4d72784151977dc4717f492d569950",
+          "algorithm_tensors_strictly_loaded": 130,
+          "ignored_thop_counter_keys": [
+            "context_net.extractor.extractor.0.cross_attention.attn.total_ops",
+            "context_net.extractor.extractor.0.cross_attention.attn.total_params",
+            "context_net.extractor.extractor.0.cross_attention.total_ops",
+            "context_net.extractor.extractor.0.cross_attention.total_params",
+            "context_net.extractor.extractor.0.total_ops",
+            "context_net.extractor.extractor.0.total_params",
+            "context_net.extractor.extractor.1.cross_attention.attn.total_ops",
+            "context_net.extractor.extractor.1.cross_attention.attn.total_params",
+            "context_net.extractor.extractor.1.cross_attention.total_ops",
+            "context_net.extractor.extractor.1.cross_attention.total_params",
+            "context_net.extractor.extractor.1.total_ops",
+            "context_net.extractor.extractor.1.total_params",
+            "context_net.extractor.extractor.total_ops",
+            "context_net.extractor.extractor.total_params",
+            "context_net.extractor.total_ops",
+            "context_net.extractor.total_params",
+            "context_net.router.fc.0.total_ops",
+            "context_net.router.fc.0.total_params",
+            "context_net.router.total_ops",
+            "context_net.router.total_params",
+            "context_net.total_ops",
+            "context_net.total_params",
+            "decoder.layers.0.cross_attention.attn.total_ops",
+            "decoder.layers.0.cross_attention.attn.total_params",
+            "decoder.layers.0.cross_attention.total_ops",
+            "decoder.layers.0.cross_attention.total_params",
+            "decoder.layers.0.self_attention.attn.total_ops",
+            "decoder.layers.0.self_attention.attn.total_params",
+            "decoder.layers.0.self_attention.total_ops",
+            "decoder.layers.0.self_attention.total_params",
+            "decoder.layers.0.total_ops",
+            "decoder.layers.0.total_params",
+            "decoder.layers.1.cross_attention.attn.total_ops",
+            "decoder.layers.1.cross_attention.attn.total_params",
+            "decoder.layers.1.cross_attention.total_ops",
+            "decoder.layers.1.cross_attention.total_params",
+            "decoder.layers.1.self_attention.attn.total_ops",
+            "decoder.layers.1.self_attention.attn.total_params",
+            "decoder.layers.1.self_attention.total_ops",
+            "decoder.layers.1.self_attention.total_params",
+            "decoder.layers.1.total_ops",
+            "decoder.layers.1.total_params",
+            "decoder.layers.total_ops",
+            "decoder.layers.total_params",
+            "decoder.projection.1.total_ops",
+            "decoder.projection.1.total_params",
+            "decoder.total_ops",
+            "decoder.total_params",
+            "encoder.layers.0.attention.attn.total_ops",
+            "encoder.layers.0.attention.attn.total_params",
+            "encoder.layers.0.attention.total_ops",
+            "encoder.layers.0.attention.total_params",
+            "encoder.layers.0.total_ops",
+            "encoder.layers.0.total_params",
+            "encoder.layers.1.attention.attn.total_ops",
+            "encoder.layers.1.attention.attn.total_params",
+            "encoder.layers.1.attention.total_ops",
+            "encoder.layers.1.attention.total_params",
+            "encoder.layers.1.total_ops",
+            "encoder.layers.1.total_params",
+            "encoder.layers.total_ops",
+            "encoder.layers.total_params",
+            "encoder.total_ops",
+            "encoder.total_params",
+            "ms_utils.total_ops",
+            "ms_utils.total_params",
+            "patch_embedding.padding_patch_layer.total_ops",
+            "patch_embedding.padding_patch_layer.total_params",
+            "patch_embedding.total_ops",
+            "patch_embedding.total_params",
+            "pos_embedding.total_ops",
+            "pos_embedding.total_params",
+            "total_ops",
+            "total_params"
+          ],
+          "missing_algorithm_weights": [],
+          "all_algorithm_weights_strictly_loaded": true
+        },
+        "native_batch_shape": [
+          128,
+          128,
+          9
+        ],
+        "training_windows_stride1": 55281,
+        "test_native_points": 69261,
+        "native_test_tail_points": 13,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 1327625,
+        "seconds": 25.719000000040978,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_GECCO_row1_2026-10-09.json",
+      "sha256": "9a354991e2bed80a6605e0eb6b149369a81096c7f6f672b02eaf1f27b2e09d61",
+      "record": {
+        "dataset": "GECCO",
+        "checkpoint": {
+          "reconstructed_ablation_row": 1
+        },
+        "native_batch_shape": [
+          128,
+          128,
+          9
+        ],
+        "training_windows_stride1": 55281,
+        "test_native_points": 69261,
+        "native_test_tail_points": 13,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927236,
+        "seconds": 17.187999999849126,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_GECCO_row2_2026-10-09.json",
+      "sha256": "cbde20bcd45b36e39cfe96e680a7a7f82a7ab20798a31ae46bd81b49ecd3d1fc",
+      "record": {
+        "dataset": "GECCO",
+        "checkpoint": {
+          "reconstructed_ablation_row": 2
+        },
+        "native_batch_shape": [
+          128,
+          128,
+          9
+        ],
+        "training_windows_stride1": 55281,
+        "test_native_points": 69261,
+        "native_test_tail_points": 13,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927236,
+        "seconds": 24.859999999869615,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_GECCO_row3_2026-10-09.json",
+      "sha256": "75501ebaff932a7cafdc86d3497302c524345d7b6cd7fc53824c45252bb65918",
+      "record": {
+        "dataset": "GECCO",
+        "checkpoint": {
+          "reconstructed_ablation_row": 3
+        },
+        "native_batch_shape": [
+          128,
+          128,
+          9
+        ],
+        "training_windows_stride1": 55281,
+        "test_native_points": 69261,
+        "native_test_tail_points": 13,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927236,
+        "seconds": 18.562999999849126,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_MSL_2026-10-09.json",
+      "sha256": "31d072548be422b4832991291c5d31c8e6a8dc2de70e339313a84b87f5a121c9",
+      "record": {
+        "dataset": "MSL",
+        "checkpoint": {
+          "checkpoint_sha256": "7ebcd58e136258638baa6c79b2a8525d5069fad8305cc3c9d68079d48f35b46f",
+          "algorithm_tensors_strictly_loaded": 130,
+          "ignored_thop_counter_keys": [
+            "context_net.extractor.extractor.0.cross_attention.attn.total_ops",
+            "context_net.extractor.extractor.0.cross_attention.attn.total_params",
+            "context_net.extractor.extractor.0.cross_attention.total_ops",
+            "context_net.extractor.extractor.0.cross_attention.total_params",
+            "context_net.extractor.extractor.0.total_ops",
+            "context_net.extractor.extractor.0.total_params",
+            "context_net.extractor.extractor.1.cross_attention.attn.total_ops",
+            "context_net.extractor.extractor.1.cross_attention.attn.total_params",
+            "context_net.extractor.extractor.1.cross_attention.total_ops",
+            "context_net.extractor.extractor.1.cross_attention.total_params",
+            "context_net.extractor.extractor.1.total_ops",
+            "context_net.extractor.extractor.1.total_params",
+            "context_net.extractor.extractor.total_ops",
+            "context_net.extractor.extractor.total_params",
+            "context_net.extractor.total_ops",
+            "context_net.extractor.total_params",
+            "context_net.router.fc.0.total_ops",
+            "context_net.router.fc.0.total_params",
+            "context_net.router.total_ops",
+            "context_net.router.total_params",
+            "context_net.total_ops",
+            "context_net.total_params",
+            "decoder.layers.0.cross_attention.attn.total_ops",
+            "decoder.layers.0.cross_attention.attn.total_params",
+            "decoder.layers.0.cross_attention.total_ops",
+            "decoder.layers.0.cross_attention.total_params",
+            "decoder.layers.0.self_attention.attn.total_ops",
+            "decoder.layers.0.self_attention.attn.total_params",
+            "decoder.layers.0.self_attention.total_ops",
+            "decoder.layers.0.self_attention.total_params",
+            "decoder.layers.0.total_ops",
+            "decoder.layers.0.total_params",
+            "decoder.layers.1.cross_attention.attn.total_ops",
+            "decoder.layers.1.cross_attention.attn.total_params",
+            "decoder.layers.1.cross_attention.total_ops",
+            "decoder.layers.1.cross_attention.total_params",
+            "decoder.layers.1.self_attention.attn.total_ops",
+            "decoder.layers.1.self_attention.attn.total_params",
+            "decoder.layers.1.self_attention.total_ops",
+            "decoder.layers.1.self_attention.total_params",
+            "decoder.layers.1.total_ops",
+            "decoder.layers.1.total_params",
+            "decoder.layers.total_ops",
+            "decoder.layers.total_params",
+            "decoder.projection.1.total_ops",
+            "decoder.projection.1.total_params",
+            "decoder.total_ops",
+            "decoder.total_params",
+            "encoder.layers.0.attention.attn.total_ops",
+            "encoder.layers.0.attention.attn.total_params",
+            "encoder.layers.0.attention.total_ops",
+            "encoder.layers.0.attention.total_params",
+            "encoder.layers.0.total_ops",
+            "encoder.layers.0.total_params",
+            "encoder.layers.1.attention.attn.total_ops",
+            "encoder.layers.1.attention.attn.total_params",
+            "encoder.layers.1.attention.total_ops",
+            "encoder.layers.1.attention.total_params",
+            "encoder.layers.1.total_ops",
+            "encoder.layers.1.total_params",
+            "encoder.layers.total_ops",
+            "encoder.layers.total_params",
+            "encoder.total_ops",
+            "encoder.total_params",
+            "ms_utils.total_ops",
+            "ms_utils.total_params",
+            "patch_embedding.padding_patch_layer.total_ops",
+            "patch_embedding.padding_patch_layer.total_params",
+            "patch_embedding.total_ops",
+            "patch_embedding.total_params",
+            "pos_embedding.total_ops",
+            "pos_embedding.total_params",
+            "total_ops",
+            "total_params"
+          ],
+          "missing_algorithm_weights": [],
+          "all_algorithm_weights_strictly_loaded": true
+        },
+        "native_batch_shape": [
+          128,
+          96,
+          1
+        ],
+        "training_windows_stride1": 46558,
+        "test_native_points": 73729,
+        "native_test_tail_points": 1,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 1327979,
+        "seconds": 4.734999999869615,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_MSL_row1_2026-10-09.json",
+      "sha256": "1cc5ec7be6d6cf4ad363335ca84c9e99d923ef361734c241663d956d72f219b4",
+      "record": {
+        "dataset": "MSL",
+        "checkpoint": {
+          "reconstructed_ablation_row": 1
+        },
+        "native_batch_shape": [
+          128,
+          96,
+          1
+        ],
+        "training_windows_stride1": 46558,
+        "test_native_points": 73729,
+        "native_test_tail_points": 1,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927750,
+        "seconds": 3.6090000001713634,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_MSL_row2_2026-10-09.json",
+      "sha256": "dddd77e238d761e8a62eba16d811e87741aede4b8c85492e295eb750833e8a00",
+      "record": {
+        "dataset": "MSL",
+        "checkpoint": {
+          "reconstructed_ablation_row": 2
+        },
+        "native_batch_shape": [
+          128,
+          96,
+          1
+        ],
+        "training_windows_stride1": 46558,
+        "test_native_points": 73729,
+        "native_test_tail_points": 1,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927750,
+        "seconds": 4.0310000001918525,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_MSL_row3_2026-10-09.json",
+      "sha256": "19e10a0fe7817ee10761d2f29a7c635339870d6487a63913ef98e0b3bb2d9dc9",
+      "record": {
+        "dataset": "MSL",
+        "checkpoint": {
+          "reconstructed_ablation_row": 3
+        },
+        "native_batch_shape": [
+          128,
+          96,
+          1
+        ],
+        "training_windows_stride1": 46558,
+        "test_native_points": 73729,
+        "native_test_tail_points": 1,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927750,
+        "seconds": 4.312999999849126,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_MSL_row4_2026-10-09.json",
+      "sha256": "614b7336fa9906988462d03e1139fa2f2fc0173dd6802a6f855d5d5028a48c9d",
+      "record": {
+        "dataset": "MSL",
+        "checkpoint": {
+          "reconstructed_ablation_row": 4
+        },
+        "native_batch_shape": [
+          128,
+          96,
+          1
+        ],
+        "training_windows_stride1": 46558,
+        "test_native_points": 73729,
+        "native_test_tail_points": 1,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927750,
+        "seconds": 6.515000000130385,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_PSM_2026-10-09.json",
+      "sha256": "07a85e92a27b5728284c44f66a45fbb7e9d8c8235bf285bd0bc68ba1d81a3093",
+      "record": {
+        "dataset": "PSM",
+        "checkpoint": {
+          "checkpoint_sha256": "3c18f59ab6e6dd0a81ab9eeb2760acf38edf145797f07d379478e8174f6c84f4",
+          "algorithm_tensors_strictly_loaded": 130,
+          "ignored_thop_counter_keys": [
+            "context_net.extractor.extractor.0.cross_attention.attn.total_ops",
+            "context_net.extractor.extractor.0.cross_attention.attn.total_params",
+            "context_net.extractor.extractor.0.cross_attention.total_ops",
+            "context_net.extractor.extractor.0.cross_attention.total_params",
+            "context_net.extractor.extractor.0.total_ops",
+            "context_net.extractor.extractor.0.total_params",
+            "context_net.extractor.extractor.1.cross_attention.attn.total_ops",
+            "context_net.extractor.extractor.1.cross_attention.attn.total_params",
+            "context_net.extractor.extractor.1.cross_attention.total_ops",
+            "context_net.extractor.extractor.1.cross_attention.total_params",
+            "context_net.extractor.extractor.1.total_ops",
+            "context_net.extractor.extractor.1.total_params",
+            "context_net.extractor.extractor.total_ops",
+            "context_net.extractor.extractor.total_params",
+            "context_net.extractor.total_ops",
+            "context_net.extractor.total_params",
+            "context_net.router.fc.0.total_ops",
+            "context_net.router.fc.0.total_params",
+            "context_net.router.total_ops",
+            "context_net.router.total_params",
+            "context_net.total_ops",
+            "context_net.total_params",
+            "decoder.layers.0.cross_attention.attn.total_ops",
+            "decoder.layers.0.cross_attention.attn.total_params",
+            "decoder.layers.0.cross_attention.total_ops",
+            "decoder.layers.0.cross_attention.total_params",
+            "decoder.layers.0.self_attention.attn.total_ops",
+            "decoder.layers.0.self_attention.attn.total_params",
+            "decoder.layers.0.self_attention.total_ops",
+            "decoder.layers.0.self_attention.total_params",
+            "decoder.layers.0.total_ops",
+            "decoder.layers.0.total_params",
+            "decoder.layers.1.cross_attention.attn.total_ops",
+            "decoder.layers.1.cross_attention.attn.total_params",
+            "decoder.layers.1.cross_attention.total_ops",
+            "decoder.layers.1.cross_attention.total_params",
+            "decoder.layers.1.self_attention.attn.total_ops",
+            "decoder.layers.1.self_attention.attn.total_params",
+            "decoder.layers.1.self_attention.total_ops",
+            "decoder.layers.1.self_attention.total_params",
+            "decoder.layers.1.total_ops",
+            "decoder.layers.1.total_params",
+            "decoder.layers.total_ops",
+            "decoder.layers.total_params",
+            "decoder.projection.1.total_ops",
+            "decoder.projection.1.total_params",
+            "decoder.total_ops",
+            "decoder.total_params",
+            "encoder.layers.0.attention.attn.total_ops",
+            "encoder.layers.0.attention.attn.total_params",
+            "encoder.layers.0.attention.total_ops",
+            "encoder.layers.0.attention.total_params",
+            "encoder.layers.0.total_ops",
+            "encoder.layers.0.total_params",
+            "encoder.layers.1.attention.attn.total_ops",
+            "encoder.layers.1.attention.attn.total_params",
+            "encoder.layers.1.attention.total_ops",
+            "encoder.layers.1.attention.total_params",
+            "encoder.layers.1.total_ops",
+            "encoder.layers.1.total_params",
+            "encoder.layers.total_ops",
+            "encoder.layers.total_params",
+            "encoder.total_ops",
+            "encoder.total_params",
+            "ms_utils.total_ops",
+            "ms_utils.total_params",
+            "patch_embedding.padding_patch_layer.total_ops",
+            "patch_embedding.padding_patch_layer.total_params",
+            "patch_embedding.total_ops",
+            "patch_embedding.total_params",
+            "pos_embedding.total_ops",
+            "pos_embedding.total_params",
+            "total_ops",
+            "total_params"
+          ],
+          "missing_algorithm_weights": [],
+          "all_algorithm_weights_strictly_loaded": true
+        },
+        "native_batch_shape": [
+          128,
+          192,
+          25
+        ],
+        "training_windows_stride1": 105793,
+        "test_native_points": 87841,
+        "native_test_tail_points": 97,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 1328459,
+        "seconds": 89.67200000002049,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_PSM_row1_2026-10-09.json",
+      "sha256": "cd23c65f0a7c231778a3e6a6de3f9eafd9946bd1deae8876e486e6dad9776f8b",
+      "record": {
+        "dataset": "PSM",
+        "checkpoint": {
+          "reconstructed_ablation_row": 1
+        },
+        "native_batch_shape": [
+          128,
+          192,
+          25
+        ],
+        "training_windows_stride1": 105793,
+        "test_native_points": 87841,
+        "native_test_tail_points": 97,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927750,
+        "seconds": 44.0,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_PSM_row2_2026-10-09.json",
+      "sha256": "9469888a599cd1074e44f9f2332d4601ce0d41c8931776bafe319205fd3e50fd",
+      "record": {
+        "dataset": "PSM",
+        "checkpoint": {
+          "reconstructed_ablation_row": 2
+        },
+        "native_batch_shape": [
+          128,
+          192,
+          25
+        ],
+        "training_windows_stride1": 105793,
+        "test_native_points": 87841,
+        "native_test_tail_points": 97,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 927750,
+        "seconds": 97.5460000000894,
+        "benchmark_performance": false
+      }
+    },
+    {
+      "path": "docs/reports/fm_crossad_complete_preflight_v4_SMAP_2026-10-09.json",
+      "sha256": "97c4a99da3d22672524874ee844bb174e809cc0d796abe8d162d5ec969f65775",
+      "record": {
+        "dataset": "SMAP",
+        "checkpoint": {
+          "checkpoint_sha256": "17eebfe9e04a66f65c9efc6d1604da4ea3e280c960bca0badbad2fdc9c510296",
+          "algorithm_tensors_strictly_loaded": 72,
+          "ignored_thop_counter_keys": [
+            "context_net.extractor.extractor.0.cross_attention.attn.total_ops",
+            "context_net.extractor.extractor.0.cross_attention.attn.total_params",
+            "context_net.extractor.extractor.0.cross_attention.total_ops",
+            "context_net.extractor.extractor.0.cross_attention.total_params",
+            "context_net.extractor.extractor.0.total_ops",
+            "context_net.extractor.extractor.0.total_params",
+            "context_net.extractor.extractor.total_ops",
+            "context_net.extractor.extractor.total_params",
+            "context_net.extractor.total_ops",
+            "context_net.extractor.total_params",
+            "context_net.router.fc.0.total_ops",
+            "context_net.router.fc.0.total_params",
+            "context_net.router.total_ops",
+            "context_net.router.total_params",
+            "context_net.total_ops",
+            "context_net.total_params",
+            "decoder.layers.0.cross_attention.attn.total_ops",
+            "decoder.layers.0.cross_attention.attn.total_params",
+            "decoder.layers.0.cross_attention.total_ops",
+            "decoder.layers.0.cross_attention.total_params",
+            "decoder.layers.0.self_attention.attn.total_ops",
+            "decoder.layers.0.self_attention.attn.total_params",
+            "decoder.layers.0.self_attention.total_ops",
+            "decoder.layers.0.self_attention.total_params",
+            "decoder.layers.0.total_ops",
+            "decoder.layers.0.total_params",
+            "decoder.layers.total_ops",
+            "decoder.layers.total_params",
+            "decoder.projection.1.total_ops",
+            "decoder.projection.1.total_params",
+            "decoder.total_ops",
+            "decoder.total_params",
+            "encoder.layers.0.attention.attn.total_ops",
+            "encoder.layers.0.attention.attn.total_params",
+            "encoder.layers.0.attention.total_ops",
+            "encoder.layers.0.attention.total_params",
+            "encoder.layers.0.total_ops",
+            "encoder.layers.0.total_params",
+            "encoder.layers.total_ops",
+            "encoder.layers.total_params",
+            "encoder.total_ops",
+            "encoder.total_params",
+            "ms_utils.total_ops",
+            "ms_utils.total_params",
+            "patch_embedding.padding_patch_layer.total_ops",
+            "patch_embedding.padding_patch_layer.total_params",
+            "patch_embedding.total_ops",
+            "patch_embedding.total_params",
+            "pos_embedding.total_ops",
+            "pos_embedding.total_params",
+            "total_ops",
+            "total_params"
+          ],
+          "missing_algorithm_weights": [],
+          "all_algorithm_weights_strictly_loaded": true
+        },
+        "native_batch_shape": [
+          128,
+          192,
+          1
+        ],
+        "training_windows_stride1": 107955,
+        "test_native_points": 427617,
+        "native_test_tail_points": 33,
+        "finite_backward": true,
+        "deterministic_release_inference": true,
+        "parameter_count": 2645453,
+        "seconds": 4.937000000150874,
+        "benchmark_performance": false
+      }
+    }
+  ],
+  "preflight_resource_retry_launch": {
+    "pid": 25420,
+    "command": [
+      "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-u",
+      "-m",
+      "scripts.flow_matching.run_crossad_preflight_resource_retry",
+      "--config",
+      "configs/experiments/fm_crossad_preflight_resource_retry.v1.json"
+    ],
+    "started_unix": 1791498136.5772667
+  },
+  "preflight_resource_retry_verified_live": true,
+  "preflight_resource_retry_state": {
+    "pid": 25420,
+    "config_sha256": "ba64f8285fc482ca3c6b20c8f078f2cd2287bd4e3069f6307ae675cc5ec99bbd",
+    "active_case": null,
+    "active_pid": null,
+    "cases": {},
+    "physical_available_bytes": 37665857536,
+    "commit_available_bytes": 21492543488,
+    "state": "waiting_for_heavy_lock",
+    "shared_lock_owned": false
+  }
+}

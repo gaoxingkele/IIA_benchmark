@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "controllers": [
+    {
+      "name": "crossad",
+      "source_path": "scripts/flow_matching/run_crossad_case_gated_queue.py",
+      "source_functions": [
+        "native_proof",
+        "main"
+      ],
+      "queue_path": "configs/experiments/fm_crossad_complete_queue.v7.json",
+      "queue_sha256": "ee661402cf82d4ecc6ab0ddf99923b92b28edbaac291c8e6c1ffb2d7b0563921",
+      "status_path": "experiments/runs/fm_crossad_author_v2/status.json",
+      "queue_argument": "--queue",
+      "old_worker_token": "run_crossad_case_gated_queue_v2.py",
+      "resource_scheduler_binding": true
+    },
+    {
+      "name": "preflight",
+      "source_path": "scripts/flow_matching/preflight_crossad_complete.py",
+      "source_functions": [
+        "main"
+      ],
+      "queue_path": "configs/experiments/fm_crossad_complete_queue.v4.json",
+      "queue_sha256": "77c2890881936c2435b6c0e0dc5c96d6d1ca446daf3d26ef53e9ef7baa8a2b0e",
+      "status_path": "experiments/runs/fm_crossad_complete_preflight_v4/status.json",
+      "queue_argument": "--queue",
+      "old_worker_token": "scripts.flow_matching.preflight_crossad_complete_v2",
+      "resource_scheduler_binding": true
+    },
+    {
+      "name": "recovery",
+      "source_path": "scripts/flow_matching/run_resource_recovery.py",
+      "source_functions": [
+        "main"
+      ],
+      "queue_path": "configs/experiments/fm_resource_recovery_queue.v3.json",
+      "queue_sha256": "7f3f1800f7ee099ca2ba8e72d032ab440da53c75d3a46d424587d2692a7852f8",
+      "status_path": "experiments/runs/fm_resource_recovery_20261009_v2/status.json",
+      "queue_argument": "--queue",
+      "old_worker_token": "scripts.flow_matching.run_resource_recovery_v2",
+      "resource_scheduler_binding": true
+    },
+    {
+      "name": "range_main",
+      "source_path": "scripts/flow_matching/run_tab_ranges_sparse_queue.py",
+      "source_functions": [
+        "main"
+      ],
+      "queue_path": "configs/experiments/fm_tab_range_execution.sparse.v2.json",
+      "queue_sha256": "b429a9fab6c65c494ee00ae4befd74c3f388f69ccca74893a8337c709b600cd4",
+      "status_path": "experiments/runs/fm_tsad_tab_range_sparse_v2/status.json",
+      "queue_argument": "--config",
+      "old_worker_token": "scripts.flow_matching.run_tab_ranges_sparse_queue",
+      "resource_scheduler_binding": false
+    },
+    {
+      "name": "range_reflow",
+      "source_path": "scripts/flow_matching/run_tab_ranges_sparse_queue.py",
+      "source_functions": [
+        "main"
+      ],
+      "queue_path": "configs/experiments/fm_reflow_tab_range.sparse.v2.json",
+      "queue_sha256": "478ea2038519fbc65ecbc513c05aa2010f368638c8e92e56840aeea6f802a39a",
+      "status_path": "experiments/runs/fm_reflow_tab_range_sparse_v2/status.json",
+      "queue_argument": "--config",
+      "old_worker_token": "scripts.flow_matching.run_tab_ranges_sparse_queue",
+      "resource_scheduler_binding": false
+    },
+    {
+      "name": "range_industrial",
+      "source_path": "scripts/flow_matching/run_tab_ranges_sparse_queue.py",
+      "source_functions": [
+        "main"
+      ],
+      "queue_path": "configs/experiments/fm_industrial_tab_range.sparse.v2.json",
+      "queue_sha256": "d0b6ee2224b96209c31d0fc6b45c2bc8f87a5dacb2bdf8faef85e1bd9554f3d0",
+      "status_path": "experiments/runs/fm_industrial_tab_range_sparse_v2/status.json",
+      "queue_argument": "--config",
+      "old_worker_token": "scripts.flow_matching.run_tab_ranges_sparse_queue",
+      "resource_scheduler_binding": false
+    },
+    {
+      "name": "range_moment",
+      "source_path": "scripts/flow_matching/run_tab_ranges_sparse_queue.py",
+      "source_functions": [
+        "main"
+      ],
+      "queue_path": "configs/experiments/fm_moment_pretrained_tab_range.sparse.v2.json",
+      "queue_sha256": "c45c8c6964c4c9c406c4222d941b6cd696a8efbfa988361070888daf47ad6d32",
+      "status_path": "experiments/runs/fm_moment_pretrained_tab_range_sparse_v2/status.json",
+      "queue_argument": "--config",
+      "old_worker_token": "scripts.flow_matching.run_tab_ranges_sparse_queue",
+      "resource_scheduler_binding": false
+    }
+  ],
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+      "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+    },
+    {
+      "path": "scripts/flow_matching/phase_gate.py",
+      "sha256": "082448b09a0d045bf44cc87440174dd3a8cd2d18f522e350ce806fb496953051"
+    },
+    {
+      "path": "scripts/flow_matching/preflight_crossad_complete.py",
+      "sha256": "3fb6f892de75cf2b1e0281fd8c41608be1bde348641b6514fccb56ecfaa5a518"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_tsad_execution.py",
+      "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+    },
+    {
+      "path": "scripts/flow_matching/register_light_controllers.py",
+      "sha256": "dac54e63078368b40f670e0d16aeb646936f10df86bc1291183f73d872174a19"
+    },
+    {
+      "path": "scripts/flow_matching/run_crossad_case_gated_queue.py",
+      "sha256": "d582373b36e64f0ef885302b812a0b97afa1f2c19c6959f8ddfe10282fedb3c3"
+    },
+    {
+      "path": "scripts/flow_matching/run_light_controller.py",
+      "sha256": "97174fc6f18d76df74e8ed1d38e189d7098ce217c872434a5b6b238009868eff"
+    },
+    {
+      "path": "scripts/flow_matching/run_maelnet_author_queue.py",
+      "sha256": "fca4639b11f09810ce190af4280cbd477eb475ec39378c49871241ba0cff0fd1"
+    },
+    {
+      "path": "scripts/flow_matching/run_resource_recovery.py",
+      "sha256": "c0d2a54b8c5132fb4ee4e48595086c10c0395cc8ce446b83a132aa342b8d7a4c"
+    },
+    {
+      "path": "scripts/flow_matching/run_tab_ranges_sparse_queue.py",
+      "sha256": "8ca48a1ef791d8c653523098d0dc06548d5d0a9bc829ae5a60179174c5a902a6"
+    },
+    {
+      "path": "scripts/flow_matching/run_tsad_queue.py",
+      "sha256": "ebb7ef07ded5d226f522343f49ffc5d697118b4ea820ff53fa1fe945beb2bcde"
+    },
+    {
+      "path": "scripts/flow_matching/tab_sparse_execution.py",
+      "sha256": "bf01c95c9f2221ead11b0d6773f52387099a3bf8e717d7117f3d33866275933b"
+    },
+    {
+      "path": "scripts/flow_matching/transition_light_controllers.py",
+      "sha256": "00b0f95a9b7cead8c54f77da033eb85656ad3a08c0686ac136b27ef66d474a9e"
+    }
+  ],
+  "transition_archive": "experiments/runs/fm_light_controller_transition_20261009",
+  "boundary": "Exact pinned original orchestration definitions compiled without unused preprocessing imports. Original model/evaluator child programs, queues, job identities, artifacts, budgets and resource gates remain unchanged."
+}

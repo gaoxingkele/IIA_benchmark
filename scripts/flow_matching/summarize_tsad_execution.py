@@ -29,6 +29,19 @@ def intervals(values):
             'ci95_high': mean + margin if margin is not None else None}
 
 
+def light_worker_matches(process, queue_path, root):
+    command = process.cmdline()
+    if 'scripts.flow_matching.run_light_controller' not in command:
+        return False
+    runtime_path = root / command[command.index('--runtime-config') + 1]
+    name = command[command.index('--controller') + 1]
+    runtime = json.loads(runtime_path.read_text(encoding='utf-8'))
+    binding = next(b for b in runtime['controllers'] if b['name'] == name)
+    if binding['queue_path'] != queue_path or binding['queue_sha256'] != sha(root / queue_path):
+        return False
+    return all(sha(root / source['path']) == source['sha256'] for source in runtime['source_receipts'])
+
+
 def _one_range_snapshot(root, project, path):
     if not path:
         return {'completed_evaluations': 0, 'records': [], 'seed_aggregates': []}
@@ -66,7 +79,7 @@ def _one_range_snapshot(root, project, path):
     process_live = False
     try:
         process = psutil.Process(state.get('pid', -1))
-        process_live = any(any(worker in argument for worker in (
+        process_live = light_worker_matches(process, path, root) or any(any(worker in argument for worker in (
             'run_tab_ranges_when_ready.py', 'run_tab_ranges_for_config.py',
             'scripts.flow_matching.run_tab_ranges_sparse_queue')) for argument in process.cmdline())
     except (psutil.NoSuchProcess, psutil.AccessDenied):
@@ -103,7 +116,8 @@ def author_pipeline_snapshot(root, project):
             if not pid or pid <= 0:
                 return False
             try:
-                return any(fragment in a for a in psutil.Process(pid).cmdline())
+                process = psutil.Process(pid)
+                return any(fragment in a for a in process.cmdline()) or light_worker_matches(process, queue_path, root)
             except (psutil.NoSuchProcess, psutil.AccessDenied):
                 return False
         worker_live = matches(state.get('pid'), queue.get('worker_script', 'run_maelnet_author_queue.py'))
