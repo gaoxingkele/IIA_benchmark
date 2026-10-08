@@ -1,0 +1,134 @@
+{
+  "old_idle_controllers": [
+    {
+      "pid": 2032,
+      "created_unix": 1791492399.2452283,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_resource_recovery",
+        "--queue",
+        "configs/experiments/fm_resource_recovery_queue.v2.json"
+      ],
+      "children": [],
+      "state_before_transition": {
+        "pid": 2032,
+        "queue_sha256": "39c38985faeb09720a2919f972fc243e93a621a252f5681e9ecdac5093cfbfef",
+        "active_job": null,
+        "active_pid": null,
+        "jobs": {},
+        "state": "waiting_for_heavy_lock"
+      },
+      "state_path": "experiments/runs/fm_resource_recovery_20261009_v2/status.json",
+      "state_sha256": "f4be1780993dc731f5709862c1b97c230827fb6af5021210a37b21ef0ba2beb2",
+      "suspended_and_verified_no_experiment_child": true
+    },
+    {
+      "pid": 41560,
+      "created_unix": 1791492919.8497849,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_crossad_case_gated_queue.py",
+        "--queue",
+        "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_crossad_complete_queue.v5.json"
+      ],
+      "children": [
+        {
+          "pid": 42952,
+          "command": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ]
+        }
+      ],
+      "state_before_transition": {
+        "pid": 41560,
+        "queue_sha256": "a423cee8cf25cff25564c269fcbcca5d8e0dcf81851c2b6d23c5d0e153d59ede",
+        "active_job": null,
+        "active_pid": null,
+        "jobs": {},
+        "state": "waiting_for_heavy_lock",
+        "frozen_files_verified": 138
+      },
+      "state_path": "experiments/runs/fm_crossad_author_v1/status.json",
+      "state_sha256": "cb9db4b62c242d198eba082cb0f2fdae961a164e632f70f16d78e216af23dc5d",
+      "suspended_and_verified_no_experiment_child": true
+    },
+    {
+      "pid": 32856,
+      "created_unix": 1791492399.2337723,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.preflight_crossad_complete",
+        "--queue",
+        "configs/experiments/fm_crossad_complete_queue.v4.json",
+        "--launch-after"
+      ],
+      "children": [],
+      "state_before_transition": {
+        "pid": 32856,
+        "queue_sha256": "77c2890881936c2435b6c0e0dc5c96d6d1ca446daf3d26ef53e9ef7baa8a2b0e",
+        "state": "waiting_for_memory",
+        "active_case": null,
+        "active_pid": null,
+        "started_unix": 1791495496.6699362,
+        "completed_cases": 12,
+        "peak_tree_rss_bytes": 2227884032,
+        "peak_tree_private_bytes": 4296134656,
+        "minimum_commit_available_bytes": 7556603904,
+        "resource_guard_aborted": true,
+        "abort_resource_snapshot": {
+          "physical_available_bytes": 31912640512,
+          "commit_available_bytes": 7556603904
+        },
+        "physical_available_bytes": 32108093440,
+        "commit_available_bytes": 7992279040
+      },
+      "state_path": "experiments/runs/fm_crossad_complete_preflight_v4/status.json",
+      "state_sha256": "770807a951070ce89e8055c212c2c0403208d2ff969972317e769bdb77e0cffe",
+      "suspended_and_verified_no_experiment_child": true
+    }
+  ],
+  "launched": {
+    "crossad": {
+      "launcher_pid": 42312,
+      "command": [
+        "D:\\aicoding\\IIA_benchmark\\.venv\\crossad-author-py312\\Scripts\\python.exe",
+        "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_crossad_case_gated_queue_v2.py",
+        "--queue",
+        "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_crossad_complete_queue.v6.json"
+      ],
+      "started_unix": 1791495515.9258606
+    },
+    "recovery": {
+      "launcher_pid": 29984,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_resource_recovery_v2",
+        "--queue",
+        "configs/experiments/fm_resource_recovery_queue.v3.json"
+      ],
+      "started_unix": 1791495515.94653
+    },
+    "preflight": {
+      "launcher_pid": 9316,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.preflight_crossad_complete_v2",
+        "--queue",
+        "configs/experiments/fm_crossad_complete_queue.v4.json"
+      ],
+      "started_unix": 1791495515.9655218
+    }
+  },
+  "no_experiment_children_stopped": true,
+  "all_original_jobs_and_limits_preserved": true,
+  "all_experiments_complete": false
+}
