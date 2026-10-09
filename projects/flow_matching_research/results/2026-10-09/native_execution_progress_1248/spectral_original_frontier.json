@@ -1,0 +1,113 @@
+{
+  "paper": {
+    "path": "papers/literature/flow_matching/project_additions/spectral_mean_flow_2510.15366v1.pdf",
+    "sha256": "7471d9b2dba02e1415c2ada64e3219b02849b9451feed05fbd6ef64c891c621e",
+    "citation": "https://arxiv.org/abs/2510.15366v1",
+    "physical_pdf_pages": [
+      9,
+      10
+    ]
+  },
+  "remaining_original_experiments": {
+    "Table2": {
+      "datasets": [
+        "Sines",
+        "Stocks",
+        "MuJoCo"
+      ],
+      "methods": [
+        "Spectral Mean Flow",
+        "SDFormer-AR",
+        "SDFormer-M",
+        "ImagenTime"
+      ],
+      "released_spectral_flow_training": {
+        "hidden": 512,
+        "layers": 12,
+        "batch_size": 512,
+        "optimizer_updates": 100000,
+        "generation_steps": 500
+      },
+      "SDFormer_AR_training_updates": {
+        "Sines": [
+          100000,
+          20000
+        ],
+        "Stocks": [
+          100000,
+          20000
+        ],
+        "MuJoCo": [
+          200000,
+          62500
+        ]
+      },
+      "status": "released_full_sources_and_raw_assets_audited_native_adapter_and_resource_preflight_pending"
+    },
+    "Table3": {
+      "datasets": {
+        "FRED-MD": [
+          107,
+          728,
+          1
+        ],
+        "NN5 Daily": [
+          111,
+          791,
+          1
+        ]
+      },
+      "methods": [
+        "Spectral Mean Flow",
+        "ImagenTime",
+        "LS4",
+        "SaShiMi-AR"
+      ],
+      "released_spectral_flow_training": {
+        "epochs": 1000,
+        "batch_size": 32,
+        "hidden": 768,
+        "layers": 12,
+        "generation_steps": 100,
+        "optimizer": "SingleDeviceMuonWithAuxAdam"
+      },
+      "source_preprocessing": "per-sequence normalization before seeded80/20 series split; original full length generation, not TSAD or held-out forecasting",
+      "metrics": [
+        "marginal_score_down",
+        "S4_classification_loss_up",
+        "S4_10step_predictive_error_down"
+      ],
+      "status": "raw_originalTSF_verified_full_native_adapter_and_resource_preflight_pending"
+    },
+    "Table4": "Both irregular-to-regular and irregular-to-irregular protocols,0/30/50/70percent drops and all compared baselines remain required",
+    "Table5": "Pendulum with/without stability loss for both Spectral Mean Flow and Koopman VAE remains required",
+    "Figures2_3": "Full tensor-network tractability and10000-particle checkerboard/RBF-flow comparisons remain required"
+  },
+  "all_paper_experiments_complete": false,
+  "source_receipts": [
+    {
+      "path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_medium/scripts/spectral_flow.sh",
+      "sha256": "cfa94374e6a3147da30f9e55d44a79002e64e7e0352a3fb70213ab6a79badf0c"
+    },
+    {
+      "path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_medium/scripts/sdformer.sh",
+      "sha256": "20f49b7b9a3755219c7f903ab690fda893d009788bf3fdcb01c5cb9c1fe73221"
+    },
+    {
+      "path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/configs/spectral_flow/fred_md.yaml",
+      "sha256": "5df350f2cd5510f1845a334367cf0be4ccb5de826e102bacb92ef82db3210823"
+    },
+    {
+      "path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/configs/spectral_flow/nn5_daily.yaml",
+      "sha256": "bceb831a73baa2d9f592af7da2cade33894506a3cbecfe419154cfec63361512"
+    },
+    {
+      "path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/utils/utils_data.py",
+      "sha256": "9265d0b52f79263c9622707731273ef91b767120e1311634fbf665a213ff297e"
+    },
+    {
+      "path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/data/long_range/__init__.py",
+      "sha256": "d00ef04b4ef57e56314fd88ece734a669ad3c45c21365d9bfdeb9a379c160384"
+    }
+  ]
+}
