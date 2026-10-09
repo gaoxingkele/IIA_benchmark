@@ -1,0 +1,138 @@
+{
+  "captured_utc": "2026-10-09T01:51:14.282058+00:00",
+  "observations": {
+    "grasp_full": {
+      "state": {
+        "pid": 40348,
+        "queue_sha256": "622e9bd788d85671f782bad2a1999701868cc101b663c0f52c0e460519ac7fd1",
+        "jobs": {
+          "grasp_protocol_v3__gnn__swan__swan_sf__seed1103": "completed",
+          "grasp_protocol_v3__main__swan__swan_sf__seed1103": "failed_or_partial_preserved",
+          "grasp_protocol_v3__transformer__swan__swan_sf__seed1103": "failed_or_partial_preserved"
+        },
+        "active_pid": 37548,
+        "state": "running",
+        "active_job": "grasp_protocol_v3__mean__swan__swan_sf__seed1103",
+        "physical_available_bytes": 41164304384,
+        "commit_available_bytes": 25798881280,
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 22577938432,
+        "peak_tree_rss_bytes": 1411805184,
+        "peak_tree_private_bytes": 2400882688,
+        "minimum_commit_available_bytes": 15492878336,
+        "minimum_gpu_free_bytes": 22575841280,
+        "resource_guard_aborted": false,
+        "gpu_observation_retries": 0,
+        "shared_lock_owned": false,
+        "abort_resource_snapshot": {
+          "physical_available_bytes": 36810919936,
+          "commit_available_bytes": 9715630080,
+          "gpu_index": 0,
+          "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+          "gpu_free_bytes": 11978932224
+        }
+      },
+      "controller_verified": true,
+      "active_child_verified": true,
+      "controller_create_time": 1791505862.744033,
+      "controller_command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_grasp_protocol_queue_v3",
+        "--queue",
+        "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_grasp_protocol_queue.v3.json"
+      ],
+      "child_create_time": 1791509445.9721608,
+      "child_command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.grasp_protocol_cuda_runtime",
+        "--queue",
+        "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_grasp_protocol_queue.v3.json",
+        "--job-id",
+        "grasp_protocol_v3__mean__swan__swan_sf__seed1103"
+      ],
+      "observed_training_epochs": 987,
+      "last_training_record": {
+        "epoch": 987,
+        "train_loss": 0.6443507470445083,
+        "optimizer_updates": 61194
+      },
+      "worker_module_verified": "scripts.flow_matching.grasp_protocol_cuda_runtime"
+    },
+    "grasp_recovery": {
+      "state": {
+        "pid": 32340,
+        "queue_sha256": "8acc0c3d6c0922173e40d0e17b8565623059309701bf1c3bee6135ee43f490af",
+        "jobs": {},
+        "active_pid": null,
+        "physical_available_bytes": 41652363264,
+        "commit_available_bytes": 26312998912,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false
+      },
+      "controller_verified": true,
+      "active_child_verified": false,
+      "controller_create_time": 1791509804.8076303,
+      "controller_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_native_exact_recovery_queue",
+        "--queue",
+        "configs/experiments/fm_native_grasp_exact_recovery.v1.json"
+      ]
+    },
+    "giflow_serial_preflight": {
+      "state": {
+        "pid": 35772,
+        "config_sha256": "f3812f8147c2864ef54183b189bad3870e8642c7d151e14295eee72e960f442f",
+        "diagnostic": true,
+        "active_pid": null,
+        "profiles": {},
+        "physical_available_bytes": 41303261184,
+        "commit_available_bytes": 25988268032,
+        "state": "waiting_for_memory",
+        "shared_lock_owned": false
+      },
+      "controller_verified": true,
+      "active_child_verified": false,
+      "controller_create_time": 1791510221.336486,
+      "controller_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_giflow_cuda_memory_probe_v3",
+        "--config",
+        "configs/runtime/fm_giflow_cuda_memory_probe.v3.json"
+      ]
+    },
+    "giflow_native": {
+      "state": {
+        "pid": 4776,
+        "queue_sha256": "4b90e0451045b857a3872cf79424c2ccf0c3010f8ee3364f728c3f8476efb4ee",
+        "active_pid": null,
+        "state": "waiting_serial_full_batch_memory_preflight",
+        "jobs": {}
+      },
+      "controller_verified": true,
+      "active_child_verified": false,
+      "controller_create_time": 1791510221.3433082,
+      "controller_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_giflow_serial_native_queue_v3",
+        "--queue",
+        "configs/experiments/fm_giflow_native_queue.v3.json"
+      ]
+    }
+  },
+  "native_statistics_complete": 80,
+  "recovered_original_slots": 2,
+  "formal_giflow_results_complete": 0,
+  "diagnostics_not_benchmark": true
+}

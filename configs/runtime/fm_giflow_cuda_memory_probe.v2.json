@@ -1,0 +1,73 @@
+{
+  "schema_version": 2,
+  "queue": "configs/experiments/fm_giflow_native_queue.v2.json",
+  "queue_sha256": "577b4090fdf97cd436b0b7d9c5dfc3c636a49fcd4cce38c244d52a86ad782da6",
+  "state_root": "experiments/runs/fm_giflow_cuda_memory_probe_v2",
+  "resource_lock": "experiments/runs/fm_giflow_memory_probe.lock",
+  "settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 17179869184,
+    "emergency_commit_headroom_bytes": 10737418240,
+    "cpu_threads": 4,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 8589934592,
+    "emergency_gpu_free_bytes": 2147483648
+  },
+  "profiles": [
+    {
+      "id": "released_mirror_air36_full_batch",
+      "job_id": "giflow_native__released_mirror__air36__main__seed393",
+      "output_directory": "experiments/runs/fm_giflow_cuda_memory_probe_v2/diagnostics/released_mirror"
+    },
+    {
+      "id": "reviewed_corrected_air36_full_batch",
+      "job_id": "giflow_native__reviewed_corrected__air36__main__seed393",
+      "output_directory": "experiments/runs/fm_giflow_cuda_memory_probe_v2/diagnostics/reviewed_corrected"
+    }
+  ],
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/run_giflow_native_job.py",
+      "sha256": "98f00643e360c9753b0f1e532a6cabdb3bdc950ce247b778202e5525cfc9bbda"
+    },
+    {
+      "path": "scripts/flow_matching/giflow_cuda_memory_probe.py",
+      "sha256": "cb57b5a1bbbcf8c63094fe34d0b6be07f41a2f56b086b11c54d64737d543bb0f"
+    },
+    {
+      "path": "scripts/flow_matching/run_giflow_cuda_memory_probe.py",
+      "sha256": "0b8e3b24d2e8693e187f698b91c06120c62dc1cebd0f8e9937c0202bc3468612"
+    },
+    {
+      "path": "scripts/flow_matching/run_grasp_protocol_queue.py",
+      "sha256": "9115332e17cc8605ff77eb11e42641df65c2fe2c9a8b7b9de2778aa8ffb58464"
+    },
+    {
+      "path": "tests/test_fm_giflow_cuda_memory_probe.py",
+      "sha256": "da7059e336c8e243992708d2fb1e4e94d2569ffe3ce61870af711300b2cf7eab"
+    },
+    {
+      "path": "configs/runtime/fm_giflow_cuda_memory_probe.v1.json",
+      "sha256": "1058be0b51dbb03db1999bb3c884661fd52c2658243206ea781b2030141cffea"
+    },
+    {
+      "path": "scripts/flow_matching/giflow_cuda_memory_probe_v2.py",
+      "sha256": "61df79ca518fdcd8882660fea641fb504b75ad5849627b417af38b677cb78ca9"
+    },
+    {
+      "path": "scripts/flow_matching/run_giflow_cuda_memory_probe_v2.py",
+      "sha256": "febb197b655e90e5a8fdfad8ba1ff1d64c74f02f0802ed2d8a07ae5b4e0a4a23"
+    },
+    {
+      "path": "tests/test_fm_giflow_cuda_memory_probe_v2.py",
+      "sha256": "19ab2386fbb277f9747b57e261cad4d0708054c602ae4fed0a6c9ec7483b8d20"
+    }
+  ],
+  "boundary": "Independent real-data CUDA memory preflight only. Original batch128/window24/stride1 and author train/test functions; one actual update and one native validation/test batch. Original 140 full experiment slots and their budgets are unchanged. No diagnostic metric is a benchmark result. Emergency host floor strengthened to 10GiB to protect the concurrently observed GRASP child.",
+  "previous_diagnostic_registration": {
+    "path": "configs/runtime/fm_giflow_cuda_memory_probe.v1.json",
+    "sha256": "1058be0b51dbb03db1999bb3c884661fd52c2658243206ea781b2030141cffea",
+    "outcome": "Both diagnostic workers stopped before author model execution due to Python3.10 ast.unparse whitespace. Formal experiment outputs and budgets untouched."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "previous_pid": 27792,
+  "previous_create_time": 1791508071.223417,
+  "previous_command": [
+    "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-u",
+    "-m",
+    "scripts.flow_matching.run_giflow_guarded_gpu_queue_v2",
+    "--queue",
+    "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_giflow_native_queue.v2.json"
+  ],
+  "previous_state": {
+    "pid": 27792,
+    "queue_sha256": "577b4090fdf97cd436b0b7d9c5dfc3c636a49fcd4cce38c244d52a86ad782da6",
+    "jobs": {},
+    "active_pid": null,
+    "physical_available_bytes": 37981323264,
+    "commit_available_bytes": 22052372480,
+    "state": "waiting_for_heavy_lock",
+    "shared_lock_owned": false
+  },
+  "active_model_stopped": false,
+  "reason": "Strengthen startup/emergency resource floors after actual full-batch spike. Gate original140 full native jobs behind paired successful serial memory preflights. Stop only verified waiting controller, preserve all logs and failed diagnostic/native artifacts.",
+  "launched": [
+    {
+      "name": "serial_memory_preflight",
+      "pid": 35772,
+      "create_time": 1791510221.336486,
+      "module": "scripts.flow_matching.run_giflow_cuda_memory_probe_v3",
+      "config": "configs/runtime/fm_giflow_cuda_memory_probe.v3.json"
+    },
+    {
+      "name": "native140",
+      "pid": 4776,
+      "create_time": 1791510221.3433082,
+      "module": "scripts.flow_matching.run_giflow_serial_native_queue_v3",
+      "config": "configs/experiments/fm_giflow_native_queue.v3.json"
+    }
+  ]
+}

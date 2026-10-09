@@ -1,0 +1,31 @@
+Seed set to 393
+Traceback (most recent call last):
+  File "D:\aicoding\IIA_benchmark\tmp\python\cpython-3.10-windows-x86_64-none\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "D:\aicoding\IIA_benchmark\tmp\python\cpython-3.10-windows-x86_64-none\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\giflow_cuda_memory_probe_v2.py", line 44, in <module>
+    main()
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\giflow_cuda_memory_probe_v2.py", line 40, in main
+    namespace['main']()
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\giflow_cuda_memory_probe.py", line 108, in main
+    bound()
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\run_giflow_native_job.py", line 191, in main
+    native_metrics = tuple(float(v) for v in native.run_experiment(args))
+  File "D:\aicoding\IIA_benchmark\experiments\runs\flow_matching_campaign\sources\giflow\corrected\main.py", line 185, in run_experiment
+    optimizer.step()
+  File "D:\aicoding\IIA_benchmark\.venv\giflow-author-py310\lib\site-packages\torch\optim\optimizer.py", line 385, in wrapper
+    out = func(*args, **kwargs)
+  File "D:\aicoding\IIA_benchmark\.venv\giflow-author-py310\lib\site-packages\torch\optim\optimizer.py", line 76, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "D:\aicoding\IIA_benchmark\.venv\giflow-author-py310\lib\site-packages\torch\optim\adamw.py", line 187, in step
+    adamw(
+  File "D:\aicoding\IIA_benchmark\.venv\giflow-author-py310\lib\site-packages\torch\optim\adamw.py", line 339, in adamw
+    func(
+  File "D:\aicoding\IIA_benchmark\.venv\giflow-author-py310\lib\site-packages\torch\optim\adamw.py", line 546, in _multi_tensor_adamw
+    torch._foreach_mul_(device_params, 1 - lr * weight_decay)
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

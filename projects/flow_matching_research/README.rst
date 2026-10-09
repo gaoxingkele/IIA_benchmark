@@ -108,6 +108,13 @@ ARA 参考文献工程
 算法与数据集实验指标
 ------------------
 
+`最新完整指标清单 <results/2026-10-09/native_resource_recovery_0945/algorithm_dataset_metrics.md>`_ 列出算法—数据集技术指标与待完成项。
+严格/TAB/插补等表保留09:20快照；`完整Excel <results/2026-10-09/complete_metrics_0920/complete_experiment_metrics.xlsx>`_ 含16个工作表。
+`09:47统计协议补充 <results/2026-10-09/native_resource_recovery_0945/README.md>`_ 已核验HBOS/COPOD原登记80/80个槽，
+两项同种子、同预算恢复不作为新增独立重复。原始快照、失败和训练历史均保留。
+新GiFlow串行预检与完整队列共用GPU锁，预检通过后才开始正式训练；预检不计入性能。
+全45篇论文、681条已审读方法/基线/消融的实验义务仍未完成。
+
 `2026-10-09 02:16完整指标表 <results/2026-10-09/complete_metrics_0216/README.md>`_ 覆盖378个异常检测配置—数据集组合、165次完整严格运行、164次范围评估、39次完整插补运行及未完成项。
 `Excel下载 <results/2026-10-09/complete_metrics_0216/complete_experiment_metrics.xlsx>`_ 包含9个可筛选工作表，共6309行。
 历史协议、论文转录值与严格运行分别保存。`01:50旧指标快照 <results/2026-10-09/complete_metrics/README.md>`_ 保持原数值。
