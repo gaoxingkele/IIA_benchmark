@@ -27,7 +27,7 @@ def aggregate(values):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--queue',default='configs/experiments/fm_spectral_mean_flow_original_queue.v1.json')
+    parser.add_argument('--queue',default='configs/experiments/fm_spectral_mean_flow_original_queue.v2.json')
     parser.add_argument('--output',required=True)
     args=parser.parse_args();queue=read(ROOT/args.queue);policy=verify(queue)
     target=ROOT/args.output
@@ -39,7 +39,8 @@ def main():
         live='scripts.flow_matching.run_spectral_original_queue' in cmd and args.queue in cmd
         if live:commands={'parent':cmd,'parent_create_time':parent.create_time()}
         if live and state.get('active_pid'):
-            child=psutil.Process(state['active_pid']);worker=child.ppid()==parent.pid
+            child=psutil.Process(state['active_pid']);worker=(child.ppid()==parent.pid and
+                'scripts.flow_matching.run_spectral_original_job' in child.cmdline() and state['active_job'] in child.cmdline())
             if worker:commands.update(child=child.cmdline(),child_create_time=child.create_time())
     except (psutil.NoSuchProcess,psutil.AccessDenied,KeyError):pass
     records=[];groups=defaultdict(list)

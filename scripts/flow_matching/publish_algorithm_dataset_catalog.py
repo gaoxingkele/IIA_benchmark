@@ -90,6 +90,18 @@ def main():
                              paper_std=record['paper_MSE_std'] if metric == 'MSE' else None,
                              comparison=record['comparison'], author_equivalence_certified=False,
                              captured_utc=cfm['captured_utc'], source=(dynamic/'algorithm_dataset_metrics.csv').relative_to(ROOT).as_posix()))
+    generation = None
+    if settings.get('generation_capture'):
+        generation_path=ROOT/settings['generation_capture']/'execution_audit.json'
+        generation=json.loads(generation_path.read_text(encoding='utf-8'))
+        for record in generation['summaries']:
+            rows.append(dict(algorithm='Spectral-author/'+record['model'],dataset=record['dataset'],
+                task='unconditional_time_series_generation',protocol=record['data_track'],metric=record['metric'],
+                n=record['n'],required_repeats=record['required_seeds'],
+                **{key:record[key] for key in ('mean','std','se','ci95_low','ci95_high')},
+                paper_mean=record['paper_mean'],paper_spread=record['paper_spread'],
+                comparison='unavailable' if not record['n'] else 'numerical_comparison_only',author_equivalence_certified=False,
+                captured_utc=generation['captured_utc'],source=(generation_path.parent/'algorithm_dataset_metrics.csv').relative_to(ROOT).as_posix()))
     target.mkdir(parents=True)
     fields = list(dict.fromkeys(key for row in rows for key in row))
     with (target/'all_algorithm_dataset_metrics.csv').open('w',encoding='utf-8-sig',newline='') as stream:
@@ -128,8 +140,14 @@ def main():
         lines.append(f"| {r['track']} | {r['dataset']} | {r['variant']} | {r['epochs']} | {r['completed_seeds']}/{r['required_seeds']} | {fmt(r['MSE_mean'])} | {fmt(r['MSE_std'])} | {fmt(r['MAE_mean'])} | {fmt(r['RMSE_mean'])} | {fmt(r['paper_MSE_mean'])} |")
     lines += ['', '五种子数值相近不等于等价证明。CFM-TS原作者代码与原始随机轨迹未公开，正文/附录计数冲突、网络解释、ODE容差等本地选择已冻结。Pendulum只有一条物理轨迹，结果对应新时间点评价。', '',
               f"[45篇原始实验范围和缺口]({old}/original_dataset_scope.csv)；[已核验论文声称值]({old}/paper_claims.csv)。未执行的预测、生成、图像、单细胞、表格等原始实验不能从异常检测迁移结果推定成绩。", '']
+    if generation is not None:
+        relative='../'+Path(settings['generation_capture']).name
+        lines += ['', '## Spectral Mean Flow / Diffusion-TS：原始生成任务', '',
+            f"登记14组、70次完整训练；捕获时间{generation['captured_utc']}；状态{generation['job_counts']}。四个原始评价器：Context-FID、Correlational、Discriminative、Predictive。预检不计成绩。", '',
+            f"[全部56条指标及论文值]({relative}/algorithm_dataset_metrics.csv)；[70项逐次状态]({relative}/registered_jobs.csv)；[环境、协议及剩余原论文实验]({relative}/README.md)。", '']
     (target/'README.md').write_text('\n'.join(lines),encoding='utf-8')
     paths=[base/'complete_results.json',base/'strict_summary.csv',dynamic/'execution_audit.json',dynamic/'grasp_execution_audit.json',dynamic/'grasp_algorithm_dataset_metrics.csv']
+    if generation is not None:paths.append(generation_path)
     receipt=dict(published_utc=datetime.now(timezone.utc).isoformat(), aggregate_metric_rows=len(rows),
                  strict_groups=len(report['strict_summary']), cfm_cohorts=len(cfm['seed_aggregates']),
                  grasp_complete_cohorts=grasp['capture']['completed_cohorts'],
