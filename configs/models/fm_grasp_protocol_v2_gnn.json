@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "id": "fm_grasp_protocol_v2_gnn",
+  "family": "flow_matching",
+  "task": "anomaly_detection",
+  "entrypoint": "iia_benchmark.models.grasp_protocol_v2:GRASPProtocolDetector",
+  "parameters": {
+    "window": 50,
+    "hidden": 128,
+    "blocks": 2,
+    "dropout": 0.1,
+    "tau": 2.0,
+    "graph_threshold": 0.5,
+    "variant": "grasp",
+    "architecture": "gnn",
+    "epochs": 1500,
+    "validation_interval": 50,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "source_samples": 5,
+    "flow_evaluations": 10,
+    "normalization": "train_zscore",
+    "graph_features": "raw_repaired_fit",
+    "device": "cuda:0"
+  },
+  "profile": "gnn",
+  "citation": "https://arxiv.org/abs/2609.36765",
+  "paper_pdf": "papers/literature/flow_matching/pdfs/grasp.pdf",
+  "primary_protocol_corrections": "configs/reproducibility/grasp_primary_protocol_corrections.v1.json",
+  "reproduction_status": "paper_derived_callable_not_author_equivalent",
+  "tests": [
+    "tests/test_grasp_protocol_v2.py",
+    "tests/test_grasp_protocol_runner.py"
+  ],
+  "author_repository": null,
+  "paper_score_status": "not_verified",
+  "boundary": "Paper-derived successor; every entity has full stride-one fitting, chronological 80/20 validation, 1500 epochs, validation every 50, and ten seeds. Euclidean channel distance, raw repaired fit graph features, train-only zscore, overlap averaging, GNN/Transformer projections, TSMixer normalization and last-epoch selection remain disclosed local choices. Test-label oracle Best-F1 is retrospective and separate from validation-only control. Native feature counts differ by one from paper prose; original-author equivalence remains unverified. Attribution uses all test windows, not an identified original figure population. RTX 3090 timing is local hardware timing and does not reproduce the paper hardware. All prior paper/task obligations remain required."
+}

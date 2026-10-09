@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "paper_id": "grasp",
+  "citation": "https://arxiv.org/abs/2609.36765",
+  "paper_pdf": "papers/literature/flow_matching/pdfs/grasp.pdf",
+  "primary_protocol_corrections": "configs/reproducibility/grasp_primary_protocol_corrections.v1.json",
+  "source_data_config": "configs/experiments/fm_tsad_execution.v1.json",
+  "registered_raw_manifest": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+  "prepared_root": "data/public_datasets/flow_matching/grasp_protocol_v2",
+  "manifest": "data/public_datasets/flow_matching/grasp_protocol_v2/manifest.json",
+  "state_root": "experiments/runs/fm_grasp_protocol_v2",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/grasp_protocol_v2",
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "runtime_config": "configs/runtime/fm_light_controllers.v1.json",
+  "environment_lock": "configs/reproducibility/grasp_protocol_py312.v2.lock.json",
+  "native_metrics": "experiments/runs/fm_grasp_paper_protocol_v1/sources/mtsbench/original/Detectors/evaluation/basic_metrics.py",
+  "python": "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+  "queue": "configs/experiments/fm_grasp_protocol_queue.v2.json",
+  "train_fraction": 0.8,
+  "purge_points": 0,
+  "seeds": [1103,1104,1105,1106,1107,1108,1109,1110,1111,1112],
+  "datasets": [
+    {"id":"swan","entities":1,"actual_features":38,"paper_variables":39},
+    {"id":"smd","entities":18,"actual_features":38,"paper_variables":39},
+    {"id":"smap","entities":51,"actual_features":25,"paper_variables":26},
+    {"id":"cicids","entities":6,"actual_features":72,"paper_variables":73}
+  ],
+  "base_parameters": {
+    "window":50,"hidden":128,"blocks":2,"dropout":0.1,"tau":2.0,
+    "graph_threshold":0.5,"variant":"grasp","architecture":"tsmixer",
+    "epochs":1500,"validation_interval":50,"batch_size":256,"learning_rate":0.001,
+    "source_samples":5,"flow_evaluations":10,"normalization":"train_zscore",
+    "graph_features":"raw_repaired_fit","device":"cuda:0"
+  },
+  "profiles": [
+    {"id":"gnn","overrides":{"architecture":"gnn"}},
+    {"id":"main","overrides":{}},
+    {"id":"transformer","overrides":{"architecture":"transformer"}},
+    {"id":"mean","overrides":{"variant":"mean"}},
+    {"id":"er","overrides":{"variant":"er"}},
+    {"id":"lin","overrides":{"variant":"lin","tau":0.0}},
+    {"id":"tau_0","overrides":{"tau":0.0}},
+    {"id":"tau_0p25","overrides":{"tau":0.25}},
+    {"id":"tau_0p5","overrides":{"tau":0.5}},
+    {"id":"tau_1","overrides":{"tau":1.0}},
+    {"id":"tau_4","overrides":{"tau":4.0}},
+    {"id":"tau_8","overrides":{"tau":8.0}}
+  ],
+  "inference_flow_times":[1,2,5,10,20,50],
+  "inference_source_samples":[1,2,5,10,20],
+  "attribution_profile":"main",
+  "settings": {
+    "minimum_available_memory_bytes":12884901888,
+    "minimum_commit_headroom_bytes":21474836480,
+    "emergency_commit_headroom_bytes":10737418240,
+    "cpu_threads":2,
+    "gpu_index":0,
+    "gpu_uuid":"GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes":8589934592,
+    "emergency_gpu_free_bytes":2147483648
+  },
+  "boundary":"Paper-derived successor; every entity has full stride-one fitting, chronological 80/20 validation, 1500 epochs, validation every 50, and ten seeds. Euclidean channel distance, raw repaired fit graph features, train-only zscore, overlap averaging, GNN/Transformer projections, TSMixer normalization and last-epoch selection remain disclosed local choices. Test-label oracle Best-F1 is retrospective and separate from validation-only control. Native feature counts differ by one from paper prose; original-author equivalence remains unverified. Attribution uses all test windows, not an identified original figure population. RTX 3090 timing is local hardware timing and does not reproduce the paper hardware. All prior paper/task obligations remain required."
+}
