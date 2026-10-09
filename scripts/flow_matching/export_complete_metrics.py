@@ -152,9 +152,12 @@ def main():
                             'source_sha256': record['sha256'], 'status': record['status']})
     native_jobs = []
     for algorithm, queue_path in settings.get('additional_native_paper_queues', {}).items():
-        if algorithm != 'giflow':
+        if algorithm == 'giflow':
+            from scripts.flow_matching.giflow_native_protocol import complete, verify
+        elif algorithm == 'grasp_mtsbench_statistical_replay':
+            from scripts.flow_matching.mtsbench_stat_protocol import complete, verify
+        else:
             raise ValueError(f'No result verifier registered for native queue: {algorithm}')
-        from scripts.flow_matching.giflow_native_protocol import complete, verify
         queue = read(ROOT / queue_path)
         verify(queue, ROOT)
         queue_sha = sha(ROOT / queue_path)
@@ -167,7 +170,8 @@ def main():
             status = ('completed' if completed else 'partial_or_failed_preserved'
                       if output.exists() else 'pending')
             native_jobs.append({'algorithm': algorithm, 'dataset': job['dataset'],
-                                'track': job['track'], 'recipe': job['recipe'], 'seed': job['seed'],
+                                'track': job.get('track', job.get('protocol')),
+                                'recipe': job.get('recipe', job.get('algorithm')), 'seed': job['seed'],
                                 'status': status, 'id': job['id'], 'queue': queue_path,
                                 'queue_sha256': queue_sha, 'output_directory': job['output_directory'],
                                 'metrics': record.get('metrics') if record else None,
@@ -243,7 +247,7 @@ def main():
             stream.write('\n已完成作者流程的全部数值字段见 [作者流程技术指标](author_pipeline_numeric_metrics.csv)，作者协议与附加验证阈值对照均保留原字段路径，分别解释。\n')
         if native_jobs:
             stream.write('\n## 新登记的原生流匹配实验\n\n')
-            stream.write(f"GiFlow 另登记 {len(native_jobs)} 个作者镜像/已审修正实验，状态 {dict(Counter(j['status'] for j in native_jobs))}。")
+            stream.write(f"附加原生队列登记 {len(native_jobs)} 项，按队列统计 {dict(Counter(j['algorithm'] for j in native_jobs))}，状态 {dict(Counter(j['status'] for j in native_jobs))}。")
             stream.write('逐项方法、消融、数据集、种子和状态见 [原生实验清单](additional_native_paper_jobs.csv)。正式完整运行才列指标；集成检查不计入。\n')
     validation = {'captured_utc': report['captured_utc'], 'checks': {
         'tsad_job_accounting': sum(snapshot['new_job_counts'].values()) == len(snapshot['new_jobs']),
