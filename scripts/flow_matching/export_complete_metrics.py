@@ -169,7 +169,7 @@ def main():
             import psutil
             try:
                 command = psutil.Process(state['active_pid']).cmdline()
-                worker = 'scripts.flow_matching.mtsbench_stat_protocol' if algorithm == 'grasp_mtsbench_statistical_replay' else 'scripts.flow_matching.giflow_native_protocol'
+                worker = 'scripts.flow_matching.mtsbench_stat_protocol' if algorithm == 'grasp_mtsbench_statistical_replay' else 'scripts.flow_matching.run_giflow_native_job'
                 if worker in command and state.get('active_job') in command:
                     live_job = state['active_job']
             except (psutil.NoSuchProcess, psutil.AccessDenied):

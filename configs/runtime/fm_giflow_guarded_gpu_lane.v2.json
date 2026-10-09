@@ -1,0 +1,18 @@
+{
+  "schema_version": 2,
+  "original_queue": "configs/experiments/fm_giflow_native_queue.v1.json",
+  "original_queue_sha256": "84e0bbe212d5db8abf7ca82c97f67f85b0b17a5e1fc1b21a54d07acd5bef8352",
+  "queue": "configs/experiments/fm_giflow_native_queue.v2.json",
+  "state_root": "experiments/runs/fm_giflow_native_v2",
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "controller_module": "scripts.flow_matching.run_giflow_guarded_gpu_queue_v2",
+  "gpu_settings": {
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 8589934592,
+    "emergency_gpu_free_bytes": 2147483648
+  },
+  "dependency_disposition": "The original requires_complete_queue was an execution precedence gate, not a GiFlow model/data dependency. All registered raw graph datasets and loader/source/environment receipts must pass independent frozen verification. Preserve the original SAITS/GRIN queues and their ownership. This scheduling successor shares the existing full GRASP CUDA training mutex; it cannot overlap a GRASP native training child. Other native GPU contexts are subject to the registered free-memory guard.",
+  "policy": "Reuse all original 140 job objects, output/artifact paths, train/validation/test split, model/source/environment, 300 maximum epochs, native patience40, batch128, window24/stride1, seeds and CPU/commit resource floors. Add GPU identity/free-memory monitoring and retry transient observations on the same owned child. No additional independent repeats and no reduced-budget/device fallback.",
+  "required_transition": "Verify exact previous controller PID/create-time/command, waiting_original_grin state, no active model PID and no descendants. Terminate only the verified waiting controller, preserving its logs/state. If a model child is active, defer transition."
+}

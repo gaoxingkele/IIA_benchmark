@@ -1,12 +1,13 @@
 {
-  "captured_utc": "2026-10-09T00:32:44.846746+00:00",
+  "captured_utc": "2026-10-09T01:19:26.652072+00:00",
   "entity_job_counts": {
+    "completed": 1,
     "running": 1,
-    "pending": 9119
+    "pending": 9118
   },
   "registered_entity_jobs": 9120,
   "registered_cohorts": 480,
-  "completed_cohorts": 0,
+  "completed_cohorts": 1,
   "jobs": [
     {
       "id": "grasp_protocol_v3__gnn__swan__swan_sf__seed1103",
@@ -14,7 +15,9 @@
       "dataset": "swan",
       "entity": "swan_sf",
       "seed": 1103,
-      "status": "running"
+      "status": "completed",
+      "result_path": "experiments/runs/fm_grasp_protocol_v3/jobs/grasp_protocol_v3__gnn__swan__swan_sf__seed1103/result.json",
+      "result_sha256": "e41868a7b88e66b864bba147648e724ae579c0d5d12485af475e2657624df7be"
     },
     {
       "id": "grasp_protocol_v3__main__swan__swan_sf__seed1103",
@@ -22,7 +25,7 @@
       "dataset": "swan",
       "entity": "swan_sf",
       "seed": 1103,
-      "status": "pending"
+      "status": "running"
     },
     {
       "id": "grasp_protocol_v3__transformer__swan__swan_sf__seed1103",
@@ -72974,10 +72977,69 @@
       "profile": "gnn",
       "dataset": "swan",
       "seed": 1103,
-      "completed_entities": 0,
+      "completed_entities": 1,
       "required_entities": 1,
-      "status": "incomplete",
-      "metrics": null
+      "status": "completed",
+      "metrics": [
+        {
+          "recipe": {
+            "source_samples": 5,
+            "flow_evaluations": 10
+          },
+          "entity_macro": {
+            "AP": {
+              "n": 1,
+              "mean": 0.4120569090206635,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "ROC": {
+              "n": 1,
+              "mean": 0.6049448230907122,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "Best_F1": {
+              "n": 1,
+              "mean": 0.46551041433458495,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "precision": {
+              "n": 1,
+              "mean": 0.36773093614383134,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "recall": {
+              "n": 1,
+              "mean": 0.5901990049751243,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "f1": {
+              "n": 1,
+              "mean": 0.4531321619556914,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            }
+          },
+          "aggregation": "unweighted entity macro; undefined ROC explicitly excluded",
+          "test_score_seconds": 85.80595349986106
+        }
+      ]
     },
     {
       "profile": "gnn",
@@ -77295,9 +77357,66 @@
     {
       "profile": "gnn",
       "dataset": "swan",
-      "completed_seeds": 0,
+      "completed_seeds": 1,
       "required_seeds": 10,
-      "metrics": null
+      "metrics": [
+        {
+          "recipe": {
+            "source_samples": 5,
+            "flow_evaluations": 10
+          },
+          "ten_seed_metrics": {
+            "AP": {
+              "n": 1,
+              "mean": 0.4120569090206635,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "ROC": {
+              "n": 1,
+              "mean": 0.6049448230907122,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "Best_F1": {
+              "n": 1,
+              "mean": 0.46551041433458495,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "precision": {
+              "n": 1,
+              "mean": 0.36773093614383134,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "recall": {
+              "n": 1,
+              "mean": 0.5901990049751243,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "f1": {
+              "n": 1,
+              "mean": 0.4531321619556914,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            }
+          }
+        }
+      ]
     },
     {
       "profile": "gnn",
@@ -77633,21 +77752,24 @@
   "controller_state": {
     "pid": 40348,
     "queue_sha256": "622e9bd788d85671f782bad2a1999701868cc101b663c0f52c0e460519ac7fd1",
-    "jobs": {},
-    "active_pid": 44320,
+    "jobs": {
+      "grasp_protocol_v3__gnn__swan__swan_sf__seed1103": "completed"
+    },
+    "active_pid": 30588,
     "state": "running",
-    "active_job": "grasp_protocol_v3__gnn__swan__swan_sf__seed1103",
-    "physical_available_bytes": 35616665600,
-    "commit_available_bytes": 19282898944,
+    "active_job": "grasp_protocol_v3__main__swan__swan_sf__seed1103",
+    "physical_available_bytes": 35653513216,
+    "commit_available_bytes": 18075205632,
     "gpu_index": 0,
     "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
-    "gpu_free_bytes": 22620930048,
-    "peak_tree_rss_bytes": 1411575808,
-    "peak_tree_private_bytes": 2364907520,
-    "minimum_commit_available_bytes": 17835892736,
-    "minimum_gpu_free_bytes": 22339911680,
+    "gpu_free_bytes": 22581084160,
+    "peak_tree_rss_bytes": 1411293184,
+    "peak_tree_private_bytes": 2401148928,
+    "minimum_commit_available_bytes": 16744091648,
+    "minimum_gpu_free_bytes": 21834498048,
     "resource_guard_aborted": false,
-    "gpu_observation_retries": 0
+    "gpu_observation_retries": 0,
+    "shared_lock_owned": false
   },
   "paper_equivalence_certified": false,
   "all_direction_experiments_complete": false,

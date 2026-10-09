@@ -1,8 +1,8 @@
 # 未完成实验执行进度
 
-[最新算法—数据集完整指标总览](complete_metrics_0854/overview.md)；[完整 Excel](complete_metrics_0854/complete_experiment_metrics.xlsx)。异常检测源快照为 08:54 CST，附加协议另行核验；未完成项明确留空。
+[最新算法—数据集完整指标](complete_metrics_0920/overview.md)；[完整 Excel](complete_metrics_0920/complete_experiment_metrics.xlsx)。未完成指标留空，各评估协议分别列示。
 
-快照时间：2026-10-09T00:54:05.573350+00:00。目标仍为全部已知未完成实验；尚未完成。
+快照时间：2026-10-09T01:19:46.793919+00:00。目标仍为全部已知未完成实验；尚未完成。
 
 42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。
 另加入 175 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。
@@ -11,7 +11,7 @@
 另有工业异常检测任务 1400 项，状态 {'completed': 466, 'partial_or_failed': 84, 'pending': 850}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
 保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。
 关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。
-当前任务记录：{'completed': 947, 'partial_or_failed': 195, 'pending': 2217, 'running': 3}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
+当前任务记录：{'completed': 949, 'partial_or_failed': 195, 'pending': 2215, 'running': 3}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
 
 CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。
 
@@ -65,7 +65,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_sb_stable_v2 | msl | 5/5 | 0.076244 | 0.534781 | 0.113941 |
 | fm_objective_sf2m_stable_v2 | msl | 5/5 | 0.075694 | 0.533194 | 0.115100 |
 | fm_objective_sf2m_flow_only_stable_v2 | msl | 5/5 | 0.076244 | 0.534781 | 0.113941 |
-| fm_objective_sb_stable_v2 | smd | 4/5 | 0.408941 | 0.762465 | 0.332181 |
+| fm_objective_sb_stable_v2 | smd | 5/5 | 0.408927 | 0.762697 | 0.332341 |
 | fm_strict_timesnet__psm__registered | psm | 5/5 | 0.053941 | 0.598985 | 0.396761 |
 | fm_strict_anomaly_transformer__psm__registered | psm | 5/5 | 0.014575 | 0.513439 | 0.295091 |
 | fm_strict_dcdetector__psm__registered | psm | 5/5 | 0.017267 | 0.501093 | 0.278458 |
@@ -86,6 +86,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_strict_usad__msl__registered | msl | 5/5 | 0.065173 | 0.588159 | 0.130747 |
 | fm_strict_usad__msl__signed_paper_loss | msl | 5/5 | 0.137823 | 0.600799 | 0.133992 |
 | fm_strict_itransformer__msl__registered | msl | 5/5 | 0.079931 | 0.579678 | 0.138575 |
+| fm_strict_timesnet__smd__registered | smd | 1/5 | 0.247426 | 0.848478 | 0.364956 |
 | fm_reflow_2stage | psm | 5/5 | 0.029949 | 0.725765 | 0.552078 |
 | fm_reflow_2stage | smap | 5/5 | 0.230333 | 0.547532 | 0.148794 |
 | fm_reflow_2stage | msl | 5/5 | 0.075546 | 0.539035 | 0.117010 |
