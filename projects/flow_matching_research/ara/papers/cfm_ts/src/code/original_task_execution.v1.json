@@ -1,0 +1,101 @@
+{
+  "paper_id": "cfm_ts",
+  "original_task": "continuous_time_dynamics",
+  "citation": "https://openreview.net/forum?id=Hqn4Aj7xrQ",
+  "protocol": "configs/reproducibility/cfm_ts_original_protocol.v1.json",
+  "environment_lock": "configs/reproducibility/cfm_ts_original_py312.lock.json",
+  "raw_data_manifest": "data/public_datasets/flow_matching/cfm_ts_original_ode_v1/manifest.json",
+  "archived_data_manifest": "projects/flow_matching_research/results/2026-10-09/original_dynamics_1102/data_manifest.json",
+  "data_cohorts": 30,
+  "model_configs": [
+    "configs/models/fm_cfm_ts_original_bb_gaussian_consistent_e400.json",
+    "configs/models/fm_cfm_ts_original_bb_gaussian_consistent_e600.json",
+    "configs/models/fm_cfm_ts_original_bb_paper_literal_e400.json",
+    "configs/models/fm_cfm_ts_original_bb_paper_literal_e600.json",
+    "configs/models/fm_cfm_ts_original_gp_gaussian_conditional_e400.json",
+    "configs/models/fm_cfm_ts_original_gp_gaussian_conditional_e600.json",
+    "configs/models/fm_cfm_ts_original_gp_paper_literal_e400.json",
+    "configs/models/fm_cfm_ts_original_gp_paper_literal_e600.json",
+    "configs/models/fm_cfm_ts_original_node_e10.json",
+    "configs/models/fm_cfm_ts_original_node_e400.json",
+    "configs/models/fm_cfm_ts_original_node_e600.json"
+  ],
+  "queue": "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+  "registered_jobs": 285,
+  "registered_five_seed_cohorts": 57,
+  "runtime": "configs/runtime/fm_cfm_ts_light_controller.v1.json",
+  "results": "projects/flow_matching_research/results/2026-10-09/original_dynamics_1102/execution_audit.json",
+  "entrypoint": "iia_benchmark.models.fm_cfm_ts_original:CFMTSPaperTrajectory",
+  "source_receipts": [
+    {
+      "path": "configs/models/fm_cfm_ts_original_bb_gaussian_consistent_e400.json",
+      "sha256": "ac874cdea39f9dd60f97f7e9a53c673e444dd87aeb9ed7fd77f8a2dc580ec832"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_bb_gaussian_consistent_e600.json",
+      "sha256": "900642655f2c0b944459b3ef0299e1f502d95be8dad8bb4715f7d7ba16700fe9"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_bb_paper_literal_e400.json",
+      "sha256": "41f9556cc1172e8ba30f375960bb19828fbdc0757c447501e93aeebe689e10bd"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_bb_paper_literal_e600.json",
+      "sha256": "8233a604a80b4c0acc2d7f30128f1c505fa6e979cdca1e4574958ab968bc7ef5"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_gp_gaussian_conditional_e400.json",
+      "sha256": "1fcf7b0cb24025e1bafd8927888dd8c7ccb4d19380d6ebd1713c5b56fe2cdfc4"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_gp_gaussian_conditional_e600.json",
+      "sha256": "02f473dc4034cfd44feafa1050b57366cf94aa40b445274efe92b832e2b38c21"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_gp_paper_literal_e400.json",
+      "sha256": "029044c30e0bc8162fdf1ccc1113d96225ae144607c236b0c312d4e582cd9389"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_gp_paper_literal_e600.json",
+      "sha256": "46f32ee108655e44d2058eb84176d6580cdab09aebe519b014ec455d25dcc668"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_node_e10.json",
+      "sha256": "2c0ca0d37628242ecc8ecc4d60adf7155cccecc137b34ef4de4b3cf649d8cc11"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_node_e400.json",
+      "sha256": "1d7ec81d15aa529a72ff6c4c8ec7520add3bc948fad60551806a12408f960472"
+    },
+    {
+      "path": "configs/models/fm_cfm_ts_original_node_e600.json",
+      "sha256": "e63290f51cab63e7afcbeba6c65187d6afc3a1db7d32b6268633f92aa3c27c47"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_cfm_ts_original.py",
+      "sha256": "d01f4a89509fbd1d53c63dc4e73d0ee0cfc71abf7b1b98698043ebb4da6bc5ce"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_original_job.py",
+      "sha256": "f7c28bfa46b59e576634ef68333c7ff8e50963bfeb057bfd9754adbd75c167ed"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_cfm_ts_original_data.py",
+      "sha256": "75b8ad7020319909cb4d94522a0e28eba80fc293af0c7b8ea0d2a81ecffa514e"
+    }
+  ],
+  "explicit_interpretations": [
+    "Formal original-task simulations, not TSAD smoke data. Author code and raw simulation files are unavailable; author equivalence is not certified.",
+    "Main text and appendix conflicts are separate full protocols, not selected by test performance. Train/test trajectory IDs are paired across algorithms within each track and seed.",
+    "For LV, 50 observation locations are sampled without replacement from 500 random ground-truth locations. Sine ground-truth evaluation count is not stated; 500 evaluation locations are an explicit local choice.",
+    "Pendulum has one shared training/evaluation trajectory, evaluated at new times. The inconsistent open interval and n=160 are interpreted as t=0,0.1,...,15.9; test times are newly drawn in (0,16). No hidden angular velocity is passed to the learned models.",
+    "Algorithms print a grid from 0 to T, but boundary handling is unspecified. Training target grid is observation first-to-last, with n=observation count, to avoid inventing BB extrapolation; full evaluation remains 0 to T.",
+    "Input64 is interpreted as a projection of observed state and physical time to 64 features followed by three 258-unit hidden layers. Time encoding and LeakyReLU slope are unspecified; raw time and slope0.01 are explicit choices.",
+    "BB sample count is unspecified; one marginal sample per grid location is frozen. GP uses the stated ten joint function samples. Prior initialization m0=y0,P0=1 and standard RTS repairs are explicit.",
+    "GP MLE uses L-BFGS-B max400 iterations, not author-optimizer epochs; observation variance0.001 and joint jitter1e-9 are local choices. GP output dimensions share a kernel.",
+    "NODE uses time-conditioned same-size network and dopri5 with adjoint gradients, with batch units interpreted as trajectories. Irregular-time trajectories are streamed within each batch; the exact averaged gradient is preserved. No test trajectory enters fitting.",
+    "Solver tolerances, CPU/Python versions, random seed identities, MSE averaging and evaluation-grid choices are not specified by the authors and remain reproduction gaps. Raw physical units and full frozen budgets are retained."
+  ],
+  "author_equivalence_certified": false,
+  "full_paper_results_complete": false
+}

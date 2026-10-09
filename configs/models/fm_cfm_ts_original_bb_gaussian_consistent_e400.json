@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "fm_cfm_ts_original_bb_gaussian_consistent_e400",
+  "family": "paper_derived_original_continuous_dynamics",
+  "task": "continuous_time_dynamics",
+  "kind": "trajectory",
+  "entrypoint": "iia_benchmark.models.fm_cfm_ts_original:CFMTSPaperTrajectory",
+  "parameters": {
+    "input_projection": 64,
+    "hidden": 258,
+    "hidden_layers": 3,
+    "negative_slope": 0.01,
+    "learning_rate": 0.01,
+    "grid_points": 50,
+    "device": "cpu",
+    "process_noise": 0.005,
+    "observation_noise": 0.001,
+    "gp_max_iterations": 400,
+    "solver": "dopri5",
+    "rtol": 1e-07,
+    "atol": 1e-09,
+    "max_num_steps": 10000,
+    "epochs": 400,
+    "batch_size": 256,
+    "seed": 1103,
+    "method": "bb",
+    "target_mode": "gaussian_consistent",
+    "samples": 1
+  },
+  "citation": "https://openreview.net/forum?id=Hqn4Aj7xrQ",
+  "paper_id": "cfm_ts",
+  "paper_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+  "data_reference": [
+    "lotka_volterra",
+    "sine",
+    "pendulum"
+  ],
+  "reproduction_status": "executable_paper_derived_reconstruction_not_author_equivalent",
+  "protocol_configuration": "configs/reproducibility/cfm_ts_original_protocol.v1.json",
+  "design_choices": [
+    "Formal original-task simulations, not TSAD smoke data. Author code and raw simulation files are unavailable; author equivalence is not certified.",
+    "Main text and appendix conflicts are separate full protocols, not selected by test performance. Train/test trajectory IDs are paired across algorithms within each track and seed.",
+    "For LV, 50 observation locations are sampled without replacement from 500 random ground-truth locations. Sine ground-truth evaluation count is not stated; 500 evaluation locations are an explicit local choice.",
+    "Pendulum has one shared training/evaluation trajectory, evaluated at new times. The inconsistent open interval and n=160 are interpreted as t=0,0.1,...,15.9; test times are newly drawn in (0,16). No hidden angular velocity is passed to the learned models.",
+    "Algorithms print a grid from 0 to T, but boundary handling is unspecified. Training target grid is observation first-to-last, with n=observation count, to avoid inventing BB extrapolation; full evaluation remains 0 to T.",
+    "Input64 is interpreted as a projection of observed state and physical time to 64 features followed by three 258-unit hidden layers. Time encoding and LeakyReLU slope are unspecified; raw time and slope0.01 are explicit choices.",
+    "BB sample count is unspecified; one marginal sample per grid location is frozen. GP uses the stated ten joint function samples. Prior initialization m0=y0,P0=1 and standard RTS repairs are explicit.",
+    "GP MLE uses L-BFGS-B max400 iterations, not author-optimizer epochs; observation variance0.001 and joint jitter1e-9 are local choices. GP output dimensions share a kernel.",
+    "NODE uses time-conditioned same-size network and dopri5 with adjoint gradients, with batch units interpreted as trajectories. Irregular-time trajectories are streamed within each batch; the exact averaged gradient is preserved. No test trajectory enters fitting.",
+    "Solver tolerances, CPU/Python versions, random seed identities, MSE averaging and evaluation-grid choices are not specified by the authors and remain reproduction gaps. Raw physical units and full frozen budgets are retained."
+  ]
+}

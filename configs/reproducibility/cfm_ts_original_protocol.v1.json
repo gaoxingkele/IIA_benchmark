@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "paper_id": "cfm_ts",
+  "citation": "https://openreview.net/forum?id=Hqn4Aj7xrQ",
+  "paper_pdf": "papers/literature/flow_matching/user_supplied/2026-10-07/cfm_ts/090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827.pdf",
+  "paper_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
+  "storage_root": "data/public_datasets/flow_matching/cfm_ts_original_ode_v1",
+  "manifest": "data/public_datasets/flow_matching/cfm_ts_original_ode_v1/manifest.json",
+  "python": ".venv/cfmts-author-py312/Scripts/python.exe",
+  "environment_lock": "configs/reproducibility/cfm_ts_original_py312.lock.json",
+  "queue": "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+  "state_root": "experiments/runs/fm_cfm_ts_original_v1",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/cfm_ts_original_v1",
+  "seeds": [1103, 1104, 1105, 1106, 1107],
+  "train_trajectory_fraction": 0.8,
+  "evaluation_points": 500,
+  "ground_truth_solver": {"method": "DOP853", "rtol": 1e-10, "atol": 1e-12},
+  "tracks": [
+    {"id": "main_text", "source_pages": [3], "trajectory_counts": {"lotka_volterra": 300, "sine": 100, "pendulum": 1}, "batch_size": 258, "cfm_epochs": [400, 600], "node_epochs": [400, 600]},
+    {"id": "appendix_d", "source_pages": [8], "trajectory_counts": {"lotka_volterra": 400, "sine": 400, "pendulum": 1}, "batch_size": 256, "cfm_epochs": [400, 600], "node_epochs": [10]}
+  ],
+  "datasets": [
+    {"id": "lotka_volterra", "physical_dimensions": 2, "observed_dimensions": 2, "horizon": 5, "observation_points": 50, "initial_distribution": "Uniform([1,7]^2)", "equation": "dx1/dt=2*x1-x1*x2; dx2/dt=-4*x2+x1*x2"},
+    {"id": "sine", "physical_dimensions": 1, "observed_dimensions": 1, "horizon": 2, "observation_points": 50, "initial_distribution": "Normal(0,1)", "equation": "dx/dt=sin(x)"},
+    {"id": "pendulum", "physical_dimensions": 2, "observed_dimensions": 1, "horizon": 16, "observation_points": 160, "initial_state": [1.5707963267948966, 0], "equation": "dtheta/dt=omega; domega/dt=-9.81*sin(theta)"}
+  ],
+  "cfm_variants": [
+    {"id": "bb_paper_literal", "method": "bb", "target_mode": "paper_literal", "samples": 1},
+    {"id": "bb_gaussian_consistent", "method": "bb", "target_mode": "gaussian_consistent", "samples": 1},
+    {"id": "gp_paper_literal", "method": "gp", "target_mode": "paper_literal", "samples": 10},
+    {"id": "gp_gaussian_conditional", "method": "gp", "target_mode": "gaussian_conditional", "samples": 10}
+  ],
+  "network": {"input_projection": 64, "hidden": 258, "hidden_layers": 3, "activation": "LeakyReLU", "negative_slope": 0.01, "learning_rate": 0.01},
+  "learned_ode_solver": {"method": "dopri5", "rtol": 1e-7, "atol": 1e-9, "max_num_steps": 10000},
+  "process_noise": 0.005,
+  "observation_noise": 0.001,
+  "gp_max_iterations": 400,
+  "resource_policy": {"device": "cpu", "cpu_threads": 1, "minimum_available_memory_bytes": 12884901888, "minimum_commit_headroom_bytes": 23622320128, "emergency_commit_headroom_bytes": 17179869184, "poll_seconds": 10},
+  "paper_claims": [
+    {"method": "node", "dataset": "lotka_volterra", "metric": "MSE", "mean": 0.06, "std": 0.061, "runs": 5, "source_page": 4},
+    {"method": "node", "dataset": "sine", "metric": "MSE", "mean": 0.04, "std": 0.005, "runs": 5, "source_page": 4},
+    {"method": "node", "dataset": "pendulum", "metric": "MSE", "mean": null, "std": null, "reason": "Paper reports nonconvergence, not zero MSE", "source_page": 4},
+    {"method": "bb", "dataset": "lotka_volterra", "metric": "MSE", "mean": 0.0080, "std": 0.003, "runs": 5, "source_page": 4},
+    {"method": "bb", "dataset": "sine", "metric": "MSE", "mean": 0.07, "std": 0.05, "runs": 5, "source_page": 4},
+    {"method": "bb", "dataset": "pendulum", "metric": "MSE", "mean": 2.31, "std": 1.68, "runs": 5, "source_page": 4},
+    {"method": "gp", "dataset": "lotka_volterra", "metric": "MSE", "mean": 0.0086, "std": 0.002, "runs": 5, "source_page": 4},
+    {"method": "gp", "dataset": "sine", "metric": "MSE", "mean": 0.005, "std": 0.003, "runs": 5, "source_page": 4},
+    {"method": "gp", "dataset": "pendulum", "metric": "MSE", "mean": 0.09, "std": 0.14, "runs": 5, "source_page": 4}
+  ],
+  "explicit_interpretations": [
+    "Formal original-task simulations, not TSAD smoke data. Author code and raw simulation files are unavailable; author equivalence is not certified.",
+    "Main text and appendix conflicts are separate full protocols, not selected by test performance. Train/test trajectory IDs are paired across algorithms within each track and seed.",
+    "For LV, 50 observation locations are sampled without replacement from 500 random ground-truth locations. Sine ground-truth evaluation count is not stated; 500 evaluation locations are an explicit local choice.",
+    "Pendulum has one shared training/evaluation trajectory, evaluated at new times. The inconsistent open interval and n=160 are interpreted as t=0,0.1,...,15.9; test times are newly drawn in (0,16). No hidden angular velocity is passed to the learned models.",
+    "Algorithms print a grid from 0 to T, but boundary handling is unspecified. Training target grid is observation first-to-last, with n=observation count, to avoid inventing BB extrapolation; full evaluation remains 0 to T.",
+    "Input64 is interpreted as a projection of observed state and physical time to 64 features followed by three 258-unit hidden layers. Time encoding and LeakyReLU slope are unspecified; raw time and slope0.01 are explicit choices.",
+    "BB sample count is unspecified; one marginal sample per grid location is frozen. GP uses the stated ten joint function samples. Prior initialization m0=y0,P0=1 and standard RTS repairs are explicit.",
+    "GP MLE uses L-BFGS-B max400 iterations, not author-optimizer epochs; observation variance0.001 and joint jitter1e-9 are local choices. GP output dimensions share a kernel.",
+    "NODE uses time-conditioned same-size network and dopri5 with adjoint gradients, with batch units interpreted as trajectories. Irregular-time trajectories are streamed within each batch; the exact averaged gradient is preserved. No test trajectory enters fitting.",
+    "Solver tolerances, CPU/Python versions, random seed identities, MSE averaging and evaluation-grid choices are not specified by the authors and remain reproduction gaps. Raw physical units and full frozen budgets are retained."
+  ]
+}

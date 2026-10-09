@@ -170,3 +170,5 @@ ARA 参考文献工程
    python -m scripts.flow_matching.export_complete_metrics --config configs/reproducibility/fm_result_table.2026-10-09T0216.json
 
 以上命令从benchmark根目录运行；已冻结输入和结果有哈希门禁，不覆盖原始数据或历史实验。
+
+完整算法—数据集技术指标清单：results/2026-10-09/all_algorithm_dataset_metrics_1106/README.md，6867条汇总指标保留协议、捕获时间及未完成空缺。原始CFM-TS连续时间任务已登记30组配对ODE数据、11个模型配置、285项完整预算任务及57组五种子比较；实际结果和剩余差异单列。全论文及消融实验尚未全部完成。

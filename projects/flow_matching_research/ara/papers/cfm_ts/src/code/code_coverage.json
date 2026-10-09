@@ -5,8 +5,8 @@
   "ara_artifact": "papers/cfm_ts/PAPER.md",
   "primary_source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
   "main_implementation": {
-    "status": "local_paper_core_reconstruction_with_gaps",
-    "note": "代码、主消融或组件已按原文还原；仍缺：author formula interpretation；exact simulation split/count version；author network and dopri5 adjoint NODE baseline；full five-seed MSE experiments"
+    "status": "original_task_full_budget_paper_derived_reconstruction_partial_execution",
+    "note": "原始ODE数据生成、64/258网络解释、dopri5、adjoint NODE及正文/附录完整预算均已实现并冻结；首组Pendulum BB原文公式400轮已完成5种子。原作者代码/随机数据未公开，公式/网络/网格解释仍有差异，285项尚未全部完成。"
   },
   "source_resources": [],
   "local_entrypoints": [
@@ -16,13 +16,31 @@
       "sha256": "6dc42026407f52957f2740af834e5d20a083e6a1c6d860e0d3925ef784f1f992",
       "status": "top_level_symbol_found",
       "boundary": "AST only; not a runtime import or end-to-end training test."
+    },
+    {
+      "entrypoint": "iia_benchmark.models.fm_cfm_ts_original:CFMTSPaperTrajectory",
+      "path": "src/iia_benchmark/models/fm_cfm_ts_original.py",
+      "sha256": "d01f4a89509fbd1d53c63dc4e73d0ee0cfc71abf7b1b98698043ebb4da6bc5ce",
+      "status": "callable_tested_original_ode_full_budget_partial_execution",
+      "boundary": "Frozen local interpretation; author equivalence unverified."
     }
   ],
   "model_configs": [
     "configs/models/fm_native_cfm_ts_bb_gaussian_consistent.json",
     "configs/models/fm_native_cfm_ts_bb_paper_literal.json",
     "configs/models/fm_native_cfm_ts_gp_gaussian_conditional.json",
-    "configs/models/fm_native_cfm_ts_gp_paper_literal.json"
+    "configs/models/fm_native_cfm_ts_gp_paper_literal.json",
+    "configs/models/fm_cfm_ts_original_bb_gaussian_consistent_e400.json",
+    "configs/models/fm_cfm_ts_original_bb_gaussian_consistent_e600.json",
+    "configs/models/fm_cfm_ts_original_bb_paper_literal_e400.json",
+    "configs/models/fm_cfm_ts_original_bb_paper_literal_e600.json",
+    "configs/models/fm_cfm_ts_original_gp_gaussian_conditional_e400.json",
+    "configs/models/fm_cfm_ts_original_gp_gaussian_conditional_e600.json",
+    "configs/models/fm_cfm_ts_original_gp_paper_literal_e400.json",
+    "configs/models/fm_cfm_ts_original_gp_paper_literal_e600.json",
+    "configs/models/fm_cfm_ts_original_node_e10.json",
+    "configs/models/fm_cfm_ts_original_node_e400.json",
+    "configs/models/fm_cfm_ts_original_node_e600.json"
   ],
   "paper_ablations": {
     "source_sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827",
@@ -108,5 +126,6 @@
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",
   "preserved_patches": null,
-  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner.",
+  "original_task_execution": "projects/flow_matching_research/ara/papers/cfm_ts/src/code/original_task_execution.v1.json"
 }
