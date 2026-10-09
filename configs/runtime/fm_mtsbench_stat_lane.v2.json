@@ -1,0 +1,11 @@
+{
+  "schema_version":2,
+  "original_queue":"configs/experiments/fm_grasp_stat_queue.v1.json",
+  "original_queue_sha256":"de039459f6e1afcd6d286704738f5426dd3dc4c8cfbde364dfd70855eece5cc8",
+  "queue":"configs/experiments/fm_grasp_stat_queue.v2.json",
+  "state_root":"experiments/runs/fm_grasp_stat_native_v2",
+  "resource_lock":"experiments/runs/fm_mtsbench_stat_cpu.lock",
+  "controller_module":"scripts.flow_matching.run_mtsbench_stat_queue_v2",
+  "policy":"One guarded CPU statistical worker has its own scheduling mutex. All original job IDs, output paths, artifact paths, source, environment, native fit/score parameters, full entities, seeds and resource floors remain identical. Reviewed scheduling replaces the waiting original controller; no additional independent repetitions.",
+  "required_transition":"Verify exact original controller PID/create-time/command, waiting state, no active child, then terminate only that waiting controller. Preserve its state and logs. Never stop an active model."
+}

@@ -106,6 +106,43 @@ with zipfile.ZipFile(target / 'complete_experiment_metrics.xlsx') as archive:
                                 ('H', 'id'), ('I', 'queue'), ('J', 'queue_sha256'),
                                 ('K', 'output_directory'), ('L', 'result_sha256')]:
                 equal(sheet_index, f'{column}{i}', row.get(key))
+    for name, key, mapping in [
+        ('原生方法汇总', 'native_summary', [('A','algorithm'),('B','recipe'),('C','dataset'),('D','protocol'),
+         ('E','metric'),('F','mean'),('G','std'),('H','se'),('I','ci95_low'),('J','ci95_high'),
+         ('K','n'),('L','required_seeds'),('M','status'),('N','repeat_interpretation')]),
+        ('原生数值明细', 'native_numeric_metrics', [('A','algorithm'),('B','recipe'),('C','dataset'),
+         ('D','seed'),('E','metric_path'),('F','value'),('G','id'),('H','result_path'),('I','result_sha256')]),
+        ('GRASP完整配方', 'grasp_full_summary', [('A','algorithm'),('B','recipe'),('C','dataset'),
+         ('D','score_recipe'),('E','protocol'),('F','metric'),('G','mean'),('H','std'),('I','se'),
+         ('J','ci95_low'),('K','ci95_high'),('L','n'),('M','completed_seeds'),('N','required_seeds'),
+         ('O','paper_equivalence_certified')]),
+        ('GRASP完整数值', 'grasp_full_numeric_metrics', [('A','profile'),('B','dataset'),('C','entity'),
+         ('D','seed'),('E','metric_path'),('F','value'),('G','id'),('H','result_path'),('I','result_sha256')])]:
+        if data.get(key):
+            sheet_index = next(i for i, s in enumerate(manifest['sheets']) if s['name'] == name)
+            for i, row in enumerate(data[key], 6):
+                for column, field in mapping:
+                    equal(sheet_index, f'{column}{i}', row.get(field))
+    all_jobs = [dict(id=j['id'], dataset=j['dataset'].upper(), seed=j['seed'], status=j['status'])
+                for j in data['tsad_jobs']]
+    all_jobs += [dict(id=j['id'], dataset=j['dataset'], seed=j['seed'], status=j['status'])
+                 for j in data.get('author_pipeline_jobs', [])]
+    all_jobs += [dict(id=j['id'], dataset=j['dataset'], seed=j.get('seed'), status=j['status'])
+                 for j in data['imputation']['jobs']]
+    job_sheet = next(i for i,s in enumerate(manifest['sheets']) if s['name'] == '全部登记任务')
+    # Earlier exported workbooks listed native jobs in their dedicated sheet only.
+    native_count = len(data.get('additional_native_paper_jobs', []))
+    grasp_jobs = (data.get('grasp_full_protocol') or {}).get('jobs', [])
+    if manifest['sheets'][job_sheet]['rows'] == len(all_jobs) + native_count + len(grasp_jobs):
+        all_jobs += [dict(id=j['id'], dataset=j['dataset'], seed=j['seed'], status=j['status'])
+                     for j in data.get('additional_native_paper_jobs', [])]
+        all_jobs += grasp_jobs
+    assert manifest['sheets'][job_sheet]['rows'] == len(all_jobs)
+    for i, job in enumerate(all_jobs, 6):
+        for column, key in [('B','dataset'),('G','seed'),('H','status'),('I','id')]:
+            equal(job_sheet, f'{column}{i}', job.get(key))
+        if data.get('grasp_full_protocol'):
+            equal(job_sheet, f'L{i}', job.get('entity'))
     assert len(tables) == len(manifest['sheets'])
     assert all(ET.fromstring(archive.read(p)).find('m:autoFilter', ns) is not None for p in tables)
 validation = json.loads((target / 'validation.json').read_text(encoding='utf-8'))

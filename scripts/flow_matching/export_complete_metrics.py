@@ -162,12 +162,24 @@ def main():
         verify(queue, ROOT)
         queue_sha = sha(ROOT / queue_path)
         sources.append({'path': queue_path, 'sha256': queue_sha})
+        state_path = ROOT / queue.get('state_root', '') / 'status.json'
+        state = read(state_path) if state_path.exists() else {}
+        live_job = None
+        if state.get('active_pid'):
+            import psutil
+            try:
+                command = psutil.Process(state['active_pid']).cmdline()
+                worker = 'scripts.flow_matching.mtsbench_stat_protocol' if algorithm == 'grasp_mtsbench_statistical_replay' else 'scripts.flow_matching.giflow_native_protocol'
+                if worker in command and state.get('active_job') in command:
+                    live_job = state['active_job']
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
         for job in queue['jobs']:
             output = ROOT / job['output_directory']
             completed = complete(job, ROOT)
             result_path = output / 'result.json'
             record = read(result_path) if completed else None
-            status = ('completed' if completed else 'partial_or_failed_preserved'
+            status = ('completed' if completed else 'running' if job['id'] == live_job else 'partial_or_failed_preserved'
                       if output.exists() else 'pending')
             native_jobs.append({'algorithm': algorithm, 'dataset': job['dataset'],
                                 'track': job.get('track', job.get('protocol')),
@@ -179,6 +191,18 @@ def main():
                                 'strict_TAB_result': False})
             if record:
                 sources.append({'path': result_path.relative_to(ROOT).as_posix(), 'sha256': sha(result_path)})
+    native_summary, native_numeric, native_entities = [], [], []
+    grasp_capture, grasp_summary, grasp_numeric = None, [], []
+    if settings.get('statistical_coverage_manifest'):
+        from scripts.flow_matching.collect_native_metrics import native_tables
+        native_summary, native_numeric, native_entities = native_tables(ROOT, native_jobs, settings)
+    if settings.get('grasp_full_protocol_queue'):
+        from scripts.flow_matching.collect_native_metrics import full_grasp_tables
+        grasp_capture, grasp_summary, grasp_numeric = full_grasp_tables(ROOT, settings['grasp_full_protocol_queue'])
+        sources.append({'path': settings['grasp_full_protocol_queue'], 'sha256': grasp_capture['queue_sha256']})
+        for job in grasp_capture['jobs']:
+            if job['status'] == 'completed':
+                sources.append({'path': job['result_path'], 'sha256': job['result_sha256']})
     report = {'captured_utc': datetime.now(timezone.utc).isoformat(), 'tsad_capture_utc': snapshot['captured_utc'],
               'summary': {'registered_tsad_attempts': len(snapshot['new_jobs']), 'tsad_counts': snapshot['new_job_counts'],
                           'tsad_model_dataset_groups': len(summary), 'complete_tsad_runs': len(snapshot['completed_new_runs']),
@@ -192,6 +216,9 @@ def main():
               'author_pipeline_tracks': author_tracks, 'author_pipeline_jobs': author_jobs,
               'author_pipeline_numeric_metrics': author_leaves,
               'additional_native_paper_jobs': native_jobs,
+              'native_summary': native_summary, 'native_numeric_metrics': native_numeric,
+              'native_entity_metrics': native_entities, 'grasp_full_protocol': grasp_capture,
+              'grasp_full_summary': grasp_summary, 'grasp_full_numeric_metrics': grasp_numeric,
               'paper_scope': snapshot['original_paper_scope'], 'remaining_obligations': snapshot['other_remaining_obligations'],
               'boundary': 'Complete registered-source snapshot, not proof all papers/ablations executed or all paper tables transcribed. Strict point F1, PA F1, affiliation F, VUS and imputation errors are separate. Nonoverlapping training differs from stride=1 author budgets.'}
     (target / 'complete_results.json').write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + '\n', encoding='utf-8')
@@ -205,6 +232,12 @@ def main():
     exports['author_pipeline_numeric_metrics'] = author_leaves
     if native_jobs:
         exports['additional_native_paper_jobs'] = native_jobs
+    if settings.get('statistical_coverage_manifest'):
+        exports.update(native_summary=native_summary, native_numeric_metrics=native_numeric,
+                       native_entity_metrics=native_entities)
+    if grasp_capture:
+        exports.update(grasp_full_jobs=grasp_capture['jobs'], grasp_full_cohorts=grasp_capture['cohorts'],
+                       grasp_full_summary=grasp_summary, grasp_full_numeric_metrics=grasp_numeric)
     for name, rows in exports.items():
         flat = [{k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v for k, v in row.items()} for row in rows]
         headers = list(dict.fromkeys(k for r in flat for k in r))
@@ -249,6 +282,17 @@ def main():
             stream.write('\n## 新登记的原生流匹配实验\n\n')
             stream.write(f"附加原生队列登记 {len(native_jobs)} 项，按队列统计 {dict(Counter(j['algorithm'] for j in native_jobs))}，状态 {dict(Counter(j['status'] for j in native_jobs))}。")
             stream.write('逐项方法、消融、数据集、种子和状态见 [原生实验清单](additional_native_paper_jobs.csv)。正式完整运行才列指标；集成检查不计入。\n')
+        if native_summary:
+            stream.write('\n### 原生统计方法实测指标\n\n')
+            stream.write('HBOS/COPOD 使用测试特征拟合，Best_F1 用测试标签选最优阈值，无 PA；不能与严格主表混排。十次为实际重新拟合，确定性方法不报告随机训练置信区间。全部实体、点数、标签数及产物哈希已核验。\n\n')
+            stream.write('| 方法 | 数据集 | 指标 | 均值 | STD | 完成/预定 |\n|---|---|---|---:|---:|---:|\n')
+            for row in native_summary:
+                stream.write(f"| {row['recipe']} | {row['dataset']} | {row['metric']} | {fmt(row['mean'])} | {fmt(row['std'])} | {row['n']}/{row['required_seeds']} |\n")
+            stream.write('\n[原生方法汇总](native_summary.csv)；[原生全部数值和资源字段](native_numeric_metrics.csv)；[逐实体指标](native_entity_metrics.csv)。\n')
+        if grasp_capture:
+            stream.write('\n### GRASP 完整训练、消融与推断配方\n\n')
+            stream.write(f"登记 {grasp_capture['registered_entity_jobs']} 个实体任务，{grasp_capture['registered_cohorts']} 个全实体组；完成 {grasp_capture['completed_cohorts']} 组。实体任务状态：{grasp_capture['entity_job_counts']}。\n")
+            stream.write('仅全实体完成才产生数据集汇总，测试最优 F1 与验证阈值对照分别列行。作者代码缺失和局部实现选择仍存在，尚未证明作者等价。\n\n[全部任务](grasp_full_jobs.csv)；[算法—数据集—推断配方完整指标与空缺](grasp_full_summary.csv)。\n')
     validation = {'captured_utc': report['captured_utc'], 'checks': {
         'tsad_job_accounting': sum(snapshot['new_job_counts'].values()) == len(snapshot['new_jobs']),
         'all_registered_tsad_groups_present': sum(r['required_seeds'] for r in summary) == len(snapshot['new_jobs']),
@@ -262,6 +306,14 @@ def main():
         'native_paper_jobs_all_accounted_for': len(native_jobs) == sum(
             len(read(ROOT / path)['jobs']) for path in settings.get('additional_native_paper_queues', {}).values()),
         'pending_native_metrics_remain_blank': all(j['metrics'] is None for j in native_jobs if j['status'] != 'completed'),
+        'native_statistical_full_entity_and_raw_point_coverage_verified': bool(settings.get('statistical_coverage_manifest')) if native_summary else True,
+        'native_deterministic_refits_have_no_stochastic_confidence_interval': all(
+            r['se'] is None and r['ci95_low'] is None and r['ci95_high'] is None
+            for r in native_summary if r['algorithm'] == 'grasp_mtsbench_statistical_replay'),
+        'full_grasp_entity_jobs_accounted_for': not grasp_capture or len(grasp_capture['jobs']) ==
+            len(read(ROOT / settings['grasp_full_protocol_queue'])['jobs']),
+        'incomplete_grasp_cohorts_have_no_paper_macro_result': not grasp_capture or all(
+            c['metrics'] is None for c in grasp_capture['cohorts'] if c['status'] != 'completed'),
         'paper_claims_not_promoted_to_local_results': all(r['local_value'] is None for r in imputation['author_claims'])},
         'csv_row_counts': {name: len(rows) for name, rows in exports.items()},
         'source_count': len(sources), 'outputs': {p.name: sha(p) for p in target.iterdir() if p.is_file() and p.name != 'validation.json'}}

@@ -24,7 +24,7 @@ function add(name,title,note,headers,rows,numeric=[],widths={}){
  sheet.getRange('A2').values=[[title]];sheet.getRange('A2').format.font={name:'Arial',size:14,bold:true};
  sheet.getRange('A3').values=[[note]];
  sheet.getRange(`A5:${last}5`).values=[headers];
- if(rows.length)sheet.getRange(`A6:${last}${end}`).values=rows.map(r=>r.map(cell));
+ if(rows.length)sheet.getRange(`A6:${last}${end}`).values=rows.map(r=>headers.map((_,i)=>cell(r[i])));
  sheet.getRange(`A5:${last}${end}`).format.columnWidth=18;
  sheet.getRange(`A5:${last}5`).format={fill:'#23395D',font:{name:'Arial',size:10,bold:true,color:'#FFFFFF'},rowHeight:28,horizontalAlignment:'center',verticalAlignment:'center'};
  if(rows.length)sheet.getRange(`A6:${last}${end}`).format.rowHeight=22;
@@ -68,9 +68,11 @@ add('插补每次运行','插补每个折或种子的原始指标','耗时与che
  imputation.per_run_metrics.map(r=>perKeys.map(k=>r[k])),[3,9,10,11],{A:23,B:23,D:35,H:26,P:80,Q:110,S:130});
 const allJobs=[...data.tsad_jobs.map(r=>[path.basename(r.model_config,'.json'),r.dataset.toUpperCase(),'异常检测',r.lane,null,null,r.seed,r.status,r.id,r.model_config,null]),
  ...(data.author_pipeline_jobs??[]).map(r=>[r.algorithm+' '+r.author_recipe,r.dataset,'异常检测作者流程','author_pipeline',null,null,r.seed,r.status,r.id,r.output_directory,null]),
- ...imputation.jobs.map(r=>[r.algorithm,r.dataset,'插补',r.track,r.missing_ratio,r.fold,r.seed,r.status,r.id,r.config,r.pattern])];
-add('全部登记任务','全部登记实验任务',`严格检测${data.tsad_jobs.length}项，作者流程${(data.author_pipeline_jobs??[]).length}项，插补${imputation.jobs.length}项。无结果项留空。`,
- ['算法配置','数据集','任务','执行轨道','缺失率','折','种子','状态','任务ID','配置来源','掩码'],allJobs,[5],{A:55,D:35,H:25,I:100,J:110,K:24});
+ ...imputation.jobs.map(r=>[r.algorithm,r.dataset,'插补',r.track,r.missing_ratio,r.fold,r.seed,r.status,r.id,r.config,r.pattern]),
+ ...(data.additional_native_paper_jobs??[]).map(r=>[r.algorithm+' '+r.recipe,r.dataset,'原生方法',r.track,null,null,r.seed,r.status,r.id,r.queue,null]),
+ ...(data.grasp_full_protocol?.jobs??[]).map(r=>['GRASP '+r.profile,r.dataset,'完整GRASP训练','paper_derived_full_protocol',null,null,r.seed,r.status,r.id,data.grasp_full_protocol.queue,null,r.entity])];
+add('全部登记任务','全部登记实验任务',`登记${allJobs.length}项，各协议分开。GRASP为实体任务；重试只占原种子槽，不重复计数。`,
+ ['算法配置','数据集','任务','执行轨道','缺失率','折','种子','状态','任务ID','配置来源','掩码','实体'],allJobs,[5],{A:55,D:35,H:25,I:100,J:110,K:24,L:30});
 add('论文报告值','ARA已核验转录的论文指标','论文原单位保留。F1_percent为0–100，F1为0–1。未转录表格仍待核验。',
  ['算法/表行','数据集','缺失率','指标','论文数值','SE','STD','重复数','PDF页','表号','原协议','转录核验','论文ID','参考ID','论文URL','全文SHA256'],
  imputation.author_claims.map(r=>[r.algorithm,r.dataset,r.missing_ratio,r.metric,r.paper_value,r.paper_se,r.paper_std,r.paper_runs,r.page,r.table,r.protocol,r.verification,r.paper_id,r.reference_id,r.citation,r.source_sha256]),
@@ -96,6 +98,30 @@ if(data.additional_native_paper_jobs?.length){
  ['算法','数据集','协议轨道','主方法/消融','种子','状态','技术指标','任务ID','队列配置','队列SHA256','输出来源','结果SHA256'],
  data.additional_native_paper_jobs.map(r=>[r.algorithm,r.dataset,r.track,r.recipe,r.seed,r.status,r.metrics,r.id,r.queue,r.queue_sha256,r.output_directory,r.result_sha256]),
  [],{A:20,B:15,C:28,D:32,E:12,F:30,G:85,H:105,I:95,J:75,K:130,L:75});
+}
+if(data.native_summary?.length){
+ add('原生方法汇总','原生统计方法与插补的独立汇总','统计方法在测试特征拟合。Best F1是测试标签最优阈值，无PA。确定性十次拟合不报告随机置信区间。',
+ ['算法轨道','方法/消融','数据集','协议','指标','均值','STD','SE','CI95下界','CI95上界','完成数','预定数','状态','重复解释'],
+ data.native_summary.map(r=>[r.algorithm,r.recipe,r.dataset,r.protocol,r.metric,r.mean,r.std,r.se,r.ci95_low,r.ci95_high,r.n,r.required_seeds,r.status,r.repeat_interpretation]),
+ [6,7,8,9,10],{A:40,B:25,C:15,D:80,E:20,F:20,G:20,H:20,I:23,J:23,M:25,N:95});
+}
+if(data.native_numeric_metrics?.length){
+ add('原生数值明细','原生方法逐种子和逐实体的全部数值','指标字段保留原路径。耗时字段来自实际完整执行；重复指标行不能重复累加耗时。',
+ ['算法轨道','方法/消融','数据集','种子','字段','数值','任务ID','结果来源','来源SHA256'],
+ data.native_numeric_metrics.map(r=>[r.algorithm,r.recipe,r.dataset,r.seed,r.metric_path,r.value,r.id,r.result_path,r.result_sha256]),
+ [6],{A:40,B:25,C:15,D:12,E:85,F:23,G:105,H:135,I:75});
+}
+if(data.grasp_full_summary?.length){
+ add('GRASP完整配方','GRASP完整训练与消融、推断配方指标','全部实体完成才汇总种子。AP/ROC/Best F1是论文回顾性指标，P/R/F1是附加验证阈值对照。作者等价尚未证明。',
+ ['算法','模型/消融','数据集','推断配方','评估协议','指标','均值','STD','SE','CI95下界','CI95上界','指标有效数','完成种子数','预定种子数','作者等价已证明'],
+ data.grasp_full_summary.map(r=>[r.algorithm,r.recipe,r.dataset,r.score_recipe,r.protocol,r.metric,r.mean,r.std,r.se,r.ci95_low,r.ci95_high,r.n,r.completed_seeds,r.required_seeds,false]),
+ [7,8,9,10,11],{A:18,B:30,C:15,D:65,E:68,F:20,G:20,H:20,I:20,J:23,K:23,L:23,M:23,N:23,O:30});
+}
+if(data.grasp_full_numeric_metrics?.length){
+ add('GRASP完整数值','GRASP已完成实体的全部技术数值','原始指标路径和哈希保留。未完成实体不进入本表，数据集汇总必须全实体完成。',
+ ['模型/消融','数据集','实体','种子','字段','数值','任务ID','结果来源','来源SHA256'],
+ data.grasp_full_numeric_metrics.map(r=>[r.profile,r.dataset,r.entity,r.seed,r.metric_path,r.value,r.id,r.result_path,r.result_sha256]),
+ [6],{A:30,B:15,C:30,D:12,E:100,F:23,G:105,H:135,I:75});
 }
 workbook.recalculate();
 console.log((await workbook.inspect({kind:'table',range:'严格结果!A5:N10',include:'values,formulas',tableMaxRows:6,tableMaxCols:14,maxChars:1800})).ndjson);
