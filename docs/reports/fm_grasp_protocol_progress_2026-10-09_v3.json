@@ -1,13 +1,14 @@
 {
-  "captured_utc": "2026-10-09T01:19:26.652072+00:00",
+  "captured_utc": "2026-10-09T02:03:05.551913+00:00",
   "entity_job_counts": {
-    "completed": 1,
+    "completed": 2,
+    "failed_or_partial_preserved": 2,
     "running": 1,
-    "pending": 9118
+    "pending": 9115
   },
   "registered_entity_jobs": 9120,
   "registered_cohorts": 480,
-  "completed_cohorts": 1,
+  "completed_cohorts": 2,
   "jobs": [
     {
       "id": "grasp_protocol_v3__gnn__swan__swan_sf__seed1103",
@@ -25,7 +26,7 @@
       "dataset": "swan",
       "entity": "swan_sf",
       "seed": 1103,
-      "status": "running"
+      "status": "failed_or_partial_preserved"
     },
     {
       "id": "grasp_protocol_v3__transformer__swan__swan_sf__seed1103",
@@ -33,7 +34,7 @@
       "dataset": "swan",
       "entity": "swan_sf",
       "seed": 1103,
-      "status": "pending"
+      "status": "failed_or_partial_preserved"
     },
     {
       "id": "grasp_protocol_v3__mean__swan__swan_sf__seed1103",
@@ -41,7 +42,9 @@
       "dataset": "swan",
       "entity": "swan_sf",
       "seed": 1103,
-      "status": "pending"
+      "status": "completed",
+      "result_path": "experiments/runs/fm_grasp_protocol_v3/jobs/grasp_protocol_v3__mean__swan__swan_sf__seed1103/result.json",
+      "result_sha256": "729d45d7471e87003fde69ea67fafaeb213433c93427216bde4b740f4afeaf4e"
     },
     {
       "id": "grasp_protocol_v3__er__swan__swan_sf__seed1103",
@@ -49,7 +52,7 @@
       "dataset": "swan",
       "entity": "swan_sf",
       "seed": 1103,
-      "status": "pending"
+      "status": "running"
     },
     {
       "id": "grasp_protocol_v3__lin__swan__swan_sf__seed1103",
@@ -74116,10 +74119,69 @@
       "profile": "mean",
       "dataset": "swan",
       "seed": 1103,
-      "completed_entities": 0,
+      "completed_entities": 1,
       "required_entities": 1,
-      "status": "incomplete",
-      "metrics": null
+      "status": "completed",
+      "metrics": [
+        {
+          "recipe": {
+            "source_samples": 5,
+            "flow_evaluations": 10
+          },
+          "entity_macro": {
+            "AP": {
+              "n": 1,
+              "mean": 0.5082205856268546,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "ROC": {
+              "n": 1,
+              "mean": 0.6815555133772372,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "Best_F1": {
+              "n": 1,
+              "mean": 0.49500875233098257,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "precision": {
+              "n": 1,
+              "mean": 0.3653125148308101,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "recall": {
+              "n": 1,
+              "mean": 0.7659203980099503,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "f1": {
+              "n": 1,
+              "mean": 0.4946820474920472,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            }
+          },
+          "aggregation": "unweighted entity macro; undefined ROC explicitly excluded",
+          "test_score_seconds": 64.31752460007556
+        }
+      ]
     },
     {
       "profile": "mean",
@@ -77498,9 +77560,66 @@
     {
       "profile": "mean",
       "dataset": "swan",
-      "completed_seeds": 0,
+      "completed_seeds": 1,
       "required_seeds": 10,
-      "metrics": null
+      "metrics": [
+        {
+          "recipe": {
+            "source_samples": 5,
+            "flow_evaluations": 10
+          },
+          "ten_seed_metrics": {
+            "AP": {
+              "n": 1,
+              "mean": 0.5082205856268546,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "ROC": {
+              "n": 1,
+              "mean": 0.6815555133772372,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "Best_F1": {
+              "n": 1,
+              "mean": 0.49500875233098257,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "precision": {
+              "n": 1,
+              "mean": 0.3653125148308101,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "recall": {
+              "n": 1,
+              "mean": 0.7659203980099503,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            },
+            "f1": {
+              "n": 1,
+              "mean": 0.4946820474920472,
+              "std": null,
+              "se": null,
+              "ci95_low": null,
+              "ci95_high": null
+            }
+          }
+        }
+      ]
     },
     {
       "profile": "mean",
@@ -77753,23 +77872,33 @@
     "pid": 40348,
     "queue_sha256": "622e9bd788d85671f782bad2a1999701868cc101b663c0f52c0e460519ac7fd1",
     "jobs": {
-      "grasp_protocol_v3__gnn__swan__swan_sf__seed1103": "completed"
+      "grasp_protocol_v3__gnn__swan__swan_sf__seed1103": "completed",
+      "grasp_protocol_v3__main__swan__swan_sf__seed1103": "failed_or_partial_preserved",
+      "grasp_protocol_v3__transformer__swan__swan_sf__seed1103": "failed_or_partial_preserved",
+      "grasp_protocol_v3__mean__swan__swan_sf__seed1103": "completed"
     },
-    "active_pid": 30588,
+    "active_pid": 31840,
     "state": "running",
-    "active_job": "grasp_protocol_v3__main__swan__swan_sf__seed1103",
-    "physical_available_bytes": 35653513216,
-    "commit_available_bytes": 18075205632,
+    "active_job": "grasp_protocol_v3__er__swan__swan_sf__seed1103",
+    "physical_available_bytes": 40394465280,
+    "commit_available_bytes": 25511264256,
     "gpu_index": 0,
     "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
-    "gpu_free_bytes": 22581084160,
-    "peak_tree_rss_bytes": 1411293184,
-    "peak_tree_private_bytes": 2401148928,
-    "minimum_commit_available_bytes": 16744091648,
-    "minimum_gpu_free_bytes": 21834498048,
+    "gpu_free_bytes": 22577938432,
+    "peak_tree_rss_bytes": 1411358720,
+    "peak_tree_private_bytes": 2390646784,
+    "minimum_commit_available_bytes": 25077415936,
+    "minimum_gpu_free_bytes": 22577938432,
     "resource_guard_aborted": false,
     "gpu_observation_retries": 0,
-    "shared_lock_owned": false
+    "shared_lock_owned": false,
+    "abort_resource_snapshot": {
+      "physical_available_bytes": 36810919936,
+      "commit_available_bytes": 9715630080,
+      "gpu_index": 0,
+      "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+      "gpu_free_bytes": 11978932224
+    }
   },
   "paper_equivalence_certified": false,
   "all_direction_experiments_complete": false,

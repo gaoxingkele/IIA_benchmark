@@ -194,7 +194,7 @@ def snapshot(root):
         try:
             process = psutil.Process(state.get('pid', -1))
             worker = queue.get('worker_script', 'run_industrial_tsad_queue.py' if lane.startswith('industrial_') else 'run_tsad_queue.py')
-            if not any(worker in a for a in process.cmdline()):
+            if not any(worker in a for a in process.cmdline()) and not light_worker_matches(process, queue_path, root):
                 process = None
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             process = None

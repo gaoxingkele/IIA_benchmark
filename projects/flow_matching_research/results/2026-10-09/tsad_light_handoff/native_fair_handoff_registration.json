@@ -1,0 +1,74 @@
+{
+  "captured_utc": "2026-10-09T02:10:55.272278+00:00",
+  "original_jobs_unchanged": 9120,
+  "original_cohorts": 480,
+  "settings_budgets_and_seeds_unchanged": true,
+  "original_gpu_mutex_and_emergency_guard_unchanged": true,
+  "controller_yield_seconds": 2,
+  "handoff_complete_at_capture": false,
+  "models_stopped": false,
+  "original_parent": {
+    "pid": 40348,
+    "create_time": 1791505862.744033,
+    "command": [
+      "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+      "-u",
+      "-m",
+      "scripts.flow_matching.run_grasp_protocol_queue_v3",
+      "--queue",
+      "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_grasp_protocol_queue.v3.json"
+    ]
+  },
+  "actual_active_child": {
+    "pid": 31840,
+    "create_time": 1791511355.9952066,
+    "command": [
+      "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+      "-u",
+      "-m",
+      "scripts.flow_matching.grasp_protocol_cuda_runtime",
+      "--queue",
+      "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_grasp_protocol_queue.v3.json",
+      "--job-id",
+      "grasp_protocol_v3__er__swan__swan_sf__seed1103"
+    ]
+  },
+  "verified_live_watcher": {
+    "pid": 11288,
+    "create_time": 1791511712.2602956,
+    "command": [
+      "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-u",
+      "-m",
+      "scripts.flow_matching.transition_grasp_at_job_boundary",
+      "--config",
+      "configs/runtime/fm_grasp_boundary_handoff.v1.json"
+    ],
+    "state": {
+      "pid": 11288,
+      "state": "waiting_model_completion",
+      "original_controller_pid": 40348,
+      "original_active_pid": 31840,
+      "original_active_job": "grasp_protocol_v3__er__swan__swan_sf__seed1103",
+      "config_sha256": "fc84e845f7ce9ed05308c50c917dcc49fd6ad478ce0c8548e3c17b7e7f2f3670",
+      "child_create_time": 1791511355.9952066,
+      "child_command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.grasp_protocol_cuda_runtime",
+        "--queue",
+        "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_grasp_protocol_queue.v3.json",
+        "--job-id",
+        "grasp_protocol_v3__er__swan__swan_sf__seed1103"
+      ]
+    }
+  },
+  "config": "configs/runtime/fm_grasp_boundary_handoff.v1.json",
+  "config_sha256": "fc84e845f7ce9ed05308c50c917dcc49fd6ad478ce0c8548e3c17b7e7f2f3670",
+  "successor_queue": "configs/experiments/fm_grasp_protocol_queue.v4.json",
+  "successor_queue_sha256": "5873aa2927ad5d5920d1b8d8cfe0b9b2251ab5bb0bd3731fa594567a88d1d8f0",
+  "tests_passed": 33,
+  "goal_achieved": false,
+  "boundary": "Waits for actual model process exit and complete result, then suspend/rechecks no new model before scheduler-only handoff. Original native guard remains running while the model is active. Registered successor is not claimed live yet."
+}
