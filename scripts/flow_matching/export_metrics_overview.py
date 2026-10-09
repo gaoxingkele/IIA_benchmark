@@ -31,12 +31,16 @@ NAMES = {
     'fm_strict_usad__psm__signed_paper_loss': 'USAD（论文有符号损失）',
     'fm_moment_pretrained_small__release512': 'MOMENT-small（预训练512）',
     'fm_moment_pretrained_small__TAB100': 'MOMENT-small（TAB窗口100）',
+    'fm_moment_pretrained_base__release512': 'MOMENT-base（预训练512）',
     'fm_strict_anomaly_transformer__msl__registered': 'Anomaly Transformer（MSL配方）',
     'fm_strict_dcdetector__msl__registered': 'DCdetector（MSL配方）',
     'fm_strict_itransformer__smap__registered': 'iTransformer（SMAP配方）',
+    'fm_strict_itransformer__msl__registered': 'iTransformer（MSL配方）',
     'fm_strict_timesnet__msl__registered': 'TimesNet（MSL配方）',
+    'fm_strict_timesnet__smd__registered': 'TimesNet（SMD配方）',
     'fm_strict_tranad__msl__registered': 'TranAD（MSL配方）',
     'fm_strict_usad__msl__registered': 'USAD（MSL配方）',
+    'fm_strict_usad__msl__signed_paper_loss': 'USAD（MSL论文有符号损失）',
     'fm_strict_usad__smap__registered': 'USAD（SMAP配方）',
     'fm_strict_usad__smap__signed_paper_loss': 'USAD（SMAP论文有符号损失）',
 }
@@ -91,8 +95,10 @@ def main():
               '## 配置名称对应', '', '| 表内名称 | 模型配置名称 |', '|---|---|']
     if report.get('additional_native_paper_jobs'):
         native = report['additional_native_paper_jobs']
-        done = sum(r['status'] == 'completed' for r in native)
-        lines += [f'| 原生GiFlow作者镜像/已审修正 | 另登记{len(native)}项主方法及消融，{done}项完整结果；见additional_native_paper_jobs.csv |']
+        for algorithm in sorted({r['algorithm'] for r in native}):
+            members = [r for r in native if r['algorithm'] == algorithm]
+            done = sum(r['status'] == 'completed' for r in members)
+            lines += [f'| {algorithm} | 登记{len(members)}项，{done}项完整结果；见additional_native_paper_jobs.csv |']
     lines += ['| ' + NAMES.get(a, a) + ' | ' + a + ' |' for a in models]
     (target / 'overview.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
     print(json.dumps({'numerical_combinations': len(numeric), 'complete_repeats': full,

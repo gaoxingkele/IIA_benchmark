@@ -1,15 +1,15 @@
 # 未完成实验执行进度
 
-快照时间：2026-10-09T01:58:42.447488+00:00。目标仍为全部已知未完成实验；尚未完成。
+快照时间：2026-10-09T02:24:49.180719+00:00。目标仍为全部已知未完成实验；尚未完成。
 
 42 个已可训练窗口方法/消融配置 × 7 个完整本地数据集 × 5 个种子 = 1,470 个基础实验；另有 105 个 SB/SF2M 数值修复重跑任务。
 另加入 175 个窗口基线任务：6 个已有方法及 USAD 有符号损失对照，使用相同的完整输入数组和验证段。
 另加入 140 个两/三阶段 reflow 及40/60轮总训练轮数对照；保存每阶段教师、端点配对与实际轮数。对照不抵消reflow额外的ODE生成开销。
-独立作者/镜像完整流程：maelnet 150个任务、600个阶段，{'failed_or_partial_preserved': 2, 'running': 1, 'pending': 147}；pi_transformer_historical_mirror 1140个任务、2280个阶段，{'failed_or_partial_preserved': 3, 'running': 1, 'pending': 1136}；crossad_complete 139个任务、556个阶段，{'completed': 2, 'failed_or_partial_preserved': 2, 'pending': 134, 'running': 1}。原协议单列，不计入严格无PA成绩。
+独立作者/镜像完整流程：maelnet 150个任务、600个阶段，{'failed_or_partial_preserved': 2, 'running': 1, 'pending': 147}；pi_transformer_historical_mirror 1140个任务、2280个阶段，{'failed_or_partial_preserved': 3, 'completed': 1, 'running': 1, 'pending': 1135}；crossad_complete 139个任务、556个阶段，{'completed': 2, 'failed_or_partial_preserved': 2, 'pending': 134, 'running': 1}。原协议单列，不计入严格无PA成绩。
 另有工业异常检测任务 1400 项，状态 {'completed': 466, 'partial_or_failed': 84, 'pending': 850}。TEP整运行、SKAB整实验和PRONTO整日角色隔离；不是插补结果。
 保留本地模型配置的训练轮数与容量；非重叠训练窗口和尾部覆盖规则已冻结，这不证明匹配原论文的更新次数、数据划分或架构。
 关键训练预算差异：非重叠窗口比原作者 stride=1 的重叠训练少很多梯度更新。相同 epoch 数不能证明训练预算等同；原 stride=1 作者轨仍须独立完成，不能用这里的低分断言原方法无效。
-当前任务记录：{'completed': 950, 'partial_or_failed': 195, 'pending': 2214, 'running': 3}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
+当前任务记录：{'completed': 958, 'partial_or_failed': 195, 'pending': 2206, 'running': 3}。包含数值重试，不能解释为独立方法数或全部基础实验完成数。
 
 CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成并取得共同锁。进程/状态是此快照的观察，后续以当前操作系统进程及结果哈希为准。
 
@@ -64,7 +64,7 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_objective_sf2m_stable_v2 | msl | 5/5 | 0.075694 | 0.533194 | 0.115100 |
 | fm_objective_sf2m_flow_only_stable_v2 | msl | 5/5 | 0.076244 | 0.534781 | 0.113941 |
 | fm_objective_sb_stable_v2 | smd | 5/5 | 0.408927 | 0.762697 | 0.332341 |
-| fm_objective_sf2m_stable_v2 | smd | 1/5 | 0.396837 | 0.762079 | 0.327454 |
+| fm_objective_sf2m_stable_v2 | smd | 2/5 | 0.399169 | 0.761568 | 0.326040 |
 | fm_strict_timesnet__psm__registered | psm | 5/5 | 0.053941 | 0.598985 | 0.396761 |
 | fm_strict_anomaly_transformer__psm__registered | psm | 5/5 | 0.014575 | 0.513439 | 0.295091 |
 | fm_strict_dcdetector__psm__registered | psm | 5/5 | 0.017267 | 0.501093 | 0.278458 |
@@ -132,6 +132,13 @@ CPU 与数值修复进程已核验存活；GPU 续跑等待现有插补链完成
 | fm_moment_pretrained_small__TAB100 | smd | 1/1 | 0.268146 | 0.828068 | 0.363400 |
 | fm_moment_pretrained_small__TAB100 | swat | 1/1 | 0.026401 | 0.241222 | 0.085623 |
 | fm_moment_pretrained_small__TAB100 | swan | 1/1 | 0.363260 | 0.594773 | 0.434081 |
+| fm_moment_pretrained_small__TAB100 | cicids | 1/1 | 0.038031 | 0.404400 | 0.276631 |
+| fm_moment_pretrained_small__TAB100 | tep_classic | 1/1 | 0.529663 | 0.709197 | 0.929416 |
+| fm_moment_pretrained_small__TAB100 | skab | 1/1 | 0.197611 | 0.556066 | 0.431646 |
+| fm_moment_pretrained_small__TAB100 | pronto_day2 | 1/1 | 0.010375 | 0.558382 | 0.953429 |
+| fm_moment_pretrained_small__TAB100 | pronto_day3 | 1/1 | 0.034931 | 0.329034 | 0.708615 |
+| fm_moment_pretrained_small__TAB100 | pronto_day4 | 1/1 | 0.008225 | 0.550899 | 0.470046 |
+| fm_moment_pretrained_base__release512 | psm | 1/1 | 0.039181 | 0.554868 | 0.336232 |
 | fm_objective_independent | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |
 | fm_objective_ot | tep_classic | 5/5 | 0.731832 | 0.890985 | 0.977679 |
 | fm_objective_rectified | tep_classic | 5/5 | 0.730604 | 0.889980 | 0.977490 |

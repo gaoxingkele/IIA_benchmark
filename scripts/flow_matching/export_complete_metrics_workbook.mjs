@@ -85,19 +85,19 @@ if(data.author_pipeline_jobs?.length){
  add('作者流程状态','作者完整流程的配方、数据集和种子','原协议单列。完整流程完成前没有最终指标。',
  ['算法','配方','数据集','种子','状态','已产生阶段记录数','严格TAB成绩','最终指标','任务ID','输出来源','阶段记录','协议边界'],
  data.author_pipeline_jobs.map(r=>[r.algorithm,r.author_recipe,r.dataset,r.seed,r.status,r.stage_receipts.length,r.strict_TAB_result,r.metrics??null,r.id,r.output_directory,r.stage_receipts,r.boundary]),
- [],{A:20,B:23,C:15,D:12,E:30,F:28,G:23,H:85,I:100,J:125,K:140,L:160});
+ [],{A:45,B:40,C:15,D:12,E:30,F:28,G:23,H:85,I:100,J:125,K:140,L:160});
 }
 if(data.author_pipeline_numeric_metrics?.length){
  add('作者流程指标','已完成作者流程的技术指标','作者测试阈值、SPOT和附加验证阈值对照按字段分别列出；发布权重评价不代表重新训练复现。',
  ['算法','配方','数据集','种子','指标字段','数值','任务ID','结果来源','来源SHA256'],
  data.author_pipeline_numeric_metrics.map(r=>[r.algorithm,r.author_recipe,r.dataset,r.seed,r.metric_path,r.value,r.run_id,r.result_path,r.result_sha256]),
- [6],{A:23,B:28,C:16,D:12,E:80,F:23,G:90,H:130,I:75});
+ [6],{A:45,B:40,C:16,D:12,E:80,F:23,G:90,H:130,I:75});
 }
 if(data.additional_native_paper_jobs?.length){
  add('原生流匹配状态','原生流匹配方法与消融的完整任务状态','完整运行通过来源及产物核验才显示指标。集成检查不计入正式结果。',
  ['算法','数据集','协议轨道','主方法/消融','种子','状态','技术指标','任务ID','队列配置','队列SHA256','输出来源','结果SHA256'],
  data.additional_native_paper_jobs.map(r=>[r.algorithm,r.dataset,r.track,r.recipe,r.seed,r.status,r.metrics,r.id,r.queue,r.queue_sha256,r.output_directory,r.result_sha256]),
- [],{A:20,B:15,C:28,D:32,E:12,F:30,G:85,H:105,I:95,J:75,K:130,L:75});
+ [],{A:42,B:15,C:28,D:32,E:12,F:30,G:85,H:105,I:95,J:75,K:130,L:75});
 }
 if(data.native_summary?.length){
  add('原生方法汇总','原生统计方法与插补的独立汇总','统计方法在测试特征拟合。Best F1是测试标签最优阈值，无PA。确定性十次拟合不报告随机置信区间。',

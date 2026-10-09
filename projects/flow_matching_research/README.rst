@@ -1,6 +1,16 @@
 流匹配算法研究
 ==============
 
+算法与数据集实验结果
+------------------
+
+最新完整清单见 `算法与数据集技术指标 <results/2026-10-09/complete_metrics_1026/algorithm_dataset_metrics.md>`_，
+`完整 Excel <results/2026-10-09/complete_metrics_1026/complete_experiment_metrics.xlsx>`_，
+以及 `F1 数据集矩阵 <results/2026-10-09/complete_metrics_1026/overview.md>`_。
+本次快照有 730 个登记组合，其中 215 个已有数值、206 个完成预定重复、9 个部分重复，515 个暂无完整运行。
+严格异常检测、TAB 诊断、作者流程、原生方法、插补、历史记录与论文报告值分别列出。
+这份清单完整保留当前登记结果与缺口，全论文和全消融实验尚未全部完成。
+
 研究任务
 --------
 

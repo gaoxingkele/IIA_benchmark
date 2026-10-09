@@ -191,6 +191,22 @@ def main():
                                 'strict_TAB_result': False})
             if record:
                 sources.append({'path': result_path.relative_to(ROOT).as_posix(), 'sha256': sha(result_path)})
+    # Exact-budget retries resolve the original registered seed slots. They
+    # must neither vanish from the latest table nor become extra repetitions.
+    if settings.get('statistical_recovery_queues'):
+        from scripts.flow_matching.audit_native_recovery_progress import canonical_statistical_jobs
+        statistical_path = settings['additional_native_paper_queues']['grasp_mtsbench_statistical_replay']
+        canonical, _ = canonical_statistical_jobs(statistical_path, settings['statistical_recovery_queues'])
+        observed_stat = {j['id']: j for j in native_jobs if j['algorithm'] == 'grasp_mtsbench_statistical_replay'}
+        native_jobs = [j for j in native_jobs if j['algorithm'] != 'grasp_mtsbench_statistical_replay']
+        for job in canonical:
+            job['queue_sha256'] = sha(ROOT / job['queue'])
+            job['status'] = 'completed' if job['status'] == 'completed' else observed_stat[job['id']]['status']
+            native_jobs.append(job)
+            if job['result_sha256']:
+                path = ROOT / job['output_directory'] / 'result.json'
+                sources.append({'path': path.relative_to(ROOT).as_posix(), 'sha256': job['result_sha256']})
+        sources.extend({'path': path, 'sha256': sha(ROOT / path)} for path in settings['statistical_recovery_queues'])
     native_summary, native_numeric, native_entities = [], [], []
     grasp_capture, grasp_summary, grasp_numeric = None, [], []
     if settings.get('statistical_coverage_manifest'):
@@ -293,6 +309,10 @@ def main():
             stream.write('\n### GRASP 完整训练、消融与推断配方\n\n')
             stream.write(f"登记 {grasp_capture['registered_entity_jobs']} 个实体任务，{grasp_capture['registered_cohorts']} 个全实体组；完成 {grasp_capture['completed_cohorts']} 组。实体任务状态：{grasp_capture['entity_job_counts']}。\n")
             stream.write('仅全实体完成才产生数据集汇总，测试最优 F1 与验证阈值对照分别列行。作者代码缺失和局部实现选择仍存在，尚未证明作者等价。\n\n[全部任务](grasp_full_jobs.csv)；[算法—数据集—推断配方完整指标与空缺](grasp_full_summary.csv)。\n')
+            stream.write('\n| 模型/消融 | 数据集 | 推断配方 | 协议 | 指标 | 均值 | STD | 完成/预定种子 |\n|---|---|---|---|---|---:|---:|---:|\n')
+            for row in grasp_summary:
+                if row['n']:
+                    stream.write(f"| {row['recipe']} | {row['dataset']} | {row['score_recipe']} | {row['protocol']} | {row['metric']} | {fmt(row['mean'])} | {fmt(row['std'])} | {row['completed_seeds']}/{row['required_seeds']} |\n")
     validation = {'captured_utc': report['captured_utc'], 'checks': {
         'tsad_job_accounting': sum(snapshot['new_job_counts'].values()) == len(snapshot['new_jobs']),
         'all_registered_tsad_groups_present': sum(r['required_seeds'] for r in summary) == len(snapshot['new_jobs']),

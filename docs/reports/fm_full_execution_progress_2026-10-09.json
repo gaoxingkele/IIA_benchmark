@@ -1,11 +1,11 @@
 {
-  "captured_utc": "2026-10-09T01:58:42.447488+00:00",
+  "captured_utc": "2026-10-09T02:24:49.180719+00:00",
   "objective": "Run every known unfinished experiment in this research direction",
   "goal_achieved": false,
   "new_job_counts": {
-    "completed": 950,
+    "completed": 958,
     "partial_or_failed": 195,
-    "pending": 2214,
+    "pending": 2206,
     "running": 3
   },
   "new_registered_attempts_including_numerical_retries": 3362,
@@ -189540,8 +189540,9 @@
       "registered_stages": 2280,
       "counts": {
         "failed_or_partial_preserved": 3,
+        "completed": 1,
         "running": 1,
-        "pending": 1136
+        "pending": 1135
       },
       "jobs": [
         {
@@ -189577,7 +189578,23 @@
           "seed": 1103,
           "author_recipe": "causal_axis_repaired/full",
           "output_directory": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1103",
-          "status": "running",
+          "status": "completed",
+          "result_path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1103/result.json",
+          "result_sha256": "0ecbb9ffaa15b811a65a202aaaf73ef9228d4c4083b51239b9b18e75851a087c",
+          "metrics": {
+            "accuracy": 0.9882232346241457,
+            "precision": 0.9740909460668673,
+            "recall": 0.9836934198636327,
+            "f1": 0.9788686340227254,
+            "pointwise_no_PA_same_author_threshold": {
+              "accuracy": 0.7182004555808656,
+              "precision": 0.2744874715261959,
+              "recall": 0.009898956707467346,
+              "f1": 0.019108785283856646,
+              "auroc": 0.48426737745034326,
+              "average_precision": 0.27292052811174095
+            }
+          },
           "stage_receipts": []
         },
         {
@@ -189586,7 +189603,7 @@
           "seed": 1104,
           "author_recipe": "source_runtime/full",
           "output_directory": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__source_runtime__psm__full__seed1104",
-          "status": "pending",
+          "status": "running",
           "stage_receipts": []
         },
         {
@@ -199808,9 +199825,9 @@
       "process_observation": {
         "pid": 22516,
         "verified_live": true,
-        "active_pid": 31872,
+        "active_pid": 10132,
         "active_process_verified_live": true,
-        "active_job": "pi_author__causal_axis_repaired__psm__full__seed1103",
+        "active_job": "pi_author__source_runtime__psm__full__seed1104",
         "active_stage": "full_train_and_test"
       },
       "boundary": "Pinned historical mirror reproduction and separately named causal/time-axis repair controls. Keep full source hyperparameters, stride-one training, source early stopping on test, source pooled train/test score calibration, original PA and original dropped inference tails. Neither branch proves journal equivalence or strict TAB generalization. Config axes on source_runtime are mirror sensitivity controls; e_layers produces e_layers-1 active layers. Temperature/stream grid is posthoc diagnostic, never select a strict leaderboard result using test labels.",
@@ -213955,8 +213972,8 @@
       "state": "running",
       "queue_pid": 26368,
       "queue_process_verified_live": true,
-      "active_job": "fm_objective_sf2m__smd__seed1104__stable_numerics_v2",
-      "active_pid": 29196,
+      "active_job": "fm_objective_sf2m__smd__seed1105__stable_numerics_v2",
+      "active_pid": 2264,
       "active_process_verified_live": true
     },
     {
@@ -213982,8 +213999,8 @@
       "state": "running",
       "queue_pid": 35944,
       "queue_process_verified_live": true,
-      "active_job": "fm_moment_pretrained_small__TAB100__cicids__seed42",
-      "active_pid": 45888,
+      "active_job": "fm_moment_pretrained_base__release512__smap__seed42",
+      "active_pid": 39664,
       "active_process_verified_live": true
     },
     {
@@ -239091,6 +239108,117 @@
       "paper_equivalence": false,
       "training_seconds": 2153.3900000001304,
       "score_seconds": 18.436999999918044
+    },
+    {
+      "id": "fm_objective_sf2m__smd__seed1104__stable_numerics_v2",
+      "dataset": "smd",
+      "model_config": "configs/models/fm_objective_sf2m_stable_v2.json",
+      "seed": 1104,
+      "execution_id": "fm_objective_sf2m__smd__seed1104__stable_numerics_v2",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_tsad_entropic_repair_v1/jobs/fm_objective_sf2m__smd__seed1104__stable_numerics_v2/result.json",
+      "result_sha256": "5ef3a0d24cd42fc46a3b43139f5f8fd11aa5d8c8314cf253ded05621d4915c41",
+      "scores_sha256": "827932ba6dccf33e7a6f38d796b8bfda5c32aac99b4ed8357a29dd733877d37b",
+      "checkpoint_sha256": "603be8831eb7337ef24ed9f2662d3fa1712240fc15bd71e847f59a7de0f36b30",
+      "metrics": {
+        "precision": 0.49486818273294425,
+        "recall": 0.3377747252747253,
+        "f1": 0.40150216344191364,
+        "true_positives": 4918.0,
+        "false_positives": 5020.0,
+        "false_negatives": 9642.0,
+        "auroc": 0.7610570847494935,
+        "average_precision": 0.3246259104813718
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.18291022156630016,
+        "high": 0.5878129400381934,
+        "resamples": 200,
+        "seed": 11104,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 1862.3954572759499,
+            "f_score": 0.06699637322782724,
+            "adjust_f_score": 0.24056179100894304
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 161.8223384094194,
+            "f_score": 0.18489122366242217,
+            "adjust_f_score": 0.6893708254308567
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 34.987788619995115,
+            "f_score": 0.376576487462288,
+            "adjust_f_score": 0.8747728908847828
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 20.189013748168918,
+            "f_score": 0.4004626951995373,
+            "adjust_f_score": 0.7777253977607542
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 14.084433937072749,
+            "f_score": 0.3745851114272167,
+            "adjust_f_score": 0.6829230808637073
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 7.890673732757568,
+            "f_score": 0.31089201877934275,
+            "adjust_f_score": 0.5717064649953354
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 3.422837257385254,
+            "f_score": 0.25998787511367083,
+            "adjust_f_score": 0.40431978651248124
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 2.8490249156951903,
+            "f_score": 0.21401612434955447,
+            "adjust_f_score": 0.30777857717211904
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 2.550316143035889,
+            "f_score": 0.1865071103346519,
+            "adjust_f_score": 0.253582760905192
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 2.3831403255462646,
+            "f_score": 0.16904096834264432,
+            "adjust_f_score": 0.2195344625947863
+          }
+        ],
+        "best_grid_f_score": 0.4004626951995373,
+        "best_grid_adjust_f_score": 0.8747728908847828,
+        "auc_roc": 0.7610570847494935,
+        "auc_pr": 0.3246259104813718,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 2024.438000000082,
+      "score_seconds": 16.875
     },
     {
       "id": "fm_strict_timesnet__psm__registered__seed1103",
@@ -268033,6 +268161,783 @@
       "paper_equivalence": false,
       "training_seconds": 0.0,
       "score_seconds": 151.76599999982864
+    },
+    {
+      "id": "fm_moment_pretrained_small__TAB100__cicids__seed42",
+      "dataset": "cicids",
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "seed": 42,
+      "execution_id": "fm_moment_pretrained_small__TAB100__cicids__seed42",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_moment_pretrained_v1/jobs/fm_moment_pretrained_small__TAB100__cicids__seed42/result.json",
+      "result_sha256": "8cd25ec014ee56ba63fc733e8c35958675676fe480171ef24f9496811640adc5",
+      "scores_sha256": "1ec70803845476d5b93d6398102e15b2ae526251b4ffaeb80151811c4da51279",
+      "checkpoint_sha256": "7d6407f88a59be2eb2b9463f9e98d4a426c4a4857d005031b3488a0a473c998b",
+      "metrics": {
+        "precision": 0.4530218024288048,
+        "recall": 0.01984853010728599,
+        "f1": 0.038030793078264506,
+        "true_positives": 6379.0,
+        "false_positives": 7702.0,
+        "false_negatives": 315005.0,
+        "auroc": 0.4044001077397953,
+        "average_precision": 0.27663145575737624
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.0017409250133548987,
+        "high": 0.07756548392740044,
+        "resamples": 200,
+        "seed": 10042,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 56.161060569769575,
+            "f_score": 0.003767201799334543,
+            "adjust_f_score": 0.4859949670697867
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 22.955959434509293,
+            "f_score": 0.01957664069227188,
+            "adjust_f_score": 0.5235493068929614
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 17.17247020721438,
+            "f_score": 0.04006817837032277,
+            "adjust_f_score": 0.598485928150718
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 11.494133377075132,
+            "f_score": 0.08232693797566422,
+            "adjust_f_score": 0.7245785990050807
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 8.553724613189685,
+            "f_score": 0.11945530611686857,
+            "adjust_f_score": 0.7410341791315267
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 5.534383058547983,
+            "f_score": 0.184893377543881,
+            "adjust_f_score": 0.7470584529667453
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 2.8166528224945067,
+            "f_score": 0.27503618726640305,
+            "adjust_f_score": 0.7600531738118976
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 1.8276819825172421,
+            "f_score": 0.3059494474595232,
+            "adjust_f_score": 0.7293390274704791
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 1.3381841182708738,
+            "f_score": 0.3100697235610476,
+            "adjust_f_score": 0.6988464431890427
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 1.0428498983383179,
+            "f_score": 0.3053229692258739,
+            "adjust_f_score": 0.6602075030277329
+          }
+        ],
+        "best_grid_f_score": 0.3100697235610476,
+        "best_grid_adjust_f_score": 0.7600531738118976,
+        "auc_roc": 0.4044001077397953,
+        "auc_pr": 0.27663145575737624,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 0.0,
+      "score_seconds": 5200.375
+    },
+    {
+      "id": "fm_moment_pretrained_small__TAB100__tep_classic__seed42",
+      "dataset": "tep_classic",
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "seed": 42,
+      "execution_id": "fm_moment_pretrained_small__TAB100__tep_classic__seed42",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_moment_pretrained_v1/jobs/fm_moment_pretrained_small__TAB100__tep_classic__seed42/result.json",
+      "result_sha256": "e7cc4d6f3b48863bdfae45575fb146ed0936f8286ef0c110221461ef5fb2a38b",
+      "scores_sha256": "8a802b40abf7517ee169d74b219c7529e95487006fb6d14e1f11d51b343059ad",
+      "checkpoint_sha256": "7d6407f88a59be2eb2b9463f9e98d4a426c4a4857d005031b3488a0a473c998b",
+      "metrics": {
+        "precision": 0.9625215618629449,
+        "recall": 0.3653571428571429,
+        "f1": 0.5296630280018985,
+        "true_positives": 6138.0,
+        "false_positives": 239.0,
+        "false_negatives": 10662.0,
+        "auroc": 0.7091974294926303,
+        "average_precision": 0.9294156523009078
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.36619944723438536,
+        "high": 0.6699426397276459,
+        "resamples": 200,
+        "seed": 10042,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 327.44578341678937,
+            "f_score": 0.0024968789013732834,
+            "adjust_f_score": 0.32
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 184.3448104858395,
+            "f_score": 0.012304779933743494,
+            "adjust_f_score": 0.32
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 142.39631439208978,
+            "f_score": 0.024342917622155583,
+            "adjust_f_score": 0.4444444444444445
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 99.79514068603513,
+            "f_score": 0.04810038340885326,
+            "adjust_f_score": 0.5
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 75.04301002502442,
+            "f_score": 0.07118254879448908,
+            "adjust_f_score": 0.5
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 51.720517921447744,
+            "f_score": 0.11585263275949084,
+            "adjust_f_score": 0.6
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 27.90892200469974,
+            "f_score": 0.21827626417894627,
+            "adjust_f_score": 0.6449792397307212
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 16.343930244445783,
+            "f_score": 0.3096638022011156,
+            "adjust_f_score": 0.7994860446855594
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 10.018063735961919,
+            "f_score": 0.3900248423466463,
+            "adjust_f_score": 0.8318890814558059
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 6.248942613601685,
+            "f_score": 0.4594582290006829,
+            "adjust_f_score": 0.8614017968303106
+          }
+        ],
+        "best_grid_f_score": 0.4594582290006829,
+        "best_grid_adjust_f_score": 0.8614017968303106,
+        "auc_roc": 0.7091974294926303,
+        "auc_pr": 0.9294156523009078,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 0.0,
+      "score_seconds": 52.765000000130385
+    },
+    {
+      "id": "fm_moment_pretrained_small__TAB100__skab__seed42",
+      "dataset": "skab",
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "seed": 42,
+      "execution_id": "fm_moment_pretrained_small__TAB100__skab__seed42",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_moment_pretrained_v1/jobs/fm_moment_pretrained_small__TAB100__skab__seed42/result.json",
+      "result_sha256": "f3143b890423389936ad2de87eb369772a7f84ecec8300030e080004005353ad",
+      "scores_sha256": "02518753d07ca2c43dcc55064ba90b03a114f3ceb2e7332764437c9ac19ee93b",
+      "checkpoint_sha256": "7d6407f88a59be2eb2b9463f9e98d4a426c4a4857d005031b3488a0a473c998b",
+      "metrics": {
+        "precision": 0.6027722772277228,
+        "recall": 0.11817687708673033,
+        "f1": 0.19761101012723967,
+        "true_positives": 1522.0,
+        "false_positives": 1003.0,
+        "false_negatives": 11357.0,
+        "auroc": 0.5560662862908421,
+        "average_precision": 0.4316462342457126
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.0956567374773993,
+        "high": 0.3057944907048272,
+        "resamples": 200,
+        "seed": 10042,
+        "unit": "entity_cluster",
+        "block_points": null,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 1619.621774902348,
+            "f_score": 0.0032492650471917066,
+            "adjust_f_score": 0.2225742028785896
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 474.01274719237995,
+            "f_score": 0.02379862700228833,
+            "adjust_f_score": 0.3275450261442128
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 225.1115570068394,
+            "f_score": 0.0464767616191904,
+            "adjust_f_score": 0.32594591122245775
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 66.30316772460834,
+            "f_score": 0.09361640460836171,
+            "adjust_f_score": 0.3233494774407341
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 17.531843185424606,
+            "f_score": 0.1329500035060655,
+            "adjust_f_score": 0.35153541357107476
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 3.2304623126983643,
+            "f_score": 0.18302299383738652,
+            "adjust_f_score": 0.7250662574975589
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 1.7136553525924683,
+            "f_score": 0.25140159339038065,
+            "adjust_f_score": 0.930093160973496
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 1.318774700164795,
+            "f_score": 0.2975136058051435,
+            "adjust_f_score": 0.8933513682239101
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 1.0862268209457397,
+            "f_score": 0.3337220602526725,
+            "adjust_f_score": 0.8578850957535388
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 0.9355940818786621,
+            "f_score": 0.3635225748770675,
+            "adjust_f_score": 0.8260270018920566
+          }
+        ],
+        "best_grid_f_score": 0.3635225748770675,
+        "best_grid_adjust_f_score": 0.930093160973496,
+        "auc_roc": 0.5560662862908421,
+        "auc_pr": 0.4316462342457126,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 0.0,
+      "score_seconds": 22.687999999849126
+    },
+    {
+      "id": "fm_moment_pretrained_small__TAB100__pronto_day2__seed42",
+      "dataset": "pronto_day2",
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "seed": 42,
+      "execution_id": "fm_moment_pretrained_small__TAB100__pronto_day2__seed42",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_moment_pretrained_v1/jobs/fm_moment_pretrained_small__TAB100__pronto_day2__seed42/result.json",
+      "result_sha256": "2cb63cca49728058e3bd115e60011e105e69cf874c87245f32d7f4755db9614d",
+      "scores_sha256": "d891ac05005b25d56a2f9e51f008bb52ae72f8bb32a3a8008d1d29762f994d1f",
+      "checkpoint_sha256": "7d6407f88a59be2eb2b9463f9e98d4a426c4a4857d005031b3488a0a473c998b",
+      "metrics": {
+        "precision": 1.0,
+        "recall": 0.005214566592579928,
+        "f1": 0.010375031890466875,
+        "true_positives": 61.0,
+        "false_positives": 0.0,
+        "false_negatives": 11637.0,
+        "auroc": 0.5583819049021804,
+        "average_precision": 0.9534291526177555
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.00034159355688685153,
+        "high": 0.02200718132762247,
+        "resamples": 200,
+        "seed": 10042,
+        "unit": "circular_temporal_block",
+        "block_points": 1024,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 22.674121234895214,
+            "f_score": 0.0029022620571916347,
+            "adjust_f_score": 1.0
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 6.677877347469334,
+            "f_score": 0.010882502975684407,
+            "adjust_f_score": 1.0
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 4.3604962396621785,
+            "f_score": 0.020472041282463414,
+            "adjust_f_score": 0.99991452260877
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 2.4968368196487574,
+            "f_score": 0.03905137015000419,
+            "adjust_f_score": 0.99991452260877
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 1.7128494167327881,
+            "f_score": 0.056791763533709724,
+            "adjust_f_score": 0.9998290598290598
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 0.9647318929433815,
+            "f_score": 0.09578793299723531,
+            "adjust_f_score": 0.9995300551117187
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.3838751047849657,
+            "f_score": 0.18729717199814558,
+            "adjust_f_score": 0.9986341130271471
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 0.22650302648544302,
+            "f_score": 0.2605482893667332,
+            "adjust_f_score": 0.9969319925004262
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 0.15714212954044354,
+            "f_score": 0.32866242038216564,
+            "adjust_f_score": 0.9953203437420234
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 0.11586153693497181,
+            "f_score": 0.3932980599647266,
+            "adjust_f_score": 0.993840533537233
+          }
+        ],
+        "best_grid_f_score": 0.3932980599647266,
+        "best_grid_adjust_f_score": 1.0,
+        "auc_roc": 0.5583819049021804,
+        "auc_pr": 0.9534291526177555,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 0.0,
+      "score_seconds": 19.67200000002049
+    },
+    {
+      "id": "fm_moment_pretrained_small__TAB100__pronto_day3__seed42",
+      "dataset": "pronto_day3",
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "seed": 42,
+      "execution_id": "fm_moment_pretrained_small__TAB100__pronto_day3__seed42",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_moment_pretrained_v1/jobs/fm_moment_pretrained_small__TAB100__pronto_day3__seed42/result.json",
+      "result_sha256": "302d01946eb826bf812de0ff9cbe0c33509199372fe61ca59f0a25854695a0e0",
+      "scores_sha256": "9bead58f807b7ebfae17c96dc8a4308b938f8ecf33e6b3a527d0f77ef4319360",
+      "checkpoint_sha256": "7d6407f88a59be2eb2b9463f9e98d4a426c4a4857d005031b3488a0a473c998b",
+      "metrics": {
+        "precision": 0.47022900763358777,
+        "recall": 0.018138987043580683,
+        "f1": 0.034930535866175214,
+        "true_positives": 308.0,
+        "false_positives": 347.0,
+        "false_negatives": 16672.0,
+        "auroc": 0.329034246444619,
+        "average_precision": 0.7086154778301377
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.008539431355203774,
+        "high": 0.07587082322855693,
+        "resamples": 200,
+        "seed": 10042,
+        "unit": "circular_temporal_block",
+        "block_points": 1024,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 20.10826425933871,
+            "f_score": 0.002351696160856017,
+            "adjust_f_score": 0.7249802994483845
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 8.816849536895761,
+            "f_score": 0.010163551401869158,
+            "adjust_f_score": 0.9984417722635464
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 4.912407360076876,
+            "f_score": 0.01602787456445993,
+            "adjust_f_score": 0.9970054606306148
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 2.289003353118905,
+            "f_score": 0.02325313687118683,
+            "adjust_f_score": 0.994378074490513
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 1.2989828014373772,
+            "f_score": 0.02979282004451801,
+            "adjust_f_score": 0.991822429906542
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 0.594623351097104,
+            "f_score": 0.04112359550561798,
+            "adjust_f_score": 0.9868076945429186
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.18479933440685276,
+            "f_score": 0.08087878951052718,
+            "adjust_f_score": 0.9758620689655172
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 0.10772992521524427,
+            "f_score": 0.13640124095139608,
+            "adjust_f_score": 0.970257992628782
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 0.07526740431785586,
+            "f_score": 0.19298854564387363,
+            "adjust_f_score": 0.9647453197352348
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 0.05642310157418251,
+            "f_score": 0.24641888354827965,
+            "adjust_f_score": 0.9592136481753474
+          }
+        ],
+        "best_grid_f_score": 0.24641888354827965,
+        "best_grid_adjust_f_score": 0.9984417722635464,
+        "auc_roc": 0.329034246444619,
+        "auc_pr": 0.7086154778301377,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 0.0,
+      "score_seconds": 24.125
+    },
+    {
+      "id": "fm_moment_pretrained_small__TAB100__pronto_day4__seed42",
+      "dataset": "pronto_day4",
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "seed": 42,
+      "execution_id": "fm_moment_pretrained_small__TAB100__pronto_day4__seed42",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_moment_pretrained_v1/jobs/fm_moment_pretrained_small__TAB100__pronto_day4__seed42/result.json",
+      "result_sha256": "d65c052782340bb285d01943cd919640f295a552323638a06f68686f3f545108",
+      "scores_sha256": "ff8534a196ea9289c77f78c1ff334bbd563776463e867824317da3abb3c0159e",
+      "checkpoint_sha256": "7d6407f88a59be2eb2b9463f9e98d4a426c4a4857d005031b3488a0a473c998b",
+      "metrics": {
+        "precision": 1.0,
+        "recall": 0.0041296716911005575,
+        "f1": 0.008225375282747275,
+        "true_positives": 20.0,
+        "false_positives": 0.0,
+        "false_negatives": 4823.0,
+        "auroc": 0.5508992274285844,
+        "average_precision": 0.4700457076525757
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.0,
+        "high": 0.02252572333710496,
+        "resamples": 200,
+        "seed": 10042,
+        "unit": "circular_temporal_block",
+        "block_points": 1024,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 112.2650092468293,
+            "f_score": 0.005354200988467874,
+            "adjust_f_score": 0.8081702965423895
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 42.760648860931475,
+            "f_score": 0.01956787607011822,
+            "adjust_f_score": 0.8066814050601817
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 26.250492286681986,
+            "f_score": 0.033816425120772944,
+            "adjust_f_score": 0.8041136141038198
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 14.879696464538574,
+            "f_score": 0.05930871956009426,
+            "adjust_f_score": 0.7985410334346504
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 9.440398406982402,
+            "f_score": 0.07668711656441718,
+            "adjust_f_score": 0.7913253012048193
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 5.36794710159301,
+            "f_score": 0.12191103789126856,
+            "adjust_f_score": 0.9712223002105684
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 2.3584758281707763,
+            "f_score": 0.2085464444811087,
+            "adjust_f_score": 0.9429517133956387
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 1.474468362331391,
+            "f_score": 0.2714050082471135,
+            "adjust_f_score": 0.9131705477514849
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 1.0554169416427617,
+            "f_score": 0.32032967032967036,
+            "adjust_f_score": 0.8840010951902892
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 0.8087457865476608,
+            "f_score": 0.36575776791376025,
+            "adjust_f_score": 0.8582314371788056
+          }
+        ],
+        "best_grid_f_score": 0.36575776791376025,
+        "best_grid_adjust_f_score": 0.9712223002105684,
+        "auc_roc": 0.5508992274285844,
+        "auc_pr": 0.4700457076525757,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 0.0,
+      "score_seconds": 15.514999999897555
+    },
+    {
+      "id": "fm_moment_pretrained_base__release512__psm__seed42",
+      "dataset": "psm",
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_base__release512.json",
+      "seed": 42,
+      "execution_id": "fm_moment_pretrained_base__release512__psm__seed42",
+      "recovery_resolution": null,
+      "result_path": "experiments/runs/fm_moment_pretrained_v1/jobs/fm_moment_pretrained_base__release512__psm__seed42/result.json",
+      "result_sha256": "2d7061d28e1d9be098390891016d01195c05431de76d117c5917d7088755ad0a",
+      "scores_sha256": "e0827b1b33668081b51d2a3acf7ec311fa6ee715449377aadd8cafb55c420fff",
+      "checkpoint_sha256": "2a4549bcd75b9d9143477f8d4183f313576b486cb33bbce4987b722f97df755b",
+      "metrics": {
+        "precision": 0.5916167664670658,
+        "recall": 0.020261679176407858,
+        "f1": 0.03918147208121828,
+        "true_positives": 494.0,
+        "false_positives": 341.0,
+        "false_negatives": 23887.0,
+        "auroc": 0.554867610921293,
+        "average_precision": 0.3362324551323244
+      },
+      "block_or_cluster_f1_ci95": {
+        "low": 0.010727261007115633,
+        "high": 0.08544806427114993,
+        "resamples": 200,
+        "seed": 10042,
+        "unit": "circular_temporal_block",
+        "block_points": 1024,
+        "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+      },
+      "tab_core_diagnostic": {
+        "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+        "ratio_grid": [
+          {
+            "ratio_percent": 0.1,
+            "threshold": 14.268803699494658,
+            "f_score": 0.007192774531039275,
+            "adjust_f_score": 0.8341143840856925
+          },
+          {
+            "ratio_percent": 0.5,
+            "threshold": 6.04789703369141,
+            "f_score": 0.023082200072636293,
+            "adjust_f_score": 0.8815068493150686
+          },
+          {
+            "ratio_percent": 1,
+            "threshold": 3.4216239643097035,
+            "f_score": 0.041783721758398285,
+            "adjust_f_score": 0.8975518478091375
+          },
+          {
+            "ratio_percent": 2,
+            "threshold": 2.0108890819549554,
+            "f_score": 0.06401596561252686,
+            "adjust_f_score": 0.9138981591129293
+          },
+          {
+            "ratio_percent": 3,
+            "threshold": 1.570108232498169,
+            "f_score": 0.08020050125313284,
+            "adjust_f_score": 0.9373447076362432
+          },
+          {
+            "ratio_percent": 5,
+            "threshold": 1.177193880081176,
+            "f_score": 0.11611122903842072,
+            "adjust_f_score": 0.948605050644658
+          },
+          {
+            "ratio_percent": 10,
+            "threshold": 0.7670771241188049,
+            "f_score": 0.18207867443236675,
+            "adjust_f_score": 0.9038255676376133
+          },
+          {
+            "ratio_percent": 15,
+            "threshold": 0.5863187313079833,
+            "f_score": 0.23618020621994942,
+            "adjust_f_score": 0.8685730585466732
+          },
+          {
+            "ratio_percent": 20,
+            "threshold": 0.476249831914902,
+            "f_score": 0.27615376914606066,
+            "adjust_f_score": 0.8286452841740076
+          },
+          {
+            "ratio_percent": 25,
+            "threshold": 0.3998585641384125,
+            "f_score": 0.3073350635159131,
+            "adjust_f_score": 0.7918494686555522
+          }
+        ],
+        "best_grid_f_score": 0.3073350635159131,
+        "best_grid_adjust_f_score": 0.948605050644658,
+        "auc_roc": 0.554867610921293,
+        "auc_pr": 0.3362324551323244,
+        "test_scores_used_in_calibration": true,
+        "test_labels_used_to_select_best_grid": true,
+        "pending_metrics": [
+          "VUS_ROC",
+          "VUS_PR",
+          "affiliation_f"
+        ],
+        "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+      },
+      "paper_equivalence": false,
+      "training_seconds": 0.0,
+      "score_seconds": 914.8910000000615
     },
     {
       "id": "fm_objective_independent__industrial_v1__tep_classic__seed1103",
@@ -324790,68 +325695,68 @@
       "required_seeds": 5,
       "metrics": {
         "precision": {
-          "n": 1,
-          "mean": 0.49572913450653494,
-          "std": null,
-          "se": null,
-          "ci95_low": null,
-          "ci95_high": null
+          "n": 2,
+          "mean": 0.4952986586197396,
+          "std": 0.0006087848373805622,
+          "se": 0.00043047588679534504,
+          "ci95_low": 0.4898289438681316,
+          "ci95_high": 0.5007683733713476
         },
         "recall": {
-          "n": 1,
-          "mean": 0.3308379120879121,
-          "std": null,
-          "se": null,
-          "ci95_low": null,
-          "ci95_high": null
+          "n": 2,
+          "mean": 0.33430631868131866,
+          "std": 0.004905067644219891,
+          "se": 0.0034684065934066084,
+          "ci95_low": 0.2902360343971961,
+          "ci95_high": 0.37837660296544123
         },
         "f1": {
-          "n": 1,
-          "mean": 0.39683651192486713,
-          "std": null,
-          "se": null,
-          "ci95_low": null,
-          "ci95_high": null
+          "n": 2,
+          "mean": 0.39916933768339036,
+          "std": 0.00329911382635689,
+          "se": 0.002332825758523255,
+          "ci95_low": 0.36952797598177184,
+          "ci95_high": 0.4288106993850089
         },
         "true_positives": {
-          "n": 1,
-          "mean": 4817.0,
-          "std": null,
-          "se": null,
-          "ci95_low": null,
-          "ci95_high": null
+          "n": 2,
+          "mean": 4867.5,
+          "std": 71.4177848998413,
+          "se": 50.49999999999999,
+          "ci95_low": 4225.836660823178,
+          "ci95_high": 5509.163339176822
         },
         "false_positives": {
-          "n": 1,
-          "mean": 4900.0,
-          "std": null,
-          "se": null,
-          "ci95_low": null,
-          "ci95_high": null
+          "n": 2,
+          "mean": 4960.0,
+          "std": 84.8528137423857,
+          "se": 60.0,
+          "ci95_low": 4197.627715829518,
+          "ci95_high": 5722.372284170482
         },
         "false_negatives": {
-          "n": 1,
-          "mean": 9743.0,
-          "std": null,
-          "se": null,
-          "ci95_low": null,
-          "ci95_high": null
+          "n": 2,
+          "mean": 9692.5,
+          "std": 71.4177848998413,
+          "se": 50.49999999999999,
+          "ci95_low": 9050.836660823177,
+          "ci95_high": 10334.163339176823
         },
         "auroc": {
-          "n": 1,
-          "mean": 0.7620788943464636,
-          "std": null,
-          "se": null,
-          "ci95_low": null,
-          "ci95_high": null
+          "n": 2,
+          "mean": 0.7615679895479786,
+          "std": 0.000722528495099029,
+          "se": 0.0005109047984850346,
+          "ci95_low": 0.7550763285777337,
+          "ci95_high": 0.7680596505182234
         },
         "average_precision": {
-          "n": 1,
-          "mean": 0.3274544280220421,
-          "std": null,
-          "se": null,
-          "ci95_low": null,
-          "ci95_high": null
+          "n": 2,
+          "mean": 0.326040169251707,
+          "std": 0.002000063933713077,
+          "se": 0.0014142587703351583,
+          "ci95_low": 0.3080703077658978,
+          "ci95_high": 0.3440100307375162
         }
       },
       "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
@@ -329672,6 +330577,510 @@
         "average_precision": {
           "n": 1,
           "mean": 0.43408120715850845,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      },
+      "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
+    },
+    {
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "dataset": "cicids",
+      "required_seeds": 1,
+      "metrics": {
+        "precision": {
+          "n": 1,
+          "mean": 0.4530218024288048,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "recall": {
+          "n": 1,
+          "mean": 0.01984853010728599,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "f1": {
+          "n": 1,
+          "mean": 0.038030793078264506,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "true_positives": {
+          "n": 1,
+          "mean": 6379.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_positives": {
+          "n": 1,
+          "mean": 7702.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_negatives": {
+          "n": 1,
+          "mean": 315005.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "auroc": {
+          "n": 1,
+          "mean": 0.4044001077397953,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "average_precision": {
+          "n": 1,
+          "mean": 0.27663145575737624,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      },
+      "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
+    },
+    {
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "dataset": "tep_classic",
+      "required_seeds": 1,
+      "metrics": {
+        "precision": {
+          "n": 1,
+          "mean": 0.9625215618629449,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "recall": {
+          "n": 1,
+          "mean": 0.3653571428571429,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "f1": {
+          "n": 1,
+          "mean": 0.5296630280018985,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "true_positives": {
+          "n": 1,
+          "mean": 6138.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_positives": {
+          "n": 1,
+          "mean": 239.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_negatives": {
+          "n": 1,
+          "mean": 10662.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "auroc": {
+          "n": 1,
+          "mean": 0.7091974294926303,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "average_precision": {
+          "n": 1,
+          "mean": 0.9294156523009078,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      },
+      "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
+    },
+    {
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "dataset": "skab",
+      "required_seeds": 1,
+      "metrics": {
+        "precision": {
+          "n": 1,
+          "mean": 0.6027722772277228,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "recall": {
+          "n": 1,
+          "mean": 0.11817687708673033,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "f1": {
+          "n": 1,
+          "mean": 0.19761101012723967,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "true_positives": {
+          "n": 1,
+          "mean": 1522.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_positives": {
+          "n": 1,
+          "mean": 1003.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_negatives": {
+          "n": 1,
+          "mean": 11357.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "auroc": {
+          "n": 1,
+          "mean": 0.5560662862908421,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "average_precision": {
+          "n": 1,
+          "mean": 0.4316462342457126,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      },
+      "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
+    },
+    {
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "dataset": "pronto_day2",
+      "required_seeds": 1,
+      "metrics": {
+        "precision": {
+          "n": 1,
+          "mean": 1.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "recall": {
+          "n": 1,
+          "mean": 0.005214566592579928,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "f1": {
+          "n": 1,
+          "mean": 0.010375031890466875,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "true_positives": {
+          "n": 1,
+          "mean": 61.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_positives": {
+          "n": 1,
+          "mean": 0.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_negatives": {
+          "n": 1,
+          "mean": 11637.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "auroc": {
+          "n": 1,
+          "mean": 0.5583819049021804,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "average_precision": {
+          "n": 1,
+          "mean": 0.9534291526177555,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      },
+      "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
+    },
+    {
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "dataset": "pronto_day3",
+      "required_seeds": 1,
+      "metrics": {
+        "precision": {
+          "n": 1,
+          "mean": 0.47022900763358777,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "recall": {
+          "n": 1,
+          "mean": 0.018138987043580683,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "f1": {
+          "n": 1,
+          "mean": 0.034930535866175214,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "true_positives": {
+          "n": 1,
+          "mean": 308.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_positives": {
+          "n": 1,
+          "mean": 347.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_negatives": {
+          "n": 1,
+          "mean": 16672.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "auroc": {
+          "n": 1,
+          "mean": 0.329034246444619,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "average_precision": {
+          "n": 1,
+          "mean": 0.7086154778301377,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      },
+      "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
+    },
+    {
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
+      "dataset": "pronto_day4",
+      "required_seeds": 1,
+      "metrics": {
+        "precision": {
+          "n": 1,
+          "mean": 1.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "recall": {
+          "n": 1,
+          "mean": 0.0041296716911005575,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "f1": {
+          "n": 1,
+          "mean": 0.008225375282747275,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "true_positives": {
+          "n": 1,
+          "mean": 20.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_positives": {
+          "n": 1,
+          "mean": 0.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_negatives": {
+          "n": 1,
+          "mean": 4823.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "auroc": {
+          "n": 1,
+          "mean": 0.5508992274285844,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "average_precision": {
+          "n": 1,
+          "mean": 0.4700457076525757,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        }
+      },
+      "boundary": "Repeated trained-model seed t intervals describe initialization variability; frozen zero-shot pretrained runs have no independent initialization repeats and no seed interval. Not a paired algorithm equivalence test."
+    },
+    {
+      "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_base__release512.json",
+      "dataset": "psm",
+      "required_seeds": 1,
+      "metrics": {
+        "precision": {
+          "n": 1,
+          "mean": 0.5916167664670658,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "recall": {
+          "n": 1,
+          "mean": 0.020261679176407858,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "f1": {
+          "n": 1,
+          "mean": 0.03918147208121828,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "true_positives": {
+          "n": 1,
+          "mean": 494.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_positives": {
+          "n": 1,
+          "mean": 341.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "false_negatives": {
+          "n": 1,
+          "mean": 23887.0,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "auroc": {
+          "n": 1,
+          "mean": 0.554867610921293,
+          "std": null,
+          "se": null,
+          "ci95_low": null,
+          "ci95_high": null
+        },
+        "average_precision": {
+          "n": 1,
+          "mean": 0.3362324551323244,
           "std": null,
           "se": null,
           "ci95_low": null,
@@ -351738,8 +353147,8 @@
       "model_config": "configs/models/fm_objective_sf2m_stable_v2.json",
       "seed": 1104,
       "lane": "entropic_numeric_repair",
-      "status": "running",
-      "original_attempt_status": "running",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -351748,8 +353157,8 @@
       "model_config": "configs/models/fm_objective_sf2m_stable_v2.json",
       "seed": 1105,
       "lane": "entropic_numeric_repair",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "running",
+      "original_attempt_status": "running",
       "recovery_resolution": null
     },
     {
@@ -355912,8 +357321,8 @@
       "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
       "seed": 42,
       "lane": "moment_pretrained",
-      "status": "running",
-      "original_attempt_status": "running",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -355922,8 +357331,8 @@
       "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
       "seed": 42,
       "lane": "moment_pretrained",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -355932,8 +357341,8 @@
       "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
       "seed": 42,
       "lane": "moment_pretrained",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -355942,8 +357351,8 @@
       "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
       "seed": 42,
       "lane": "moment_pretrained",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -355952,8 +357361,8 @@
       "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
       "seed": 42,
       "lane": "moment_pretrained",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -355962,8 +357371,8 @@
       "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_small__TAB100.json",
       "seed": 42,
       "lane": "moment_pretrained",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -355972,8 +357381,8 @@
       "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_base__release512.json",
       "seed": 42,
       "lane": "moment_pretrained",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "completed",
+      "original_attempt_status": "completed",
       "recovery_resolution": null
     },
     {
@@ -355982,8 +357391,8 @@
       "model_config": "configs/models/fm_moment_pretrained/fm_moment_pretrained_base__release512.json",
       "seed": 42,
       "lane": "moment_pretrained",
-      "status": "pending",
-      "original_attempt_status": "pending",
+      "status": "running",
+      "original_attempt_status": "running",
       "recovery_resolution": null
     },
     {
