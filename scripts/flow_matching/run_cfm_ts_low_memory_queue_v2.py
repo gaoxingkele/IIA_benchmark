@@ -6,6 +6,7 @@ exact-budget recovery queues share a family slot with the original safeguards.
 import argparse
 from contextlib import contextmanager
 import ctypes
+import hashlib
 import json
 import os
 from pathlib import Path

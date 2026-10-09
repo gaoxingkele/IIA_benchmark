@@ -1,0 +1,107 @@
+{
+  "controllers": {
+    "original": {
+      "queue": "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+      "queue_sha256": "3ed12e461674275c52f6eb74fb992940e1405f11b3938676f0b1ec98b3ff3513"
+    },
+    "recovery": {
+      "queue": "configs/experiments/fm_cfm_ts_exact_recovery_queue.v2.json",
+      "queue_sha256": "9d4d95e431f2d7776d7ed137a9958a533750292d42d94dfe88b35661e0c96b36",
+      "selected_job_ids": [
+        "cfm_ts_original__main_text__bb_gaussian_consistent_e400__pendulum__seed1107__exact_recovery_v1",
+        "cfm_ts_original__appendix_d__bb_gaussian_consistent_e600__pendulum__seed1103__exact_recovery_v1"
+      ]
+    }
+  },
+  "family_lock": "experiments/runs/fm_cfm_ts_original_cpu.lock",
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/register_cfm_ts_exact_recovery_v1.py",
+      "sha256": "da65d0dfcb12876b6b7957aa9d7130583e8948f12edd4d302a2c1fc8c7fdf6c7"
+    },
+    {
+      "path": "scripts/flow_matching/transition_cfm_ts_low_memory_v2.py",
+      "sha256": "eecabcb3dfabc1c71f804a81cb5524cd80dab703593d1a6df8b034637e5e55fb"
+    },
+    {
+      "path": "tests/test_fm_cfm_ts_low_memory_v2.py",
+      "sha256": "1f746669f4387ca3fce0c7d6e7962b4c97f1cc5948cea2ab22d0f18cbb8f5af0"
+    },
+    {
+      "path": "configs/reproducibility/cfm_ts_original_protocol.v1.json",
+      "sha256": "edd21cb2da410068bea2a68d3d3a20f1651be20fd514695cb7bf49f1396ce1b9"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/cfm_ts_original_ode_v1/manifest.json",
+      "sha256": "e0073547037a1bf24e6b06b36da2cdf44f37dd0ef7439de57abfa701eeb5fb0c"
+    },
+    {
+      "path": "papers/literature/flow_matching/user_supplied/2026-10-07/cfm_ts/090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827.pdf",
+      "sha256": "090df538861bab7fe4aa5432b1872e1aacec74ed6680b012d0ce743d26a32827"
+    },
+    {
+      "path": "configs/reproducibility/cfm_ts_original_py312.lock.json",
+      "sha256": "ca3d11467bdc6629d72c06f85dccebb8f15b4471a04aec0c166312db4af11e3a"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_cfm_ts_original.py",
+      "sha256": "d01f4a89509fbd1d53c63dc4e73d0ee0cfc71abf7b1b98698043ebb4da6bc5ce"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_native_trajectory.py",
+      "sha256": "6dc42026407f52957f2740af834e5d20a083e6a1c6d860e0d3925ef784f1f992"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_cfm_ts_original_data.py",
+      "sha256": "75b8ad7020319909cb4d94522a0e28eba80fc293af0c7b8ea0d2a81ecffa514e"
+    },
+    {
+      "path": "scripts/flow_matching/register_cfm_ts_original.py",
+      "sha256": "0a0838a72379e82d448381dc5f783deb5c5a0bb9ddc9826f0b7edf59434da3ab"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_original_job.py",
+      "sha256": "f7c28bfa46b59e576634ef68333c7ff8e50963bfeb057bfd9754adbd75c167ed"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_original_queue.py",
+      "sha256": "ecd6d72afd39944048a7634fb6cb59a6609a1c11fd4e3571f892a3ceeb5871c7"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "tests/test_fm_cfm_ts_original.py",
+      "sha256": "f476f0e2dc293b81f83b9bc8b39b5fc5a4a87b54c58f8f2dd3715cd997171cca"
+    },
+    {
+      "path": "scripts/flow_matching/register_cfm_controller_fix_v3.py",
+      "sha256": "3d6a088a13b90f9b6c3d8bbc432229b7cc4d88dd1c00f72ab3ca504521d3c935"
+    }
+  ],
+  "predecessor": {
+    "pid": 44824,
+    "create_time": 1791514341.9245093,
+    "command": [
+      "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-u",
+      "-m",
+      "scripts.flow_matching.run_cfm_ts_light_queue_v1",
+      "--runtime-config",
+      "configs/runtime/fm_cfm_ts_light_controller.v1.json"
+    ],
+    "status_path": "experiments/runs/fm_cfm_ts_original_v1/status.json"
+  },
+  "handoff_root": "experiments/runs/fm_cfm_ts_low_memory_transition_v2",
+  "boundary": "Original full285 jobs, data, model, worker, seeds, epochs, optimizer updates and resource thresholds unchanged. Isolated verification avoids NumPy in the waiting parent. Two exact-budget retries remain separate preserved attempts.",
+  "preflight_failure_predecessor": {
+    "runtime": "configs/runtime/fm_cfm_ts_low_memory_controller.v2.json",
+    "sha256": "3d9ba5588c0554b6b91748866ec7aa87f32fa53c1afee0bca425075728238454",
+    "source_commit": "fd1a9b1"
+  }
+}
