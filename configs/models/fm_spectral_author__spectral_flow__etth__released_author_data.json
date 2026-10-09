@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "fm_spectral_author__spectral_flow__etth__released_author_data",
+  "task": "unconditional_time_series_generation",
+  "family": "pinned_author_generation_pipeline",
+  "entrypoint": "iia_benchmark.models.fm_spectral_author:build_author_model",
+  "parameters": {
+    "source_root": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_base",
+    "model_target": "models.spectral_flow.model.SpectralFlow",
+    "parameters": {
+      "seq_length": 24,
+      "feature_size": 7,
+      "n_layers": 10,
+      "d_model": 64,
+      "sampling_timesteps": 500,
+      "mlp_hidden_times": 1,
+      "sigma": 1e-05,
+      "solver_method": "midpoint"
+    }
+  },
+  "author_yaml": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_base/configs/spectral_flow/etth.yaml",
+  "author_yaml_sha256": "5c3ad9918db11b81ebf56dc404d596abacad60fa6e69a8237374bec9fd3e870e",
+  "author_repository": "jw9730/spectral-mean-flow",
+  "author_commit": "81e49338b10b21262b8069703cac3639aa0d43aa",
+  "protocol": "configs/reproducibility/spectral_mean_flow_original_protocol.v2.json",
+  "data_case": {
+    "dataset": "etth",
+    "track": "released_author_data"
+  },
+  "reproduction_status": "registered_callable_author_model_full_original_task_execution_pending",
+  "citation": "https://arxiv.org/abs/2510.15366",
+  "paper_equivalence_certified": false
+}

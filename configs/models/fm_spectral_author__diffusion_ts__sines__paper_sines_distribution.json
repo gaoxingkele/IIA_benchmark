@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "fm_spectral_author__diffusion_ts__sines__paper_sines_distribution",
+  "task": "unconditional_time_series_generation",
+  "family": "pinned_author_generation_pipeline",
+  "entrypoint": "iia_benchmark.models.fm_spectral_author:build_author_model",
+  "parameters": {
+    "source_root": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_base",
+    "model_target": "models.interpretable_diffusion.gaussian_diffusion.Diffusion_TS",
+    "parameters": {
+      "seq_length": 24,
+      "feature_size": 5,
+      "n_layer_enc": 1,
+      "n_layer_dec": 2,
+      "d_model": 64,
+      "timesteps": 500,
+      "sampling_timesteps": 500,
+      "loss_type": "l1",
+      "beta_schedule": "cosine",
+      "n_heads": 4,
+      "mlp_hidden_times": 4,
+      "attn_pd": 0.0,
+      "resid_pd": 0.0,
+      "kernel_size": 1,
+      "padding_size": 0
+    }
+  },
+  "author_yaml": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_base/configs/diffusion_ts/sines.yaml",
+  "author_yaml_sha256": "8be0958be465303db34ef1aebd97b9014fe94cae0a64ab728934c5d55708cff4",
+  "author_repository": "jw9730/spectral-mean-flow",
+  "author_commit": "81e49338b10b21262b8069703cac3639aa0d43aa",
+  "protocol": "configs/reproducibility/spectral_mean_flow_original_protocol.v2.json",
+  "data_case": {
+    "dataset": "sines",
+    "track": "paper_sines_distribution"
+  },
+  "reproduction_status": "registered_callable_author_model_full_original_task_execution_pending",
+  "citation": "https://arxiv.org/abs/2510.15366",
+  "paper_equivalence_certified": false
+}
