@@ -1,0 +1,94 @@
+{
+  "queue": "configs/experiments/fm_spectral_table2_original_queue.v1.json",
+  "queue_sha256": "caaf04a1292cc2dac4ec7c2d8ff97600e8ca4fe4f661c69b624a8bb65ca4795d",
+  "cpu_preflight": "experiments/runs/fm_spectral_table2_original_v1/preflight/cpu_v1.json",
+  "method_proofs": {
+    "spectral_flow": "experiments/runs/fm_spectral_table2_original_v1/preflight/gpu_v1.json",
+    "sdformer_ar": "experiments/runs/fm_spectral_table2_original_v1/preflight/gpu_sdformer_v1.json"
+  },
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "cpu_reservation_lock": "experiments/runs/fm_heavy_recovery_cpu.lock",
+  "settings": {
+    "minimum_available_memory_bytes": 34359738368,
+    "minimum_commit_headroom_bytes": 45097156608,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "cpu_threads": 2,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 15032385536,
+    "emergency_gpu_free_bytes": 4294967296,
+    "controller_yield_seconds": 2
+  },
+  "state_root": "experiments/runs/fm_spectral_table2_method_gated_v1",
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/run_spectral_table2_guarded_queue_v2.py",
+      "sha256": "44bd18ef7d9f20f7b7ef988f7bde5b82fecd5d40c29d1334628091adeeeb02b6"
+    },
+    {
+      "path": "scripts/flow_matching/run_spectral_table2_queue_v1.py",
+      "sha256": "52ce9816c3e7690ab77db43755c8c88097cbba4762cc0a5ccb636538504fce55"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/run_spectral_original_queue.py",
+      "sha256": "ad8e77866bcf38b2e2e1bdb3aa41a79a26f1687c875424177712619287efc936"
+    },
+    {
+      "path": "scripts/flow_matching/run_grasp_protocol_queue.py",
+      "sha256": "9115332e17cc8605ff77eb11e42641df65c2fe2c9a8b7b9de2778aa8ffb58464"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+      "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+    },
+    {
+      "path": "scripts/flow_matching/run_spectral_table2_guarded_queue_v3.py",
+      "sha256": "686e85035ecf27c95f764564b67eff1e1ff856bac41e36b77be1babc18ddabd6"
+    },
+    {
+      "path": "configs/experiments/fm_grasp_protocol_queue.v4.json",
+      "sha256": "5873aa2927ad5d5920d1b8d8cfe0b9b2251ab5bb0bd3731fa594567a88d1d8f0"
+    },
+    {
+      "path": "scripts/flow_matching/run_spectral_table2_method_gated_queue_v1.py",
+      "sha256": "4499873baeeb4d2ec61d910564ffa3de01cf431ba89f0d764fc2e16212122846"
+    },
+    {
+      "path": "scripts/flow_matching/run_resource_gated_light_controller_v1.py",
+      "sha256": "eeb9447f09f01d0bde7fa165302eecbec1b0cf84a181f7b18da2ed386200036f"
+    },
+    {
+      "path": "scripts/flow_matching/run_spectral_table2_original_v1.py",
+      "sha256": "d75885a85747209492cb956d5d391acb871a5d320730454e46cde5c4627365b6"
+    },
+    {
+      "path": "scripts/flow_matching/spectral_table2_bootstrap_v1.py",
+      "sha256": "5eda20a527c204d7e385f8865ff863788bc9c682c726c668a3c577c228ffa834"
+    },
+    {
+      "path": "scripts/flow_matching/register_spectral_table2_original_v1.py",
+      "sha256": "666d32898e46d030652bd65a75bd6bd542a1d8895613cabc5b0aa4480c6b31c8"
+    },
+    {
+      "path": "tests/test_fm_table2_method_admission_v1.py",
+      "sha256": "6ad729d5bd2d3ba83a2e340caac7026c4f88ab148eacad1e62d661efc0172607"
+    },
+    {
+      "path": "tests/test_fm_table2_optimizer_observer_v1.py",
+      "sha256": "62caae5b792978856b1d7af97d8d75d44ee43a947f896c6cce038c680b74aa28"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table2_original_v1/preflight/cpu_v1.json",
+      "sha256": "7d51e9d945ae73cc6ff66089c64388f32077fc1c2ce1b27a2b613608f5ffe515"
+    }
+  ],
+  "boundary": "All30 original jobs retained; admit each method after all original full-batch backward/update and complete eight-worker loader proofs. Reserve GPU and heavy CPU slots together for full VQ/AR training, including original overlapping periodic evaluation loaders. Original source, full batch sizes, updates, seeds, data, sampling and all five metric repeats unchanged. The42GiB commit admission fits the observed approximately47GiB idle headroom; it is not a training-budget substitution. Spectral15 jobs remain pending until full Spectral GPU proof passes. Diagnostics are never benchmark scores."
+}
