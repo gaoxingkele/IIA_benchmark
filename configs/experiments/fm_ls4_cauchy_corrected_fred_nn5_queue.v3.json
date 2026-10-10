@@ -1,0 +1,667 @@
+{
+  "schema_version": 1,
+  "registration_path": "configs/reproducibility/fm_ls4_original_registration.v1.json",
+  "queue_path": "configs/experiments/fm_ls4_cauchy_corrected_fred_nn5_queue.v3.json",
+  "source_root": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original",
+  "python": ".venv/ls4-author-py310/Scripts/python.exe",
+  "environment_lock": "configs/reproducibility/ls4_author_py310.lock.json",
+  "state_root": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3",
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "seeds": [
+    42,
+    1103,
+    1104,
+    1105,
+    1106
+  ],
+  "settings": {
+    "minimum_available_memory_bytes": 34359738368,
+    "minimum_commit_headroom_bytes": 45097156608,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 15032385536,
+    "emergency_gpu_free_bytes": 4294967296,
+    "cpu_threads": 2,
+    "controller_yield_seconds": 35
+  },
+  "data_audit_lock": "experiments/runs/fm_readonly_checkpoint_audit_cpu.lock",
+  "data_audit_settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 23622320128,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 2147483648,
+    "maximum_worker_private_bytes": 4294967296
+  },
+  "data_audit_artifact": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\data_audit",
+  "data_audit_output": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/preflight/data_audit.json",
+  "gpu_preflight_artifact": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\gpu_preflight",
+  "gpu_preflight_output": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/preflight/gpu_preflight.json",
+  "citations": [
+    "https://proceedings.mlr.press/v202/zhou23i.html",
+    "https://github.com/alexzhou907/ls4/tree/2b5cb76f89f6b935bbd697771433f3c74126ffca",
+    "https://arxiv.org/abs/2510.15366v1"
+  ],
+  "remaining_obligations": [
+    "All unfinished canonical45 papers/681 literature method-baseline-ablation records/273 original task records remain required",
+    "Other LS4 reference-paper tasks: SolarWeekly,TemperatureRain,Physionet,USHCN and interpolation/extrapolation; source acquisition is not completion",
+    "SaShiMi continuous-Gaussian long-series AR baseline still needs original task hyperparameter/config mapping; audio configuration is not a substitute"
+  ],
+  "boundary": "Twenty full native LS4 runs for two SpectralTable3 baseline datasets, released versus paper-literal protocols and five paired local seeds. Historical author seed identity unverified. Source model/data/optimizer/EMA/evaluators unchanged; optional native Cauchy fallback is retained. Registration/audits are not completed performance. Verified naive Cauchy conjugate correction in a separately named full canonical execution. All original data,model kwargs,seeds and full budgets retained; raw sources untouched. Original author backend equivalence unproved.",
+  "datasets": {
+    "fred_md": {
+      "dataset": "fred_md",
+      "filename": "fred_md_dataset.tsf",
+      "yaml": "vae_fred_md.yaml",
+      "samples": 107,
+      "length": 728,
+      "raw_path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/data/long_range/fred_md.tsf",
+      "raw_sha256": "b62383200451cd400e372583f76dfd4054d7045fe1a7ee994d97734c8cf62f3d"
+    },
+    "nn5_daily": {
+      "dataset": "nn5_daily",
+      "filename": "nn5_daily_dataset_without_missing_values.tsf",
+      "yaml": "vae_nn5daily.yaml",
+      "samples": 111,
+      "length": 791,
+      "raw_path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/data/long_range/nn5_daily.tsf",
+      "raw_sha256": "7a831669420e9c98180bf6c681b6bb34c27d256a93aa604afa00a5b0e12e6cc2"
+    }
+  },
+  "jobs": [
+    {
+      "id": "ls4_original__released__fred_md__seed42",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed42.json",
+      "model_config_sha256": "7a5b72d49f54c73a7df4d348735c071038ecabaf008b51e6f9b03e7e3ac4de34",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__fred_md__seed42",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__fred_md__seed42",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__fred_md__seed42",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__fred_md__seed42"
+    },
+    {
+      "id": "ls4_original__released__nn5_daily__seed42",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed42.json",
+      "model_config_sha256": "a1704e34094c8b3cccf2ae7d6bdd95b18a8c0aeff3212b853d50c562aef6d21d",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__nn5_daily__seed42",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__nn5_daily__seed42",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__nn5_daily__seed42",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__nn5_daily__seed42"
+    },
+    {
+      "id": "ls4_original__paper_literal__fred_md__seed42",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed42.json",
+      "model_config_sha256": "c7a8d83edf7f83abe07271d5c7d4c5f26f8e732ab085ba79d3472a251bf6cb94",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__fred_md__seed42",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__fred_md__seed42",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__fred_md__seed42",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__fred_md__seed42"
+    },
+    {
+      "id": "ls4_original__paper_literal__nn5_daily__seed42",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed42.json",
+      "model_config_sha256": "37ea7b427ad28949595f0819a9b579b1a1e7b96275f7c33a0708cf91d0f50851",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__nn5_daily__seed42",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__nn5_daily__seed42",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__nn5_daily__seed42",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__nn5_daily__seed42"
+    },
+    {
+      "id": "ls4_original__released__fred_md__seed1103",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed1103.json",
+      "model_config_sha256": "addf0ae34053596be6dd0128f2228db6298c3549f9766e693838d5f110ed5afc",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__fred_md__seed1103",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__fred_md__seed1103",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__fred_md__seed1103",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__fred_md__seed1103"
+    },
+    {
+      "id": "ls4_original__released__nn5_daily__seed1103",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed1103.json",
+      "model_config_sha256": "636bd1ad9edc480ef8c3d3dc93f74fedfda45f92d3a712fe72fd816cc931bcfe",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__nn5_daily__seed1103",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__nn5_daily__seed1103",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__nn5_daily__seed1103",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__nn5_daily__seed1103"
+    },
+    {
+      "id": "ls4_original__paper_literal__fred_md__seed1103",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed1103.json",
+      "model_config_sha256": "b0fa558ba985eb9e124ae7c2226e47a36e28c8f030c8af1df2a046a41d237111",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__fred_md__seed1103",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__fred_md__seed1103",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__fred_md__seed1103",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__fred_md__seed1103"
+    },
+    {
+      "id": "ls4_original__paper_literal__nn5_daily__seed1103",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed1103.json",
+      "model_config_sha256": "36b365aa41d6b0dd6419747e348b2753591bf53620ce3490baec4854fbaed620",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__nn5_daily__seed1103",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__nn5_daily__seed1103",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__nn5_daily__seed1103",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__nn5_daily__seed1103"
+    },
+    {
+      "id": "ls4_original__released__fred_md__seed1104",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed1104.json",
+      "model_config_sha256": "f46eedbcbe251170e1d468e0eec6b35b14d9e34b1599b52a26bff44fe3a926d6",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__fred_md__seed1104",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__fred_md__seed1104",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__fred_md__seed1104",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__fred_md__seed1104"
+    },
+    {
+      "id": "ls4_original__released__nn5_daily__seed1104",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed1104.json",
+      "model_config_sha256": "886f602a18e1f71e9945f492e4d28d210758d0a340cc78c016cd7e4f3f5e7abb",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__nn5_daily__seed1104",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__nn5_daily__seed1104",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__nn5_daily__seed1104",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__nn5_daily__seed1104"
+    },
+    {
+      "id": "ls4_original__paper_literal__fred_md__seed1104",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed1104.json",
+      "model_config_sha256": "219293bc80498f39bbff95f904b041a2b0c180200905642201fd302e3425567a",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__fred_md__seed1104",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__fred_md__seed1104",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__fred_md__seed1104",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__fred_md__seed1104"
+    },
+    {
+      "id": "ls4_original__paper_literal__nn5_daily__seed1104",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed1104.json",
+      "model_config_sha256": "670357fb9f7b62acf99213909bed255c17537a7d89090bf044419c686cf21bd1",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__nn5_daily__seed1104",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__nn5_daily__seed1104",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__nn5_daily__seed1104",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__nn5_daily__seed1104"
+    },
+    {
+      "id": "ls4_original__released__fred_md__seed1105",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed1105.json",
+      "model_config_sha256": "ac2d388d90919c0ed4e1f05e066b17d5551e1e509c0f7c93cf0836b4aebb9622",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__fred_md__seed1105",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__fred_md__seed1105",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__fred_md__seed1105",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__fred_md__seed1105"
+    },
+    {
+      "id": "ls4_original__released__nn5_daily__seed1105",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed1105.json",
+      "model_config_sha256": "01466f7b3ea356a1b20009781e7fd64c88639c32407ea80368ba9ddb85857931",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__nn5_daily__seed1105",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__nn5_daily__seed1105",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__nn5_daily__seed1105",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__nn5_daily__seed1105"
+    },
+    {
+      "id": "ls4_original__paper_literal__fred_md__seed1105",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed1105.json",
+      "model_config_sha256": "c4fd98ee557ca6889a28dcbdfb0e49da435746d5774d22f9049b9155c55c83b0",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__fred_md__seed1105",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__fred_md__seed1105",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__fred_md__seed1105",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__fred_md__seed1105"
+    },
+    {
+      "id": "ls4_original__paper_literal__nn5_daily__seed1105",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed1105.json",
+      "model_config_sha256": "cc1576b5438764103df2bbafa360227a11fbb9ee0aa66f94c7773fc5275256ef",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__nn5_daily__seed1105",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__nn5_daily__seed1105",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__nn5_daily__seed1105",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__nn5_daily__seed1105"
+    },
+    {
+      "id": "ls4_original__released__fred_md__seed1106",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed1106.json",
+      "model_config_sha256": "30e4574fe98922738f0d316af51573fdfc42fbf1700107953b190bfa17016de6",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__fred_md__seed1106",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__fred_md__seed1106",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__fred_md__seed1106",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__fred_md__seed1106"
+    },
+    {
+      "id": "ls4_original__released__nn5_daily__seed1106",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed1106.json",
+      "model_config_sha256": "ad1da197f716c491c99f1beef9006561c808bd9c788b8bdf8fcdcb6d6e244719",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__released__nn5_daily__seed1106",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__released__nn5_daily__seed1106",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__released__nn5_daily__seed1106",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__released__nn5_daily__seed1106"
+    },
+    {
+      "id": "ls4_original__paper_literal__fred_md__seed1106",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed1106.json",
+      "model_config_sha256": "557a6cf00dbfd4460fa2b8936b3aadfbccdcde5f6d881cfbfc39388e3383c376",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__fred_md__seed1106",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__fred_md__seed1106",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__fred_md__seed1106",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__fred_md__seed1106"
+    },
+    {
+      "id": "ls4_original__paper_literal__nn5_daily__seed1106",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed1106.json",
+      "model_config_sha256": "780f82846bac525556303070048a43684d0b9db6e251429ca32c5dbfc6da4895",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\fred_nn5\\ls4_original__paper_literal__nn5_daily__seed1106",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_fred_nn5_v3/jobs/ls4_original__paper_literal__nn5_daily__seed1106",
+      "original_output_directory": "experiments/runs/fm_ls4_original_v1/jobs/ls4_original__paper_literal__nn5_daily__seed1106",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_original_v1\\ls4_original__paper_literal__nn5_daily__seed1106"
+    }
+  ],
+  "source_receipts": [
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__fred_md__seed1103.json",
+      "sha256": "e54b25946adfd0dd61cf1f4ec31504d5c41d4154274ae10298dc1cea3b723290"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__fred_md__seed1104.json",
+      "sha256": "82e0c610e25b3c793357412404872075e74084117cc52e1b32f0ee64ddef7f20"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__fred_md__seed1105.json",
+      "sha256": "f06593527906f3b741a0c558c97eb0402c9fc1db42058daef716e8951ec5a8e5"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__fred_md__seed1106.json",
+      "sha256": "9e00207658e93bcd3176c50f8f23b76411380bb72cdc8613e43a89340e8a41e5"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__fred_md__seed42.json",
+      "sha256": "b3db3ae47611da3c83ba9bdcf2dde3622cbc94a71af39013e368b0b32267c560"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__nn5_daily__seed1103.json",
+      "sha256": "a92f6b14765d41baf0ddfece1081c2a4f255a2bb1568946b9adf560f33068ca8"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__nn5_daily__seed1104.json",
+      "sha256": "7f3d8e2496905c113c3332c770131f9b188382d805c9a30d7df9b6b741f0ac7c"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__nn5_daily__seed1105.json",
+      "sha256": "1536b58acb640744ffa6dcec2fe1e1a1b425ed3cc46523b9b18b509a71fdbf5a"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__nn5_daily__seed1106.json",
+      "sha256": "381057acb4cd67e06a2aedd8e14460ffba0325dd4a35ce3f131a33bd6f73d8ce"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__paper_literal__nn5_daily__seed42.json",
+      "sha256": "ad3d9745497463cea10a34e0c362c9e2a66304d23a00ac2cca7e9eeb9ba20685"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__fred_md__seed1103.json",
+      "sha256": "02a12b259b2fc6307b24e6b3ad72c16e1aa703fb11503bd0fe85b2036663be35"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__fred_md__seed1104.json",
+      "sha256": "e397a22a75becd3f71662d95991f406334b7bd508e72f98e731f45c1c00e1154"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__fred_md__seed1105.json",
+      "sha256": "204a034679b95843f76eb205f89080a838742e1cfb977e725b26f499d87dcf92"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__fred_md__seed1106.json",
+      "sha256": "975f2b397e70490ad243cadd9b68e98a7764d3cd80d6ba1f73f8443339ba8a79"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__fred_md__seed42.json",
+      "sha256": "9ec304699e24fda2d5f6ca3f34905f7b1b719ea2095a26144a87a54c14de5612"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__nn5_daily__seed1103.json",
+      "sha256": "7ff1babe2cc5d436baaa00b1017d30503c89d2cab373c612e1535569587e5413"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__nn5_daily__seed1104.json",
+      "sha256": "1d39581ac4e2cfaad8a4e4f8468a88ef9869b98431da6fed75156d34969b3db7"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__nn5_daily__seed1105.json",
+      "sha256": "95a7bf4c1c4d8d547818ccb8e7949459d192d3f36f255bd7c0293e2021238358"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__nn5_daily__seed1106.json",
+      "sha256": "7319b484ab2823a1dc73706188cf909473fe70a26acd43777f7360bff30081ec"
+    },
+    {
+      "path": "configs/models/fm_ls4_original__released__nn5_daily__seed42.json",
+      "sha256": "9424484db7c29afae9b1807c65b75150cd54b162dfad6bcd6129439d8b6c66a0"
+    },
+    {
+      "path": "configs/reproducibility/fm_ls4_original_registration.v1.json",
+      "sha256": "fe996284b71e9f52b68c5fc776cab3299552a633e0545c0525e9b2819bdd214a"
+    },
+    {
+      "path": "configs/reproducibility/ls4_author_py310.lock.json",
+      "sha256": "c8937248a19e5264d68728bd73c30310d71aa61ab8b5997e48833547bd9585e0"
+    },
+    {
+      "path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/data/long_range/fred_md.tsf",
+      "sha256": "b62383200451cd400e372583f76dfd4054d7045fe1a7ee994d97734c8cf62f3d"
+    },
+    {
+      "path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/data/long_range/nn5_daily.tsf",
+      "sha256": "7a831669420e9c98180bf6c681b6bb34c27d256a93aa604afa00a5b0e12e6cc2"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/.gitignore",
+      "sha256": "a0f2d809d80077b6420dd829ae8bcaf099f6eec97c9a29faaeea4532fe5ea186"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/LICENSE",
+      "sha256": "1059eaa84035a95c2db6305410b05d562e67a5751e3405d88fecf69db8e1fd29"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/README.md",
+      "sha256": "7af65cc2394fc1462cde56b99eb7d96306213da7784770f206c53f157d42693c"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/assets/monash_real.png",
+      "sha256": "13928c8c2126ffb0b1b714dda2f3b88527629ec9041589af3b4b1c56de91fb38"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/extrapolation/vae_climate_extrap.yaml",
+      "sha256": "5edf75b2f44e58a72a9f20923c5700b3bb3867d7bbf4ec1ac8b054061245b05b"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/extrapolation/vae_physionet_extrap.yaml",
+      "sha256": "61de1229aebc1f8cec7b45acdaf50bc7b2609039949c667e4890cf923d4d6db1"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/interpolation/vae_climate_interp.yaml",
+      "sha256": "0fe5d662422fa5afa06c5abfb2a2ad7b688f729ab5b1fe204f1533b8cf9208d5"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/interpolation/vae_physionet_interp.yaml",
+      "sha256": "87145218129309687cce2f58a1358cea048515c5cfbf53556440e5826fcfca39"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_fred_md.yaml",
+      "sha256": "0e35cd55eaffaaab9913ca837a0d0e01dde610606fc240e2e5ac8b7373935ccc"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_nn5daily.yaml",
+      "sha256": "15bcfb3c3c2a3730c6279108b4e0d0497e401d16639d44509017166bb5168d73"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_solarweekly.yaml",
+      "sha256": "c991d0f692a548f6b9f7d91e68b7a8f98cfc7ef4883a80a5855b207143eb6a75"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_temperature_rain.yaml",
+      "sha256": "7bc5c7eae739bbe298b6666bcd684077da399a966629b27749273b6c9eb98dac"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/__init__.py",
+      "sha256": "cc8f53941b0aa5c108a3fbc34be8c2ba405bcfb62fc2ae0c4c16872ce03ed404"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/climate.py",
+      "sha256": "ec8becca44872b6b1e1281392ec621a8924ef105e405f739170477745900c7cd"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/datasets.py",
+      "sha256": "bcbc1fa9316bc7301fc08ca6918665b18aed67dba463f245de5ff8dd52510fb5"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/monash.py",
+      "sha256": "cefa4f00a8fa7980484e53533131c40b5b5a6434c13377a5d1a378f66e4979c9"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/physionet.py",
+      "sha256": "3099617b0b732e39360589f9119a9b02616b1af24512a60fd2c5b84d4660ab95"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/utils.py",
+      "sha256": "38402a75621493e1e49b3a3701a4e3d7805cc2c943746d4d6c6c1eb3ebef197e"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/benchmark_cauchy.py",
+      "sha256": "3ac3f2ef26537e82dc558f5dba5eba6b60e216c17d06d2e96eb3a199fccf1ba6"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/benchmark_cauchy_tune.py",
+      "sha256": "527eb499ad3111196c8ee8c306af39356afbd8e5080abf3d274a317d435313aa"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/cauchy.cpp",
+      "sha256": "c36e49705455634a1d0d128743f0fb856a116b4dd7df31390eb576cb9028beb2"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/cauchy.py",
+      "sha256": "846eba12b37b13bbd0d7f19021f54b36805a42bbb6d59ebed98db8a0751a2a80"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/cauchy_cuda.cu",
+      "sha256": "78d776ace67b6077bfa3a41f892d11b8c588734180c5ebe7735e2cbb639e2054"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/map.h",
+      "sha256": "98942dab02fd7288fc20ceedbf1d30c5cbbd68e1b7c360b69b59b907400cf47c"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/setup.py",
+      "sha256": "160b483cb08fa4df191a646d5220352730314f5362318448ffbcfd874a5b8cd1"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/test_cauchy.py",
+      "sha256": "2d0ea130d4e74c182427510c979f2c3bddcd41c45f29bfc229544fac74d1afd4"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/tune_cauchy.py",
+      "sha256": "6c33b47d6676f4f5034607bc69c99774ebbf90fc142957e390c3e9c1a3f9facc"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/tune_cauchy.sh",
+      "sha256": "99bfd04bcd2386da4bef480532230442cb4657c665201afc10681da24d414b35"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/tuner.py",
+      "sha256": "0c4ab91613a05b81a316010dde412310281b313b9adffebcd2586e8cbfb48978"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/tuning_setup.py",
+      "sha256": "d273819071e2981338d96b31c5ce4aa8db03f7d3f4d93389f70687a6e0d41b26"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/metrics.py",
+      "sha256": "7344fd6991369da05f3703017e039e30f1aaf9f7f770c16f3526166300cc4775"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/ls4.py",
+      "sha256": "95eac1a9006ef6c2f4f408f5593bfa864db106ab993a05d70d143666a8413e19"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/s4.py",
+      "sha256": "e3387dca545055db99266953a1151d8c7afdc922acaa52314e8c36d29b924ddf"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/s4d.py",
+      "sha256": "4e0e6aa29e469d14c920d5840cc7d2a64f06f2455fbf38ba1d51aaa899fa55e6"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/s4models.py",
+      "sha256": "61f423171ff609257ea2e12391ec3b9e4c46fe46a6c06d83c1de06c05fde7939"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/seq_unet.py",
+      "sha256": "6e106668ff3dc8dc52d0485968a60a94135f4beac35aa851f6ace0821d6eb190"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/requirements.txt",
+      "sha256": "5d5a30f4ff2e75ac4d315aa955aac1f8733a1945f38c9a4124d1d50f495b969a"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/train_interp_extrap.py",
+      "sha256": "b373162c3e35378add9da3fef9135f6bee4a5cff12f504b0f2291f422b30c36a"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/train_monash.py",
+      "sha256": "51884bd05cae66077f04e0a96f1b1514245e4790eaad61464b0b1ffca816ce18"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/full_gpu_memory_slot_v2.py",
+      "sha256": "dc333f281d9f860523d9179f41a6fb2724a3577ccfb98555aa4151c896752bd5"
+    },
+    {
+      "path": "scripts/flow_matching/register_ls4_original_v1.py",
+      "sha256": "ef58112af4775b6fae0ce880ee5c5a952f8b5e5015591ecda64cfd8b81e5c4e1"
+    },
+    {
+      "path": "scripts/flow_matching/run_ls4_original_queue_v1.py",
+      "sha256": "c2c5091a4d6f36e84d4d5dffeec0e4faffbb3b6cfa5aee3ccaf6251107ee27ef"
+    },
+    {
+      "path": "scripts/flow_matching/run_ls4_original_v1.py",
+      "sha256": "32d68b13d99c2fbefae49c9b39250c9852dff3b22ce1ad782ba2e322e52697de"
+    },
+    {
+      "path": "tests/test_fm_ls4_original_v1.py",
+      "sha256": "28d272f55074a0e64c789ca6e0d5d2a17cfec629f55f7f66d71c09e4357ffb25"
+    },
+    {
+      "path": "configs/experiments/fm_ls4_original_queue.v1.json",
+      "sha256": "92e8a67ccb70a6ee9e23da097d1239f724a54ab245024c9c0a7db8c16bc24778"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed1103.json",
+      "sha256": "b0fa558ba985eb9e124ae7c2226e47a36e28c8f030c8af1df2a046a41d237111"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed1104.json",
+      "sha256": "219293bc80498f39bbff95f904b041a2b0c180200905642201fd302e3425567a"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed1105.json",
+      "sha256": "c4fd98ee557ca6889a28dcbdfb0e49da435746d5774d22f9049b9155c55c83b0"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed1106.json",
+      "sha256": "557a6cf00dbfd4460fa2b8936b3aadfbccdcde5f6d881cfbfc39388e3383c376"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__fred_md__seed42.json",
+      "sha256": "c7a8d83edf7f83abe07271d5c7d4c5f26f8e732ab085ba79d3472a251bf6cb94"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed1103.json",
+      "sha256": "36b365aa41d6b0dd6419747e348b2753591bf53620ce3490baec4854fbaed620"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed1104.json",
+      "sha256": "670357fb9f7b62acf99213909bed255c17537a7d89090bf044419c686cf21bd1"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed1105.json",
+      "sha256": "cc1576b5438764103df2bbafa360227a11fbb9ee0aa66f94c7773fc5275256ef"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed1106.json",
+      "sha256": "780f82846bac525556303070048a43684d0b9db6e251429ca32c5dbfc6da4895"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__paper_literal__nn5_daily__seed42.json",
+      "sha256": "37ea7b427ad28949595f0819a9b579b1a1e7b96275f7c33a0708cf91d0f50851"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed1103.json",
+      "sha256": "addf0ae34053596be6dd0128f2228db6298c3549f9766e693838d5f110ed5afc"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed1104.json",
+      "sha256": "f46eedbcbe251170e1d468e0eec6b35b14d9e34b1599b52a26bff44fe3a926d6"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed1105.json",
+      "sha256": "ac2d388d90919c0ed4e1f05e066b17d5551e1e509c0f7c93cf0836b4aebb9622"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed1106.json",
+      "sha256": "30e4574fe98922738f0d316af51573fdfc42fbf1700107953b190bfa17016de6"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__fred_md__seed42.json",
+      "sha256": "7a5b72d49f54c73a7df4d348735c071038ecabaf008b51e6f9b03e7e3ac4de34"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed1103.json",
+      "sha256": "636bd1ad9edc480ef8c3d3dc93f74fedfda45f92d3a712fe72fd816cc931bcfe"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed1104.json",
+      "sha256": "886f602a18e1f71e9945f492e4d28d210758d0a340cc78c016cd7e4f3f5e7abb"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed1105.json",
+      "sha256": "01466f7b3ea356a1b20009781e7fd64c88639c32407ea80368ba9ddb85857931"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed1106.json",
+      "sha256": "ad1da197f716c491c99f1beef9006561c808bd9c788b8bdf8fcdcb6d6e244719"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__fred_nn5__ls4_original__released__nn5_daily__seed42.json",
+      "sha256": "a1704e34094c8b3cccf2ae7d6bdd95b18a8c0aeff3212b853d50c562aef6d21d"
+    },
+    {
+      "path": "configs/reproducibility/fm_ls4_cauchy_corrected_registration.v3.json",
+      "sha256": "ba8e667250a4bf33249a4f4df83e57c53a98c07fc7e37d0d95f1671ad7879b9b"
+    },
+    {
+      "path": "configs/reproducibility/fm_ls4_cauchy_real_fred_diagnostic.v1.json",
+      "sha256": "5a1f7bc80e596e1349ee906322c3938798dc006cdcda92502dac22fdd7a9e0b7"
+    },
+    {
+      "path": "configs/reproducibility/ls4_cauchy_fallback_repair.v1.json",
+      "sha256": "2d2698739aa2f68d4e233c7fb8774240ee8a51432239f80555841f4b4583e16e"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/ls4_cauchy_corrected_resume_v2/paired_real_fred_diagnostic.json",
+      "sha256": "670733516b4eeb26c9be596f24802cfc938ea8e2b5182bd2d449de65b3f7fbf7"
+    },
+    {
+      "path": "scripts/flow_matching/audit_ls4_cauchy_real_fred_v1.py",
+      "sha256": "ef63e6b573f96c53d1811fce86da76b616fa42b667262b544d1d95825960bf6d"
+    },
+    {
+      "path": "scripts/flow_matching/ls4_cauchy_fallback_repair_v1.py",
+      "sha256": "61fd11627e8188d8e76cbdee073619b18e5de7095e11825c4d505ec5e96c981f"
+    },
+    {
+      "path": "scripts/flow_matching/register_ls4_cauchy_corrected_v3.py",
+      "sha256": "9ad22d945ccdc13862b5236e2e88a68c82668cae0f7bf8d7982009d32963da19"
+    },
+    {
+      "path": "scripts/flow_matching/run_ls4_cauchy_corrected_queue_v3.py",
+      "sha256": "f3c675fc9d645e23974b069ae335538610c217cf4f32af51094768c5e9274609"
+    },
+    {
+      "path": "scripts/flow_matching/run_ls4_cauchy_corrected_v3.py",
+      "sha256": "123644460dfa96325608bb03faf12dad600995ed47e65d5e41f20520282e565e"
+    },
+    {
+      "path": "scripts/flow_matching/transition_ls4_cauchy_idle_v3.py",
+      "sha256": "1cbee508ccdb3a5282995f384f0f6b457441c292e6adbfb59d8603a95ec23751"
+    },
+    {
+      "path": "tests/test_fm_ls4_cauchy_corrected_v3.py",
+      "sha256": "b16463f3007e66d016102e64aa3cd9b57bc745de9adf3aa70f9b42767a36ddf9"
+    }
+  ],
+  "canonical_family": "fred_nn5",
+  "original_canonical_queue": "configs/experiments/fm_ls4_original_queue.v1.json",
+  "original_canonical_queue_sha256": "92e8a67ccb70a6ee9e23da097d1239f724a54ab245024c9c0a7db8c16bc24778",
+  "cauchy_correction_config": "configs/reproducibility/ls4_cauchy_fallback_repair.v1.json"
+}

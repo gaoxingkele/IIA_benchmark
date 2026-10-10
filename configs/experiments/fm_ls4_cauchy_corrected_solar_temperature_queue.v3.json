@@ -1,0 +1,684 @@
+{
+  "schema_version": 1,
+  "registration_path": "configs/reproducibility/fm_ls4_monash_extended_registration.v2.json",
+  "queue_path": "configs/experiments/fm_ls4_cauchy_corrected_solar_temperature_queue.v3.json",
+  "source_root": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original",
+  "python": ".venv/ls4-author-py310/Scripts/python.exe",
+  "environment_lock": "configs/reproducibility/ls4_author_py310.lock.json",
+  "state_root": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3",
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "seeds": [
+    42,
+    1103,
+    1104,
+    1105,
+    1106
+  ],
+  "settings": {
+    "minimum_available_memory_bytes": 34359738368,
+    "minimum_commit_headroom_bytes": 45097156608,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 15032385536,
+    "emergency_gpu_free_bytes": 4294967296,
+    "cpu_threads": 2,
+    "controller_yield_seconds": 35
+  },
+  "data_audit_lock": "experiments/runs/fm_readonly_checkpoint_audit_cpu.lock",
+  "data_audit_settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 23622320128,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 4294967296,
+    "maximum_worker_private_bytes": 8589934592
+  },
+  "data_audit_artifact": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\data_audit",
+  "data_audit_output": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/preflight/data_audit.json",
+  "gpu_preflight_artifact": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\gpu_preflight",
+  "gpu_preflight_output": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/preflight/gpu_preflight.json",
+  "citations": [
+    "https://proceedings.mlr.press/v202/zhou23i.html",
+    "https://github.com/alexzhou907/ls4/tree/2b5cb76f89f6b935bbd697771433f3c74126ffca",
+    "https://arxiv.org/abs/2510.15366v1",
+    "https://doi.org/10.5281/zenodo.4656151",
+    "https://doi.org/10.5281/zenodo.5129091"
+  ],
+  "remaining_obligations": [
+    "All unfinished canonical45 papers/681 literature method-baseline-ablation records/273 original task records remain required",
+    "Existing20 full FRED/NN5 jobs remain disjoint and required; new20 Solar/Temperature jobs do not replace them",
+    "Full original LS4 FLAME stiff-system,Physionet/USHCN interpolation/extrapolation,ablations and adopted baselines remain required",
+    "SaShiMi continuous-Gaussian AR task settings and reconstruction remain required; audio source/configuration not substituted",
+    "Final trained-model re-inference and independent metric audit remain required. Source multi-batch test-loss sums not certified as paper averages"
+  ],
+  "boundary": "Twenty additional full original Monash runs, full137 Solar trajectories and32072 Temperature/Rain trajectories. Released vs paper-literal epochs,batch,z_dim and EMA remain separate; source variable-length,activation,all data,100-epoch multi-batch evaluators and test-marginal selection retained. Raw publisher zero-filled missing values retained. No new full result or author equivalence is certified by registration/preflight. Verified naive Cauchy conjugate correction in a separately named full canonical execution. All original data,model kwargs,seeds and full budgets retained; raw sources untouched. Original author backend equivalence unproved.",
+  "data_audit_progress": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/preflight/full_data_audit_progress.json",
+  "datasets": {
+    "solar_weekly": {
+      "dataset": "solar_weekly",
+      "filename": "solar_weekly_dataset.tsf",
+      "yaml": "vae_solarweekly.yaml",
+      "samples": 137,
+      "length": 52,
+      "raw_path": "data/public_datasets/flow_matching/ls4_extended_monash_v1/raw/solar_weekly_dataset.tsf",
+      "raw_sha256": "5be6b8189b61576dafb37805db03bcc31a8cb24b2b47730db89fa97e3f860d80"
+    },
+    "temperature_rain": {
+      "dataset": "temperature_rain",
+      "filename": "temperature_rain_dataset_without_missing_values.tsf",
+      "yaml": "vae_temperature_rain.yaml",
+      "samples": 32072,
+      "length": 725,
+      "raw_path": "data/public_datasets/flow_matching/ls4_extended_monash_v1/raw/temperature_rain_dataset_without_missing_values.tsf",
+      "raw_sha256": "3acc084e3140404a2eaad1ff4452cbda9d0ec80ebf8f696c369743c45bffdf85"
+    }
+  },
+  "jobs": [
+    {
+      "id": "ls4_extended_monash__released__solar_weekly__seed42",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed42.json",
+      "model_config_sha256": "c649479f8c66f25706d24a9ee02ec2a2128a70702be93eea982101c3bfd330f5",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__solar_weekly__seed42",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__solar_weekly__seed42",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__solar_weekly__seed42",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__solar_weekly__seed42"
+    },
+    {
+      "id": "ls4_extended_monash__released__temperature_rain__seed42",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed42.json",
+      "model_config_sha256": "33e572b308b1ed5fbfec2a2725899eb0bf1e09775314afa4de90c1669af3081f",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__temperature_rain__seed42",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__temperature_rain__seed42",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__temperature_rain__seed42",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__temperature_rain__seed42"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__solar_weekly__seed42",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed42.json",
+      "model_config_sha256": "60efd8e0e13a5d787fc200f171e1d93e422db652c66016e9c9d6ac8e40ef3a88",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__solar_weekly__seed42",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed42",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed42",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__solar_weekly__seed42"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__temperature_rain__seed42",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed42.json",
+      "model_config_sha256": "9b093882bb1a5595eab333d02eb7b9cedbb2924e910caed9869cc3e7707234e0",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__temperature_rain__seed42",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed42",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed42",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__temperature_rain__seed42"
+    },
+    {
+      "id": "ls4_extended_monash__released__solar_weekly__seed1103",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed1103.json",
+      "model_config_sha256": "a746f1b689b719370658c1edc5e63ead717e621ddaea40486f42ddfa2adf144f",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__solar_weekly__seed1103",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__solar_weekly__seed1103",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__solar_weekly__seed1103",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__solar_weekly__seed1103"
+    },
+    {
+      "id": "ls4_extended_monash__released__temperature_rain__seed1103",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed1103.json",
+      "model_config_sha256": "c5c0440353503359d2e4c88dedcfc7a6ed336ae0cd9b10e9c4f12f01862a58bb",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__temperature_rain__seed1103",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__temperature_rain__seed1103",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__temperature_rain__seed1103",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__temperature_rain__seed1103"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__solar_weekly__seed1103",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed1103.json",
+      "model_config_sha256": "80e4899356a9bffe695d9fd284a649205f85d65fa218ab0b5792beee8cfda896",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__solar_weekly__seed1103",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed1103",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed1103",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__solar_weekly__seed1103"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__temperature_rain__seed1103",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed1103.json",
+      "model_config_sha256": "377b931a6a8494d3a3521a890d8ea0d3795ed3f6fee44024657e30fdafa4f616",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__temperature_rain__seed1103",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed1103",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed1103",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__temperature_rain__seed1103"
+    },
+    {
+      "id": "ls4_extended_monash__released__solar_weekly__seed1104",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed1104.json",
+      "model_config_sha256": "80150cfc61321bb48118ae8402e1873008b33984b5d2c4a9769c77964fbf0bae",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__solar_weekly__seed1104",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__solar_weekly__seed1104",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__solar_weekly__seed1104",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__solar_weekly__seed1104"
+    },
+    {
+      "id": "ls4_extended_monash__released__temperature_rain__seed1104",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed1104.json",
+      "model_config_sha256": "21dd12fd5c3ff2dc7764f62a4793e2805f20b59aac047ef7591c8cf6dd78e59f",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__temperature_rain__seed1104",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__temperature_rain__seed1104",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__temperature_rain__seed1104",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__temperature_rain__seed1104"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__solar_weekly__seed1104",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed1104.json",
+      "model_config_sha256": "bb6ba7047c56e02e0d5c5037f0805615fcb3b810bbb2f4cea9a02773dcc44699",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__solar_weekly__seed1104",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed1104",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed1104",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__solar_weekly__seed1104"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__temperature_rain__seed1104",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed1104.json",
+      "model_config_sha256": "d31c89fb5496fb00d5ff028684b837f83ae561b91117cf6a6b2f990c912f38bd",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__temperature_rain__seed1104",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed1104",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed1104",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__temperature_rain__seed1104"
+    },
+    {
+      "id": "ls4_extended_monash__released__solar_weekly__seed1105",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed1105.json",
+      "model_config_sha256": "1d612108863b6d58466e38fe9f018547cd974baa27aa530f24cdc62e287aabf8",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__solar_weekly__seed1105",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__solar_weekly__seed1105",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__solar_weekly__seed1105",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__solar_weekly__seed1105"
+    },
+    {
+      "id": "ls4_extended_monash__released__temperature_rain__seed1105",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed1105.json",
+      "model_config_sha256": "583c5c2eeebe0a4e318e91c65b2c0c6de65539ede4d165458c93c2739c09003c",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__temperature_rain__seed1105",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__temperature_rain__seed1105",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__temperature_rain__seed1105",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__temperature_rain__seed1105"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__solar_weekly__seed1105",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed1105.json",
+      "model_config_sha256": "7333d67af098bff8fb7bdaa52c2e07c7902ff82230fdddc0220c93835041e70a",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__solar_weekly__seed1105",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed1105",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed1105",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__solar_weekly__seed1105"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__temperature_rain__seed1105",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed1105.json",
+      "model_config_sha256": "b55ed4b53181121c28930c2d14e652dd141a6ca6cf510d7af0467ca547c444f3",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__temperature_rain__seed1105",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed1105",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed1105",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__temperature_rain__seed1105"
+    },
+    {
+      "id": "ls4_extended_monash__released__solar_weekly__seed1106",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed1106.json",
+      "model_config_sha256": "2aa5493ca33df94decc9df9d8772f1c635a3217aac4ed00783ffdd33d726f3fb",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__solar_weekly__seed1106",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__solar_weekly__seed1106",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__solar_weekly__seed1106",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__solar_weekly__seed1106"
+    },
+    {
+      "id": "ls4_extended_monash__released__temperature_rain__seed1106",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed1106.json",
+      "model_config_sha256": "5d8425ed2af6903dfe06c437f70042dbb156cad60f3d23b8bc557cc4dfb613fe",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__released__temperature_rain__seed1106",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__released__temperature_rain__seed1106",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__released__temperature_rain__seed1106",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__released__temperature_rain__seed1106"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__solar_weekly__seed1106",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed1106.json",
+      "model_config_sha256": "b6b4ba1a36a679581aff59e8cf4cb0c7c286f32570e2040d9ec80be293800ae1",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__solar_weekly__seed1106",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed1106",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__solar_weekly__seed1106",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__solar_weekly__seed1106"
+    },
+    {
+      "id": "ls4_extended_monash__paper_literal__temperature_rain__seed1106",
+      "model_config": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed1106.json",
+      "model_config_sha256": "51085eba3d3f9df77efb86206e15d2bc3a67780fc4d8390df13d320ec077324d",
+      "artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_cauchy_corrected_v3\\solar_temperature\\ls4_extended_monash__paper_literal__temperature_rain__seed1106",
+      "output_directory": "experiments/runs/fm_ls4_cauchy_corrected_solar_temperature_v3/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed1106",
+      "original_output_directory": "experiments/runs/fm_ls4_monash_extended_v2/jobs/ls4_extended_monash__paper_literal__temperature_rain__seed1106",
+      "original_artifact_directory": "F:\\aicoding\\IIA_Data\\experiments\\ls4_monash_extended_v2\\ls4_extended_monash__paper_literal__temperature_rain__seed1106"
+    }
+  ],
+  "source_receipts": [
+    {
+      "path": "configs/acquisition/fm_ls4_extended_monash.v2.json",
+      "sha256": "6dbf90b97267d4a7455f2999beea9bb2167f63505d2a0b24dcf59a0dda1f9767"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__solar_weekly__seed1103.json",
+      "sha256": "f0d62c87e020831d7f9c465c0a47d87493813b873b621b12634960cea4cc3dd4"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__solar_weekly__seed1104.json",
+      "sha256": "c7dd7b05669ccd2c531ed0ccebffcedea9de557fb0f3ec4072b56e39a33f9139"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__solar_weekly__seed1105.json",
+      "sha256": "5ffc6240bf01ef5f46e4ed5cb096d0dac3afa40948d98f70f759a56d16e2580d"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__solar_weekly__seed1106.json",
+      "sha256": "338f77a6fd47366b9fde5871f5af1cfb2ec58a2e77c123fc56ba2ae2f09fa7c8"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__solar_weekly__seed42.json",
+      "sha256": "82c74648137f7b1e31c8d7717d590d65f4698fe96bf68ef733b3a372b99c7ba3"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__temperature_rain__seed1103.json",
+      "sha256": "0b9e9bd3e137d83fbe0a750e13e9381fceb5f7050260ba0a5be2f092a98baadd"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__temperature_rain__seed1104.json",
+      "sha256": "4607945587b5c3a45684c66a50765707c19f2e116566ab7730498ee1c86dac3f"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__temperature_rain__seed1105.json",
+      "sha256": "b096a30808173e33cb0eb8fc9a80bd5e734c61a131d5db95bf9db670c73f8eb4"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__temperature_rain__seed1106.json",
+      "sha256": "e7896ef6ac2eeb97cdefea99de0e9816ab4903c57ea400c2aea0cdb7696e716c"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__paper_literal__temperature_rain__seed42.json",
+      "sha256": "8149d5c3c6dfa2ccdf13f6b54a838046d7a3680cb82ebeb0921669d57132a6bb"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__solar_weekly__seed1103.json",
+      "sha256": "1995de30698628d6749edf0490b231cfcda392291a1ea29005b02a82b645f4dc"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__solar_weekly__seed1104.json",
+      "sha256": "b49b2d5b322fe8617354ab0409ddfe5a5bfdf46d2a84701084cd447873c7b77c"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__solar_weekly__seed1105.json",
+      "sha256": "671a7b6704e7cee6a2402aedfeace1ec07ce28a25d942617f1b8f9d45ad37227"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__solar_weekly__seed1106.json",
+      "sha256": "a52a8516baac6ad578a117f10080d68a0198e2910d876b017f475e31ff360f2f"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__solar_weekly__seed42.json",
+      "sha256": "82ebd27785ea1b966b266d68fb2f4fe9f0cbc315402dd05e683952254b45e2fa"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__temperature_rain__seed1103.json",
+      "sha256": "91b47665bd4457d4ddd57b5de4f98e9a333d17d047b81153d0d2f158e0d40301"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__temperature_rain__seed1104.json",
+      "sha256": "df77b29cfcf5d97d4ef0af9ef27dd3ab946f997ba9ef2bf93695af37917087e7"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__temperature_rain__seed1105.json",
+      "sha256": "39746f315e944d40fc6ce062e8154a9f01394e250da8812be0d6b2435954ccb9"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__temperature_rain__seed1106.json",
+      "sha256": "4012bb0243e5178e74c9f026e11420b7619ce243f60cdf696c9734182babf0e5"
+    },
+    {
+      "path": "configs/models/fm_ls4_extended_monash__released__temperature_rain__seed42.json",
+      "sha256": "ef171329fbac7f5562a1a23634fcb61552878969200017b1b3a428d43eb27514"
+    },
+    {
+      "path": "configs/reproducibility/fm_ls4_monash_extended_registration.v2.json",
+      "sha256": "97cd92c15c5b1eda6140276375881e502a6656fbedbda9d05c95641117d579f6"
+    },
+    {
+      "path": "configs/reproducibility/ls4_author_py310.lock.json",
+      "sha256": "c8937248a19e5264d68728bd73c30310d71aa61ab8b5997e48833547bd9585e0"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/ls4_extended_monash_v1/raw/solar_weekly_dataset.tsf",
+      "sha256": "5be6b8189b61576dafb37805db03bcc31a8cb24b2b47730db89fa97e3f860d80"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/ls4_extended_monash_v1/raw/temperature_rain_dataset_without_missing_values.tsf",
+      "sha256": "3acc084e3140404a2eaad1ff4452cbda9d0ec80ebf8f696c369743c45bffdf85"
+    },
+    {
+      "path": "experiments/runs/fm_ls4_extended_monash_acquisition_v2/acquisition_receipt.json",
+      "sha256": "91676910005f77a67b1b1138ce4fbd787db7836430ce1a088a96d71d2295cb48"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/.gitignore",
+      "sha256": "a0f2d809d80077b6420dd829ae8bcaf099f6eec97c9a29faaeea4532fe5ea186"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/LICENSE",
+      "sha256": "1059eaa84035a95c2db6305410b05d562e67a5751e3405d88fecf69db8e1fd29"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/README.md",
+      "sha256": "7af65cc2394fc1462cde56b99eb7d96306213da7784770f206c53f157d42693c"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/assets/monash_real.png",
+      "sha256": "13928c8c2126ffb0b1b714dda2f3b88527629ec9041589af3b4b1c56de91fb38"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/extrapolation/vae_climate_extrap.yaml",
+      "sha256": "5edf75b2f44e58a72a9f20923c5700b3bb3867d7bbf4ec1ac8b054061245b05b"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/extrapolation/vae_physionet_extrap.yaml",
+      "sha256": "61de1229aebc1f8cec7b45acdaf50bc7b2609039949c667e4890cf923d4d6db1"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/interpolation/vae_climate_interp.yaml",
+      "sha256": "0fe5d662422fa5afa06c5abfb2a2ad7b688f729ab5b1fe204f1533b8cf9208d5"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/interpolation/vae_physionet_interp.yaml",
+      "sha256": "87145218129309687cce2f58a1358cea048515c5cfbf53556440e5826fcfca39"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_fred_md.yaml",
+      "sha256": "0e35cd55eaffaaab9913ca837a0d0e01dde610606fc240e2e5ac8b7373935ccc"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_nn5daily.yaml",
+      "sha256": "15bcfb3c3c2a3730c6279108b4e0d0497e401d16639d44509017166bb5168d73"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_solarweekly.yaml",
+      "sha256": "c991d0f692a548f6b9f7d91e68b7a8f98cfc7ef4883a80a5855b207143eb6a75"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_temperature_rain.yaml",
+      "sha256": "7bc5c7eae739bbe298b6666bcd684077da399a966629b27749273b6c9eb98dac"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/__init__.py",
+      "sha256": "cc8f53941b0aa5c108a3fbc34be8c2ba405bcfb62fc2ae0c4c16872ce03ed404"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/climate.py",
+      "sha256": "ec8becca44872b6b1e1281392ec621a8924ef105e405f739170477745900c7cd"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/datasets.py",
+      "sha256": "bcbc1fa9316bc7301fc08ca6918665b18aed67dba463f245de5ff8dd52510fb5"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/monash.py",
+      "sha256": "cefa4f00a8fa7980484e53533131c40b5b5a6434c13377a5d1a378f66e4979c9"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/physionet.py",
+      "sha256": "3099617b0b732e39360589f9119a9b02616b1af24512a60fd2c5b84d4660ab95"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/datasets/utils.py",
+      "sha256": "38402a75621493e1e49b3a3701a4e3d7805cc2c943746d4d6c6c1eb3ebef197e"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/benchmark_cauchy.py",
+      "sha256": "3ac3f2ef26537e82dc558f5dba5eba6b60e216c17d06d2e96eb3a199fccf1ba6"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/benchmark_cauchy_tune.py",
+      "sha256": "527eb499ad3111196c8ee8c306af39356afbd8e5080abf3d274a317d435313aa"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/cauchy.cpp",
+      "sha256": "c36e49705455634a1d0d128743f0fb856a116b4dd7df31390eb576cb9028beb2"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/cauchy.py",
+      "sha256": "846eba12b37b13bbd0d7f19021f54b36805a42bbb6d59ebed98db8a0751a2a80"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/cauchy_cuda.cu",
+      "sha256": "78d776ace67b6077bfa3a41f892d11b8c588734180c5ebe7735e2cbb639e2054"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/map.h",
+      "sha256": "98942dab02fd7288fc20ceedbf1d30c5cbbd68e1b7c360b69b59b907400cf47c"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/setup.py",
+      "sha256": "160b483cb08fa4df191a646d5220352730314f5362318448ffbcfd874a5b8cd1"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/test_cauchy.py",
+      "sha256": "2d0ea130d4e74c182427510c979f2c3bddcd41c45f29bfc229544fac74d1afd4"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/tune_cauchy.py",
+      "sha256": "6c33b47d6676f4f5034607bc69c99774ebbf90fc142957e390c3e9c1a3f9facc"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/tune_cauchy.sh",
+      "sha256": "99bfd04bcd2386da4bef480532230442cb4657c665201afc10681da24d414b35"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/tuner.py",
+      "sha256": "0c4ab91613a05b81a316010dde412310281b313b9adffebcd2586e8cbfb48978"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/extensions/cauchy/tuning_setup.py",
+      "sha256": "d273819071e2981338d96b31c5ce4aa8db03f7d3f4d93389f70687a6e0d41b26"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/metrics.py",
+      "sha256": "7344fd6991369da05f3703017e039e30f1aaf9f7f770c16f3526166300cc4775"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/ls4.py",
+      "sha256": "95eac1a9006ef6c2f4f408f5593bfa864db106ab993a05d70d143666a8413e19"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/s4.py",
+      "sha256": "e3387dca545055db99266953a1151d8c7afdc922acaa52314e8c36d29b924ddf"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/s4d.py",
+      "sha256": "4e0e6aa29e469d14c920d5840cc7d2a64f06f2455fbf38ba1d51aaa899fa55e6"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/s4models.py",
+      "sha256": "61f423171ff609257ea2e12391ec3b9e4c46fe46a6c06d83c1de06c05fde7939"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/models/seq_unet.py",
+      "sha256": "6e106668ff3dc8dc52d0485968a60a94135f4beac35aa851f6ace0821d6eb190"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/requirements.txt",
+      "sha256": "5d5a30f4ff2e75ac4d315aa955aac1f8733a1945f38c9a4124d1d50f495b969a"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/train_interp_extrap.py",
+      "sha256": "b373162c3e35378add9da3fef9135f6bee4a5cff12f504b0f2291f422b30c36a"
+    },
+    {
+      "path": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/train_monash.py",
+      "sha256": "51884bd05cae66077f04e0a96f1b1514245e4790eaad61464b0b1ffca816ce18"
+    },
+    {
+      "path": "scripts/flow_matching/acquire_ls4_extended_monash_v2.py",
+      "sha256": "0b8010902deabe2881a0e7035eda01273b861c198aba8d6cc89a1a3ef4264dff"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/full_gpu_memory_slot_v2.py",
+      "sha256": "dc333f281d9f860523d9179f41a6fb2724a3577ccfb98555aa4151c896752bd5"
+    },
+    {
+      "path": "scripts/flow_matching/register_ls4_monash_extended_v2.py",
+      "sha256": "a33d776b79341ca120943206fce1f6e88f124809f08a261c83e76c7b6546b868"
+    },
+    {
+      "path": "scripts/flow_matching/run_ls4_monash_extended_queue_v2.py",
+      "sha256": "4a2915d0dccc761724026127838ecc18ade42d49d436b5a9ec774e94d25b5ffb"
+    },
+    {
+      "path": "scripts/flow_matching/run_ls4_monash_extended_v2.py",
+      "sha256": "4998c2c9de219a0481abb6f0d2e04d244fdf49896046888b46a328f1e0674d07"
+    },
+    {
+      "path": "tests/test_fm_ls4_monash_extended_v2.py",
+      "sha256": "58ed8699aaa3c16f92d178932dc5006de17f7dab2b807befeee0c268c5858db9"
+    },
+    {
+      "path": "configs/experiments/fm_ls4_monash_extended_queue.v2.json",
+      "sha256": "19efe18657f1aadd8ee2d023a1ffb818913d41ab0ab0f1d2a0ce91485e9617e0"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed1103.json",
+      "sha256": "80e4899356a9bffe695d9fd284a649205f85d65fa218ab0b5792beee8cfda896"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed1104.json",
+      "sha256": "bb6ba7047c56e02e0d5c5037f0805615fcb3b810bbb2f4cea9a02773dcc44699"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed1105.json",
+      "sha256": "7333d67af098bff8fb7bdaa52c2e07c7902ff82230fdddc0220c93835041e70a"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed1106.json",
+      "sha256": "b6b4ba1a36a679581aff59e8cf4cb0c7c286f32570e2040d9ec80be293800ae1"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__solar_weekly__seed42.json",
+      "sha256": "60efd8e0e13a5d787fc200f171e1d93e422db652c66016e9c9d6ac8e40ef3a88"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed1103.json",
+      "sha256": "377b931a6a8494d3a3521a890d8ea0d3795ed3f6fee44024657e30fdafa4f616"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed1104.json",
+      "sha256": "d31c89fb5496fb00d5ff028684b837f83ae561b91117cf6a6b2f990c912f38bd"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed1105.json",
+      "sha256": "b55ed4b53181121c28930c2d14e652dd141a6ca6cf510d7af0467ca547c444f3"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed1106.json",
+      "sha256": "51085eba3d3f9df77efb86206e15d2bc3a67780fc4d8390df13d320ec077324d"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__paper_literal__temperature_rain__seed42.json",
+      "sha256": "9b093882bb1a5595eab333d02eb7b9cedbb2924e910caed9869cc3e7707234e0"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed1103.json",
+      "sha256": "a746f1b689b719370658c1edc5e63ead717e621ddaea40486f42ddfa2adf144f"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed1104.json",
+      "sha256": "80150cfc61321bb48118ae8402e1873008b33984b5d2c4a9769c77964fbf0bae"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed1105.json",
+      "sha256": "1d612108863b6d58466e38fe9f018547cd974baa27aa530f24cdc62e287aabf8"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed1106.json",
+      "sha256": "2aa5493ca33df94decc9df9d8772f1c635a3217aac4ed00783ffdd33d726f3fb"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__solar_weekly__seed42.json",
+      "sha256": "c649479f8c66f25706d24a9ee02ec2a2128a70702be93eea982101c3bfd330f5"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed1103.json",
+      "sha256": "c5c0440353503359d2e4c88dedcfc7a6ed336ae0cd9b10e9c4f12f01862a58bb"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed1104.json",
+      "sha256": "21dd12fd5c3ff2dc7764f62a4793e2805f20b59aac047ef7591c8cf6dd78e59f"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed1105.json",
+      "sha256": "583c5c2eeebe0a4e318e91c65b2c0c6de65539ede4d165458c93c2739c09003c"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed1106.json",
+      "sha256": "5d8425ed2af6903dfe06c437f70042dbb156cad60f3d23b8bc557cc4dfb613fe"
+    },
+    {
+      "path": "configs/models/fm_ls4_cauchy_corrected_v3__solar_temperature__ls4_extended_monash__released__temperature_rain__seed42.json",
+      "sha256": "33e572b308b1ed5fbfec2a2725899eb0bf1e09775314afa4de90c1669af3081f"
+    },
+    {
+      "path": "configs/reproducibility/fm_ls4_cauchy_corrected_registration.v3.json",
+      "sha256": "ba8e667250a4bf33249a4f4df83e57c53a98c07fc7e37d0d95f1671ad7879b9b"
+    },
+    {
+      "path": "configs/reproducibility/fm_ls4_cauchy_real_fred_diagnostic.v1.json",
+      "sha256": "5a1f7bc80e596e1349ee906322c3938798dc006cdcda92502dac22fdd7a9e0b7"
+    },
+    {
+      "path": "configs/reproducibility/ls4_cauchy_fallback_repair.v1.json",
+      "sha256": "2d2698739aa2f68d4e233c7fb8774240ee8a51432239f80555841f4b4583e16e"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/ls4_cauchy_corrected_resume_v2/paired_real_fred_diagnostic.json",
+      "sha256": "670733516b4eeb26c9be596f24802cfc938ea8e2b5182bd2d449de65b3f7fbf7"
+    },
+    {
+      "path": "scripts/flow_matching/audit_ls4_cauchy_real_fred_v1.py",
+      "sha256": "ef63e6b573f96c53d1811fce86da76b616fa42b667262b544d1d95825960bf6d"
+    },
+    {
+      "path": "scripts/flow_matching/ls4_cauchy_fallback_repair_v1.py",
+      "sha256": "61fd11627e8188d8e76cbdee073619b18e5de7095e11825c4d505ec5e96c981f"
+    },
+    {
+      "path": "scripts/flow_matching/register_ls4_cauchy_corrected_v3.py",
+      "sha256": "9ad22d945ccdc13862b5236e2e88a68c82668cae0f7bf8d7982009d32963da19"
+    },
+    {
+      "path": "scripts/flow_matching/run_ls4_cauchy_corrected_queue_v3.py",
+      "sha256": "f3c675fc9d645e23974b069ae335538610c217cf4f32af51094768c5e9274609"
+    },
+    {
+      "path": "scripts/flow_matching/run_ls4_cauchy_corrected_v3.py",
+      "sha256": "123644460dfa96325608bb03faf12dad600995ed47e65d5e41f20520282e565e"
+    },
+    {
+      "path": "scripts/flow_matching/transition_ls4_cauchy_idle_v3.py",
+      "sha256": "1cbee508ccdb3a5282995f384f0f6b457441c292e6adbfb59d8603a95ec23751"
+    },
+    {
+      "path": "tests/test_fm_ls4_cauchy_corrected_v3.py",
+      "sha256": "b16463f3007e66d016102e64aa3cd9b57bc745de9adf3aa70f9b42767a36ddf9"
+    }
+  ],
+  "canonical_family": "solar_temperature",
+  "original_canonical_queue": "configs/experiments/fm_ls4_monash_extended_queue.v2.json",
+  "original_canonical_queue_sha256": "19efe18657f1aadd8ee2d023a1ffb818913d41ab0ab0f1d2a0ce91485e9617e0",
+  "cauchy_correction_config": "configs/reproducibility/ls4_cauchy_fallback_repair.v1.json"
+}
