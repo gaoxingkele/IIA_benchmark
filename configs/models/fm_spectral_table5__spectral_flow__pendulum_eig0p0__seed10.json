@@ -1,0 +1,57 @@
+{
+  "id": "spectral_table5__spectral_flow__pendulum_eig0p0__seed10",
+  "method": "spectral_flow",
+  "table": 5,
+  "dataset": "pendulum",
+  "task": "physics_informed_generation",
+  "entry": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_small/main_pendulum.py",
+  "arguments": [
+    "--hidden_dim",
+    "32",
+    "--num_layers",
+    "8",
+    "--spec_dim",
+    "4",
+    "--w_eig",
+    "0.0"
+  ],
+  "author_arguments": {
+    "epochs": 600,
+    "lr": 0.0007,
+    "weight_decay": 0.0,
+    "seed": 10,
+    "dataset": "pendulum",
+    "batch_size": 64,
+    "seq_len": 40,
+    "inp_dim": 2,
+    "missing_value": 0.0,
+    "num_layers": 8,
+    "hidden_dim": 32,
+    "spec_dim": 4,
+    "mlp_hidden_times": 1,
+    "sigma": 1e-05,
+    "sampling_steps": 100,
+    "w_eig": 0.0
+  },
+  "original_shell": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_small/scripts/spectral_flow_pendulum.sh",
+  "original_allocation": "CUDA_VISIBLE_DEVICES=6",
+  "num_workers": 4,
+  "data_audit_key": "pendulum",
+  "diagnostic": false,
+  "metric": "cross_correlation",
+  "evaluator_repeats": 5,
+  "evaluator_updates_per_repeat": 0,
+  "paper_claim": {
+    "mean": 0.0029,
+    "reported_plus_minus": 0.0008,
+    "spread_definition": "Table4 source reports population STD; Table5 source reports t95 half-width over5 subsample evaluations"
+  },
+  "implementation": "scripts.flow_matching.run_spectral_table45_original_v1:run_job",
+  "reproduction_status": "full_released_pipeline_registered_not_completed",
+  "citations": [
+    "https://arxiv.org/abs/2510.15366v1",
+    "https://github.com/jw9730/spectral-mean-flow",
+    "https://github.com/azencot-group/KoVAE"
+  ],
+  "boundary": "Exact released600-epoch source and arguments. One generator seed10; evaluator repetitions are not training seeds. Original complete-data generation with no heldout generator split, not strict TSAD. CUDA index remapped to sole localGPU; model unchanged."
+}

@@ -1,0 +1,59 @@
+{
+  "id": "spectral_table4__kovae__interpolate_0p5__seed10",
+  "method": "kovae",
+  "table": 4,
+  "dataset": "stock",
+  "task": "irregular_time_series_generation",
+  "entry": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_small/main_kovae.py",
+  "arguments": [
+    "--dataset",
+    "stock",
+    "--w_kl",
+    ".009",
+    "--w_pred_prior",
+    ".03",
+    "--missing_value",
+    "0.5"
+  ],
+  "author_arguments": {
+    "epochs": 600,
+    "lr": 0.0007,
+    "weight_decay": 0.0,
+    "seed": 10,
+    "pinv_solver": false,
+    "dataset": "stock",
+    "batch_size": 64,
+    "seq_len": 24,
+    "inp_dim": 6,
+    "missing_value": 0.5,
+    "batch_norm": true,
+    "num_layers": 3,
+    "z_dim": 16,
+    "hidden_dim": 20,
+    "num_steps": 1,
+    "w_rec": 1.0,
+    "w_kl": 0.009,
+    "w_pred_prior": 0.03
+  },
+  "original_shell": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_small/scripts/kovae_irregular.sh",
+  "original_allocation": "CUDA_VISIBLE_DEVICES=2",
+  "num_workers": 0,
+  "data_audit_key": "interpolate_0.5",
+  "diagnostic": false,
+  "metric": "discriminative",
+  "evaluator_repeats": 10,
+  "evaluator_updates_per_repeat": 2000,
+  "paper_claim": {
+    "mean": 0.067,
+    "reported_plus_minus": 0.038,
+    "spread_definition": "Table4 source reports population STD; Table5 source reports t95 half-width over5 subsample evaluations"
+  },
+  "implementation": "scripts.flow_matching.run_spectral_table45_original_v1:run_job",
+  "reproduction_status": "full_released_pipeline_registered_not_completed",
+  "citations": [
+    "https://arxiv.org/abs/2510.15366v1",
+    "https://github.com/jw9730/spectral-mean-flow",
+    "https://github.com/azencot-group/KoVAE"
+  ],
+  "boundary": "Exact released600-epoch source and arguments. One generator seed10; evaluator repetitions are not training seeds. Original complete-data generation with no heldout generator split, not strict TSAD. CUDA index remapped to sole localGPU; model unchanged."
+}

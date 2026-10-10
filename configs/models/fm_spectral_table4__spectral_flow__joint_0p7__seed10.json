@@ -1,0 +1,55 @@
+{
+  "id": "spectral_table4__spectral_flow__joint_0p7__seed10",
+  "method": "spectral_flow",
+  "table": 4,
+  "dataset": "stock",
+  "task": "irregular_time_series_generation",
+  "entry": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_small/main_joint.py",
+  "arguments": [
+    "--dataset",
+    "stock",
+    "--hidden_dim",
+    "64",
+    "--num_layers",
+    "4",
+    "--missing_value",
+    "0.7"
+  ],
+  "author_arguments": {
+    "epochs": 600,
+    "lr": 0.0007,
+    "weight_decay": 0.0,
+    "seed": 10,
+    "dataset": "stock",
+    "batch_size": 64,
+    "seq_len": 24,
+    "inp_dim": 6,
+    "missing_value": 0.7,
+    "num_layers": 4,
+    "hidden_dim": 64,
+    "mlp_hidden_times": 1,
+    "sigma": 1e-05,
+    "sampling_steps": 100
+  },
+  "original_shell": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_small/scripts/spectral_flow_irregular.sh",
+  "original_allocation": "CUDA_VISIBLE_DEVICES=5",
+  "num_workers": 0,
+  "data_audit_key": "joint_0.7",
+  "diagnostic": false,
+  "metric": "discriminative",
+  "evaluator_repeats": 10,
+  "evaluator_updates_per_repeat": 2000,
+  "paper_claim": {
+    "mean": 0.138,
+    "reported_plus_minus": 0.137,
+    "spread_definition": "Table4 source reports population STD; Table5 source reports t95 half-width over5 subsample evaluations"
+  },
+  "implementation": "scripts.flow_matching.run_spectral_table45_original_v1:run_job",
+  "reproduction_status": "full_released_pipeline_registered_not_completed",
+  "citations": [
+    "https://arxiv.org/abs/2510.15366v1",
+    "https://github.com/jw9730/spectral-mean-flow",
+    "https://github.com/azencot-group/KoVAE"
+  ],
+  "boundary": "Exact released600-epoch source and arguments. One generator seed10; evaluator repetitions are not training seeds. Original complete-data generation with no heldout generator split, not strict TSAD. CUDA index remapped to sole localGPU; model unchanged."
+}
