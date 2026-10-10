@@ -1,0 +1,142 @@
+{
+  "implementation": "scripts.flow_matching.run_ls4_native_ushcn_v1",
+  "reproduction_status": "downloaded_author_full_native_pipeline_with_explicit_split_branch_and_Cauchy_correction",
+  "author_equivalence_certified": false,
+  "dataset": "ushcn",
+  "split_branch": "id_corrected",
+  "fold": 1,
+  "split_directory": "data/public_datasets/flow_matching/ls4_native_ushcn_v1/derived/original_recipe_seed432_v3/id_corrected/small_chunk_fold_idx_1",
+  "split_hashes": [
+    {
+      "path": "data/public_datasets/flow_matching/ls4_native_ushcn_v1/derived/original_recipe_seed432_v3/id_corrected/small_chunk_fold_idx_1/train_idx.npy",
+      "sha256": "0620e264bfb2facfd33eea07d7349510f71ef3f9a9c8c295d312f26ffe0f5b36"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/ls4_native_ushcn_v1/derived/original_recipe_seed432_v3/id_corrected/small_chunk_fold_idx_1/val_idx.npy",
+      "sha256": "5888844f56a459cf97b1c147f447036854b34d4122c275f173a65adfa9d47b80"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/ls4_native_ushcn_v1/derived/original_recipe_seed432_v3/id_corrected/small_chunk_fold_idx_1/test_idx.npy",
+      "sha256": "5b5cff3b4ee559bbef3bbc7239673157d3f7b8dd4cde5431d616c7d762054fa4"
+    }
+  ],
+  "profile": "extrapolation",
+  "seed": 1105,
+  "source_config": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/extrapolation/vae_climate_extrap.yaml",
+  "source_config_sha256": "5edf75b2f44e58a72a9f20923c5700b3bb3867d7bbf4ec1ac8b054061245b05b",
+  "original_optim": {
+    "lr": 0.001,
+    "weight_decay": 0.0,
+    "epochs": 500,
+    "batch_size": 64,
+    "eval_iter": 10
+  },
+  "original_model": {
+    "sigma": 0.05,
+    "z_dim": 10,
+    "in_channels": 5,
+    "bidirectional": false,
+    "classifier": false,
+    "classifier_type": "per_seq",
+    "linear_cls": false,
+    "decoder": {
+      "use_spatial": false,
+      "activation": "sigmoid",
+      "prior": {
+        "d_input": 10,
+        "aux_channels": 0,
+        "d_state": 64,
+        "d_output": 10,
+        "d_model": 64,
+        "n_layers": 4,
+        "backbone": "autoreg",
+        "use_unet": false,
+        "pool": [],
+        "expand": 2,
+        "ff": 2,
+        "bidirectional": false,
+        "dropout": 0.0,
+        "s4_type": "s4",
+        "use_latent": true,
+        "latent_type": "split",
+        "lr": 0.001
+      },
+      "decoder": {
+        "d_input": 10,
+        "aux_channels": 0,
+        "d_state": 64,
+        "d_output": 5,
+        "d_model": 64,
+        "n_layers": 4,
+        "backbone": "autoreg",
+        "use_unet": false,
+        "pool": [],
+        "expand": 2,
+        "ff": 2,
+        "bidirectional": false,
+        "dropout": 0.0,
+        "s4_type": "s4",
+        "use_latent": false,
+        "latent_type": "none",
+        "aux_out": 0,
+        "lr": 0.001
+      }
+    },
+    "encoder": {
+      "use_spatial": false,
+      "posterior": {
+        "d_input": 5,
+        "aux_channels": 0,
+        "d_state": 64,
+        "d_output": 10,
+        "d_model": 64,
+        "n_layers": 4,
+        "backbone": "autoreg",
+        "use_unet": false,
+        "pool": [],
+        "expand": 2,
+        "ff": 2,
+        "bidirectional": false,
+        "dropout": 0.0,
+        "s4_type": "s4",
+        "use_latent": true,
+        "latent_type": "split",
+        "lr": 0.001
+      }
+    }
+  },
+  "original_data": {
+    "dataset": "climate",
+    "base": "YOUR_PATH/ushcn_daily",
+    "dir": "YOUR_PATH/ushcn_daily/small_chunk_fold_idx_0/",
+    "csv_file_path": "small_chunked_sporadic.csv",
+    "classify": false,
+    "classify_type": "per_seq",
+    "T_val": 150,
+    "max_val_samples": 3,
+    "sample_tp": null,
+    "cut_tp": null,
+    "extrap": true,
+    "channel": 5
+  },
+  "batch_size": 64,
+  "epochs": 500,
+  "variables": 5,
+  "extrapolation": true,
+  "original_grouped_counts": {
+    "train": 801,
+    "val": 200,
+    "test": 111
+  },
+  "train_series": 1001,
+  "test_series": 111,
+  "independent_training_seeds_within_each_fold": 5,
+  "folds_share_original_series": true,
+  "native_source_future_samples_unused": true,
+  "interpolation_observed_target_overlap": true,
+  "citations": [
+    "https://proceedings.mlr.press/v202/zhou23i.html",
+    "https://github.com/alexzhou907/ls4/tree/2b5cb76f89f6b935bbd697771433f3c74126ffca",
+    "https://github.com/edebrouwer/gru_ode_bayes/tree/ddd0b34e884dbee1c09b6a3927d1e9ab10443af8"
+  ]
+}
