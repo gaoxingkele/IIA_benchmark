@@ -1,0 +1,62 @@
+{
+  "id": "ls4_original__paper_literal__nn5_daily__seed1106",
+  "algorithm": "LS4",
+  "dataset": "nn5_daily",
+  "protocol": "paper_literal",
+  "seed": 1106,
+  "task": "unconditional_time_series_generation",
+  "source_config": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_nn5daily.yaml",
+  "samples": 111,
+  "length": 791,
+  "train_samples": 88,
+  "test_samples": 23,
+  "optim": {
+    "lr": 0.001,
+    "weight_decay": 0.0,
+    "epochs": 7000,
+    "batch_size": 64,
+    "eval_iter": 500,
+    "metric_iter": 500,
+    "use_ema": true,
+    "lamb": 0.999,
+    "start_step": 200
+  },
+  "sigma": 0.1,
+  "diagnostic": false,
+  "implementation": "scripts.flow_matching.run_ls4_original_v1:run_job",
+  "reproduction_status": "full_native_budget_registered_not_completed",
+  "citations": [
+    "https://proceedings.mlr.press/v202/zhou23i.html",
+    "https://github.com/alexzhou907/ls4/tree/2b5cb76f89f6b935bbd697771433f3c74126ffca",
+    "https://arxiv.org/abs/2510.15366v1"
+  ],
+  "seed_boundary": "Five local paired robustness seeds; historical author seeds unspecified",
+  "boundary": "Exact released source models/optimizer/EMA/full trajectory data/evaluators. Paper-literal overrides only epochs7000,batch64,sigma0.1. Each final metric uses last EMA/model; source best-test-marginal checkpoint is saved separately. Full-series normalization and80/20 trajectory split are original source behavior, not strict TSAD.",
+  "metrics": {
+    "clf_score": "Original100-epoch S4D classifier BCE loss, not accuracy or F1",
+    "marginal_score": "Original50-bin histogram marginal loss",
+    "predictive_score": "Original100-epoch S4D10-step predictor MSE"
+  },
+  "budget": {
+    "batches": 2,
+    "generator_updates": 14000,
+    "metric_update_positions": [
+      1002,
+      2002,
+      3002,
+      4002,
+      5002,
+      6002,
+      7002,
+      8002,
+      9002,
+      10002,
+      11002,
+      12002,
+      13002,
+      14000
+    ],
+    "metric_calls": 14,
+    "evaluator_updates_per_metric": 100
+  }
+}

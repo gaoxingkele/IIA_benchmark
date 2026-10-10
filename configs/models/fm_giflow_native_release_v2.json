@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "fm_giflow_native_release_v2",
+  "family": "flow_matching_campaign",
+  "task": "imputation",
+  "reproduction_status": "observed_drop_last_repair_registered_full_native_training_pending",
+  "implementation": "scripts.flow_matching.run_giflow_native_job_v2",
+  "author_callable": "main.run_experiment",
+  "author_commit": "4e7d0375155750f6c3d9387ad68e7c78d99dd0ac",
+  "queue_config": "configs/experiments/fm_giflow_native_queue.v4.json",
+  "data_config": "configs/data/fm_graph_author_air.v1.json",
+  "environment_config": "configs/reproducibility/graph_author_environments.v1.json",
+  "track": "released_mirror",
+  "tests": [
+    "tests/test_fm_giflow_native.py",
+    "tests/test_fm_giflow_update_budget_v2.py",
+    "tests/test_fm_giflow_boundary_v1.py"
+  ],
+  "citations": [
+    "https://arxiv.org/abs/2606.06682",
+    "https://github.com/zepengzhang/GiFlow"
+  ],
+  "paper_score_status": "not_verified",
+  "boundary": "Original source functions with data-root-only routing and result instrumentation. Test contamination and EMA/checkpoint defects retained as disclosed diagnostic properties; full released-source training is distinct from paper-equivalent validation."
+}

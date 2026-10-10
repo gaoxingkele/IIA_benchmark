@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "registration_path": "configs/reproducibility/fm_ls4_original_registration.v1.json",
+  "queue_path": "configs/experiments/fm_ls4_original_queue.v1.json",
+  "source_root": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original",
+  "python": ".venv/ls4-author-py310/Scripts/python.exe",
+  "environment_lock": "configs/reproducibility/ls4_author_py310.lock.json",
+  "state_root": "experiments/runs/fm_ls4_original_v1",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/ls4_original_v1",
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "seeds": [
+    42,
+    1103,
+    1104,
+    1105,
+    1106
+  ],
+  "settings": {
+    "minimum_available_memory_bytes": 34359738368,
+    "minimum_commit_headroom_bytes": 45097156608,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 15032385536,
+    "emergency_gpu_free_bytes": 4294967296,
+    "cpu_threads": 2,
+    "controller_yield_seconds": 35
+  },
+  "data_audit_lock": "experiments/runs/fm_readonly_checkpoint_audit_cpu.lock",
+  "data_audit_settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 23622320128,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 2147483648,
+    "maximum_worker_private_bytes": 4294967296
+  },
+  "data_audit_artifact": "F:/aicoding/IIA_Data/experiments/ls4_original_v1/full_data_audit",
+  "data_audit_output": "experiments/runs/fm_ls4_original_v1/preflight/full_data_audit.json",
+  "gpu_preflight_artifact": "F:/aicoding/IIA_Data/experiments/ls4_original_v1/full_gpu_preflight",
+  "gpu_preflight_output": "experiments/runs/fm_ls4_original_v1/preflight/full_gpu_preflight.json",
+  "datasets": [
+    {
+      "dataset": "fred_md",
+      "filename": "fred_md_dataset.tsf",
+      "yaml": "vae_fred_md.yaml",
+      "samples": 107,
+      "length": 728,
+      "raw_path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/data/long_range/fred_md.tsf"
+    },
+    {
+      "dataset": "nn5_daily",
+      "filename": "nn5_daily_dataset_without_missing_values.tsf",
+      "yaml": "vae_nn5daily.yaml",
+      "samples": 111,
+      "length": 791,
+      "raw_path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/data/long_range/nn5_daily.tsf"
+    }
+  ],
+  "citations": [
+    "https://proceedings.mlr.press/v202/zhou23i.html",
+    "https://github.com/alexzhou907/ls4/tree/2b5cb76f89f6b935bbd697771433f3c74126ffca",
+    "https://arxiv.org/abs/2510.15366v1"
+  ],
+  "remaining_obligations": [
+    "All unfinished canonical45 papers/681 literature method-baseline-ablation records/273 original task records remain required",
+    "Other LS4 reference-paper tasks: SolarWeekly,TemperatureRain,Physionet,USHCN and interpolation/extrapolation; source acquisition is not completion",
+    "SaShiMi continuous-Gaussian long-series AR baseline still needs original task hyperparameter/config mapping; audio configuration is not a substitute"
+  ],
+  "boundary": "Twenty full native LS4 runs for two SpectralTable3 baseline datasets, released versus paper-literal protocols and five paired local seeds. Historical author seed identity unverified. Source model/data/optimizer/EMA/evaluators unchanged; optional native Cauchy fallback is retained. Registration/audits are not completed performance."
+}

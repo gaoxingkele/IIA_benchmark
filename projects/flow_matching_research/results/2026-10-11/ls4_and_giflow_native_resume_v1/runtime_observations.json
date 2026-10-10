@@ -1,0 +1,230 @@
+{
+  "captured_utc": "2026-10-10T18:09:06.913236+00:00",
+  "previous_goal_turn_classification": "No progress: unchanged result listing was reported; current turn resumed with authoritative process checks and new native preparation.",
+  "current_goal_turn_classification": "Progress: exact64-package environment,20 full native data audits,140-slot accounting repair and live bounded successor handoff.",
+  "original_scope": {
+    "canonical_papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "ls4_full_jobs": 20,
+  "ls4_registered_generator_updates": 290000,
+  "ls4_gpu_preflight_complete": false,
+  "ls4_completed_full_jobs": 0,
+  "giflow_full_canonical_seed_slots": 140,
+  "giflow_completed_successor_jobs": 0,
+  "ls4_runtime": {
+    "pid": 29820,
+    "create_time": 1791655564.206345,
+    "queue_sha256": "92e8a67ccb70a6ee9e23da097d1239f724a54ab245024c9c0a7db8c16bc24778",
+    "state": "waiting_full_gpu_resources",
+    "active_pid": null,
+    "active_job": null,
+    "jobs": {},
+    "shared_lock_owned": false,
+    "physical_available_bytes": 49060970496,
+    "commit_available_bytes": 36894052352,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "gpu_free_bytes": 14027849728
+  },
+  "giflow_boundary_runtime": {
+    "pid": 32860,
+    "create_time": 1791655605.5832715,
+    "state": "waiting_existing_full_model_exit",
+    "predecessor_pid": 21984,
+    "predecessor_active_pid": 25040,
+    "predecessor_active_job": "giflow_native__released_mirror__air36__main__seed394",
+    "config_sha256": "bc046808de259a4cadec6e2f8dc12d7f4373a4905ff3ce0ed610c69eaf24d9ba"
+  },
+  "processes": [
+    {
+      "launch": "experiments/runs/fm_ls4_original_v1/full_controller_launch.json",
+      "pid": 29820,
+      "create_time": 1791655564.206345,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_ls4_original_queue_v1",
+        "--queue",
+        "configs/experiments/fm_ls4_original_queue.v1.json"
+      ],
+      "cpu_seconds": 0.4375,
+      "actual_descendants": [],
+      "verified_live_now": true
+    },
+    {
+      "launch": "experiments/runs/fm_giflow_update_boundary_v1/launch.json",
+      "pid": 32860,
+      "create_time": 1791655605.5832715,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.transition_giflow_at_boundary_v1",
+        "--config",
+        "configs\\runtime\\fm_giflow_update_boundary.v2.json"
+      ],
+      "cpu_seconds": 1.109375,
+      "actual_descendants": [],
+      "verified_live_now": true
+    },
+    {
+      "pid": 21984,
+      "create_time": 1791643109.8706102,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_giflow_serial_native_queue_v3",
+        "--queue",
+        "configs/experiments/fm_giflow_native_queue.v3.json"
+      ],
+      "cpu_seconds": 59.609375,
+      "verified_live_now": true,
+      "actual_descendants": [
+        {
+          "pid": 31320,
+          "create_time": 1791643109.8798084,
+          "command": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ]
+        },
+        {
+          "pid": 25040,
+          "create_time": 1791655257.12422,
+          "command": [
+            ".venv/giflow-author-py310/Scripts/python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_giflow_native_job",
+            "--queue",
+            "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_giflow_native_queue.v3.json",
+            "--job-id",
+            "giflow_native__released_mirror__air36__main__seed394"
+          ]
+        },
+        {
+          "pid": 24676,
+          "create_time": 1791655257.13299,
+          "command": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ]
+        },
+        {
+          "pid": 34180,
+          "create_time": 1791655257.154864,
+          "command": [
+            "D:\\aicoding\\IIA_benchmark\\tmp\\python\\cpython-3.10-windows-x86_64-none\\python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_giflow_native_job",
+            "--queue",
+            "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_giflow_native_queue.v3.json",
+            "--job-id",
+            "giflow_native__released_mirror__air36__main__seed394"
+          ]
+        }
+      ]
+    },
+    {
+      "pid": 13988,
+      "create_time": 1791649712.7103302,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_cfm_ts_original_job",
+        "--queue",
+        "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+        "--job-id",
+        "cfm_ts_original__main_text__node_e400__pendulum__seed1103"
+      ],
+      "cpu_seconds": 5933.062499999999,
+      "verified_live_now": true,
+      "actual_descendants": []
+    },
+    {
+      "pid": 3296,
+      "create_time": 1791646542.8922482,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_pi_transformer_job.py",
+        "--queue",
+        "configs\\experiments\\fm_pi_transformer_author_queue.v1.json",
+        "--job-id",
+        "pi_author__causal_axis_repaired__psm__full__seed1104"
+      ],
+      "cpu_seconds": 18046.46875,
+      "verified_live_now": true,
+      "actual_descendants": []
+    }
+  ],
+  "full_hyperparameters_and_memory_guards_unchanged": true,
+  "original_model_processes_not_interrupted": true,
+  "new_benchmark_results_added": 0,
+  "all_original_experiments_complete": false,
+  "remaining_obligations": [
+    "All unfinished canonical45 papers/681 literature method-baseline-ablation records/273 original task records remain required",
+    "Other LS4 reference-paper tasks: SolarWeekly,TemperatureRain,Physionet,USHCN and interpolation/extrapolation; source acquisition is not completion",
+    "SaShiMi continuous-Gaussian long-series AR baseline still needs original task hyperparameter/config mapping; audio configuration is not a substitute",
+    "Independent final trained-model audits and v4 GiFlow result capture integration after full completions"
+  ],
+  "material_receipts": [
+    {
+      "source": "configs/reproducibility/ls4_author_py310.lock.json",
+      "copy": "ls4_environment_lock.json",
+      "sha256": "c8937248a19e5264d68728bd73c30310d71aa61ab8b5997e48833547bd9585e0"
+    },
+    {
+      "source": "experiments/runs/fm_ls4_author_environment_v1/download_receipt.json",
+      "copy": "ls4_dependency_download_receipt.json",
+      "sha256": "123dab7bf652454b6628968e0a7fa7e58a218f9eeb721f118cf99d9fa7473a41"
+    },
+    {
+      "source": "experiments/runs/fm_ls4_original_v1/preflight/full_data_audit.json",
+      "copy": "ls4_full_data_audit.json",
+      "sha256": "5cf0a8b4d03644f6ca871dd671f1f4955423d8307fc4905379fc16d8f565d78c"
+    },
+    {
+      "source": "experiments/runs/fm_ls4_original_v1/data_audit_resource_receipt.json",
+      "copy": "ls4_data_audit_resource_receipt.json",
+      "sha256": "f71f3c946bb62c9325655f4ce76b19435d4984ee5444513452a2917ff0b0754d"
+    },
+    {
+      "source": "experiments/runs/fm_giflow_update_audit_v2/validation.json",
+      "copy": "giflow_actual_diagnostics.json",
+      "sha256": "d6d9c725e6d23836b203eb1a28e467aaa31ca9e96b46b7565e96c4179364cc59"
+    },
+    {
+      "source": "experiments\\runs\\fm_giflow_update_audit_v2\\released_mirror__audit-only\\audit_result.json",
+      "copy": "released_mirror__audit-only.json",
+      "sha256": "e840060e62aed4a4543007e2de6329380a6ea32298a26733e53b5a886eabfd20"
+    },
+    {
+      "source": "experiments\\runs\\fm_giflow_update_audit_v2\\released_mirror__integration-check\\integration_result.json",
+      "copy": "released_mirror__integration-check.json",
+      "sha256": "f61c4a9979d55eaabdbe21435d993a0639a8452651ba2a47bb28c24164120b77"
+    },
+    {
+      "source": "experiments\\runs\\fm_giflow_update_audit_v2\\reviewed_corrected__audit-only\\audit_result.json",
+      "copy": "reviewed_corrected__audit-only.json",
+      "sha256": "8ed3ea2319ced7658d615abedb894a790456e24e3493e3d88b8a1098ee90e453"
+    },
+    {
+      "source": "experiments\\runs\\fm_giflow_update_audit_v2\\reviewed_corrected__integration-check\\integration_result.json",
+      "copy": "reviewed_corrected__integration-check.json",
+      "sha256": "0a144400bd259ef6fb97527682b74095cf094fb66100335fe839da10781e4e21"
+    }
+  ]
+}
