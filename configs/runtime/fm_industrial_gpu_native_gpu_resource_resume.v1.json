@@ -1,0 +1,45 @@
+{
+  "original_runtime": "configs/runtime/fm_industrial_gpu_light_runtime.v1.json",
+  "controller": "industrial_gpu",
+  "model_worker": "scripts.flow_matching.run_industrial_tsad_experiment",
+  "settings": {
+    "minimum_available_memory_bytes": 19327352832,
+    "minimum_commit_headroom_bytes": 34359738368,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "cpu_threads": 2,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 15032385536,
+    "emergency_gpu_free_bytes": 4294967296,
+    "controller_yield_seconds": 35
+  },
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "state_root": "experiments/runs/fm_industrial_gpu_native_gpu_resource_resume_v1",
+  "source_receipts": [
+    {
+      "path": "configs/runtime/fm_industrial_gpu_light_runtime.v1.json",
+      "sha256": "14b22b32388aa1ade34cf6ebc89ee4184088316a1d4bf54742492ffd6d44815d"
+    },
+    {
+      "path": "configs/experiments/fm_industrial_tsad_gpu_queue.v1.json",
+      "sha256": "b31bf990514bd6597709ea0aa3b357420795f543613a657eb32ccbb36b119513"
+    },
+    {
+      "path": "scripts/flow_matching/run_tsad_native_gpu_resource_queue_v1.py",
+      "sha256": "424ab3cd78be46bae0d8b2904d4256742d4eeecf293b600b5f2285f13861ca8a"
+    },
+    {
+      "path": "scripts/flow_matching/run_spectral_original_queue.py",
+      "sha256": "ad8e77866bcf38b2e2e1bdb3aa41a79a26f1687c875424177712619287efc936"
+    },
+    {
+      "path": "scripts/flow_matching/run_grasp_protocol_queue.py",
+      "sha256": "9115332e17cc8605ff77eb11e42641df65c2fe2c9a8b7b9de2778aa8ffb58464"
+    },
+    {
+      "path": "tests/test_fm_tsad_native_gpu_resource_v1.py",
+      "sha256": "3abeab3cadb746d4546c6a704788545f11b3714a354901fe6f0ded5d7893853b"
+    }
+  ],
+  "boundary": "Every original full CUDA model command, scientific job, phase gate, legacy queue lock, seed, full data/evaluation and source verifier is retained. Shared native GPU resource slot and complete existing GPU emergency guard cover each entire model. Post-job35-second resource-free yield. No CPU or shortened-budget fallback; previous complete/partial outputs retained."
+}
