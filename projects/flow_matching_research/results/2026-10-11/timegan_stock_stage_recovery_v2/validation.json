@@ -1,0 +1,46 @@
+{
+  "native_probe": {
+    "command": [
+      "F:/aicoding/IIA_Data/environments/timegan_author_py37_v1/python/python.exe",
+      "-X",
+      "utf8",
+      "-c",
+      "import sys,runpy;sys.path.insert(0,'D:/aicoding/IIA_benchmark');sys.argv=['run_timegan_stage_resume_v2','--config','configs/reproducibility/fm_timegan_stock_stage_recovery.2026-10-11_v2.json','--probe-only'];runpy.run_module('scripts.flow_matching.run_timegan_stage_resume_v2',run_name='__main__')"
+    ],
+    "exit_code": 0,
+    "stdout": "{'canonical_job_id': 'timegan_native__gru__stock__seed1103', 'full_scope_jobs': 45, 'native_budget_preserved': True, 'independent_seed_slots_added': 0, 'tensorflow_imported': False}\n",
+    "stderr": ""
+  },
+  "tests": {
+    "command": [
+      "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_fm_timegan_stage_resume_v2.py",
+      "tests/test_fm_timegan_native_v1.py",
+      "tests/test_fm_grasp_checkpoint_replay_resume_v2.py",
+      "tests/test_fm_grasp_checkpoint_replay_v1.py"
+    ],
+    "exit_code": 0,
+    "stdout": "....................                                                     [100%]\n20 passed in 0.72s\n",
+    "stderr": ""
+  },
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/timegan_stage_resume_v2.py",
+      "sha256": "3e7bef322fb7cad55379982340ff08fe0e6c5abf49a07eeee9883c232e08046f"
+    },
+    {
+      "path": "scripts/flow_matching/audit_timegan_stage_resume_v2.py",
+      "sha256": "9bb27c4bbfe9730747ebdeffd6d06786b564aa02afc166599fe5769b54d03323"
+    },
+    {
+      "path": "scripts/flow_matching/run_timegan_stage_resume_v2.py",
+      "sha256": "3b4684fa25658be04f790704880d406cfea115e096c732cb7a05828cf06aee63"
+    }
+  ],
+  "native_full_restore_proof_sha256": "6e2e7ddf9296b4213618409eaf005b3520489e86216ce446a26acc6992e87a24",
+  "benchmark_rows_added": 0,
+  "all_original_experiments_complete": false
+}
