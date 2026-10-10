@@ -1,0 +1,1158 @@
+{
+  "captured_utc": "2026-10-10T16:56:50.612459+00:00",
+  "previous_goal_turn_classification": "progress",
+  "current_goal_turn_classification": "progress",
+  "objective": "这个方向相关所有的已知未完成的实验都跑一遍",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "all_original_experiments_complete": false,
+  "new_full_native_results_independently_audited": 7,
+  "total_complete_grasp_slots_independently_audited": 13,
+  "original_grasp_cohorts": 480,
+  "original_entity_jobs": 9120,
+  "source_bindings_verified": 89,
+  "full_native_training_budget": {
+    "epochs": 1500,
+    "optimizer_updates_per_full_SWAN_seed": 93000
+  },
+  "tests_passed": 32,
+  "controllers": [
+    {
+      "name": "cfm_original",
+      "pid": 18116,
+      "create_time": 1791642567.9098759,
+      "command_token": "scripts.flow_matching.run_cfm_ts_low_memory_queue_v2",
+      "status_path": "experiments/runs/fm_cfm_ts_original_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_cfm_ts_low_memory_queue_v2",
+        "--runtime-config",
+        "configs/runtime/fm_cfm_ts_low_memory_controller.v3.json",
+        "--controller",
+        "original"
+      ],
+      "children": [
+        {
+          "pid": 26856,
+          "create_time": 1791649712.6788852,
+          "command": [
+            "D:\\aicoding\\IIA_benchmark\\.venv\\cfmts-author-py312\\Scripts\\python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_cfm_ts_original_job",
+            "--queue",
+            "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+            "--job-id",
+            "cfm_ts_original__main_text__node_e400__pendulum__seed1103"
+          ],
+          "cpu_seconds": 0.0,
+          "rss_bytes": 4595712
+        },
+        {
+          "pid": 13988,
+          "create_time": 1791649712.7103302,
+          "command": [
+            "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_cfm_ts_original_job",
+            "--queue",
+            "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+            "--job-id",
+            "cfm_ts_original__main_text__node_e400__pendulum__seed1103"
+          ],
+          "cpu_seconds": 1673.609375,
+          "rss_bytes": 858705920
+        }
+      ],
+      "state": {
+        "pid": 18116,
+        "queue_sha256": "3ed12e461674275c52f6eb74fb992940e1405f11b3938676f0b1ec98b3ff3513",
+        "runtime_sha256": "4202e849c2b7e2350fb99a2c72770fcdb498f01c430af5652916aa869ee854bf",
+        "active_pid": 26856,
+        "active_job": "cfm_ts_original__main_text__node_e400__pendulum__seed1103",
+        "state": "running",
+        "peak_tree_rss_bytes": 780369920,
+        "peak_tree_private_bytes": 2575638528,
+        "minimum_commit_available_bytes": 16839159808,
+        "resource_guard_aborted": true,
+        "abort_resource_snapshot": {
+          "physical_available_bytes": 45303578624,
+          "commit_available_bytes": 16839159808
+        },
+        "physical_available_bytes": 42657271808,
+        "commit_available_bytes": 19462254592,
+        "shared_lock_owned": false
+      },
+      "job_counts": {
+        "completed": 80,
+        "failed_or_partial_preserved": 5
+      }
+    },
+    {
+      "name": "cfm_exact_recovery",
+      "pid": 11508,
+      "create_time": 1791643203.8756125,
+      "command_token": "scripts.flow_matching.run_cfm_ts_low_memory_queue_v2",
+      "status_path": "experiments/runs/fm_cfm_ts_exact_recovery_v3/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_cfm_ts_low_memory_queue_v2",
+        "--runtime-config",
+        "configs/runtime/fm_cfm_ts_low_memory_controller.v6.json",
+        "--controller",
+        "recovery"
+      ],
+      "children": [],
+      "state": {
+        "pid": 11508,
+        "queue_sha256": "db0e88dc29c542236dc0dea5dae10c348a29c8fc1ddc3309377674b3e55e3e54",
+        "runtime_sha256": "7fc133e2cae7962b8d9de4ac018f4e8d01278d03544cebcfaec59b4aaf37c5c9",
+        "active_pid": null,
+        "active_job": null,
+        "physical_available_bytes": 47158636544,
+        "commit_available_bytes": 32564699136,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "grasp_full",
+      "pid": 1756,
+      "create_time": 1791645932.4602587,
+      "command_token": "scripts.flow_matching.run_grasp_full_fair_queue_v5",
+      "status_path": "experiments/runs/fm_grasp_protocol_v4/status.json",
+      "verified_live": false,
+      "state": {
+        "pid": 30080,
+        "queue_sha256": "5873aa2927ad5d5920d1b8d8cfe0b9b2251ab5bb0bd3731fa594567a88d1d8f0",
+        "active_pid": null,
+        "state": "waiting_full_gpu_resources",
+        "shared_lock_owned": false,
+        "physical_available_bytes": 46284357632,
+        "commit_available_bytes": 31536345088,
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 13593739264
+      },
+      "job_counts": {
+        "completed": 11,
+        "failed_or_partial_preserved": 3
+      }
+    },
+    {
+      "name": "giflow_full",
+      "pid": 21984,
+      "create_time": 1791643109.8706102,
+      "command_token": "scripts.flow_matching.run_giflow_serial_native_queue_v3",
+      "status_path": "experiments/runs/fm_giflow_native_v3/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_giflow_serial_native_queue_v3",
+        "--queue",
+        "configs/experiments/fm_giflow_native_queue.v3.json"
+      ],
+      "children": [
+        {
+          "pid": 3576,
+          "create_time": 1791649872.533909,
+          "command": [
+            ".venv/giflow-author-py310/Scripts/python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_giflow_native_job",
+            "--queue",
+            "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_giflow_native_queue.v3.json",
+            "--job-id",
+            "giflow_native__released_mirror__air36__main__seed393"
+          ],
+          "cpu_seconds": 0.0,
+          "rss_bytes": 5632000
+        },
+        {
+          "pid": 27740,
+          "create_time": 1791649872.5604892,
+          "command": [
+            "D:\\aicoding\\IIA_benchmark\\tmp\\python\\cpython-3.10-windows-x86_64-none\\python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_giflow_native_job",
+            "--queue",
+            "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_giflow_native_queue.v3.json",
+            "--job-id",
+            "giflow_native__released_mirror__air36__main__seed393"
+          ],
+          "cpu_seconds": 1043.953125,
+          "rss_bytes": 1310253056
+        }
+      ],
+      "state": {
+        "pid": 21984,
+        "queue_sha256": "4b90e0451045b857a3872cf79424c2ccf0c3010f8ee3364f728c3f8476efb4ee",
+        "active_pid": 3576,
+        "physical_available_bytes": 46978330624,
+        "commit_available_bytes": 32431730688,
+        "state": "running",
+        "shared_lock_owned": false,
+        "active_job": "giflow_native__released_mirror__air36__main__seed393",
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 13591642112,
+        "peak_tree_rss_bytes": 1323810816,
+        "peak_tree_private_bytes": 12500512768,
+        "minimum_commit_available_bytes": 29847015424,
+        "minimum_gpu_free_bytes": 13495173120,
+        "resource_guard_aborted": false,
+        "gpu_observation_retries": 0
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "spectral_table1_full",
+      "pid": 29248,
+      "create_time": 1791643117.924164,
+      "command_token": "scripts.flow_matching.run_spectral_original_queue",
+      "status_path": "experiments/runs/fm_spectral_mean_flow_original_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_spectral_original_queue",
+        "--queue",
+        "configs/experiments/fm_spectral_mean_flow_original_queue.v2.json",
+        "--preflight",
+        "experiments/runs/fm_spectral_mean_flow_original_v1/preflight/cpu_v2.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 29248,
+        "queue_sha256": "242e23ac1462f4a953752e3f14032bc33f958ddab9de3f198e8e507e9088e10b",
+        "preflight_sha256": "792782488a7af8f29940a207cba4784b150251e7150782a226b670ad49cf9c9a",
+        "active_pid": null,
+        "active_job": null,
+        "physical_available_bytes": 46913155072,
+        "commit_available_bytes": 32244858880,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false,
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 8148484096,
+        "peak_tree_rss_bytes": 2667544576,
+        "peak_tree_private_bytes": 30630367232,
+        "minimum_commit_available_bytes": 19603808256,
+        "minimum_gpu_free_bytes": 27262976,
+        "resource_guard_aborted": true,
+        "gpu_observation_retries": 0,
+        "abort_resource_snapshot": {
+          "physical_available_bytes": 46826057728,
+          "commit_available_bytes": 19603808256,
+          "gpu_index": 0,
+          "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+          "gpu_free_bytes": 27262976
+        }
+      },
+      "job_counts": {
+        "failed_or_partial_preserved": 1
+      }
+    },
+    {
+      "name": "strict_cpu",
+      "pid": 17052,
+      "create_time": 1791643087.8226397,
+      "command_token": "scripts.flow_matching.run_resource_gated_light_controller_v1",
+      "status_path": "experiments/runs/fm_resource_gated_cpu_resume_v1/strict_cpu/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_resource_gated_light_controller_v1",
+        "--runtime-config",
+        "configs/runtime/fm_resource_gated_cpu_resume.v1.json",
+        "--controller",
+        "strict_cpu"
+      ],
+      "children": [],
+      "state": {
+        "pid": 17052,
+        "create_time": 1791643087.8226397,
+        "runtime_sha256": "e180dc0999f0ff1207ac94a162f1022d54bef7b5979061569591d5768223bfaa",
+        "queue_sha256": "5e35572eec2c6cfdd6451ca46e33faae3f5b57c48b2601165676a94eb311f4f4",
+        "state": "waiting_for_memory",
+        "requested_job": "fm_strict_anomaly_transformer__smd__registered__seed1103",
+        "physical_available_bytes": 47108890624,
+        "commit_available_bytes": 32501223424,
+        "shared_lock_owned": false,
+        "active_pid": null,
+        "active_create_time": 1791644099.9675071,
+        "active_job": "fm_strict_timesnet__smd__registered__seed1107",
+        "peak_tree_rss_bytes": 1362046976,
+        "peak_tree_private_bytes": 2019373056,
+        "minimum_commit_available_bytes": 47377977344,
+        "resource_guard_aborted": false,
+        "exit_code": 0
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "entropic_cpu",
+      "pid": 25148,
+      "create_time": 1791643087.8461912,
+      "command_token": "scripts.flow_matching.run_resource_gated_light_controller_v1",
+      "status_path": "experiments/runs/fm_resource_gated_cpu_resume_v1/entropic_cpu/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_resource_gated_light_controller_v1",
+        "--runtime-config",
+        "configs/runtime/fm_resource_gated_cpu_resume.v1.json",
+        "--controller",
+        "entropic_cpu"
+      ],
+      "children": [],
+      "state": {
+        "pid": 25148,
+        "create_time": 1791643087.8461912,
+        "runtime_sha256": "e180dc0999f0ff1207ac94a162f1022d54bef7b5979061569591d5768223bfaa",
+        "queue_sha256": "9efbdc427f6996a824c3b67e0a686ce93a7f4cfea9616559257c32add91dabd4",
+        "state": "waiting_for_memory",
+        "requested_job": "fm_objective_sf2m_flow_only__smd__seed1107__stable_numerics_v2",
+        "active_pid": null,
+        "active_create_time": 1791643088.5955596,
+        "active_job": "fm_objective_sf2m_flow_only__smd__seed1106__stable_numerics_v2",
+        "physical_available_bytes": 46251180032,
+        "commit_available_bytes": 31472394240,
+        "peak_tree_rss_bytes": 1017085952,
+        "peak_tree_private_bytes": 1758724096,
+        "minimum_commit_available_bytes": 49089228800,
+        "resource_guard_aborted": false,
+        "exit_code": 0,
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "pi_cpu",
+      "pid": 2400,
+      "create_time": 1791643087.862719,
+      "command_token": "scripts.flow_matching.run_resource_gated_light_controller_v1",
+      "status_path": "experiments/runs/fm_resource_gated_cpu_resume_v1/pi_cpu/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_resource_gated_light_controller_v1",
+        "--runtime-config",
+        "configs/runtime/fm_resource_gated_cpu_resume.v1.json",
+        "--controller",
+        "pi_cpu"
+      ],
+      "children": [
+        {
+          "pid": 22096,
+          "create_time": 1791646542.8529422,
+          "command": [
+            "D:\\aicoding\\IIA_benchmark\\.venv\\pi-transformer-author-py312\\Scripts\\python.exe",
+            "-u",
+            "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_pi_transformer_job.py",
+            "--queue",
+            "configs\\experiments\\fm_pi_transformer_author_queue.v1.json",
+            "--job-id",
+            "pi_author__causal_axis_repaired__psm__full__seed1104"
+          ],
+          "cpu_seconds": 0.015625,
+          "rss_bytes": 4501504
+        },
+        {
+          "pid": 3296,
+          "create_time": 1791646542.8922482,
+          "command": [
+            "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-u",
+            "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_pi_transformer_job.py",
+            "--queue",
+            "configs\\experiments\\fm_pi_transformer_author_queue.v1.json",
+            "--job-id",
+            "pi_author__causal_axis_repaired__psm__full__seed1104"
+          ],
+          "cpu_seconds": 9529.546875,
+          "rss_bytes": 3509035008
+        }
+      ],
+      "state": {
+        "pid": 2400,
+        "create_time": 1791643087.862719,
+        "runtime_sha256": "e180dc0999f0ff1207ac94a162f1022d54bef7b5979061569591d5768223bfaa",
+        "queue_sha256": "5be2d8327622ef4da74644cfe1e81ffb58160f30a75160bf4b583abccbd1eff0",
+        "state": "running",
+        "requested_job": "pi_author__causal_axis_repaired__psm__full__seed1104",
+        "physical_available_bytes": 46419247104,
+        "commit_available_bytes": 31735582720,
+        "shared_lock_owned": false,
+        "active_pid": 22096,
+        "active_create_time": 1791646542.8529422,
+        "active_job": "pi_author__causal_axis_repaired__psm__full__seed1104",
+        "peak_tree_rss_bytes": 4822265856,
+        "peak_tree_private_bytes": 5872910336,
+        "minimum_commit_available_bytes": 18914213888,
+        "resource_guard_aborted": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "moment_cpu",
+      "pid": 22036,
+      "create_time": 1791643087.8825576,
+      "command_token": "scripts.flow_matching.run_resource_gated_light_controller_v1",
+      "status_path": "experiments/runs/fm_resource_gated_cpu_resume_v1/moment_cpu/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_resource_gated_light_controller_v1",
+        "--runtime-config",
+        "configs/runtime/fm_resource_gated_cpu_resume.v1.json",
+        "--controller",
+        "moment_cpu"
+      ],
+      "children": [],
+      "state": {
+        "pid": 22036,
+        "create_time": 1791643087.8825576,
+        "runtime_sha256": "e180dc0999f0ff1207ac94a162f1022d54bef7b5979061569591d5768223bfaa",
+        "queue_sha256": "1b03d6576d2a51cc847850519dc1204b14c0f1a81aa1be8f42bdf019d31c7930",
+        "state": "waiting_for_memory",
+        "requested_job": "fm_moment_pretrained_base__release512__swan__seed42",
+        "physical_available_bytes": 47014014976,
+        "commit_available_bytes": 32389419008,
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "crossad",
+      "pid": 18488,
+      "create_time": 1791643304.5645547,
+      "command_token": "scripts.flow_matching.run_light_controller",
+      "status_path": "experiments/runs/fm_crossad_author_v2/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "crossad"
+      ],
+      "children": [],
+      "state": {
+        "pid": 18488,
+        "queue_sha256": "ee661402cf82d4ecc6ab0ddf99923b92b28edbaac291c8e6c1ffb2d7b0563921",
+        "active_job": null,
+        "active_pid": null,
+        "state": "waiting_for_heavy_lock",
+        "frozen_files_verified": 179,
+        "physical_available_bytes": 47530356736,
+        "commit_available_bytes": 33062141952,
+        "shared_lock_owned": false
+      },
+      "job_counts": {
+        "completed": 2,
+        "failed_or_partial_preserved": 3,
+        "awaiting_full_native_batch_preflight": 3
+      }
+    },
+    {
+      "name": "maelnet_stage_resume",
+      "pid": 31656,
+      "create_time": 1791643922.8564825,
+      "command_token": "scripts.flow_matching.run_maelnet_stage_resource_queue_v1",
+      "status_path": "experiments/runs/fm_maelnet_stage_resource_resume_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_maelnet_stage_resource_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_maelnet_stage_resource_resume.v1.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 31656,
+        "create_time": 1791643922.8564825,
+        "runtime_sha256": "3a24ce6c569fecbd6a06e5d9d5816a1fb0ba2cf4c1a98a50afa81347565695de",
+        "queue_sha256": "08398c2d30a6608762c9bedc3c887630c0c19d663163a846b32204ab085c45e6",
+        "state": "waiting_for_memory",
+        "active_pid": null,
+        "original_job": "maelnet_author__exp_1_e3d1__psm__seed1105",
+        "requested_job": "maelnet_author__exp_1_e3d1__psm__seed1106",
+        "physical_available_bytes": 48042606592,
+        "commit_available_bytes": 33714814976,
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "saits_original_resume",
+      "pid": 32196,
+      "create_time": 1791644170.8522196,
+      "command_token": "scripts.flow_matching.run_saits_guarded_original_queue_v1",
+      "status_path": "experiments/runs/fm_saits_guarded_original_resume_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_saits_guarded_original_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_saits_guarded_original_resume.v1.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 32196,
+        "create_time": 1791644170.8522196,
+        "runtime_sha256": "dee065cce11916582e3ee4533a011438714ab2ed268c891a903b665c2c948cd6",
+        "queue_sha256": "112785d2d451284ada8104314984cddfd35fc39edec5caf8cc854f355e6e3cef",
+        "state": "waiting_for_heavy_lock",
+        "active_pid": null,
+        "active_job": null,
+        "physical_available_bytes": 46409404416,
+        "commit_available_bytes": 31617093632,
+        "shared_lock_owned": false,
+        "active_create_time": 1791648943.7061553,
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 22738370560,
+        "peak_tree_rss_bytes": 1792851968,
+        "peak_tree_private_bytes": 4513320960,
+        "minimum_commit_available_bytes": 43118563328,
+        "minimum_gpu_free_bytes": 22729981952,
+        "resource_guard_aborted": false,
+        "gpu_observation_retries": 0
+      },
+      "job_counts": {
+        "completed": 11
+      }
+    },
+    {
+      "name": "sdformer_full_gpu_preflight",
+      "pid": 10740,
+      "create_time": 1791643930.0060835,
+      "command_token": "scripts.flow_matching.run_registered_guarded_command_v1",
+      "status_path": "experiments/runs/fm_spectral_table2_sdformer_preflight_v1/status.json",
+      "verified_live": false,
+      "state": {
+        "pid": 10740,
+        "config_sha256": "93259230872240cddc2db93784e037f8df06bcd3e00981e79424d550faee5c81",
+        "state": "completed",
+        "active_pid": null,
+        "physical_available_bytes": 49050759168,
+        "commit_available_bytes": 45849600000,
+        "shared_lock_owned": false,
+        "active_create_time": 1791647221.083752,
+        "full_diagnostic_passed": true,
+        "output_sha256": "2271d57e08d78e7b15ac78d1df258a3e5ff31e88bfe00b8a8f3ce0323b366f2c"
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "table2_all30_method_gated",
+      "pid": 34616,
+      "create_time": 1791649433.4711907,
+      "command_token": "scripts.flow_matching.run_spectral_table2_gpu_memory_queue_v2",
+      "status_path": "experiments/runs/fm_spectral_table2_method_gated_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_spectral_table2_gpu_memory_queue_v2",
+        "--runtime-config",
+        "configs/runtime/fm_spectral_table2_gpu_memory.v2.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 34616,
+        "create_time": 1791649433.4711907,
+        "active_job": null,
+        "active_pid": null,
+        "runtime_sha256": "f1fcd1660b84adc869a06e7f4ac2a397754eb183cb72e63a7dfe9fb34fa80fae",
+        "queue_sha256": "4441ba96d5692b7b6f4b07b8830f5b836d15d1a06cb28a21d10d6adc1386d01f",
+        "state": "waiting_full_gpu_resources",
+        "requested_job": "spectral_table2__sdformer_ar__sine__seed42",
+        "shared_lock_owned": false,
+        "physical_available_bytes": 46259843072,
+        "commit_available_bytes": 31425662976,
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 13591642112
+      },
+      "job_counts": {
+        "awaiting_full_method_gpu_preflight": 15,
+        "pending": 15
+      }
+    },
+    {
+      "name": "range_main",
+      "pid": 21668,
+      "create_time": 1791645194.2117355,
+      "command_token": "scripts.flow_matching.run_light_controller",
+      "status_path": "experiments/runs/fm_tsad_tab_range_sparse_v2/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "range_main"
+      ],
+      "children": [],
+      "state": {
+        "pid": 21668,
+        "config_sha256": "b429a9fab6c65c494ee00ae4befd74c3f388f69ccca74893a8337c709b600cd4",
+        "active_pid": null,
+        "active_job": null,
+        "registered_attempts": 1750,
+        "physical_available_bytes": 47082655744,
+        "commit_available_bytes": 32570531840,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "range_reflow",
+      "pid": 19576,
+      "create_time": 1791645194.2317994,
+      "command_token": "scripts.flow_matching.run_light_controller",
+      "status_path": "experiments/runs/fm_reflow_tab_range_sparse_v2/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "range_reflow"
+      ],
+      "children": [],
+      "state": {
+        "pid": 19576,
+        "config_sha256": "478ea2038519fbc65ecbc513c05aa2010f368638c8e92e56840aeea6f802a39a",
+        "active_pid": null,
+        "active_job": null,
+        "registered_attempts": 140,
+        "physical_available_bytes": 46602809344,
+        "commit_available_bytes": 31968980992,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "range_industrial",
+      "pid": 10508,
+      "create_time": 1791645194.279052,
+      "command_token": "scripts.flow_matching.run_light_controller",
+      "status_path": "experiments/runs/fm_industrial_tab_range_sparse_v2/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "range_industrial"
+      ],
+      "children": [],
+      "state": {
+        "pid": 10508,
+        "config_sha256": "d0b6ee2224b96209c31d0fc6b45c2bc8f87a5dacb2bdf8faef85e1bd9554f3d0",
+        "active_pid": null,
+        "active_job": null,
+        "registered_attempts": 1400,
+        "physical_available_bytes": 47452872704,
+        "commit_available_bytes": 32886890496,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "range_moment",
+      "pid": 31184,
+      "create_time": 1791645194.3025885,
+      "command_token": "scripts.flow_matching.run_light_controller",
+      "status_path": "experiments/runs/fm_moment_pretrained_tab_range_sparse_v2/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_light_controllers.v1.json",
+        "--controller",
+        "range_moment"
+      ],
+      "children": [],
+      "state": {
+        "pid": 31184,
+        "config_sha256": "c45c8c6964c4c9c406c4222d941b6cd696a8efbfa988361070888daf47ad6d32",
+        "active_pid": null,
+        "active_job": null,
+        "registered_attempts": 72,
+        "physical_available_bytes": 47158636544,
+        "commit_available_bytes": 32564699136,
+        "state": "waiting_for_heavy_lock",
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "grasp_new_full_audit",
+      "pid": 31832,
+      "create_time": 1791645194.6498196,
+      "command_token": "scripts.flow_matching.audit_registered_grasp_results_v1",
+      "status_path": "experiments/runs/fm_grasp_new_full_ablations_audit_v1/status.json",
+      "verified_live": false,
+      "state": {
+        "pid": 31832,
+        "create_time": 1791645194.6498196,
+        "config_sha256": "20dc79eeaabe6f2d777530ccd102bfffb476e89ef33af1203f1434585e6d3081",
+        "state": "waiting_for_heavy_lock",
+        "active_pid": null,
+        "physical_available_bytes": 48187686912,
+        "commit_available_bytes": 36754857984,
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "industrial_empty_output_recovery",
+      "pid": 29224,
+      "create_time": 1791645511.5460331,
+      "command_token": "scripts.flow_matching.run_light_controller",
+      "status_path": "experiments/runs/fm_industrial_empty_output_recovery_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_industrial_empty_output_recovery.v1.json",
+        "--controller",
+        "industrial_empty_output_recovery"
+      ],
+      "children": [],
+      "state": {
+        "pid": 29224,
+        "queue_sha256": "2602314f24aa2c801bcb8038ed87907e1b6174946caeff57400fe71bbac6e47e",
+        "active_job": null,
+        "active_pid": null,
+        "physical_available_bytes": 46565502976,
+        "commit_available_bytes": 31809998848,
+        "state": "waiting_for_memory",
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "tsad_gpu_full",
+      "pid": 30764,
+      "create_time": 1791646031.5239048,
+      "command_token": "scripts.flow_matching.run_tsad_native_gpu_resource_queue_v1",
+      "status_path": "experiments/runs/fm_tsad_gpu_native_gpu_resource_resume_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_tsad_native_gpu_resource_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_tsad_gpu_native_gpu_resource_resume.v1.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 30764,
+        "create_time": 1791646031.5239048,
+        "runtime_sha256": "060b831ae3c870750cc8e3d1e59a172732c47440faa75e9edce85ac4b6b57864",
+        "queue_sha256": "aedf572ed01edce97a0405b95f96bf3b2200699c6420c5c0b0510dcdd2c92e07",
+        "state": "waiting_original_phase_gates",
+        "active_job": null,
+        "active_pid": null
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "industrial_gpu_full",
+      "pid": 32616,
+      "create_time": 1791646031.5956695,
+      "command_token": "scripts.flow_matching.run_tsad_native_gpu_resource_queue_v1",
+      "status_path": "experiments/runs/fm_industrial_gpu_native_gpu_resource_resume_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_tsad_native_gpu_resource_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_industrial_gpu_native_gpu_resource_resume.v1.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 32616,
+        "create_time": 1791646031.5956695,
+        "runtime_sha256": "93a82919115b4419aa2f1fc19318b8a67bc47a3b634783354a37e9afe841a22f",
+        "queue_sha256": "b31bf990514bd6597709ea0aa3b357420795f543613a657eb32ccbb36b119513",
+        "state": "waiting_original_phase_gates",
+        "active_job": null,
+        "active_pid": null
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "grin_original_native_resume",
+      "pid": 32760,
+      "create_time": 1791646846.2450645,
+      "command_token": "scripts.flow_matching.run_imputation_native_resume_queue_v1",
+      "status_path": "experiments/runs/fm_grin_original_native_resume_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_imputation_native_resume_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_grin_original_native_resume.v1.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 32760,
+        "create_time": 1791646846.2450645,
+        "runtime_sha256": "4768c11beb7602b42d6cd432e59dd95f0911f1d3bd156fa910f166edfcf3ebd6",
+        "queue_sha256": "18be65b0a3247f36d49d066346bf4f5e79e02d8f1c4355c00439450b1bf05578",
+        "state": "waiting_original_phase_gates",
+        "active_job": null,
+        "active_pid": null,
+        "gates": {
+          "ready": false,
+          "prerequisite_pending": 199,
+          "pending_examples": [
+            "saits_paper_saits_electricity_author_missing0.1_seed27",
+            "saits_paper_saits_electricity_author_missing0.1_seed28",
+            "saits_paper_saits_electricity_author_missing0.1_seed29"
+          ],
+          "original_scope_status": null
+        }
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "transfer_native_resume",
+      "pid": 3456,
+      "create_time": 1791646846.2629364,
+      "command_token": "scripts.flow_matching.run_imputation_native_resume_queue_v1",
+      "status_path": "experiments/runs/fm_transfer_native_resume_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_imputation_native_resume_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_transfer_native_resume.v1.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 3456,
+        "create_time": 1791646846.2629364,
+        "runtime_sha256": "6766e1f1c7370c5f747fbe345d9f2ecbb2ba31dff22bf15771f7cf9eee387f9b",
+        "queue_sha256": "fb5acfc305faa4504a4e3a2a220db2407a913e727ca4a74267cd0719f5e9c934",
+        "state": "waiting_original_phase_gates",
+        "active_job": null,
+        "active_pid": null,
+        "gates": {
+          "ready": false,
+          "prerequisite_pending": 0,
+          "pending_examples": [],
+          "original_scope_status": "in_progress"
+        }
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "strict_empty_output_recovery",
+      "pid": 16088,
+      "create_time": 1791647020.812831,
+      "command_token": "scripts.flow_matching.run_light_controller",
+      "status_path": "experiments/runs/fm_strict_empty_output_recovery_v1/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_light_controller",
+        "--runtime-config",
+        "configs/runtime/fm_strict_empty_output_recovery.v1.json",
+        "--controller",
+        "strict_empty_output_recovery"
+      ],
+      "children": [],
+      "state": {
+        "pid": 16088,
+        "queue_sha256": "f6bc49561125060b009368377ee8dde14fff2a864adfedecc6359e44c83b6952",
+        "active_job": null,
+        "active_pid": null,
+        "physical_available_bytes": 48002752512,
+        "commit_available_bytes": 33559093248,
+        "state": "waiting_for_memory",
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "spectral_table3_full",
+      "pid": 34272,
+      "create_time": 1791649433.5505075,
+      "command_token": "scripts.flow_matching.run_spectral_table3_gpu_memory_queue_v3",
+      "status_path": "experiments/runs/fm_spectral_table3_original_v2/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_spectral_table3_gpu_memory_queue_v3",
+        "--runtime-config",
+        "configs/runtime/fm_spectral_table3_gpu_memory.v3.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 34272,
+        "create_time": 1791649433.5505075,
+        "queue_sha256": "3cfe30096bb5a053673915fc98985d0a11445766de448ef46cb4cb498e133e49",
+        "state": "waiting_full_gpu_resources",
+        "active_pid": null,
+        "active_job": null,
+        "shared_lock_owned": false,
+        "physical_available_bytes": 46259843072,
+        "commit_available_bytes": 31424606208,
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 13591642112
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "grasp_seed1104_independent_audit",
+      "pid": 18728,
+      "create_time": 1791649470.5700932,
+      "command_token": "scripts.flow_matching.audit_registered_grasp_results_v1",
+      "status_path": "experiments/runs/fm_grasp_seed1104_full_audit_v1/status.json",
+      "verified_live": false,
+      "state": {
+        "pid": 18728,
+        "create_time": 1791649470.5700932,
+        "config_sha256": "1e7f347d03d8a049445d8a88fe05310f23166aa5a8c9085d51fa00988ed154c5",
+        "state": "waiting_for_heavy_lock",
+        "active_pid": null,
+        "physical_available_bytes": 48911433728,
+        "commit_available_bytes": 37636034560,
+        "shared_lock_owned": false
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "grasp_full_gpu_memory_v6",
+      "pid": 30080,
+      "create_time": 1791651152.2145493,
+      "command_token": "scripts.flow_matching.run_grasp_gpu_memory_fair_queue_v6",
+      "status_path": "experiments/runs/fm_grasp_protocol_v4/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_grasp_gpu_memory_fair_queue_v6",
+        "--runtime-config",
+        "configs/runtime/fm_grasp_full_gpu_memory_fairness.v6.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 30080,
+        "queue_sha256": "5873aa2927ad5d5920d1b8d8cfe0b9b2251ab5bb0bd3731fa594567a88d1d8f0",
+        "active_pid": null,
+        "state": "waiting_full_gpu_resources",
+        "shared_lock_owned": false,
+        "physical_available_bytes": 46284357632,
+        "commit_available_bytes": 31536345088,
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 13593739264
+      },
+      "job_counts": {
+        "completed": 11,
+        "failed_or_partial_preserved": 3
+      }
+    },
+    {
+      "name": "grasp_bounded_full_audits_v2",
+      "pid": 25964,
+      "create_time": 1791651152.1320791,
+      "command_token": "scripts.flow_matching.run_bounded_readonly_grasp_audits_v2",
+      "status_path": "experiments/runs/fm_grasp_bounded_readonly_audits_v2/status.json",
+      "verified_live": false,
+      "state": {
+        "pid": 25964,
+        "create_time": 1791651152.1320791,
+        "state": "completed",
+        "runtime_sha256": "badef3e077eadcc9af1fc315c3a2c050c173f430b846909c608e09aa4e791916",
+        "active_pid": null,
+        "audits": {
+          "tau_0_0p5_1_seed1103": "completed",
+          "gnn_main_seed1104": "completed",
+          "tau_4_8_seed1103": "completed"
+        },
+        "active_audit": null,
+        "active_create_time": 1791651160.4696145,
+        "physical_available_bytes": 47654182912,
+        "commit_available_bytes": 35675054080,
+        "peak_tree_rss_bytes": 673996800,
+        "peak_tree_private_bytes": 1012199424,
+        "resource_guard_aborted": false,
+        "full_result_audit_passed": true
+      },
+      "job_counts": {}
+    },
+    {
+      "name": "grasp_tau025_exact_gpu_recovery_v3",
+      "pid": 32112,
+      "create_time": 1791651297.015031,
+      "command_token": "scripts.flow_matching.run_native_grasp_gpu_memory_recovery_v3",
+      "status_path": "experiments/runs/fm_native_grasp_tau025_exact_recovery_v3/status.json",
+      "verified_live": true,
+      "actual_command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_native_grasp_gpu_memory_recovery_v3",
+        "--controller",
+        "--queue",
+        "configs/experiments/fm_native_grasp_tau025_exact_recovery.v3.json"
+      ],
+      "children": [],
+      "state": {
+        "pid": 32112,
+        "queue_sha256": "fa3b082c4e0fabd7e5ec83b32b86fea06ba7e9a7a3443ec63379f60991da6efb",
+        "active_pid": null,
+        "state": "waiting_full_gpu_resources",
+        "shared_lock_owned": false,
+        "physical_available_bytes": 47272308736,
+        "commit_available_bytes": 32723181568,
+        "gpu_index": 0,
+        "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+        "gpu_free_bytes": 13591642112
+      },
+      "job_counts": {}
+    }
+  ],
+  "live_controller_count": 25,
+  "registered_controller_bindings": 30,
+  "giflow_log_tail": [
+    "train_loss=0.06419613608159125 after epoch 125",
+    "val_loss=0.054341897182166574 after epoch 125",
+    "EarlyStopping counter: 3 out of 40",
+    "train_loss=0.06372375413775444 after epoch 126",
+    "val_loss=0.05427631363272667 after epoch 126",
+    "EarlyStopping counter: 4 out of 40",
+    "train_loss=0.06368278719795246 after epoch 127",
+    "val_loss=0.054634030908346176 after epoch 127",
+    "EarlyStopping counter: 5 out of 40",
+    "train_loss=0.0638142058160156 after epoch 128",
+    "val_loss=0.05488908980041742 after epoch 128",
+    "EarlyStopping counter: 6 out of 40",
+    "train_loss=0.06335097349559267 after epoch 129",
+    "val_loss=0.05471088159829378 after epoch 129",
+    "EarlyStopping counter: 7 out of 40"
+  ],
+  "interpretation": "Seven actual frozen full-result workers completed independently; original models untouched. CFM NODE400 and GiFlow Air36 original300-epoch-cap/author-early-stopping workers remain active. Native GPU admission uses unchanged memory and emergency gates plus original GPU mutex. Tau0.25 exact full original seed retry is registered and live pending GPU family ownership. All original data/task/ablation scope remains required."
+}

@@ -1,0 +1,304 @@
+{
+  "state_root": "experiments/runs/fm_native_grasp_tau025_exact_recovery_v3",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/native_grasp_tau025_exact_recovery_v3",
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "runtime_config": "configs/runtime/fm_light_controllers.v1.json",
+  "python": "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+  "settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 21474836480,
+    "emergency_commit_headroom_bytes": 10737418240,
+    "cpu_threads": 2,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 8589934592,
+    "emergency_gpu_free_bytes": 2147483648
+  },
+  "environment_lock": "configs/reproducibility/grasp_protocol_py312.v2.lock.json",
+  "manifest": "data/public_datasets/flow_matching/grasp_protocol_v2/manifest.json",
+  "native_metrics": "experiments/runs/fm_grasp_paper_protocol_v1/sources/mtsbench/original/Detectors/evaluation/basic_metrics.py",
+  "boundary": "Paper-derived successor; every entity has full stride-one fitting, chronological 80/20 validation, 1500 epochs, validation every 50, and ten seeds. Euclidean channel distance, raw repaired fit graph features, train-only zscore, overlap averaging, GNN/Transformer projections, TSMixer normalization and last-epoch selection remain disclosed local choices. Test-label oracle Best-F1 is retrospective and separate from validation-only control. Native feature counts differ by one from paper prose; original-author equivalence remains unverified. Attribution uses all test windows, not an identified original figure population. RTX 3090 timing is local hardware timing and does not reproduce the paper hardware. All prior paper/task obligations remain required.",
+  "seeds": [
+    1103,
+    1104,
+    1105,
+    1106,
+    1107,
+    1108,
+    1109,
+    1110,
+    1111,
+    1112
+  ],
+  "schema_version": 2,
+  "registration_config": "configs/experiments/fm_grasp_protocol_registration.v2.json",
+  "profiles": {
+    "gnn": "configs/models/fm_grasp_protocol_v2_gnn.json",
+    "main": "configs/models/fm_grasp_protocol_v2_main.json",
+    "transformer": "configs/models/fm_grasp_protocol_v2_transformer.json",
+    "mean": "configs/models/fm_grasp_protocol_v2_mean.json",
+    "er": "configs/models/fm_grasp_protocol_v2_er.json",
+    "lin": "configs/models/fm_grasp_protocol_v2_lin.json",
+    "tau_0": "configs/models/fm_grasp_protocol_v2_tau_0.json",
+    "tau_0p25": "configs/models/fm_grasp_protocol_v2_tau_0p25.json",
+    "tau_0p5": "configs/models/fm_grasp_protocol_v2_tau_0p5.json",
+    "tau_1": "configs/models/fm_grasp_protocol_v2_tau_1.json",
+    "tau_4": "configs/models/fm_grasp_protocol_v2_tau_4.json",
+    "tau_8": "configs/models/fm_grasp_protocol_v2_tau_8.json"
+  },
+  "jobs": [
+    {
+      "id": "grasp_protocol_v3__tau_0p25__swan__swan_sf__seed1103__native_exact_recovery_v3",
+      "profile": "tau_0p25",
+      "dataset": "swan",
+      "entity": "swan_sf",
+      "seed": 1103,
+      "model_config": "configs/models/fm_grasp_protocol_v2_tau_0p25.json",
+      "model_config_sha256": "596287b4abf104833803eb12f0f7fed0537cda152d84514ceb4919ba90b7e928",
+      "expected_optimizer_updates": 93000,
+      "test_points": 72000,
+      "validation_points": 3935,
+      "score_recipes": [
+        {
+          "source_samples": 5,
+          "flow_evaluations": 10
+        }
+      ],
+      "output_directory": "experiments/runs/fm_native_grasp_tau025_exact_recovery_v3/jobs/grasp_protocol_v3__tau_0p25__swan__swan_sf__seed1103__native_exact_recovery_v3",
+      "original_id": "grasp_protocol_v2__tau_0p25__swan__swan_sf__seed1103",
+      "recovery_original_job_id": "grasp_protocol_v3__tau_0p25__swan__swan_sf__seed1103"
+    }
+  ],
+  "cohort_count": 1,
+  "source_receipts": [
+    {
+      "path": "configs/experiments/fm_grasp_protocol_registration.v2.json",
+      "sha256": "6792d33e2b0b04dbe03161354dac92be3f15955fca239887b1681f3ef29d1e09"
+    },
+    {
+      "path": "configs/experiments/fm_tsad_execution.v1.json",
+      "sha256": "c67d89272b22f61cb6be83a774cf82e191b04f1bc0774807ecd7c010e725d62c"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_er.json",
+      "sha256": "362c6d25a79f94f4a35ca8310d850c59dbd965c85b88653b87dabba488c332e1"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_gnn.json",
+      "sha256": "5293cb309fac7306c3c12aa795342ab93bbfbeafe15a134f7aaaba767695fcf4"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_lin.json",
+      "sha256": "f8d5f06f4b97e578646e1f6caee830873d5a53cfec9f5e78283e7cdc6e558dd6"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_main.json",
+      "sha256": "e0e7eb2b766739211775ef84588ec27de95b23e78548887268ee27c33e97da4d"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_mean.json",
+      "sha256": "252c3e68bfc9e22023da436a3e11581697ee4932c9194c7b5e2172ae0332dd98"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_tau_0.json",
+      "sha256": "951b7af8b8efb90565e330df5ed8adbf02d52962371d83d82d7514c911627cfa"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_tau_0p25.json",
+      "sha256": "596287b4abf104833803eb12f0f7fed0537cda152d84514ceb4919ba90b7e928"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_tau_0p5.json",
+      "sha256": "fd02c29fbbb1c697b18b54de1ce0778a03d19a5f08ce0858a1a2e6b1f9f73c6b"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_tau_1.json",
+      "sha256": "50f8ae60b3e8979dca7094c06cd1d00d83c121c543492b247a76295959d8616e"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_tau_4.json",
+      "sha256": "868f9fd2abd0c828550507a5b003c30752892797b18219fe46aeecebff3206a7"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_tau_8.json",
+      "sha256": "0bc6f03334d0923cd4407b37d74c987b360e5a3c066589c55a5d4eebc62a9db3"
+    },
+    {
+      "path": "configs/models/fm_grasp_protocol_v2_transformer.json",
+      "sha256": "9166d285fca977caaa28363e5e0b2920248c9306a0a48e119c7079a09b061fdc"
+    },
+    {
+      "path": "configs/reproducibility/grasp_primary_protocol_corrections.v1.json",
+      "sha256": "0b96fa51cf14f8ca835d7677000d879fa56ce72fad704e46f276f73ec69f554b"
+    },
+    {
+      "path": "configs/reproducibility/grasp_protocol_py312.v2.lock.json",
+      "sha256": "276236e8a9e92766ac648a940399071ede7bdd6eab5e0b989871f79aafcf7d39"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/grasp_protocol_v2/manifest.json",
+      "sha256": "997c298af8f28a6fa67595224a5af423701eb10eac848bb91ad4708538d907a3"
+    },
+    {
+      "path": "experiments/runs/fm_grasp_paper_protocol_v1/sources/mtsbench/original/Detectors/evaluation/basic_metrics.py",
+      "sha256": "1fcddedf5ada1d5221f39ee568c7fddb9e7181bd7e1c19636c2cbecf40c97707"
+    },
+    {
+      "path": "papers/literature/flow_matching/pdfs/grasp.pdf",
+      "sha256": "1b9e48e68d57ca8466099d0515ac67b2c3309b75cf9445ac58f5fd6ec39583fd"
+    },
+    {
+      "path": "scripts/flow_matching/grasp_protocol_runner.py",
+      "sha256": "f88a34d80211c7ae87c1b278c95944ce8daa1d4c2247011cab2be257b539abce"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_tsad_execution.py",
+      "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+    },
+    {
+      "path": "scripts/flow_matching/register_grasp_protocol.py",
+      "sha256": "9dcf3b27cdca7de8bb37fdb6739c595f7a7e77e451d392b39a4ad2ac404cceb6"
+    },
+    {
+      "path": "scripts/flow_matching/run_grasp_protocol_queue.py",
+      "sha256": "9115332e17cc8605ff77eb11e42641df65c2fe2c9a8b7b9de2778aa8ffb58464"
+    },
+    {
+      "path": "scripts/flow_matching/summarize_grasp_protocol.py",
+      "sha256": "3d273f733c212c2d689821300604613e99d17210625fad78e8aa6ed2e1640041"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_native.py",
+      "sha256": "9cb4b963a425703482054cf473d4b4ccc2e73a3d95e972729ef10deed2b9b4c9"
+    },
+    {
+      "path": "src/iia_benchmark/models/grasp_protocol_v2.py",
+      "sha256": "ef824ea403eea4ea7f6a68a171dfe40dbe21b0606f6ee5757e9edf065d7d3de2"
+    },
+    {
+      "path": "tests/test_grasp_protocol_runner.py",
+      "sha256": "b44f06be58cccbb7e8bcb14c05f80f316254c1d9b0ebc8a9cbcc331568d19871"
+    },
+    {
+      "path": "tests/test_grasp_protocol_v2.py",
+      "sha256": "6e389b0a5085f5ae9e3cffece9cb355fa2ccfdad26e39bc947ff2f13233696c9"
+    },
+    {
+      "path": "configs/reproducibility/grasp_cuda_allocator_init_repair.v1.json",
+      "sha256": "700ba9e9edee359eae3a96d602e06244a738e9b1ba752c47d16a8d3df85038d9"
+    },
+    {
+      "path": "configs/experiments/fm_grasp_protocol_queue.v2.json",
+      "sha256": "93b92a6016abbac5ada1c6b145dfcfba0b51cf06da79ea7de6b400ed496a0886"
+    },
+    {
+      "path": "scripts/flow_matching/grasp_protocol_cuda_runtime.py",
+      "sha256": "1ec34e9181c3b7818dc25980aa3ba96e5644fc85e06b5628940590c7f83ab42c"
+    },
+    {
+      "path": "scripts/flow_matching/run_grasp_protocol_queue_v3.py",
+      "sha256": "989f9098cfc900c6de0ce530b03932122ce81eb13a8d77e0b6dbd06573115db1"
+    },
+    {
+      "path": "scripts/flow_matching/summarize_grasp_protocol_v3.py",
+      "sha256": "a9e8663c99ea38790152d880e9f497c04c6aa2ddf976559bccc86b50ea4e9484"
+    },
+    {
+      "path": "scripts/flow_matching/register_grasp_cuda_runtime.py",
+      "sha256": "36995a2f757a946d30407d5f1b3859366e9aacd03f36c4673efa2dd7af2b040f"
+    },
+    {
+      "path": "tests/test_grasp_cuda_runtime.py",
+      "sha256": "6f316c106a5066d4d5e8c0b46970baf0c6bd6db1ce1a947031c26a9989664230"
+    },
+    {
+      "path": "configs/experiments/fm_grasp_protocol_queue.v3.json",
+      "sha256": "622e9bd788d85671f782bad2a1999701868cc101b663c0f52c0e460519ac7fd1"
+    },
+    {
+      "path": "scripts/flow_matching/run_grasp_fair_queue_v4.py",
+      "sha256": "70f357ad45062f391cea5e590c2a6168bd9680bd73e231d25131e30025a7da33"
+    },
+    {
+      "path": "scripts/flow_matching/transition_grasp_at_job_boundary.py",
+      "sha256": "bb6b41c998e1f3056c179598969144e11754475cca9a0b5e7c37312d65c87b0f"
+    },
+    {
+      "path": "scripts/flow_matching/register_grasp_fair_queue_v4.py",
+      "sha256": "f4875a8dccd8a2c7dd270dd2e3cf55d57923b16f61556bed4271b732f0216edc"
+    },
+    {
+      "path": "scripts/flow_matching/transition_light_controllers_v2.py",
+      "sha256": "e912ad9dcadc48efa619ac188843869cc97bff2f30d9bd31a9d0c7941404f7da"
+    },
+    {
+      "path": "tests/test_fm_grasp_boundary_fairness.py",
+      "sha256": "dbdb56e248379ad39ce633c776124568c445841e61dd61576e833c0b79ed2078"
+    },
+    {
+      "path": "configs/experiments/fm_grasp_protocol_queue.v4.json",
+      "sha256": "5873aa2927ad5d5920d1b8d8cfe0b9b2251ab5bb0bd3731fa594567a88d1d8f0"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/grasp_tau025_exact_recovery_v3/terminal_original_attempt.json",
+      "sha256": "2b75f66fc9669d38adeb0ed65781cde9a38fe9843ef7643e5b05901e1687c73e"
+    },
+    {
+      "path": "experiments/runs/fm_grasp_protocol_v3/jobs/grasp_protocol_v3__tau_0p25__swan__swan_sf__seed1103/progress.json",
+      "sha256": "ccbe34f5b047c9a912686126a18b2aaf30028a0df3f27d9d4f936443decd5087"
+    },
+    {
+      "path": "experiments/runs/fm_grasp_protocol_v3/jobs/grasp_protocol_v3__tau_0p25__swan__swan_sf__seed1103/training_history.jsonl",
+      "sha256": "592eaff92d10292402706dd778157f52ecdfbf9d72f909c96e3fde24de959b93"
+    },
+    {
+      "path": "scripts/flow_matching/native_exact_recovery.py",
+      "sha256": "3a5552da38bea307b2c2654639e5b40c274936eed3b0cc0700da12fe0397367f"
+    },
+    {
+      "path": "scripts/flow_matching/native_exact_recovery_manifest_v2.py",
+      "sha256": "cc74c0a2526dee61fa19efae8500f99c8f2c0405142d1675eef1dfbc5d1f1634"
+    },
+    {
+      "path": "scripts/flow_matching/run_native_grasp_recovery_v2.py",
+      "sha256": "b014a742b642a1bc8570491a42104d97e13981b40318b109586aff9067edb933"
+    },
+    {
+      "path": "scripts/flow_matching/run_native_grasp_gpu_memory_recovery_v3.py",
+      "sha256": "73b38e1822e01b56905f0a8b48a913c63374d739c56caceefbdd676afbd9c4ca"
+    },
+    {
+      "path": "scripts/flow_matching/run_grasp_gpu_memory_fair_queue_v6.py",
+      "sha256": "f24b01f19e63a3b7decf4d909ffed33f1f7ea84a24e508d21ddb158c23008b26"
+    },
+    {
+      "path": "scripts/flow_matching/full_gpu_memory_slot_v2.py",
+      "sha256": "dc333f281d9f860523d9179f41a6fb2724a3577ccfb98555aa4151c896752bd5"
+    },
+    {
+      "path": "scripts/flow_matching/register_grasp_tau025_exact_recovery_v3.py",
+      "sha256": "f4375bda676554bfcc96504b9633ff61f7010f0cb84358f3966f2e48e8024459"
+    },
+    {
+      "path": "tests/test_fm_native_grasp_gpu_recovery_v3.py",
+      "sha256": "787f0ec39078b4c5ecdacb5f254cbba1e1aad7f25e0b2cb03d27f88f6c7e20a7"
+    }
+  ],
+  "reviewed_runtime_repair": "configs/reproducibility/grasp_cuda_allocator_init_repair.v1.json",
+  "controller_yield_seconds": 2,
+  "recovery_track": "grasp",
+  "recovery_original_queue": "configs/experiments/fm_grasp_protocol_queue.v4.json",
+  "recovery_original_queue_sha256": "5873aa2927ad5d5920d1b8d8cfe0b9b2251ab5bb0bd3731fa594567a88d1d8f0",
+  "recovery_original_job_ids": [
+    "grasp_protocol_v3__tau_0p25__swan__swan_sf__seed1103"
+  ],
+  "lock_poll_seconds": 0.25,
+  "recovery_policy": "One interrupted original SWAN tau0.25 seed1103 slot, exact1500-epoch/93000-update retry. Original files and full scientific settings unchanged; no additional seed or metric selection.",
+  "recovery_failure_receipts": [
+    {
+      "original_job_id": "grasp_protocol_v3__tau_0p25__swan__swan_sf__seed1103",
+      "path": "projects/flow_matching_research/results/2026-10-11/grasp_tau025_exact_recovery_v3/terminal_original_attempt.json",
+      "sha256": "2b75f66fc9669d38adeb0ed65781cde9a38fe9843ef7643e5b05901e1687c73e"
+    }
+  ]
+}
