@@ -1,0 +1,128 @@
+{
+  "captured_utc": "2026-10-10T18:38:46.970224+00:00",
+  "queue": "configs/experiments/fm_pi_transformer_author_queue.v1.json",
+  "queue_sha256": "5be2d8327622ef4da74644cfe1e81ffb58160f30a75160bf4b583abccbd1eff0",
+  "registered_jobs": 1140,
+  "counts": {
+    "failed_preserved": 3,
+    "completed": 2,
+    "partial_or_preparing": 2,
+    "pending": 1133
+  },
+  "frozen_files_verified": 52,
+  "state": {
+    "pid": 2400,
+    "state": "running",
+    "queue_sha256": "5be2d8327622ef4da74644cfe1e81ffb58160f30a75160bf4b583abccbd1eff0",
+    "active_job": null,
+    "active_pid": null,
+    "frozen_files_verified": 52,
+    "active_stage": null,
+    "started_unix": 1791646542.8734095
+  },
+  "verified_live_processes": [],
+  "completed_records": [
+    {
+      "id": "pi_author__causal_axis_repaired__psm__full__seed1103",
+      "dataset": "PSM",
+      "seed": 1103,
+      "author_recipe": "causal_axis_repaired/full",
+      "metrics": {
+        "accuracy": 0.9882232346241457,
+        "precision": 0.9740909460668673,
+        "recall": 0.9836934198636327,
+        "f1": 0.9788686340227254,
+        "pointwise_no_PA_same_author_threshold": {
+          "accuracy": 0.7182004555808656,
+          "precision": 0.2744874715261959,
+          "recall": 0.009898956707467346,
+          "f1": 0.019108785283856646,
+          "auroc": 0.48426737745034326,
+          "average_precision": 0.27292052811174095
+        }
+      },
+      "result_path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1103/result.json",
+      "result_sha256": "0ecbb9ffaa15b811a65a202aaaf73ef9228d4c4083b51239b9b18e75851a087c"
+    },
+    {
+      "id": "pi_author__causal_axis_repaired__psm__full__seed1104",
+      "dataset": "PSM",
+      "seed": 1104,
+      "author_recipe": "causal_axis_repaired/full",
+      "metrics": {
+        "accuracy": 0.9882232346241457,
+        "precision": 0.9740909460668673,
+        "recall": 0.9836934198636327,
+        "f1": 0.9788686340227254,
+        "pointwise_no_PA_same_author_threshold": {
+          "accuracy": 0.7182004555808656,
+          "precision": 0.2744874715261959,
+          "recall": 0.009898956707467346,
+          "f1": 0.019108785283856646,
+          "auroc": 0.4915894081089307,
+          "average_precision": 0.2771386984553752
+        }
+      },
+      "result_path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1104/result.json",
+      "result_sha256": "bd7de277562e7487ac37e57a570da98f0937a7427b2e08b7f9320cedb8da1f16"
+    }
+  ],
+  "strict_TAB_result": false,
+  "goal_achieved": false,
+  "boundary": "Pinned historical mirror reproduction and separately named causal/time-axis repair controls. Keep full source hyperparameters, stride-one training, source early stopping on test, source pooled train/test score calibration, original PA and original dropped inference tails. Neither branch proves journal equivalence or strict TAB generalization. Config axes on source_runtime are mirror sensitivity controls; e_layers produces e_layers-1 active layers. Temperature/stream grid is posthoc diagnostic, never select a strict leaderboard result using test labels.",
+  "protocol_audit": "docs/reports/fm_pi_transformer_protocol_audit_2026-10-09.json",
+  "full_budget_audits": [
+    {
+      "id": "pi_author__causal_axis_repaired__psm__full__seed1103",
+      "seed": 1103,
+      "training_windows": 132382,
+      "steps_per_epoch": 518,
+      "epochs_completed": 3,
+      "optimizer_minibatches": 1554,
+      "maximum_original_epochs": 3,
+      "result_sha256": "0ecbb9ffaa15b811a65a202aaaf73ef9228d4c4083b51239b9b18e75851a087c",
+      "independent_saved_score_metric_recalculation_passed": true,
+      "independent_trained_model_reinference_passed": false
+    },
+    {
+      "id": "pi_author__causal_axis_repaired__psm__full__seed1104",
+      "seed": 1104,
+      "training_windows": 132382,
+      "steps_per_epoch": 518,
+      "epochs_completed": 3,
+      "optimizer_minibatches": 1554,
+      "maximum_original_epochs": 3,
+      "result_sha256": "bd7de277562e7487ac37e57a570da98f0937a7427b2e08b7f9320cedb8da1f16",
+      "independent_saved_score_metric_recalculation_passed": true,
+      "independent_trained_model_reinference_passed": false
+    }
+  ],
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/audit_pi_completed_native_v2.py",
+      "sha256": "6b582653b9b72cc874be47993095ad364f7b1d37e672bad1e34be8aaccc58284"
+    },
+    {
+      "path": "scripts/flow_matching/audit_pi_transformer_author_execution.py",
+      "sha256": "dba2743a1d28d3cfdc8d65b777b76f54aff428e2a7787750be693e9ed282a791"
+    },
+    {
+      "path": "scripts/flow_matching/run_pi_transformer_job.py",
+      "sha256": "3d4118e07c63a8633d076c3d389453b1143c8f46b69a954628e5db0edfbe85ee"
+    },
+    {
+      "path": "scripts/flow_matching/run_maelnet_author_queue.py",
+      "sha256": "fca4639b11f09810ce190af4280cbd477eb475ec39378c49871241ba0cff0fd1"
+    },
+    {
+      "path": "tests/test_fm_pi_completed_native_v2.py",
+      "sha256": "2a799fe2d00a4093daf365b893399daa7682618f853d530020ad3bc595a50a7c"
+    },
+    {
+      "path": "configs/reproducibility/fm_pi_completed_native_audit.2026-10-11_v2.json",
+      "sha256": "3fb376ed6eb53e7b1bd6c7af0a1eebd876bf53c1fa4e134363ad142edc48146c"
+    }
+  ],
+  "audit_boundary": "All full native budgets and complete saved-score calibration/PA/pointwise metrics verified. Trained model re-inference remains incomplete; neither branch is strict TAB or certified journal equivalence.",
+  "all_original_experiments_complete": false
+}
