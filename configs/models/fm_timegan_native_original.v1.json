@@ -1,0 +1,37 @@
+{
+  "id": "fm_timegan_native_original_v1",
+  "method": "TimeGAN",
+  "task": "unconditional_time_series_generation",
+  "source_commit": "8f6181cb9b9d2fa0c930cd902411d9ac8a308e07",
+  "source_root": "data/public_datasets/flow_matching/timegan_native_source_v1/original",
+  "source_manifest": "data/public_datasets/flow_matching/timegan_native_source_v1/source_manifest.json",
+  "dataset_config": "configs/datasets/fm_timegan_original.v1.json",
+  "parameters": {
+    "seq_len": 24,
+    "hidden_dim": 24,
+    "num_layer": 3,
+    "iterations": 50000,
+    "batch_size": 128,
+    "metric_iteration": 10
+  },
+  "modules": [
+    "gru",
+    "lstm",
+    "lstmLN"
+  ],
+  "implementation": "scripts/flow_matching/run_timegan_native_job_v1.py",
+  "citation": {
+    "title": "Time-series Generative Adversarial Networks",
+    "authors": [
+      "Jinsung Yoon",
+      "Daniel Jarrett",
+      "Mihaela van der Schaar"
+    ],
+    "venue": "NeurIPS 2019",
+    "paper": "https://papers.nips.cc/paper/8789-time-series-generative-adversarial-networks",
+    "code": "https://github.com/jsyoon0823/TimeGAN"
+  },
+  "reproduction_status": "native_environment_and_full_graph_audit_in_progress",
+  "author_equivalence_certified": false,
+  "boundary": "Published source defaults frozen locally. All original source module options are controls, not claimed complete paper ablation list. Historical optimized settings and adopted irregular baseline comparisons remain obligations."
+}
