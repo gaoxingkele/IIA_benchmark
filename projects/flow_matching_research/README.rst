@@ -129,7 +129,11 @@ ARA 参考文献工程
 算法与数据集实验指标
 ------------------
 
-`最新完整指标清单 <results/2026-10-09/native_resource_recovery_0945/algorithm_dataset_metrics.md>`_ 列出算法—数据集技术指标与待完成项。
+`最新完整指标清单 <results/2026-10-11/all_algorithm_dataset_metrics_v9/README.md>`_ 列出7117条算法—数据集技术指标及空缺，其中1776条有实测值；合并Pi最新2/6种子核验，其他轨道保留原核验时间。
+`全部指标筛选表 <results/2026-10-11/all_algorithm_dataset_metrics_v9/results.html>`_、
+`全量CSV <results/2026-10-11/all_algorithm_dataset_metrics_v9/all_algorithm_dataset_metrics.csv>`_、
+`全部可阅读指标 <results/2026-10-11/all_algorithm_dataset_metrics_v9/all_metrics.md>`_ 包含协议、完成数、均值、STD、SE、95%区间、论文值和来源。
+表的列举范围完整不代表全部论文及实验已完成；接口诊断不计入性能。
 严格/TAB/插补等表保留09:20快照；`完整Excel <results/2026-10-09/complete_metrics_0920/complete_experiment_metrics.xlsx>`_ 含16个工作表。
 `09:47统计协议补充 <results/2026-10-09/native_resource_recovery_0945/README.md>`_ 已核验HBOS/COPOD原登记80/80个槽，
 两项同种子、同预算恢复不作为新增独立重复。原始快照、失败和训练历史均保留。
