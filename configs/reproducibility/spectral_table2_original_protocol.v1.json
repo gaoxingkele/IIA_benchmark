@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "paper": {
+    "path": "papers/literature/flow_matching/project_additions/spectral_mean_flow_2510.15366v1.pdf",
+    "sha256": "7471d9b2dba02e1415c2ada64e3219b02849b9451feed05fbd6ef64c891c621e",
+    "citation": "https://arxiv.org/abs/2510.15366v1",
+    "physical_pdf_pages": [
+      9,
+      10
+    ]
+  },
+  "table": 2,
+  "author_source": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_medium",
+  "author_repository": "https://github.com/jw9730/spectral-mean-flow",
+  "author_commit": "81e49338b10b21262b8069703cac3639aa0d43aa",
+  "environment_lock": "configs/reproducibility/spectral_table2_author_py310.lock.json",
+  "data": {
+    "sine": {
+      "path": "data/public_datasets/flow_matching/spectral_additional_original_assets_v1/raw/sine_ground_truth_24_train.npy",
+      "sha256": "230b811cded82c76d7365e8531df235ecbadf1ebb6a97b117be69c37c8c09f1e",
+      "workspace_path": "dataset/sine_ground_truth_24_train.npy",
+      "shape": [
+        10000,
+        24,
+        5
+      ],
+      "preprocessing": "released_NPY_unchanged"
+    },
+    "stock": {
+      "path": "data/public_datasets/flow_matching/spectral_additional_original_assets_v1/raw/stock_data.csv",
+      "sha256": "134b8a00eb4eefa3242dd7ae85144082da80dedf75a1a656d5d08f97cd95277a",
+      "workspace_path": "dataset/stock_data.csv",
+      "shape": [
+        3662,
+        24,
+        6
+      ],
+      "preprocessing": "author_TSDataset_full_series_feature_minmax_no_epsilon_stride1"
+    },
+    "mujoco": {
+      "path": "data/public_datasets/flow_matching/spectral_additional_original_assets_v1/raw/mujoco_norm_truth_24_train.npy",
+      "sha256": "39f95f3650d045591d14f4b2a49c2d425c075d0a31848f4cb9094f62cb9e2e55",
+      "workspace_path": "dataset/mujoco_norm_truth_24_train.npy",
+      "shape": [
+        10000,
+        24,
+        14
+      ],
+      "preprocessing": "released_NPY_unchanged"
+    }
+  },
+  "seeds": [
+    42,
+    1103,
+    1104,
+    1105,
+    1106
+  ],
+  "metric_repeats": 5,
+  "metrics": [
+    "context_fid",
+    "discriminative",
+    "predictive"
+  ],
+  "metric_seed": 0,
+  "source_num_workers": 8,
+  "source_cli_changes": [
+    "GPU device remap to0",
+    "training seed specified per registered job"
+  ],
+  "final_checkpoint_selection": "author_periodic_discriminative_score_best_checkpoint",
+  "sampling": "full_original_sampler_unmodified_no_chunking",
+  "windows_fix": "execute byte-identical entry in separate namespace while retaining guarded outer multiprocessing __main__",
+  "pending_original_table2_methods": {
+    "sdformer_m": "Source exists; released full dataset-specific CLI recipe absent in src_medium/scripts; do not infer AR hyperparameters",
+    "imagentime": "Released source/configs in src_large; native execution pipeline remains to implement"
+  },
+  "additional_original_obligations": "Full Tables3/4/5, tensor-network/memory and physics figures remain in original frontier; Table1 remains separate live70-job queue",
+  "source_rng_boundary": "Author RNG setup is retained exactly. AR only seeds Torch; TF evaluators reset graphs without reseeding. Job seed repeats alone do not certify all RNGs or author equivalence."
+}
