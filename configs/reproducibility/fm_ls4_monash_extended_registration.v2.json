@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "registration_path": "configs/reproducibility/fm_ls4_monash_extended_registration.v2.json",
+  "queue_path": "configs/experiments/fm_ls4_monash_extended_queue.v2.json",
+  "source_root": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original",
+  "python": ".venv/ls4-author-py310/Scripts/python.exe",
+  "environment_lock": "configs/reproducibility/ls4_author_py310.lock.json",
+  "state_root": "experiments/runs/fm_ls4_monash_extended_v2",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/ls4_monash_extended_v2",
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "seeds": [
+    42,
+    1103,
+    1104,
+    1105,
+    1106
+  ],
+  "settings": {
+    "minimum_available_memory_bytes": 34359738368,
+    "minimum_commit_headroom_bytes": 45097156608,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 15032385536,
+    "emergency_gpu_free_bytes": 4294967296,
+    "cpu_threads": 2,
+    "controller_yield_seconds": 35
+  },
+  "data_audit_lock": "experiments/runs/fm_readonly_checkpoint_audit_cpu.lock",
+  "data_audit_settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 23622320128,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 4294967296,
+    "maximum_worker_private_bytes": 8589934592
+  },
+  "data_audit_artifact": "F:/aicoding/IIA_Data/experiments/ls4_monash_extended_v2/full_data_audit",
+  "data_audit_output": "experiments/runs/fm_ls4_monash_extended_v2/preflight/full_data_audit.json",
+  "gpu_preflight_artifact": "F:/aicoding/IIA_Data/experiments/ls4_monash_extended_v2/full_gpu_preflight",
+  "gpu_preflight_output": "experiments/runs/fm_ls4_monash_extended_v2/preflight/full_gpu_preflight.json",
+  "datasets": [
+    {
+      "dataset": "solar_weekly",
+      "filename": "solar_weekly_dataset.tsf",
+      "yaml": "vae_solarweekly.yaml",
+      "samples": 137,
+      "length": 52,
+      "raw_path": "data/public_datasets/flow_matching/ls4_extended_monash_v1/raw/solar_weekly_dataset.tsf"
+    },
+    {
+      "dataset": "temperature_rain",
+      "filename": "temperature_rain_dataset_without_missing_values.tsf",
+      "yaml": "vae_temperature_rain.yaml",
+      "samples": 32072,
+      "length": 725,
+      "raw_path": "data/public_datasets/flow_matching/ls4_extended_monash_v1/raw/temperature_rain_dataset_without_missing_values.tsf"
+    }
+  ],
+  "citations": [
+    "https://proceedings.mlr.press/v202/zhou23i.html",
+    "https://github.com/alexzhou907/ls4/tree/2b5cb76f89f6b935bbd697771433f3c74126ffca",
+    "https://arxiv.org/abs/2510.15366v1",
+    "https://doi.org/10.5281/zenodo.4656151",
+    "https://doi.org/10.5281/zenodo.5129091"
+  ],
+  "remaining_obligations": [
+    "All unfinished canonical45 papers/681 literature method-baseline-ablation records/273 original task records remain required",
+    "Existing20 full FRED/NN5 jobs remain disjoint and required; new20 Solar/Temperature jobs do not replace them",
+    "Full original LS4 FLAME stiff-system,Physionet/USHCN interpolation/extrapolation,ablations and adopted baselines remain required",
+    "SaShiMi continuous-Gaussian AR task settings and reconstruction remain required; audio source/configuration not substituted",
+    "Final trained-model re-inference and independent metric audit remain required. Source multi-batch test-loss sums not certified as paper averages"
+  ],
+  "boundary": "Twenty additional full original Monash runs, full137 Solar trajectories and32072 Temperature/Rain trajectories. Released vs paper-literal epochs,batch,z_dim and EMA remain separate; source variable-length,activation,all data,100-epoch multi-batch evaluators and test-marginal selection retained. Raw publisher zero-filled missing values retained. No new full result or author equivalence is certified by registration/preflight.",
+  "data_audit_progress": "experiments/runs/fm_ls4_monash_extended_v2/preflight/full_data_audit_progress.json"
+}
