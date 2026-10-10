@@ -1,0 +1,33 @@
+{
+  "state": {
+    "pid": 33880,
+    "create_time": 1791670729.7948837,
+    "state": "failed_preserved",
+    "active_pid": null,
+    "active_create_time": 1791670730.051033,
+    "actual_command": [
+      "D:\\aicoding\\IIA_benchmark\\.venv\\gtgan-author-py38\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "-u",
+      "-m",
+      "scripts.flow_matching.audit_gtgan_energy_native_v1",
+      "--config",
+      "configs/reproducibility/fm_gtgan_energy_native_audit.2026-10-11_v2.json",
+      "--worker"
+    ],
+    "physical_available_bytes": 42581581824,
+    "commit_available_bytes": 25534803968,
+    "peak_tree_rss_bytes": 1030213632,
+    "peak_tree_private_bytes": 5503172608,
+    "resource_guard_aborted": false
+  },
+  "receipt": {
+    "exit_code": 1,
+    "full_native_energy_audit_passed": false,
+    "peak_tree_rss_bytes": 1030213632,
+    "peak_tree_private_bytes": 5503172608,
+    "resource_guard_aborted": false
+  },
+  "stderr": "2026-10-11 06:19:01.758398: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set\nTraceback (most recent call last):\n  File \"D:\\aicoding\\IIA_benchmark\\tmp\\python\\cpython-3.8.20-windows-x86_64-none\\lib\\runpy.py\", line 194, in _run_module_as_main\n    return _run_code(code, main_globals, None,\n  File \"D:\\aicoding\\IIA_benchmark\\tmp\\python\\cpython-3.8.20-windows-x86_64-none\\lib\\runpy.py\", line 87, in _run_code\n    exec(code, run_globals)\n  File \"D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\audit_gtgan_energy_native_v1.py\", line 219, in <module>\n    main()\n  File \"D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\audit_gtgan_energy_native_v1.py\", line 182, in main\n    worker(c)\n  File \"D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\audit_gtgan_energy_native_v1.py\", line 156, in worker\n    write(output / 'progress.json', dict(completed_profiles=len(rows), required_profiles=len(model_config['cases'])))\n  File \"D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\audit_cfm_checkpoint_replay_v1.py\", line 31, in write\n    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)+'\\n', encoding='utf-8', newline='\\n')\nTypeError: write_text() got an unexpected keyword argument 'newline'\n"
+}
