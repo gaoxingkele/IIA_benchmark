@@ -1,0 +1,51 @@
+{
+  "id": "spectral_table3__spectral_flow__fred_md__seed42",
+  "method": "spectral_flow",
+  "dataset": "fred_md",
+  "seed": 42,
+  "evaluation_seed": 0,
+  "diagnostic": false,
+  "device": "cuda",
+  "author_config": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/configs/spectral_flow/fred_md.yaml",
+  "author_config_sha256": "5df350f2cd5510f1845a334367cf0be4ccb5de826e102bacb92ef82db3210823",
+  "author_hyperparameters": {
+    "epochs": 1000,
+    "batch_size": 32,
+    "muon_learning_rate": 0.001,
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "dataset": "fred_md",
+    "seq_len": 728,
+    "delay": 16,
+    "embedding": 64,
+    "d_model": 768,
+    "mlp_hidden_times": 4,
+    "n_layers": 12,
+    "input_channels": 1,
+    "sigma": 1e-05,
+    "sampling_timesteps": 100,
+    "solver_method": "midpoint",
+    "ema": true,
+    "ema_warmup": 100,
+    "logging_iter": 100
+  },
+  "raw_path": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/data/long_range/fred_md.tsf",
+  "raw_sha256": "b62383200451cd400e372583f76dfd4054d7045fe1a7ee994d97734c8cf62f3d",
+  "training_entry": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/main.py",
+  "evaluation_entry": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_large/eval.py",
+  "implementation": "scripts.flow_matching.run_spectral_table3_original_v1:run_job",
+  "reproduction_status": "full_original_pipeline_registered_preflight_and_training_pending",
+  "citations": [
+    "https://arxiv.org/abs/2510.15366v1",
+    "https://github.com/azencot-group/ImagenTime"
+  ],
+  "source_status": "Pinned released Spectral Mean Flow Table3 implementation, including its ImagenTime reproduction; exact historical author equivalence not certified.",
+  "paper_claims": {
+    "marginal_score_mean": 0.019,
+    "clf_score_mean": 1.338,
+    "clf_score_std": 0.753,
+    "predictive_score_mean": 0.03,
+    "predictive_score_std": 0.006
+  },
+  "boundary": "One released generator seed42; STD from10 S4 evaluator fits. Retain separate evaluation seed0, original full-series normalization, test marginal checkpoint selection and validation timing. NN5 release has791 timestamps whereas paper text says728; do not crop."
+}
