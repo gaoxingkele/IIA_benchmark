@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "queue_path": "configs/experiments/fm_sashimi_monash_gaussian_queue.v2.json",
+  "source_root": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original",
+  "python": ".venv/ls4-author-py310/Scripts/python.exe",
+  "environment_lock": "configs/reproducibility/ls4_author_py310.lock.json",
+  "original_ls4_queues": [
+    "configs/experiments/fm_ls4_original_queue.v1.json",
+    "configs/experiments/fm_ls4_monash_extended_queue.v2.json"
+  ],
+  "cauchy_correction_config": "configs/reproducibility/ls4_cauchy_fallback_repair.v1.json",
+  "paper_pdf": "papers/literature/flow_matching/project_additions/ls4_icml2023_zhou23i.pdf",
+  "state_root": "experiments/runs/fm_sashimi_monash_gaussian_v2",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/sashimi_monash_gaussian_v2",
+  "resource_lock": "experiments/runs/fm_grasp_protocol_gpu.lock",
+  "settings": {
+    "minimum_available_memory_bytes": 34359738368,
+    "minimum_commit_headroom_bytes": 45097156608,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "gpu_index": 0,
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 15032385536,
+    "emergency_gpu_free_bytes": 4294967296,
+    "cpu_threads": 2,
+    "controller_yield_seconds": 35
+  },
+  "data_audit_lock": "experiments/runs/fm_readonly_checkpoint_audit_cpu.lock",
+  "data_audit_settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 23622320128,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 4294967296,
+    "maximum_worker_private_bytes": 8589934592
+  },
+  "seeds": [
+    42,
+    1103,
+    1104,
+    1105,
+    1106
+  ],
+  "profiles": [
+    "paper_flat4",
+    "ls4_decoder_pool1_control"
+  ],
+  "paper_claims": {
+    "fred_md": {
+      "method": "SaShiMi",
+      "pdf": "papers/literature/flow_matching/project_additions/ls4_icml2023_zhou23i.pdf",
+      "pdf_sha256": "c9cd58fbb9b2bb8f92511180376179815530c408a6b2daf9274ee7ad1ec62439",
+      "pdf_page": 7,
+      "table": 1,
+      "reported_metrics": {
+        "marginal_score": 0.0482,
+        "clf_score": 0.00119,
+        "predictive_score": 0.232
+      },
+      "reported_uncertainty": null,
+      "boundary": "Transcribed original paper Table1; published task-specific SaShiMi pipeline and historical seeds unavailable. Native source SUM-batch loss and weighted mean recorded separately; paper numerical equivalence is not certified."
+    },
+    "nn5_daily": {
+      "method": "SaShiMi",
+      "pdf": "papers/literature/flow_matching/project_additions/ls4_icml2023_zhou23i.pdf",
+      "pdf_sha256": "c9cd58fbb9b2bb8f92511180376179815530c408a6b2daf9274ee7ad1ec62439",
+      "pdf_page": 7,
+      "table": 1,
+      "reported_metrics": {
+        "marginal_score": 0.0199,
+        "clf_score": 0.0446,
+        "predictive_score": 0.849
+      },
+      "reported_uncertainty": null,
+      "boundary": "Transcribed original paper Table1; published task-specific SaShiMi pipeline and historical seeds unavailable. Native source SUM-batch loss and weighted mean recorded separately; paper numerical equivalence is not certified."
+    },
+    "temperature_rain": {
+      "method": "SaShiMi",
+      "pdf": "papers/literature/flow_matching/project_additions/ls4_icml2023_zhou23i.pdf",
+      "pdf_sha256": "c9cd58fbb9b2bb8f92511180376179815530c408a6b2daf9274ee7ad1ec62439",
+      "pdf_page": 7,
+      "table": 1,
+      "reported_metrics": {
+        "marginal_score": 0.758,
+        "clf_score": 1.67e-05,
+        "predictive_score": 2.12
+      },
+      "reported_uncertainty": null,
+      "boundary": "Transcribed original paper Table1; published task-specific SaShiMi pipeline and historical seeds unavailable. Native source SUM-batch loss and weighted mean recorded separately; paper numerical equivalence is not certified."
+    },
+    "solar_weekly": {
+      "method": "SaShiMi",
+      "pdf": "papers/literature/flow_matching/project_additions/ls4_icml2023_zhou23i.pdf",
+      "pdf_sha256": "c9cd58fbb9b2bb8f92511180376179815530c408a6b2daf9274ee7ad1ec62439",
+      "pdf_page": 7,
+      "table": 1,
+      "reported_metrics": {
+        "marginal_score": 0.173,
+        "clf_score": 0.00102,
+        "predictive_score": 0.578
+      },
+      "reported_uncertainty": null,
+      "boundary": "Transcribed original paper Table1; published task-specific SaShiMi pipeline and historical seeds unavailable. Native source SUM-batch loss and weighted mean recorded separately; paper numerical equivalence is not certified."
+    }
+  },
+  "citations": [
+    "https://proceedings.mlr.press/v202/zhou23i.html",
+    "https://arxiv.org/abs/2202.09729",
+    "https://github.com/alexzhou907/ls4/tree/2b5cb76f89f6b935bbd697771433f3c74126ffca",
+    "https://github.com/state-spaces/s4/tree/e757cef57d89e448c413de7325ed5601aceaac13",
+    "https://doi.org/10.5281/zenodo.4656151",
+    "https://doi.org/10.5281/zenodo.5129091"
+  ],
+  "scope": {
+    "canonical_papers": 45,
+    "literature_method_records": 681,
+    "original_task_records": 273,
+    "additional_supporting_reference_tasks_remain_required": true
+  },
+  "boundary": "Full original four Monash datasets, per-sequence preprocessing and80/20 trajectory splits. Gaussian teacher-forced AR with no latent variables/quantization; fixedsigma0.1,zero BOS,borrowed native optimizer/scheduler/EMA,flat4 primary architecture and LS4 pool1 architecture sensitivity. All baseline-specific task settings unavailable; final-only last-model and last-EMA evaluation are explicit local choices. Never claim author equivalence or label local sensitivity as paper-reported ablation.",
+  "remaining_obligations": [
+    "All unfinished canonical45 papers/681 method records/273 original tasks and supporting-reference obligations remain required",
+    "Existing40 full LS4 source budgets remain required and unchanged",
+    "Original SaShiMi audio/image experiments remain distinct obligations; continuous-Gaussian Monash experiments do not replace them",
+    "All LS4 adopted baseline models, FLAME and Physionet/USHCN interpolation/extrapolation remain required"
+  ],
+  "original_canonical_queue": "configs/experiments/fm_sashimi_monash_gaussian_queue.v1.json"
+}

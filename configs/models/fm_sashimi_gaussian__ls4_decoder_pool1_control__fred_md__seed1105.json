@@ -1,0 +1,92 @@
+{
+  "id": "sashimi_gaussian__ls4_decoder_pool1_control__fred_md__seed1105",
+  "algorithm": "SaShiMi-Gaussian-AR reconstruction",
+  "dataset": "fred_md",
+  "profile": "ls4_decoder_pool1_control",
+  "seed": 1105,
+  "task": "unconditional_time_series_generation",
+  "samples": 107,
+  "length": 728,
+  "train_samples": 85,
+  "test_samples": 22,
+  "source_config": "experiments/runs/fm_spectral_table3_baseline_acquisition_v1/sources/ls4/original/configs/monash/vae_fred_md.yaml",
+  "backbone": {
+    "d_input": 1,
+    "aux_channels": 0,
+    "d_output": 1,
+    "d_model": 64,
+    "d_state": 64,
+    "n_layers": 4,
+    "d_temb": 0,
+    "bidirectional": false,
+    "dropout": 0.0,
+    "backbone": "autoreg",
+    "use_unet": false,
+    "pool": [
+      1
+    ],
+    "expand": 2,
+    "ff": 2,
+    "s4_type": "s4",
+    "use_latent": false,
+    "latent_type": "none",
+    "aux_out": 0,
+    "lr": 0.001
+  },
+  "sigma": 0.1,
+  "activation": "identity",
+  "optim": {
+    "epochs": 7000,
+    "batch_size": 64,
+    "lr": 0.001,
+    "weight_decay": 0.0,
+    "lamb": 0.999,
+    "start_step": 200
+  },
+  "diagnostic": false,
+  "author_equivalence_certified": false,
+  "implementation": "scripts.flow_matching.run_sashimi_monash_gaussian_v1:run_job",
+  "reproduction_status": "paper_informed_full_budget_reconstruction_registered_not_completed",
+  "citations": [
+    "https://proceedings.mlr.press/v202/zhou23i.html",
+    "https://arxiv.org/abs/2202.09729",
+    "https://github.com/alexzhou907/ls4/tree/2b5cb76f89f6b935bbd697771433f3c74126ffca",
+    "https://github.com/state-spaces/s4/tree/e757cef57d89e448c413de7325ed5601aceaac13",
+    "https://doi.org/10.5281/zenodo.4656151",
+    "https://doi.org/10.5281/zenodo.5129091"
+  ],
+  "boundary": "Full original four Monash datasets, per-sequence preprocessing and80/20 trajectory splits. Gaussian teacher-forced AR with no latent variables/quantization; fixedsigma0.1,zero BOS,borrowed native optimizer/scheduler/EMA,flat4 primary architecture and LS4 pool1 architecture sensitivity. All baseline-specific task settings unavailable; final-only last-model and last-EMA evaluation are explicit local choices. Never claim author equivalence or label local sensitivity as paper-reported ablation.",
+  "paper_reference": {
+    "method": "SaShiMi",
+    "pdf": "papers/literature/flow_matching/project_additions/ls4_icml2023_zhou23i.pdf",
+    "pdf_sha256": "c9cd58fbb9b2bb8f92511180376179815530c408a6b2daf9274ee7ad1ec62439",
+    "pdf_page": 7,
+    "table": 1,
+    "reported_metrics": {
+      "marginal_score": 0.0482,
+      "clf_score": 0.00119,
+      "predictive_score": 0.232
+    },
+    "reported_uncertainty": null,
+    "boundary": "Transcribed original paper Table1; published task-specific SaShiMi pipeline and historical seeds unavailable. Native source SUM-batch loss and weighted mean recorded separately; paper numerical equivalence is not certified."
+  },
+  "profile_boundary": "Local architecture sensitivity: released LS4 decoder pool[1] yields eight S4 blocks, not a paper-reported ablation",
+  "metric_units": {
+    "clf_score": "Native SUM of final classifier test-batch BCE means; higher is less distinguishable, not F1",
+    "predictive_score": "Native SUM of final predictive test-batch MSE means; tail10 teacher-forced one-step targets",
+    "marginal_score": "Original50-bin normalized histogram density discrepancy"
+  },
+  "evaluation_boundary": "Both final model and final EMA use paired saved evaluator RNG, full original100-epoch evaluators. Baseline-specific evaluation cadence/selection unpublished; final-only evaluation is an explicit reconstruction choice.",
+  "budget": {
+    "batches": 2,
+    "generator_updates": 14000,
+    "classifier_updates": 100,
+    "predictor_updates": 100,
+    "classifier_test_batches": 1,
+    "predictor_test_batches": 1,
+    "evaluation_recipes": [
+      "last_model",
+      "last_ema"
+    ]
+  }
+}
