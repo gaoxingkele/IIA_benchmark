@@ -1,0 +1,120 @@
+{
+  "source_registry": "configs/acquisition/fm_adopted_gan_original_sources.v1.json",
+  "source_registry_sha256": "2e117c609fb9f17ef258a8c7d56b8b9c5a661b82c3dae06d9e9f8461c11bc172",
+  "environment_receipt": "projects/flow_matching_research/results/2026-10-11/adopted_gan_original_sources_v1/isolated_environment_receipt.json",
+  "python": "F:/aicoding/IIA_Data/environments/adopted_gan_author_py37_v1/python/python.exe",
+  "output_directory": "projects/flow_matching_research/results/2026-10-11/adopted_gan_native_preparation_v1",
+  "cases": [
+    {
+      "id": "rcgan_full_source_default_gp_graph",
+      "method": "rcgan",
+      "kind": "rcgan_graph",
+      "seed": 1103,
+      "full_split_shapes": {
+        "train": [
+          8400,
+          30,
+          1
+        ],
+        "vali": [
+          2800,
+          30,
+          1
+        ],
+        "test": [
+          2800,
+          30,
+          1
+        ]
+      },
+      "expected_generated_shape": [
+        28,
+        30,
+        1
+      ]
+    },
+    {
+      "id": "crnngan_all_released_midi",
+      "method": "crnngan",
+      "kind": "all_midi",
+      "required_released_midi_files": 3451,
+      "paper_reported_midi_files": 3697
+    },
+    {
+      "id": "crnngan_paper_width350_tones1_full_graph",
+      "method": "crnngan",
+      "kind": "crnngan_graph",
+      "seed": 1103,
+      "flags": {
+        "hidden_size_g": 350,
+        "hidden_size_d": 350,
+        "num_layers_g": 2,
+        "num_layers_d": 2,
+        "songlength": 100,
+        "batch_size": 20,
+        "feature_matching": true,
+        "unidirectional_d": false,
+        "disable_feed_previous": false,
+        "generate_meta": false,
+        "learning_rate": 0.1,
+        "pretraining_epochs": 6,
+        "max_epoch": 500,
+        "tones_per_cell": 1
+      },
+      "num_song_features": 4,
+      "num_meta_features": 155,
+      "expected_generated_shape": [
+        20,
+        100,
+        4
+      ]
+    },
+    {
+      "id": "crnngan_paper_width350_tones3_full_graph",
+      "method": "crnngan",
+      "kind": "crnngan_graph",
+      "seed": 1103,
+      "flags": {
+        "hidden_size_g": 350,
+        "hidden_size_d": 350,
+        "num_layers_g": 2,
+        "num_layers_d": 2,
+        "songlength": 100,
+        "batch_size": 20,
+        "feature_matching": true,
+        "unidirectional_d": false,
+        "disable_feed_previous": false,
+        "generate_meta": false,
+        "learning_rate": 0.1,
+        "pretraining_epochs": 6,
+        "max_epoch": 500,
+        "tones_per_cell": 3
+      },
+      "num_song_features": 10,
+      "num_meta_features": 155,
+      "expected_generated_shape": [
+        20,
+        100,
+        10
+      ]
+    }
+  ],
+  "boundary": {
+    "optimizer_updates": 0,
+    "benchmark_performance": false,
+    "author_equivalence_certified": false,
+    "raw_data_write_allowed": false,
+    "paper_dataset_identity_certified": false,
+    "historical_adopted_stocks_energy_recipe_resolved": false,
+    "crnngan_full_training_budget_in_source": 500,
+    "source_default_songlength_not_verified_historical_paper_setting": true,
+    "midi_import_alias": "midi is the installed python3_midi module, no source edits"
+  },
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 17179869184,
+    "emergency_commit_headroom_bytes": 8589934592,
+    "maximum_worker_rss_bytes": 4294967296,
+    "maximum_worker_private_bytes": 6442450944
+  }
+}

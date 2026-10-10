@@ -1,0 +1,62 @@
+{
+  "id": "fm_crnngan_author_original_v1",
+  "method": "C-RNN-GAN original author implementation",
+  "task": "original_generative_baseline_preparation",
+  "source_registry": "configs/acquisition/fm_adopted_gan_original_sources.v1.json",
+  "source_asset_id": "crnngan",
+  "source_commit": "9edafc02e62ea0478d1798bdf3a283c71cd1eefc",
+  "dataset_config": "configs/datasets/fm_adopted_gan_original.v1.json",
+  "environment_receipt": "projects/flow_matching_research/results/2026-10-11/adopted_gan_original_sources_v1/isolated_environment_receipt.json",
+  "author_callables": [
+    "rnn_gan.RNNGAN",
+    "rnn_gan.run_epoch",
+    "music_data_utils.MusicDataLoader"
+  ],
+  "native_graph_cases": [
+    "crnngan_paper_width350_tones1_full_graph",
+    "crnngan_paper_width350_tones3_full_graph"
+  ],
+  "reproduction_status": "original_source_acquired_full_native_graphs_and_data_audited_full_training_and_adopted_recipe_pending",
+  "citation": {
+    "id": "crnngan",
+    "title": "C-RNN-GAN: Continuous recurrent neural networks with adversarial training",
+    "authors": [
+      "Olof Mogren"
+    ],
+    "year": 2016,
+    "venue": "Constructive Machine Learning Workshop at NIPS 2016",
+    "arxiv_id": "1611.09904",
+    "arxiv_version": "v1",
+    "doi": "10.48550/arXiv.1611.09904",
+    "citation_count": null,
+    "citation_count_status": "not_queried",
+    "full_text_status": "oa_pdf_downloaded_and_parsed",
+    "pdf_url": "https://arxiv.org/pdf/1611.09904v1",
+    "pdf_local_path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\adopted_gan_original_sources_v1\\crnngan\\1611.09904v1.pdf",
+    "pdf_sha256": "af6c1feb88d9b3706819b3cc8bbe69f340ba2f9facc909fc13d6ead52a7fd462",
+    "pdf_pages": 6,
+    "code_url": "https://github.com/olofmogren/c-rnn-gan",
+    "code_commit": "9edafc02e62ea0478d1798bdf3a283c71cd1eefc",
+    "source_platforms": [
+      "arXiv",
+      "GitHub"
+    ],
+    "fetched_at": "2026-10-10T23:18:11.551645+00:00"
+  },
+  "author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "full_training_completed": false,
+  "original_algorithm_source_edits": 0,
+  "boundary": "Native full graphs/data preparation only; no benchmark rows added; exact original/adopted datasets, settings, full training/evaluation/model replay remain obligations.",
+  "paper_geometry": {
+    "lstm_layers_g": 2,
+    "lstm_layers_d": 2,
+    "hidden_width_g": 350,
+    "hidden_width_d": 350,
+    "bidirectional_discriminator": true,
+    "tone_variants": [
+      1,
+      3
+    ]
+  }
+}

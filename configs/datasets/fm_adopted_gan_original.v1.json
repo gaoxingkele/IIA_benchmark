@@ -1,0 +1,219 @@
+{
+  "id": "adopted_gan_original_data_v1",
+  "source_registry": "configs/acquisition/fm_adopted_gan_original_sources.v1.json",
+  "mnist_acquisition": "configs/acquisition/fm_rcgan_mnist_original.v1.json",
+  "datasets": {
+    "rcgan_source_gp": {
+      "source_recipe": "original/data_utils.py:GP",
+      "full_samples": 14000,
+      "full_shape": [
+        14000,
+        30,
+        1
+      ],
+      "split_shapes": {
+        "train": [
+          8400,
+          30,
+          1
+        ],
+        "vali": [
+          2800,
+          30,
+          1
+        ],
+        "test": [
+          2800,
+          30,
+          1
+        ]
+      },
+      "synthetic_original_source_recipe": true,
+      "paper_optimized_recipe_certified": false
+    },
+    "rcgan_mnistfull": {
+      "source_setting": "original/experiments/settings/mnistfull.txt",
+      "official_train_images": 60000,
+      "official_test_images": 10000,
+      "author_split_from_official_training_only": [
+        36000,
+        12000,
+        12000
+      ],
+      "native_shape": [
+        60000,
+        28,
+        28
+      ],
+      "native_loader_audit": "projects/flow_matching_research/results/2026-10-11/rcgan_mnist_native_preparation_v1/reconciled_full_native_loader_and_graph.json",
+      "historical_author_csv_identity_certified": false
+    },
+    "crnngan_released_midi": {
+      "full_released_file_audit": "projects/flow_matching_research/results/2026-10-11/adopted_gan_native_preparation_v2/crnngan_all_released_midi.json",
+      "full_released_files": 3451,
+      "parsed": 3435,
+      "rejected": 16,
+      "note_events": 10661408,
+      "genres": {
+        "classical": {
+          "files": 3029,
+          "parsed": 3014,
+          "note_events": 10323257,
+          "composers": 127
+        },
+        "hip_hop": {
+          "files": 32,
+          "parsed": 31,
+          "note_events": 164113,
+          "composers": 4
+        },
+        "jazz": {
+          "files": 390,
+          "parsed": 390,
+          "note_events": 174038,
+          "composers": 74
+        }
+      },
+      "paper_classical_files": 3697,
+      "paper_classical_composers": 160,
+      "classical_file_count_gap": 668,
+      "classical_composer_count_gap": 33,
+      "rejected_original_files": [
+        {
+          "path": "data/classical/beethoven/14715thSympnmov1.mid",
+          "bytes": 92466,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/copland/898promise2.mid",
+          "bytes": 21984,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/gershwin/2221americanparis.mid",
+          "bytes": 0,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/gershwin/2420gglullaby.mid",
+          "bytes": 0,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/gershwin/2678necessar.mid",
+          "bytes": 0,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/gershwin/GershwinPC1.mid",
+          "bytes": 0,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/gershwin/GershwinPC2.mid",
+          "bytes": 0,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/gershwin/GershwinPC3.mid",
+          "bytes": 0,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/grieg/1857dehalvandebergkoning.mid",
+          "bytes": 38446,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/holst/845danceSteven.mid",
+          "bytes": 0,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/maier/atala15.mid",
+          "bytes": 968,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/maier/atala21.mid",
+          "bytes": 830,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/maier/atala32.mid",
+          "bytes": 816,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/maier/atalan1.mid",
+          "bytes": 856,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/classical/maier/atalan2.mid",
+          "bytes": 1022,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        },
+        {
+          "path": "data/hip_hop/ja_rule/ja_rule-livin_it_up.mid",
+          "bytes": 18844,
+          "parsed": false,
+          "error_type": "ValueError",
+          "error": "Original reader rejected this file"
+        }
+      ],
+      "all_released_files_usable": false,
+      "source_archive_integrity_verified": true,
+      "historical_paper_dataset_identity_certified": false,
+      "important_correction": "The v1/v2 count_shortfall=246 compares ALL repository genres with the paper classical count. The like-for-like classical count difference is668. These are count differences, not an exact missing-file manifest.",
+      "raw_sources_preserved": true,
+      "benchmark_performance": false
+    },
+    "rcgan_eicu": {
+      "availability": "restricted_original_paper_eICU_data_not_acquired",
+      "source_settings": [
+        "cristobal_eicu.txt"
+      ],
+      "paper_dataset_identity_certified": false
+    },
+    "adopted_stocks_energy": {
+      "availability": "raw assets exist separately for other baselines; RCGAN/C-RNN-GAN adopted preprocessing/hyperparameters not resolved",
+      "experiment_equivalence_certified": false
+    }
+  },
+  "citation": [
+    "https://arxiv.org/abs/1706.02633",
+    "https://arxiv.org/abs/1611.09904"
+  ],
+  "all_original_experiments_complete": false
+}

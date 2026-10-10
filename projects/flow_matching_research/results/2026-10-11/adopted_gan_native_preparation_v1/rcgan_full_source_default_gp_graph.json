@@ -1,0 +1,182 @@
+{
+  "case": {
+    "id": "rcgan_full_source_default_gp_graph",
+    "method": "rcgan",
+    "kind": "rcgan_graph",
+    "seed": 1103,
+    "full_split_shapes": {
+      "train": [
+        8400,
+        30,
+        1
+      ],
+      "vali": [
+        2800,
+        30,
+        1
+      ],
+      "test": [
+        2800,
+        30,
+        1
+      ]
+    },
+    "expected_generated_shape": [
+      28,
+      30,
+      1
+    ]
+  },
+  "actual_python": "F:\\aicoding\\IIA_Data\\environments\\adopted_gan_author_py37_v1\\python\\python.exe",
+  "python_version": "3.7.9 (tags/v3.7.9:13c94747c7, Aug 17 2020, 18:58:18) [MSC v.1900 64 bit (AMD64)]",
+  "source_commit": "f41731b965348259dcd94b0dcb1374d3e1c4ca7d",
+  "source_registry": "configs/acquisition/fm_adopted_gan_original_sources.v1.json",
+  "training_started": false,
+  "benchmark_performance": false,
+  "all_original_experiments_complete": false,
+  "evidence": {
+    "full_native_graph_constructed": true,
+    "full_native_initialization_and_forward": true,
+    "model_parameters": 83402,
+    "trainable_variables": [
+      {
+        "name": "generator/W_out_G:0",
+        "shape": [
+          100,
+          1
+        ],
+        "parameters": 100
+      },
+      {
+        "name": "generator/b_out_G:0",
+        "shape": [
+          1
+        ],
+        "parameters": 1
+      },
+      {
+        "name": "generator/rnn/lstm_cell/weights:0",
+        "shape": [
+          105,
+          400
+        ],
+        "parameters": 42000
+      },
+      {
+        "name": "generator/rnn/lstm_cell/biases:0",
+        "shape": [
+          400
+        ],
+        "parameters": 400
+      },
+      {
+        "name": "discriminator/W_out_D:0",
+        "shape": [
+          100,
+          1
+        ],
+        "parameters": 100
+      },
+      {
+        "name": "discriminator/b_out_D:0",
+        "shape": [
+          1
+        ],
+        "parameters": 1
+      },
+      {
+        "name": "discriminator/rnn/lstm_cell/kernel:0",
+        "shape": [
+          101,
+          400
+        ],
+        "parameters": 40400
+      },
+      {
+        "name": "discriminator/rnn/lstm_cell/bias:0",
+        "shape": [
+          400
+        ],
+        "parameters": 400
+      }
+    ],
+    "graph_operations": 1760,
+    "data": {
+      "full_split_shapes": {
+        "train": [
+          8400,
+          30,
+          1
+        ],
+        "vali": [
+          2800,
+          30,
+          1
+        ],
+        "test": [
+          2800,
+          30,
+          1
+        ]
+      },
+      "settings": {
+        "settings_file": "",
+        "data": "gp_rbf",
+        "num_samples": 14000,
+        "seq_length": 30,
+        "num_signals": 1,
+        "normalise": false,
+        "cond_dim": 0,
+        "max_val": 1,
+        "one_hot": false,
+        "predict_labels": false,
+        "scale": 0.1,
+        "freq_low": 1.0,
+        "freq_high": 5.0,
+        "amplitude_low": 0.1,
+        "amplitude_high": 0.9,
+        "multivariate_mnist": false,
+        "full_mnist": false,
+        "data_load_from": "",
+        "resample_rate_in_min": 15,
+        "hidden_units_g": 100,
+        "hidden_units_d": 100,
+        "kappa": 1,
+        "latent_dim": 5,
+        "batch_mean": false,
+        "learn_scale": false,
+        "learning_rate": 0.1,
+        "batch_size": 28,
+        "num_epochs": 100,
+        "D_rounds": 5,
+        "G_rounds": 1,
+        "use_time": false,
+        "WGAN": false,
+        "WGAN_clip": false,
+        "shuffle": true,
+        "wrong_labels": false,
+        "identifier": "test",
+        "dp": false,
+        "l2norm_bound": 1e-05,
+        "batches_per_lot": 1,
+        "dp_sigma": 1e-05,
+        "num_generated_features": 1
+      },
+      "data_kind": "full_original_source_GP_distribution_not_a_smoke_subset",
+      "historical_paper_recipe_certified": false
+    },
+    "generated_shape": [
+      28,
+      30,
+      1
+    ],
+    "optimizer_updates": 0,
+    "benchmark_performance": false,
+    "author_equivalence_certified": false,
+    "tensorflow": "1.15.0",
+    "numpy": "1.18.5"
+  },
+  "passed": true,
+  "all_pinned_original_files_verified": 60,
+  "source_and_raw_files_unchanged": true
+}

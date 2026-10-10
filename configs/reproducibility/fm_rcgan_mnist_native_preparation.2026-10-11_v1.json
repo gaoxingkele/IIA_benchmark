@@ -1,0 +1,96 @@
+{
+  "source_registry": "configs/acquisition/fm_adopted_gan_original_sources.v1.json",
+  "source_registry_sha256": "2e117c609fb9f17ef258a8c7d56b8b9c5a661b82c3dae06d9e9f8461c11bc172",
+  "environment_receipt": "projects/flow_matching_research/results/2026-10-11/adopted_gan_original_sources_v1/isolated_environment_receipt.json",
+  "python": "F:/aicoding/IIA_Data/environments/adopted_gan_author_py37_v1/python/python.exe",
+  "output_directory": "projects/flow_matching_research/results/2026-10-11/rcgan_mnist_native_preparation_v1",
+  "cases": [
+    {
+      "id": "rcgan_full_original_mnistfull_loader_and_graph",
+      "method": "rcgan",
+      "kind": "rcgan_graph",
+      "seed": 1103,
+      "overrides": {
+        "settings_file": "",
+        "data": "mnist",
+        "num_samples": 60000,
+        "seq_length": 28,
+        "num_signals": 28,
+        "normalise": false,
+        "cond_dim": 0,
+        "max_val": 1,
+        "one_hot": false,
+        "predict_labels": false,
+        "scale": 0.1,
+        "freq_low": 1.0,
+        "freq_high": 5.0,
+        "amplitude_low": 0.1,
+        "amplitude_high": 0.9,
+        "multivariate_mnist": true,
+        "full_mnist": true,
+        "data_load_from": "",
+        "resample_rate_in_min": 15,
+        "hidden_units_g": 100,
+        "hidden_units_d": 100,
+        "kappa": 1,
+        "latent_dim": 5,
+        "batch_mean": false,
+        "learning_rate": 0.1,
+        "batch_size": 28,
+        "num_epochs": 500,
+        "D_rounds": 1,
+        "G_rounds": 1,
+        "use_time": false,
+        "WGAN": false,
+        "WGAN_clip": false,
+        "shuffle": true,
+        "wrong_labels": false,
+        "identifier": "mnistfull",
+        "num_generated_features": 28,
+        "learn_scale": false
+      },
+      "dataset_configuration": "configs/acquisition/fm_rcgan_mnist_original.v1.json",
+      "working_directory": "F:/aicoding/IIA_Data/experiments/rcgan_mnist_native_preparation_v1",
+      "full_split_shapes": {
+        "train": [
+          36000,
+          28,
+          28
+        ],
+        "vali": [
+          12000,
+          28,
+          28
+        ],
+        "test": [
+          12000,
+          28,
+          28
+        ]
+      },
+      "expected_generated_shape": [
+        28,
+        28,
+        28
+      ]
+    }
+  ],
+  "boundary": {
+    "optimizer_updates": 0,
+    "benchmark_performance": false,
+    "author_equivalence_certified": false,
+    "raw_data_write_allowed": false,
+    "paper_dataset_identity_certified": false,
+    "historical_adopted_stocks_energy_recipe_resolved": false,
+    "crnngan_full_training_budget_in_source": 500,
+    "source_default_songlength_not_verified_historical_paper_setting": true,
+    "midi_import_alias": "midi is the installed python3_midi module, no source edits"
+  },
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 17179869184,
+    "emergency_commit_headroom_bytes": 8589934592,
+    "maximum_worker_rss_bytes": 4294967296,
+    "maximum_worker_private_bytes": 6442450944
+  }
+}

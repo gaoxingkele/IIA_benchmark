@@ -1,0 +1,217 @@
+{
+  "case": {
+    "id": "crnngan_paper_width350_tones3_full_graph",
+    "method": "crnngan",
+    "kind": "crnngan_graph",
+    "seed": 1103,
+    "flags": {
+      "hidden_size_g": 350,
+      "hidden_size_d": 350,
+      "num_layers_g": 2,
+      "num_layers_d": 2,
+      "songlength": 100,
+      "batch_size": 20,
+      "feature_matching": true,
+      "unidirectional_d": false,
+      "disable_feed_previous": false,
+      "generate_meta": false,
+      "learning_rate": 0.1,
+      "pretraining_epochs": 6,
+      "max_epoch": 500,
+      "tones_per_cell": 3
+    },
+    "num_song_features": 10,
+    "num_meta_features": 155,
+    "expected_generated_shape": [
+      20,
+      100,
+      10
+    ]
+  },
+  "actual_python": "F:\\aicoding\\IIA_Data\\environments\\adopted_gan_author_py37_v1\\python\\python.exe",
+  "python_version": "3.7.9 (tags/v3.7.9:13c94747c7, Aug 17 2020, 18:58:18) [MSC v.1900 64 bit (AMD64)]",
+  "source_commit": "9edafc02e62ea0478d1798bdf3a283c71cd1eefc",
+  "source_registry": "configs/acquisition/fm_adopted_gan_original_sources.v1.json",
+  "training_started": false,
+  "benchmark_performance": false,
+  "all_original_experiments_complete": false,
+  "evidence": {
+    "full_native_graph_constructed": true,
+    "full_native_initialization_and_forward": true,
+    "model_parameters": 4947961,
+    "trainable_variables": [
+      {
+        "name": "model/G/input_layer/w:0",
+        "shape": [
+          20,
+          350
+        ],
+        "parameters": 7000
+      },
+      {
+        "name": "model/G/input_layer/b:0",
+        "shape": [
+          350
+        ],
+        "parameters": 350
+      },
+      {
+        "name": "model/G/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0",
+        "shape": [
+          700,
+          1400
+        ],
+        "parameters": 980000
+      },
+      {
+        "name": "model/G/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0",
+        "shape": [
+          1400
+        ],
+        "parameters": 1400
+      },
+      {
+        "name": "model/G/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0",
+        "shape": [
+          700,
+          1400
+        ],
+        "parameters": 980000
+      },
+      {
+        "name": "model/G/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0",
+        "shape": [
+          1400
+        ],
+        "parameters": 1400
+      },
+      {
+        "name": "model/G/output_layer/w:0",
+        "shape": [
+          350,
+          10
+        ],
+        "parameters": 3500
+      },
+      {
+        "name": "model/G/output_layer/b:0",
+        "shape": [
+          10
+        ],
+        "parameters": 10
+      },
+      {
+        "name": "model/D/bidirectional_rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0",
+        "shape": [
+          360,
+          1400
+        ],
+        "parameters": 504000
+      },
+      {
+        "name": "model/D/bidirectional_rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0",
+        "shape": [
+          1400
+        ],
+        "parameters": 1400
+      },
+      {
+        "name": "model/D/bidirectional_rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0",
+        "shape": [
+          700,
+          1400
+        ],
+        "parameters": 980000
+      },
+      {
+        "name": "model/D/bidirectional_rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0",
+        "shape": [
+          1400
+        ],
+        "parameters": 1400
+      },
+      {
+        "name": "model/D/bidirectional_rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0",
+        "shape": [
+          360,
+          1400
+        ],
+        "parameters": 504000
+      },
+      {
+        "name": "model/D/bidirectional_rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0",
+        "shape": [
+          1400
+        ],
+        "parameters": 1400
+      },
+      {
+        "name": "model/D/bidirectional_rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0",
+        "shape": [
+          700,
+          1400
+        ],
+        "parameters": 980000
+      },
+      {
+        "name": "model/D/bidirectional_rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0",
+        "shape": [
+          1400
+        ],
+        "parameters": 1400
+      },
+      {
+        "name": "model/D/decision/w:0",
+        "shape": [
+          700,
+          1
+        ],
+        "parameters": 700
+      },
+      {
+        "name": "model/D/decision/b:0",
+        "shape": [
+          1
+        ],
+        "parameters": 1
+      }
+    ],
+    "graph_operations": 121993,
+    "data": {
+      "flags": {
+        "hidden_size_g": 350,
+        "hidden_size_d": 350,
+        "num_layers_g": 2,
+        "num_layers_d": 2,
+        "songlength": 100,
+        "batch_size": 20,
+        "feature_matching": true,
+        "unidirectional_d": false,
+        "disable_feed_previous": false,
+        "generate_meta": false,
+        "learning_rate": 0.1,
+        "pretraining_epochs": 6,
+        "max_epoch": 500,
+        "tones_per_cell": 3
+      },
+      "num_song_features": 10,
+      "num_meta_features": 155,
+      "input_data_supplied": false,
+      "paper_hidden_width": 350,
+      "historical_paper_recipe_certified": false
+    },
+    "generated_shape": [
+      20,
+      100,
+      10
+    ],
+    "optimizer_updates": 0,
+    "benchmark_performance": false,
+    "author_equivalence_certified": false,
+    "tensorflow": "1.15.0",
+    "numpy": "1.18.5"
+  },
+  "passed": true,
+  "all_pinned_original_files_verified": 3474,
+  "source_and_raw_files_unchanged": true
+}
