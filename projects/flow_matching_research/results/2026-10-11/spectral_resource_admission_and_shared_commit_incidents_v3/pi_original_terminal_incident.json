@@ -1,0 +1,241 @@
+{
+  "method": "pi",
+  "original_queue": "configs/experiments/fm_resource_recovery_queue.v4.json",
+  "original_queue_sha256": "1908c21721c75aba76a6a347e5715292163b00e10553d05eba82a1e12bb1d686",
+  "original_job": {
+    "id": "pi_author__source_runtime__psm__full__seed1103__resource_recovery_v2",
+    "dataset": "PSM",
+    "seed": 1103,
+    "author_recipe": "source_runtime/full",
+    "branch": "source_runtime",
+    "recipe": "full",
+    "changes": {},
+    "runtime": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime",
+    "author_config": {
+      "data": {
+        "anomaly_ratio": 1,
+        "batch_size": 256,
+        "win_size": 100
+      },
+      "model": {
+        "c_out": 25,
+        "e_layers": 2,
+        "enc_in": 25,
+        "d_model": 512,
+        "n_heads": 8,
+        "gamma": 2.4153183682233976,
+        "sigma": 0.7948055719106695,
+        "lambda_smooth": 0.00011447974383051658
+      },
+      "training": {
+        "lr": 9.89849069921459e-05,
+        "n_epochs": 3,
+        "k": 5
+      },
+      "testing": {
+        "temperature": 95.74006614816578
+      }
+    },
+    "data_audit": {
+      "schema_version": 1,
+      "id": "mtsad_psm",
+      "family": "mtsad",
+      "loader": "psm_csv",
+      "directory": "psm",
+      "files": {
+        "train": "train.csv",
+        "test": "test.csv",
+        "label": "test_label.csv"
+      },
+      "expected_shapes": {
+        "train": [
+          132481,
+          25
+        ],
+        "test": [
+          87841,
+          25
+        ]
+      },
+      "features": 25,
+      "window": 100,
+      "window_step": 1,
+      "anomaly_ratio": 0.5,
+      "label_policy": "native point labels; the reported benchmark additionally applies point adjustment",
+      "provenance": "eBay Pooled Server Metrics released with the asynchronous anomaly-detection paper; benchmark payload mirrored by thuml/Time-Series-Library",
+      "citation_doi": "10.1145/3447548.3467174",
+      "reference_loader_note": "PSMSegLoader uses stride 1; the first CSV column is the minute timestamp"
+    },
+    "raw_directory": "data/public_datasets/mtsad/psm",
+    "stages": [
+      {
+        "id": "train"
+      },
+      {
+        "id": "test_and_score_controls"
+      }
+    ],
+    "output_directory": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/pi_author__source_runtime__psm__full__seed1103__resource_recovery_v2",
+    "frozen_files": [
+      {
+        "path": "configs/experiments/fm_pi_transformer_author_execution.v1.json",
+        "sha256": "5ba8806afa0181f6b1643a7662111e122a60aa9ba49f239d6d1ea22081c79f3c"
+      },
+      {
+        "path": "configs/models/fm_comparator_pi_transformer.json",
+        "sha256": "1103250e96fe4bfaf21516c649b1f6ca7bea63d34d8e76ea775c0764d03d9093"
+      },
+      {
+        "path": "papers/literature/flow_matching/user_supplied/2026-10-07/pi_transformer/da5c00ebc02675c406ef5228f9a3b9b9e4ccc531c64bba5c97375d879dd7aa44.pdf",
+        "sha256": "da5c00ebc02675c406ef5228f9a3b9b9e4ccc531c64bba5c97375d879dd7aa44"
+      },
+      {
+        "path": "src/iia_benchmark/models/fm_pi_transformer_runtime.py",
+        "sha256": "7ba761f1a15f046e90c574ca6e05da4d4ba38eb500a95cb7500401323afe8e81"
+      },
+      {
+        "path": "scripts/flow_matching/register_pi_transformer_author.py",
+        "sha256": "f22091233869e4bc4295b36be0fec47bf2760256438ef3fbdccbf4321c822fd6"
+      },
+      {
+        "path": "scripts/flow_matching/run_pi_transformer_job.py",
+        "sha256": "3d4118e07c63a8633d076c3d389453b1143c8f46b69a954628e5db0edfbe85ee"
+      },
+      {
+        "path": "scripts/flow_matching/run_pi_transformer_author_queue.py",
+        "sha256": "41cef56b6d2233874021cc9d124d6d17ca0e707b29a6af47199c763df877214d"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/config.yaml",
+        "sha256": "0f3b2e88140d2e9ea2746e7963b4c9e67b307b922bede34a2f03287cb733671c"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/data_loader.py",
+        "sha256": "dcf6ce36c56637e1c52201904ef2ed06f76b72c486b9852b8c5fa2621cd30231"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/main.py",
+        "sha256": "7202474b4a526d480dd96278a79a9ec91c798113420ebb4903e62b2b0e89f333"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/model/PiTransformer.py",
+        "sha256": "71ef1f029f4dbed8aef0f241f7082ac431d23b480eebdf7fbea1601825df4630"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/model/attn.py",
+        "sha256": "297e4aef840ff47d6f419353cb336b9aace5e3ada2a6b8f3418a589794dacbe0"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/model/embed.py",
+        "sha256": "fce3b0c038a002adcde17c464cf4b048fd5f4fc3aa7b24a3b4fafdd45ed4062e"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/utils/logger.py",
+        "sha256": "307d09d6e145776958b742323a839b9a9224d15978b739a5e2248d4dc5caa788"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/utils/utils.py",
+        "sha256": "e6b29e3e3296e966d65a5b15dda48ea851dc3040a15afe23e060830aac9ca867"
+      },
+      {
+        "path": "experiments/runs/fm_pi_transformer_author_v1/runtime/source_runtime/runtime_patch_manifest.json",
+        "sha256": "c7e8f33eb3cf7e9e06f0ddc47efd04c785ead8b1105125b00c0e85d58ece82d2"
+      },
+      {
+        "path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original/config.yaml",
+        "sha256": "0f3b2e88140d2e9ea2746e7963b4c9e67b307b922bede34a2f03287cb733671c"
+      },
+      {
+        "path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original/data_loader.py",
+        "sha256": "aea3e5a7e770de5453e1f4aa11c5a863a23d7bf488e17aba1ea37d840a260e33"
+      },
+      {
+        "path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original/main.py",
+        "sha256": "c2d1e31beaa087155e46e8ebbb9bfc4396ce70ac58825611aa8097e1146a2db5"
+      },
+      {
+        "path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original/model/attn.py",
+        "sha256": "8884275e93f4d58dfdaf1fe463f8c1ead53e7bc97980671543dc005a09ef3b90"
+      },
+      {
+        "path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original/model/embed.py",
+        "sha256": "fce3b0c038a002adcde17c464cf4b048fd5f4fc3aa7b24a3b4fafdd45ed4062e"
+      },
+      {
+        "path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original/model/PiTransformer.py",
+        "sha256": "71ef1f029f4dbed8aef0f241f7082ac431d23b480eebdf7fbea1601825df4630"
+      },
+      {
+        "path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original/utils/logger.py",
+        "sha256": "307d09d6e145776958b742323a839b9a9224d15978b739a5e2248d4dc5caa788"
+      },
+      {
+        "path": "experiments/runs/fm_project_acquisition/sources/pi_transformer_author_history_mirror/original/utils/utils.py",
+        "sha256": "e6b29e3e3296e966d65a5b15dda48ea851dc3040a15afe23e060830aac9ca867"
+      },
+      {
+        "path": "data/public_datasets/mtsad/psm/train.csv",
+        "sha256": "816e0e2a5356b3b09d356925cd9a0fe1d327e3b350e9336d26ee3e650c72e112"
+      },
+      {
+        "path": "data/public_datasets/mtsad/psm/test.csv",
+        "sha256": "566bc50117d13f58793d830c14975c55f627cab63953265d7d6ce2dbcf2b0f80"
+      },
+      {
+        "path": "data/public_datasets/mtsad/psm/test_label.csv",
+        "sha256": "e5b6b0c716a9b3d52e3a1b06761527811f75a218790c37b8a5e806741aeb0676"
+      },
+      {
+        "path": "configs/datasets/mtsad_psm.json",
+        "sha256": "6c9873014dd684ad4ae5aab551bca23d3bb36b5bb8f62fc377f8bfea7f4143f8"
+      }
+    ]
+  },
+  "terminal_native_handle": {
+    "live": false,
+    "reason": "process_missing",
+    "pid": 464
+  },
+  "expected_native_handle": {
+    "pid": 464,
+    "create_time": 1791719232.2565672,
+    "command_token": "run_resource_recovery_job"
+  },
+  "original_terminal_evidence": {
+    "path": "experiments/runs/fm_resource_recovery_20261009_v2/jobs/pi_author__source_runtime__psm__full__seed1103__resource_recovery_v2/failure.json",
+    "sha256": "b8b1421528a93cf818a150959c0067100395069a4b6ef2e3651038737d7fe9e3",
+    "record": {
+      "status": "failed_preserved",
+      "exit_code": 1,
+      "original_id": "pi_author__source_runtime__psm__full__seed1103",
+      "resources": {
+        "peak_tree_rss_bytes": 4799041536,
+        "peak_tree_private_bytes": 5880963072,
+        "minimum_commit_available_bytes": 12366163968,
+        "resource_guard_aborted": true,
+        "abort_resource_snapshot": {
+          "physical_available_bytes": 38331908096,
+          "commit_available_bytes": 12366163968
+        }
+      }
+    }
+  },
+  "actual_resource_observations": {
+    "peak_tree_rss_bytes": 4799041536,
+    "peak_tree_private_bytes": 5880963072,
+    "minimum_commit_available_bytes": 12366163968,
+    "resource_guard_aborted": true,
+    "abort_resource_snapshot": {
+      "physical_available_bytes": 38331908096,
+      "commit_available_bytes": 12366163968
+    },
+    "start_resources": {
+      "physical_available_bytes": 43264376832,
+      "commit_available_bytes": 38025252864
+    }
+  },
+  "complete_original_experiment": false,
+  "recovery_status": "pending_full_original_state_or_new_attempt_recovery_registration",
+  "new_recovery_launched": false,
+  "additional_training_seed_slots": 0
+}
