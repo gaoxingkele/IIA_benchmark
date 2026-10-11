@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "id": "fm_strict_tranad__smap__reference_float64__constant_fit_v2",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_tranad_reference_float64_v1:ReferenceFloat64TranADAdapter",
+  "parameters": {
+    "method": "tranad",
+    "parameters": {
+      "window": 10,
+      "d_ff": 16,
+      "dropout": 0.1,
+      "learning_rate": 0.01,
+      "weight_decay": 1e-05,
+      "scheduler_step": 5,
+      "scheduler_gamma": 0.9,
+      "batch_size": 128
+    },
+    "epochs": 5,
+    "seed": 1103,
+    "device": "cpu"
+  },
+  "citation": "https://doi.org/10.14778/3514061.3514067",
+  "data_citations": [
+    "https://github.com/decisionintelligence/TAB"
+  ],
+  "source_config": "configs/models/mtsad_tranad.json",
+  "source_config_sha256": "b0c1e8d71d3f7f2911248fac2fbc6168d2e78a4f8f2cc61813db59b4233f411b",
+  "original_reproduction_status": "transcribed_reference_implementation_partial_protocol",
+  "reproduction_status": "author_float64_precision_local_protocol_adaptation_not_author_pipeline_equivalence",
+  "known_deviations": {
+    "source": "VLDB 2022 TranAD; the two-phase transformer with focus-score self-conditioning is transcribed from github.com/imperial-qore/TranAD (src/models.py, main.py:backprop).",
+    "protocol_note": "The release thresholds these scores with POT (src/pot.py: SPOT with the per-dataset lm_d and lr_d in src/params.json). This harness reports its percentile reference protocol here, and POT is applied separately by scripts/mtsad/score_pot.py, because folding a different threshold rule into the model comparison would confound the two.",
+    "precision_boundary": "Old float32 and new float64 results need separate names. Float32 overflow at SMAP high-scale test inputs is reproducible; numerical precision is not generally monotone-equivalent. Full original local model/budget/data retained; author padding/preprocessing/POT/environment remain separate."
+  },
+  "variant": "reference_float64",
+  "boundary": "Full float64 training/scoring precision control on unchanged original local registered datasets, seeds, windows and budgets. Not an exact retry of float32 or a complete historical author/TAB pipeline. Frozen input arrays still retain their original prepared precision; no rescaling or new preprocessing.",
+  "precision": "float64_fit_and_score",
+  "precision_reference": {
+    "repository": "https://github.com/imperial-qore/TranAD",
+    "commit": "7ffb98d0c18189cc3d9ab732b4cb0278200a0af0",
+    "source": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/main.py",
+    "line": 59,
+    "source_sha256": "0529c581d3d871bf5cc32316b45428ce9642650b8a0fa2e40e754341f57d4c0c",
+    "literal": "model_class(dims).double()"
+  },
+  "preprocessing_control": {
+    "original_model_config": "configs/models/fm_strict_baselines/fm_strict_tranad__smap__reference_float64.json",
+    "original_model_config_sha256": "ec67afcf8085d9ba9d9a3e9e7303b0626b2a7a423dd3b43cc752e295c65e56f5",
+    "data_variant": "constant_fit_v2",
+    "unchanged_model_entrypoint_and_parameters": true,
+    "original_fidelity_limitations_preserved": true,
+    "author_equivalence_certified": false
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "configuration_path": "configs/reproducibility/fm_tsad_constant_fit_preparation.2026-10-11_v2.json",
+  "original_settings": "configs/experiments/fm_tsad_execution.v1.json",
+  "original_manifest": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+  "preparation_settings": {
+    "schema_version": 1,
+    "id": "fm_full_local_tsad_execution_constant_fit_v2",
+    "scope": "Execute all 42 currently callable full-window TSAD main/ablation configs on full available 7-dataset track and all five seeds. This supplements rather than replaces all original-paper/other-task obligations.",
+    "seeds": [
+      1103,
+      1104,
+      1105,
+      1106,
+      1107
+    ],
+    "datasets": [
+      {
+        "id": "psm",
+        "loader": "native_single",
+        "native_dataset": "psm",
+        "root": "data/public_datasets/mtsad",
+        "config_dir": "configs/datasets",
+        "source_track": "native classic PSM 25 channels; original loader zero replacement disclosed"
+      },
+      {
+        "id": "smap",
+        "loader": "paired_entity_csv",
+        "root": "data/public_datasets/flow_matching/mtsbench/SMAP",
+        "excluded_columns": [
+          "timestamp"
+        ],
+        "label_column": "is_anomaly",
+        "source_track": "pinned mTSBench available entity pairs; full features except timestamp/label; distinct from flat classic payload",
+        "known_train_only_entities": [
+          "SMAP_P-7"
+        ]
+      },
+      {
+        "id": "msl",
+        "loader": "paired_entity_csv",
+        "root": "data/public_datasets/flow_matching/mtsbench/MSL",
+        "excluded_columns": [
+          "timestamp"
+        ],
+        "label_column": "is_anomaly",
+        "source_track": "pinned mTSBench available entity pairs; full features except timestamp/label; distinct from flat classic payload"
+      },
+      {
+        "id": "smd",
+        "loader": "paired_entity_csv",
+        "root": "data/public_datasets/flow_matching/mtsbench/SMD",
+        "excluded_columns": [
+          "timestamp"
+        ],
+        "label_column": "is_anomaly",
+        "source_track": "pinned mTSBench available entity pairs; full features except timestamp/label; distinct from flat classic payload"
+      },
+      {
+        "id": "swat",
+        "loader": "native_single",
+        "native_dataset": "swat",
+        "root": "data/public_datasets/mtsad",
+        "config_dir": "configs/datasets",
+        "source_track": "registered SWaT published benchmark payload; one uninterrupted series per split"
+      },
+      {
+        "id": "swan",
+        "loader": "paired_entity_csv",
+        "root": "data/public_datasets/flow_matching/mtsbench/SWAN",
+        "excluded_columns": [
+          "timestamp"
+        ],
+        "label_column": "is_anomaly",
+        "source_track": "pinned mTSBench entity CSV; full registered channels; no exact-author-subset assertion"
+      },
+      {
+        "id": "cicids",
+        "loader": "paired_entity_csv",
+        "root": "data/public_datasets/flow_matching/mtsbench/cicids",
+        "excluded_columns": [
+          "timestamp"
+        ],
+        "label_column": "is_anomaly",
+        "source_track": "pinned mTSBench entity CSV; full registered channels; no exact-author-subset assertion"
+      }
+    ],
+    "model_configs": [
+      "configs/models/fm_comparator_dt_la.json",
+      "configs/models/fm_comparator_dt_la_l2_no_sparse.json",
+      "configs/models/fm_comparator_dt_la_l2_sparse.json",
+      "configs/models/fm_comparator_dt_la_lambda_0p1.json",
+      "configs/models/fm_comparator_dt_la_lambda_0p3.json",
+      "configs/models/fm_comparator_dt_la_lambda_0p7.json",
+      "configs/models/fm_comparator_dt_la_lambda_1p0.json",
+      "configs/models/fm_comparator_dt_la_mrh_no_sparse.json",
+      "configs/models/fm_comparator_dt_la_score_input.json",
+      "configs/models/fm_comparator_dt_la_score_latent.json",
+      "configs/models/fm_comparator_dt_la_score_softmax.json",
+      "configs/models/fm_comparator_kgl.json",
+      "configs/models/fm_comparator_kgl_without_gat.json",
+      "configs/models/fm_comparator_kgl_without_kan.json",
+      "configs/models/fm_comparator_kgl_without_lstm.json",
+      "configs/models/fm_comparator_shcl_transformer.json",
+      "configs/models/fm_comparator_shcl_transformer_backbone_cnn.json",
+      "configs/models/fm_comparator_shcl_transformer_backbone_lstm.json",
+      "configs/models/fm_comparator_shcl_transformer_backbone_rnn.json",
+      "configs/models/fm_comparator_shcl_transformer_backbone_vae.json",
+      "configs/models/fm_comparator_shcl_transformer_backbone_vae_only_pair.json",
+      "configs/models/fm_comparator_shcl_transformer_backbone_vae_only_point.json",
+      "configs/models/fm_comparator_shcl_transformer_backbone_vae_random_mask.json",
+      "configs/models/fm_comparator_shcl_transformer_backbone_vae_reconstruction.json",
+      "configs/models/fm_comparator_shcl_transformer_only_pair.json",
+      "configs/models/fm_comparator_shcl_transformer_only_point.json",
+      "configs/models/fm_comparator_shcl_transformer_random_mask.json",
+      "configs/models/fm_comparator_shcl_transformer_reconstruction.json",
+      "configs/models/fm_native_dfm_exact.json",
+      "configs/models/fm_native_dfm_hutchinson.json",
+      "configs/models/fm_native_grasp_er.json",
+      "configs/models/fm_native_grasp_grasp.json",
+      "configs/models/fm_native_grasp_lin.json",
+      "configs/models/fm_native_grasp_mean.json",
+      "configs/models/fm_objective_independent.json",
+      "configs/models/fm_objective_ot.json",
+      "configs/models/fm_objective_rectified.json",
+      "configs/models/fm_objective_sb.json",
+      "configs/models/fm_objective_sf2m.json",
+      "configs/models/fm_objective_sf2m_flow_only.json",
+      "configs/models/fm_objective_target.json",
+      "configs/models/fm_objective_vp.json"
+    ],
+    "allowed_fit_score_classes": [
+      "CFMObjectiveDetector",
+      "ComparatorWindowDetector",
+      "DFMDetector",
+      "GRASPDetector"
+    ],
+    "cpu_classes": [
+      "CFMObjectiveDetector"
+    ],
+    "default_window": 100,
+    "recipe": {
+      "train_fraction": 0.8,
+      "purge_points": 100,
+      "minimum_segment_points": 100,
+      "repair": "native loader repairs disclosed; other nonfinite channels replaced with fit-segment finite median",
+      "scaler": "fit-only original mean/std; exact constant fit channels anchored to first value and unit scale; no epsilon; nonconstant operations unchanged",
+      "window_policy": "nonoverlap with end-aligned tail; average overlapping tail scores; one score per timestamp",
+      "cross_entity_windows": false,
+      "test_usage": "evaluation only; not used for fit or strict calibration",
+      "known_training_labels": "retained and contamination counted; no test-based cleaning"
+    },
+    "prepared_root": "data/public_datasets/flow_matching/processed_tsad_constant_fit_v2",
+    "output_root": "experiments/runs/fm_tsad_execution_v1",
+    "queue_paths": {
+      "cpu": "configs/experiments/fm_tsad_cpu_queue.v1.json",
+      "gpu": "configs/experiments/fm_tsad_gpu_queue.v1.json"
+    },
+    "gpu_prerequisite_queues": [
+      "configs/experiments/fm_air36_original_queue.v1.json",
+      "configs/experiments/fm_saits_physio_original_queue.v1.json",
+      "configs/experiments/fm_saits_timeseries_queue.v1.json",
+      "configs/experiments/fm_grin_original_queue.v1.json"
+    ],
+    "registration_report": "docs/reports/fm_tsad_execution_registration_2026-10-09.json",
+    "evaluation": {
+      "cpu_threads": 4,
+      "strict_false_alarm_percent": [
+        0.1,
+        1,
+        5
+      ],
+      "primary_false_alarm_percent": 1,
+      "bootstrap_resamples": 200,
+      "bootstrap_block_points": 1024,
+      "tab_threshold_ratios_percent": [
+        0.1,
+        0.5,
+        1,
+        2,
+        3,
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2"
+    },
+    "citations": [
+      "https://github.com/decisionintelligence/TAB",
+      "https://huggingface.co/datasets/PLAN-Lab/mTSBench",
+      "configs/reproducibility/flow_matching_ara.v1.json"
+    ],
+    "acceptance": "Successful local results require frozen raw/derived data, config/source hashes, checkpoint and complete aligned scores, validation-only primary calibration, uncertainty and all five seeds. Not author equivalent or complete TAB until separate fidelity/range metric checks pass."
+  },
+  "readonly_resource_lock": "experiments/runs/fm_readonly_tab_range_eval_cpu.lock",
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 30064771072,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 8589934592,
+    "maximum_worker_private_bytes": 10737418240
+  },
+  "python": "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "report_directory": "projects/flow_matching_research/results/2026-10-11/constant_fit_preprocessing_v2",
+  "controller_directory": "experiments/runs/fm_tsad_constant_fit_preparation_v2_controller",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "source_receipts": [
+    {
+      "path": "configs/experiments/fm_tsad_execution.v1.json",
+      "sha256": "c67d89272b22f61cb6be83a774cf82e191b04f1bc0774807ecd7c010e725d62c"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+      "sha256": "a0105fdaabe762406544b9e006285972146fc190c19cc93a29d867f80c43bfa0"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_tsad_execution.py",
+      "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_tsad_constant_fit_v2.py",
+      "sha256": "ce20198366e846223408ba595b7b6a51688d8e1cbf5118a9f219bba2524285ce"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/run_light_controller.py",
+      "sha256": "97174fc6f18d76df74e8ed1d38e189d7098ce217c872434a5b6b238009868eff"
+    },
+    {
+      "path": "src/iia_benchmark/data/mtsad.py",
+      "sha256": "65766def6dcf357740da01c501dc13b0e3e1e38ec0d5bd36809918ef45c559a4"
+    },
+    {
+      "path": "tests/test_fm_tsad_constant_fit_v2.py",
+      "sha256": "5093a20b5f5f122c48ba281450187826ab8dd55922d1a1eadf09ba3b629c0971"
+    },
+    {
+      "path": "tests/test_fm_tsad_execution.py",
+      "sha256": "e77544a1dde101193e1b52e05f66dff26725da429417cc7543260b0160bed492"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "original_controller_runtime": "configs/runtime/fm_cpu_boundary_handoff.v1.json",
+  "existing_bounded_cpu_registration": "configs/runtime/fm_bounded_strict_baseline_cpu.v2.json",
+  "corrected_manifest": "data/public_datasets/flow_matching/processed_tsad_constant_fit_v2/manifest.json",
+  "affected_datasets": [
+    "smap"
+  ],
+  "controllers": [
+    {
+      "original_lane": "cpu",
+      "path": "configs/experiments/fm_tsad_constant_fit_cpu_queue.v2.json",
+      "sha256": "6e68e883824ef2c7a8e38b1f4fa18eede24ad975f41ef859f2abb7bb97b9a501",
+      "original_source_queue": "configs/experiments/fm_tsad_cpu_queue.v1.json",
+      "jobs": 40,
+      "cpu_threads": 4,
+      "all_original_devices": [
+        "cpu"
+      ],
+      "original_controller_name": "strict_cpu"
+    },
+    {
+      "original_lane": "entropic_numeric_repair",
+      "path": "configs/experiments/fm_tsad_constant_fit_entropic_numeric_repair_queue.v2.json",
+      "sha256": "58e2e344cd82c017f3d19b4a91b2a2dd73f426a9004b6831d9529d8879a50dfc",
+      "original_source_queue": "configs/experiments/fm_tsad_entropic_repair_queue.v1.json",
+      "jobs": 15,
+      "cpu_threads": 4,
+      "all_original_devices": [
+        "cpu"
+      ],
+      "original_controller_name": "strict_cpu"
+    },
+    {
+      "original_lane": "strict_baselines",
+      "path": "configs/experiments/fm_tsad_constant_fit_strict_baselines_queue.v2.json",
+      "sha256": "1d8f58c24f6114aaef4b1454d90bb43ef833f30cfcac2a7ef44cb1937e53270d",
+      "original_source_queue": "configs/experiments/fm_strict_baseline_queue.v1.json",
+      "jobs": 35,
+      "cpu_threads": 2,
+      "all_original_devices": [
+        "cpu"
+      ],
+      "original_controller_name": "strict_cpu"
+    },
+    {
+      "original_lane": "iterative_reflow",
+      "path": "configs/experiments/fm_tsad_constant_fit_iterative_reflow_queue.v2.json",
+      "sha256": "006d61f7cae68dd7f7813359a444bb68fb44afaf090c50cc905926966eef3699",
+      "original_source_queue": "configs/experiments/fm_reflow_queue.v1.json",
+      "jobs": 20,
+      "cpu_threads": 2,
+      "all_original_devices": [
+        "cpu"
+      ],
+      "original_controller_name": "strict_cpu"
+    },
+    {
+      "original_lane": "moment_pretrained",
+      "path": "configs/experiments/fm_tsad_constant_fit_moment_pretrained_queue.v2.json",
+      "sha256": "7e896c405939c18026f164878390e5a4e52087a3d362e9460b96b772a9c907da",
+      "original_source_queue": "configs/experiments/fm_moment_pretrained_queue.v1.json",
+      "jobs": 6,
+      "cpu_threads": 2,
+      "all_original_devices": [
+        "cpu"
+      ],
+      "original_controller_name": "moment_cpu"
+    },
+    {
+      "original_lane": "tranad_reference_float64",
+      "path": "configs/experiments/fm_tsad_constant_fit_tranad_reference_float64_queue.v2.json",
+      "sha256": "50dba91425a13f991da33e8d6c016af33cb53ec257eb9f2078045bf132ff5b0c",
+      "original_source_queue": "configs/experiments/fm_tranad_reference_float64_queue.v1.json",
+      "jobs": 5,
+      "cpu_threads": 2,
+      "all_original_devices": [
+        "cpu"
+      ],
+      "original_controller_name": "strict_cpu"
+    }
+  ],
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 34359738368,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "guard_poll_seconds": 2,
+    "controller_yield_seconds": 2,
+    "maximum_worker_rss_bytes": 10737418240,
+    "maximum_worker_private_bytes": 12884901888
+  },
+  "resource_lock": "experiments/runs/fm_bounded_strict_baseline_cpu.lock",
+  "state_root": "experiments/runs/fm_tsad_constant_fit_cpu_controls_v2",
+  "full_registered_corrected_CPU_slots": 121,
+  "full_registered_corrected_GPU_slots_separate_original_gate_required": 170,
+  "report_directory": "projects/flow_matching_research/results/2026-10-11/constant_fit_preprocessing_v2",
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/run_tsad_constant_fit_cpu_controls_v2.py",
+      "sha256": "ab94f36c4f637e694b1f4bddf75581d505746c2feb44efd7950e06cf94f46df6"
+    },
+    {
+      "path": "scripts/flow_matching/run_light_controller.py",
+      "sha256": "97174fc6f18d76df74e8ed1d38e189d7098ce217c872434a5b6b238009868eff"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/run_resource_gated_light_controller_v1.py",
+      "sha256": "eeb9447f09f01d0bde7fa165302eecbec1b0cf84a181f7b18da2ed386200036f"
+    },
+    {
+      "path": "scripts/flow_matching/run_bounded_strict_cpu_queue_v2.py",
+      "sha256": "4f41baf6ad6eb5668cb75707d0df656cc79dba1e054b2cbd1336083f74130b07"
+    },
+    {
+      "path": "scripts/flow_matching/run_moment_pretrained_queue.py",
+      "sha256": "e3d3daa1f0dc60913d4bdb5ee1374119616d2d646b67c061969a18ea3529a85a"
+    },
+    {
+      "path": "scripts/flow_matching/run_tsad_queue.py",
+      "sha256": "ebb7ef07ded5d226f522343f49ffc5d697118b4ea820ff53fa1fe945beb2bcde"
+    },
+    {
+      "path": "tests/test_fm_tsad_constant_fit_recomparison_v2.py",
+      "sha256": "fd87bac55a7672b5ba562256a1210e0ae2739c63a921ee6e38ca80ea38026e20"
+    },
+    {
+      "path": "configs/runtime/fm_bounded_strict_baseline_cpu.v2.json",
+      "sha256": "65dc67323754f722027f4d4094a5d763eb01594a953d7c1fd9b9611b014385fb"
+    },
+    {
+      "path": "configs/runtime/fm_cpu_boundary_handoff.v1.json",
+      "sha256": "15b4c60adce26fcf29b6c38ef4eea7b7fdab661cd91691dba34cdaba36395aff"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/constant_fit_preprocessing_v2/full_recomparison_registration.json",
+      "sha256": "3f6a6b84f4fd0ee30e7a61804d4b16cab4801b7817608c789042f35a850a9542"
+    },
+    {
+      "path": "configs/experiments/fm_tsad_constant_fit_cpu_queue.v2.json",
+      "sha256": "6e68e883824ef2c7a8e38b1f4fa18eede24ad975f41ef859f2abb7bb97b9a501"
+    },
+    {
+      "path": "configs/experiments/fm_tsad_constant_fit_entropic_numeric_repair_queue.v2.json",
+      "sha256": "58e2e344cd82c017f3d19b4a91b2a2dd73f426a9004b6831d9529d8879a50dfc"
+    },
+    {
+      "path": "configs/experiments/fm_tsad_constant_fit_strict_baselines_queue.v2.json",
+      "sha256": "1d8f58c24f6114aaef4b1454d90bb43ef833f30cfcac2a7ef44cb1937e53270d"
+    },
+    {
+      "path": "configs/experiments/fm_tsad_constant_fit_iterative_reflow_queue.v2.json",
+      "sha256": "006d61f7cae68dd7f7813359a444bb68fb44afaf090c50cc905926966eef3699"
+    },
+    {
+      "path": "configs/experiments/fm_tsad_constant_fit_moment_pretrained_queue.v2.json",
+      "sha256": "7e896c405939c18026f164878390e5a4e52087a3d362e9460b96b772a9c907da"
+    },
+    {
+      "path": "configs/experiments/fm_tsad_constant_fit_tranad_reference_float64_queue.v2.json",
+      "sha256": "50dba91425a13f991da33e8d6c016af33cb53ec257eb9f2078045bf132ff5b0c"
+    }
+  ],
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "boundary": "All121 original affected CPU methods/ablations/seeds in same existing bounded serial lane. Original pretrained MOMENT controller unchanged, same original source adapters and complete budgets. All170GPU controls remain separately registered with originalCUDA device contract; no CPU substitute. Original datasets/model runs retained; full45paper scope remains."
+}
