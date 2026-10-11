@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "id": "fm_wt_native_step_image_evaluation_v1",
+  "task": "image_anomaly_detection",
+  "method": "WT_Flow_controlled_image_domain",
+  "citation": "https://arxiv.org/abs/2605.23070",
+  "data_citation": "https://www.mvtec.com/company/research/datasets/mvtec-ad",
+  "related_repository": "https://github.com/lil-wayne-0319/fmad.git",
+  "related_commit": "f621f2b251637605a7d25593251d3be89a8c9734",
+  "functions": {
+    "score": "iia_benchmark.models.fm_wt_image_evaluation:score_wt_image",
+    "independent_replay": "scripts.flow_matching.run_wt_full_image_evaluation_v1:direct_replay_score"
+  },
+  "training_model_configuration": "configs/models/fm_wt_mvtec_controlled_image_domain.v1.json",
+  "training_model_configuration_sha256": "7c77b0d10fb6f4dcc62203f138cabaf2dcfcaaff5dd97644cfd90bfab73a39a2",
+  "dataset_configuration": "configs/datasets/fm_flow_mismatching_mvtec_original.v2.json",
+  "native_source": {
+    "source_path": "data/public_datasets/flow_matching/flow_mismatching_reflect_wt_sources_v1/fmad_author_original/reversed_flow.py",
+    "expected_sha256": "ed8243e47731911bec1a9cc100a783298b10bbab130688495382cff3cd510284"
+  },
+  "native_solver_source_receipts": [
+    {
+      "role": "main",
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\flow_mismatching_reflect_wt_sources_v1\\fmad_author_original/main.py",
+      "sha256": "ad7eb497be5d2cfd02aabc315f3586e75cba6a3816ebb26a3b51e3cb3c6fd934"
+    },
+    {
+      "role": "infer_config",
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\flow_mismatching_reflect_wt_sources_v1\\fmad_author_original/infer_config.py",
+      "sha256": "9d67ce0d411230123df6b9d5a99063b8e5bfbc31cf5d12ca1b2c627109dd563f"
+    },
+    {
+      "role": "infer",
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\flow_mismatching_reflect_wt_sources_v1\\fmad_author_original/infer.py",
+      "sha256": "ff081fa9ade26ec11541fdb3571b1f3e275d2305dd8391c6781af62c5d78edd4"
+    }
+  ],
+  "solver_facts": {
+    "training_CLI_default_steps": 50,
+    "inference_default_steps": 1,
+    "native_step_scan": [
+      1,
+      10,
+      20,
+      50,
+      100,
+      200
+    ],
+    "active_native_step_scan_categories": [
+      "transistor"
+    ],
+    "native_integration": "left_grid_Euler",
+    "native_time": "j*(1/steps)",
+    "interval": [
+      0.0,
+      1.0
+    ],
+    "comprehensive_all15category_scan_is_local_extension": true,
+    "original_target_solver_and_step_identity_certified": false
+  },
+  "normalization": {
+    "epsilon": 1e-05,
+    "variance": "population",
+    "normalization_axes": [
+      "C",
+      "H",
+      "W"
+    ],
+    "transport_direction": "normal_to_gaussian",
+    "training_time": "independent_uniform_unit_time",
+    "training_endpoint": "independent_full_image_standard_gaussian"
+  },
+  "target_heatmap": "positive_one_half_channel_SUM_endpoint_squared",
+  "top_fraction": 0.01,
+  "checkpoint_selection": "Frozen final2000epoch only; all six source recipes retained without test-label selection.",
+  "original_target_solver_and_step_identity_certified": false,
+  "original_WT_best_feature_setting_reproduced": false,
+  "strict_TAB_result": false,
+  "benchmark_ready": false,
+  "reproduction_status": "callable_full_native_test_score_and_replay_registered_pending_full_training",
+  "gaps": [
+    "Target WT image-domain integrator and step count are unreported.",
+    "Related native feature generate_pdf uses negative half channel MEAN; this target adapter follows positive half channel SUM Eq25.",
+    "Related native scan actively tests transistor only; complete15category scan is a local extension.",
+    "Full-image preprocessing, backbone, optimizer, inference precision and native-versus-target feature-domain differences remain.",
+    "Native feature best-det/best-loc checkpoint selection is a separate protocol, not reproduced by final2000epoch image checkpoints."
+  ]
+}
