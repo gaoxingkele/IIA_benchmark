@@ -1,0 +1,242 @@
+{
+  "captured_utc": "2026-10-11T02:55:40.553923+00:00",
+  "controllers": [
+    {
+      "controller": "range_main",
+      "pid": 30216,
+      "create_time": 1791686287.5396593,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_readonly_tab_range_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_readonly_tab_range_queues.v2.json",
+        "--controller",
+        "range_main"
+      ],
+      "state_snapshot": {
+        "state": "waiting_for_heavy_lock",
+        "active_pid": null,
+        "active_job": null,
+        "completed_jobs": 157,
+        "failed_jobs": 0
+      },
+      "actual_evaluation_children": []
+    },
+    {
+      "controller": "range_reflow",
+      "pid": 24588,
+      "create_time": 1791686287.549456,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_readonly_tab_range_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_readonly_tab_range_queues.v2.json",
+        "--controller",
+        "range_reflow"
+      ],
+      "state_snapshot": {
+        "state": "evaluating_full_saved_scores",
+        "active_pid": 4164,
+        "active_job": "fm_reflow_3stage__smap__seed1105",
+        "completed_jobs": 42,
+        "failed_jobs": 0
+      },
+      "actual_evaluation_children": [
+        {
+          "pid": 4164,
+          "create_time": 1791687326.1570644,
+          "command": [
+            "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.evaluate_tab_ranges_sparse_job",
+            "--config",
+            "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_reflow_tab_range.sparse.v2.json",
+            "--result",
+            "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_reflow_execution_v1\\jobs\\fm_reflow_3stage__smap__seed1105\\result.json"
+          ],
+          "cpu_seconds": 13.921875,
+          "rss_bytes": 176132096
+        }
+      ]
+    },
+    {
+      "controller": "range_industrial",
+      "pid": 34192,
+      "create_time": 1791686287.5576763,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_readonly_tab_range_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_readonly_tab_range_queues.v2.json",
+        "--controller",
+        "range_industrial"
+      ],
+      "state_snapshot": {
+        "state": "waiting_for_heavy_lock",
+        "active_pid": null,
+        "active_job": null,
+        "completed_jobs": 412,
+        "failed_jobs": 0
+      },
+      "actual_evaluation_children": []
+    },
+    {
+      "controller": "range_moment",
+      "pid": 27388,
+      "create_time": 1791686287.5654042,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_readonly_tab_range_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_readonly_tab_range_queues.v2.json",
+        "--controller",
+        "range_moment"
+      ],
+      "state_snapshot": {
+        "state": "waiting_for_heavy_lock",
+        "active_pid": null,
+        "active_job": null,
+        "completed_jobs": 12,
+        "failed_jobs": 0
+      },
+      "actual_evaluation_children": []
+    }
+  ],
+  "original_training_workers": [
+    {
+      "pid": 12500,
+      "create_time": 1791674196.7668009,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_cfm_ts_original_job",
+        "--queue",
+        "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+        "--job-id",
+        "cfm_ts_original__main_text__node_e400__pendulum__seed1105"
+      ],
+      "cpu_seconds": 12968.828124999998,
+      "rss_bytes": 862744576,
+      "status": "running"
+    },
+    {
+      "pid": 22564,
+      "create_time": 1791676903.9326644,
+      "command": [
+        "F:/aicoding/IIA_Data/environments/adopted_gan_author_py37_v1/python/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-c",
+        "import sys,runpy;sys.path.insert(0,'D:\\\\aicoding\\\\IIA_benchmark');sys.argv=['run_rcgan_native_original_queue_v2','--queue','configs/experiments/fm_rcgan_native_original_mnist500_queue.v2.json','--worker','--job-id','rcgan_mnistfull__seed1103','--proof-binding','D:\\\\aicoding\\\\IIA_benchmark\\\\experiments\\\\runs\\\\fm_rcgan_native_original_mnist500_v2\\\\full_native_evaluator_proof_binding.json'];runpy.run_module('scripts.flow_matching.run_rcgan_native_original_queue_v2',run_name='__main__')"
+      ],
+      "cpu_seconds": 14923.78125,
+      "rss_bytes": 843182080,
+      "status": "running"
+    },
+    {
+      "pid": 34608,
+      "create_time": 1791674196.8278012,
+      "command": [
+        "F:/aicoding/IIA_Data/environments/timegan_author_py37_v1/python/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-c",
+        "import sys,runpy;sys.path.insert(0,'D:\\\\aicoding\\\\IIA_benchmark');sys.argv=['run_timegan_native_job_v1','--queue','configs/experiments/fm_timegan_native_original_queue.v1.json','--job-id','timegan_native__gru__energy__seed1103'];runpy.run_module('scripts.flow_matching.run_timegan_native_job_v1',run_name='__main__')"
+      ],
+      "cpu_seconds": 13204.125,
+      "rss_bytes": 753999872,
+      "status": "running"
+    },
+    {
+      "pid": 616,
+      "create_time": 1791664142.0919957,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "run_anomaly.py",
+        "--is_training",
+        "1",
+        "--root_path",
+        "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad\\psm",
+        "--model_id",
+        "MaelNetS2_AnomalyTransformer_DCDetector_RL_TA",
+        "--model",
+        "AnomalyTransformer",
+        "--train_epochs",
+        "3",
+        "--data",
+        "PSM",
+        "--e_layers",
+        "3",
+        "--d_layers",
+        "1",
+        "--anomaly_ratio",
+        "0.85",
+        "--factor",
+        "5",
+        "--d_ff",
+        "512",
+        "--dropout",
+        "0.0",
+        "--enc_in",
+        "25",
+        "--dec_in",
+        "25",
+        "--c_out",
+        "25",
+        "--d_model",
+        "512",
+        "--moving_avg",
+        "100",
+        "--win_size",
+        "100",
+        "--gpu",
+        "0",
+        "--des",
+        "TA",
+        "--p_hidden_dims",
+        "128",
+        "128",
+        "--p_hidden_layers",
+        "2",
+        "--result_dir",
+        "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_maelnet_author_v1\\jobs\\maelnet_author__exp_1_e3d1__psm__seed1106\\author_workspace\\results",
+        "--itr",
+        "1",
+        "--checkpoints",
+        "./checkpoints",
+        "--seed",
+        "1106",
+        "--num_workers",
+        "0",
+        "--chunk_size",
+        "0"
+      ],
+      "cpu_seconds": 45464.09374999999,
+      "rss_bytes": 1711419392,
+      "status": "running"
+    }
+  ],
+  "original_training_workers_stopped": 0,
+  "all_original_experiments_complete": false
+}
