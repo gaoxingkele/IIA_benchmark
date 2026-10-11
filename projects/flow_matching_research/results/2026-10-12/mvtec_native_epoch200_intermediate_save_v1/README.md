@@ -1,0 +1,7 @@
+Native MVTec epoch200 intermediate checkpoint
+
+The original conditional MVTec seed1103 task reached its configured epoch200 save boundary while continuing the full2000epoch job. The completed epoch_0200.pt file is725,747,888bytes. Its whole-file SHA256 is5fc8701b3bfb4268be1c465f2409172065a8802f0aa3a151900c31f26f43119d. Python zipfile checked all3,117archive members and725,154,254uncompressed bytes without a CRC failure. File size and modification time were unchanged throughout the complete review.
+
+This verifies a successful native intermediate file save, not checkpoint tensor contents, optimizer semantics, model re-inference, completed2000epoch training or performance. The save contains the running task's artifacts; no capacity-probe weights were loaded by this inspection. The full original2000epoch/batch32/checkpoint100 configuration is retained. All five original task handles were checked by PID, creation time and exact command, and their CPU times advanced. No process was stopped or restarted, no resource admission was weakened, and no numerical results or master-table rows changed.
+
+The file integrity check can be repeated read-only using SHA256 over the entire checkpoint and zipfile.ZipFile(...).testzip(); reading the archive does not execute pickle or load tensors. The captured checkpoint location and raw data remain on F:. All45papers/681method-baseline-ablationrecords/273original-data-taskrecords remain in scope. The full goal is incomplete and continues.
