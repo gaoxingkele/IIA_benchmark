@@ -1,0 +1,8 @@
+GiFlow released seed394 full model replay completed
+=================================================
+
+The original full native196-epoch/9408-update Air36 main20%point training result is now verified by full evaluated-EMA checkpoint restoration and complete original20Euler-step test inference. All1747test windows/14batches/264837masked targets/280forwards were executed. Native exit0; no resource guard abort. All50frozen source/input receipts and every original/replayed batch SHA/target/mask/geometry were independently checked.
+
+Original native unweighted batch-mean metrics: MAE10.041479860033308; MSE434.96247700282504; MAPE22.5776104927063%; sqrt native batch-mean MSE20.85575405020938. Replay: MAE10.041480234691075; MSE434.96244267054965; MAPE22.577623912266322%; sqrt native batch-mean MSE20.85575322712056. All match pre-frozen metric tolerances rel1e-5/abs1e-5. Complete original GPU vs CPU prediction arrays match frozen rtol2e-4/atol1e-3; maxabsolute0.0007476806640625. Predictions are not bitwise identical.
+
+This verifies existing seed394, creates no additional training repeat, and does not change the group from2/5 to3/5. The released-source test-in-validation and per-training-batch EMA reset restrictions remain. The source uses overlapping-window, unweighted batch means; sqrt batch-mean MSE is not global target-weighted RMSE. No author/TAB equivalence or all-paper completion is certified. Prior resource-aborted replay is preserved. The reviewed released_seed_checkpoint_replay_audit.json corrects only seed-specific coverage metadata; the original raw replay proof is preserved.
