@@ -810,5 +810,59 @@
     "author_equivalence_certified": false,
     "strict_TAB_result": false,
     "all_original_experiments_complete": false
+  },
+  "crnngan_full_native_classical_training_2026_10_11": {
+    "status": "full_native_classical_500_epoch_queue_launched_remaining_fidelity_gaps_explicit",
+    "queue": "configs/experiments/fm_crnngan_native_classical_released_queue.v2.json",
+    "evidence_directory": "projects/flow_matching_research/results/2026-10-11/crnngan_native_classical_execution_v2",
+    "callable_implementation": "scripts.flow_matching.crnngan_native_training_runtime_v1.run",
+    "model_configs": [
+      "configs/models/fm_crnngan_native_released_fm_tones1.v2.json",
+      "configs/models/fm_crnngan_native_released_fm_tones3.v2.json",
+      "configs/models/fm_crnngan_native_released_gan_no_fm_tones1.v2.json",
+      "configs/models/fm_crnngan_native_released_gan_no_fm_tones3.v2.json",
+      "configs/models/fm_crnngan_native_released_minibatch_fm_tones1.v2.json",
+      "configs/models/fm_crnngan_native_released_minibatch_fm_tones3.v2.json",
+      "configs/models/fm_crnngan_native_released_maximum_likelihood_tones1.v2.json"
+    ],
+    "canonical_training_seed_ids": [
+      1103,
+      1104,
+      1105,
+      1106,
+      1107
+    ],
+    "registered_full_jobs": 35,
+    "epochs_each": 500,
+    "source_registered_classical_files": 3029,
+    "source_parsed_classical_files": 3014,
+    "source_note_events": 10323257,
+    "source_registered_composers": 154,
+    "released_composers_with_files": 127,
+    "original_source_and_raw_data_edits": 0,
+    "source_default_wall_clock_limit_disabled_to_finish_full500": true,
+    "reviewed_corrections": [
+      "Restore G/D optimizer parameter order in adversarial run_epoch call",
+      "Freeze D when D loss<.7 G loss and G when G loss<.7 D loss",
+      "Use current epoch for six-epoch pretraining curriculum instead of stale global_step",
+      "Normalize held-out source filename separators on Windows",
+      "Initialize only freshly rebuilt original nontrainable learning-rate scalar without resetting model weights"
+    ],
+    "remaining_alignment_gaps": [
+      "Historical paper3697classical files/160composers differ from released3029/127; exact missing manifest unavailable",
+      "Source feature-matching reduce_sum lacks paper1/m normalization; native source objective preserved and equivalence not certified",
+      "Source3-tone shared delta encoding has10features; paper quadruplet-per-tone interpretation unresolved",
+      "Stateful TensorFlow dropout/random operations do not export exact RNG continuation; inference replay remains uncertified",
+      "Source-literal algorithm track and exact historical paper datasets/budgets remain pending; these reviewed released-data controls do not replace them"
+    ],
+    "prior_wrong_all_genre_count_attempt_preserved": true,
+    "recovery_seeds_are_additional_independent_repeats": false,
+    "paper_historical_corpus_identity_certified": false,
+    "full_training_completed": false,
+    "author_equivalence_certified": false,
+    "strict_TAB_result": false,
+    "benchmark_metric_rows_added": 0,
+    "all_original_experiments_complete": false,
+    "original_scope_preserved": "45 papers / 681 method-baseline-ablation records / 273 original data-task records plus adopted author baselines"
   }
 }
