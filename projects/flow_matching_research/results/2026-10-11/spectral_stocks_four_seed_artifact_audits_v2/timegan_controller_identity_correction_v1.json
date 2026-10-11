@@ -1,0 +1,48 @@
+{
+  "captured_utc": "2026-10-11T14:21:36.929560+00:00",
+  "original_runtime_capture": "projects/flow_matching_research/results/2026-10-11/spectral_stocks_four_seed_artifact_audits_v2/immutable_runtime_capture.json",
+  "original_runtime_capture_sha256": "5b92ae3f3f479662432757ee755ceaafa0dfd9b3279a2c573b3de66dde36564a",
+  "correction": "The earlier observer used run_timegan_native_original_queue_v1, while the actual controller module is run_timegan_native_queue_v1. Its command_identity_differs entry means the requested module identity was not verified, not that the process had exited. The original native worker was correctly verified live. Rechecking the correct controller identity now confirms both real processes are live.",
+  "actual_correct_module_controller": {
+    "live": true,
+    "pid": 32676,
+    "create_time": 1791669201.5630853,
+    "actual_command": [
+      "python",
+      "-X",
+      "utf8",
+      "-u",
+      "-m",
+      "scripts.flow_matching.run_timegan_native_queue_v1",
+      "--queue",
+      "configs/experiments/fm_timegan_native_original_queue.v1.json"
+    ],
+    "cpu_seconds": 733.140625,
+    "create_time_verified": true
+  },
+  "actual_full_native_worker": {
+    "live": true,
+    "pid": 25556,
+    "create_time": 1791719223.2885504,
+    "actual_command": [
+      "F:/aicoding/IIA_Data/environments/timegan_author_py37_v1/python/python.exe",
+      "-X",
+      "utf8",
+      "-u",
+      "-c",
+      "import sys,runpy;sys.path.insert(0,'D:\\\\aicoding\\\\IIA_benchmark');sys.argv=['run_timegan_native_job_v1','--queue','configs/experiments/fm_timegan_native_original_queue.v1.json','--job-id','timegan_native__gru__sine__seed1103'];runpy.run_module('scripts.flow_matching.run_timegan_native_job_v1',run_name='__main__')"
+    ],
+    "cpu_seconds": 9362.765625,
+    "create_time_verified": true
+  },
+  "original_state_active_job": "timegan_native__gru__sine__seed1103",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "original_runtime_capture_preserved": true,
+  "experimental_sources_or_worker_state_changed": false,
+  "published_metrics_changed": false,
+  "all_original_experiments_complete": false
+}
