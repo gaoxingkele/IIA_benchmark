@@ -1,0 +1,5 @@
+# GRASP tau 0.5, SWAN seed 1104: complete audit registration
+
+The original training worker completed all 1500 epochs and 93000 updates, with full 3935-point validation and 72000-point test scoring. Its complete artifacts passed hash verification and its native resource receipt shows no guard abort. Two actual controllers were started: independent saved full-array metric/coordinate review and complete native model-checkpoint re-inference using the original five-source/ten-flow recipe. Both preserve existing template resources, CPU count and numerical tolerances. The registration does not imply the audits have finished.
+
+12 relevant tests passed. No training seed was added by these audits. Paper-derived successor choices, native 38 versus reported 39 features, retrospective test-label Best-F1 and separate validation-only control remain explicit. No new leaderboard row or author/TAB equivalence is published here. All 45 papers, 681 method/baseline/ablation records, 273 original data-task records, and the full GRASP queue remain in scope.
