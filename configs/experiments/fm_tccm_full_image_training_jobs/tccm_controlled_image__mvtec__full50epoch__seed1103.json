@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "id": "tccm_controlled_image__mvtec__full50epoch__seed1103",
+  "method": "TCCM_controlled_image_domain",
+  "dataset": "mvtec",
+  "variant": "conditional",
+  "seed": 1103,
+  "citation": "https://arxiv.org/abs/2605.23070",
+  "original_protocol": "configs/experiments/fm_flow_mismatching_original_protocol.v1.json",
+  "evidence_pages": [
+    9,
+    21,
+    22
+  ],
+  "dataset_configuration": "configs/datasets/fm_flow_mismatching_mvtec_original.v2.json",
+  "model_configuration": "configs/models/fm_tccm_mvtec_controlled_image_domain.v1.json",
+  "optimizer_configuration": "configs/models/fm_flow_mismatching_stableadamw_dinomaly_reference.v1.json",
+  "environment_configuration": "projects/flow_matching_research/results/2026-10-11/flow_mismatching_full_training_registration_v1/full_architecture_and_environment_capacity.json",
+  "output_directory": "data/public_datasets/flow_matching/experiments/tccm_full_image_training_v1/jobs/tccm_controlled_image__mvtec__full50epoch__seed1103",
+  "training": {
+    "epochs": 50,
+    "batch_size": 32,
+    "gradient_accumulation": 1,
+    "mixed_precision": "bfloat16",
+    "TF32": true,
+    "early_stopping": false,
+    "scheduler": null,
+    "EMA": false,
+    "drop_last": false,
+    "shuffle": true,
+    "distributed_data_parallel": false,
+    "world_size": 1,
+    "cpu_threads": 2,
+    "checkpoint_interval": 10
+  },
+  "expected_training_images_per_epoch": 3629,
+  "expected_optimizer_steps": 5700,
+  "local_unreported_choices": [
+    "Five local uncertainty seeds 1103-1107; original seeds unknown.",
+    "Single CUDA GPU/world_size1 without DDP; author world size and batch interpretation unknown.",
+    "Batch32 is locally interpreted as global batch; full tail retained.",
+    "CPU-generator random permutation per epoch; direct mmap batches, no workers or pinned-memory loader.",
+    "No scheduler/EMA/early stopping; author did not report these settings.",
+    "CuDNN benchmarkFalse/deterministicTrue; full CUDA bitwise reproducibility not certified.",
+    "Per-epoch resume captures model/optimizer/Python/NumPy/Torch/CUDA/order RNG; interrupted epoch replays.",
+    "Two rolling epoch checkpoints; immutable checkpoints every100epochs retained for epoch ablation.",
+    "Related native Dinomaly StableAdamW AMSGrad semantics, not certified target-author implementation.",
+    "Related pinned Meta U-Net with unit-time input, not target-author source release.",
+    "Original image preprocessing gaps filled by already-frozen local full-data preprocessing choices.",
+    "Same category-conditional backbone follows default class-label availability in AppendixC1/C2.",
+    "All shared single-GPU, complete-tail, optimizer implementation and preprocessing gaps remain.",
+    "Ten-epoch immutable checkpoint interval is a local resume/audit choice, not paper checkpoint selection."
+  ],
+  "original_author_equivalence_certified": false,
+  "original_TCCM_best_domain_setting_reproduced": false,
+  "benchmark_performance": false,
+  "source_receipts": [
+    {
+      "path": "configs/experiments/fm_flow_mismatching_original_protocol.v1.json",
+      "sha256": "32767da1cb746174f52caae22fbe5f8616c861290dbe947c9d83d5d0c72834de"
+    },
+    {
+      "path": "papers/literature/flow_matching/project_additions/flow_mismatching_2605.23070v1.pdf",
+      "sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5"
+    },
+    {
+      "path": "configs/datasets/fm_flow_mismatching_mvtec_original.v2.json",
+      "sha256": "398058adc61d976b9f02c4df61134dc5350bb3931f63331bc8b018c10bfe71c1"
+    },
+    {
+      "path": "configs/models/fm_flow_mismatching_stableadamw_dinomaly_reference.v1.json",
+      "sha256": "644de6725374707de429560feb3e8c40a0a920a70989ecb2638453264369edbe"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/flow_mismatching_full_training_registration_v1/full_architecture_and_environment_capacity.json",
+      "sha256": "98b5c3369188977d1ffb0eb2689c9714f01ff06313c2454ca81a45885feae536"
+    },
+    {
+      "path": "configs/models/fm_tccm_mvtec_controlled_image_domain.v1.json",
+      "sha256": "dfc98d1f7e7f8e64a19b2c64eaff74df76ad5e624d0fb996b3fa261bdd3a73c9"
+    },
+    {
+      "path": "configs/models/fm_flow_mismatching_mvtec_conditional_full_training.v1.json",
+      "sha256": "cf0e46edb1ca6bf1207e49c6792ee38a5044866b04781e1f07a56450548327fd"
+    },
+    {
+      "path": "configs/models/fm_flow_mismatching_appendix_c_comparisons.v2.json",
+      "sha256": "3f4d9563fa0b3bd963f84bd994c823dfd31e7d5baf2b1f6a6a07e696eda45913"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_tccm_image.py",
+      "sha256": "959841a8c7d8ccd2603fb4f5c1f2aadda2d24e6cd9bafd69b3feca8927f8a733"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_image_comparison.py",
+      "sha256": "e4d8b353b1db640b3505b96a35fd10b033467a8f77e6ef464349f4b7d78406d6"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_optimizer_reference.py",
+      "sha256": "b73ffe771eb60a4a6c9ff1651baf54114f332fa7ae90945d47735dbd55a3c4ad"
+    },
+    {
+      "path": "scripts/flow_matching/run_flow_mismatching_full_training_v1.py",
+      "sha256": "821e43cef0c65e44706629774085588060e87be52ba491863cd35f25f669865b"
+    },
+    {
+      "path": "scripts/flow_matching/flow_mismatching_full_training_contract_v1.py",
+      "sha256": "fca77d39b98f3a2b4e9c0af1f0e7087853c33afc17dbe3c8add314aa6a03e6e5"
+    },
+    {
+      "path": "scripts/flow_matching/tccm_full_image_training_contract_v1.py",
+      "sha256": "142fac30b2e5c90a3a91feca26ab45604dbc737689b6215b011f797348f98f71"
+    },
+    {
+      "path": "scripts/flow_matching/run_tccm_full_image_training_v1.py",
+      "sha256": "393358c03da6bdc9da37c838e0272af4b634d21be1cb20ed53d5e91fd83e02ce"
+    },
+    {
+      "path": "tests/test_fm_tccm_full_image_training_v1.py",
+      "sha256": "0ec171c10f1e011bedc29ea9b26fb2007d71b9e049e8cc8f30faca982ca06e65"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models/unet.py",
+      "sha256": "4888da830915ada9543622f4842f83e7b010cf16359585d9ad7ee7d3675a6a9a"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models/nn.py",
+      "sha256": "7943211a2eb063d891984267272c9615b086049b9000d97e46ceeb4c73a04f99"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/flow_mismatching_optimizer_sources_v1/dinomaly_author_original/optimizers/StableAdamW.py",
+      "sha256": "d06d25a7c1aa9717fb73283783fd862b73e613a4eaae67c0427fe3e2115aed6e"
+    }
+  ]
+}
