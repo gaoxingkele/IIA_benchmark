@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "status": "all5_original_SMAP_precision_diagnostics_complete_independently_verified_full25precision_training_registered_waiting_shared_original_lane",
+  "implementation": "src/iia_benchmark/models/fm_tranad_reference_float64_v1.py",
+  "runtime": "configs/runtime/fm_tranad_reference_float64.v1.json",
+  "queue": "configs/experiments/fm_tranad_reference_float64_queue.v1.json",
+  "full_registered_original_dataset_seed_precision_controls": 25,
+  "full_original_datasets": [
+    "psm",
+    "smap",
+    "msl",
+    "smd",
+    "swat"
+  ],
+  "original_seeds": [
+    1103,
+    1104,
+    1105,
+    1106,
+    1107
+  ],
+  "original_cpu_threads": 2,
+  "diagnostic_configuration": "configs/reproducibility/fm_tranad_float64_existing_checkpoint_diagnostic.2026-10-11_v1.json",
+  "report": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/README.rst",
+  "actual_execution_evidence": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/actual_execution_observations.json",
+  "actual_controller_processes": [
+    {
+      "label": "full_precision_queue",
+      "pid": 15716,
+      "create_time": 1791689728.5829513,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_tranad_reference_float64_queue_v1",
+        "--runtime-config",
+        "configs/runtime/fm_tranad_reference_float64.v1.json"
+      ],
+      "cpu_seconds": 1.6875,
+      "rss_bytes": 26177536,
+      "private_bytes": 14934016,
+      "children": [
+        {
+          "pid": 15012,
+          "create_time": 1791689728.603542,
+          "command": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ],
+          "cpu_seconds": 0.03125
+        }
+      ]
+    },
+    {
+      "label": "full_checkpoint_diagnostic",
+      "pid": 1836,
+      "create_time": 1791689728.6387737,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.audit_tranad_float64_existing_checkpoints_v1",
+        "--config",
+        "configs/reproducibility/fm_tranad_float64_existing_checkpoint_diagnostic.2026-10-11_v1.json"
+      ],
+      "cpu_seconds": 0.453125,
+      "rss_bytes": 24911872,
+      "private_bytes": 13393920,
+      "children": [
+        {
+          "pid": 32628,
+          "create_time": 1791689728.6562696,
+          "command": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ],
+          "cpu_seconds": 0.0
+        }
+      ]
+    }
+  ],
+  "original_float32_sources_data_and_results_unchanged": true,
+  "all_original_budgets_maintained_except_explicit_declared_float64_precision": true,
+  "new_precision_variant_not_same_float32_canonical_recovery": true,
+  "additional_model_training_concurrency": 0,
+  "new_float64_training_completions": 0,
+  "published_numeric_table_unchanged": true,
+  "raw_constant_channel_normalization_gap": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/raw_constant_channel_normalization_gap.json",
+  "corrected_preprocessing_and_full_recomparison_still_required": true,
+  "tests_passed": 29,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "all_original_experiments_complete": false,
+  "source_receipts": [
+    {
+      "path": "src/iia_benchmark/models/fm_tranad_reference_float64_v1.py",
+      "sha256": "f66a4f2e719eae85e03cc51282c1ff66e48b5fec202f11e1e5bee05527ebad4f"
+    },
+    {
+      "path": "scripts/flow_matching/run_tranad_reference_float64_queue_v1.py",
+      "sha256": "cdc9cfa212bdbeb8950ae26bf7eadfbdd74fbe71cfdbf2a00da2b231faf5b0f8"
+    },
+    {
+      "path": "scripts/flow_matching/audit_tranad_float64_existing_checkpoints_v1.py",
+      "sha256": "20572bf7841876566be1ed89fd56c6f29c658df8d8011e67328cae6339dca367"
+    },
+    {
+      "path": "tests/test_fm_tranad_reference_float64_v1.py",
+      "sha256": "9d2b9639d3b36c09ebf6e52c69487bf80f935fd1bb6acbc3f7595b9ebce1b5bd"
+    },
+    {
+      "path": "configs/experiments/fm_tranad_reference_float64_queue.v1.json",
+      "sha256": "1ec9abdd8a5e8c40e44580a4b3da65e1d223ad001955d20bef3aef9aa658c3df"
+    },
+    {
+      "path": "configs/runtime/fm_tranad_reference_float64.v1.json",
+      "sha256": "f7f60761567d3f2881a971657336bce5f5b79f9251ab2be18292189e6de87c2b"
+    },
+    {
+      "path": "configs/reproducibility/fm_tranad_float64_existing_checkpoint_diagnostic.2026-10-11_v1.json",
+      "sha256": "34cc80fb5e89d68fc4f761185aa22fa1f0e447de7d18d1f13d05ef27e1f333a7"
+    },
+    {
+      "path": "configs/models/fm_strict_baselines/fm_strict_tranad__msl__reference_float64.json",
+      "sha256": "ab863272a9bfb23fb7d4b50b6fa11c190d5deb8cc4e74be2e8113527110dd1ec"
+    },
+    {
+      "path": "configs/models/fm_strict_baselines/fm_strict_tranad__psm__reference_float64.json",
+      "sha256": "f8f91048440e360e0ba379b2671eb7c2efd966e8539ad6fac1fb336775207433"
+    },
+    {
+      "path": "configs/models/fm_strict_baselines/fm_strict_tranad__smap__reference_float64.json",
+      "sha256": "ec67afcf8085d9ba9d9a3e9e7303b0626b2a7a423dd3b43cc752e295c65e56f5"
+    },
+    {
+      "path": "configs/models/fm_strict_baselines/fm_strict_tranad__smd__reference_float64.json",
+      "sha256": "6508a80027951d54144b0e275aafb59a356fa50b13c7cd145da39e0bba97cee8"
+    },
+    {
+      "path": "configs/models/fm_strict_baselines/fm_strict_tranad__swat__reference_float64.json",
+      "sha256": "e1108038e204ab74e259f596df9adb59d63092c7a082b2640e9abff4213fd05d"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/actual_execution_observations.json",
+      "sha256": "34290db149e7b2fd5b30ebcd9698722741102d54fc28e6bbba39d230bb903e10"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/independent_original_failure_inputs_and_precision_source.json",
+      "sha256": "909697addffd3e9e864c922f51207c0485d3f2e48a8ef443c8a0f88a9a127262"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/launch_receipts.json",
+      "sha256": "25e43921ab8c1a5c44aa4f2dff35fc88fbe4b0727e14cf319c855a6262e2946c"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/model_configuration_verification.json",
+      "sha256": "14c10ffe8c56c70e3674d11e1795ebffbd502c17cd1338c7515658aa69030b95"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/probe_receipt.json",
+      "sha256": "685177c64a813119a8a84473dc03e6776e35d0ab78f5a3b476002308164d9f53"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/raw_constant_channel_normalization_gap.json",
+      "sha256": "0d0b1d96b466427abec4b2eb416a72ab91edf9eb48c3214a901bf1e26b319b99"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/README.rst",
+      "sha256": "f87f1d9af98bbfccf8a8a589c0a8e374dd89b0ea2eacc7b974e2297754145a50"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/validation.json",
+      "sha256": "79b70fe9b4a615ee2831741e738fd0ab9fafcdedc62ef1516a72dd62c2efc216"
+    },
+    {
+      "path": "scripts/flow_matching/verify_tranad_precision_and_smd_completion_v1.py",
+      "sha256": "461d29f911e43a55a167601847da5725ead28b9c529ec2cc4052a4b04b7557c3"
+    },
+    {
+      "path": "tests/test_fm_tranad_precision_completion_audit_v1.py",
+      "sha256": "8536cc017aca870b1a7cbf7d947e45534f6a0aa60ba17558ddb69a47515115d0"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/actual_completion_and_following_execution_observations.json",
+      "sha256": "3da7593cef1c9e96855f1ff90425cbe062ec3c305c433aaf3f773f477b4d48e3"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/completion_validation.json",
+      "sha256": "70f3c98e12738b4467a71da5a9e493b3363ff6a9d56c580eb4ae84ca1fa6becc"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/completed_full_checkpoint_diagnostic/precision_diagnostic.json",
+      "sha256": "916ab3ebe2b6cec09e2d51246521706c12aa77aab85544d0ab96fa7c9c7398f4"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/completed_full_checkpoint_diagnostic/status.json",
+      "sha256": "5fd8d88a48d23c9303ffa3cf9a401f285d7f3ee76421f9d851963aa407d9ce33"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/completed_full_checkpoint_diagnostic/independent_verification.json",
+      "sha256": "e2fb4b7354a6a88b486c329ac3ee673924b293b4449f40ea4233a5442e85dcb5"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/new_completed_smd_seed1105/result.json",
+      "sha256": "3c1a268fa31ad2a1f25b2d1025461a8930bcadbf346f30e1563b6674172c8bfb"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/new_completed_smd_seed1105/resource_receipt.json",
+      "sha256": "e89b3c44e8861c55bdaca89b1370913f1ea4ca8ac283cf19c229cb6bbfbd000e"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/new_completed_smd_seed1105/independent_verification.json",
+      "sha256": "a4fa342c5a4f510515085d569e1b8c3563cb5f4d2f8646f85e113010d245d3d7"
+    }
+  ],
+  "full_original_checkpoint_precision_diagnostics_completed": 5,
+  "full_original_checkpoint_precision_diagnostics_required": 5,
+  "completed_precision_diagnostic_evidence": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/completed_full_checkpoint_diagnostic/independent_verification.json",
+  "new_original_SMD_seed1105_complete_evidence": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/new_completed_smd_seed1105/independent_verification.json",
+  "latest_actual_execution_observations": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/actual_completion_and_following_execution_observations.json",
+  "new_original_SMD_training_completions_this_iteration": 1
+}

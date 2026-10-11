@@ -93,7 +93,7 @@
   "paper_method_inventory": "configs/reproducibility/fm_paper_method_inventory.v1.json",
   "code_completion_report": "docs/reports/flow_matching_code_completion_2026-10-08.json",
   "result_table_config": "configs/reproducibility/fm_result_table.v1.json",
-  "latest_results_report": "projects/flow_matching_research/results/2026-10-11/all_algorithm_dataset_metrics_v24/README.rst",
+  "latest_results_report": "projects/flow_matching_research/results/2026-10-11/all_algorithm_dataset_metrics_v26/README.rst",
   "latest_results_snapshot": "projects/flow_matching_research/results/2026-10-11/complete_metrics_current_v5/complete_results.json",
   "latest_complete_metrics_config": "configs/reproducibility/fm_result_table.2026-10-11_v5.json",
   "full_tsad_execution_config": "configs/experiments/fm_tsad_execution.v1.json",
@@ -101,7 +101,8 @@
     "entropic_numeric_repair": "configs/experiments/fm_tsad_entropic_repair_queue.v1.json",
     "strict_baselines": "configs/experiments/fm_strict_baseline_queue.v1.json",
     "iterative_reflow": "configs/experiments/fm_reflow_queue.v1.json",
-    "moment_pretrained": "configs/experiments/fm_moment_pretrained_queue.v1.json"
+    "moment_pretrained": "configs/experiments/fm_moment_pretrained_queue.v1.json",
+    "tranad_reference_float64": "configs/experiments/fm_tranad_reference_float64_queue.v1.json"
   },
   "execution_progress_report": "docs/reports/fm_full_execution_progress_2026-10-09.json",
   "strict_baseline_execution_config": "configs/experiments/fm_strict_baseline_execution.v1.json",
@@ -134,7 +135,8 @@
     "configs/experiments/fm_resource_recovery_queue.v3.json",
     "configs/experiments/fm_crossad_resource_recovery.v1.json",
     "configs/experiments/fm_industrial_empty_output_recovery_queue.v1.json",
-    "configs/experiments/fm_strict_empty_output_recovery_queue.v1.json"
+    "configs/experiments/fm_strict_empty_output_recovery_queue.v1.json",
+    "configs/experiments/fm_resource_recovery_queue.v4.json"
   ],
   "resource_recovery_registration": "docs/reports/fm_resource_recovery_registration_2026-10-09_v2.json",
   "crossad_protocol_audit": "docs/reports/fm_crossad_protocol_audit_2026-10-09_v2.json",
@@ -1403,5 +1405,115 @@
     "strict_TAB_result": false,
     "all_original_experiments_complete": false,
     "ara": "projects/flow_matching_research/ara/execution/preserved_full_incident_recovery.v4.json"
+  },
+  "tranad_reference_float64_precision_2026_10_11": {
+    "schema_version": 1,
+    "status": "all5_original_SMAP_precision_diagnostics_complete_independently_verified_full25precision_training_registered_waiting_shared_original_lane",
+    "implementation": "src/iia_benchmark/models/fm_tranad_reference_float64_v1.py",
+    "runtime": "configs/runtime/fm_tranad_reference_float64.v1.json",
+    "queue": "configs/experiments/fm_tranad_reference_float64_queue.v1.json",
+    "full_registered_original_dataset_seed_precision_controls": 25,
+    "full_original_datasets": [
+      "psm",
+      "smap",
+      "msl",
+      "smd",
+      "swat"
+    ],
+    "original_seeds": [
+      1103,
+      1104,
+      1105,
+      1106,
+      1107
+    ],
+    "original_cpu_threads": 2,
+    "diagnostic_configuration": "configs/reproducibility/fm_tranad_float64_existing_checkpoint_diagnostic.2026-10-11_v1.json",
+    "report": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/README.rst",
+    "actual_execution_evidence": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/actual_execution_observations.json",
+    "actual_controller_processes": [
+      {
+        "label": "full_precision_queue",
+        "pid": 15716,
+        "create_time": 1791689728.5829513,
+        "command": [
+          "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.run_tranad_reference_float64_queue_v1",
+          "--runtime-config",
+          "configs/runtime/fm_tranad_reference_float64.v1.json"
+        ],
+        "cpu_seconds": 1.6875,
+        "rss_bytes": 26177536,
+        "private_bytes": 14934016,
+        "children": [
+          {
+            "pid": 15012,
+            "create_time": 1791689728.603542,
+            "command": [
+              "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+              "0x4"
+            ],
+            "cpu_seconds": 0.03125
+          }
+        ]
+      },
+      {
+        "label": "full_checkpoint_diagnostic",
+        "pid": 1836,
+        "create_time": 1791689728.6387737,
+        "command": [
+          "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.audit_tranad_float64_existing_checkpoints_v1",
+          "--config",
+          "configs/reproducibility/fm_tranad_float64_existing_checkpoint_diagnostic.2026-10-11_v1.json"
+        ],
+        "cpu_seconds": 0.453125,
+        "rss_bytes": 24911872,
+        "private_bytes": 13393920,
+        "children": [
+          {
+            "pid": 32628,
+            "create_time": 1791689728.6562696,
+            "command": [
+              "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+              "0x4"
+            ],
+            "cpu_seconds": 0.0
+          }
+        ]
+      }
+    ],
+    "original_float32_sources_data_and_results_unchanged": true,
+    "all_original_budgets_maintained_except_explicit_declared_float64_precision": true,
+    "new_precision_variant_not_same_float32_canonical_recovery": true,
+    "additional_model_training_concurrency": 0,
+    "new_float64_training_completions": 0,
+    "published_numeric_table_unchanged": true,
+    "raw_constant_channel_normalization_gap": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/raw_constant_channel_normalization_gap.json",
+    "corrected_preprocessing_and_full_recomparison_still_required": true,
+    "tests_passed": 29,
+    "original_scope": {
+      "papers": 45,
+      "method_baseline_ablation_records": 681,
+      "original_data_task_records": 273
+    },
+    "author_equivalence_certified": false,
+    "strict_TAB_result": false,
+    "all_original_experiments_complete": false,
+    "full_original_checkpoint_precision_diagnostics_completed": 5,
+    "full_original_checkpoint_precision_diagnostics_required": 5,
+    "completed_precision_diagnostic_evidence": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/completed_full_checkpoint_diagnostic/independent_verification.json",
+    "new_original_SMD_seed1105_complete_evidence": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/new_completed_smd_seed1105/independent_verification.json",
+    "latest_actual_execution_observations": "projects/flow_matching_research/results/2026-10-11/tranad_reference_float64_v1/actual_completion_and_following_execution_observations.json",
+    "new_original_SMD_training_completions_this_iteration": 1,
+    "ara": "projects/flow_matching_research/ara/execution/tranad_reference_float64_precision.v1.json"
   }
 }
