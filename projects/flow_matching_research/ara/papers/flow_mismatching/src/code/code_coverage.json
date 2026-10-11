@@ -6,7 +6,7 @@
   "primary_source_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
   "main_implementation": {
     "status": "local_paper_component_reconstruction_with_gaps",
-    "note": "代码、主消融或组件已按原文还原；仍缺：No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.；Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.；Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.；Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.；K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.；Original task is image detection; do not report as TSAD performance."
+    "note": "原始detector及相关Meta U-Net可调用；已冻结原文2000epoch/K10/T10配置、30组计算量消融和20个检查点，补齐附录公式组件与原始FlowGrad梯度核心。仍缺完整原始图像数据/预处理、StableAdamW身份、完整训练、作者D-Flow异常适配及未报告预算、全部原始推理/指标与消融；测试人工数据不代表benchmark成绩。"
   },
   "source_resources": [],
   "local_entrypoints": [
@@ -16,6 +16,20 @@
       "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b",
       "status": "top_level_symbol_found",
       "boundary": "AST only; not a runtime import or end-to-end training test."
+    },
+    {
+      "entrypoint": "iia_benchmark.models.fm_native_guidance:load_verified_flowgrad",
+      "path": "src/iia_benchmark/models/fm_native_guidance.py",
+      "sha256": "bec91d8249415b0a78dd4bfbf74f011cd1168fc649e704535ab20c3c67facbf9",
+      "status": "runtime_import_and_independent_artificial_gradient_checks_passed",
+      "boundary": "Original native author core plus paper-derived source-space adapter; no full anomaly dataset inference or benchmark performance."
+    },
+    {
+      "entrypoint": "iia_benchmark.models.fm_native_guidance:dflow_initial_noise_flowgrad",
+      "path": "src/iia_benchmark/models/fm_native_guidance.py",
+      "sha256": "bec91d8249415b0a78dd4bfbf74f011cd1168fc649e704535ab20c3c67facbf9",
+      "status": "runtime_import_and_independent_artificial_gradient_checks_passed",
+      "boundary": "Original native author core plus paper-derived source-space adapter; no full anomaly dataset inference or benchmark performance."
     }
   ],
   "model_configs": [
@@ -27,7 +41,11 @@
     "configs/models/fm_supplemental_flow_mismatching__path_percentile_20.json",
     "configs/models/fm_supplemental_flow_mismatching__path_percentile_30.json",
     "configs/models/fm_supplemental_flow_mismatching__pooled_categories.json",
-    "configs/models/fm_supplemental_flow_mismatching__unweighted_time.json"
+    "configs/models/fm_supplemental_flow_mismatching__unweighted_time.json",
+    "configs/models/fm_flow_mismatching_mvtec_original.v1.json",
+    "configs/models/fm_flow_mismatching_visa_original.v1.json",
+    "configs/models/fm_flow_mismatching_appendix_c_comparisons.v2.json",
+    "configs/models/fm_flow_mismatching_dflow_native_guidance.v1.json"
   ],
   "paper_ablations": {
     "source_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
@@ -207,5 +225,22 @@
   "all_paper_ablations_ready": false,
   "paper_score_reproduction_status": "not_inferred_from_code_presence",
   "preserved_patches": null,
-  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner."
+  "next_gate": "Register every main/ablated/baseline variant against a paper table or algorithm, explicit code symbol/config, validation behavior and task-specific runner.",
+  "current_verified_supplement": {
+    "original_budget_and_ablation_recipe": "configs/experiments/fm_flow_mismatching_original_protocol.v1.json",
+    "original_main_models": [
+      "configs/models/fm_flow_mismatching_mvtec_original.v1.json",
+      "configs/models/fm_flow_mismatching_visa_original.v1.json"
+    ],
+    "comparison_configuration": "configs/models/fm_flow_mismatching_appendix_c_comparisons.v2.json",
+    "native_FlowGrad_materials": "projects/flow_matching_research/results/2026-10-11/flow_mismatching_native_guidance_sources_v1/full_original_guidance_material_audit.json",
+    "DFlow_source_only_guidance": "configs/models/fm_flow_mismatching_dflow_native_guidance.v1.json",
+    "original_native_FlowGrad_code_files": 31,
+    "original_related_papers": 3,
+    "original_all_author_source_Git_blobs_match": true,
+    "original_anomaly_recipe_unverified": true,
+    "full_model_training_completed": false,
+    "synthetic_fixture_tests_are_not_benchmark_performance": true
+  },
+  "historical_implementation_note_prior_to_native_guidance_acquisition": "代码、主消融或组件已按原文还原；仍缺：No Flow Mismatching author repository located; architecture assembled from related cited Meta U-Net.；Exact StableAdamW with update RMS clipping training pipeline, MVTec/VisA splits, category training and checkpoint reproduction remain pending.；Compared Reflect, WT-Flow, TCCM, D-Flow, ReconFlow implementations from Appendix C are not represented by this detector primitive.；Time weighting switch is a local diagnostic supported by toy analysis; it is not a claim of all paper ablations.；K/T sweep list is a development grid; all paper Table 6 rows still require exact transcription.；Original task is image detection; do not report as TSAD performance."
 }

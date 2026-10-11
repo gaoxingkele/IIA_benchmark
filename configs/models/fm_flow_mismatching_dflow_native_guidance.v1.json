@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "fm_flow_mismatching_dflow_native_guidance_v1",
+  "task": "image_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_native_guidance:dflow_initial_noise_flowgrad",
+  "core_loader": "iia_benchmark.models.fm_native_guidance:load_verified_flowgrad",
+  "source_path": "data/public_datasets/flow_matching/flow_mismatching_native_guidance_sources_v1/flowgrad_author_original/utils/flowgrad_utils.py",
+  "expected_source_sha256": "1a5348d80151004713cf27c909ab9f30b9a49045fb99cd689cdc1a6a8c13d231",
+  "original_author_repository": "https://github.com/gnobitab/FlowGrad",
+  "original_author_commit": "0cc3717e51ce2810bc44f5755397d11a8c43989a",
+  "original_author_functions": ["generate_traj", "flowgrad_optimization"],
+  "parameters": {
+    "optimizer": "lbfgs",
+    "lbfgs_inner_iterations": "REQUIRES_EXPLICIT_FROZEN_UNREPORTED_ANOMALY_PAPER_VALUE",
+    "steps": "REQUIRES_EXPLICIT_FROZEN_UNREPORTED_ANOMALY_PAPER_VALUE",
+    "iterations": "REQUIRES_EXPLICIT_FROZEN_UNREPORTED_ANOMALY_PAPER_VALUE",
+    "learning_rate": "REQUIRES_EXPLICIT_FROZEN_UNREPORTED_ANOMALY_PAPER_VALUE",
+    "straightness_threshold": "REQUIRES_EXPLICIT_FROZEN_UNREPORTED_ANOMALY_PAPER_VALUE"
+  },
+  "shared_trained_model": "configs/models/fm_flow_mismatching_original.v1.json",
+  "source_noise_optimized_only": true,
+  "loss": "MSE to observed image",
+  "heatmap": "channel L2 reconstruction residual",
+  "time_adapter": "Original RF t*999 converted to unit-time U-Net; native eps1e-3 remains disclosed",
+  "reproduction_status": "immutable_author_FlowGrad_core_callable_and_paper_derived_DFlow_adapter_original_anomaly_protocol_unverified",
+  "citations": [
+    "https://arxiv.org/abs/2605.23070",
+    "https://arxiv.org/abs/2402.14017",
+    "https://openaccess.thecvf.com/content/CVPR2023/papers/Liu_FlowGrad_Controlling_the_Output_of_Generative_ODEs_With_Gradients_CVPR_2023_paper.pdf"
+  ],
+  "gaps": [
+    "D-Flow p4 requires LBFGS with line search; native control SGD is separate. Strong-Wolfe and PyTorch LBFGS other defaults are disclosed local choices, not original anomaly-author parameters.",
+    "Original Flow Mismatching D-Flow adaptation and compute settings remain unavailable.",
+    "Native FlowGrad controls each selected u_j; D-Flow initial-noise optimization is a distinct explicit adapter.",
+    "Original native partition compares last velocity at i0 using Python index-1; this behavior is preserved, not silently fixed.",
+    "Native RF endpoint epsilon and time scaling differ from a hypothetical unit-time author adaptation; disclosed and not certified equivalent.",
+    "No full image model training, raw images inference, original baseline scores or efficiency comparison completed."
+  ],
+  "all_paper_ablations_complete": false,
+  "benchmark_ready": false,
+  "paper_score_status": "not_verified"
+}

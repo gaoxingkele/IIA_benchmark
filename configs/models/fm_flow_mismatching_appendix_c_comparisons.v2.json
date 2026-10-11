@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "fm_flow_mismatching_appendix_c_comparisons_v2",
+  "task": "image_anomaly_detection",
+  "citation": "https://arxiv.org/abs/2605.23070",
+  "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+  "original_protocol": "configs/experiments/fm_flow_mismatching_original_protocol.v1.json",
+  "same_backbone_model": "configs/models/fm_flow_mismatching_original.v1.json",
+  "benchmark_ready": false,
+  "all_paper_ablations_complete": false,
+  "methods": [
+    {
+      "id": "Reflect_image_domain",
+      "training": "modified",
+      "epochs": 2000,
+      "objective": "iia_benchmark.models.fm_image_comparison:reflect_objective",
+      "corruption": "iia_benchmark.models.fm_image_comparison:reflect_corruption",
+      "heatmap": "iia_benchmark.models.fm_image_comparison:reflect_heatmap",
+      "reproduction_status": "equations_callable_native_mask_pipeline_unavailable",
+      "gaps": [
+        "caller must supply native masks and mixing draws; no invented random-walk settings"
+      ]
+    },
+    {
+      "id": "TCCM_image_domain",
+      "training": "modified",
+      "epochs": 50,
+      "objective": "iia_benchmark.models.fm_image_comparison:tccm_objective",
+      "heatmap": "iia_benchmark.models.fm_image_comparison:tccm_heatmap",
+      "test_time": 1,
+      "reproduction_status": "equations_callable_full_training_unexecuted"
+    },
+    {
+      "id": "WT_Flow_image_domain",
+      "training": "modified",
+      "epochs": 2000,
+      "normalization": "iia_benchmark.models.fm_image_comparison:wt_affine",
+      "objective": "iia_benchmark.models.fm_image_comparison:wt_flow_objective",
+      "heatmap": "iia_benchmark.models.fm_image_comparison:wt_flow_heatmap",
+      "reproduction_status": "equations_callable_native_WT_statistics_and_ODE_unpinned",
+      "gaps": [
+        "original method used WRN50 features; this is only the Flow Mismatching image-domain adaptation",
+        "caller must supply audited per-sample WT moments, epsilon and native integrator"
+      ]
+    },
+    {
+      "id": "D_Flow_FlowGrad_image_domain",
+      "training": "shared_vanilla_FM_checkpoint",
+      "reproduction_status": "original_FlowGrad_core_acquired_and_gradient_verified_source_space_adapter_available_anomaly_recipe_unverified",
+      "callable": "iia_benchmark.models.fm_native_guidance:dflow_initial_noise_flowgrad",
+      "gaps": [
+        "Original anomaly-author adapter and compute settings still unavailable",
+        "D-Flow source-only LBFGS and native FlowGrad all-time control SGD are distinct",
+        "Original RF epsilon/partition preserved; unit-time mapping and StrongWolfe are disclosed local choices"
+      ],
+      "model_configuration": "configs/models/fm_flow_mismatching_dflow_native_guidance.v1.json"
+    },
+    {
+      "id": "ReconFlow_image_domain",
+      "training": "shared_vanilla_FM_checkpoint",
+      "heatmap": "iia_benchmark.models.fm_image_comparison:reconflow_heatmap",
+      "paths": 10,
+      "integration_steps": 10,
+      "t_init": 0.5,
+      "reproduction_status": "equations_callable_native_ODE_unpinned",
+      "gaps": [
+        "caller must supply native10step integrator"
+      ]
+    }
+  ],
+  "evidence_pages": [
+    21,
+    22,
+    23
+  ],
+  "full_original_experiments_completed": false,
+  "boundary": "Original author FlowGrad core and paper-derived D-Flow initial-noise adapter now callable; no original image model training or certified anomaly-paper metrics.",
+  "prior_frozen_status": "configs/models/fm_flow_mismatching_appendix_c_comparisons.v1.json",
+  "original_author_FlowGrad_material_audit": "projects/flow_matching_research/results/2026-10-11/flow_mismatching_native_guidance_sources_v1/full_original_guidance_material_audit.json"
+}
