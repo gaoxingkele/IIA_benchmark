@@ -1,0 +1,78 @@
+{
+  "captured_utc": "2026-10-11T20:16:23.386909+00:00",
+  "runtime_configuration": "configs/runtime/fm_timegan_corrected_observer_dispatch.v2.json",
+  "configuration_sha256": "b837e28b56d48bc0cd1c687f9cfa79431bc50839d46020eb6815be3e7efdd94d",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "full_original_TimeGAN_jobs": 45,
+  "full_stages_per_seed": [
+    50000,
+    50000,
+    50000
+  ],
+  "full_evaluator_repeats_per_seed": {
+    "discriminative": 10,
+    "predictive": 10
+  },
+  "full_evaluator_updates_per_repeat": {
+    "discriminative": 2000,
+    "predictive": 5000
+  },
+  "original_native_owners": {
+    "original": {
+      "pid": 32676,
+      "create_time": 1791669201.5630853,
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_timegan_native_queue_v1",
+        "--queue",
+        "configs/experiments/fm_timegan_native_original_queue.v1.json"
+      ]
+    },
+    "stock": {
+      "pid": 35356,
+      "create_time": 1791720569.0788147,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_timegan_stage_resume_v2",
+        "--config",
+        "configs/reproducibility/fm_timegan_stock_stage_recovery.2026-10-11_v3.json"
+      ]
+    },
+    "energy": {
+      "pid": 16104,
+      "create_time": 1791740868.216404,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_preserved_native_gan_retry_v1",
+        "--family",
+        "timegan",
+        "--config",
+        "configs/reproducibility/fm_timegan_energy_preserved_full_joint_retry.2026-10-12_v1.json"
+      ]
+    }
+  },
+  "source_observation_expression_changes": 1,
+  "author_training_and_scoring_sources_unchanged": true,
+  "resource_admission_and_emergency_caps_unchanged": true,
+  "active_native_workers_stopped": false,
+  "training_executed_during_registration": false,
+  "new_numeric_results_published": 0,
+  "original_active_unpatched_job_requires_separate_exact_continuation_if_it_fails": true,
+  "all_original_experiments_complete": false
+}
