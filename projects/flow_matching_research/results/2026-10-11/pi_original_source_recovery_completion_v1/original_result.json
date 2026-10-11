@@ -1,0 +1,92 @@
+{
+  "status": "completed",
+  "experiment_sha256": "9388ed60525a390ae5ceca6aad7ca02b28905a9b2ff085dc0724663f55090eea",
+  "metrics": {
+    "accuracy": 0.9890318906605923,
+    "precision": 0.9732059740154612,
+    "recall": 0.9876365727429557,
+    "f1": 0.9803681732004159,
+    "pointwise_no_PA_same_author_threshold": {
+      "accuracy": 0.7183940774487472,
+      "precision": 0.29947089947089944,
+      "recall": 0.011624086092171198,
+      "f1": 0.0223795025898541,
+      "auroc": 0.481281323941512,
+      "average_precision": 0.2726305082596521
+    }
+  },
+  "native_train_points": 132481,
+  "training_windows": 132382,
+  "steps_per_epoch": 518,
+  "epochs": [
+    {
+      "epoch": 1,
+      "steps": 518,
+      "train_loss": -127.99726475896063,
+      "validation_loss1": -135.64386537957816,
+      "validation_loss2": 136.0816659287878,
+      "early_stop": false,
+      "seconds": 5501.137741565704
+    },
+    {
+      "epoch": 2,
+      "steps": 518,
+      "train_loss": -135.8314386316248,
+      "validation_loss1": -135.81350770288583,
+      "validation_loss2": 136.15068832708866,
+      "early_stop": false,
+      "seconds": 4785.74928021431
+    },
+    {
+      "epoch": 3,
+      "steps": 518,
+      "train_loss": -135.88244293095062,
+      "validation_loss1": -135.82567505238703,
+      "validation_loss2": 136.13477790320928,
+      "early_stop": false,
+      "seconds": 4592.442627668381
+    }
+  ],
+  "native_test_points": 87841,
+  "scored_test_points": 87800,
+  "dropped_test_tail_points": 41,
+  "active_attention_layers": 1,
+  "parameter_count": 1930289,
+  "training_seconds": 14937.303699100012,
+  "evaluation_seconds": 1111.0152986999892,
+  "torch_version": "2.13.0+cu126",
+  "strict_TAB_result": false,
+  "test_used_for_early_stopping": true,
+  "test_scores_used_for_calibration": true,
+  "artifacts": [
+    {
+      "path": "experiments/runs/fm_resource_recovery_20261011_v4/jobs/pi_author__source_runtime__psm__full__seed42__preserved_incident_recovery_v4/effective_author_config.yaml",
+      "sha256": "078fd6b0e92bcbbf8765f8e52751e7f030abae43ed6d4868a35c374a957a5852"
+    },
+    {
+      "path": "experiments/runs/fm_resource_recovery_20261011_v4/jobs/pi_author__source_runtime__psm__full__seed42__preserved_incident_recovery_v4/checkpoints/PSM_checkpoint.pth",
+      "sha256": "bab8ec12f94660743e6bf8b8767b1d733b42c796afabfd4b42041291806f8722"
+    },
+    {
+      "path": "experiments/runs/fm_resource_recovery_20261011_v4/jobs/pi_author__source_runtime__psm__full__seed42__preserved_incident_recovery_v4/checkpoints/author_scores.npz",
+      "sha256": "28089b10b9b0274e0ad49fb3debc5323cfce0d42fa25f8c7ba91b12b51467336"
+    },
+    {
+      "path": "experiments/runs/fm_resource_recovery_20261011_v4/jobs/pi_author__source_runtime__psm__full__seed42__preserved_incident_recovery_v4/checkpoints/epochs.json",
+      "sha256": "6f439f47473e8912eb35fa3664a19467918a480e1cea96654f68808d7ac41869"
+    },
+    {
+      "path": "experiments/runs/fm_resource_recovery_20261011_v4/jobs/pi_author__source_runtime__psm__full__seed42__preserved_incident_recovery_v4/checkpoints/PSM_global_hurst.pt",
+      "sha256": "0ab0d7bbdbc3a2476592eaa482dabaef35ebc342cfd9ff6ec9f56e0ecf1bf668"
+    },
+    {
+      "path": "experiments/runs/fm_resource_recovery_20261011_v4/jobs/pi_author__source_runtime__psm__full__seed42__preserved_incident_recovery_v4/posthoc_score_controls.json",
+      "sha256": "5adb9d40e57a3baf31ddc9a0d34cd0bfc8895a2250d37942c074f4dfff49f82e"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/pi_author_dfa_cache_v1/pi_author__source_runtime__psm__full__seed42__preserved_incident_recovery_v4.json",
+      "sha256": "7169c9099bee02c8e579d77c59368db87fc486c237dab686a8a47289750c7b76"
+    }
+  ],
+  "boundary": "Pinned historical mirror reproduction and separately named causal/time-axis repair controls. Keep full source hyperparameters, stride-one training, source early stopping on test, source pooled train/test score calibration, original PA and original dropped inference tails. Neither branch proves journal equivalence or strict TAB generalization. Config axes on source_runtime are mirror sensitivity controls; e_layers produces e_layers-1 active layers. Temperature/stream grid is posthoc diagnostic, never select a strict leaderboard result using test labels."
+}
