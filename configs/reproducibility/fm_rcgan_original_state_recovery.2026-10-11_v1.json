@@ -1,0 +1,83 @@
+{
+  "configuration_path": "configs/reproducibility/fm_rcgan_original_state_recovery.2026-10-11_v1.json",
+  "checkpoint_state_configuration": "configs/reproducibility/fm_rcgan_checkpoint_resume_state.2026-10-11_v1.json",
+  "canonical_job": {
+    "id": "rcgan_mnistfull__seed1103",
+    "seed": 1103,
+    "output_directory": "F:/aicoding/IIA_Data/experiments/rcgan_original_mnistfull_v2/jobs/seed1103"
+  },
+  "recovery_job": {
+    "id": "rcgan_mnistfull__seed1103__state_recovery_v1",
+    "seed": 1103,
+    "output_directory": "F:/aicoding/IIA_Data/experiments/rcgan_original_state_recovery_v1/jobs/seed1103"
+  },
+  "full_original_epochs": 500,
+  "verified_completed_epochs": 238,
+  "remaining_full_epochs": 262,
+  "python": "F:/aicoding/IIA_Data/environments/adopted_gan_author_py37_v1/python/python.exe",
+  "state_root": "experiments/runs/fm_rcgan_original_state_recovery_v1",
+  "resource_lock": "experiments/runs/fm_rcgan_original_cpu.lock",
+  "settings": {
+    "minimum_available_memory_bytes": 25769803776,
+    "minimum_commit_headroom_bytes": 30064771072,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 10737418240,
+    "maximum_worker_private_bytes": 12884901888
+  },
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "source_receipts": [
+    {
+      "path": "configs/reproducibility/fm_rcgan_checkpoint_resume_state.2026-10-11_v1.json",
+      "sha256": "0e8b53d45ba8f1ca3caa564401cf10c8876d450b68d0158535cd3926fca285da"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/rcgan_checkpoint_resume_state_v1/checkpoint_resume_state_audit.json",
+      "sha256": "2552069cbd7f7504f1fc4617250ee2c9962b9b3d8f69f311894afed167fc6438"
+    },
+    {
+      "path": "experiments/runs/fm_rcgan_checkpoint_resume_state_v1/receipt.json",
+      "sha256": "137b277c9c8dcfadb3e0e613378686fdf23828dd4dccf2e607bc3476cd5917a5"
+    },
+    {
+      "path": "configs/experiments/fm_rcgan_native_original_mnist500_queue.v2.json",
+      "sha256": "4010e3a653ef7119e4b1b3a0b92e4f024fec2f0de3b4216999e904707d6ffd28"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/rcgan_full_native_mmd_audit_v4/full_original_mnist_mmd_and_sigma_fit.json",
+      "sha256": "2c3bd8b9528bcf23af58d6d99d1803cdd96f8c114426781a99a727151bd4a708"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/rcgan_full_native_mmd_audit_v4/full_original_mnist_mmd_and_sigma_fit.execution_receipt.json",
+      "sha256": "5b82b8e2dae13a2ebed0efaaeda48f23e0a610afbc5202eb8d18909966b53b1c"
+    },
+    {
+      "path": "scripts/flow_matching/rcgan_native_training_resume_runtime_v1.py",
+      "sha256": "ae84b29c60f15646176d945825fb4201c97de3af6f3a01bb917069372a80a6a6"
+    },
+    {
+      "path": "scripts/flow_matching/rcgan_native_training_runtime_v2.py",
+      "sha256": "ec71320a84131ffafc7941ae47d1cb3e8958182a679db16b905ce3a9ad5da5b1"
+    },
+    {
+      "path": "scripts/flow_matching/run_rcgan_native_state_recovery_v1.py",
+      "sha256": "f4c81ec4da84a2d8a4e8d009ac7d80fc1545751a62a9029ea747e8f711ed8e10"
+    },
+    {
+      "path": "scripts/flow_matching/audit_rcgan_checkpoint_resume_state_v1.py",
+      "sha256": "5cf5a3bbe62c5ffe1d6d42a8c16fa2930aec32b56e68a9bb1fc9da3ac4e839dd"
+    },
+    {
+      "path": "scripts/flow_matching/audit_rcgan_random_order_chain_v1.py",
+      "sha256": "fd2bef22985aade37a089d6c56fbe6178c55992db073c7e5f6bc2940e65df117"
+    },
+    {
+      "path": "tests/test_fm_rcgan_native_training_resume_v1.py",
+      "sha256": "d1ca69ab43d7127cbf3202432aad0e9de9d8e8abdb7e8ad236dbd081daad31d0"
+    }
+  ],
+  "boundary": "Same original seed1103: restore all model/optimizer variables, exact cumulative36000image ordering, NumPy/Python RNG and original best-model selection after238verified full epochs; execute all262remaining full native epochs with4984/996/3988point original sigma/MMD evaluation each epoch. Preserve original five-seed queue, raw data, failed attempt, family lock and CPU/resource guards. Missing old timings remain missing. Full500epoch training and every evaluator/checkpoint must complete before any result claim."
+}

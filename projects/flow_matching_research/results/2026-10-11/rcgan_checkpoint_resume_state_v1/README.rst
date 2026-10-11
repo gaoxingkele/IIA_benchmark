@@ -1,0 +1,4 @@
+RCGAN complete interrupted model/optimizer state verification
+============================================================
+
+All238actual full96929parameter GAN checkpoints and every optimizer variable restored bitwise in frozen TF1.15.0. Every available original parameter dump matches its checkpoint. All231persisted original trace losses reproduce bitwise as float32 using the verified actual last-batch image identities/noise. Seven missing losses are explicitly recalculated from actual checkpoints; their missing original elapsed times remain null. All4984last evaluator generator samples replay bitwise in178full native forwards. Two original D/G transitions from the same restored state reproduce bitwise in every model/optimizer variable; no training-reachable random operation is untracked. Those audit transitions are never used as resumed training or independent seeds. Exit0, no resource abort. This is recovery proof; the full500epoch experiment remains incomplete.

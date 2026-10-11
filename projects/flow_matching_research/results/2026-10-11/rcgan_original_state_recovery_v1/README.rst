@@ -1,0 +1,4 @@
+RCGAN original full500epoch verified-state recovery
+==================================================
+
+Original seed1103 resumes after238independently verified full epochs, restoring every model/optimizer variable, original cumulative training order, NumPy/Python RNG and best-model-selection state. Execute all262remaining full original epochs and their complete4984generated/996sigma-fit/3988MMD-test evaluators with the unchanged2000step sigma stopping budget. Original source loop body and author functions are unchanged. All five canonical seeds, original failed files and native CPU/environment/resource guards remain. Newly completed losses are journaled at every epoch to avoid buffered trace loss on another interruption. New trace times are explicitly resume-segment elapsed times. Controller PID/create-time/command verified live, waiting for the original resources/family lock. No full500epoch completion or benchmark claim.
