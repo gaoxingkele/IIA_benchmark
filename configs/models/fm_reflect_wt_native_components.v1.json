@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "fm_reflect_wt_native_components_v1",
+  "task": "original_comparator_components",
+  "citations": [
+    "https://github.com/farzad-bz/REFLECT",
+    "https://arxiv.org/abs/2508.02889",
+    "https://github.com/lil-wayne-0319/fmad",
+    "https://arxiv.org/abs/2508.05461",
+    "https://arxiv.org/abs/2605.23070"
+  ],
+  "original_material_audit": {
+    "path": "projects/flow_matching_research/results/2026-10-11/flow_mismatching_reflect_wt_sources_v1/full_original_reflect_wt_material_audit.json",
+    "sha256": "c839cd6b449777cb6f035f753a7ceed82b8de8b9c5a19466aa9f1e6bcfad1b79"
+  },
+  "reflect": {
+    "source_path": "data/public_datasets/flow_matching/flow_mismatching_reflect_wt_sources_v1/reflect_author_original/MedicalDataLoader.py",
+    "expected_sha256": "bd4d44448c3609df9f6485180a9be83032f27b38c8ac08fe6c0638010ce6e50d",
+    "loader": "iia_benchmark.models.fm_reflect_wt_native:load_verified_reflect_masks",
+    "mask": "iia_benchmark.models.fm_reflect_wt_native:reflect_native_mask",
+    "native_medical_default_max_objects": 4,
+    "ROI": "caller supplied native binary ROI; no silent full-image substitution",
+    "geometry": "caller supplied full original embedding/image geometry; no silent32pixel substitution",
+    "source_dataset": "explicit BraTS2021Dataset or ATLASDataset required",
+    "uses_Python_and_NumPy_global_RNG": true,
+    "image_domain_adaptation_status": "native_mask_functions_callable_target_image_ROI_channel_geometry_and_corruption_draw_sharing_uncertified"
+  },
+  "wt": {
+    "source_path": "data/public_datasets/flow_matching/flow_mismatching_reflect_wt_sources_v1/fmad_author_original/reversed_flow.py",
+    "expected_sha256": "ed8243e47731911bec1a9cc100a783298b10bbab130688495382cff3cd510284",
+    "loader": "iia_benchmark.models.fm_reflect_wt_native:load_verified_wt_flow",
+    "normalization": "iia_benchmark.models.fm_reflect_wt_native:wt_native_standardize",
+    "objective": "iia_benchmark.models.fm_reflect_wt_native:wt_native_objective",
+    "endpoint": "iia_benchmark.models.fm_reflect_wt_native:wt_native_endpoint",
+    "related_native_LayerNorm_epsilon": 1e-05,
+    "related_native_population_variance": true,
+    "epsilon_required_argument": true,
+    "integration_steps_required_argument": true,
+    "related_native_ODE": "Euler on left grid j/steps,0->1; not certified target-author ODE",
+    "native_feature_energy": "negative one-half channel mean squared endpoint",
+    "target_image_energy": "positive one-half channel SUM squared endpoint,Eq25",
+    "native_author_test_checkpoint_selection": "Per-epoch test AUROC; separate best-det and best-loc checkpoints",
+    "strict_TAB_compatible_native_checkpoint_selection": false,
+    "image_domain_adaptation_status": "native_reverse_FM_callable_related_moments_and_solver_verified_target_adaptation_unverified"
+  },
+  "full_original_training_executed": false,
+  "benchmark_performance": false,
+  "original_author_equivalence_certified": false,
+  "all_original_experiments_complete": false,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  }
+}
