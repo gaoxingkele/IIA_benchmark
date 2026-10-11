@@ -1,0 +1,6 @@
+GiFlow corrected seed394: complete original-array audit
+=====================================================
+
+All1747 original overlapping test windows,14 native batches and264837 masked targets independently checked. Native original float64 review metrics: MAE10.78853725026884/MSE458.3137431479806/MAPEpercent24.23168950423169/sqrtMSE21.40826343139444; all agree with full-source float32-reduced metrics under the original1e-5 tolerance. The original native unweighted batch means, MAPE cutoff1e-6, actual68 early-stopped epochs/3264updates/300maximum epochs/patience40 remain unchanged. Validation-selected corrected checkpoint and no test-in-validation verified.
+
+This full-array audit executes no model forwards and does not certify the still-live full selected-model replay. The new complete replay verifier reads each actual seed-specific target count and retains all original14batch/20Euler/280forward/34940window requirements. It does not copy old seed393 target count268613 onto seed394. It preserves the old frozen producer/verifier files, arrays, report wording and numerical tolerances. Original five paired training seeds remain required; no new seed from auditing. No author/TAB equivalence certification.
