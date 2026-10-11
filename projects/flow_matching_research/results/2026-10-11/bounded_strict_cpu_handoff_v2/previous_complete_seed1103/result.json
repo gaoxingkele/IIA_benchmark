@@ -1,0 +1,848 @@
+{
+  "id": "fm_strict_anomaly_transformer__smd__registered__seed1103",
+  "status": "completed",
+  "purpose": "full_local_tsad_benchmark",
+  "experiment_sha256": "bbf2eb1e706f581e84122cb99c2ab3513d4ff55fd5828f098bcfa245afe16c05",
+  "dataset": "smd",
+  "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__smd__registered.json",
+  "seed": 1103,
+  "job": {
+    "id": "fm_strict_anomaly_transformer__smd__registered__seed1103",
+    "dataset": "smd",
+    "seed": 1103,
+    "window": 100,
+    "model_config": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__smd__registered.json",
+    "dataset_manifest_path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+    "parameter_overrides": {
+      "seed": 1103,
+      "device": "cpu"
+    },
+    "output_directory": "experiments/runs/fm_strict_baseline_execution_v1/jobs/fm_strict_anomaly_transformer__smd__registered__seed1103",
+    "frozen_files": [
+      {
+        "path": "configs/experiments/fm_strict_baseline_execution.v1.json",
+        "sha256": "87adbf8e5a8f2b80a4868201951b88a0a3539d3f916d1fdb377f8fc0c6d45bb3"
+      },
+      {
+        "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+        "sha256": "a0105fdaabe762406544b9e006285972146fc190c19cc93a29d867f80c43bfa0"
+      },
+      {
+        "path": "scripts/flow_matching/run_tsad_experiment.py",
+        "sha256": "ff6d01a0cbb50156454564c386c37c806d2d58df1a5b26756608899ef7cbcd96"
+      },
+      {
+        "path": "scripts/flow_matching/prepare_tsad_execution.py",
+        "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+      },
+      {
+        "path": "scripts/flow_matching/model_registry.py",
+        "sha256": "b922822ed4013eebb9938b8e707b03eee503551da3142e77029c7dbc060692fc"
+      },
+      {
+        "path": "src/iia_benchmark/models/mtsad_detectors.py",
+        "sha256": "5ee2fea31587eb31bba91f1d2aa9f2a01a9ad66820651e93d9397cde7e4fa085"
+      },
+      {
+        "path": "src/iia_benchmark/models/fm_legacy_window_adapter.py",
+        "sha256": "0f353033a331268c1378c52da10d5656a109eed11966288d39e9049e149ce91d"
+      },
+      {
+        "path": "src/iia_benchmark/evaluation/mtsad_strict.py",
+        "sha256": "c2d9bffa3d6a9f444ae68e26bd0450e1f4ce5ff9974f3d27540010914f82e7ec"
+      },
+      {
+        "path": "src/iia_benchmark/evaluation/mtsad_metrics.py",
+        "sha256": "5c65f924a059966d734a23da79a12cc36396ae0b2158f392c9b9c90ef7116aae"
+      },
+      {
+        "path": "configs/models/mtsad_anomaly_transformer.json",
+        "sha256": "3680bdb6dd1968c6472ec464679300ce810616ce80719f31549133a7077a660a"
+      },
+      {
+        "path": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__smd__registered.json",
+        "sha256": "6653c89c262d22a56844a1b59a26f86b5f6cb931e5f4af77580c78d20582ac19"
+      },
+      {
+        "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/smd.npz",
+        "sha256": "8f686268cc53d59fb834668c045228a96bed493a8360900b3d03e307b286cdfd"
+      }
+    ]
+  },
+  "training_seconds": 634.2969999999914,
+  "score_seconds": 33.40600000001723,
+  "parameter_count": 22750,
+  "checkpoint_sha256": "533ae1e6e27f2cd2c253944d886fe1e535e9795447e51a71a3cf5cbff1a6d322",
+  "scores_sha256": "f17115b36ca5f913112cadf1432385f35562a77874d500577d65e2f12a6b92d7",
+  "training_losses": null,
+  "metrics": {
+    "strict": {
+      "0.1": {
+        "protocol": "strict_validation_only_no_pa_v1",
+        "calibration": {
+          "threshold": 1.4469669027332406,
+          "false_alarm_percent": 0.1,
+          "calibration_split": "validation",
+          "calibration_sha256": "750da7fc2db4b12abdc0eb00efef4bf4ec28bbb19212a6e93ad26be9e899cc15",
+          "calibration_points": 87323,
+          "calibration_dataset_sha256": "8f686268cc53d59fb834668c045228a96bed493a8360900b3d03e307b286cdfd",
+          "model_artifact_sha256": "533ae1e6e27f2cd2c253944d886fe1e535e9795447e51a71a3cf5cbff1a6d322",
+          "rule": "validation_score_percentile_linear_strict_greater"
+        },
+        "coverage": "complete",
+        "point_adjustment": false,
+        "per_entity": {
+          "SMD_machine-1-2": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "true_positives": 0.0,
+            "false_positives": 7.0,
+            "false_negatives": 167.0,
+            "auroc": 0.2063649312753875,
+            "average_precision": 0.028621500703515906
+          },
+          "SMD_machine-1-3": {
+            "precision": 0.07792207792207792,
+            "recall": 0.008207934336525308,
+            "f1": 0.01485148514851485,
+            "true_positives": 6.0,
+            "false_positives": 71.0,
+            "false_negatives": 725.0,
+            "auroc": 0.1945948143328086,
+            "average_precision": 0.029808280097877518
+          },
+          "SMD_machine-1-4": {
+            "precision": 0.041237113402061855,
+            "recall": 0.009779951100244499,
+            "f1": 0.0158102766798419,
+            "true_positives": 4.0,
+            "false_positives": 93.0,
+            "false_negatives": 405.0,
+            "auroc": 0.2727083767681937,
+            "average_precision": 0.03190006769314238
+          },
+          "SMD_machine-1-6": {
+            "precision": 0.13028169014084506,
+            "recall": 0.011273613650213284,
+            "f1": 0.02075154234436343,
+            "true_positives": 37.0,
+            "false_positives": 247.0,
+            "false_negatives": 3245.0,
+            "auroc": 0.0480440676365048,
+            "average_precision": 0.15967640844419112
+          },
+          "SMD_machine-1-7": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "true_positives": 0.0,
+            "false_positives": 0.0,
+            "false_negatives": 1068.0,
+            "auroc": 0.39744693238538054,
+            "average_precision": 0.052365018939697645
+          },
+          "SMD_machine-1-8": {
+            "precision": 0.03225806451612903,
+            "recall": 0.003125,
+            "f1": 0.005698005698005697,
+            "true_positives": 1.0,
+            "false_positives": 30.0,
+            "false_negatives": 319.0,
+            "auroc": 0.2798380056866364,
+            "average_precision": 0.012149511546282583
+          },
+          "SMD_machine-2-1": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "true_positives": 0.0,
+            "false_positives": 1.0,
+            "false_negatives": 1022.0,
+            "auroc": 0.40193595235527063,
+            "average_precision": 0.06813984799124415
+          },
+          "SMD_machine-2-2": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "true_positives": 0.0,
+            "false_positives": 2.0,
+            "false_negatives": 1088.0,
+            "auroc": 0.451192876344086,
+            "average_precision": 0.17500393189355312
+          },
+          "SMD_machine-2-3": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "true_positives": 0.0,
+            "false_positives": 1.0,
+            "false_negatives": 165.0,
+            "auroc": 0.1276594964450887,
+            "average_precision": 0.009545835238233344
+          },
+          "SMD_machine-2-4": {
+            "precision": 1.0,
+            "recall": 0.0029779630732578916,
+            "f1": 0.005938242280285036,
+            "true_positives": 5.0,
+            "false_positives": 0.0,
+            "false_negatives": 1674.0,
+            "auroc": 0.43969575526987836,
+            "average_precision": 0.08411640877406842
+          },
+          "SMD_machine-2-5": {
+            "precision": 0.25,
+            "recall": 0.0014749262536873156,
+            "f1": 0.0029325513196480934,
+            "true_positives": 1.0,
+            "false_positives": 3.0,
+            "false_negatives": 677.0,
+            "auroc": 0.24628149920675496,
+            "average_precision": 0.028224742625911535
+          },
+          "SMD_machine-2-7": {
+            "precision": 1.0,
+            "recall": 0.012345679012345678,
+            "f1": 0.024390243902439022,
+            "true_positives": 5.0,
+            "false_positives": 0.0,
+            "false_negatives": 400.0,
+            "auroc": 0.19787985890255846,
+            "average_precision": 0.03327218542154732
+          },
+          "SMD_machine-2-9": {
+            "precision": 0.1111111111111111,
+            "recall": 0.011795543905635648,
+            "f1": 0.021327014218009477,
+            "true_positives": 9.0,
+            "false_positives": 72.0,
+            "false_negatives": 754.0,
+            "auroc": 0.10038698593744466,
+            "average_precision": 0.062333131373057876
+          },
+          "SMD_machine-3-10": {
+            "precision": 0.21739130434782608,
+            "recall": 0.005605381165919282,
+            "f1": 0.01092896174863388,
+            "true_positives": 5.0,
+            "false_positives": 18.0,
+            "false_negatives": 887.0,
+            "auroc": 0.2229088288967105,
+            "average_precision": 0.03793927890563206
+          },
+          "SMD_machine-3-2": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "true_positives": 0.0,
+            "false_positives": 12.0,
+            "false_negatives": 236.0,
+            "auroc": 0.5216478641653238,
+            "average_precision": 0.017905603112304075
+          },
+          "SMD_machine-3-3": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "true_positives": 0.0,
+            "false_positives": 2.0,
+            "false_negatives": 600.0,
+            "auroc": 0.30329222495670405,
+            "average_precision": 0.02226965812177525
+          },
+          "SMD_machine-3-5": {
+            "precision": 0.04081632653061224,
+            "recall": 0.01509433962264151,
+            "f1": 0.022038567493112945,
+            "true_positives": 4.0,
+            "false_positives": 94.0,
+            "false_negatives": 261.0,
+            "auroc": 0.31402710399099654,
+            "average_precision": 0.028053552819070165
+          },
+          "SMD_machine-3-6": {
+            "precision": 0.38461538461538464,
+            "recall": 0.006329113924050633,
+            "f1": 0.012453300124533002,
+            "true_positives": 5.0,
+            "false_positives": 8.0,
+            "false_negatives": 785.0,
+            "auroc": 0.2362999839741668,
+            "average_precision": 0.05046005830468554
+          }
+        },
+        "micro": {
+          "precision": 0.11036339165545088,
+          "recall": 0.005631868131868132,
+          "f1": 0.010716852904659218,
+          "true_positives": 82.0,
+          "false_positives": 661.0,
+          "false_negatives": 14478.0,
+          "auroc": 0.24093552481155311,
+          "average_precision": 0.04170667059997459
+        },
+        "macro_f1": 0.00872889949763263,
+        "boundary": "Aligned timestamp order is caller-audited; no VUS/Affiliation or uncertainty is computed here. This diagnostic alone is not a leaderboard result.",
+        "event_metrics": {
+          "event_recall": 0.14285714285714285,
+          "events": 196,
+          "detected_events": 28,
+          "mean_detection_delay_points": 49.17857142857143,
+          "false_alarms_per_1000_normal_points": 2.7310776807737915,
+          "delay_boundary": "Offline window scores use future context; delay in source points, not causal latency. Missed events reported separately."
+        },
+        "f1_ci95": {
+          "low": 0.005907788658908653,
+          "high": 0.0157101653266035,
+          "resamples": 200,
+          "seed": 11103,
+          "unit": "entity_cluster",
+          "block_points": null,
+          "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+        }
+      },
+      "1": {
+        "protocol": "strict_validation_only_no_pa_v1",
+        "calibration": {
+          "threshold": 0.12115408688783613,
+          "false_alarm_percent": 1.0,
+          "calibration_split": "validation",
+          "calibration_sha256": "750da7fc2db4b12abdc0eb00efef4bf4ec28bbb19212a6e93ad26be9e899cc15",
+          "calibration_points": 87323,
+          "calibration_dataset_sha256": "8f686268cc53d59fb834668c045228a96bed493a8360900b3d03e307b286cdfd",
+          "model_artifact_sha256": "533ae1e6e27f2cd2c253944d886fe1e535e9795447e51a71a3cf5cbff1a6d322",
+          "rule": "validation_score_percentile_linear_strict_greater"
+        },
+        "coverage": "complete",
+        "point_adjustment": false,
+        "per_entity": {
+          "SMD_machine-1-2": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "true_positives": 0.0,
+            "false_positives": 38.0,
+            "false_negatives": 167.0,
+            "auroc": 0.2063649312753875,
+            "average_precision": 0.028621500703515906
+          },
+          "SMD_machine-1-3": {
+            "precision": 0.023148148148148147,
+            "recall": 0.013679890560875513,
+            "f1": 0.017196904557179708,
+            "true_positives": 10.0,
+            "false_positives": 422.0,
+            "false_negatives": 721.0,
+            "auroc": 0.1945948143328086,
+            "average_precision": 0.029808280097877518
+          },
+          "SMD_machine-1-4": {
+            "precision": 0.017421602787456445,
+            "recall": 0.012224938875305624,
+            "f1": 0.014367816091954023,
+            "true_positives": 5.0,
+            "false_positives": 282.0,
+            "false_negatives": 404.0,
+            "auroc": 0.2727083767681937,
+            "average_precision": 0.03190006769314238
+          },
+          "SMD_machine-1-6": {
+            "precision": 0.07027027027027027,
+            "recall": 0.011882998171846435,
+            "f1": 0.020328381548084442,
+            "true_positives": 39.0,
+            "false_positives": 516.0,
+            "false_negatives": 3243.0,
+            "auroc": 0.0480440676365048,
+            "average_precision": 0.15967640844419112
+          },
+          "SMD_machine-1-7": {
+            "precision": 0.10526315789473684,
+            "recall": 0.009363295880149813,
+            "f1": 0.017196904557179708,
+            "true_positives": 10.0,
+            "false_positives": 85.0,
+            "false_negatives": 1058.0,
+            "auroc": 0.39744693238538054,
+            "average_precision": 0.052365018939697645
+          },
+          "SMD_machine-1-8": {
+            "precision": 0.008086253369272238,
+            "recall": 0.009375,
+            "f1": 0.008683068017366137,
+            "true_positives": 3.0,
+            "false_positives": 368.0,
+            "false_negatives": 317.0,
+            "auroc": 0.2798380056866364,
+            "average_precision": 0.012149511546282583
+          },
+          "SMD_machine-2-1": {
+            "precision": 0.06,
+            "recall": 0.008806262230919765,
+            "f1": 0.015358361774744029,
+            "true_positives": 9.0,
+            "false_positives": 141.0,
+            "false_negatives": 1013.0,
+            "auroc": 0.40193595235527063,
+            "average_precision": 0.06813984799124415
+          },
+          "SMD_machine-2-2": {
+            "precision": 0.2033898305084746,
+            "recall": 0.011029411764705883,
+            "f1": 0.020924149956408022,
+            "true_positives": 12.0,
+            "false_positives": 47.0,
+            "false_negatives": 1076.0,
+            "auroc": 0.451192876344086,
+            "average_precision": 0.17500393189355312
+          },
+          "SMD_machine-2-3": {
+            "precision": 0.018518518518518517,
+            "recall": 0.01818181818181818,
+            "f1": 0.018348623853211007,
+            "true_positives": 3.0,
+            "false_positives": 159.0,
+            "false_negatives": 162.0,
+            "auroc": 0.1276594964450887,
+            "average_precision": 0.009545835238233344
+          },
+          "SMD_machine-2-4": {
+            "precision": 0.12560386473429952,
+            "recall": 0.015485407980941036,
+            "f1": 0.027571580063626727,
+            "true_positives": 26.0,
+            "false_positives": 181.0,
+            "false_negatives": 1653.0,
+            "auroc": 0.43969575526987836,
+            "average_precision": 0.08411640877406842
+          },
+          "SMD_machine-2-5": {
+            "precision": 0.062111801242236024,
+            "recall": 0.014749262536873156,
+            "f1": 0.023837902264600717,
+            "true_positives": 10.0,
+            "false_positives": 151.0,
+            "false_negatives": 668.0,
+            "auroc": 0.24628149920675496,
+            "average_precision": 0.028224742625911535
+          },
+          "SMD_machine-2-7": {
+            "precision": 0.07784431137724551,
+            "recall": 0.03209876543209877,
+            "f1": 0.045454545454545456,
+            "true_positives": 13.0,
+            "false_positives": 154.0,
+            "false_negatives": 392.0,
+            "auroc": 0.19787985890255846,
+            "average_precision": 0.03327218542154732
+          },
+          "SMD_machine-2-9": {
+            "precision": 0.05,
+            "recall": 0.01310615989515072,
+            "f1": 0.020768431983385252,
+            "true_positives": 10.0,
+            "false_positives": 190.0,
+            "false_negatives": 753.0,
+            "auroc": 0.10038698593744466,
+            "average_precision": 0.062333131373057876
+          },
+          "SMD_machine-3-10": {
+            "precision": 0.05641025641025641,
+            "recall": 0.02466367713004484,
+            "f1": 0.0343213728549142,
+            "true_positives": 22.0,
+            "false_positives": 368.0,
+            "false_negatives": 870.0,
+            "auroc": 0.2229088288967105,
+            "average_precision": 0.03793927890563206
+          },
+          "SMD_machine-3-2": {
+            "precision": 0.018518518518518517,
+            "recall": 0.012711864406779662,
+            "f1": 0.01507537688442211,
+            "true_positives": 3.0,
+            "false_positives": 159.0,
+            "false_negatives": 233.0,
+            "auroc": 0.5216478641653238,
+            "average_precision": 0.017905603112304075
+          },
+          "SMD_machine-3-3": {
+            "precision": 0.0457516339869281,
+            "recall": 0.011666666666666667,
+            "f1": 0.01859229747675963,
+            "true_positives": 7.0,
+            "false_positives": 146.0,
+            "false_negatives": 593.0,
+            "auroc": 0.30329222495670405,
+            "average_precision": 0.02226965812177525
+          },
+          "SMD_machine-3-5": {
+            "precision": 0.040697674418604654,
+            "recall": 0.026415094339622643,
+            "f1": 0.032036613272311214,
+            "true_positives": 7.0,
+            "false_positives": 165.0,
+            "false_negatives": 258.0,
+            "auroc": 0.31402710399099654,
+            "average_precision": 0.028053552819070165
+          },
+          "SMD_machine-3-6": {
+            "precision": 0.07246376811594203,
+            "recall": 0.012658227848101266,
+            "f1": 0.021551724137931032,
+            "true_positives": 10.0,
+            "false_positives": 128.0,
+            "false_negatives": 780.0,
+            "auroc": 0.2362999839741668,
+            "average_precision": 0.05046005830468554
+          }
+        },
+        "micro": {
+          "precision": 0.05103872787894332,
+          "recall": 0.013667582417582418,
+          "f1": 0.02156129801180996,
+          "true_positives": 199.0,
+          "false_positives": 3700.0,
+          "false_negatives": 14361.0,
+          "auroc": 0.24093552481155311,
+          "average_precision": 0.04170667059997459
+        },
+        "macro_f1": 0.020645225263812413,
+        "boundary": "Aligned timestamp order is caller-audited; no VUS/Affiliation or uncertainty is computed here. This diagnostic alone is not a leaderboard result.",
+        "event_metrics": {
+          "event_recall": 0.37244897959183676,
+          "events": 196,
+          "detected_events": 73,
+          "mean_detection_delay_points": 27.945205479452056,
+          "false_alarms_per_1000_normal_points": 15.287424234285973,
+          "delay_boundary": "Offline window scores use future context; delay in source points, not causal latency. Missed events reported separately."
+        },
+        "f1_ci95": {
+          "low": 0.01871798687808864,
+          "high": 0.02527058415077651,
+          "resamples": 200,
+          "seed": 11103,
+          "unit": "entity_cluster",
+          "block_points": null,
+          "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+        }
+      },
+      "5": {
+        "protocol": "strict_validation_only_no_pa_v1",
+        "calibration": {
+          "threshold": 0.000712070049485188,
+          "false_alarm_percent": 5.0,
+          "calibration_split": "validation",
+          "calibration_sha256": "750da7fc2db4b12abdc0eb00efef4bf4ec28bbb19212a6e93ad26be9e899cc15",
+          "calibration_points": 87323,
+          "calibration_dataset_sha256": "8f686268cc53d59fb834668c045228a96bed493a8360900b3d03e307b286cdfd",
+          "model_artifact_sha256": "533ae1e6e27f2cd2c253944d886fe1e535e9795447e51a71a3cf5cbff1a6d322",
+          "rule": "validation_score_percentile_linear_strict_greater"
+        },
+        "coverage": "complete",
+        "point_adjustment": false,
+        "per_entity": {
+          "SMD_machine-1-2": {
+            "precision": 0.03225806451612903,
+            "recall": 0.017964071856287425,
+            "f1": 0.023076923076923075,
+            "true_positives": 3.0,
+            "false_positives": 90.0,
+            "false_negatives": 164.0,
+            "auroc": 0.2063649312753875,
+            "average_precision": 0.028621500703515906
+          },
+          "SMD_machine-1-3": {
+            "precision": 0.00968421052631579,
+            "recall": 0.03146374829001368,
+            "f1": 0.014810045074050227,
+            "true_positives": 23.0,
+            "false_positives": 2352.0,
+            "false_negatives": 708.0,
+            "auroc": 0.1945948143328086,
+            "average_precision": 0.029808280097877518
+          },
+          "SMD_machine-1-4": {
+            "precision": 0.014732965009208104,
+            "recall": 0.039119804400977995,
+            "f1": 0.021404682274247494,
+            "true_positives": 16.0,
+            "false_positives": 1070.0,
+            "false_negatives": 393.0,
+            "auroc": 0.2727083767681937,
+            "average_precision": 0.03190006769314238
+          },
+          "SMD_machine-1-6": {
+            "precision": 0.027950310559006212,
+            "recall": 0.013711151736745886,
+            "f1": 0.01839738348323794,
+            "true_positives": 45.0,
+            "false_positives": 1565.0,
+            "false_negatives": 3237.0,
+            "auroc": 0.0480440676365048,
+            "average_precision": 0.15967640844419112
+          },
+          "SMD_machine-1-7": {
+            "precision": 0.046722454672245464,
+            "recall": 0.06273408239700375,
+            "f1": 0.05355715427657874,
+            "true_positives": 67.0,
+            "false_positives": 1367.0,
+            "false_negatives": 1001.0,
+            "auroc": 0.39744693238538054,
+            "average_precision": 0.052365018939697645
+          },
+          "SMD_machine-1-8": {
+            "precision": 0.011166253101736972,
+            "recall": 0.05625,
+            "f1": 0.018633540372670808,
+            "true_positives": 18.0,
+            "false_positives": 1594.0,
+            "false_negatives": 302.0,
+            "auroc": 0.2798380056866364,
+            "average_precision": 0.012149511546282583
+          },
+          "SMD_machine-2-1": {
+            "precision": 0.07006369426751592,
+            "recall": 0.021526418786692758,
+            "f1": 0.03293413173652694,
+            "true_positives": 22.0,
+            "false_positives": 292.0,
+            "false_negatives": 1000.0,
+            "auroc": 0.40193595235527063,
+            "average_precision": 0.06813984799124415
+          },
+          "SMD_machine-2-2": {
+            "precision": 0.14444444444444443,
+            "recall": 0.02389705882352941,
+            "f1": 0.04100946372239747,
+            "true_positives": 26.0,
+            "false_positives": 154.0,
+            "false_negatives": 1062.0,
+            "auroc": 0.451192876344086,
+            "average_precision": 0.17500393189355312
+          },
+          "SMD_machine-2-3": {
+            "precision": 0.007889546351084813,
+            "recall": 0.048484848484848485,
+            "f1": 0.013570822731128076,
+            "true_positives": 8.0,
+            "false_positives": 1006.0,
+            "false_negatives": 157.0,
+            "auroc": 0.1276594964450887,
+            "average_precision": 0.009545835238233344
+          },
+          "SMD_machine-2-4": {
+            "precision": 0.08321579689703808,
+            "recall": 0.03513996426444312,
+            "f1": 0.04941373534338359,
+            "true_positives": 59.0,
+            "false_positives": 650.0,
+            "false_negatives": 1620.0,
+            "auroc": 0.43969575526987836,
+            "average_precision": 0.08411640877406842
+          },
+          "SMD_machine-2-5": {
+            "precision": 0.01934398654331371,
+            "recall": 0.03392330383480826,
+            "f1": 0.024638457418318157,
+            "true_positives": 23.0,
+            "false_positives": 1166.0,
+            "false_negatives": 655.0,
+            "auroc": 0.24628149920675496,
+            "average_precision": 0.028224742625911535
+          },
+          "SMD_machine-2-7": {
+            "precision": 0.010882016036655211,
+            "recall": 0.04691358024691358,
+            "f1": 0.017666201766620173,
+            "true_positives": 19.0,
+            "false_positives": 1727.0,
+            "false_negatives": 386.0,
+            "auroc": 0.19787985890255846,
+            "average_precision": 0.03327218542154732
+          },
+          "SMD_machine-2-9": {
+            "precision": 0.020512820512820513,
+            "recall": 0.015727391874180863,
+            "f1": 0.01780415430267062,
+            "true_positives": 12.0,
+            "false_positives": 573.0,
+            "false_negatives": 751.0,
+            "auroc": 0.10038698593744466,
+            "average_precision": 0.062333131373057876
+          },
+          "SMD_machine-3-10": {
+            "precision": 0.020148791072535647,
+            "recall": 0.07286995515695067,
+            "f1": 0.03156872268091306,
+            "true_positives": 65.0,
+            "false_positives": 3161.0,
+            "false_negatives": 827.0,
+            "auroc": 0.2229088288967105,
+            "average_precision": 0.03793927890563206
+          },
+          "SMD_machine-3-2": {
+            "precision": 0.014842300556586271,
+            "recall": 0.03389830508474576,
+            "f1": 0.02064516129032258,
+            "true_positives": 8.0,
+            "false_positives": 531.0,
+            "false_negatives": 228.0,
+            "auroc": 0.5216478641653238,
+            "average_precision": 0.017905603112304075
+          },
+          "SMD_machine-3-3": {
+            "precision": 0.011398176291793313,
+            "recall": 0.025,
+            "f1": 0.01565762004175365,
+            "true_positives": 15.0,
+            "false_positives": 1301.0,
+            "false_negatives": 585.0,
+            "auroc": 0.30329222495670405,
+            "average_precision": 0.02226965812177525
+          },
+          "SMD_machine-3-5": {
+            "precision": 0.025252525252525252,
+            "recall": 0.03773584905660377,
+            "f1": 0.0302571860816944,
+            "true_positives": 10.0,
+            "false_positives": 386.0,
+            "false_negatives": 255.0,
+            "auroc": 0.31402710399099654,
+            "average_precision": 0.028053552819070165
+          },
+          "SMD_machine-3-6": {
+            "precision": 0.034420289855072464,
+            "recall": 0.024050632911392405,
+            "f1": 0.02831594634873323,
+            "true_positives": 19.0,
+            "false_positives": 533.0,
+            "false_negatives": 771.0,
+            "auroc": 0.2362999839741668,
+            "average_precision": 0.05046005830468554
+          }
+        },
+        "micro": {
+          "precision": 0.022927513015618742,
+          "recall": 0.031456043956043955,
+          "f1": 0.02652304841324994,
+          "true_positives": 458.0,
+          "false_positives": 19518.0,
+          "false_negatives": 14102.0,
+          "auroc": 0.24093552481155311,
+          "average_precision": 0.04170667059997459
+        },
+        "macro_f1": 0.02629785177900946,
+        "boundary": "Aligned timestamp order is caller-audited; no VUS/Affiliation or uncertainty is computed here. This diagnostic alone is not a leaderboard result.",
+        "event_metrics": {
+          "event_recall": 0.4744897959183674,
+          "events": 196,
+          "detected_events": 93,
+          "mean_detection_delay_points": 18.440860215053764,
+          "false_alarms_per_1000_normal_points": 80.64322870399828,
+          "delay_boundary": "Offline window scores use future context; delay in source points, not causal latency. Missed events reported separately."
+        },
+        "f1_ci95": {
+          "low": 0.021048509474994828,
+          "high": 0.032037223464940055,
+          "resamples": 200,
+          "seed": 11103,
+          "unit": "entity_cluster",
+          "block_points": null,
+          "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+        }
+      }
+    },
+    "tab_core_diagnostic": {
+      "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+      "ratio_grid": [
+        {
+          "ratio_percent": 0.1,
+          "threshold": 2.0422201218608205,
+          "f_score": 0.009652892561983472,
+          "adjust_f_score": 0.5979227795631316
+        },
+        {
+          "ratio_percent": 0.5,
+          "threshold": 0.3296407264470978,
+          "f_score": 0.016863003049692044,
+          "adjust_f_score": 0.829450797684597
+        },
+        {
+          "ratio_percent": 1,
+          "threshold": 0.1497265380620956,
+          "f_score": 0.02058091286307054,
+          "adjust_f_score": 0.8394693308248727
+        },
+        {
+          "ratio_percent": 2,
+          "threshold": 0.03245447710156439,
+          "f_score": 0.024745200284427588,
+          "adjust_f_score": 0.7688944040654732
+        },
+        {
+          "ratio_percent": 3,
+          "threshold": 0.009192065522074697,
+          "f_score": 0.02649060936602969,
+          "adjust_f_score": 0.7083389248235326
+        },
+        {
+          "ratio_percent": 5,
+          "threshold": 0.0014871808467432838,
+          "f_score": 0.026530481146014,
+          "adjust_f_score": 0.6066309869375908
+        },
+        {
+          "ratio_percent": 10,
+          "threshold": 5.970880592940391e-05,
+          "f_score": 0.025619592928490826,
+          "adjust_f_score": 0.44466393402143317
+        },
+        {
+          "ratio_percent": 15,
+          "threshold": 3.833733126157307e-06,
+          "f_score": 0.027240345839413767,
+          "adjust_f_score": 0.35758422929703315
+        },
+        {
+          "ratio_percent": 20,
+          "threshold": 2.7104867399430136e-07,
+          "f_score": 0.029095638204281463,
+          "adjust_f_score": 0.30664066779133714
+        },
+        {
+          "ratio_percent": 25,
+          "threshold": 2.0070774375824385e-08,
+          "f_score": 0.03147356458682829,
+          "adjust_f_score": 0.26769148713259805
+        }
+      ],
+      "best_grid_f_score": 0.03147356458682829,
+      "best_grid_adjust_f_score": 0.8394693308248727,
+      "auc_roc": 0.24093552481155311,
+      "auc_pr": 0.04170667059997459,
+      "test_scores_used_in_calibration": true,
+      "test_labels_used_to_select_best_grid": true,
+      "pending_metrics": [
+        "VUS_ROC",
+        "VUS_PR",
+        "affiliation_f"
+      ],
+      "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+    }
+  },
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.13.0+cu126",
+    "numpy": "2.4.6",
+    "cuda": "12.6",
+    "device": "cpu"
+  },
+  "peak_cuda_allocated_bytes": null,
+  "paper_equivalence": false,
+  "reproduction_status": "existing_local_transcription_strict_track_not_author_pipeline_equivalence",
+  "boundary": "Full saved-score local adaptation/reconstruction benchmark. Registered training defaults retained; independently purged validation calibration; offline full timestamp coverage. Original-paper fidelity and full TAB range metrics remain separate requirements."
+}
