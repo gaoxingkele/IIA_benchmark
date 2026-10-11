@@ -1,0 +1,8 @@
+Automatic original-model completion audits and full image training start
+====================================================================
+
+All210original author/corrected SAITS/BRITS/base time-series imputation jobs remain registered, with all missing-rate configurations and canonical seeds26..30. The low-memory automatic controller freezes complete source and configuration receipts. It reuses22already completed full native checkpoint replays, recognizes12completed full-batch independent reviews, and schedules missing independent reviews for the other10without duplicate model inference. Future complete original results receive guarded native full-checkpoint inference and separate every-coordinate HDF5/unit/month/optimizer/RNG/early-stop review. Native4CPUthreads,original16physical/28commit/16emergency/3RSS/6privateGiB gates and fixed2e-6tolerance remain unchanged. Failed artifacts remain preserved and are not automatically retried.51relevant tests passed and actual controller/first review handles were verified.
+
+SAITS Electricity20%seed28 completed388native early-stop epochs,11511000parameters,290windows/1944331heldout coordinates. Its full native replay and independent review remain pending; numeric publication still contains only verified seeds26/27of5.
+
+The first actual full2000epoch MVTec conditional FM training job is live. Its closed first epoch records114optimizer steps over all3629unique original normal training images. These are training-progress evidence, not completed2000epochtraining or benchmark performance. All25original image training tasks and all45paper/681method-baseline-ablation/273original-data-task obligations remain active. No new benchmark rows, author/TAB equivalence or whole-scope completion are claimed.
