@@ -1,0 +1,117 @@
+{
+  "task": "image_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.fm_supplemental_author:FlowMismatchUNet",
+  "parameters": {
+    "source_root": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models",
+    "num_classes": 15,
+    "model_channels": 64,
+    "num_res_blocks": 3,
+    "channel_mult": [
+      1,
+      1,
+      2,
+      2,
+      4,
+      4
+    ],
+    "attention_resolutions": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "num_head_channels": 32,
+    "dropout": 0.05
+  },
+  "functions": {
+    "objective": "iia_benchmark.models.fm_wt_image_training:wt_uniform_objective",
+    "heatmap": "iia_benchmark.models.fm_image_comparison:wt_flow_heatmap"
+  },
+  "score": {
+    "heatmap": "positive one-half channel SUM squared transported endpoint,Eq25",
+    "original_target_solver_and_step_identity_certified": false,
+    "score_and_full_test_replay_registration_status": "pending_explicit_original_target_ODE_recipe_audit"
+  },
+  "variants": [],
+  "reproduction_status": "controlled_image_domain_full2000epoch_training_registered",
+  "related_repository": "https://github.com/facebookresearch/flow_matching",
+  "related_commit": "11568d37f8d5a080e12aa7b5305d9c35ae07d136",
+  "gaps": [
+    "Flow Mismatching original author implementation/checkpoint unavailable",
+    "StableAdamW implementation identity and exact RMS/AMSGrad interaction are unspecified",
+    "original DDP world size and batch global/per-rank interpretation unknown",
+    "training seeds, dataloader tail/shuffle/workers, scheduler, EMA and restart contract not reported",
+    "preprocessing and AUPRO maximum-FPR/connectivity implementation not pinned",
+    "Reflect native random-walk mask count/length/connectivity and draw sharing not pinned",
+    "WT per-sample statistics epsilon/variance estimator and ODE scheme not pinned",
+    "D-Flow native optimization budget and FlowGrad integration unavailable",
+    "ReconFlow native ODE scheme not pinned",
+    "Original top1percent pixel count rounding not pinned; existing detector uses ceil"
+  ],
+  "evidence_pages": [
+    9,
+    21,
+    22
+  ],
+  "schema_version": 1,
+  "id": "fm_wt_mvtec_controlled_image_domain_v1",
+  "family": "flow_matching_research_code_completion",
+  "citation": "https://arxiv.org/abs/2605.23070",
+  "paper_primary_sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+  "paper_score_status": "not_verified",
+  "benchmark_ready": false,
+  "all_paper_ablations_complete": false,
+  "original_protocol": "configs/experiments/fm_flow_mismatching_original_protocol.v1.json",
+  "original_category_counts": {
+    "MVTec-AD": 15,
+    "VisA": 12
+  },
+  "dataset_configuration": "configs/datasets/fm_flow_mismatching_mvtec_original.v2.json",
+  "preprocessing_configuration": "configs/preprocessing/fm_flow_mismatching_mvtec_original_images.v1.json",
+  "variant": "conditional",
+  "original_author_equivalence_certified": false,
+  "local_unreported_choices": [
+    "Five local uncertainty seeds 1103-1107; original seeds unknown.",
+    "Single CUDA GPU/world_size1 without DDP; author world size and batch interpretation unknown.",
+    "Batch32 is locally interpreted as global batch; full tail retained.",
+    "CPU-generator random permutation per epoch; direct mmap batches, no workers or pinned-memory loader.",
+    "No scheduler/EMA/early stopping; author did not report these settings.",
+    "CuDNN benchmarkFalse/deterministicTrue; full CUDA bitwise reproducibility not certified.",
+    "Per-epoch resume captures model/optimizer/Python/NumPy/Torch/CUDA/order RNG; interrupted epoch replays.",
+    "Two rolling epoch checkpoints; immutable checkpoints every100epochs retained for epoch ablation.",
+    "Related native Dinomaly StableAdamW AMSGrad semantics, not certified target-author implementation.",
+    "Related pinned Meta U-Net with unit-time input, not target-author source release.",
+    "Original image preprocessing gaps filled by already-frozen local full-data preprocessing choices.",
+    "WT epsilon1e-5 and all-C/H/W population variance follow related native fresh LayerNorm; target-author WT epsilon/variance still unspecified.",
+    "WT is applied after already-frozen complete normal-train RGB preprocessing; target normalization order is not certified.",
+    "Uniform time drawn first, full independent Gaussian second; matches related native train/create_flow_rev order.",
+    "Category conditional default follows available class labels and shared backbone in AppendixC1/C2.",
+    "Full2000epoch image adapter follows target common budget; original WRN50 feature100epoch budget is a distinct experiment.",
+    "Freeze final/100epoch checkpoints without test-metric model selection; original feature code best-det/best-loc selection remains a separately documented protocol.",
+    "Related native Euler is not enough to certify target-author WT or ReconFlow integration settings."
+  ],
+  "method": "WT_Flow_controlled_image_domain",
+  "native_components_configuration": "configs/models/fm_reflect_wt_native_components.v1.json",
+  "method_parameters": {
+    "epsilon": 1e-05,
+    "variance": "population",
+    "normalization_axes": [
+      "C",
+      "H",
+      "W"
+    ],
+    "transport_direction": "normal_to_gaussian",
+    "training_time": "independent_uniform_unit_time",
+    "training_endpoint": "independent_full_image_standard_gaussian"
+  },
+  "native_source": {
+    "source_path": "data/public_datasets/flow_matching/flow_mismatching_reflect_wt_sources_v1/fmad_author_original/reversed_flow.py",
+    "expected_sha256": "ed8243e47731911bec1a9cc100a783298b10bbab130688495382cff3cd510284"
+  },
+  "original_training_epochs": 2000,
+  "original_WT_best_feature_setting_reproduced": false,
+  "full_original_training_executed": false,
+  "native_repository": "https://github.com/lil-wayne-0319/fmad",
+  "native_repository_commit": "f621f2b251637605a7d25593251d3be89a8c9734",
+  "boundary": "Full WT image-domain adaptation in Flow Mismatching AppendixC2; related native reverse FM and explicit local LayerNorm choice. Not original WT feature-domain best settings."
+}
