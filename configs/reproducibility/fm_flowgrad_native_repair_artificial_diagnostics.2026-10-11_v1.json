@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "id": "fm_flowgrad_native_repair_artificial_diagnostics_v1",
+  "original_scope": {
+    "papers": 45,
+    "method_records": 681,
+    "data_task_records": 273
+  },
+  "native_source": {
+    "path": "data/public_datasets/flow_matching/flow_mismatching_native_guidance_sources_v1/flowgrad_author_original/utils/flowgrad_utils.py",
+    "sha256": "1a5348d80151004713cf27c909ab9f30b9a49045fb99cd689cdc1a6a8c13d231"
+  },
+  "base_adapter": {
+    "path": "src/iia_benchmark/models/fm_native_guidance.py",
+    "sha256": "bec91d8249415b0a78dd4bfbf74f011cd1168fc649e704535ab20c3c67facbf9"
+  },
+  "source_receipts": [
+    {
+      "path": "src/iia_benchmark/models/fm_native_guidance.py",
+      "sha256": "bec91d8249415b0a78dd4bfbf74f011cd1168fc649e704535ab20c3c67facbf9"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_native_guidance_repaired.py",
+      "sha256": "599fe67d6ea6606e9467f46bff6830047a0a7fb27236f791b8c6a5ef439683ee"
+    },
+    {
+      "path": "scripts/flow_matching/diagnose_flowgrad_native_repairs_v1.py",
+      "sha256": "2003141cad8bb9ba39520437ce3b8597a5197647274d013454d1c5fb2066b6d1"
+    },
+    {
+      "path": "tests/test_fm_flow_mismatching_native_guidance_repaired_v1.py",
+      "sha256": "d6286dfce7cb271402fa6c7d4f0043c316825fdb9de10678ec63b55cb12938d6"
+    },
+    {
+      "path": "configs/models/fm_flow_mismatching_dflow_native_guidance_repaired.v1.json",
+      "sha256": "eac2f5b2113acb0e7765d97f7dc50c35a35c750ce20e7a3fea0ef59d1b10a84f"
+    }
+  ],
+  "fields": [
+    "zero_field",
+    "autonomous_linear",
+    "non_autonomous_linear"
+  ],
+  "steps": [
+    7,
+    10,
+    100
+  ],
+  "straightness_thresholds": [
+    0,
+    0.005,
+    0.01
+  ],
+  "fixture_batch": 1,
+  "fixture_resolution": 128,
+  "fixture_channels": 3,
+  "fixture_dtype": "float64",
+  "artificial_fixture_seed": 1103,
+  "cpu_threads": 2,
+  "diagnostic_optimizer": "sgd_diagnostic",
+  "diagnostic_outer_steps": 1,
+  "diagnostic_learning_rate": 0.05,
+  "full_partition_relative_error_tolerance": 1e-09,
+  "resources": {
+    "minimum_available_memory_bytes": 4294967296,
+    "minimum_commit_headroom_bytes": 8589934592
+  },
+  "output_directory": "projects/flow_matching_research/results/2026-10-11/flowgrad_native_repair_artificial_diagnostics_v1",
+  "artificial_array_directory": "data/public_datasets/flow_matching/flow_mismatching_native_guidance_sources_v1/derived_artificial_gradient_fixtures_v1",
+  "benchmark_performance": false,
+  "original_trained_model_used": false,
+  "boundary": "All27 artificial field/step/threshold diagnostics on full128px fixtures with paired inputs and complete native trajectories, independent full autograd. Plumbing/mathematical verification only; not original dataset performance. Original heavy-model resource gates/budgets unchanged."
+}

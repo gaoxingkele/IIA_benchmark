@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "paper_id": "flow_mismatching",
+  "original_obligation": "D-Flow/FlowGrad numerical code repair and original-versus-repaired control",
+  "repair_model_configuration": "configs/models/fm_flow_mismatching_dflow_native_guidance_repaired.v1.json",
+  "original_native_model_configuration": "configs/models/fm_flow_mismatching_dflow_native_guidance.v1.json",
+  "diagnosis_configuration": "configs/reproducibility/fm_flowgrad_native_repair_artificial_diagnostics.2026-10-11_v1.json",
+  "independent_analytic_audit_configuration": "configs/reproducibility/fm_flowgrad_native_repair_closed_form_verification.2026-10-11_v1.json",
+  "actual_cases": 27,
+  "all_original_forward_states_preserved": true,
+  "original_source_overwritten": false,
+  "repairs": [
+    "first-neighbor wrap",
+    "zero velocity energy ratios",
+    "local source-space adapter uses original actual forward time"
+  ],
+  "corrected_full_partition_gradient_verified": true,
+  "approximate_gradients_not_always_improved": true,
+  "actual_nonuniform_example": {
+    "field": "non_autonomous_linear",
+    "steps": 100,
+    "threshold": 0.01,
+    "original_relative_gradient_error": 0.19882897389770446,
+    "repaired_relative_gradient_error": 0.20069008529532867
+  },
+  "original_FlowGrad_author_source_and_frozen_v1_receipts_preserved": true,
+  "existing_original_scope_preserved": {
+    "papers": 45,
+    "method_records": 681,
+    "data_task_records": 273
+  },
+  "original_trained_image_checkpoint_still_required": true,
+  "original_unreported_anomaly_compute_budgets_still_required": true,
+  "local_artificial_gradient_diagnostics_are_not_benchmark_results": true,
+  "new_original_training_seed_slots": 0,
+  "benchmark_performance": false,
+  "all_original_experiments_complete": false
+}

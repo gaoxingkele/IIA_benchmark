@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "fm_flow_mismatching_dflow_native_guidance_repaired_v1",
+  "task": "image_anomaly_detection",
+  "family": "flow_matching_image_guidance",
+  "citation": "https://arxiv.org/abs/2605.23070",
+  "original_native_configuration": "configs/models/fm_flow_mismatching_dflow_native_guidance.v1.json",
+  "entrypoint": "iia_benchmark.models.fm_native_guidance_repaired:load_repaired_dflow_adapter",
+  "core_wrapper": "iia_benchmark.models.fm_native_guidance_repaired:FlowGradPartitionRepair",
+  "parameters": {
+    "base_adapter_source_path": "src/iia_benchmark/models/fm_native_guidance.py",
+    "expected_base_sha256": "bec91d8249415b0a78dd4bfbf74f011cd1168fc649e704535ab20c3c67facbf9"
+  },
+  "optimizer_and_compute_budget": "Explicit original-native configuration contract retained; unreported anomaly settings cannot be implicitly supplied",
+  "repairs": [
+    "First boundary has no preceding neighbor: remove Python negative-index wrap to final velocity",
+    "Zero velocity energy: identical neighbor distance0, nonzero neighbor distanceinfinite forces partition boundary",
+    "Source-space VJP uses exact recorded original forward time tensor instead of recomputing with input dtype"
+  ],
+  "forward_trajectory_preserved": true,
+  "additional_velocity_forward_calls": 0,
+  "original_author_source_modified": false,
+  "original_v1_local_adapter_modified": false,
+  "reproduction_status": "explicit_local_repair_branch_with_original_complete_forward_trajectory_full_image_performance_unverified",
+  "gaps": [
+    "Original anomaly-author adaptation and compute/optimizer hyperparameters remain unknown",
+    "This repair branch changes partition and time-gradient behavior; it must be compared with the frozen original branch on the same trained image checkpoint",
+    "No complete original dataset model, original comparison metrics or TAB-equivalent results completed"
+  ],
+  "benchmark_ready": false,
+  "all_paper_ablations_complete": false,
+  "paper_score_status": "not_verified"
+}
