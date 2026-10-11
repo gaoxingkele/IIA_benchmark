@@ -1,0 +1,64 @@
+{
+  "audit_configuration": "configs/reproducibility/fm_timegan_energy_stage_restore_audit.2026-10-11_v1.json",
+  "python": "F:/aicoding/IIA_Data/environments/timegan_author_py37_v1/python/python.exe",
+  "state_root": "experiments/runs/fm_timegan_energy_stage_restore_audit_v1",
+  "resource_lock": "experiments/runs/fm_readonly_checkpoint_audit_cpu.lock",
+  "settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 25769803776,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 2147483648,
+    "maximum_worker_private_bytes": 4294967296
+  },
+  "source_receipts": [
+    {
+      "path": "configs/reproducibility/fm_timegan_energy_stage_restore_audit.2026-10-11_v1.json",
+      "sha256": "bb34c000528668f29533af57dc04836d0936d88b7d8bc474e71d60da63b90a80"
+    },
+    {
+      "path": "configs/experiments/fm_timegan_native_original_queue.v1.json",
+      "sha256": "db33b2d8ab6fef2abcd712ae8e4a584f3ebaa6dae5f6c1358a2805af3087794d"
+    },
+    {
+      "path": "configs/models/fm_timegan_native_original.v1.json",
+      "sha256": "db63f658090dc5db001239e13f4cd4c165c6d744535784587e1053b3a59dcce3"
+    },
+    {
+      "path": "scripts/flow_matching/run_timegan_stage_restore_audit_v1.py",
+      "sha256": "c8203c3c273754aee3046a864dece207504f4f7fde3700cf32c286ad32562ca3"
+    },
+    {
+      "path": "scripts/flow_matching/timegan_stage_resume_v2.py",
+      "sha256": "3e7bef322fb7cad55379982340ff08fe0e6c5abf49a07eeee9883c232e08046f"
+    },
+    {
+      "path": "scripts/flow_matching/audit_timegan_stage_resume_v2.py",
+      "sha256": "9bb27c4bbfe9730747ebdeffd6d06786b564aa02afc166599fe5769b54d03323"
+    },
+    {
+      "path": "tests/test_fm_timegan_stage_resume_v2.py",
+      "sha256": "56d837b0c8899a656b8a1698d7a72ebe6049576a810c47643817534aa3d61ceb"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+      "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/giflow_commit_reserve_boundary_v2/timegan_preserved_abort.json",
+      "sha256": "22dbbbacc2a55f005f7315a8c2f7879720f2f84ba378afb9511cc2f5e2c00269"
+    }
+  ],
+  "boundary": "Full original native data/model/checkpoint/optimizer and RNG restoration, two exact native joint transitions against saved meta graph. Audit only, no benchmark score/training seed. Existing read-only CPU mutex,16GiB shared emergency reserve,4GiB private cap and original interpreter. Training resume remains unproven until this actual audit succeeds."
+}

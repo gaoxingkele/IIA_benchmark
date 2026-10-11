@@ -1,0 +1,13 @@
+{
+  "command": [
+    "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-X",
+    "utf8",
+    "-c",
+    "import sys,json;from scripts.flow_matching.audit_giflow_corrected_checkpoint_v1 import base,native_test_function_corrected;from scripts.flow_matching.run_giflow_serial_native_queue_v4 import complete;c=base.read(base.ROOT/sys.argv[1]);base.verify(c);q=base.read(base.ROOT/c['queue']);j=next(j for j in q['jobs'] if j['id']==c['job_id']);assert complete(j);compile(native_test_function_corrected((base.ROOT/j['author_source']/'main.py').read_text(encoding='utf-8')),str(base.ROOT/j['author_source']/'main.py'),'exec');print(json.dumps(dict(full_original_native_job_verified=True,complete_native20step_test_AST_preserved=True,torch_imported='torch' in sys.modules)))",
+    "configs/reproducibility/fm_giflow_corrected_seed394_full_checkpoint_replay.2026-10-11_v1.json"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"full_original_native_job_verified\": true, \"complete_native20step_test_AST_preserved\": true, \"torch_imported\": false}\n",
+  "stderr": ""
+}
