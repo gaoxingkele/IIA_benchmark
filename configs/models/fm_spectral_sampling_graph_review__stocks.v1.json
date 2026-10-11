@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "fm_spectral_sampling_graph_review__stocks_v1",
+  "task": "unconditional_time_series_generation",
+  "family": "pinned_author_generation_pipeline",
+  "entrypoint": "iia_benchmark.models.fm_spectral_author:build_author_model",
+  "parameters": {
+    "source_root": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_base",
+    "model_target": "models.spectral_flow.model.SpectralFlow",
+    "parameters": {
+      "seq_length": 24,
+      "feature_size": 6,
+      "n_layers": 10,
+      "d_model": 64,
+      "sampling_timesteps": 500,
+      "mlp_hidden_times": 1,
+      "sigma": 1e-05,
+      "solver_method": "midpoint"
+    }
+  },
+  "author_yaml": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_base/configs/spectral_flow/stocks.yaml",
+  "author_yaml_sha256": "aa9c9ee08511bb90135c13dc1b0d8e76fd68b2f9793ccee29f1f9572c0271da7",
+  "author_repository": "jw9730/spectral-mean-flow",
+  "author_commit": "81e49338b10b21262b8069703cac3639aa0d43aa",
+  "protocol": "configs/reproducibility/spectral_mean_flow_original_protocol.v2.json",
+  "data_case": {
+    "dataset": "stocks",
+    "track": "released_author_data"
+  },
+  "reproduction_status": "inference_only_graph_memory_candidate_full_native_operator_and_full_integrated_sampling_audits_pending",
+  "citation": "https://arxiv.org/abs/2510.15366",
+  "paper_equivalence_certified": false,
+  "sampling_review_entrypoint": "iia_benchmark.models.fm_spectral_sampling_graph_review_v1:sampling_first_derivative_graph",
+  "original_model_config": "configs/models/fm_spectral_author__spectral_flow__stocks__released_author_data.json",
+  "original_scientific_parameters_unchanged": true,
+  "tests": "tests/test_fm_spectral_sampling_graph_review_v1.py",
+  "data_citation": "configs/reproducibility/spectral_mean_flow_original_protocol.v2.json",
+  "boundary": "Full native source build/356800parameters/2001batch/500time-grid midpoint sampling required. Candidate removes only the unused inference-time higher-order gradient graph; original training derivatives retained. Operator audit and full integrated sampling still required. No field chunk or capacity-reduced model."
+}
