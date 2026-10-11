@@ -1,0 +1,8 @@
+RCGAN full MNIST500 trace compatibility recovery
+==============================================
+
+Two preserved v1 attempts completed the first original GAN epoch and full evaluator but failed in author plotting.py line326. The source trace has pdf/real_pdf columns; plotting selects nonexistent ll/real_ll columns. Pandas1.1.5 raises KeyError. The known broken controller was stopped; its active worker was allowed to finish, then verified missing before the recovery dispatch.
+
+One in-memory plotting expression now uses reindex(columns=[epoch,ll,real_ll]). Missing likelihoods remain NaN and are dropped from the likelihood plot, matching legacy selection semantics. No likelihood metric is fabricated. The entire remaining plotting function, source files, raw trace, training loop, losses, optimizer, full evaluator, original diagonal convention, and sigma gradients remain unchanged. The actual original failed trace was tested under designated Python3.7/NumPy1.18.5/Pandas1.1.5; the original failure was reproduced and the repaired original function produced both PNG and PDF without consuming NumPy randomness.
+
+All five canonical seeds1103..1107 are relaunched in new v2 directories; old attempts remain preserved and do not create extra independent seed slots. Each original500-epoch obligation retains1284D/1284G updates and4984-point evaluator per epoch, original maximum2000 sigma updates and source stopping. The full native evaluator proof is bound by SHA256.19 relevant tests pass. Training is in flight; no completed500-epoch benchmark score is claimed. Other RCGAN datasets, TSTR, conditional settings, and the full45-paper/681-method/273-original-task scope remain incomplete.
