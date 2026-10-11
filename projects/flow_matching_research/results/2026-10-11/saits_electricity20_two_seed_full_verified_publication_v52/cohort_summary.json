@@ -1,0 +1,215 @@
+{
+  "captured_utc": "2026-10-11T17:26:33.336898+00:00",
+  "original_training_seeds": [
+    26,
+    27
+  ],
+  "required_original_training_seeds": [
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "full_trained_and_replayed_original_models": 2,
+  "full_five_seed_cohort_complete": false,
+  "summaries": {
+    "mae": {
+      "n": 2,
+      "mean": 0.8550223112106323,
+      "std": 0.058749082195214346,
+      "se": 0.041541874408721924,
+      "ci95_low": 0.32718274983826257,
+      "ci95_high": 1.382861872583002
+    },
+    "rmse": {
+      "n": 2,
+      "mean": 1.2897580862045288,
+      "std": 0.05390413337149303,
+      "se": 0.0381159782409668,
+      "ci95_low": 0.8054486629454138,
+      "ci95_high": 1.7740675094636438
+    },
+    "mre": {
+      "n": 2,
+      "mean": 0.45750775933265686,
+      "std": 0.03143560628348691,
+      "se": 0.022228330373764038,
+      "ci95_low": 0.17507004265455883,
+      "ci95_high": 0.7399454760107549
+    }
+  },
+  "uncertainty_scope": "Two original training seeds26/27 on one frozen split; sampleSTD(ddof1),SE and existing two-sided95%Student-t CI(df1). Normal independent seed-error assumption is unverified with n2; wide untruncated intervals are not five-seed or cross-dataset robustness. Ten-month bootstrap is a separate within-seed temporal sensitivity; windows/epochs/replays are not training seeds.",
+  "per_seed_original_metrics": {
+    "26": {
+      "mae": 0.8134804368019104,
+      "rmse": 1.251642107963562,
+      "mre": 0.4352794289588928
+    },
+    "27": {
+      "mae": 0.8965641856193542,
+      "rmse": 1.3278740644454956,
+      "mre": 0.4797360897064209
+    }
+  },
+  "per_seed_month_block_bootstrap": {
+    "26": {
+      "mae": [
+        0.7955310768568,
+        0.8326367921747634
+      ],
+      "rmse": [
+        1.2270440364107855,
+        1.277318365831939
+      ],
+      "mre": [
+        0.4306731681642291,
+        0.4402843120332424
+      ]
+    },
+    "27": {
+      "mae": [
+        0.8738816826852325,
+        0.919303001800812
+      ],
+      "rmse": [
+        1.299981649434311,
+        1.3551174017175083
+      ],
+      "mre": [
+        0.4726655719590136,
+        0.48616517766518486
+      ]
+    }
+  },
+  "protocol_boundaries": [
+    "Preprocessing NumPy seed 26 registered locally; historical author seed unspecified.",
+    "Author replacement masks retained; realized missing fraction differs from the nominal rate.",
+    "Author chronological month split retained: earlier test, intermediate validation, later training.",
+    "Month bootstrap is a temporal block sensitivity estimate; temporal independence is not guaranteed.",
+    "Released author window_truncate multiplies the last start by stride twice and drops the final window. Local count 1397 differs from paper 1400; protocol alignment remains unverified.",
+    "Windows loader workers set to zero versus author four; MIT random draw stream can differ.",
+    "Author model, losses, Adam, validation frequency and MAE controller retained; resume saves full state at epoch boundaries.",
+    "Final checkpoint selected solely on validation MAE; test metrics use author functions aggregated on CPU.",
+    "Five preregistered model seeds share the frozen split; paper Tables 2/4 do not report uncertainty."
+  ],
+  "model_evidence": [
+    {
+      "native": "projects/flow_matching_research/results/2026-10-11/saits_full11_independent_completed_replay_review_v1/native_checkpoint_replay_audit.json",
+      "independent": "projects/flow_matching_research/results/2026-10-11/saits_full11_independent_completed_replay_review_v1/independent_full_replay_batch_verification.json"
+    },
+    {
+      "native": "projects/flow_matching_research/results/2026-10-11/saits_electricity20_seed27_independent_native_review_v1/native_checkpoint_replay_audit.json",
+      "independent": "projects/flow_matching_research/results/2026-10-11/saits_electricity20_seed27_independent_native_review_v1/independent_full_replay_batch_verification.json"
+    }
+  ],
+  "metric_rows": [
+    {
+      "algorithm": "saits",
+      "dataset": "electricity",
+      "task": "imputation",
+      "protocol": "author",
+      "metric": "mae",
+      "n": "2",
+      "required_repeats": "5",
+      "mean": "0.8550223112106323",
+      "std": "0.058749082195214346",
+      "se": "0.041541874408721924",
+      "ci95_low": "0.32718274983826257",
+      "ci95_high": "1.382861872583002",
+      "paper_mean": "0.763",
+      "author_equivalence_certified": "False",
+      "captured_utc": "2026-10-11T17:26:33.336898+00:00",
+      "source": "projects/flow_matching_research/results/2026-10-11/saits_electricity20_two_seed_full_verified_publication_v52/cohort_summary.json",
+      "pattern": "paper_mask",
+      "missing_ratio": "0.2",
+      "comparison": "two_of_five_full_native_models_replayed_author_alignment_unverified",
+      "score_recipe": "",
+      "epochs": "",
+      "paper_std": "",
+      "metric_unit": "",
+      "selection_boundary": "",
+      "paper_spread": "",
+      "evaluator_repeats": "",
+      "evaluator_std": "",
+      "evaluator_se": "",
+      "evaluator_ci95": "",
+      "uncertainty_scope": "Two original training seeds26/27 on one frozen split; sampleSTD(ddof1),SE and existing two-sided95%Student-t CI(df1). Normal independent seed-error assumption is unverified with n2; wide untruncated intervals are not five-seed or cross-dataset robustness. Ten-month bootstrap is a separate within-seed temporal sensitivity; windows/epochs/replays are not training seeds.",
+      "strict_TAB_result": "False"
+    },
+    {
+      "algorithm": "saits",
+      "dataset": "electricity",
+      "task": "imputation",
+      "protocol": "author",
+      "metric": "rmse",
+      "n": "2",
+      "required_repeats": "5",
+      "mean": "1.2897580862045288",
+      "std": "0.05390413337149303",
+      "se": "0.0381159782409668",
+      "ci95_low": "0.8054486629454138",
+      "ci95_high": "1.7740675094636438",
+      "paper_mean": "1.187",
+      "author_equivalence_certified": "False",
+      "captured_utc": "2026-10-11T17:26:33.336898+00:00",
+      "source": "projects/flow_matching_research/results/2026-10-11/saits_electricity20_two_seed_full_verified_publication_v52/cohort_summary.json",
+      "pattern": "paper_mask",
+      "missing_ratio": "0.2",
+      "comparison": "two_of_five_full_native_models_replayed_author_alignment_unverified",
+      "score_recipe": "",
+      "epochs": "",
+      "paper_std": "",
+      "metric_unit": "",
+      "selection_boundary": "",
+      "paper_spread": "",
+      "evaluator_repeats": "",
+      "evaluator_std": "",
+      "evaluator_se": "",
+      "evaluator_ci95": "",
+      "uncertainty_scope": "Two original training seeds26/27 on one frozen split; sampleSTD(ddof1),SE and existing two-sided95%Student-t CI(df1). Normal independent seed-error assumption is unverified with n2; wide untruncated intervals are not five-seed or cross-dataset robustness. Ten-month bootstrap is a separate within-seed temporal sensitivity; windows/epochs/replays are not training seeds.",
+      "strict_TAB_result": "False"
+    },
+    {
+      "algorithm": "saits",
+      "dataset": "electricity",
+      "task": "imputation",
+      "protocol": "author",
+      "metric": "mre",
+      "n": "2",
+      "required_repeats": "5",
+      "mean": "0.45750775933265686",
+      "std": "0.03143560628348691",
+      "se": "0.022228330373764038",
+      "ci95_low": "0.17507004265455883",
+      "ci95_high": "0.7399454760107549",
+      "paper_mean": "0.408",
+      "author_equivalence_certified": "False",
+      "captured_utc": "2026-10-11T17:26:33.336898+00:00",
+      "source": "projects/flow_matching_research/results/2026-10-11/saits_electricity20_two_seed_full_verified_publication_v52/cohort_summary.json",
+      "pattern": "paper_mask",
+      "missing_ratio": "0.2",
+      "comparison": "two_of_five_full_native_models_replayed_author_alignment_unverified",
+      "score_recipe": "",
+      "epochs": "",
+      "paper_std": "",
+      "metric_unit": "",
+      "selection_boundary": "",
+      "paper_spread": "",
+      "evaluator_repeats": "",
+      "evaluator_std": "",
+      "evaluator_se": "",
+      "evaluator_ci95": "",
+      "uncertainty_scope": "Two original training seeds26/27 on one frozen split; sampleSTD(ddof1),SE and existing two-sided95%Student-t CI(df1). Normal independent seed-error assumption is unverified with n2; wide untruncated intervals are not five-seed or cross-dataset robustness. Ten-month bootstrap is a separate within-seed temporal sensitivity; windows/epochs/replays are not training seeds.",
+      "strict_TAB_result": "False"
+    }
+  ],
+  "full_original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "all_original_experiments_complete": false
+}
