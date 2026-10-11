@@ -1,0 +1,107 @@
+{
+  "captured_utc": "2026-10-11T02:17:16.670468+00:00",
+  "configuration": "configs/reproducibility/fm_grasp_er1104_checkpoint_replay.2026-10-11_v1.json",
+  "configuration_sha256": "8c866516a286f0ec76d7b64920f58382de879c8716e7e6161b975176fafafefe",
+  "full_job_count": 1,
+  "full_checkpoint_contents_and_re_inference_passed": true,
+  "records": [
+    {
+      "canonical_id": "grasp_protocol_v3__er__swan__swan_sf__seed1104",
+      "execution_id": "grasp_protocol_v3__er__swan__swan_sf__seed1104",
+      "seed": 1104,
+      "checkpoint_path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_protocol_v3\\grasp_protocol_v3__er__swan__swan_sf__seed1104\\checkpoint.pt",
+      "checkpoint_sha256": "6045d4f1c3160426fd807c580b2b7ed433d3a8e3c679a32b66e6c499faf9cb9c",
+      "result_path": "experiments/runs/fm_grasp_protocol_v3/jobs/grasp_protocol_v3__er__swan__swan_sf__seed1104/result.json",
+      "result_sha256": "c2946f884a53a74a68a6e7be4af43d96df6b90937df5bea71a5346025e156111",
+      "epochs_completed": 1500,
+      "optimizer_updates": 93000,
+      "prepared_data_sha256": "e1a90f54d47f2abb5a2ba2af27da682131f4df2f2849414e57e23e01e7fa6f86",
+      "parameter_count": 69244,
+      "full_checkpoint_restoration_and_reinference_passed": true,
+      "recipes": [
+        {
+          "recipe": {
+            "source_samples": 5,
+            "flow_evaluations": 10
+          },
+          "complete_validation_points": 3935,
+          "complete_test_points": 72000,
+          "forward_evaluation_counts": {
+            "validation": {
+              "count": 800,
+              "windows": 194300
+            },
+            "test": {
+              "count": 14100,
+              "windows": 3597550
+            }
+          },
+          "replay_score_path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_er1104_full_checkpoint_replay_v1\\grasp_protocol_v3__er__swan__swan_sf__seed1104\\s5_t10.npz",
+          "replay_score_sha256": "014f7fcac255a242077f0f08dc10643561c62337796c2d43485634a7f5e055b7",
+          "original_score_path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_protocol_v3\\grasp_protocol_v3__er__swan__swan_sf__seed1104\\s5_t10.npz",
+          "original_score_sha256": "20081d3a6e410c3662f8246ec6ad35c76efc647c8f843d0469e125e2f1fe906b",
+          "score_agreement": {
+            "validation": {
+              "max_absolute_difference": 0.0009765625,
+              "max_relative_difference": 7.90212865961407e-08,
+              "bitwise_identical": false
+            },
+            "test": {
+              "max_absolute_difference": 0.10619140625931323,
+              "max_relative_difference": 2.4155049246290057e-07,
+              "bitwise_identical": false
+            }
+          },
+          "prediction_disagreements": 0,
+          "replayed_metrics": {
+            "paper_retrospective": {
+              "AP": 0.5396547440131412,
+              "ROC": 0.7278934479816717,
+              "ROC_undefined_reason": null,
+              "Best_F1": 0.5414044610780384,
+              "test_labels_used_for_threshold_optimization": true,
+              "point_adjustment": false
+            },
+            "validation_only_control": {
+              "precision": 0.38137761034370493,
+              "recall": 0.8159203980099502,
+              "f1": 0.5197933504484802,
+              "threshold": 14599.06325625,
+              "quantile": 0.99,
+              "threshold_comparator": ">",
+              "test_features_used_for_calibration": false,
+              "test_labels_used_for_calibration": false,
+              "point_adjustment": false
+            }
+          },
+          "metric_absolute_differences": {
+            "paper_retrospective/AP": 1.3517794661410676e-09,
+            "paper_retrospective/ROC": 9.585983118398644e-10,
+            "paper_retrospective/Best_F1": 0.0,
+            "validation_only_control/precision": 0.0,
+            "validation_only_control/recall": 0.0,
+            "validation_only_control/f1": 0.0,
+            "validation_only_control/threshold": 1.9531249563442543e-05
+          },
+          "elapsed_seconds": 361.54696979999426,
+          "full_recipe_reinference_passed": true
+        }
+      ]
+    }
+  ],
+  "score_tolerance": {
+    "rtol": 0.0002,
+    "atol": 0.001
+  },
+  "metric_tolerance": {
+    "metric_atol": 0.0002,
+    "threshold_rtol": 0.0002,
+    "threshold_atol": 0.001,
+    "maximum_prediction_disagreement_rate": 0.0001
+  },
+  "cuda_context_initialized": false,
+  "additional_training_seed_slots": 0,
+  "all_original_experiments_complete": false,
+  "author_equivalence_certified": false,
+  "boundary": "Newly completed existing original ER/SWAN seed1104; full1500epochs/93000updates/72000test/3935validation/5prior x10flow scoring. Restore the entire original model, path, scaler, graph, RNG and all test/validation points; retain original scoring and metric tolerances. No extra training seed or author/TAB certification; all original scope remains required."
+}

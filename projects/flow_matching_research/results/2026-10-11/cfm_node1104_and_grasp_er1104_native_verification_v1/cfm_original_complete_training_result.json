@@ -1,0 +1,97 @@
+{
+  "status": "completed",
+  "job": {
+    "id": "cfm_ts_original__appendix_d__node_e10__pendulum__seed1104__exact_recovery_v3",
+    "track": "appendix_d",
+    "dataset": "pendulum",
+    "seed": 1104,
+    "variant": "node",
+    "method": "node",
+    "epochs": 10,
+    "batch_size": 256,
+    "case_id": "appendix_d__pendulum__seed1104",
+    "data_path": "data/public_datasets/flow_matching/cfm_ts_original_ode_v1/appendix_d__pendulum__seed1104.npz",
+    "data_sha256": "480ec525185f5076ea1394afb46775247a52599b4a24a33526e83da95157cd0f",
+    "model_config": "configs/models/fm_cfm_ts_original_node_e10.json",
+    "model_config_sha256": "2c0ca0d37628242ecc8ecc4d60adf7155cccecc137b34ef4de4b3cf649d8cc11",
+    "model_overrides": {
+      "batch_size": 256,
+      "grid_points": 160,
+      "seed": 1104
+    },
+    "training_items": 1,
+    "expected_optimizer_updates": 10,
+    "test_trajectories": 1,
+    "test_points_per_trajectory": 500,
+    "observed_dimensions": 1,
+    "split": "new_times_same_trajectory",
+    "output_directory": "experiments/runs/fm_cfm_ts_exact_recovery_v3/jobs/cfm_ts_original__appendix_d__node_e10__pendulum__seed1104",
+    "artifact_directory": "F:/aicoding/IIA_Data/experiments/cfm_ts_exact_recovery_v3/cfm_ts_original__appendix_d__node_e10__pendulum__seed1104",
+    "recovery_original_job_id": "cfm_ts_original__appendix_d__node_e10__pendulum__seed1104"
+  },
+  "job_sha256": "dc82537e871a3cfb9c25e740d34b59ea124f588c7ecf1575f7c425f4a69de1b5",
+  "metrics": {
+    "MSE": 2.306843413844427,
+    "MAE": 1.2596393819844316,
+    "RMSE": 1.5188296197547726,
+    "trajectory_MSE_std": null,
+    "trajectory_MSE_mean": 2.306843413844427,
+    "MSE_by_dimension": [
+      2.306843413844427
+    ]
+  },
+  "epochs_completed": 10,
+  "optimizer_updates": 10,
+  "training_items": 1,
+  "training_losses": [
+    5.8099870681762695,
+    4480.28125,
+    6637679.0,
+    4.56005334854126,
+    20.620521545410156,
+    34.06332778930664,
+    43.678123474121094,
+    41.95149612426758,
+    24.534358978271484,
+    7.831095218658447
+  ],
+  "training_seconds": 4701.073000500008,
+  "score_seconds": 0.21904179998091422,
+  "parameter_count": 150865,
+  "test_prediction_shape": [
+    1,
+    500,
+    1
+  ],
+  "training_trajectory_ids": [
+    0
+  ],
+  "test_trajectory_ids": [
+    0
+  ],
+  "data_sha256": "480ec525185f5076ea1394afb46775247a52599b4a24a33526e83da95157cd0f",
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.13.0+cu126",
+    "torchdiffeq": "0.2.5",
+    "numpy": "2.4.6",
+    "scipy": "1.18.0",
+    "odeint_source_sha256": "fe10e0df2967f17670b971f25ebb322f2a84ed84909d5dc32e3949f5d703fca5",
+    "adjoint_source_sha256": "5fab07773c5ca1ca5a25cef545aa935b95b6acb479423ce4cab271a37741d0e7"
+  },
+  "diagnostic_smoke": false,
+  "author_equivalence_certified": false,
+  "test_used_for_training_or_selection": false,
+  "uncertainty_boundary": "Per-trajectory STD is descriptive, not five-seed uncertainty. Five paired data/model seeds are separately required; pendulum uses new times on the same trajectory.",
+  "artifacts": [
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\cfm_ts_exact_recovery_v3\\cfm_ts_original__appendix_d__node_e10__pendulum__seed1104\\model.pt",
+      "sha256": "8991590b346c41dbe39b239a30f3b608d46ad045572b2a3c1c4fd898e01001fa"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\cfm_ts_exact_recovery_v3\\cfm_ts_original__appendix_d__node_e10__pendulum__seed1104\\predictions.npz",
+      "sha256": "60d785bcf750de642e468998394decbbfb6904deddee149f2837d834241e1564"
+    }
+  ],
+  "boundary": "Full original ODE tasks with paper-derived data. Conflicting protocols and target interpretations are separate; no test-based budget selection. Original author raw data/code and unstated numerical details remain gaps."
+}
