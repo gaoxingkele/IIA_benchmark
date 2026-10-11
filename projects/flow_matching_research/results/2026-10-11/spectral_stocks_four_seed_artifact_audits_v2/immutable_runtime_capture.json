@@ -1,0 +1,169 @@
+{
+  "captured_utc": "2026-10-11T14:20:18.510287+00:00",
+  "actual_current_experiment_handles": [
+    {
+      "state_name": "fm_saits_physio_all10_patient_discrepancies_v2",
+      "reported_state": "waiting_for_memory",
+      "actual_controller": {
+        "live": true,
+        "pid": 596,
+        "create_time": 1791727860.3109088,
+        "actual_command": [
+          "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.audit_saits_physio_patient_discrepancies_v2",
+          "--config",
+          "configs/reproducibility/fm_saits_physio_all10_patient_discrepancies.2026-10-11_v2.json"
+        ],
+        "cpu_seconds": 2.25,
+        "create_time_verified": true
+      }
+    },
+    {
+      "state_name": "fm_saits_physio_all10_patient_discrepancy_review_v2",
+      "reported_state": "waiting_actual_full10_native_physio_replay_receipt",
+      "actual_controller": {
+        "live": true,
+        "pid": 4972,
+        "create_time": 1791727862.5150895,
+        "actual_command": [
+          "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.verify_saits_physio_patient_discrepancies_v2",
+          "--config",
+          "configs/reproducibility/fm_saits_physio_all10_patient_discrepancy_review.2026-10-11_v2.json"
+        ],
+        "cpu_seconds": 2.03125,
+        "create_time_verified": true
+      }
+    },
+    {
+      "state_name": "fm_saits_full11_completed_native_replays_v1",
+      "reported_state": "waiting_for_memory",
+      "actual_controller": {
+        "live": true,
+        "pid": 38252,
+        "create_time": 1791726187.408603,
+        "actual_command": [
+          "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.audit_saits_full_checkpoint_replay_v1",
+          "--config",
+          "configs/reproducibility/fm_saits_full11_completed_native_replays.2026-10-11_v1.json"
+        ],
+        "cpu_seconds": 5.3125,
+        "create_time_verified": true
+      }
+    },
+    {
+      "state_name": "fm_rcgan_native_original_mnist500_v2",
+      "reported_state": "running_full_native_rcgan_mnist500",
+      "actual_controller": {
+        "live": true,
+        "pid": 23244,
+        "create_time": 1791676903.708095,
+        "actual_command": [
+          "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.run_rcgan_native_original_queue_v2",
+          "--queue",
+          "configs/experiments/fm_rcgan_native_original_mnist500_queue.v2.json"
+        ],
+        "cpu_seconds": 1200.359375,
+        "create_time_verified": true
+      },
+      "actual_native_worker": {
+        "live": true,
+        "pid": 37132,
+        "create_time": 1791719231.8829467,
+        "actual_command": [
+          "F:/aicoding/IIA_Data/environments/adopted_gan_author_py37_v1/python/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-c",
+          "import sys,runpy;sys.path.insert(0,'D:\\\\aicoding\\\\IIA_benchmark');sys.argv=['run_rcgan_native_original_queue_v2','--queue','configs/experiments/fm_rcgan_native_original_mnist500_queue.v2.json','--worker','--job-id','rcgan_mnistfull__seed1104','--proof-binding','D:\\\\aicoding\\\\IIA_benchmark\\\\experiments\\\\runs\\\\fm_rcgan_native_original_mnist500_v2\\\\full_native_evaluator_proof_binding.json'];runpy.run_module('scripts.flow_matching.run_rcgan_native_original_queue_v2',run_name='__main__')"
+        ],
+        "cpu_seconds": 13804.78125,
+        "create_time_verified": true
+      }
+    },
+    {
+      "state_name": "fm_timegan_native_original_v1",
+      "reported_state": "running_full_original_timegan",
+      "actual_controller": {
+        "live": false,
+        "reason": "command_identity_differs",
+        "pid": 32676,
+        "actual_command": [
+          "python",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.run_timegan_native_queue_v1",
+          "--queue",
+          "configs/experiments/fm_timegan_native_original_queue.v1.json"
+        ]
+      },
+      "actual_native_worker": {
+        "live": true,
+        "pid": 25556,
+        "create_time": 1791719223.2885504,
+        "actual_command": [
+          "F:/aicoding/IIA_Data/environments/timegan_author_py37_v1/python/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-c",
+          "import sys,runpy;sys.path.insert(0,'D:\\\\aicoding\\\\IIA_benchmark');sys.argv=['run_timegan_native_job_v1','--queue','configs/experiments/fm_timegan_native_original_queue.v1.json','--job-id','timegan_native__gru__sine__seed1103'];runpy.run_module('scripts.flow_matching.run_timegan_native_job_v1',run_name='__main__')"
+        ],
+        "cpu_seconds": 9285.125,
+        "create_time_verified": true
+      }
+    },
+    {
+      "actual_original_GRASP_tau05_worker": {
+        "live": true,
+        "pid": 19504,
+        "create_time": 1791727115.7625983,
+        "actual_command": [
+          "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+          "-u",
+          "-m",
+          "scripts.flow_matching.grasp_protocol_cuda_runtime",
+          "--queue",
+          "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_grasp_protocol_queue.v4.json",
+          "--job-id",
+          "grasp_protocol_v3__tau_0p5__swan__swan_sf__seed1104"
+        ],
+        "cpu_seconds": 1256.609375,
+        "create_time_verified": true
+      }
+    }
+  ],
+  "actual_resource_snapshot": {
+    "physical_available_bytes": 35448344576,
+    "commit_available_bytes": 24285884416
+  },
+  "completed_new_native_artifact_audits": 3,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "running_original_experiments_not_interrupted": true,
+  "all_original_experiments_complete": false
+}
