@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "fm_flow_mismatching_stableadamw_dinomaly_reference_v1",
+  "family": "flow_matching_optimizer_reference",
+  "entrypoint": "iia_benchmark.models.fm_optimizer_reference:build_verified_dinomaly_stableadamw",
+  "related_original_repository": "https://github.com/guojiajeremy/Dinomaly",
+  "related_original_commit": "1f252be03a918789b19848f0ca37166e7c28dada",
+  "original_optimizer_paper": "https://arxiv.org/abs/2304.13013",
+  "target_paper": "https://arxiv.org/abs/2605.23070",
+  "parameters": {
+    "source_path": "data/public_datasets/flow_matching/flow_mismatching_optimizer_sources_v1/dinomaly_author_original/optimizers/StableAdamW.py",
+    "expected_sha256": "d06d25a7c1aa9717fb73283783fd862b73e613a4eaae67c0427fe3e2115aed6e",
+    "learning_rate": 0.0001,
+    "betas": [0.9,0.99],
+    "epsilon": 0.000001,
+    "weight_decay": 0.0001,
+    "amsgrad": true,
+    "update_rms_clip_threshold": 1.0
+  },
+  "actual_native_update": {
+    "moments": "ordinary raw exponential averages with Adam bias correction",
+    "amsgrad": "maximum of raw second moment, then divide by current bias correction",
+    "rms_denominator": "same AMSGrad debiased square-root denominator plus epsilon used for parameter update",
+    "clip_scope": "independent per parameter tensor",
+    "clip_factor": "max(1,RMS(gradient/denominator)/threshold)",
+    "weight_decay_learning_rate": "nominal learning rate, not clipped learning rate",
+    "gradient_norm_clipping": false,
+    "original_source_modified": false
+  },
+  "gaps": [
+    "Flow Mismatching author optimizer release and implementation identity unavailable",
+    "Dinomaly epsilon-in-RMS and nominal-rate weight decay differ from original StableAdamW Algorithm 2",
+    "Original StableAdamW paper does not define AMSGrad integration",
+    "Original Flow Mismatching distributed batch identity and data-loader contract unresolved"
+  ],
+  "reproduction_status": "callable_immutable_related_author_optimizer_not_certified_target_paper_implementation",
+  "benchmark_ready": false,
+  "full_original_training_executed": false,
+  "benchmark_performance": false
+}
