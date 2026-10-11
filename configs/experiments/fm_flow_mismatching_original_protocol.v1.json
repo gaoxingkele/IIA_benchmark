@@ -1,0 +1,1412 @@
+{
+  "schema_version": 1,
+  "id": "fm_flow_mismatching_original_protocol_v1",
+  "citation": "https://arxiv.org/abs/2605.23070",
+  "paper": {
+    "path": "papers/literature/flow_matching/project_additions/flow_mismatching_2605.23070v1.pdf",
+    "sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+    "pages": 35
+  },
+  "original_task": "image_anomaly_detection",
+  "dataset_configs": [
+    "configs/datasets/fm_flow_mismatching_mvtec_original.v1.json",
+    "configs/datasets/fm_flow_mismatching_visa_original.v1.json"
+  ],
+  "original_training": {
+    "model_per_dataset": 1,
+    "category_conditioning": true,
+    "epochs": 2000,
+    "batch_size": 32,
+    "gradient_accumulation": 1,
+    "optimizer": "StableAdamW",
+    "amsgrad": true,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.99
+    ],
+    "epsilon": 1e-06,
+    "update_RMS_clip_threshold": 1.0,
+    "gradient_norm_clipping": false,
+    "mixed_precision": "bfloat16",
+    "TF32": true,
+    "distributed_data_parallel": true,
+    "author_hardware": "NVIDIA A100 80GB",
+    "evidence_pages": [
+      8,
+      21
+    ]
+  },
+  "original_preprocessing": {
+    "height": 128,
+    "width": 128,
+    "channels": 3,
+    "augmentation": false,
+    "normalization_source": "normal training images mean and standard deviation",
+    "test_used_for_normalization": false,
+    "evidence_page": 8,
+    "unspecified": [
+      "resize interpolation",
+      "RGB/value-scale decoding details",
+      "normalization pooled vs per-category vs channel scope",
+      "population vs sample variance",
+      "mask resizing and scoring resolution"
+    ]
+  },
+  "original_score": {
+    "paths": 10,
+    "times": 10,
+    "interior_times": "j/(T+1), j=1,...,T",
+    "channel_squared_L2": true,
+    "aggregation": "minimum",
+    "time_weight": "t^2",
+    "time_average": true,
+    "image_score": "max(pixel heatmap) + mean(top 1% pixel heatmap)",
+    "postprocessing": "not specified; no invented smoothing",
+    "evidence_page": 4
+  },
+  "metrics": [
+    "image_AUROC",
+    "image_AP",
+    "image_F1_max",
+    "pixel_AUROC",
+    "pixel_AP",
+    "pixel_F1_max",
+    "pixel_AUPRO"
+  ],
+  "metric_units": "paper percentages except FPS; these are paper reported values, never local measured performance",
+  "category_average": "unweighted mean over 15 MVTec or 12 VisA categories",
+  "native_split_claims": {
+    "MVTec_AD": {
+      "categories": 15,
+      "train": 3629,
+      "test": 1725
+    },
+    "VisA": {
+      "categories": 12,
+      "train": 8659,
+      "test": 2162
+    }
+  },
+  "transcription_notes": [
+    "Page8 reverses object/texture counts for MVTec; use actual archive categories, not that prose typo.",
+    "Original single conditional model per dataset, not 15 or 12 independent category-specific models.",
+    "TCCM comparison is explicitly limited to 50 epochs on page22; never assign the default2000 epochs to this exception.",
+    "K/T development grid[2,4,8,16,32] and default8/8 are not Table6 or paper default.",
+    "Paper F1-max is a test-label threshold sweep; it cannot become a strict TAB calibrated-threshold score.",
+    "Table6 rows contain small nonmonotonic changes; preserve printed values rather than impose monotonicity."
+  ],
+  "Table6_compute": [
+    {
+      "id": "fix_K_5_2",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 2,
+      "forward_evaluations_per_image": 10,
+      "paper_reported": {
+        "image_AUROC": 97.9,
+        "image_AP": 99.3,
+        "image_F1_max": 96.8,
+        "pixel_AUROC": 96.2,
+        "pixel_AP": 63.4,
+        "pixel_F1_max": 61.7,
+        "pixel_AUPRO": 89.9,
+        "FPS": 37.48
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_4",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 4,
+      "forward_evaluations_per_image": 20,
+      "paper_reported": {
+        "image_AUROC": 98.1,
+        "image_AP": 99.3,
+        "image_F1_max": 97.2,
+        "pixel_AUROC": 96.9,
+        "pixel_AP": 65.5,
+        "pixel_F1_max": 63.2,
+        "pixel_AUPRO": 90.3,
+        "FPS": 18.85
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_6",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 6,
+      "forward_evaluations_per_image": 30,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.4,
+        "image_F1_max": 97.3,
+        "pixel_AUROC": 97.1,
+        "pixel_AP": 65.9,
+        "pixel_F1_max": 63.5,
+        "pixel_AUPRO": 91.1,
+        "FPS": 12.56
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_8",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 8,
+      "forward_evaluations_per_image": 40,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.3,
+        "image_F1_max": 97.5,
+        "pixel_AUROC": 97.2,
+        "pixel_AP": 66.3,
+        "pixel_F1_max": 63.7,
+        "pixel_AUPRO": 91.0,
+        "FPS": 9.42
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_10",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 10,
+      "forward_evaluations_per_image": 50,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.3,
+        "image_F1_max": 97.4,
+        "pixel_AUROC": 97.2,
+        "pixel_AP": 66.4,
+        "pixel_F1_max": 63.9,
+        "pixel_AUPRO": 91.5,
+        "FPS": 7.56
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_12",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 12,
+      "forward_evaluations_per_image": 60,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.3,
+        "image_F1_max": 97.3,
+        "pixel_AUROC": 97.3,
+        "pixel_AP": 66.7,
+        "pixel_F1_max": 64.1,
+        "pixel_AUPRO": 91.2,
+        "FPS": 6.31
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_14",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 14,
+      "forward_evaluations_per_image": 70,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.3,
+        "image_F1_max": 97.4,
+        "pixel_AUROC": 97.3,
+        "pixel_AP": 66.8,
+        "pixel_F1_max": 64.1,
+        "pixel_AUPRO": 91.4,
+        "FPS": 5.4
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_16",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 16,
+      "forward_evaluations_per_image": 80,
+      "paper_reported": {
+        "image_AUROC": 98.1,
+        "image_AP": 99.2,
+        "image_F1_max": 97.1,
+        "pixel_AUROC": 97.3,
+        "pixel_AP": 66.8,
+        "pixel_F1_max": 64.2,
+        "pixel_AUPRO": 91.3,
+        "FPS": 4.73
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_18",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 18,
+      "forward_evaluations_per_image": 90,
+      "paper_reported": {
+        "image_AUROC": 98.3,
+        "image_AP": 99.4,
+        "image_F1_max": 97.2,
+        "pixel_AUROC": 97.3,
+        "pixel_AP": 66.9,
+        "pixel_F1_max": 64.2,
+        "pixel_AUPRO": 91.2,
+        "FPS": 4.2
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_K_5_20",
+      "dataset": "MVTec-AD",
+      "K": 5,
+      "T": 20,
+      "forward_evaluations_per_image": 100,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.3,
+        "image_F1_max": 97.3,
+        "pixel_AUROC": 97.3,
+        "pixel_AP": 66.9,
+        "pixel_F1_max": 64.3,
+        "pixel_AUPRO": 91.0,
+        "FPS": 3.78
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_2",
+      "dataset": "MVTec-AD",
+      "K": 2,
+      "T": 5,
+      "forward_evaluations_per_image": 10,
+      "paper_reported": {
+        "image_AUROC": 96.2,
+        "image_AP": 98.5,
+        "image_F1_max": 95.7,
+        "pixel_AUROC": 96.1,
+        "pixel_AP": 62.8,
+        "pixel_F1_max": 60.6,
+        "pixel_AUPRO": 88.9,
+        "FPS": 34.96
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_4",
+      "dataset": "MVTec-AD",
+      "K": 4,
+      "T": 5,
+      "forward_evaluations_per_image": 20,
+      "paper_reported": {
+        "image_AUROC": 97.8,
+        "image_AP": 99.2,
+        "image_F1_max": 97.1,
+        "pixel_AUROC": 96.8,
+        "pixel_AP": 65.3,
+        "pixel_F1_max": 62.9,
+        "pixel_AUPRO": 90.3,
+        "FPS": 18.61
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_6",
+      "dataset": "MVTec-AD",
+      "K": 6,
+      "T": 5,
+      "forward_evaluations_per_image": 30,
+      "paper_reported": {
+        "image_AUROC": 98.4,
+        "image_AP": 99.4,
+        "image_F1_max": 97.4,
+        "pixel_AUROC": 97.1,
+        "pixel_AP": 66.2,
+        "pixel_F1_max": 63.8,
+        "pixel_AUPRO": 91.0,
+        "FPS": 12.61
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_8",
+      "dataset": "MVTec-AD",
+      "K": 8,
+      "T": 5,
+      "forward_evaluations_per_image": 40,
+      "paper_reported": {
+        "image_AUROC": 98.5,
+        "image_AP": 99.4,
+        "image_F1_max": 97.6,
+        "pixel_AUROC": 97.3,
+        "pixel_AP": 66.5,
+        "pixel_F1_max": 64.1,
+        "pixel_AUPRO": 91.4,
+        "FPS": 9.6
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_10",
+      "dataset": "MVTec-AD",
+      "K": 10,
+      "T": 5,
+      "forward_evaluations_per_image": 50,
+      "paper_reported": {
+        "image_AUROC": 98.6,
+        "image_AP": 99.5,
+        "image_F1_max": 97.6,
+        "pixel_AUROC": 97.4,
+        "pixel_AP": 66.7,
+        "pixel_F1_max": 64.1,
+        "pixel_AUPRO": 91.3,
+        "FPS": 7.73
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_12",
+      "dataset": "MVTec-AD",
+      "K": 12,
+      "T": 5,
+      "forward_evaluations_per_image": 60,
+      "paper_reported": {
+        "image_AUROC": 98.6,
+        "image_AP": 99.5,
+        "image_F1_max": 97.8,
+        "pixel_AUROC": 97.5,
+        "pixel_AP": 66.8,
+        "pixel_F1_max": 64.3,
+        "pixel_AUPRO": 91.6,
+        "FPS": 6.46
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_14",
+      "dataset": "MVTec-AD",
+      "K": 14,
+      "T": 5,
+      "forward_evaluations_per_image": 70,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.5,
+        "pixel_AP": 66.9,
+        "pixel_F1_max": 64.3,
+        "pixel_AUPRO": 91.8,
+        "FPS": 5.55
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_16",
+      "dataset": "MVTec-AD",
+      "K": 16,
+      "T": 5,
+      "forward_evaluations_per_image": 80,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.9,
+        "pixel_AUROC": 97.6,
+        "pixel_AP": 67.0,
+        "pixel_F1_max": 64.4,
+        "pixel_AUPRO": 92.0,
+        "FPS": 4.87
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_18",
+      "dataset": "MVTec-AD",
+      "K": 18,
+      "T": 5,
+      "forward_evaluations_per_image": 90,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.6,
+        "pixel_AP": 67.1,
+        "pixel_F1_max": 64.5,
+        "pixel_AUPRO": 92.0,
+        "FPS": 4.33
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "fix_T_5_20",
+      "dataset": "MVTec-AD",
+      "K": 20,
+      "T": 5,
+      "forward_evaluations_per_image": 100,
+      "paper_reported": {
+        "image_AUROC": 98.8,
+        "image_AP": 99.6,
+        "image_F1_max": 97.8,
+        "pixel_AUROC": 97.6,
+        "pixel_AP": 67.1,
+        "pixel_F1_max": 64.5,
+        "pixel_AUPRO": 91.8,
+        "FPS": 3.9
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_2",
+      "dataset": "MVTec-AD",
+      "K": 2,
+      "T": 2,
+      "forward_evaluations_per_image": 4,
+      "paper_reported": {
+        "image_AUROC": 95.9,
+        "image_AP": 98.5,
+        "image_F1_max": 95.5,
+        "pixel_AUROC": 95.4,
+        "pixel_AP": 60.5,
+        "pixel_F1_max": 58.9,
+        "pixel_AUPRO": 87.7,
+        "FPS": 86.4
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_4",
+      "dataset": "MVTec-AD",
+      "K": 4,
+      "T": 4,
+      "forward_evaluations_per_image": 16,
+      "paper_reported": {
+        "image_AUROC": 97.8,
+        "image_AP": 99.2,
+        "image_F1_max": 97.2,
+        "pixel_AUROC": 96.7,
+        "pixel_AP": 65.0,
+        "pixel_F1_max": 62.8,
+        "pixel_AUPRO": 90.4,
+        "FPS": 23.11
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_6",
+      "dataset": "MVTec-AD",
+      "K": 6,
+      "T": 6,
+      "forward_evaluations_per_image": 36,
+      "paper_reported": {
+        "image_AUROC": 98.3,
+        "image_AP": 99.4,
+        "image_F1_max": 97.3,
+        "pixel_AUROC": 97.2,
+        "pixel_AP": 66.3,
+        "pixel_F1_max": 63.8,
+        "pixel_AUPRO": 91.1,
+        "FPS": 10.51
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_8",
+      "dataset": "MVTec-AD",
+      "K": 8,
+      "T": 8,
+      "forward_evaluations_per_image": 64,
+      "paper_reported": {
+        "image_AUROC": 98.6,
+        "image_AP": 99.5,
+        "image_F1_max": 97.4,
+        "pixel_AUROC": 97.5,
+        "pixel_AP": 67.1,
+        "pixel_F1_max": 64.5,
+        "pixel_AUPRO": 91.5,
+        "FPS": 6.01
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_10",
+      "dataset": "MVTec-AD",
+      "K": 10,
+      "T": 10,
+      "forward_evaluations_per_image": 100,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.7,
+        "pixel_AP": 67.5,
+        "pixel_F1_max": 64.8,
+        "pixel_AUPRO": 91.9,
+        "FPS": 3.87
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_12",
+      "dataset": "MVTec-AD",
+      "K": 12,
+      "T": 12,
+      "forward_evaluations_per_image": 144,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.7,
+        "pixel_AP": 67.6,
+        "pixel_F1_max": 64.9,
+        "pixel_AUPRO": 92.2,
+        "FPS": 2.7
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_14",
+      "dataset": "MVTec-AD",
+      "K": 14,
+      "T": 14,
+      "forward_evaluations_per_image": 196,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.8,
+        "pixel_AUROC": 97.8,
+        "pixel_AP": 67.8,
+        "pixel_F1_max": 65.1,
+        "pixel_AUPRO": 92.2,
+        "FPS": 1.99
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_16",
+      "dataset": "MVTec-AD",
+      "K": 16,
+      "T": 16,
+      "forward_evaluations_per_image": 256,
+      "paper_reported": {
+        "image_AUROC": 98.8,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.8,
+        "pixel_AP": 67.8,
+        "pixel_F1_max": 65.1,
+        "pixel_AUPRO": 92.2,
+        "FPS": 1.53
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_18",
+      "dataset": "MVTec-AD",
+      "K": 18,
+      "T": 18,
+      "forward_evaluations_per_image": 324,
+      "paper_reported": {
+        "image_AUROC": 98.8,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.9,
+        "pixel_AP": 68.0,
+        "pixel_F1_max": 65.3,
+        "pixel_AUPRO": 92.2,
+        "FPS": 1.2
+      },
+      "table": 6,
+      "page": 28
+    },
+    {
+      "id": "joint_K_T_20",
+      "dataset": "MVTec-AD",
+      "K": 20,
+      "T": 20,
+      "forward_evaluations_per_image": 400,
+      "paper_reported": {
+        "image_AUROC": 98.8,
+        "image_AP": 99.5,
+        "image_F1_max": 97.8,
+        "pixel_AUROC": 97.9,
+        "pixel_AP": 67.9,
+        "pixel_F1_max": 65.2,
+        "pixel_AUPRO": 92.3,
+        "FPS": 0.98
+      },
+      "table": 6,
+      "page": 28
+    }
+  ],
+  "Table7_path_aggregation": [
+    {
+      "dataset": "MVTec-AD",
+      "aggregation": "average",
+      "percentile": null,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 94.4,
+        "image_AP": 97.6,
+        "image_F1_max": 95.0,
+        "pixel_AUROC": 94.9,
+        "pixel_AP": 60.4,
+        "pixel_F1_max": 58.3,
+        "pixel_AUPRO": 87.7
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "MVTec-AD",
+      "aggregation": "percentile",
+      "percentile": 0.3,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 97.5,
+        "image_AP": 99.0,
+        "image_F1_max": 96.8,
+        "pixel_AUROC": 96.3,
+        "pixel_AP": 65.2,
+        "pixel_F1_max": 62.6,
+        "pixel_AUPRO": 90.2
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "MVTec-AD",
+      "aggregation": "percentile",
+      "percentile": 0.2,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.0,
+        "image_AP": 99.2,
+        "image_F1_max": 97.1,
+        "pixel_AUROC": 96.7,
+        "pixel_AP": 66.2,
+        "pixel_F1_max": 63.6,
+        "pixel_AUPRO": 91.1
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "MVTec-AD",
+      "aggregation": "percentile",
+      "percentile": 0.1,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.4,
+        "image_AP": 99.4,
+        "image_F1_max": 97.3,
+        "pixel_AUROC": 97.0,
+        "pixel_AP": 67.0,
+        "pixel_F1_max": 64.2,
+        "pixel_AUPRO": 91.5
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "MVTec-AD",
+      "aggregation": "minimum",
+      "percentile": null,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.7,
+        "pixel_AP": 67.5,
+        "pixel_F1_max": 64.8,
+        "pixel_AUPRO": 91.9
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "VisA",
+      "aggregation": "average",
+      "percentile": null,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 96.7,
+        "image_AP": 97.8,
+        "image_F1_max": 93.4,
+        "pixel_AUROC": 94.4,
+        "pixel_AP": 39.0,
+        "pixel_F1_max": 45.3,
+        "pixel_AUPRO": 85.5
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "VisA",
+      "aggregation": "percentile",
+      "percentile": 0.3,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 97.9,
+        "image_AP": 98.5,
+        "image_F1_max": 94.9,
+        "pixel_AUROC": 96.8,
+        "pixel_AP": 40.7,
+        "pixel_F1_max": 46.5,
+        "pixel_AUPRO": 89.4
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "VisA",
+      "aggregation": "percentile",
+      "percentile": 0.2,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 97.9,
+        "image_AP": 98.5,
+        "image_F1_max": 94.9,
+        "pixel_AUROC": 97.2,
+        "pixel_AP": 40.9,
+        "pixel_F1_max": 46.6,
+        "pixel_AUPRO": 89.9
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "VisA",
+      "aggregation": "percentile",
+      "percentile": 0.1,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 97.8,
+        "image_AP": 98.3,
+        "image_F1_max": 94.7,
+        "pixel_AUROC": 97.4,
+        "pixel_AP": 40.7,
+        "pixel_F1_max": 46.2,
+        "pixel_AUPRO": 90.5
+      },
+      "table": 7,
+      "page": 30
+    },
+    {
+      "dataset": "VisA",
+      "aggregation": "minimum",
+      "percentile": null,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.0,
+        "image_AP": 98.4,
+        "image_F1_max": 95.2,
+        "pixel_AUROC": 97.5,
+        "pixel_AP": 40.2,
+        "pixel_F1_max": 45.8,
+        "pixel_AUPRO": 90.6
+      },
+      "table": 7,
+      "page": 30
+    }
+  ],
+  "Table8_conditional_mean": [
+    {
+      "dataset": "MVTec-AD",
+      "category_conditioning": false,
+      "paper_reported": {
+        "image_AUROC": 97.4,
+        "image_AP": 99.0,
+        "image_F1_max": 96.9,
+        "pixel_AUROC": 96.5,
+        "pixel_AP": 64.2,
+        "pixel_F1_max": 62.4,
+        "pixel_AUPRO": 90.5
+      },
+      "table": 8,
+      "page": 32
+    },
+    {
+      "dataset": "MVTec-AD",
+      "category_conditioning": true,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.7,
+        "pixel_AP": 67.5,
+        "pixel_F1_max": 64.8,
+        "pixel_AUPRO": 91.9
+      },
+      "table": 8,
+      "page": 32
+    },
+    {
+      "dataset": "VisA",
+      "category_conditioning": false,
+      "paper_reported": {
+        "image_AUROC": 97.3,
+        "image_AP": 97.9,
+        "image_F1_max": 94.3,
+        "pixel_AUROC": 97.8,
+        "pixel_AP": 41.9,
+        "pixel_F1_max": 46.3,
+        "pixel_AUPRO": 90.3
+      },
+      "table": 8,
+      "page": 32
+    },
+    {
+      "dataset": "VisA",
+      "category_conditioning": true,
+      "paper_reported": {
+        "image_AUROC": 98.0,
+        "image_AP": 98.4,
+        "image_F1_max": 95.2,
+        "pixel_AUROC": 97.5,
+        "pixel_AP": 40.2,
+        "pixel_F1_max": 45.8,
+        "pixel_AUPRO": 90.6
+      },
+      "table": 8,
+      "page": 32
+    }
+  ],
+  "Table9_epoch_checkpoints": [
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 100,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 91.7,
+        "image_AP": 96.4,
+        "image_F1_max": 93.9,
+        "pixel_AUROC": 95.6,
+        "pixel_AP": 57.3,
+        "pixel_F1_max": 56.7,
+        "pixel_AUPRO": 87.9
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 200,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 95.3,
+        "image_AP": 98.0,
+        "image_F1_max": 95.1,
+        "pixel_AUROC": 96.2,
+        "pixel_AP": 61.0,
+        "pixel_F1_max": 60.0,
+        "pixel_AUPRO": 89.4
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 300,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 96.3,
+        "image_AP": 98.4,
+        "image_F1_max": 96.1,
+        "pixel_AUROC": 96.6,
+        "pixel_AP": 63.0,
+        "pixel_F1_max": 61.6,
+        "pixel_AUPRO": 90.5
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 400,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 96.3,
+        "image_AP": 98.5,
+        "image_F1_max": 95.7,
+        "pixel_AUROC": 96.6,
+        "pixel_AP": 63.7,
+        "pixel_F1_max": 62.1,
+        "pixel_AUPRO": 90.4
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 500,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 97.4,
+        "image_AP": 98.9,
+        "image_F1_max": 96.4,
+        "pixel_AUROC": 96.9,
+        "pixel_AP": 64.4,
+        "pixel_F1_max": 62.8,
+        "pixel_AUPRO": 91.0
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 600,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 97.5,
+        "image_AP": 98.9,
+        "image_F1_max": 96.6,
+        "pixel_AUROC": 97.0,
+        "pixel_AP": 64.8,
+        "pixel_F1_max": 63.0,
+        "pixel_AUPRO": 91.4
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 700,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 97.4,
+        "image_AP": 98.9,
+        "image_F1_max": 96.3,
+        "pixel_AUROC": 97.1,
+        "pixel_AP": 65.3,
+        "pixel_F1_max": 63.4,
+        "pixel_AUPRO": 91.2
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 800,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 97.8,
+        "image_AP": 99.2,
+        "image_F1_max": 96.8,
+        "pixel_AUROC": 97.4,
+        "pixel_AP": 66.0,
+        "pixel_F1_max": 63.7,
+        "pixel_AUPRO": 91.4
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 900,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.0,
+        "image_AP": 99.2,
+        "image_F1_max": 97.0,
+        "pixel_AUROC": 97.3,
+        "pixel_AP": 65.9,
+        "pixel_F1_max": 63.6,
+        "pixel_AUPRO": 91.3
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1000,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.0,
+        "image_AP": 99.2,
+        "image_F1_max": 97.1,
+        "pixel_AUROC": 97.3,
+        "pixel_AP": 66.4,
+        "pixel_F1_max": 64.0,
+        "pixel_AUPRO": 91.1
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1100,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.0,
+        "image_AP": 99.2,
+        "image_F1_max": 97.3,
+        "pixel_AUROC": 97.4,
+        "pixel_AP": 66.3,
+        "pixel_F1_max": 63.9,
+        "pixel_AUPRO": 91.5
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1200,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.1,
+        "image_AP": 99.2,
+        "image_F1_max": 97.1,
+        "pixel_AUROC": 97.4,
+        "pixel_AP": 66.8,
+        "pixel_F1_max": 64.3,
+        "pixel_AUPRO": 91.8
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1300,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.3,
+        "image_F1_max": 97.2,
+        "pixel_AUROC": 97.6,
+        "pixel_AP": 67.1,
+        "pixel_F1_max": 64.5,
+        "pixel_AUPRO": 91.4
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1400,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.3,
+        "image_F1_max": 97.3,
+        "pixel_AUROC": 97.6,
+        "pixel_AP": 67.0,
+        "pixel_F1_max": 64.3,
+        "pixel_AUPRO": 91.7
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1500,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.2,
+        "image_AP": 99.3,
+        "image_F1_max": 97.3,
+        "pixel_AUROC": 97.6,
+        "pixel_AP": 67.2,
+        "pixel_F1_max": 64.6,
+        "pixel_AUPRO": 91.8
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1600,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.4,
+        "image_AP": 99.4,
+        "image_F1_max": 97.4,
+        "pixel_AUROC": 97.5,
+        "pixel_AP": 67.3,
+        "pixel_F1_max": 64.9,
+        "pixel_AUPRO": 91.8
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1700,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.5,
+        "image_AP": 99.4,
+        "image_F1_max": 97.5,
+        "pixel_AUROC": 97.6,
+        "pixel_AP": 67.2,
+        "pixel_F1_max": 64.6,
+        "pixel_AUPRO": 91.7
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1800,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.5,
+        "image_AP": 99.4,
+        "image_F1_max": 97.6,
+        "pixel_AUROC": 97.4,
+        "pixel_AP": 67.1,
+        "pixel_F1_max": 64.3,
+        "pixel_AUPRO": 91.6
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 1900,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.5,
+        "image_AP": 99.5,
+        "image_F1_max": 97.6,
+        "pixel_AUROC": 97.6,
+        "pixel_AP": 67.4,
+        "pixel_F1_max": 64.7,
+        "pixel_AUPRO": 91.8
+      },
+      "table": 9,
+      "page": 33
+    },
+    {
+      "dataset": "MVTec-AD",
+      "checkpoint_epoch": 2000,
+      "K": 10,
+      "T": 10,
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.7,
+        "pixel_AP": 67.5,
+        "pixel_F1_max": 64.8,
+        "pixel_AUPRO": 91.9
+      },
+      "table": 9,
+      "page": 33
+    }
+  ],
+  "Table2_same_backbone_FM_comparison": [
+    {
+      "method": "Reflect",
+      "dataset": "MVTec-AD",
+      "paper_reported": {
+        "image_AUROC": 66.4,
+        "image_AP": 86.3,
+        "image_F1_max": 84.6,
+        "pixel_AUROC": 60.2,
+        "pixel_AP": 19.5,
+        "pixel_F1_max": 24.9,
+        "pixel_AUPRO": 31.6
+      },
+      "table": 2,
+      "page": 9
+    },
+    {
+      "method": "TCCM",
+      "dataset": "MVTec-AD",
+      "paper_reported": {
+        "image_AUROC": 53.6,
+        "image_AP": 77.7,
+        "image_F1_max": 85.1,
+        "pixel_AUROC": 73.0,
+        "pixel_AP": 23.1,
+        "pixel_F1_max": 28.8,
+        "pixel_AUPRO": 49.9
+      },
+      "table": 2,
+      "page": 9
+    },
+    {
+      "method": "WT-Flow",
+      "dataset": "MVTec-AD",
+      "paper_reported": {
+        "image_AUROC": 85.0,
+        "image_AP": 92.3,
+        "image_F1_max": 90.7,
+        "pixel_AUROC": 85.4,
+        "pixel_AP": 46.5,
+        "pixel_F1_max": 50.6,
+        "pixel_AUPRO": 70.2
+      },
+      "table": 2,
+      "page": 9
+    },
+    {
+      "method": "D-Flow",
+      "dataset": "MVTec-AD",
+      "paper_reported": {
+        "image_AUROC": 75.3,
+        "image_AP": 88.1,
+        "image_F1_max": 88.3,
+        "pixel_AUROC": 87.1,
+        "pixel_AP": 37.6,
+        "pixel_F1_max": 41.8,
+        "pixel_AUPRO": 62.3
+      },
+      "table": 2,
+      "page": 9
+    },
+    {
+      "method": "ReconFlow",
+      "dataset": "MVTec-AD",
+      "paper_reported": {
+        "image_AUROC": 91.8,
+        "image_AP": 97.2,
+        "image_F1_max": 94.3,
+        "pixel_AUROC": 92.4,
+        "pixel_AP": 53.8,
+        "pixel_F1_max": 56.1,
+        "pixel_AUPRO": 72.7
+      },
+      "table": 2,
+      "page": 9
+    },
+    {
+      "method": "Flow Mismatching",
+      "dataset": "MVTec-AD",
+      "paper_reported": {
+        "image_AUROC": 98.7,
+        "image_AP": 99.5,
+        "image_F1_max": 97.7,
+        "pixel_AUROC": 97.7,
+        "pixel_AP": 67.5,
+        "pixel_F1_max": 64.8,
+        "pixel_AUPRO": 91.9
+      },
+      "table": 2,
+      "page": 9
+    }
+  ],
+  "training_exceptions": {
+    "TCCM": {
+      "epochs": 50,
+      "evidence_page": 22
+    }
+  },
+  "original_shared_checkpoint": [
+    "Flow Mismatching",
+    "D-Flow",
+    "ReconFlow"
+  ],
+  "unresolved_fidelity": [
+    "Flow Mismatching original author implementation/checkpoint unavailable",
+    "StableAdamW implementation identity and exact RMS/AMSGrad interaction are unspecified",
+    "original DDP world size and batch global/per-rank interpretation unknown",
+    "training seeds, dataloader tail/shuffle/workers, scheduler, EMA and restart contract not reported",
+    "preprocessing and AUPRO maximum-FPR/connectivity implementation not pinned",
+    "Reflect native random-walk mask count/length/connectivity and draw sharing not pinned",
+    "WT per-sample statistics epsilon/variance estimator and ODE scheme not pinned",
+    "D-Flow native optimization budget and FlowGrad integration unavailable",
+    "ReconFlow native ODE scheme not pinned",
+    "Original top1percent pixel count rounding not pinned; existing detector uses ceil"
+  ],
+  "full_original_training_executed": false,
+  "full_original_raw_data_verified": false,
+  "strict_TAB_equivalent": false,
+  "journal_reproduction_certified": false,
+  "all_paper_tables_and_toy_experiments_transcribed": false,
+  "remaining_table_obligations": [
+    "Table1 reconstruction baselines full native training and all dataset metrics",
+    "Table3 efficiency hardware-matched measurement",
+    "Tables4/5/8 all per-category results",
+    "AppendixB original toy training and figures",
+    "AppendixF complete original qualitative images"
+  ],
+  "legacy_scope_preserved": {
+    "papers": 45,
+    "method_records": 681,
+    "data_task_records": 273
+  },
+  "source_receipts": [
+    {
+      "path": "src/iia_benchmark/models/fm_image_comparison.py",
+      "sha256": "e4d8b353b1db640b3505b96a35fd10b033467a8f77e6ef464349f4b7d78406d6"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_supplemental.py",
+      "sha256": "6be586e0e83d13f5dc89cafb44a0fa03ef19050d4cb896c6057c456212b7d936"
+    },
+    {
+      "path": "src/iia_benchmark/models/fm_supplemental_author.py",
+      "sha256": "c6aa6bbf0084cfcc3432bc44fa64d2c96cd267b82da471bd14e56ce7ff308c6b"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models/unet.py",
+      "sha256": "4888da830915ada9543622f4842f83e7b010cf16359585d9ad7ee7d3675a6a9a"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/flow_matching_library/original/examples/image/models/nn.py",
+      "sha256": "7943211a2eb063d891984267272c9615b086049b9000d97e46ceeb4c73a04f99"
+    }
+  ]
+}

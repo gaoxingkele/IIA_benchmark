@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "fm_flow_mismatching_mvtec_image_preprocessing_v1",
+  "dataset": "MVTec-AD",
+  "citation": "https://arxiv.org/abs/2605.23070",
+  "dataset_configuration": "configs/datasets/fm_flow_mismatching_mvtec_original.v1.json",
+  "original_protocol": "configs/experiments/fm_flow_mismatching_original_protocol.v1.json",
+  "full_raw_audit": "projects/flow_matching_research/results/2026-10-11/flow_mismatching_mvtec_original_data_v1/full_original_mvtec_data_audit.json",
+  "raw_root_field": "raw_root",
+  "expected_images": 5354,
+  "expected_categories": 15,
+  "expected_native_splits": {
+    "train": 3629,
+    "test": 1725
+  },
+  "asset_root": "data/public_datasets/flow_matching/flow_mismatching_mvtec_assets_v1",
+  "derived_directory": "data/public_datasets/flow_matching/flow_mismatching_mvtec_assets_v1/derived_local_128_rgb_v1",
+  "state_root": "experiments/runs/fm_flow_mismatching_mvtec_preprocessing_v1",
+  "acquisition_state": "experiments/runs/fm_flow_mismatching_mvtec_acquisition_v1/status.json",
+  "resolution": 128,
+  "decode": "RGB uint8 to [0,1]",
+  "image_interpolation": "bilinear",
+  "mask_interpolation": "nearest",
+  "normalization": "pooled all normal training images, perRGB population variance",
+  "augmentation": false,
+  "normalization_test_leakage_allowed": false,
+  "overwrite_raw_or_existing_derived_allowed": false,
+  "minimum_free_disk_bytes": 10737418240,
+  "minimum_free_physical_bytes": 8589934592,
+  "poll_seconds": 15,
+  "entrypoint": "scripts.flow_matching.prepare_flow_mismatching_original_images_v1",
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/prepare_flow_mismatching_original_images_v1.py",
+      "sha256": "8c7153bddb0a77371c026ff06e4ebcf4816d3de16dfc2c5bf2cbd3637a9d592b"
+    },
+    {
+      "path": "tests/test_fm_flow_mismatching_image_preprocessing_v1.py",
+      "sha256": "a15099dd293950e5f009aa3af2e245aa8d2d99be82fb1a69aaccb068f981fac9"
+    },
+    {
+      "path": "scripts/flow_matching/acquire_flow_mismatching_visa_v1.py",
+      "sha256": "066b0b6811e903241cc248d7023b35657829331b1b1f5ae21797302e1d075fe4"
+    }
+  ],
+  "author_unspecified_local_choices": [
+    "RGB uint8 value scale",
+    "bilinear resize",
+    "nearest resized128 mask",
+    "pooled perRGB population statistics"
+  ],
+  "original_preprocessing_equivalence_certified": false,
+  "full_original_training_executed": false,
+  "benchmark_ready": false,
+  "boundary": "Audit-gated complete native image preprocessing. Explicit frozen local choices where original code is unavailable; raw preserved, train-only normalization, no performance claim."
+}

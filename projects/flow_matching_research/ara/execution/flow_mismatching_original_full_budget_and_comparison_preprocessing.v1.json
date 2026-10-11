@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "paper_id": "flow_mismatching",
+  "source_paper": {
+    "path": "papers/literature/flow_matching/project_additions/flow_mismatching_2605.23070v1.pdf",
+    "sha256": "6f6791875149663cfc8703ae87f744858c7ef80d17b1b58e05512fa830e4f8b5",
+    "pages": 35
+  },
+  "evidence_folder": "projects/flow_matching_research/results/2026-10-11/flow_mismatching_original_protocol_v1",
+  "original_protocol": "configs/experiments/fm_flow_mismatching_original_protocol.v1.json",
+  "original_full_budget": {
+    "epochs": 2000,
+    "batch_size": 32,
+    "K": 10,
+    "T": 10,
+    "single_conditional_model_per_dataset": true
+  },
+  "original_compute_rows": 30,
+  "original_epoch_checkpoints": 20,
+  "original_aggregator_rows": 10,
+  "conditional_mean_rows": 4,
+  "same_backbone_comparison_rows": 6,
+  "paper_reported_target_values": 520,
+  "verified_equation_callables": 9,
+  "source_callables_are_paper_derived_not_Flow_Mismatching_author_release": true,
+  "explicitly_incomplete_D_Flow_FlowGrad": true,
+  "original_model_configurations": [
+    "configs/models/fm_flow_mismatching_mvtec_original.v1.json",
+    "configs/models/fm_flow_mismatching_visa_original.v1.json"
+  ],
+  "preprocessing_configurations": [
+    "configs/preprocessing/fm_flow_mismatching_mvtec_original_images.v1.json",
+    "configs/preprocessing/fm_flow_mismatching_visa_original_images.v1.json"
+  ],
+  "actual_preprocessing_controllers": [
+    {
+      "pid": 6020,
+      "create_time": 1791709857.2714927,
+      "dataset": "VisA"
+    },
+    {
+      "pid": 31628,
+      "create_time": 1791709867.4293504,
+      "dataset": "MVTec-AD"
+    }
+  ],
+  "full_original_raw_data_verified": false,
+  "full_original_preprocessing_completed": false,
+  "full_original_model_training_executed": false,
+  "strict_TAB_equivalence": false,
+  "existing_metrics_publication": "v38",
+  "new_local_performance_values": 0,
+  "legacy_scope_preserved": {
+    "papers": 45,
+    "method_records": 681,
+    "data_task_records": 273
+  },
+  "all_original_experiments_complete": false,
+  "remaining_original_fidelity": [
+    "Flow Mismatching original author implementation/checkpoint unavailable",
+    "StableAdamW implementation identity and exact RMS/AMSGrad interaction are unspecified",
+    "original DDP world size and batch global/per-rank interpretation unknown",
+    "training seeds, dataloader tail/shuffle/workers, scheduler, EMA and restart contract not reported",
+    "preprocessing and AUPRO maximum-FPR/connectivity implementation not pinned",
+    "Reflect native random-walk mask count/length/connectivity and draw sharing not pinned",
+    "WT per-sample statistics epsilon/variance estimator and ODE scheme not pinned",
+    "D-Flow native optimization budget and FlowGrad integration unavailable",
+    "ReconFlow native ODE scheme not pinned",
+    "Original top1percent pixel count rounding not pinned; existing detector uses ceil"
+  ],
+  "remaining_original_table_obligations": [
+    "Table1 reconstruction baselines full native training and all dataset metrics",
+    "Table3 efficiency hardware-matched measurement",
+    "Tables4/5/8 all per-category results",
+    "AppendixB original toy training and figures",
+    "AppendixF complete original qualitative images"
+  ]
+}
