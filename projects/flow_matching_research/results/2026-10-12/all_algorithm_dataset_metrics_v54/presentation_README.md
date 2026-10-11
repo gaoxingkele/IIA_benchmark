@@ -1,0 +1,5 @@
+Metric presentation v54
+
+The v53 historical HTML header retained v42 counts of2,128numeric/6,498blank rows, while its underlying CSV already had2,131numeric/6,495blank rows. Historical presentations and their hashes are preserved. The new v54 HTML and Markdown use the current immutable independently audited CSV. Its2,131numeric and6,495non-numeric rows are metric counts, not numbers of completed or unrun experiments. Two PRONTO_DAY4 affiliation-F rows explicitly record all five evaluations complete with no defined values.
+
+The browser executed pagination and filtering, checked31columns, compared all8,626embedded row dictionaries with the source CSV, and verified literal n=0 with undefined means retained. Dynamic summary counts now come from the actual data. Pages display at most100rows without dropping any source cells. No new measurements, aggregate values, seed counts or scientific configurations were changed. Full original experiment completion remains unproven; all45/681/273obligations and the running native tasks are preserved.
