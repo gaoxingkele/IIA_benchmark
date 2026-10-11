@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "status": "three_full_original_cpu_queues_handed_off_to_existing_bounded_serial_lane_actual_controllers_verified_waiting_original_commit_guard",
+  "runtime": "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+  "runtime_sha256": "766c69e3ad38a67fc42760f22e75e0a7676c613b41806ddd367d04ccaa3f3cc1",
+  "report": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/README.rst",
+  "actual_execution_evidence": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/actual_execution_observations.json",
+  "original_registered_queue_entries": 1317,
+  "original_queues": {
+    "entropic_cpu": {
+      "queue": "configs/experiments/fm_tsad_entropic_repair_queue.v1.json",
+      "queue_sha256": "9efbdc427f6996a824c3b67e0a686ce93a7f4cfea9616559257c32add91dabd4",
+      "registered_jobs": 105,
+      "original_cpu_threads": 4
+    },
+    "pi_cpu": {
+      "queue": "configs/experiments/fm_pi_transformer_author_queue.v1.json",
+      "queue_sha256": "5be2d8327622ef4da74644cfe1e81ffb58160f30a75160bf4b583abccbd1eff0",
+      "registered_jobs": 1140,
+      "original_cpu_threads": 2
+    },
+    "moment_cpu": {
+      "queue": "configs/experiments/fm_moment_pretrained_queue.v1.json",
+      "queue_sha256": "1b03d6576d2a51cc847850519dc1204b14c0f1a81aa1be8f42bdf019d31c7930",
+      "registered_jobs": 72,
+      "original_cpu_threads": 2
+    }
+  },
+  "shared_existing_bounded_cpu_lock": "experiments/runs/fm_bounded_strict_baseline_cpu.lock",
+  "additional_bounded_training_concurrency": 0,
+  "actual_controller_processes": [
+    {
+      "pid": 32220,
+      "create_time": 1791688390.502608,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_bounded_remaining_cpu_queues_v3",
+        "--runtime-config",
+        "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+        "--controller",
+        "entropic_cpu"
+      ],
+      "cpu_seconds": 1.140625,
+      "rss_bytes": 28901376,
+      "private_bytes": 18513920,
+      "children": [
+        {
+          "pid": 16328,
+          "create_time": 1791688390.5288963,
+          "command": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ]
+        }
+      ]
+    },
+    {
+      "pid": 16652,
+      "create_time": 1791688398.1785278,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_bounded_remaining_cpu_queues_v3",
+        "--runtime-config",
+        "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+        "--controller",
+        "pi_cpu"
+      ],
+      "cpu_seconds": 2.390625,
+      "rss_bytes": 66035712,
+      "private_bytes": 55394304,
+      "children": [
+        {
+          "pid": 25260,
+          "create_time": 1791688398.2065375,
+          "command": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ]
+        }
+      ]
+    },
+    {
+      "pid": 32000,
+      "create_time": 1791688405.9778693,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_bounded_remaining_cpu_queues_v3",
+        "--runtime-config",
+        "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+        "--controller",
+        "moment_cpu"
+      ],
+      "cpu_seconds": 6.625,
+      "rss_bytes": 29798400,
+      "private_bytes": 18472960,
+      "children": [
+        {
+          "pid": 35668,
+          "create_time": 1791688405.9968412,
+          "command": [
+            "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+            "0x4"
+          ]
+        }
+      ]
+    }
+  ],
+  "captured_utc": "2026-10-11T03:14:00.965775+00:00",
+  "existing_actual_model_worker_count": 6,
+  "original_model_workers_stopped": 0,
+  "additional_training_seed_slots": 0,
+  "new_performance_rows": 0,
+  "native_validation_tests_passed": 41,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "previous_pi_memory_aborted_attempt_preserved_and_still_unresolved": true,
+  "author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "all_original_experiments_complete": false,
+  "source_receipts": [
+    {
+      "path": "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+      "sha256": "766c69e3ad38a67fc42760f22e75e0a7676c613b41806ddd367d04ccaa3f3cc1"
+    },
+    {
+      "path": "scripts/flow_matching/run_bounded_remaining_cpu_queues_v3.py",
+      "sha256": "93bb6b3e5a551038f97dd5c1fc41045d62df5833bdec881aaaa2c65bfd773869"
+    },
+    {
+      "path": "scripts/flow_matching/handoff_bounded_remaining_cpu_queues_v3.py",
+      "sha256": "322be67c904bc4243c3dfa6630860def2ab4170340098830f382ac4c819e04d4"
+    },
+    {
+      "path": "tests/test_fm_bounded_remaining_cpu_queues_v3.py",
+      "sha256": "505c59254e95de127c010f8493964090c318bba3a4bb9c2e0846a0a71987a874"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/actual_execution_observations.json",
+      "sha256": "15b49d14ca2dd36198456a5602f5229d32e669a336592d77370e01337db7b21b"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/entropic_cpu/handoff_receipt.json",
+      "sha256": "e1af58190b0d3da3226f46d55f683fdf585a99ce102fbec2033414cdff4fcd37"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/entropic_cpu/preserved_idle_status.json",
+      "sha256": "36ce92d702e1c69b886f834c5dcd166ac27952dacba79911dcf23cbe98440bfb"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/moment_cpu/handoff_receipt.json",
+      "sha256": "e0ec702fb5cfd493d6543bdd868fb663603aa5d184229a92e25aa86561938aba"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/moment_cpu/preserved_idle_status.json",
+      "sha256": "e9d15293c9133d8fa1dad16e39e4805ec1fdf296003b4dfec5a9f8c80d8bb896"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/pi_cpu/handoff_receipt.json",
+      "sha256": "b3c066946350f6905a7c46a4eb8df7ad7c035b3c857c34470ff1995a02463e46"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/pi_cpu/preserved_idle_status.json",
+      "sha256": "117e129317cf5dceca4ed52c03ad123bf57a074694cf60835f49e54f8720bb22"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/previous_attempts/entropic_cpu/resource_receipt.json",
+      "sha256": "629a679ccca44983e1c69479156e676b9d9c3379584492d9d5e1f8089a8e5034"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/previous_attempts/entropic_cpu/result.json",
+      "sha256": "de69b40b3b73d6901d304a94b9d9a64ae66be2048cf289ece1827cf6c590c654"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/previous_attempts/pi_cpu/failure.json",
+      "sha256": "4670a628ff2ec0007560e4e61f7521ff4deeb4c7b81abece829c6830780c7706"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/previous_attempts/pi_cpu/resource_receipt.json",
+      "sha256": "6489e30c52fc3c6e92780726a2c23ab898f0ebb81dd082f44bec119be1b1ee95"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/probe_receipts.json",
+      "sha256": "47fdfc4c14293937fc9a19e093913b464a1bbae623cc48407d8ff5c3bc0cde64"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/README.rst",
+      "sha256": "50d3aa9a371e79716b9839310d5b3a3b5756267458b2edb3cfd84d4ea5d55803"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/validation.json",
+      "sha256": "62560d310a2f36b3ed188d8ea9ee53c4288d11d02073e84a2713a09d8fcfd981"
+    }
+  ]
+}

@@ -1190,5 +1190,141 @@
     "strict_TAB_result": false,
     "all_original_experiments_complete": false,
     "ara": "projects/flow_matching_research/ara/execution/bounded_full_cpu_baseline_handoff.v2.json"
+  },
+  "bounded_remaining_original_cpu_handoff_2026_10_11": {
+    "schema_version": 1,
+    "status": "three_full_original_cpu_queues_handed_off_to_existing_bounded_serial_lane_actual_controllers_verified_waiting_original_commit_guard",
+    "runtime": "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+    "runtime_sha256": "766c69e3ad38a67fc42760f22e75e0a7676c613b41806ddd367d04ccaa3f3cc1",
+    "report": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/README.rst",
+    "actual_execution_evidence": "projects/flow_matching_research/results/2026-10-11/bounded_remaining_cpu_handoff_v3/actual_execution_observations.json",
+    "original_registered_queue_entries": 1317,
+    "original_queues": {
+      "entropic_cpu": {
+        "queue": "configs/experiments/fm_tsad_entropic_repair_queue.v1.json",
+        "queue_sha256": "9efbdc427f6996a824c3b67e0a686ce93a7f4cfea9616559257c32add91dabd4",
+        "registered_jobs": 105,
+        "original_cpu_threads": 4
+      },
+      "pi_cpu": {
+        "queue": "configs/experiments/fm_pi_transformer_author_queue.v1.json",
+        "queue_sha256": "5be2d8327622ef4da74644cfe1e81ffb58160f30a75160bf4b583abccbd1eff0",
+        "registered_jobs": 1140,
+        "original_cpu_threads": 2
+      },
+      "moment_cpu": {
+        "queue": "configs/experiments/fm_moment_pretrained_queue.v1.json",
+        "queue_sha256": "1b03d6576d2a51cc847850519dc1204b14c0f1a81aa1be8f42bdf019d31c7930",
+        "registered_jobs": 72,
+        "original_cpu_threads": 2
+      }
+    },
+    "shared_existing_bounded_cpu_lock": "experiments/runs/fm_bounded_strict_baseline_cpu.lock",
+    "additional_bounded_training_concurrency": 0,
+    "actual_controller_processes": [
+      {
+        "pid": 32220,
+        "create_time": 1791688390.502608,
+        "command": [
+          "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.run_bounded_remaining_cpu_queues_v3",
+          "--runtime-config",
+          "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+          "--controller",
+          "entropic_cpu"
+        ],
+        "cpu_seconds": 1.140625,
+        "rss_bytes": 28901376,
+        "private_bytes": 18513920,
+        "children": [
+          {
+            "pid": 16328,
+            "create_time": 1791688390.5288963,
+            "command": [
+              "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+              "0x4"
+            ]
+          }
+        ]
+      },
+      {
+        "pid": 16652,
+        "create_time": 1791688398.1785278,
+        "command": [
+          "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.run_bounded_remaining_cpu_queues_v3",
+          "--runtime-config",
+          "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+          "--controller",
+          "pi_cpu"
+        ],
+        "cpu_seconds": 2.390625,
+        "rss_bytes": 66035712,
+        "private_bytes": 55394304,
+        "children": [
+          {
+            "pid": 25260,
+            "create_time": 1791688398.2065375,
+            "command": [
+              "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+              "0x4"
+            ]
+          }
+        ]
+      },
+      {
+        "pid": 32000,
+        "create_time": 1791688405.9778693,
+        "command": [
+          "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.run_bounded_remaining_cpu_queues_v3",
+          "--runtime-config",
+          "configs/runtime/fm_bounded_remaining_cpu_queues.v3.json",
+          "--controller",
+          "moment_cpu"
+        ],
+        "cpu_seconds": 6.625,
+        "rss_bytes": 29798400,
+        "private_bytes": 18472960,
+        "children": [
+          {
+            "pid": 35668,
+            "create_time": 1791688405.9968412,
+            "command": [
+              "\\??\\C:\\WINDOWS\\system32\\conhost.exe",
+              "0x4"
+            ]
+          }
+        ]
+      }
+    ],
+    "captured_utc": "2026-10-11T03:14:00.965775+00:00",
+    "existing_actual_model_worker_count": 6,
+    "original_model_workers_stopped": 0,
+    "additional_training_seed_slots": 0,
+    "new_performance_rows": 0,
+    "native_validation_tests_passed": 41,
+    "original_scope": {
+      "papers": 45,
+      "method_baseline_ablation_records": 681,
+      "original_data_task_records": 273
+    },
+    "previous_pi_memory_aborted_attempt_preserved_and_still_unresolved": true,
+    "author_equivalence_certified": false,
+    "strict_TAB_result": false,
+    "all_original_experiments_complete": false,
+    "ara": "projects/flow_matching_research/ara/execution/bounded_remaining_original_cpu_handoff.v3.json"
   }
 }
