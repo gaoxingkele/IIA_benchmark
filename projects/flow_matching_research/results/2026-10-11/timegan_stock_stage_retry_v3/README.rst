@@ -1,0 +1,4 @@
+TimeGAN stock same-seed stage retry v3
+======================================
+
+The previous v2 attempt exited with an authoritative resource-abort receipt at44000unsaved joint iterations. Its partial output, progress, logs and complete prior stages are preserved. The controller status contained a stale false resource flag; the terminal receipt is authoritative. Retry v3 uses the same original GRU/stock/seed1103, native TensorFlow environment, full data, original family lock and guards. It restores the two independently verified50000-update stages and executes all50000joint iterations and20full evaluator trainings anew. Unsaved progress is not fabricated into a checkpoint. Controller launch is verified; resource waiting is not training completion. No new independent seed or benchmark value is claimed.
