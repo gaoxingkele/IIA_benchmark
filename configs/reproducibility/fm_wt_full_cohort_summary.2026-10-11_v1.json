@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "configuration_path": "configs/reproducibility/fm_wt_full_cohort_summary.2026-10-11_v1.json",
+  "score_queue": "configs/experiments/fm_wt_full_image_evaluation_queue.v1.json",
+  "output_directory": "data/public_datasets/flow_matching/experiments/wt_full_cohort_summary_v1",
+  "uncertainty": {
+    "statistical_unit": "independent_original_training_seed",
+    "required_seeds": [
+      1103,
+      1104,
+      1105,
+      1106,
+      1107
+    ],
+    "confidence": 0.95,
+    "interval": "two_sided_Student_t_mean_unclipped",
+    "sample_std_ddof": 1,
+    "category_aggregation": "unweighted_mean_all15_original_categories",
+    "paired_reference_steps": [
+      1,
+      50
+    ],
+    "category_variation": "descriptive_heterogeneity_not_independent_training_replicates",
+    "select_best_step_using_test_labels": false,
+    "uncertainty_is_paper_significance_test": false
+  },
+  "metric_names": [
+    "image_AUROC",
+    "image_AP",
+    "image_F1_max",
+    "pixel_AUROC",
+    "pixel_AP",
+    "pixel_F1_max",
+    "pixel_AUPRO"
+  ],
+  "required_case_seed_evaluations": 30,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "source_receipts": [
+    {
+      "path": "configs/experiments/fm_wt_full_image_evaluation_queue.v1.json",
+      "sha256": "e8a8f3751e6f3ca1b929b4be026d701890bfb4a2d2efc767fbba3ff785c84cb4"
+    },
+    {
+      "path": "configs/environments/fm_flow_mismatching_full_image_evaluation.v1.json",
+      "sha256": "765b1bf0a9180544dd4e3f3743a34d023a41986bdc078ec771c1481c4338622d"
+    },
+    {
+      "path": "scripts/flow_matching/register_wt_full_cohort_summary_v1.py",
+      "sha256": "50b610b04e6058ffaf4fb43ee758fcc42cd0c8e727dceb85e73c10b751fc4dcc"
+    },
+    {
+      "path": "scripts/flow_matching/wt_full_cohort_summary_contract_v1.py",
+      "sha256": "f0611a355e5bf7c1923474df04b50e50623fd5049990dc91e32f86c4a2e16740"
+    },
+    {
+      "path": "scripts/flow_matching/summarize_wt_full_image_cohort_v1.py",
+      "sha256": "ce7fac2b0186510910e0edde23d6d903740ff158b3bca532e2d3001a8fe2bdb7"
+    },
+    {
+      "path": "scripts/flow_matching/wt_full_image_evaluation_contract_v1.py",
+      "sha256": "073cfadd25708f4c156db634b8d7f0a08df838b461e4a0b38221af849091552a"
+    },
+    {
+      "path": "scripts/flow_matching/flow_mismatching_full_training_contract_v1.py",
+      "sha256": "fca77d39b98f3a2b4e9c0af1f0e7087853c33afc17dbe3c8add314aa6a03e6e5"
+    },
+    {
+      "path": "scripts/flow_matching/run_flow_mismatching_full_image_evaluation_v1.py",
+      "sha256": "6148e0143d36614736414756a47e6ed8ab9cc591fa103ec7e215a9e86a963f35"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_full_arrays_v1.py",
+      "sha256": "fd6ba5ab432b60c95145631df4cc5960aaac0833018a566c3f9a47cce8cd3dbf"
+    },
+    {
+      "path": "tests/test_fm_wt_full_cohort_summary_v1.py",
+      "sha256": "c0e23dbc0d08899a5625cd9a0d137bc761d293bfd9f6dc16c6421ef40a9bc220"
+    }
+  ],
+  "additional_training_seed_slots": 0,
+  "author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "all_original_experiments_complete": false,
+  "boundary": "All30 fully verified native test scores; five independent original2000epoch training seeds per fixed step. Related-source sensitivity and exploratory paper differences; no best-step selection or target-author equivalence."
+}
