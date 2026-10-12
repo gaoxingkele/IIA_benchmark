@@ -1,0 +1,81 @@
+{
+  "settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 25769803776,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 2147483648,
+    "maximum_worker_private_bytes": 4294967296
+  },
+  "gpu_settings": {
+    "gpu_uuid": "GPU-b62da557-0167-4b14-25ef-7b6eab536ef9",
+    "minimum_gpu_free_bytes": 8589934592,
+    "emergency_gpu_free_bytes": 2147483648
+  },
+  "resource_lock": "experiments/runs/fm_readonly_checkpoint_audit_cpu.lock",
+  "python": "F:/aicoding/IIA_Data/environments/shcl_author_py310_v1/venv/Scripts/python.exe",
+  "environment": {
+    "python": "3.10.21",
+    "executable": "F:\\aicoding\\IIA_Data\\environments\\shcl_author_py310_v1\\venv\\Scripts\\python.exe",
+    "packages": {
+      "torch": "1.11.0+cu113",
+      "numpy": "1.26.4",
+      "pandas": "2.2.3",
+      "scikit-learn": "1.3.0",
+      "scipy": "1.15.1",
+      "tqdm": "4.65.0"
+    }
+  },
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "full49_reference_configuration": "configs/runtime/fm_shcl_all49_training_rng_replay.v2.json",
+  "diagnostic_only": true,
+  "canonical_training_jobs_credited": 0,
+  "state_root": "experiments/runs/fm_shcl_native_CUDA_rng_API_v1",
+  "output_root": "projects/flow_matching_research/results/2026-10-12/shcl_native_CUDA_rng_API_v1",
+  "source_receipts": [
+    {
+      "path": "configs/runtime/fm_shcl_all49_training_rng_replay.v2.json",
+      "sha256": "24d181ca7cbe00ee03d5ffccb5d178ac315a64220cd7174c42e40a5f98b888b8"
+    },
+    {
+      "path": "scripts/flow_matching/audit_shcl_cuda_rng_api_v1.py",
+      "sha256": "c33c9023a092779c2855b5eda3cb9de9186da85139cc94cc736c1a75e575766f"
+    },
+    {
+      "path": "scripts/flow_matching/register_shcl_cuda_rng_api_v1.py",
+      "sha256": "88da9afa94f603f58f001f7db6d27c241e4f02e5b781c04abab9c6538a7dadba"
+    },
+    {
+      "path": "tests/test_fm_shcl_cuda_rng_api_v1.py",
+      "sha256": "81313fbea6e42d12f5e2b2e3649f785812a0d56707f3ed2f6ad4e242607be81a"
+    },
+    {
+      "path": "scripts/flow_matching/shcl_training_rng_replay_v1.py",
+      "sha256": "d47688884f9a0fdb0987e451d8a82456db1ef742e7b8fd3b901a7f06ef11746a"
+    },
+    {
+      "path": "scripts/flow_matching/replay_shcl_native_frames_v1.py",
+      "sha256": "8b57f2f254d546c5e824fcb793f159dfcbd8d25c070220a46736b6ef7c081003"
+    },
+    {
+      "path": "scripts/flow_matching/shcl_native_observer_v1.py",
+      "sha256": "4c971f4828d164b4d5f44ecf29a382fbac7959db6d9fc6485a542954e7a1f9c4"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts/flow_matching/run_shcl_native_script_queue_v1.py",
+      "sha256": "f8748896cd11b2847cf95071a23b4ef2dadc15b4ec883cb6970576ab025cbd88"
+    }
+  ],
+  "boundary": "Actual native Torch1.11 CUDA stream restoration and all six backend flag restoration API diagnostic. Use a newly captured API fixture, not a claimed original CUDA training checkpoint. CPU and all CUDA draws must match independent native generators bitwise; invalid device count must fail. No optimizer updates, model training, source checkpoint replacement, tolerance change or canonical credit. All49 original saved-state checkpoints, full413 source commands and strict grouped TAB remain required."
+}
