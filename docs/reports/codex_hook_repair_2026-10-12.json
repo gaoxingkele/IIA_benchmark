@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-12",
+  "scope": "Local Windows Codex lifecycle hooks; no benchmark or dataset changes",
+  "status": "OBSOLETE_GLOBAL_PASEO_HOOKS_DISABLED_AND_HOT_RELOAD_REQUEST_SUCCEEDED",
+  "findings": [
+    {
+      "cause": "Original commandWindows uses CMD 'if defined' syntax",
+      "evidence": "All five original commands reproduced exit code 1 and MissingOpenParenthesisInIfStatement when launched through PowerShell without Paseo environment variables"
+    },
+    {
+      "cause": "Original Stop no-op returns empty stdout",
+      "evidence": "Original CMD Stop command reproduced exit code 0 with empty stdout; the documented Stop contract expects JSON on successful exit"
+    },
+    {
+      "cause": "Previous on-disk repair left all five handlers enabled with modified trust definitions",
+      "evidence": "Read-only hooks/list on the running shared daemon returned enabled=true and trustStatus=modified for all five handlers in all three active project directories"
+    },
+    {
+      "cause": "Previous live-daemon diagnostic used the wrong transport",
+      "evidence": "The control socket is WebSocket over Unix socket; direct JSONL through the byte proxy did not complete initialization. A proper HTTP Upgrade handshake completed initialize and hooks/list immediately"
+    }
+  ],
+  "attribution_limit": "No persisted hook failure events were found in inspected logs, history tables, or recent rollout tails. Original defects are reproducible; individual historical UI failure entries cannot be conclusively mapped to them from the available records.",
+  "repair": {
+    "events": ["PreToolUse", "PermissionRequest", "PostToolUse", "UserPromptSubmit", "Stop"],
+    "operation": "Set enabled=false only for the five user Paseo hook state entries through config/batchWrite with expectedVersion and reloadUserConfig=true",
+    "reason": "All inspected running Codex processes lack Paseo session markers; these optional notifications are unused in the current windows",
+    "configuration_backup": "Local CODEX_HOME/hook-repairs/disable-paseo-20261012T130729843258Z",
+    "backup_files": ["config.toml.before", "hooks.json.before", "validation.json", "runtime_and_reproduction.json"],
+    "non_hook_configuration_changed": false,
+    "hook_definitions_changed": false,
+    "trust_hashes_changed": false,
+    "real_notifications_sent": false,
+    "daemon_restarted": false,
+    "experiment_workers_stopped": false
+  },
+  "validation": {
+    "unit_tests": {"passed": 4, "command": "python -m pytest tests/test_codex_paseo_hook_repair.py -q -p no:cacheprovider"},
+    "existing_windows_dispatch_regression": {"passed": 55, "fake_cli_only": true, "shells": ["CMD", "PowerShell", "direct PowerShell script"]},
+    "original_failure_reproduction": {"powershell_parser_failures": 5, "cmd_empty_stop_output": 1},
+    "live_daemon": {"projects_checked": 3, "disabled_handlers_per_project": 5, "discovery_errors": 0, "discovery_warnings": 0},
+    "fresh_app_server": {"disabled_handlers": 5, "discovery_errors": 0, "discovery_warnings": 0},
+    "second_apply": "No edits; idempotent",
+    "preexisting_loaded_threads_retained": 11,
+    "active_threads_observed_after_repair": 4
+  },
+  "usage": {
+    "inspect": "python scripts/repair_codex_paseo_hooks.py --cwd <project>",
+    "apply": "python scripts/repair_codex_paseo_hooks.py --apply --cwd <project>",
+    "dependency": "websocket-client (local transport only)",
+    "future_paseo_use": "If Paseo notifications are needed again, review the corrected command definitions and re-enable the handlers through Codex /hooks"
+  },
+  "references": [
+    "https://learn.chatgpt.com/docs/hooks",
+    "https://learn.chatgpt.com/docs/app-server"
+  ]
+}
