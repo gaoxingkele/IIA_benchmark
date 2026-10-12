@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="6.717" timestamp="2026-10-12T16:31:20.691766+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_crossad_PSM_attention_registration_v2" name="test_same_full_source_PSM_weights_and_all_original_guards_and_tolerances" time="0.003"><failure message="AssertionError: assert (139 == 139 and {'rtol': 1e-12, 'atol': 1e-12} == 1e-12)">def test_same_full_source_PSM_weights_and_all_original_guards_and_tolerances():
+        config=full.read(CONFIG);previous=full.read(PREVIOUS);native=full.read(NATIVE);post=full.read(POST)
+        old=full.read(previous['native_configuration'])
+        for key in full.GUARDS:assert native[key]==old[key]==post[key]
+        for key in ('queue','job_id','independent_point_completion'):assert native[key]==old[key]
+        for key in ('required_original_jobs','original_scope','score_tolerance','metric_tolerance','point_terminal'):
+            assert config[key]==previous[key]
+&gt;       assert config['required_original_jobs']==139 and config['metric_tolerance']==1e-12
+E       AssertionError: assert (139 == 139 and {'rtol': 1e-12, 'atol': 1e-12} == 1e-12)
+
+tests\test_fm_crossad_PSM_attention_registration_v2.py:12: AssertionError</failure></testcase><testcase classname="tests.test_fm_crossad_PSM_attention_registration_v2" name="test_actual_previous_failed_full_attempt_kept_with_a_new_version_not_identical_retry" time="0.002" /><testcase classname="tests.test_fm_crossad_PSM_attention_registration_v2" name="test_actual_all_sixteen_guarded_numerical_checks_passed_without_dataset_completion_credit" time="6.448" /></testsuite></testsuites>
