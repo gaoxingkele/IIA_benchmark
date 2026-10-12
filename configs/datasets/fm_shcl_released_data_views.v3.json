@@ -1,0 +1,518 @@
+{
+  "model_config": "configs/models/fm_shcl_released_vae_native.v1.json",
+  "reference_resource_runtime": "configs/runtime/fm_timegan_energy_stage_restore_audit.v1.json",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "environment": {
+    "python": "3.12.10",
+    "executable": "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "packages": {
+      "torch": "2.13.0+cu126",
+      "numpy": "2.4.6",
+      "psutil": "7.2.2"
+    },
+    "data_packages": {
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.0"
+    }
+  },
+  "python": "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "datasets": [
+    {
+      "dataset": "MSL",
+      "format": "author_npy",
+      "features": 55,
+      "expected_shapes": {
+        "train": [
+          58317,
+          55
+        ],
+        "test": [
+          73729,
+          55
+        ]
+      },
+      "native_class": "MSLSegLoader",
+      "output_filenames": {
+        "train": "MSL_train.npy",
+        "test": "MSL_test.npy",
+        "label": "MSL_test_label.npy"
+      },
+      "inputs": {
+        "train": {
+          "path": "data/public_datasets/flow_matching/dcdetector/author_bundle/MSL/MSL_train.npy",
+          "sha256": "d767ecfc8ea344f7a6e78f815a84dc7923f600df1beb14359f3e73202148b058"
+        },
+        "test": {
+          "path": "data/public_datasets/flow_matching/dcdetector/author_bundle/MSL/MSL_test.npy",
+          "sha256": "8b479ebeeabb63ff636e8adeb095a7bcc46a0cdc7befa189b45b05b1e90c9425"
+        },
+        "label": {
+          "path": "data/public_datasets/flow_matching/dcdetector/author_bundle/MSL/MSL_test_label.npy",
+          "sha256": "23e120c30a645000f093ff5311de177601b8220ba3ca4281c6376883444f7b97"
+        }
+      },
+      "author_version_boundary": "Actual SHCL-linked shared folder payload; original paper-era per-entity grouping/version is still unverified."
+    },
+    {
+      "dataset": "SMAP",
+      "format": "author_npy",
+      "features": 25,
+      "expected_shapes": {
+        "train": [
+          135183,
+          25
+        ],
+        "test": [
+          427617,
+          25
+        ]
+      },
+      "native_class": "SMAPSegLoader",
+      "output_filenames": {
+        "train": "SMAP_train.npy",
+        "test": "SMAP_test.npy",
+        "label": "SMAP_test_label.npy"
+      },
+      "inputs": {
+        "train": {
+          "path": "data/public_datasets/flow_matching/dcdetector/author_bundle/SMAP/SMAP_train.npy",
+          "sha256": "1c823bed59f32d45a2e6323ac79bf7755c80c2ff68a2d3d7322e4dee40a11010"
+        },
+        "test": {
+          "path": "data/public_datasets/flow_matching/dcdetector/author_bundle/SMAP/SMAP_test.npy",
+          "sha256": "458c3b354b6a602b711241c29fb50518dddb0c1c9248d7d2e1691a9c218d4ac0"
+        },
+        "label": {
+          "path": "data/public_datasets/flow_matching/dcdetector/author_bundle/SMAP/SMAP_test_label.npy",
+          "sha256": "55f94fcccc3ae35216cfd6ac5e0e2016ad9d08d5ff0aca9f09916c6501380e0f"
+        }
+      },
+      "author_version_boundary": "Actual SHCL-linked shared folder payload; original paper-era per-entity grouping/version is still unverified."
+    },
+    {
+      "dataset": "PSM",
+      "format": "PSM_timestamp_csv",
+      "features": 25,
+      "native_class": "PSMSegLoader",
+      "output_filenames": {
+        "train": "train.csv",
+        "test": "test.csv",
+        "label": "test_label.csv"
+      },
+      "expected_shapes": {
+        "train": [
+          132481,
+          25
+        ],
+        "test": [
+          87841,
+          25
+        ]
+      },
+      "inputs": {
+        "train": {
+          "path": "F:/aicoding/IIA_Data/public_datasets/flow_matching/shcl_shared_data_retry_v1/PSM/train.csv",
+          "sha256": "816e0e2a5356b3b09d356925cd9a0fe1d327e3b350e9336d26ee3e650c72e112"
+        },
+        "test": {
+          "path": "F:/aicoding/IIA_Data/public_datasets/flow_matching/shcl_shared_data_retry_v1/PSM/test.csv",
+          "sha256": "566bc50117d13f58793d830c14975c55f627cab63953265d7d6ce2dbcf2b0f80"
+        },
+        "label": {
+          "path": "F:/aicoding/IIA_Data/public_datasets/flow_matching/shcl_shared_data_retry_v1/PSM/test_label.csv",
+          "sha256": "e5b6b0c716a9b3d52e3a1b06761527811f75a218790c37b8a5e806741aeb0676"
+        }
+      },
+      "author_version_boundary": "Complete retried SHCL-linked shared-folder CSV. Required format adaptation is explicit: drop PSM timestamp; convert SWaT CSV to native NPY. Paper-era transformed files not supplied. SWaT475200-paper vs495000-released training discrepancy remains unresolved."
+    },
+    {
+      "dataset": "SWaT",
+      "format": "SWAT_numeric_label_csv",
+      "features": 51,
+      "native_class": "SWaTSegLoader",
+      "output_filenames": {
+        "train": "SWaT_train.npy",
+        "test": "SWaT_test.npy",
+        "label": "SWaT_test_label.npy"
+      },
+      "expected_shapes": {
+        "train": [
+          495000,
+          51
+        ],
+        "test": [
+          449919,
+          51
+        ]
+      },
+      "inputs": {
+        "train": {
+          "path": "F:/aicoding/IIA_Data/public_datasets/flow_matching/shcl_shared_data_retry_v1/SWAT/swat_train2.csv",
+          "sha256": "cfdba4611fd7b093246309eae7b249da05decff8cde640c8283bfef8e6eaf5fb"
+        },
+        "test": {
+          "path": "F:/aicoding/IIA_Data/public_datasets/flow_matching/shcl_shared_data_retry_v1/SWAT/swat2.csv",
+          "sha256": "23c5bacf78de7527aac031ad43acc7ac99ec49b17b645aaa2a74a4a7d60a0a80"
+        }
+      },
+      "author_version_boundary": "Complete retried SHCL-linked shared-folder CSV. Required format adaptation is explicit: drop PSM timestamp; convert SWaT CSV to native NPY. Paper-era transformed files not supplied. SWaT475200-paper vs495000-released training discrepancy remains unresolved."
+    },
+    {
+      "dataset": "machine-3-11",
+      "format": "OmniAnomaly_machine_txt",
+      "features": 38,
+      "native_class": "ServiceSegLoader",
+      "output_filenames": {
+        "train": "machine-3-11_train.npy",
+        "test": "machine-3-11_test.npy",
+        "label": "machine-3-11_test_label.npy"
+      },
+      "path_prefix": "machine-3-11",
+      "inputs": {
+        "train": {
+          "path": "experiments/runs/fm_code_completion/sources/omnianomaly/original/ServerMachineDataset/train/machine-3-11.txt",
+          "sha256": "a2e531cf2bf9b8d833a0b6e7c42a596b1d3a64578a1c140537add46156bde4e9"
+        },
+        "test": {
+          "path": "experiments/runs/fm_code_completion/sources/omnianomaly/original/ServerMachineDataset/test/machine-3-11.txt",
+          "sha256": "c62f52e65d1b892ef8c556b38aa5c1d3504cf0cdd97a94e7df08985b922d7af0"
+        },
+        "label": {
+          "path": "experiments/runs/fm_code_completion/sources/omnianomaly/original/ServerMachineDataset/test_label/machine-3-11.txt",
+          "sha256": "ce306777bd66e9ea81de726018e440d49afcc98415cb0db7d99367dddf398f1b"
+        }
+      },
+      "author_version_boundary": "Exact OmniAnomaly released machine-3-11 raw numeric rows. SHCL paper-era Service NPY preprocessing/version not supplied; not all SMD entities."
+    }
+  ],
+  "profiles": [
+    {
+      "dataset": "MSL",
+      "parameters": {
+        "win_size": 80,
+        "seq_size": 5,
+        "c_in": 55,
+        "c_out": 55,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "SMAP",
+      "parameters": {
+        "win_size": 110,
+        "seq_size": 5,
+        "c_in": 25,
+        "c_out": 25,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "PSM",
+      "parameters": {
+        "win_size": 90,
+        "seq_size": 5,
+        "c_in": 25,
+        "c_out": 25,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "SWaT",
+      "parameters": {
+        "win_size": 80,
+        "seq_size": 5,
+        "c_in": 51,
+        "c_out": 51,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 50,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 60,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 70,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 80,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 90,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 100,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 110,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 120,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    },
+    {
+      "dataset": "machine-3-11",
+      "parameters": {
+        "win_size": 130,
+        "seq_size": 5,
+        "c_in": 38,
+        "c_out": 38,
+        "d_model": 128,
+        "e_layers": 3,
+        "fr": 0.4,
+        "tr": 0.4,
+        "device": "cpu"
+      },
+      "batch_size": 64
+    }
+  ],
+  "settings": {
+    "minimum_available_memory_bytes": 12884901888,
+    "minimum_commit_headroom_bytes": 25769803776,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 2147483648,
+    "maximum_worker_private_bytes": 4294967296
+  },
+  "resource_lock": "experiments/runs/fm_readonly_checkpoint_audit_cpu.lock",
+  "state_root": "experiments/runs/fm_shcl_released_data_preparation_v3",
+  "view_root": "F:/aicoding/IIA_Data/experiments/shcl_released_native_v1/data_views_v3",
+  "source_receipts": [
+    {
+      "path": "configs/models/fm_shcl_released_vae_native.v1.json",
+      "sha256": "7418e3af6b408e1d26fceef62205a30c9a24701205bcfe5d9dd371f3066656ba"
+    },
+    {
+      "path": "configs/runtime/fm_shcl_released_operator_audit.v1.json",
+      "sha256": "7d26acc3d26cf6b3bd56d22163c51995ceaf84e78bdd659ef05b549b5064e993"
+    },
+    {
+      "path": "configs/runtime/fm_timegan_energy_stage_restore_audit.v1.json",
+      "sha256": "49ed2a0a684f08f159d3f427190c1830f558b389666b5b6b005c4aeeff8fd95a"
+    },
+    {
+      "path": "configs/acquisition/fm_shcl_shared_data_retry.v1.json",
+      "sha256": "80986f64174213bd59b1954d919b94212a87b9a7e72d433adf6117eac5f032e8"
+    },
+    {
+      "path": "F:/aicoding/IIA_Data/public_datasets/flow_matching/shcl_shared_data_retry_v1/acquisition_report.json",
+      "sha256": "411dd456608a533beef98c5645044bdcd0b74840e0539143728d9b354c061fba"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_shcl_released_data_v1.py",
+      "sha256": "00550d85c30de4dfa8b7f907ee2abaf6d82ab6cc90e801eab0dd3930438020bb"
+    },
+    {
+      "path": "scripts/flow_matching/run_shcl_released_data_preparation_v1.py",
+      "sha256": "4b1ce9de38ec495d1ebcd5034149321f978e2ad7c6d0502861b9f66bd50067ae"
+    },
+    {
+      "path": "scripts/flow_matching/register_shcl_released_data_preparation_v1.py",
+      "sha256": "092b47c5b92e25e18d9743f3682caec91469426fed997d98b6b82ecf3ad217f3"
+    },
+    {
+      "path": "scripts/flow_matching/cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+      "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "configs/datasets/mtsad_msl.json",
+      "sha256": "c05a14ab6cb1077bf4346d9c5019be3866a5cc015e4521d541b1390ff88d1693"
+    },
+    {
+      "path": "configs/datasets/mtsad_smap.json",
+      "sha256": "927ca78ab2af4a23e26c7e39df9360b7208013e79010a80248ae72af38c54e12"
+    },
+    {
+      "path": "configs/datasets/mtsad_psm.json",
+      "sha256": "6c9873014dd684ad4ae5aab551bca23d3bb36b5bb8f62fc377f8bfea7f4143f8"
+    },
+    {
+      "path": "configs/datasets/mtsad_swat.json",
+      "sha256": "c9bda748320bd3cd16d3107efac65de1199179458f29e0ed45a31908bc671667"
+    },
+    {
+      "path": "configs/datasets/fm_shcl_released_data_views.v1.json",
+      "sha256": "1fe989d1a9674af5bed8aa316684b9c8cee47ab287a2a58f48822106f57f7ec9"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_shcl_released_data_v2.py",
+      "sha256": "c8d6b9779ae1c3343a7203320eb63622dae676ed28845176d343e4e5ad3cd099"
+    },
+    {
+      "path": "scripts/flow_matching/run_shcl_released_data_preparation_v2.py",
+      "sha256": "baaec8907831509d09e32f36e14f7496f670cb923219ff23d2a4f5d2b223a24a"
+    },
+    {
+      "path": "scripts/flow_matching/register_shcl_released_data_preparation_v2.py",
+      "sha256": "928f1e365ca05dc30220db35d2831ed54eeed18a9fd83c50697f4238e715ef3e"
+    },
+    {
+      "path": "experiments/runs/fm_shcl_released_data_preparation_v1/receipt.json",
+      "sha256": "ce76c8e8f6ace73039b465c89e2a7c2466935a56e60265ed600432265d8e5464"
+    },
+    {
+      "path": "experiments/runs/fm_shcl_released_data_preparation_v1/worker.stderr.log",
+      "sha256": "c8ae1d83e4352cec109c531b0e2a83a7fb1ed2893406b3d976e920c0863e1e02"
+    },
+    {
+      "path": "configs/datasets/fm_shcl_released_data_views.v2.json",
+      "sha256": "f3e04f10820f0d3d5dd2366fc6cba03775eae0e19b87510cb4dd6c670f140678"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_shcl_released_data_v3.py",
+      "sha256": "7b2760c5de2a3c0d3cf570909c99a314077dbfe7d38559d61fe52d67922d45cc"
+    },
+    {
+      "path": "scripts/flow_matching/run_shcl_released_data_preparation_v3.py",
+      "sha256": "76db596af5a454a0968f986034e15d6b9ea3da8ccb28cc6cb955b39040043cc8"
+    },
+    {
+      "path": "scripts/flow_matching/register_shcl_released_data_preparation_v3.py",
+      "sha256": "7befc23729344afc591dd725179e4ae9142bca2330c316979283065888f07cf7"
+    },
+    {
+      "path": "experiments/runs/fm_shcl_released_data_preparation_v2/receipt.json",
+      "sha256": "e13d878df8e3e0acbc1076e0bb10b2f1aaf5ba252670bc7b9ec1b4c8594738f7"
+    }
+  ],
+  "boundary": "All raw payloads preserved. Explicit feature/file-format adaptation only; every row retained. Actual original scaler includes validation in fit and native test truncates tails; strict full-point grouped TAB still requires a separate protocol. Original environment and missing backbones remain pending.",
+  "independent_reference_correction": "Only expected_label slicing in the independent loader audit is corrected. Native THRE returns validation features and test-prefix labels indexed by nonoverlap windows; these labels are not validation truth and native Solver ignores them when computing its threshold. All native source operations, complete inputs, output transforms,52 modes and guards are unchanged.",
+  "failed_v1_inputs_views_and_logs_preserved": true,
+  "isolated_import_correction": "Omit only unused import torch and from torch.utils.data import DataLoader while compiling the original native dataset module for the data-class audit. Every class body, full raw matrix, scaler operation,52 mode/profile obligations, boundary checks and guards unchanged. The native get_loader_segment factory is not called by this data audit. Full training still uses the unchanged complete module and its original8 DataLoader workers.",
+  "failed_v1_v2_views_logs_and_caps_preserved": true
+}
