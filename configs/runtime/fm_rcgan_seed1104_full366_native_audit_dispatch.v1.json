@@ -1,0 +1,77 @@
+{
+  "controller_python": "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "state_root": "experiments/runs/fm_rcgan_seed1104_full366_native_audit_dispatch_v1",
+  "stages": [
+    {
+      "name": "random_order_chain",
+      "configuration": "configs/reproducibility/fm_rcgan_seed1104_full366_random_order_chain.2026-10-12_v3.json",
+      "module": "scripts.flow_matching.audit_rcgan_random_order_chain_v3",
+      "proof_name": "random_order_chain_audit.json",
+      "receipt_key": "random_order_chain_passed"
+    },
+    {
+      "name": "checkpoint_state",
+      "configuration": "configs/reproducibility/fm_rcgan_seed1104_full366_actual358_trace_resume_state.2026-10-12_v4.json",
+      "module": "scripts.flow_matching.audit_rcgan_checkpoint_resume_state_v4",
+      "proof_name": "checkpoint_resume_state_audit.json",
+      "receipt_key": "checkpoint_resume_state_passed"
+    }
+  ],
+  "resume_configuration": "configs/reproducibility/fm_rcgan_seed1104_full134_state_recovery.2026-10-12_v3.json",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "source_receipts": [
+    {
+      "path": "configs\\reproducibility\\fm_rcgan_seed1104_full366_random_order_chain.2026-10-12_v3.json",
+      "sha256": "ccd0a88e3487991caacad67ddd7fa9c84a2544a365197e1b6461d9d4139399bb"
+    },
+    {
+      "path": "configs\\reproducibility\\fm_rcgan_seed1104_full366_actual358_trace_resume_state.2026-10-12_v4.json",
+      "sha256": "f4331ba89728d273e3e0b18b46783a9156d9cb8ba7107950decb1f2f08181f13"
+    },
+    {
+      "path": "configs\\reproducibility\\fm_rcgan_seed1104_full366_segmented_evidence.2026-10-12_v1.json",
+      "sha256": "042482fd3c8cb056c8dd5547f008a315c04f5a36c454c74a001dc145ec4b8813"
+    },
+    {
+      "path": "configs\\reproducibility\\fm_rcgan_seed1104_full134_state_recovery.2026-10-12_v3.json",
+      "sha256": "3972f488ee32184c390eceef466345b44864fb44b1a79fc73b3435c4427488b4"
+    },
+    {
+      "path": "scripts\\flow_matching\\rcgan_seed1104_resume_binding_v3.py",
+      "sha256": "fb0a1a63f81337d44e80f448e5dad0fd20c0574da55c1be92581d9087a1ebc63"
+    },
+    {
+      "path": "scripts\\flow_matching\\rcgan_native_training_resume_runtime_v3.py",
+      "sha256": "235f27c8eead72b15d9c6e8872e1e46e837eeb3fa69c32eefcde9f4c995e0bc4"
+    },
+    {
+      "path": "scripts\\flow_matching\\run_rcgan_native_state_recovery_v3.py",
+      "sha256": "1d9a6a661b010b1a12527498706e0e0572af9c24cfcbb69f400986d3cd4a67e5"
+    },
+    {
+      "path": "scripts\\flow_matching\\run_rcgan_full366_native_audit_dispatch_v1.py",
+      "sha256": "9fea1df48722d3a7c2d19698256a59eba846ac4a9b8a5f8031496d15a2ebb14a"
+    },
+    {
+      "path": "scripts\\flow_matching\\cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts\\flow_matching\\rcgan_native_training_resume_runtime_v1.py",
+      "sha256": "ae84b29c60f15646176d945825fb4201c97de3af6f3a01bb917069372a80a6a6"
+    },
+    {
+      "path": "scripts\\flow_matching\\run_rcgan_native_state_recovery_v1.py",
+      "sha256": "f4c81ec4da84a2d8a4e8d009ac7d80fc1545751a62a9029ea747e8f711ed8e10"
+    },
+    {
+      "path": "tests\\test_fm_rcgan_full366_segmented_audits_v1.py",
+      "sha256": "77b5136e51ecd94380a64b74137213e222b6c7a1c662c9136c88281482e0456c"
+    }
+  ],
+  "boundary": "Both complete original native CPU gates precede the full134 remaining epoch controller. Preserve every failed attempt. No unchanged retry-until-pass; no GPU work, shortened training or completed benchmark credit."
+}
