@@ -1,0 +1,181 @@
+{
+  "captured_unix_time": 1791809217.0033607,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "event": "User-confirmed external Python migration; temporary standard-library startup failure and subsequent external restoration of original runtime path.",
+  "external_cleanup_script": "D:/c_scan_20261012/cleanup.py",
+  "original_runtime_directory": "C:/Users/10175/AppData/Local/Programs/Python/Python312",
+  "moved_runtime_directory": "D:/moved-from-c/Programs-Python/Python312",
+  "observed_failure": "New monitoring interpreter startup failed with ModuleNotFoundError: No module named encodings while standard-library files were being moved.",
+  "monitoring_recovery": "Temporary PYTHONHOME override scoped only to the monitoring process; removed after original runtime path successfully started again.",
+  "original_runtime_startup_verified_after_external_restore": true,
+  "actual_runtime_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr 8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "actual_installed_versions": {
+    "numpy": "2.4.6",
+    "torch": "2.13.0+cu126",
+    "psutil": "7.2.2"
+  },
+  "binary_checks": {
+    "python_exe_sha256": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+    "python312_dll_sha256": "9a0e3435aaa680d868150f87ab3e388ad2eebc22f87e036155c7b4eda8cd2120",
+    "original_and_moved_binary_hashes_matched": true
+  },
+  "observed_file_audit": {
+    "archived_receipt": "F:/aicoding/IIA_Data/experiments/external_python_migration_incident_20261012_v1/observed_files_sha256.json",
+    "sha256": "6e3ec83feb7b704bdee01bf2fec6b952580f458d93bc2e48f1a7dd60e49f1879",
+    "observed_files": 59147,
+    "observed_bytes": 8735524904,
+    "observed_mismatches": 0,
+    "all_observed_file_pairs_identical": true,
+    "stable_complete_post_migration_mirror_certified": false,
+    "scope_limitation": "The source was concurrently externally restored during enumeration. The archived receipt's all_current_original_files label must be interpreted only as equality of the 59147 observed file pairs; it does not prove complete final source/destination inventory equality."
+  },
+  "training_continuity": {
+    "before_unix_time": 1791802535.9082358,
+    "after_unix_time": 1791809217.0033607,
+    "actors": [
+      {
+        "pid": 36308,
+        "create_time": 1791786005.6185083,
+        "complete_command": [
+          "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-m",
+          "scripts.flow_matching.run_full_image_training_execution_recovery_v4",
+          "--recovery-config",
+          "configs/reproducibility/fm_full_image_training_verified401_resume.2026-10-12_v4.json",
+          "--config",
+          "configs/experiments/fm_flow_mismatching_full_training_jobs/flow_mismatching_full__mvtec__conditional__seed1103.json",
+          "--attempt-directory",
+          "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\experiments\\flow_mismatching_full_training_v1\\jobs\\flow_mismatching_full__mvtec__conditional__seed1103\\attempts\\81be0acd5d344659bc51732075fadc2e",
+          "--capacity-binding",
+          "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_full25_image_training_verified401_resume_v4\\actual_full_native_capacity_binding.json"
+        ],
+        "before_cpu_seconds": 13374.499999999998,
+        "after_cpu_seconds": 18452.140625,
+        "cpu_increase_seconds": 5077.640625000002,
+        "same_process_identity": true
+      },
+      {
+        "pid": 27288,
+        "create_time": 1791780560.1530883,
+        "complete_command": [
+          "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "-m",
+          "scripts.flow_matching.run_cfm_ts_original_job",
+          "--queue",
+          "configs/experiments/fm_cfm_node1106_shared_commit_full_retry_queue.v8.json",
+          "--job-id",
+          "cfm_ts_original__main_text__node_e400__pendulum__seed1106"
+        ],
+        "before_cpu_seconds": 21510.53125,
+        "after_cpu_seconds": 28081.09375,
+        "cpu_increase_seconds": 6570.5625,
+        "same_process_identity": true
+      },
+      {
+        "pid": 36568,
+        "create_time": 1791780874.360876,
+        "complete_command": [
+          "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-u",
+          "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_crossad_memory_v2_job.py",
+          "--queue",
+          "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_crossad_complete_queue.v7.json",
+          "--job-id",
+          "crossad_author__fresh_train__gecco__seed1103"
+        ],
+        "before_cpu_seconds": 42164.40625,
+        "after_cpu_seconds": 55231.796875,
+        "cpu_increase_seconds": 13067.390625,
+        "same_process_identity": true
+      },
+      {
+        "pid": 32032,
+        "create_time": 1791780570.1262696,
+        "complete_command": [
+          "F:/aicoding/IIA_Data/environments/adopted_gan_author_py37_v1/python/python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "-c",
+          "import sys,runpy;sys.path.insert(0,'D:\\\\aicoding\\\\IIA_benchmark');sys.argv=['run_rcgan_native_original_queue_v2','--queue','configs/experiments/fm_rcgan_native_original_mnist500_queue.v2.json','--worker','--job-id','rcgan_mnistfull__seed1105','--proof-binding','D:\\\\aicoding\\\\IIA_benchmark\\\\experiments\\\\runs\\\\fm_rcgan_native_original_mnist500_v2\\\\full_native_evaluator_proof_binding.json'];runpy.run_module('scripts.flow_matching.run_rcgan_native_original_queue_v2',run_name='__main__')"
+        ],
+        "before_cpu_seconds": 31167.96875,
+        "after_cpu_seconds": 41218.203125,
+        "cpu_increase_seconds": 10050.234375,
+        "same_process_identity": true
+      }
+    ],
+    "latest_completed_epochs": {
+      "image_fm": 623,
+      "cfm_node": 122,
+      "rcgan": 221
+    }
+  },
+  "scientific_workers_stopped_or_restarted_by_this_agent": false,
+  "live_or_frozen_algorithm_or_config_hot_edited_by_this_agent": false,
+  "runtime_version_reinstalled_or_changed_by_this_agent": false,
+  "old_runtime_directory_renamed_or_path_junction_created_by_this_agent": false,
+  "raw_data_modified": false,
+  "independent_replays_pending": {
+    "image_checkpoint_CPU500": {
+      "pid": 16748,
+      "create_time": 1791799726.7573693,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_full500_image_checkpoint_CPU_audit_v2",
+        "--config",
+        "configs/runtime/fm_full500_image_checkpoint_CPU_audit.v2.json"
+      ],
+      "active_pid": null,
+      "configuration_sha256": "7d1a015053b6c330f2f4cc2d42360f918b58d5dcdeb625f0c5bf15a3da7766d4",
+      "all_original_experiments_complete": false,
+      "physical_available_bytes": 41136087040,
+      "commit_available_bytes": 28256628736,
+      "state": "waiting_for_memory",
+      "shared_lock_owned": false,
+      "captured_utc": "2026-10-12T12:46:52.357533+00:00"
+    },
+    "pi_source1103": {
+      "pid": 38324,
+      "create_time": 1791798100.549034,
+      "state": "waiting_for_memory",
+      "active_pid": null,
+      "physical_available_bytes": 41218064384,
+      "commit_available_bytes": 28288643072,
+      "shared_lock_owned": false
+    },
+    "timegan_full45": {
+      "pid": 39264,
+      "create_time": 1791787161.753254,
+      "active_pid": null,
+      "configuration_sha256": "315e54686369af10c7e9f1b0bca2a6356d0ca5befd11fb72e0475851583eb75f",
+      "required_original_models": 45,
+      "verified_original_ids": [],
+      "failed": {},
+      "pending_original_models": 45,
+      "all_original_experiments_complete": false,
+      "physical_available_bytes": 41112846336,
+      "commit_available_bytes": 28220612608,
+      "state": "waiting_for_memory",
+      "shared_lock_owned": false,
+      "captured_utc": "2026-10-12T12:46:51.995519+00:00"
+    }
+  },
+  "actual_UI_Hook_failed_cause_identified": false,
+  "hook_failure_attributed_to_migration": false,
+  "hook_causality_status": "Not established; local hooks/list showed no errors or warnings, five modified definitions were skipped pending trust, and no corresponding hook failure appeared in the last24h local log query. Actual UI hook name/event/error detail requested.",
+  "all_original_experiments_complete": false,
+  "benchmark_result_added": false
+}
