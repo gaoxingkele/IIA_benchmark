@@ -1,0 +1,81 @@
+{
+  "captured_utc": "2026-10-13T21:01:31.652284+00:00",
+  "canonical_job_id": "cfm_ts_original__appendix_d__gp_paper_literal_e600__sine__seed1105",
+  "independent_full_grid_shape": [
+    80,
+    500,
+    1
+  ],
+  "independent_checked_grid_coordinates": 40000,
+  "original_train_test_trajectory_split_disjoint": true,
+  "every_original_truth_time_identity_checked": true,
+  "every_finite_trajectory_MSE_recomputed": true,
+  "required_original_trajectories": 80,
+  "attempted_original_trajectories": 80,
+  "finite_full_grid_trajectories": 79,
+  "failed_trajectory_ids": [
+    324
+  ],
+  "all_original_full_grids_finite": false,
+  "full_original_MSE": null,
+  "censored_finite_subset_promoted_as_original_result": false,
+  "original_scoring_certified_complete": false,
+  "array_sha256": "4f8b4b674539d04cf30b89941cdcc9b39888018ad24c8d786d6004a29bf46ce0",
+  "native_report_sha256": "8ad1033bf446717e5d5bf2ba7aad0fe7f46ba3dbd1cd59e683416c2a1861b052",
+  "native_guard_receipt_sha256": "559986c65a25769e75ffec4e109be36a8411b9286bafa675ef4230fb1ec7295d",
+  "checkpoint_sha256": "6671e670137a51bdf3dde1cad5dfe512ef8ea2c2385d265898a81eaccebf000d",
+  "data_sha256": "aeb32cf81e70c2cf176a624a337b408059490afb675117d685ad9f26c607b725",
+  "solver_parameters": {
+    "solver": "dopri5",
+    "rtol": 1e-07,
+    "atol": 1e-09,
+    "max_num_steps": 10000
+  },
+  "failure_evidence": [
+    {
+      "trajectory_id": 324,
+      "error_type": "AssertionError",
+      "error_message": "underflow in dt 0.0",
+      "RHS_calls": 2582,
+      "last_finite_state_magnitude": 2.6095959784860398e+31,
+      "last_finite_velocity_magnitude": 3.2732632874949864e+38,
+      "float32_max_finite": 3.4028234663852886e+38,
+      "finite_velocity_near_float32_limit": true,
+      "nonfinite_velocity_observed": true,
+      "first_nonfinite_velocity_tail_observation": {
+        "call": 2579,
+        "time": 5.454810434457613e-06,
+        "state_abs_max": 2.6095959784860398e+31,
+        "velocity_abs_max": null,
+        "state_finite": true,
+        "velocity_finite": false
+      },
+      "first_nonfinite_state_tail_observation": {
+        "call": 2580,
+        "time": 5.455965947476216e-06,
+        "state_abs_max": null,
+        "velocity_abs_max": null,
+        "state_finite": false,
+        "velocity_finite": false
+      },
+      "finite_state_at_first_nonfinite_velocity": true,
+      "finite_velocity_then_nonfinite": true,
+      "learned_training_failure_root_cause_certified": false,
+      "original_initial_state": [
+        3.4105179434237742
+      ],
+      "actual_training_state_range": {
+        "min": -3.2798629407594864,
+        "max": 3.092352748658744
+      },
+      "initial_state_inside_observed_training_state_range": false
+    }
+  ],
+  "state_and_velocity_growth_and_nonfinite_output_observed": true,
+  "training_root_cause_or_author_code_bug_certified": false,
+  "additional_ODE_solver_calls": 0,
+  "additional_optimizer_updates": 0,
+  "original_author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "all_original_experiments_complete": false
+}
