@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="12" time="2.625" timestamp="2026-10-14T02:56:58.288176+08:00" hostname="JINLONG3090"><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_exact_original_source_control_flow_except_two_admission_queries_and_host_state" time="0.008" /><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_unavailable_observation_cannot_admit_or_report_available_capacity[error0]" time="0.001" /><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_unavailable_observation_cannot_admit_or_report_available_capacity[error1]" time="0.001" /><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_wrong_uuid_or_invalid_observation_is_not_hidden_as_transient" time="0.001" /><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_successful_observation_preserves_original_exact_capacity" time="0.000" /><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_full413_exact_scientific_job_and_settings_registration" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_shcl_native_admission_observation_recovery.v2.json'">def test_full413_exact_scientific_job_and_settings_registration():
+&gt;       config = current.NATIVE.read(current.ROOT / CONFIG)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_shcl_admission_observation_recovery_v2.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\timegan_native_common_v1.py:20: in read
+    return json.loads(Path(path).read_text(encoding='utf-8'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('D:/aicoding/IIA_benchmark/configs/runtime/fm_shcl_native_admission_observation_recovery.v2.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_shcl_native_admission_observation_recovery.v2.json'
+
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_no_original_command_can_be_removed[required_training_commands-48]" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_shcl_native_admission_observation_recovery.v2.json'">field = 'required_training_commands', value = 48
+
+    @pytest.mark.parametrize('field,value', [('required_training_commands', 48), ('required_test_commands', 363)])
+    def test_no_original_command_can_be_removed(field, value):
+&gt;       config = copy.deepcopy(current.NATIVE.read(current.ROOT / CONFIG));config[field] = value
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_shcl_admission_observation_recovery_v2.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\timegan_native_common_v1.py:20: in read
+    return json.loads(Path(path).read_text(encoding='utf-8'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('D:/aicoding/IIA_benchmark/configs/runtime/fm_shcl_native_admission_observation_recovery.v2.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_shcl_native_admission_observation_recovery.v2.json'
+
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_no_original_command_can_be_removed[required_test_commands-363]" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_shcl_native_admission_observation_recovery.v2.json'">field = 'required_test_commands', value = 363
+
+    @pytest.mark.parametrize('field,value', [('required_training_commands', 48), ('required_test_commands', 363)])
+    def test_no_original_command_can_be_removed(field, value):
+&gt;       config = copy.deepcopy(current.NATIVE.read(current.ROOT / CONFIG));config[field] = value
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_shcl_admission_observation_recovery_v2.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\timegan_native_common_v1.py:20: in read
+    return json.loads(Path(path).read_text(encoding='utf-8'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('D:/aicoding/IIA_benchmark/configs/runtime/fm_shcl_native_admission_observation_recovery.v2.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_shcl_native_admission_observation_recovery.v2.json'
+
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="tests.test_shcl_admission_observation_recovery_v2" name="test_live_exact_predecessor_prevents_duplicate_controller" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_shcl_native_admission_observation_recovery.v2.json'">def test_live_exact_predecessor_prevents_duplicate_controller():
+&gt;       config = current.NATIVE.read(current.ROOT / CONFIG)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_shcl_admission_observation_recovery_v2.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\timegan_native_common_v1.py:20: in read
+    return json.loads(Path(path).read_text(encoding='utf-8'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('D:/aicoding/IIA_benchmark/configs/runtime/fm_shcl_native_admission_observation_recovery.v2.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_shcl_native_admission_observation_recovery.v2.json'
+
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="tests.test_fm_shcl_native_script_queue_v1" name="test_every_original413_command_native_workers_seed_and_full_budget_preserved" time="2.227" /><testcase classname="tests.test_fm_shcl_native_script_queue_v1" name="test_actual_full_size_observer_fixture_preserves_all_parameters_Adam_state_and_rng_without_benchmark_credit" time="0.001" /><testcase classname="tests.test_fm_shcl_native_script_queue_v1" name="test_actual_native_Torch111_operator_and_complete52_data_modes_verified" time="0.004" /></testsuite></testsuites>
