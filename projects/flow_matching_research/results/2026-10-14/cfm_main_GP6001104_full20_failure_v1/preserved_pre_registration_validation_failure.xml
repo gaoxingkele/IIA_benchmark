@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="10" time="2.639" timestamp="2026-10-14T06:02:31.363851+08:00" hostname="JINLONG3090"><testcase classname="tests.test_cfm_main_GP6001104_full20_failure_v1" name="test_full20_worker_changes_only_original_grid_capacity_and_artifact_name" time="0.004"><failure message="ValueError: Only documented original coverage/name bindings may change: {80: 3, 'full80_native_failure_observation.json': 1}">def test_full20_worker_changes_only_original_grid_capacity_and_artifact_name():
+&gt;       assert ast.dump(restore_coverage_and_names(current.worker_ast()))==ast.dump(current.previous.worker_ast())
+                                                   ^^^^^^^^^^^^^^^^^^^^
+
+tests\test_cfm_main_GP6001104_full20_failure_v1.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\audit_cfm_main_GP6001104_full20_failure_v1.py:56: in worker_ast
+    return adapt(previous.worker_ast(),{80:2,'full80_native_failure_observation.json':1},
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tree = &lt;ast.Module object at 0x000001EFAA302090&gt;
+counts = {80: 2, 'full80_native_failure_observation.json': 1}
+names = {'full80_native_failure_observation.json': 'full20_native_failure_observation.json'}
+
+    def adapt(tree,counts,names):
+        expected=dict(counts);seen={k:0 for k in expected}
+        class OriginalCoverage(ast.NodeTransformer):
+            def visit_Constant(self,node):
+                if node.value in expected:
+                    seen[node.value]+=1
+                    node.value=20 if node.value==80 else names[node.value]
+                return node
+        tree=OriginalCoverage().visit(tree)
+&gt;       if seen!=expected:raise ValueError('Only documented original coverage/name bindings may change: '+str(seen))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Only documented original coverage/name bindings may change: {80: 3, 'full80_native_failure_observation.json': 1}
+
+scripts\flow_matching\audit_cfm_main_GP6001104_full20_failure_v1.py:51: ValueError</failure></testcase><testcase classname="tests.test_cfm_main_GP6001104_full20_failure_v1" name="test_main_and_postaudit_preserve_all_original_checks_and_guards" time="0.003"><failure message="ValueError: Only documented original coverage/name bindings may change: {80: 1, 'full80_native_failure_observation.json': 1, 'full80_failure_observation_captured': 0}">def test_main_and_postaudit_preserve_all_original_checks_and_guards():
+&gt;       assert ast.dump(restore_coverage_and_names(current.main_ast()))==ast.dump(ast.parse(inspect.getsource(current.previous.previous.main)))
+                                                   ^^^^^^^^^^^^^^^^^^
+
+tests\test_cfm_main_GP6001104_full20_failure_v1.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\audit_cfm_main_GP6001104_full20_failure_v1.py:61: in main_ast
+    return adapt(ast.parse(inspect.getsource(previous.previous.main)),
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+tree = &lt;ast.Module object at 0x000001EFAA1EEFD0&gt;
+counts = {80: 1, 'full80_native_failure_observation.json': 1, 'full80_failure_observation_captured': 1}
+names = {'full80_native_failure_observation.json': 'full20_native_failure_observation.json', 'full80_failure_observation_captured': 'full20_failure_observation_captured'}
+
+    def adapt(tree,counts,names):
+        expected=dict(counts);seen={k:0 for k in expected}
+        class OriginalCoverage(ast.NodeTransformer):
+            def visit_Constant(self,node):
+                if node.value in expected:
+                    seen[node.value]+=1
+                    node.value=20 if node.value==80 else names[node.value]
+                return node
+        tree=OriginalCoverage().visit(tree)
+&gt;       if seen!=expected:raise ValueError('Only documented original coverage/name bindings may change: '+str(seen))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Only documented original coverage/name bindings may change: {80: 1, 'full80_native_failure_observation.json': 1, 'full80_failure_observation_captured': 0}
+
+scripts\flow_matching\audit_cfm_main_GP6001104_full20_failure_v1.py:51: ValueError</failure></testcase><testcase classname="tests.test_cfm_main_GP6001104_full20_failure_v1" name="test_actual_main_recipe_failure_and_original_full_budget_binding" time="0.017" /><testcase classname="tests.test_cfm_gp600_seed1105_full80_failure_v1" name="test_observer_and_full_solver_worker_change_only_optimizer_budget_binding" time="0.013" /><testcase classname="tests.test_cfm_gp600_seed1105_full80_failure_v1" name="test_actual_failed_receipt_and_original_full_gp_budget_are_required" time="0.012" /><testcase classname="tests.test_cfm_full80_failure_observation_v1" name="test_one_failed_original_trajectory_prevents_any_complete_or_censored_metric_claim" time="0.000" /><testcase classname="tests.test_cfm_full80_failure_observation_v1" name="test_partial_or_duplicate_coverage_rejected" time="0.000" /><testcase classname="tests.test_cfm_full80_failure_observation_v1" name="test_observer_preserves_native_model_outputs_and_reports_nonfinite_velocities" time="1.847" /><testcase classname="tests.test_cfm_full80_observed_arrays_v2" name="test_only_observed_training_metadata_schema_key_changes" time="0.008" /><testcase classname="tests.test_cfm_full80_observed_arrays_v2" name="test_actual_frozen_full80_arrays_preserve_original_failure_and_every_coordinate" time="0.299" /></testsuite></testsuites>
