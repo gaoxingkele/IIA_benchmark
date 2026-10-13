@@ -1,0 +1,127 @@
+{
+  "captured_utc": "2026-10-13T22:49:03.807007+00:00",
+  "windows_settings": {
+    "Computer": {
+      "TotalPhysicalMemory": 68572536832,
+      "AutomaticManagedPagefile": true
+    },
+    "PageFiles": [
+      {
+        "Name": "C:\\pagefile.sys",
+        "AllocatedBaseSize": 4096,
+        "CurrentUsage": 27,
+        "PeakUsage": 65
+      }
+    ],
+    "Disks": [
+      {
+        "DeviceID": "C:",
+        "Size": 213716561920,
+        "FreeSpace": 48368123904
+      },
+      {
+        "DeviceID": "D:",
+        "Size": 785332039680,
+        "FreeSpace": 541496524800
+      },
+      {
+        "DeviceID": "E:",
+        "Size": 256058060800,
+        "FreeSpace": 235657351168
+      },
+      {
+        "DeviceID": "F:",
+        "Size": 2048390066176,
+        "FreeSpace": 519556063232
+      },
+      {
+        "DeviceID": "G:",
+        "Size": 4000750497792,
+        "FreeSpace": 3142486470656
+      }
+    ],
+    "IsAdministrator": false
+  },
+  "current_commit_limit_bytes": 72867504128,
+  "current_commit_used_bytes": 42358124544,
+  "current_commit_available_bytes": 30509379584,
+  "current_physical_available_bytes": 40387764224,
+  "admission_roles": [
+    {
+      "role": "CFM full-model native/independent replay",
+      "configuration": "configs/runtime/fm_cfm_completion_replay_queue.v4.json",
+      "threshold_path": [
+        "settings",
+        "minimum_commit_headroom_bytes"
+      ],
+      "required_headroom_bytes": 32212254720,
+      "current_available_bytes": 30509379584,
+      "current_admission_met": false,
+      "proposed_available_bytes": 64869117952,
+      "proposed_admission_met": true,
+      "proposal_is_not_applied": true
+    },
+    {
+      "role": "all8 complete CFM resource-abort retries",
+      "configuration": "configs/runtime/fm_cfm_all8_uncovered_resource_abort_recovery.v1.json",
+      "threshold_path": [
+        "retry_admission_commit_headroom_bytes"
+      ],
+      "required_headroom_bytes": 42949672960,
+      "current_available_bytes": 30509379584,
+      "current_admission_met": false,
+      "proposed_available_bytes": 64869117952,
+      "proposed_admission_met": true,
+      "proposal_is_not_applied": true
+    },
+    {
+      "role": "Spectral full2001-vector derivative graph audit",
+      "configuration": "configs/reproducibility/fm_spectral_full_sampling_derivative_graph.2026-10-11_v2.json",
+      "threshold_path": [
+        "settings",
+        "minimum_commit_headroom_bytes"
+      ],
+      "required_headroom_bytes": 42949672960,
+      "current_available_bytes": 30509379584,
+      "current_admission_met": false,
+      "proposed_available_bytes": 64869117952,
+      "proposed_admission_met": true,
+      "proposal_is_not_applied": true
+    },
+    {
+      "role": "SHCL full413 native script queue",
+      "configuration": "configs/runtime/fm_shcl_native_admission_observation_recovery.v2.json",
+      "threshold_path": [
+        "settings",
+        "minimum_commit_headroom_bytes"
+      ],
+      "required_headroom_bytes": 60129542144,
+      "current_available_bytes": 30509379584,
+      "current_admission_met": false,
+      "proposed_available_bytes": 64869117952,
+      "proposed_admission_met": true,
+      "proposal_is_not_applied": true
+    }
+  ],
+  "proposed_pagefile": {
+    "path": "F:/pagefile.sys",
+    "initial_MiB": 32768,
+    "maximum_MiB": 65536,
+    "retain_C_system_managed": true,
+    "requires_privileged_user_action": true,
+    "activation_requires_runtime_reverification": true
+  },
+  "automatic_growth_reference_commit_fraction": 0.9,
+  "guard_abort_commit_fraction_at_16GiB_reserve": 0.764231403427492,
+  "diagnosis_boundary": "Measured present commit margin is below frozen admission thresholds. Projection assumes C remains unchanged and F adds the stated backing capacity, with unchanged commit use. It does not prove physical/GPU capacity or predict timing of Windows automatic growth.",
+  "windows_configuration_modified": false,
+  "registry_modified": false,
+  "experiments_stopped": false,
+  "reboot_performed": false,
+  "experiment_budgets_guards_or_tolerances_changed": false,
+  "all_original_experiments_complete": false,
+  "official_sources": [
+    "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-pagefilesetting",
+    "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/how-to-determine-the-appropriate-page-file-size-for-64-bit-versions-of-windows"
+  ]
+}
