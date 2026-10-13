@@ -1,0 +1,147 @@
+{
+  "captured_utc": "2026-10-13T16:12:43.518305+00:00",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "full_CFM_canonical_jobs": 285,
+  "full_CrossAD_canonical_jobs": 139,
+  "full_TimeGAN_canonical_jobs": 45,
+  "registered_CFM_retry": {
+    "canonical": "cfm_ts_original__main_text__node_e600__pendulum__seed1107",
+    "required_original_epochs": 600,
+    "expected_optimizer_updates": 600,
+    "preserved_partial_epochs": 41,
+    "credited_partial_epochs": 0,
+    "new_training_seed_slots": 0
+  },
+  "registered_CrossAD_retry": {
+    "canonical": "crossad_author__fresh_train__psm__seed1103",
+    "original_max_epochs": 20,
+    "batch_size": 128,
+    "author_patience": 3,
+    "saved_checkpoint_found": false,
+    "credited_partial_epochs": 0,
+    "new_training_seed_slots": 0
+  },
+  "registered_Sine_state_audit": {
+    "canonical": "timegan_native__gru__sine__seed1103",
+    "saved_complete_joint_iterations": 15000,
+    "observed_abort_joint_iterations": 15200,
+    "unsaved_joint_iterations_not_credited": 200,
+    "required_joint_iterations": 50000,
+    "remaining_joint_iterations": 35000,
+    "native_model_and_optimizer_variables_required": 284,
+    "model_parameters": 48606,
+    "native_CPU_restore_executed": false,
+    "complete_joint_continuation_implementation_and_execution_pending": true,
+    "required_original_evaluators_after_training": 20
+  },
+  "native_restore_or_training_completion_claimed_from_metadata_or_fixture_tests": false,
+  "running_controller_actual_identities": [
+    {
+      "name": "cfm",
+      "pid": 24872,
+      "create_time": 1791907602.53649,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_cfm_ts_stricter_admission_retry_v1",
+        "--runtime-config",
+        "configs/runtime/fm_cfm_node600_seed1107_actual41_full_retry.v1.json",
+        "--controller",
+        "recovery"
+      ],
+      "current_state": {
+        "pid": 24872,
+        "queue_sha256": "debab2b0f2fdba22f6130804d6311c5fe56d4dfa2c91dd28c4c06c4748e11d8f",
+        "runtime_sha256": "95be2219d268db59ae370b764754cc101e19aec228270af128609d174648dd1d",
+        "jobs": {},
+        "active_pid": null,
+        "active_job": null,
+        "physical_available_bytes": 41141268480,
+        "commit_available_bytes": 16633229312,
+        "state": "waiting_for_memory",
+        "shared_lock_owned": false
+      },
+      "private_bytes": 14876672
+    },
+    {
+      "name": "crossad",
+      "pid": 37628,
+      "create_time": 1791907602.5502596,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.crossad_psm1103_full_retry_v1",
+        "--config",
+        "configs/runtime/fm_crossad_psm1103_full20_retry.v1.json"
+      ],
+      "current_state": {
+        "pid": 37628,
+        "create_time": 1791907602.5502596,
+        "configuration_sha256": "c2ba50bc585a8e0640b614e73d8d9189d3a22bfbe0dd12d34c2fc8a63a6bdcaa",
+        "required_original_jobs": 139,
+        "selected_original_id": "crossad_author__fresh_train__psm__seed1103",
+        "active_pid": null,
+        "all_original_experiments_complete": false,
+        "original_max_epochs": 20,
+        "credited_previous_epochs_for_fresh_retry": 0,
+        "physical_available_bytes": 41143443456,
+        "commit_available_bytes": 16655798272,
+        "state": "waiting_for_memory",
+        "shared_lock_owned": false,
+        "captured_unix": 1791907958.240277
+      },
+      "private_bytes": 31588352
+    },
+    {
+      "name": "sine_audit",
+      "pid": 25520,
+      "create_time": 1791907602.5675156,
+      "command": [
+        "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.audit_timegan_sine_saved_joint15000_v1",
+        "--config",
+        "configs/runtime/fm_timegan_sine_saved_joint15000_native_audit.v1.json"
+      ],
+      "current_state": {
+        "pid": 25520,
+        "create_time": 1791907602.5675156,
+        "active_pid": null,
+        "configuration_sha256": "13c4d35ff444a8b677878efd11f57fa0b04dada484cf64725502df8d620370e2",
+        "state": "waiting_for_memory",
+        "all_original_experiments_complete": false,
+        "physical_available_bytes": 41213140992,
+        "commit_available_bytes": 16730755072,
+        "shared_lock_owned": false,
+        "captured_utc": "2026-10-13T16:12:43.365255+00:00"
+      },
+      "private_bytes": 15085568
+    }
+  ],
+  "validation": {
+    "pytest_passed": 16,
+    "failures": 0,
+    "all3_actual_configuration_probes_passed": true,
+    "fixtures_are_plumbing_and_fidelity_guards_not_benchmark_performance": true,
+    "initial_missing_test_filename_corrected_without_losing_its_validation_record": true
+  },
+  "admission_commit_headroom_bytes": 42949672960,
+  "running_emergency_and_RSS_private_guards_unchanged": true,
+  "scientific_source_data_models_optimizer_solver_seed_batch_and_evaluation_budgets_unchanged": true,
+  "other_original_jobs_keep_existing_owners": true,
+  "original_partial_attempts_and_raw_data_preserved": true,
+  "all_original_experiments_complete": false
+}
