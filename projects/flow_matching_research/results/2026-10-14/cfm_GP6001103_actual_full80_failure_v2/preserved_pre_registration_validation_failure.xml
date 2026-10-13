@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="8" time="2.364" timestamp="2026-10-14T05:44:23.217296+08:00" hostname="JINLONG3090"><testcase classname="tests.test_cfm_gp600_seed1103_full80_failure_v2" name="test_original_failure_verifier_changes_only_actual14trajectory_progress" time="0.003" /><testcase classname="tests.test_cfm_gp600_seed1103_full80_failure_v2" name="test_same_original_full80_worker_and_observer_code" time="0.009" /><testcase classname="tests.test_cfm_gp600_seed1103_full80_failure_v2" name="test_actual_saved_source_failure_and_unchanged_original_budget" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_cfm_GP6001103_full80_failure_observation.v2.json'">def test_actual_saved_source_failure_and_unchanged_original_budget():
+&gt;       config=current.read(current.ROOT/'configs/runtime/fm_cfm_GP6001103_full80_failure_observation.v2.json')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_cfm_gp600_seed1103_full80_failure_v2.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\audit_cfm_sine600_full80_failure_observation_v1.py:22: in read
+    def read(path):return json.loads(Path(path).read_text(encoding='utf-8'))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('D:/aicoding/IIA_benchmark/configs/runtime/fm_cfm_GP6001103_full80_failure_observation.v2.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'D:\\aicoding\\IIA_benchmark\\configs\\runtime\\fm_cfm_GP6001103_full80_failure_observation.v2.json'
+
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError</failure></testcase><testcase classname="tests.test_cfm_gp600_seed1105_full80_failure_v1" name="test_observer_and_full_solver_worker_change_only_optimizer_budget_binding" time="0.011" /><testcase classname="tests.test_cfm_gp600_seed1105_full80_failure_v1" name="test_actual_failed_receipt_and_original_full_gp_budget_are_required" time="0.017" /><testcase classname="tests.test_cfm_full80_failure_observation_v1" name="test_one_failed_original_trajectory_prevents_any_complete_or_censored_metric_claim" time="0.001" /><testcase classname="tests.test_cfm_full80_failure_observation_v1" name="test_partial_or_duplicate_coverage_rejected" time="0.001" /><testcase classname="tests.test_cfm_full80_failure_observation_v1" name="test_observer_preserves_native_model_outputs_and_reports_nonfinite_velocities" time="1.915" /></testsuite></testsuites>
