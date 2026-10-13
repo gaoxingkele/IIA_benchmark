@@ -1,0 +1,758 @@
+{
+  "case": {
+    "id": "table9_epoch_checkpoints__row05__mvtec__seed1103",
+    "target_id": "table9_epoch_checkpoints__row05__mvtec",
+    "paper_table_key": "Table9_epoch_checkpoints",
+    "paper_row_index": 5,
+    "dataset": "mvtec",
+    "original_dataset_name": "MVTec-AD",
+    "variant": "conditional",
+    "seed": 1103,
+    "paper_reported": {
+      "image_AUROC": 97.5,
+      "image_AP": 98.9,
+      "image_F1_max": 96.6,
+      "pixel_AUROC": 97.0,
+      "pixel_AP": 64.8,
+      "pixel_F1_max": 63.0,
+      "pixel_AUPRO": 91.4
+    },
+    "score_parameters": {
+      "paths": 10,
+      "times": 10,
+      "aggregation": "minimum",
+      "percentile": 0.1,
+      "weighted": true,
+      "top_fraction": 0.01
+    },
+    "training_configuration": "configs/experiments/fm_flow_mismatching_full_training_jobs/flow_mismatching_full__mvtec__conditional__seed1103.json",
+    "checkpoint_epoch": 600,
+    "checkpoint": "data/public_datasets/flow_matching/experiments/flow_mismatching_full_training_v1/jobs/flow_mismatching_full__mvtec__conditional__seed1103/epoch_0600.pt",
+    "output_directory": "data/public_datasets/flow_matching/experiments/flow_mismatching_full_image_evaluation_v1/cases/table9_epoch_checkpoints__row05__mvtec__seed1103"
+  },
+  "queue_configuration": "configs/experiments/fm_flow_mismatching_full_image_evaluation_queue.v1.json",
+  "queue_sha256": "934c391231b76d7ec9722997727ae3086a62234cfbde383c52cc8582f4527396",
+  "captured_utc": "2026-10-13T19:12:33.877639+00:00",
+  "training_binding": {
+    "job_sha256": "0803d88a577264907620e8f21380fb4cd2d8891c6d97bb065e48f3f93add9029",
+    "dataset_configuration_sha256": "398058adc61d976b9f02c4df61134dc5350bb3931f63331bc8b018c10bfe71c1",
+    "model_configuration_sha256": "cf0e46edb1ca6bf1207e49c6792ee38a5044866b04781e1f07a56450548327fd",
+    "optimizer_configuration_sha256": "644de6725374707de429560feb3e8c40a0a920a70989ecb2638453264369edbe"
+  },
+  "original_checkpoint_sha256": "6b9de8107b776628978309b724ebd29a05c8432e14325e649f2a798c3ab09f37",
+  "complete_original_test_images": 1725,
+  "theoretical_test_forward_evaluations": 172500,
+  "full_test_batched_velocity_calls": 17250,
+  "additional_full_first_image_warmup_calls": 10,
+  "native_test_order": "complete original derived array order; no subset or reorder",
+  "original_model_parameters": 45289539,
+  "original_full_state_dictionary_loaded_strictly": true,
+  "local_metrics": {
+    "per_category": [
+      {
+        "category": "bottle",
+        "category_index": 0,
+        "original_test_images": 83,
+        "metrics": {
+          "image_AUROC": 0.973015873015873,
+          "image_AP": 0.9919403428378148,
+          "image_F1_max": 0.9523809523809523,
+          "pixel_AUROC": 0.9228648574538583,
+          "pixel_AP": 0.5137722665890849,
+          "pixel_F1_max": 0.5182935348467085,
+          "pixel_AUPRO": 0.7838333654397638
+        },
+        "image_curve": {
+          "AUROC": 0.973015873015873,
+          "AP": 0.9919403428378148,
+          "F1_max": 0.9523809523809523,
+          "oracle_F1_threshold": 1.1014115810394287,
+          "positive_units": 63,
+          "negative_units": 20,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.9228648574538583,
+          "AP": 0.5137722665890849,
+          "F1_max": 0.5182935348467085,
+          "oracle_F1_threshold": 0.03798512741923332,
+          "positive_units": 78691,
+          "negative_units": 1281181,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.7838333654397638,
+          "regions": 68,
+          "background_pixels": 1281181,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "cable",
+        "category_index": 1,
+        "original_test_images": 150,
+        "metrics": {
+          "image_AUROC": 0.6600449775112444,
+          "image_AP": 0.7364965370970118,
+          "image_F1_max": 0.775330396475771,
+          "pixel_AUROC": 0.8303626811816525,
+          "pixel_AP": 0.1812494093010542,
+          "pixel_F1_max": 0.2511522774052607,
+          "pixel_AUPRO": 0.6004254384520046
+        },
+        "image_curve": {
+          "AUROC": 0.6600449775112444,
+          "AP": 0.7364965370970118,
+          "F1_max": 0.775330396475771,
+          "oracle_F1_threshold": 0.9123868942260742,
+          "positive_units": 92,
+          "negative_units": 58,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.8303626811816525,
+          "AP": 0.1812494093010542,
+          "F1_max": 0.2511522774052607,
+          "oracle_F1_threshold": 0.07751616090536118,
+          "positive_units": 70497,
+          "negative_units": 2387103,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.6004254384520046,
+          "regions": 147,
+          "background_pixels": 2387103,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "capsule",
+        "category_index": 2,
+        "original_test_images": 132,
+        "metrics": {
+          "image_AUROC": 0.7746310331072996,
+          "image_AP": 0.9283624904757379,
+          "image_F1_max": 0.925764192139738,
+          "pixel_AUROC": 0.867080205078755,
+          "pixel_AP": 0.3205527691202519,
+          "pixel_F1_max": 0.4067131275778694,
+          "pixel_AUPRO": 0.7826155622293611
+        },
+        "image_curve": {
+          "AUROC": 0.7746310331072996,
+          "AP": 0.9283624904757379,
+          "F1_max": 0.925764192139738,
+          "oracle_F1_threshold": 0.822411298751831,
+          "positive_units": 109,
+          "negative_units": 23,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.867080205078755,
+          "AP": 0.3205527691202519,
+          "F1_max": 0.4067131275778694,
+          "oracle_F1_threshold": 0.06716588139533997,
+          "positive_units": 19844,
+          "negative_units": 2142844,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.7826155622293611,
+          "regions": 116,
+          "background_pixels": 2142844,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "carpet",
+        "category_index": 3,
+        "original_test_images": 117,
+        "metrics": {
+          "image_AUROC": 0.7548154093097913,
+          "image_AP": 0.9111761718913906,
+          "image_F1_max": 0.8725490196078431,
+          "pixel_AUROC": 0.7547278288476071,
+          "pixel_AP": 0.1103342013742931,
+          "pixel_F1_max": 0.18384104475520557,
+          "pixel_AUPRO": 0.5864679314736125
+        },
+        "image_curve": {
+          "AUROC": 0.7548154093097913,
+          "AP": 0.9111761718913906,
+          "F1_max": 0.8725490196078431,
+          "oracle_F1_threshold": 0.7994970083236694,
+          "positive_units": 89,
+          "negative_units": 28,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.7547278288476071,
+          "AP": 0.1103342013742931,
+          "F1_max": 0.18384104475520557,
+          "oracle_F1_threshold": 0.14442776143550873,
+          "positive_units": 30692,
+          "negative_units": 1886236,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.5864679314736125,
+          "regions": 113,
+          "background_pixels": 1886236,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "grid",
+        "category_index": 4,
+        "original_test_images": 78,
+        "metrics": {
+          "image_AUROC": 0.9991645781119466,
+          "image_AP": 0.999697519661222,
+          "image_F1_max": 0.991304347826087,
+          "pixel_AUROC": 0.935425513691902,
+          "pixel_AP": 0.4962475221628779,
+          "pixel_F1_max": 0.5155782096208984,
+          "pixel_AUPRO": 0.8685121691880534
+        },
+        "image_curve": {
+          "AUROC": 0.9991645781119466,
+          "AP": 0.999697519661222,
+          "F1_max": 0.991304347826087,
+          "oracle_F1_threshold": 1.928507685661316,
+          "positive_units": 57,
+          "negative_units": 21,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.935425513691902,
+          "AP": 0.4962475221628779,
+          "F1_max": 0.5155782096208984,
+          "oracle_F1_threshold": 0.6322235465049744,
+          "positive_units": 8837,
+          "negative_units": 1269115,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.8685121691880534,
+          "regions": 172,
+          "background_pixels": 1269115,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "hazelnut",
+        "category_index": 5,
+        "original_test_images": 110,
+        "metrics": {
+          "image_AUROC": 0.9314285714285714,
+          "image_AP": 0.960240214508013,
+          "image_F1_max": 0.9115646258503401,
+          "pixel_AUROC": 0.9487385592763964,
+          "pixel_AP": 0.5122325079112763,
+          "pixel_F1_max": 0.5092114162045178,
+          "pixel_AUPRO": 0.8759019285580627
+        },
+        "image_curve": {
+          "AUROC": 0.9314285714285714,
+          "AP": 0.960240214508013,
+          "F1_max": 0.9115646258503401,
+          "oracle_F1_threshold": 1.3172802925109863,
+          "positive_units": 70,
+          "negative_units": 40,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.9487385592763964,
+          "AP": 0.5122325079112763,
+          "F1_max": 0.5092114162045178,
+          "oracle_F1_threshold": 0.07407621294260025,
+          "positive_units": 38732,
+          "negative_units": 1763508,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.8759019285580627,
+          "regions": 138,
+          "background_pixels": 1763508,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "leather",
+        "category_index": 6,
+        "original_test_images": 124,
+        "metrics": {
+          "image_AUROC": 0.9932065217391304,
+          "image_AP": 0.9976508757013387,
+          "image_F1_max": 0.9787234042553191,
+          "pixel_AUROC": 0.9132204245694258,
+          "pixel_AP": 0.45278940713882654,
+          "pixel_F1_max": 0.4954598774818612,
+          "pixel_AUPRO": 0.8536352886728144
+        },
+        "image_curve": {
+          "AUROC": 0.9932065217391304,
+          "AP": 0.9976508757013387,
+          "F1_max": 0.9787234042553191,
+          "oracle_F1_threshold": 1.4523062705993652,
+          "positive_units": 92,
+          "negative_units": 32,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.9132204245694258,
+          "AP": 0.45278940713882654,
+          "F1_max": 0.4954598774818612,
+          "oracle_F1_threshold": 0.3598930835723877,
+          "positive_units": 13140,
+          "negative_units": 2018476,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.8536352886728144,
+          "regions": 98,
+          "background_pixels": 2018476,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "metal_nut",
+        "category_index": 7,
+        "original_test_images": 115,
+        "metrics": {
+          "image_AUROC": 0.8220918866080157,
+          "image_AP": 0.9556934085557872,
+          "image_F1_max": 0.9207920792079208,
+          "pixel_AUROC": 0.8892563529566297,
+          "pixel_AP": 0.5575787985195386,
+          "pixel_F1_max": 0.5339107145092051,
+          "pixel_AUPRO": 0.7832793470015429
+        },
+        "image_curve": {
+          "AUROC": 0.8220918866080157,
+          "AP": 0.9556934085557872,
+          "F1_max": 0.9207920792079208,
+          "oracle_F1_threshold": 0.6747470498085022,
+          "positive_units": 93,
+          "negative_units": 22,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.8892563529566297,
+          "AP": 0.5575787985195386,
+          "F1_max": 0.5339107145092051,
+          "oracle_F1_threshold": 0.02890351042151451,
+          "positive_units": 220673,
+          "negative_units": 1663487,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.7832793470015429,
+          "regions": 131,
+          "background_pixels": 1663487,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "pill",
+        "category_index": 8,
+        "original_test_images": 167,
+        "metrics": {
+          "image_AUROC": 0.7714129841789416,
+          "image_AP": 0.9525391910667297,
+          "image_F1_max": 0.9155844155844156,
+          "pixel_AUROC": 0.9212712046035327,
+          "pixel_AP": 0.48442701851196757,
+          "pixel_F1_max": 0.47937059062534626,
+          "pixel_AUPRO": 0.8616653036215821
+        },
+        "image_curve": {
+          "AUROC": 0.7714129841789416,
+          "AP": 0.9525391910667297,
+          "F1_max": 0.9155844155844156,
+          "oracle_F1_threshold": 0.43597716093063354,
+          "positive_units": 141,
+          "negative_units": 26,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.9212712046035327,
+          "AP": 0.48442701851196757,
+          "F1_max": 0.47937059062534626,
+          "oracle_F1_threshold": 0.03821951895952225,
+          "positive_units": 91954,
+          "negative_units": 2644174,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.8616653036215821,
+          "regions": 217,
+          "background_pixels": 2644174,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "screw",
+        "category_index": 9,
+        "original_test_images": 160,
+        "metrics": {
+          "image_AUROC": 0.9217052674728426,
+          "image_AP": 0.9701861492127,
+          "image_F1_max": 0.9294605809128631,
+          "pixel_AUROC": 0.9226067290531986,
+          "pixel_AP": 0.15881070450700488,
+          "pixel_F1_max": 0.2538524529144644,
+          "pixel_AUPRO": 0.7577466359883066
+        },
+        "image_curve": {
+          "AUROC": 0.9217052674728426,
+          "AP": 0.9701861492127,
+          "F1_max": 0.9294605809128631,
+          "oracle_F1_threshold": 0.6783316135406494,
+          "positive_units": 119,
+          "negative_units": 41,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.9226067290531986,
+          "AP": 0.15881070450700488,
+          "F1_max": 0.2538524529144644,
+          "oracle_F1_threshold": 0.12817682325839996,
+          "positive_units": 6572,
+          "negative_units": 2614868,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.7577466359883066,
+          "regions": 138,
+          "background_pixels": 2614868,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "tile",
+        "category_index": 10,
+        "original_test_images": 117,
+        "metrics": {
+          "image_AUROC": 0.8932178932178932,
+          "image_AP": 0.9499671745960405,
+          "image_F1_max": 0.8950276243093923,
+          "pixel_AUROC": 0.7872874121545458,
+          "pixel_AP": 0.46403774825438715,
+          "pixel_F1_max": 0.47078412880343307,
+          "pixel_AUPRO": 0.5865455239217321
+        },
+        "image_curve": {
+          "AUROC": 0.8932178932178932,
+          "AP": 0.9499671745960405,
+          "F1_max": 0.8950276243093923,
+          "oracle_F1_threshold": 0.9114243984222412,
+          "positive_units": 84,
+          "negative_units": 33,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.7872874121545458,
+          "AP": 0.46403774825438715,
+          "F1_max": 0.47078412880343307,
+          "oracle_F1_threshold": 0.05955391749739647,
+          "positive_units": 134871,
+          "negative_units": 1782057,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.5865455239217321,
+          "regions": 120,
+          "background_pixels": 1782057,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "toothbrush",
+        "category_index": 11,
+        "original_test_images": 42,
+        "metrics": {
+          "image_AUROC": 0.9500000000000001,
+          "image_AP": 0.9818423985175169,
+          "image_F1_max": 0.9152542372881356,
+          "pixel_AUROC": 0.958839188593727,
+          "pixel_AP": 0.40032591404425855,
+          "pixel_F1_max": 0.40954479396183957,
+          "pixel_AUPRO": 0.913605638218016
+        },
+        "image_curve": {
+          "AUROC": 0.9500000000000001,
+          "AP": 0.9818423985175169,
+          "F1_max": 0.9152542372881356,
+          "oracle_F1_threshold": 1.659590482711792,
+          "positive_units": 30,
+          "negative_units": 12,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.958839188593727,
+          "AP": 0.40032591404425855,
+          "F1_max": 0.40954479396183957,
+          "oracle_F1_threshold": 0.13174404203891754,
+          "positive_units": 10536,
+          "negative_units": 677592,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.913605638218016,
+          "regions": 89,
+          "background_pixels": 677592,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "transistor",
+        "category_index": 12,
+        "original_test_images": 100,
+        "metrics": {
+          "image_AUROC": 0.7404166666666668,
+          "image_AP": 0.6887899505972118,
+          "image_F1_max": 0.66,
+          "pixel_AUROC": 0.7733233009650549,
+          "pixel_AP": 0.2071559259335657,
+          "pixel_F1_max": 0.2735312447447299,
+          "pixel_AUPRO": 0.6459667880415589
+        },
+        "image_curve": {
+          "AUROC": 0.7404166666666668,
+          "AP": 0.6887899505972118,
+          "F1_max": 0.66,
+          "oracle_F1_threshold": 1.1977907419204712,
+          "positive_units": 40,
+          "negative_units": 60,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.7733233009650549,
+          "AP": 0.2071559259335657,
+          "F1_max": 0.2735312447447299,
+          "oracle_F1_threshold": 0.024945523589849472,
+          "positive_units": 78534,
+          "negative_units": 1559866,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.6459667880415589,
+          "regions": 44,
+          "background_pixels": 1559866,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "wood",
+        "category_index": 13,
+        "original_test_images": 79,
+        "metrics": {
+          "image_AUROC": 0.9614035087719298,
+          "image_AP": 0.9889077415911812,
+          "image_F1_max": 0.9491525423728814,
+          "pixel_AUROC": 0.8255610216826337,
+          "pixel_AP": 0.38760331017420546,
+          "pixel_F1_max": 0.40265836315471487,
+          "pixel_AUPRO": 0.7158625722482026
+        },
+        "image_curve": {
+          "AUROC": 0.9614035087719298,
+          "AP": 0.9889077415911812,
+          "F1_max": 0.9491525423728814,
+          "oracle_F1_threshold": 0.8095712065696716,
+          "positive_units": 60,
+          "negative_units": 19,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.8255610216826337,
+          "AP": 0.38760331017420546,
+          "F1_max": 0.40265836315471487,
+          "oracle_F1_threshold": 0.07698379456996918,
+          "positive_units": 50072,
+          "negative_units": 1244264,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.7158625722482026,
+          "regions": 169,
+          "background_pixels": 1244264,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      },
+      {
+        "category": "zipper",
+        "category_index": 14,
+        "original_test_images": 151,
+        "metrics": {
+          "image_AUROC": 0.8290441176470589,
+          "image_AP": 0.9233472103847197,
+          "image_F1_max": 0.921161825726141,
+          "pixel_AUROC": 0.8086164635362311,
+          "pixel_AP": 0.23804661137597835,
+          "pixel_F1_max": 0.29632272489415346,
+          "pixel_AUPRO": 0.5624998027725691
+        },
+        "image_curve": {
+          "AUROC": 0.8290441176470589,
+          "AP": 0.9233472103847197,
+          "F1_max": 0.921161825726141,
+          "oracle_F1_threshold": 2.162407398223877,
+          "positive_units": 119,
+          "negative_units": 32,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "pixel_curve": {
+          "AUROC": 0.8086164635362311,
+          "AP": 0.23804661137597835,
+          "F1_max": 0.29632272489415346,
+          "oracle_F1_threshold": 0.0897594541311264,
+          "positive_units": 51182,
+          "negative_units": 2422802,
+          "F1_threshold_source": "complete test-label sweep; never strict TAB calibration"
+        },
+        "region_metric": {
+          "value": 0.5624998027725691,
+          "regions": 176,
+          "background_pixels": 2422802,
+          "fpr_limit": 0.3,
+          "connectivity": 8,
+          "convention": "equal region weight; exact unique-score threshold groups; linear FPR cutoff interpolation"
+        }
+      }
+    ],
+    "category_macro_mean": {
+      "image_AUROC": 0.8650399525858137,
+      "image_AP": 0.9291224917796275,
+      "image_F1_max": 0.9009366829291867,
+      "pixel_AUROC": 0.8706121162430099,
+      "pixel_AP": 0.3656776076612381,
+      "pixel_F1_max": 0.4000149667666805,
+      "pixel_AUPRO": 0.7452375530551455
+    },
+    "category_macro_percent": {
+      "image_AUROC": 86.50399525858137,
+      "image_AP": 92.91224917796275,
+      "image_F1_max": 90.09366829291866,
+      "pixel_AUROC": 87.061211624301,
+      "pixel_AP": 36.56776076612381,
+      "pixel_F1_max": 40.001496676668054,
+      "pixel_AUPRO": 74.52375530551456
+    },
+    "original_categories": 15,
+    "complete_original_test_images": 1725,
+    "category_aggregation": "unweighted category mean; no pooled category weighting",
+    "strict_TAB_result": false,
+    "author_metric_implementation_equivalence_certified": false
+  },
+  "timing": {
+    "local_gpu_FPS": 1.5555194698480548,
+    "complete_test_forward_seconds": 1108.9542969002505,
+    "median_image_seconds": 0.6439600000157952,
+    "p95_image_seconds": 0.6914765199646353,
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "precision": "FP32 parameters/inputs with TF32; original inference precision unreported",
+    "includes": "synchronized full scorer GPU forwards, residuals, reductions and image score",
+    "excludes": "probe generation, transfers, model load, metrics, IO and warm-up",
+    "original_A100_80GB_efficiency_equivalence_certified": false
+  },
+  "output_receipts": [
+    {
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\experiments\\flow_mismatching_full_image_evaluation_v1\\cases\\table9_epoch_checkpoints__row05__mvtec__seed1103\\attempts\\35cfee529142473ab49fa628db3e4d56\\complete_native_test_heatmaps.npy",
+      "sha256": "d12fbb7d8b249919e4beac83ac4681d72dc41c41482d67c307f25e86e0248e22"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\experiments\\flow_mismatching_full_image_evaluation_v1\\cases\\table9_epoch_checkpoints__row05__mvtec__seed1103\\attempts\\35cfee529142473ab49fa628db3e4d56\\complete_native_test_image_scores.npy",
+      "sha256": "160f0f545b59ee7ab5f3898563d442bb1c447a9976e79a9bf0356bb521ac4641"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\experiments\\flow_mismatching_full_image_evaluation_v1\\cases\\table9_epoch_checkpoints__row05__mvtec__seed1103\\attempts\\35cfee529142473ab49fa628db3e4d56\\complete_native_test_probe_seeds.npy",
+      "sha256": "e1c0c5926462f0a12fe277e9550ee291cb075dc04a86142842fdd823efb80fed"
+    }
+  ],
+  "native_truth_array_receipts": [
+    {
+      "split": "test",
+      "field": "images",
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\flow_mismatching_mvtec_assets_v1\\derived_local_128_rgb_v1\\test_images.npy",
+      "shape": [
+        1725,
+        3,
+        128,
+        128
+      ],
+      "dtype": "float32",
+      "bytes": 339148928,
+      "sha256": "34a5baeb1c2854f6aa08416141703b6e8742112c48994d158213023adb4f5b02"
+    },
+    {
+      "split": "test",
+      "field": "masks",
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\flow_mismatching_mvtec_assets_v1\\derived_local_128_rgb_v1\\test_masks.npy",
+      "shape": [
+        1725,
+        128,
+        128
+      ],
+      "dtype": "uint8",
+      "bytes": 28262528,
+      "sha256": "76c91fa5aa57d4509b08458fd83ad08fa9b6163cdb601f4fb15ff9d746db7270"
+    },
+    {
+      "split": "test",
+      "field": "labels",
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\flow_mismatching_mvtec_assets_v1\\derived_local_128_rgb_v1\\test_labels.npy",
+      "shape": [
+        1725
+      ],
+      "dtype": "int64",
+      "bytes": 13928,
+      "sha256": "a72f75865b8e5999e7f9623491dfcd173336fad77e21b52a55d46a1036bf4200"
+    },
+    {
+      "split": "test",
+      "field": "categories",
+      "path": "F:\\aicoding\\IIA_Data\\public_datasets\\flow_matching\\flow_mismatching_mvtec_assets_v1\\derived_local_128_rgb_v1\\test_categories.npy",
+      "shape": [
+        1725
+      ],
+      "dtype": "int64",
+      "bytes": 13928,
+      "sha256": "139632aaf0e32de9490bd45334297f3ed77b03b2c0d4c5090bdd4ee3708ace1a"
+    }
+  ],
+  "full_independent_metric_and_model_replay_passed": false,
+  "original_author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "all_original_experiments_complete": false,
+  "boundary": "Full native test scoring candidate. Independent every-image model replay and original-truth metric audit still required; paired probe and AUPRO/inference choices are disclosed local conventions."
+}

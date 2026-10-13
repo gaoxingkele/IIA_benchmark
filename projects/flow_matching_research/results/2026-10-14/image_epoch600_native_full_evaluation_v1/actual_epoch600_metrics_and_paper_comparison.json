@@ -1,0 +1,85 @@
+{
+  "captured_utc": "2026-10-13T20:20:03.206968+00:00",
+  "citation": "https://arxiv.org/abs/2605.23070",
+  "model": "Flow Mismatching",
+  "dataset": "MVTec-AD",
+  "case_id": "table9_epoch_checkpoints__row05__mvtec__seed1103",
+  "seed": 1103,
+  "checkpoint_epoch": 600,
+  "original_required_case_seed_evaluations": 325,
+  "original_full_training_epochs": 2000,
+  "complete_original_test_images": 1725,
+  "complete_original_categories": 15,
+  "metrics_percent": {
+    "image_AUROC": 86.50399525858136,
+    "image_AP": 92.91224917796276,
+    "image_F1_max": 90.09366829291866,
+    "pixel_AUROC": 87.061211624301,
+    "pixel_AP": 36.56776076612381,
+    "pixel_F1_max": 40.001496676668054,
+    "pixel_AUPRO": 74.5237553055141
+  },
+  "paper_comparison": {
+    "image_AUROC": {
+      "local_percent": 86.50399525858136,
+      "paper_percent": 97.5,
+      "difference_percentage_points": -10.996004741418645
+    },
+    "image_AP": {
+      "local_percent": 92.91224917796276,
+      "paper_percent": 98.9,
+      "difference_percentage_points": -5.987750822037242
+    },
+    "image_F1_max": {
+      "local_percent": 90.09366829291866,
+      "paper_percent": 96.6,
+      "difference_percentage_points": -6.50633170708133
+    },
+    "pixel_AUROC": {
+      "local_percent": 87.061211624301,
+      "paper_percent": 97.0,
+      "difference_percentage_points": -9.938788375699005
+    },
+    "pixel_AP": {
+      "local_percent": 36.56776076612381,
+      "paper_percent": 64.8,
+      "difference_percentage_points": -28.232239233876186
+    },
+    "pixel_F1_max": {
+      "local_percent": 40.001496676668054,
+      "paper_percent": 63.0,
+      "difference_percentage_points": -22.998503323331946
+    },
+    "pixel_AUPRO": {
+      "local_percent": 74.5237553055141,
+      "paper_percent": 91.4,
+      "difference_percentage_points": -16.876244694485905
+    }
+  },
+  "full_native_checkpoint_and_every_model_heatmap_score_and_probe_seed_replayed": true,
+  "max_absolute_native_heatmap_difference": 0.0,
+  "max_absolute_native_score_difference": 0.0,
+  "independent_full_metrics_passed": true,
+  "report_sha256": "f93e0f87c6e297bf712dd52ab5e9d56cf3f6ace1cf4662c00138e8571701d4e9",
+  "checkpoint_sha256": "6b9de8107b776628978309b724ebd29a05c8432e14325e649f2a798c3ab09f37",
+  "metric_aggregation": "Unweighted macro mean of15 categories; units percentage; gaps percentage points.",
+  "uncertainty_boundary": "One seed and correlated checkpoints do not establish independent-seed uncertainty.",
+  "F1_max_boundary": "Full test-label oracle threshold sweep; not strict TAB calibration.",
+  "local_unreported_settings": [
+    "AUPRO: native derived128 masks, 8-connected regions, equal-region weight, maxFPR0.3, exact unique-score groups and linear cutoff interpolation.",
+    "AUPRO settings are conventional local choices; target author implementation unspecified.",
+    "FP32 evaluation inputs/parameters with TF32; original inference precision unknown.",
+    "Per-image/per-path SHA256 keyed CUDA seeds paired across K/T/aggregation/epoch/conditioning cases; probe prefix independent of case order.",
+    "Percentile ceil(alpha*K) at alpha0.1/K10 equals minimum under paired noise; printed differing results remain untouched.",
+    "Synchronized native forward/scorer timing excludes model loading, IO, probe draws, transfers and one full-image warmup.",
+    "Local RTX3090 timing cannot certify original A10080GB FPS claims.",
+    "Image/pixel F1-max uses full test labels only for reported oracle evaluation, never training/model choice/TAB calibration.",
+    "All full original test arrays and native category order retained; unweighted category mean matches stated paper averaging.",
+    "All local full training/preprocessing/optimizer/U-Net choices and author fidelity gaps from frozen training cohort remain."
+  ],
+  "final2000_epoch_completion_proved": false,
+  "causal_paper_gap_reason_certified": false,
+  "original_author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "all_original_experiments_complete": false
+}
