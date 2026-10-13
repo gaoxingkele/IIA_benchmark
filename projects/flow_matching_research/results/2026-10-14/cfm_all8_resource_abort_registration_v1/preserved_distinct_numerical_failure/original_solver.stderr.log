@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\run_cfm_ts_original_job.py", line 135, in <module>
+    run(queue, job)
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\run_cfm_ts_original_job.py", line 99, in run
+    prediction = model.simulate(initial[index], physical_times)[1:]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\src\iia_benchmark\models\fm_cfm_ts_original.py", line 147, in simulate
+    result = self._solve(initial, torch.tensor(t, dtype=torch.float64)).numpy()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\src\iia_benchmark\models\fm_cfm_ts_original.py", line 86, in _solve
+    return integrate(self.model, initial, times, method=self.solver, rtol=self.rtol, atol=self.atol,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\.venv\cfmts-author-py312\Lib\site-packages\torchdiffeq\_impl\odeint.py", line 80, in odeint
+    solution = solver.integrate(t)
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\.venv\cfmts-author-py312\Lib\site-packages\torchdiffeq\_impl\solvers.py", line 34, in integrate
+    solution[i] = self._advance(t[i])
+                  ^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\.venv\cfmts-author-py312\Lib\site-packages\torchdiffeq\_impl\rk_common.py", line 246, in _advance
+    self.rk_state = self._adaptive_step(self.rk_state)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\.venv\cfmts-author-py312\Lib\site-packages\torchdiffeq\_impl\rk_common.py", line 284, in _adaptive_step
+    assert t0 + dt > t0, 'underflow in dt {}'.format(dt.item())
+           ^^^^^^^^^^^^
+AssertionError: underflow in dt 0.0
