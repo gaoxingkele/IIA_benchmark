@@ -1,0 +1,107 @@
+{
+  "captured_utc": "2026-10-13T14:27:18.935725+00:00",
+  "configuration": "configs/reproducibility/fm_grasp_completion_replay_children_v1/grasp_protocol_v3__tau_0__swan__swan_sf__seed1105_native.json",
+  "configuration_sha256": "ec90acac4f00ba2af4a95fef1be88e37ab301be4870d1a297f8b9377f1296ce8",
+  "full_job_count": 1,
+  "full_checkpoint_contents_and_re_inference_passed": true,
+  "records": [
+    {
+      "canonical_id": "grasp_protocol_v3__tau_0__swan__swan_sf__seed1105",
+      "execution_id": "grasp_protocol_v3__tau_0__swan__swan_sf__seed1105",
+      "seed": 1105,
+      "checkpoint_path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_protocol_v3\\grasp_protocol_v3__tau_0__swan__swan_sf__seed1105\\checkpoint.pt",
+      "checkpoint_sha256": "d723522f3fdb087442506223d39ba9124bf76de7abb33c4ce1faaaab22ca2026",
+      "result_path": "experiments/runs/fm_grasp_protocol_v3/jobs/grasp_protocol_v3__tau_0__swan__swan_sf__seed1105/result.json",
+      "result_sha256": "1996eaf06b4d38992d9249bdeed6757da3449c80f4153e147f9e6cbf7dc0b255",
+      "epochs_completed": 1500,
+      "optimizer_updates": 93000,
+      "prepared_data_sha256": "e1a90f54d47f2abb5a2ba2af27da682131f4df2f2849414e57e23e01e7fa6f86",
+      "parameter_count": 69244,
+      "full_checkpoint_restoration_and_reinference_passed": true,
+      "recipes": [
+        {
+          "recipe": {
+            "source_samples": 5,
+            "flow_evaluations": 10
+          },
+          "complete_validation_points": 3935,
+          "complete_test_points": 72000,
+          "forward_evaluation_counts": {
+            "validation": {
+              "count": 800,
+              "windows": 194300
+            },
+            "test": {
+              "count": 14100,
+              "windows": 3597550
+            }
+          },
+          "replay_score_path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_full9120_completion_replay_v1\\grasp_protocol_v3__tau_0__swan__swan_sf__seed1105\\grasp_protocol_v3__tau_0__swan__swan_sf__seed1105\\s5_t10.npz",
+          "replay_score_sha256": "8aeaa35d074eade9027ddef651f5c0c6d1fef94c64fbea9bf6b8ccbec8353631",
+          "original_score_path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_protocol_v3\\grasp_protocol_v3__tau_0__swan__swan_sf__seed1105\\s5_t10.npz",
+          "original_score_sha256": "8d72fc9dcc6194ab2f3a2acc77cd277216fc95ec39d8071aced6a35cc68dcc5e",
+          "score_agreement": {
+            "validation": {
+              "max_absolute_difference": 0.0005078125004729372,
+              "max_relative_difference": 1.205501329426866e-07,
+              "bitwise_identical": false
+            },
+            "test": {
+              "max_absolute_difference": 0.008125000007566996,
+              "max_relative_difference": 3.5023141540773067e-07,
+              "bitwise_identical": false
+            }
+          },
+          "prediction_disagreements": 0,
+          "replayed_metrics": {
+            "paper_retrospective": {
+              "AP": 0.546416568439699,
+              "ROC": 0.7363001869266385,
+              "ROC_undefined_reason": null,
+              "Best_F1": 0.5446789189383274,
+              "test_labels_used_for_threshold_optimization": true,
+              "point_adjustment": false
+            },
+            "validation_only_control": {
+              "precision": 0.3714763991072167,
+              "recall": 0.8942786069651741,
+              "f1": 0.524909473192384,
+              "threshold": 5004.385433789062,
+              "quantile": 0.99,
+              "threshold_comparator": ">",
+              "test_features_used_for_calibration": false,
+              "test_labels_used_for_calibration": false,
+              "point_adjustment": false
+            }
+          },
+          "metric_absolute_differences": {
+            "paper_retrospective/AP": 1.1525037590942588e-09,
+            "paper_retrospective/ROC": 9.58598200817562e-10,
+            "paper_retrospective/Best_F1": 0.0,
+            "validation_only_control/precision": 0.0,
+            "validation_only_control/recall": 0.0,
+            "validation_only_control/f1": 0.0,
+            "validation_only_control/threshold": 0.0003808593746725819
+          },
+          "elapsed_seconds": 319.66753989999415,
+          "full_recipe_reinference_passed": true
+        }
+      ]
+    }
+  ],
+  "score_tolerance": {
+    "rtol": 0.0002,
+    "atol": 0.001
+  },
+  "metric_tolerance": {
+    "metric_atol": 0.0002,
+    "threshold_rtol": 0.0002,
+    "threshold_atol": 0.001,
+    "maximum_prediction_disagreement_rate": 0.0001
+  },
+  "cuda_context_initialized": false,
+  "additional_training_seed_slots": 0,
+  "all_original_experiments_complete": false,
+  "author_equivalence_certified": false,
+  "boundary": "Original completed tau1/SWAN/swan_sf/seed1104 full1500epochs/93000updates; all3935validation/72000test points and original5source x10flow recipe. Unchanged native full checkpoint replay/solver/environment/score/metric tolerances and resource guards. Preserve all9120GRASP entity jobs/480cohorts/10original repeats and45paper scope. No retraining, shortened grid, added seed, retrospective threshold promotion or original-author/TAB certification."
+}
