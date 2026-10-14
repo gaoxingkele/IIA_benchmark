@@ -1,0 +1,352 @@
+{
+  "id": "fm_objective_sb__swat__seed1103__stable_numerics_v2",
+  "status": "completed",
+  "purpose": "full_local_tsad_benchmark",
+  "experiment_sha256": "76c8382aa228396ada6e98de59b3ffca9f8d06e930b0b0730e3b3ecacdbf6140",
+  "dataset": "swat",
+  "model_config": "configs/models/fm_objective_sb_stable_v2.json",
+  "seed": 1103,
+  "job": {
+    "id": "fm_objective_sb__swat__seed1103__stable_numerics_v2",
+    "dataset": "swat",
+    "seed": 1103,
+    "model_config": "configs/models/fm_objective_sb_stable_v2.json",
+    "window": 100,
+    "dataset_manifest_path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+    "parameter_overrides": {
+      "seed": 1103,
+      "device": "cpu"
+    },
+    "output_directory": "experiments/runs/fm_tsad_entropic_repair_v1/jobs/fm_objective_sb__swat__seed1103__stable_numerics_v2",
+    "frozen_files": [
+      {
+        "path": "configs/experiments/fm_tsad_execution.v1.json",
+        "sha256": "c67d89272b22f61cb6be83a774cf82e191b04f1bc0774807ecd7c010e725d62c"
+      },
+      {
+        "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/manifest.json",
+        "sha256": "a0105fdaabe762406544b9e006285972146fc190c19cc93a29d867f80c43bfa0"
+      },
+      {
+        "path": "scripts/flow_matching/run_tsad_experiment.py",
+        "sha256": "ff6d01a0cbb50156454564c386c37c806d2d58df1a5b26756608899ef7cbcd96"
+      },
+      {
+        "path": "scripts/flow_matching/prepare_tsad_execution.py",
+        "sha256": "3f28f7584fdf49f638c3c46610d34bb0408ebf97d3f12c7a58a726df2d7ee306"
+      },
+      {
+        "path": "src/iia_benchmark/evaluation/mtsad_strict.py",
+        "sha256": "c2d9bffa3d6a9f444ae68e26bd0450e1f4ce5ff9974f3d27540010914f82e7ec"
+      },
+      {
+        "path": "src/iia_benchmark/evaluation/mtsad_metrics.py",
+        "sha256": "5c65f924a059966d734a23da79a12cc36396ae0b2158f392c9b9c90ef7116aae"
+      },
+      {
+        "path": "src/iia_benchmark/models/fm_objective_detectors.py",
+        "sha256": "472c4fbec10f45fd588c3745a9e9d855f602a30001e2d03f6a8d9f5333d0c810"
+      },
+      {
+        "path": "data/public_datasets/flow_matching/processed_tsad_execution_v1/swat.npz",
+        "sha256": "d0cf20b36631d8334dc034dd7f1d6db37e15e2e1ee444af66b0c507755db6660"
+      },
+      {
+        "path": "configs/models/fm_objective_sb_stable_v2.json",
+        "sha256": "06984147a3b296b01d651855835b6991b93cccfe1d1eb8ecc949bdf7fa9df042"
+      },
+      {
+        "path": "src/iia_benchmark/models/fm_objective_stable.py",
+        "sha256": "30e97881643e02830800507f10d83549144299935a63e28901339a2e48cd28c4"
+      }
+    ],
+    "supersedes_failed_numerics_job": "fm_objective_sb__swat__seed1103"
+  },
+  "training_seconds": 1149.375,
+  "score_seconds": 16.43800000002375,
+  "parameter_count": 1327468,
+  "checkpoint_sha256": "1a122cdef9a3ee595319507536ddfa89e542e1f81161f1d5fa7ff36fe68dee6d",
+  "scores_sha256": "b6df0387ac58b859310d5f45d55f279e1f018fef1da04533f2eebec68205a29d",
+  "training_losses": [
+    6.992668595329683,
+    5.386616302156845,
+    4.783774773139308,
+    5.3273515344780185,
+    6.185184545967428,
+    6.575339282332842,
+    4.242694605778913,
+    5.60899976980629,
+    4.309284609717292,
+    5.410947965895115,
+    6.0585012818021164,
+    5.888568768148382,
+    5.385505617733825,
+    5.735591039178226,
+    6.541045958419495,
+    5.541882378490744,
+    6.09544887203073,
+    5.442795334394667,
+    4.174846310843178,
+    4.390082331792548
+  ],
+  "metrics": {
+    "strict": {
+      "0.1": {
+        "protocol": "strict_validation_only_no_pa_v1",
+        "calibration": {
+          "threshold": 5.588185422897381,
+          "false_alarm_percent": 0.1,
+          "calibration_split": "validation",
+          "calibration_sha256": "20e975e0759f6a76eedbbd0cca46aafd9a0e8e471308d4a87f7e7a89a1e8e79f",
+          "calibration_points": 99000,
+          "calibration_dataset_sha256": "d0cf20b36631d8334dc034dd7f1d6db37e15e2e1ee444af66b0c507755db6660",
+          "model_artifact_sha256": "1a122cdef9a3ee595319507536ddfa89e542e1f81161f1d5fa7ff36fe68dee6d",
+          "rule": "validation_score_percentile_linear_strict_greater"
+        },
+        "coverage": "complete",
+        "point_adjustment": false,
+        "per_entity": {
+          "swat": {
+            "precision": 0.1968305694020611,
+            "recall": 0.7829223192544992,
+            "f1": 0.31457533359815215,
+            "true_positives": 42764.0,
+            "false_positives": 174499.0,
+            "false_negatives": 11857.0,
+            "auroc": 0.8211760772153036,
+            "average_precision": 0.7235797469943174
+          }
+        },
+        "micro": {
+          "precision": 0.1968305694020611,
+          "recall": 0.7829223192544992,
+          "f1": 0.31457533359815215,
+          "true_positives": 42764.0,
+          "false_positives": 174499.0,
+          "false_negatives": 11857.0,
+          "auroc": 0.8211760772153036,
+          "average_precision": 0.7235797469943174
+        },
+        "macro_f1": 0.31457533359815215,
+        "boundary": "Aligned timestamp order is caller-audited; no VUS/Affiliation or uncertainty is computed here. This diagnostic alone is not a leaderboard result.",
+        "event_metrics": {
+          "event_recall": 0.6857142857142857,
+          "events": 35,
+          "detected_events": 24,
+          "mean_detection_delay_points": 113.45833333333333,
+          "false_alarms_per_1000_normal_points": 441.4365870811388,
+          "delay_boundary": "Offline window scores use future context; delay in source points, not causal latency. Missed events reported separately."
+        },
+        "f1_ci95": {
+          "low": 0.24466269168582466,
+          "high": 0.3794730028313288,
+          "resamples": 200,
+          "seed": 11103,
+          "unit": "circular_temporal_block",
+          "block_points": 1024,
+          "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+        }
+      },
+      "1": {
+        "protocol": "strict_validation_only_no_pa_v1",
+        "calibration": {
+          "threshold": 3.719915637969967,
+          "false_alarm_percent": 1.0,
+          "calibration_split": "validation",
+          "calibration_sha256": "20e975e0759f6a76eedbbd0cca46aafd9a0e8e471308d4a87f7e7a89a1e8e79f",
+          "calibration_points": 99000,
+          "calibration_dataset_sha256": "d0cf20b36631d8334dc034dd7f1d6db37e15e2e1ee444af66b0c507755db6660",
+          "model_artifact_sha256": "1a122cdef9a3ee595319507536ddfa89e542e1f81161f1d5fa7ff36fe68dee6d",
+          "rule": "validation_score_percentile_linear_strict_greater"
+        },
+        "coverage": "complete",
+        "point_adjustment": false,
+        "per_entity": {
+          "swat": {
+            "precision": 0.17465741708638222,
+            "recall": 0.8412149173394848,
+            "f1": 0.28925765511684126,
+            "true_positives": 45948.0,
+            "false_positives": 217127.0,
+            "false_negatives": 8673.0,
+            "auroc": 0.8211760772153036,
+            "average_precision": 0.7235797469943174
+          }
+        },
+        "micro": {
+          "precision": 0.17465741708638222,
+          "recall": 0.8412149173394848,
+          "f1": 0.28925765511684126,
+          "true_positives": 45948.0,
+          "false_positives": 217127.0,
+          "false_negatives": 8673.0,
+          "auroc": 0.8211760772153036,
+          "average_precision": 0.7235797469943174
+        },
+        "macro_f1": 0.28925765511684126,
+        "boundary": "Aligned timestamp order is caller-audited; no VUS/Affiliation or uncertainty is computed here. This diagnostic alone is not a leaderboard result.",
+        "event_metrics": {
+          "event_recall": 0.7428571428571429,
+          "events": 35,
+          "detected_events": 26,
+          "mean_detection_delay_points": 21.26923076923077,
+          "false_alarms_per_1000_normal_points": 549.2742184377356,
+          "delay_boundary": "Offline window scores use future context; delay in source points, not causal latency. Missed events reported separately."
+        },
+        "f1_ci95": {
+          "low": 0.23013879667070217,
+          "high": 0.3440158320846526,
+          "resamples": 200,
+          "seed": 11103,
+          "unit": "circular_temporal_block",
+          "block_points": 1024,
+          "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+        }
+      },
+      "5": {
+        "protocol": "strict_validation_only_no_pa_v1",
+        "calibration": {
+          "threshold": 2.219075036048889,
+          "false_alarm_percent": 5.0,
+          "calibration_split": "validation",
+          "calibration_sha256": "20e975e0759f6a76eedbbd0cca46aafd9a0e8e471308d4a87f7e7a89a1e8e79f",
+          "calibration_points": 99000,
+          "calibration_dataset_sha256": "d0cf20b36631d8334dc034dd7f1d6db37e15e2e1ee444af66b0c507755db6660",
+          "model_artifact_sha256": "1a122cdef9a3ee595319507536ddfa89e542e1f81161f1d5fa7ff36fe68dee6d",
+          "rule": "validation_score_percentile_linear_strict_greater"
+        },
+        "coverage": "complete",
+        "point_adjustment": false,
+        "per_entity": {
+          "swat": {
+            "precision": 0.148125250783932,
+            "recall": 0.9123963310814522,
+            "f1": 0.25487257905315214,
+            "true_positives": 49836.0,
+            "false_positives": 286609.0,
+            "false_negatives": 4785.0,
+            "auroc": 0.8211760772153036,
+            "average_precision": 0.7235797469943174
+          }
+        },
+        "micro": {
+          "precision": 0.148125250783932,
+          "recall": 0.9123963310814522,
+          "f1": 0.25487257905315214,
+          "true_positives": 49836.0,
+          "false_positives": 286609.0,
+          "false_negatives": 4785.0,
+          "auroc": 0.8211760772153036,
+          "average_precision": 0.7235797469943174
+        },
+        "macro_f1": 0.25487257905315214,
+        "boundary": "Aligned timestamp order is caller-audited; no VUS/Affiliation or uncertainty is computed here. This diagnostic alone is not a leaderboard result.",
+        "event_metrics": {
+          "event_recall": 0.9428571428571428,
+          "events": 35,
+          "detected_events": 33,
+          "mean_detection_delay_points": 18.575757575757574,
+          "false_alarms_per_1000_normal_points": 725.0454087802113,
+          "delay_boundary": "Offline window scores use future context; delay in source points, not causal latency. Missed events reported separately."
+        },
+        "f1_ci95": {
+          "low": 0.20070191013888733,
+          "high": 0.2996760986265257,
+          "resamples": 200,
+          "seed": 11103,
+          "unit": "circular_temporal_block",
+          "block_points": 1024,
+          "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+        }
+      }
+    },
+    "tab_core_diagnostic": {
+      "tab_commit": "5a7e6f80c405eed7c4dd1390f69fbba2fd8ddcf2",
+      "ratio_grid": [
+        {
+          "ratio_percent": 0.1,
+          "threshold": 28.62177450561524,
+          "f_score": 0.029134965564489957,
+          "adjust_f_score": 0.8023970464181247
+        },
+        {
+          "ratio_percent": 0.5,
+          "threshold": 27.958346118927004,
+          "f_score": 0.14229880369766176,
+          "adjust_f_score": 0.8062547090490177
+        },
+        {
+          "ratio_percent": 1,
+          "threshold": 27.53482589721679,
+          "f_score": 0.2665799946094208,
+          "adjust_f_score": 0.8062106918238994
+        },
+        {
+          "ratio_percent": 2,
+          "threshold": 26.910472412109378,
+          "f_score": 0.471172128397271,
+          "adjust_f_score": 0.8061138708444785
+        },
+        {
+          "ratio_percent": 3,
+          "threshold": 26.21629020690917,
+          "f_score": 0.6321001237793976,
+          "adjust_f_score": 0.8058851136748125
+        },
+        {
+          "ratio_percent": 5,
+          "threshold": 7.972493839263914,
+          "f_score": 0.7384605703378188,
+          "adjust_f_score": 0.8525694225834454
+        },
+        {
+          "ratio_percent": 10,
+          "threshold": 7.002009868621827,
+          "f_score": 0.5416917967983607,
+          "adjust_f_score": 0.6384064264003474
+        },
+        {
+          "ratio_percent": 15,
+          "threshold": 6.643723726272583,
+          "f_score": 0.4252797527391587,
+          "adjust_f_score": 0.5043716077801947
+        },
+        {
+          "ratio_percent": 20,
+          "threshold": 6.320727348327637,
+          "f_score": 0.35590946739169577,
+          "adjust_f_score": 0.41465553163414126
+        },
+        {
+          "ratio_percent": 25,
+          "threshold": 5.782778978347778,
+          "f_score": 0.3183453577630399,
+          "adjust_f_score": 0.3580639560869838
+        }
+      ],
+      "best_grid_f_score": 0.7384605703378188,
+      "best_grid_adjust_f_score": 0.8525694225834454,
+      "auc_roc": 0.8211760772153036,
+      "auc_pr": 0.7235797469943174,
+      "test_scores_used_in_calibration": true,
+      "test_labels_used_to_select_best_grid": true,
+      "pending_metrics": [
+        "VUS_ROC",
+        "VUS_PR",
+        "affiliation_f"
+      ],
+      "boundary": "Core TAB-equivalent metric formulas on local saved scores; no full TAB or author reproduction claim."
+    }
+  },
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.13.0+cu126",
+    "numpy": "2.4.6",
+    "cuda": "12.6",
+    "device": "cpu"
+  },
+  "peak_cuda_allocated_bytes": null,
+  "paper_equivalence": false,
+  "reproduction_status": "paper_objective_transcription_local_tsad_score_adapter_not_original_experiment",
+  "boundary": "Full saved-score local adaptation/reconstruction benchmark. Registered training defaults retained; independently purged validation calibration; offline full timestamp coverage. Original-paper fidelity and full TAB range metrics remain separate requirements."
+}
