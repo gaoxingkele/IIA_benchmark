@@ -7,3 +7,5 @@ Full checkpoint re-inference and the final independent replay review are still p
 All 1140 original jobs, six seeds and 45-paper / 681-method / 273-data obligations remain. No retraining, extra seed, historical journal equivalence or between-seed uncertainty claim. The pinned paper, historical mirror, exact original configuration and dataset citations are carried in the runtime and child source receipts.
 
 Validation limitation: the frozen v1 test file contains one accidental duplicate1106 in its expected six-seed list. The actual original queue remains[42,1103,1104,1105,1106,1107]. The initially failed XML is preserved; the independent corrected v2 validation passed all46 checks without edits to any frozen worker/configuration/source pins. The erroneous frozen assertion remains a documented test limitation, not a scientific or training failure.
+
+Completion update: all three guarded audit stages and all15bitwise model score streams are complete. See ../pi_causal1106_actual_complete_model_replay_closure_v1/one_complete_original_model_and_all_fifteen_streams_closure.json . The historical pending JSON and original failure XML remain immutable.

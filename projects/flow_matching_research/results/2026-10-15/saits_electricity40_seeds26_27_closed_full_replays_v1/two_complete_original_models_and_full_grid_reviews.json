@@ -1,0 +1,202 @@
+{
+  "captured_utc": "2026-10-14T20:17:54.640175+00:00",
+  "method": "saits",
+  "dataset": "electricity",
+  "nominal_missing_ratio": 0.4,
+  "full_test_shape": [
+    290,
+    100,
+    370
+  ],
+  "full_test_cells_per_model": 10730000,
+  "held_out_coordinates_per_model": 3537183,
+  "actual_target_fraction": 0.32965358807082945,
+  "model_parameters": 11511000,
+  "required_maximum_epochs": 10000,
+  "author_early_stop_patience": 30,
+  "required_original_training_seeds": [
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "fully_verified_original_seeds": [
+    26,
+    27
+  ],
+  "complete_five_seed_aggregate": false,
+  "reviewed_SAITS_BRITS_models": 41,
+  "required_SAITS_BRITS_models": 210,
+  "both_original_trainings_full_native_models_and_independent_reviews_passed": true,
+  "per_model": [
+    {
+      "id": "saits_paper_saits_electricity_author_missing0.4_seed26",
+      "seed": 26,
+      "full_training_completion": {
+        "id": "saits_paper_saits_electricity_author_missing0.4_seed26",
+        "full_training_finished": true,
+        "full_test_units": 290,
+        "held_out_coordinates": 3537183.0,
+        "metrics_independently_recomputed": true,
+        "original_maximum_epochs": 10000,
+        "next_epoch": 465,
+        "author_patience_remaining": 0,
+        "benchmark_smoke": false,
+        "result_sha256": "5a8aea06aa9eb9c1b788dc3e9669a2cb4d8efa21efeb116401baa0ba33c9f7df",
+        "resume_sha256": "731a0711c245e5754f183fc1875dcbdea86ffd08227e04462c41463b0a6d7957",
+        "best_sha256": "558a2a4e9007e6b93530dfa86092b1d5360f960516571b98aedd3b424fa1c1ca",
+        "statistics_sha256": "c821c01a3a8d748657f35fbdb52c0d89c852a3e029a532b03fa6abc4bb467dd4"
+      },
+      "validation_best": {
+        "validation_mae": 0.45348572731018066,
+        "training_step": 3038,
+        "epoch": 433
+      },
+      "independently_recomputed_metrics": {
+        "mae": 0.857584884284583,
+        "rmse": 1.317040968238612,
+        "mre": 0.4592020032486227
+      },
+      "original_month_block_bootstrap_95_ci": {
+        "mae": [
+          0.8387200065916032,
+          0.8777616536147701
+        ],
+        "rmse": [
+          1.291755209465024,
+          1.3440267423460979
+        ],
+        "mre": [
+          0.4546242568556307,
+          0.4641827844113829
+        ]
+      },
+      "full_artifact_hashes": {
+        "config": "fa1c1508b88cb8baaeae33da25f07ca4f6ff1a5a15a275bd4fa74aa6cf04b2e9",
+        "result": "5a8aea06aa9eb9c1b788dc3e9669a2cb4d8efa21efeb116401baa0ba33c9f7df",
+        "checkpoint": "558a2a4e9007e6b93530dfa86092b1d5360f960516571b98aedd3b424fa1c1ca",
+        "arrays": "be2490376ccb6c224209c4b658cee6310b279ee05d88b18dd1a62ddf0def23e3",
+        "dataset": "183ef7077f9f9d04de139a6b05129422942a50a5c14603d4a46e808fea049ffb",
+        "resume": "731a0711c245e5754f183fc1875dcbdea86ffd08227e04462c41463b0a6d7957",
+        "original_group_statistics": "c821c01a3a8d748657f35fbdb52c0d89c852a3e029a532b03fa6abc4bb467dd4",
+        "data_audit": "5661d4b3d58bbb60019f49e8551a25f342776759420c5435a525acd2c082cba0"
+      },
+      "current_proof_hashes": {
+        "original_result": "5a8aea06aa9eb9c1b788dc3e9669a2cb4d8efa21efeb116401baa0ba33c9f7df",
+        "original_training_guard": "d44ae38097c78509df7674b2dc0bdf57850542e8c1fc7768e0031de3793d2dd2",
+        "native_configuration": "5bd7bb7e985946fa9a1fbab1f389b751d00dddd83a21c108ec1757710c45b0ba",
+        "independent_configuration": "e6b61bf67e9cdf50177e3c683880eea35a954c896bc0e6e078eaf172d3624232",
+        "full_native_report": "299d6887bb91143dee19b5251bbdeddf262c94d6dcd463b9d7d4f14dcf1dbe57",
+        "full_independent_proof": "aa22c698cef1c5fb7e2865ac082d0500e98dcdb7667750f02d463738d4fb17c5",
+        "native_guard": "db5d08fb5ef2fa9ec5afeaac8ded1b2a02d6c6bd7bf3e3b6639fec16f639f95f",
+        "independent_guard": "d15a9712633c3f606152fc79547ce15f78e9104526c5f97a5289f9ee552bcce5"
+      },
+      "citation": "https://arxiv.org/abs/2202.08516",
+      "data_citation": "https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014",
+      "protocol_boundaries": [
+        "Preprocessing NumPy seed 26 registered locally; historical author seed unspecified.",
+        "Author replacement masks retained; realized missing fraction differs from the nominal rate.",
+        "Author chronological month split retained: earlier test, intermediate validation, later training.",
+        "Month bootstrap is a temporal block sensitivity estimate; temporal independence is not guaranteed.",
+        "Released author window_truncate multiplies the last start by stride twice and drops the final window. Local count 1397 differs from paper 1400; protocol alignment remains unverified.",
+        "Windows loader workers set to zero versus author four; MIT random draw stream can differ.",
+        "Author model, losses, Adam, validation frequency and MAE controller retained; resume saves full state at epoch boundaries.",
+        "Final checkpoint selected solely on validation MAE; test metrics use author functions aggregated on CPU.",
+        "Five preregistered model seeds share the frozen split; paper Tables 2/4 do not report uncertainty."
+      ]
+    },
+    {
+      "id": "saits_paper_saits_electricity_author_missing0.4_seed27",
+      "seed": 27,
+      "full_training_completion": {
+        "id": "saits_paper_saits_electricity_author_missing0.4_seed27",
+        "full_training_finished": true,
+        "full_test_units": 290,
+        "held_out_coordinates": 3537183.0,
+        "metrics_independently_recomputed": true,
+        "original_maximum_epochs": 10000,
+        "next_epoch": 231,
+        "author_patience_remaining": 0,
+        "benchmark_smoke": false,
+        "result_sha256": "a19f82e23e6195f845d5174fc06645990f8eaead281afbcf571a4cab4bf8d728",
+        "resume_sha256": "d167bce67edfa23890acfdc4c02f85cbb18ef94c8cc238f0602b7d0ae256a0c3",
+        "best_sha256": "369936217634289b819bfb74a870e06f7531df0405cf87314da178190f1b00af",
+        "statistics_sha256": "93b62e29cbcdb61a501cf496962418aa652554e44143ff78daf098bf6fd852ff"
+      },
+      "validation_best": {
+        "validation_mae": 0.4699705243110657,
+        "training_step": 1400,
+        "epoch": 199
+      },
+      "independently_recomputed_metrics": {
+        "mae": 0.917792330759601,
+        "rmse": 1.408827905083684,
+        "mre": 0.49144065453370983
+      },
+      "original_month_block_bootstrap_95_ci": {
+        "mae": [
+          0.896843218575656,
+          0.9389171616344396
+        ],
+        "rmse": [
+          1.3833503833269878,
+          1.4342724704958238
+        ],
+        "mre": [
+          0.4856357583895105,
+          0.496634102294018
+        ]
+      },
+      "full_artifact_hashes": {
+        "config": "0e53bf3747de8abcc1ca9beb4e1d635f8e065c7aab44bfb4e4e0dd419adfb77c",
+        "result": "a19f82e23e6195f845d5174fc06645990f8eaead281afbcf571a4cab4bf8d728",
+        "checkpoint": "369936217634289b819bfb74a870e06f7531df0405cf87314da178190f1b00af",
+        "arrays": "37e8b407bd77a971498aeb50fe3f33064a3a7dd8eb205046e39e21f5bed1c39d",
+        "dataset": "183ef7077f9f9d04de139a6b05129422942a50a5c14603d4a46e808fea049ffb",
+        "resume": "d167bce67edfa23890acfdc4c02f85cbb18ef94c8cc238f0602b7d0ae256a0c3",
+        "original_group_statistics": "93b62e29cbcdb61a501cf496962418aa652554e44143ff78daf098bf6fd852ff",
+        "data_audit": "5661d4b3d58bbb60019f49e8551a25f342776759420c5435a525acd2c082cba0"
+      },
+      "current_proof_hashes": {
+        "original_result": "a19f82e23e6195f845d5174fc06645990f8eaead281afbcf571a4cab4bf8d728",
+        "original_training_guard": "e46dfe26c85d22f812357fdb1fc7fc5e88100453ad4d2f755088ca8b472eb8ff",
+        "native_configuration": "41659fa3be3776a6b6d1818a584a5c833c9f2002a0bd32b91c82cf77a03986a1",
+        "independent_configuration": "020fe8d66c03537bf1d018df8734aa60fd211d2c5c407b1251b96cdc49c741c3",
+        "full_native_report": "e32cd431f2b50f74a53ad1a59a57fbb5bf8ac8e4176b36ad7254ab43afd33ed8",
+        "full_independent_proof": "bb7cf0ea9621ac99955596f265075eb069a7da89ab95d3d79eb8314be3df3276",
+        "native_guard": "7bc36888e43ea4e72b99f5e4de665e4afb7d4b1d9b5a13b184265b67d3b5ca4b",
+        "independent_guard": "e3859bebea2781665f4d3d652c2c336bcae5d4190b2079c251e0c1f23f1ad456"
+      },
+      "citation": "https://arxiv.org/abs/2202.08516",
+      "data_citation": "https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014",
+      "protocol_boundaries": [
+        "Preprocessing NumPy seed 26 registered locally; historical author seed unspecified.",
+        "Author replacement masks retained; realized missing fraction differs from the nominal rate.",
+        "Author chronological month split retained: earlier test, intermediate validation, later training.",
+        "Month bootstrap is a temporal block sensitivity estimate; temporal independence is not guaranteed.",
+        "Released author window_truncate multiplies the last start by stride twice and drops the final window. Local count 1397 differs from paper 1400; protocol alignment remains unverified.",
+        "Windows loader workers set to zero versus author four; MIT random draw stream can differ.",
+        "Author model, losses, Adam, validation frequency and MAE controller retained; resume saves full state at epoch boundaries.",
+        "Final checkpoint selected solely on validation MAE; test metrics use author functions aggregated on CPU.",
+        "Five preregistered model seeds share the frozen split; paper Tables 2/4 do not report uncertainty."
+      ]
+    }
+  ],
+  "original_prediction_bitwise_equivalence_claimed": false,
+  "metric_tolerance": {
+    "rtol": 2e-06,
+    "atol": 2e-06
+  },
+  "within_model_month_block_uncertainty_is_not_training_seed_uncertainty": true,
+  "additional_training_updates": 0,
+  "additional_model_reinference_in_this_archive": 0,
+  "author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "all_original_experiments_complete": false
+}
