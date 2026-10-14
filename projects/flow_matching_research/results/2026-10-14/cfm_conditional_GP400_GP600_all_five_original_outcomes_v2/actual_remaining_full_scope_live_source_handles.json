@@ -1,0 +1,86 @@
+{
+  "captured_utc": "2026-10-14T04:17:39.652384+00:00",
+  "actual_live_workers": [
+    {
+      "pid": 41992,
+      "create_time": 1791948094.8603492,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-u",
+        "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_crossad_memory_v2_job.py",
+        "--queue",
+        "D:\\aicoding\\IIA_benchmark\\configs\\experiments\\fm_crossad_complete_queue.v7.json",
+        "--job-id",
+        "crossad_author__fresh_train__gecco__seed1104"
+      ],
+      "cpu_seconds": 6407.374999999999,
+      "children": []
+    },
+    {
+      "pid": 25120,
+      "create_time": 1791941882.8006165,
+      "command": [
+        "D:\\aicoding\\IIA_benchmark\\tmp\\python\\cpython-3.10-windows-x86_64-none\\python.exe",
+        "-u",
+        "D:\\aicoding\\IIA_benchmark\\scripts\\flow_matching\\run_moment_pretrained_job.py",
+        "--queue",
+        "configs\\experiments\\fm_moment_pretrained_queue.v1.json",
+        "--job-id",
+        "fm_moment_pretrained_base__release512__cicids__seed42"
+      ],
+      "cpu_seconds": 18015.703125,
+      "children": []
+    },
+    {
+      "pid": 35452,
+      "create_time": 1791769181.137207,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.run_cached_resource_monitor_controller_v2",
+        "--runtime-config",
+        "configs/runtime/fm_cfm_cached_resource_monitor.v2.json"
+      ],
+      "cpu_seconds": 787.234375,
+      "children": [
+        {
+          "pid": 22424,
+          "create_time": 1791951390.7022505,
+          "command": [
+            "D:\\aicoding\\IIA_benchmark\\.venv\\cfmts-author-py312\\Scripts\\python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_cfm_ts_original_job",
+            "--queue",
+            "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+            "--job-id",
+            "cfm_ts_original__main_text__gp_gaussian_conditional_e600__sine__seed1105"
+          ]
+        },
+        {
+          "pid": 23084,
+          "create_time": 1791951390.7540421,
+          "command": [
+            "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "-u",
+            "-m",
+            "scripts.flow_matching.run_cfm_ts_original_job",
+            "--queue",
+            "configs/experiments/fm_cfm_ts_original_queue.v1.json",
+            "--job-id",
+            "cfm_ts_original__main_text__gp_gaussian_conditional_e600__sine__seed1105"
+          ]
+        }
+      ]
+    }
+  ],
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "all_original_experiments_complete": false
+}
