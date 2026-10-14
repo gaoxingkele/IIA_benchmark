@@ -1,0 +1,312 @@
+{
+  "status": "completed",
+  "diagnostic": false,
+  "paper_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "job": {
+    "id": "grasp_protocol_v3__lin__swan__swan_sf__seed1105",
+    "profile": "lin",
+    "dataset": "swan",
+    "entity": "swan_sf",
+    "seed": 1105,
+    "model_config": "configs/models/fm_grasp_protocol_v2_lin.json",
+    "model_config_sha256": "f8d5f06f4b97e578646e1f6caee830873d5a53cfec9f5e78283e7cdc6e558dd6",
+    "expected_optimizer_updates": 93000,
+    "test_points": 72000,
+    "validation_points": 3935,
+    "score_recipes": [
+      {
+        "source_samples": 5,
+        "flow_evaluations": 10
+      }
+    ],
+    "output_directory": "experiments/runs/fm_grasp_protocol_v3/jobs/grasp_protocol_v3__lin__swan__swan_sf__seed1105",
+    "original_id": "grasp_protocol_v2__lin__swan__swan_sf__seed1105"
+  },
+  "job_sha256": "45af97cf9fa406dc276fb150ea03a6eac8f26c4eb865b902da816d9efd5555b3",
+  "epochs_completed": 1500,
+  "optimizer_updates": 93000,
+  "scored_points": 72000,
+  "validation_points": 3935,
+  "score_recipes": [
+    {
+      "source_samples": 5,
+      "flow_evaluations": 10
+    }
+  ],
+  "parameter_count": 69244,
+  "training_seconds": 1307.6708811999997,
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "peak_cuda_allocated_bytes": 163084288,
+  "peak_cuda_reserved_bytes": 201326592,
+  "cpu_threads": 2,
+  "checkpoint_selection": "last_epoch_local_choice_no_invented_early_stop",
+  "metrics": [
+    {
+      "recipe": {
+        "source_samples": 5,
+        "flow_evaluations": 10
+      },
+      "metrics": {
+        "paper_retrospective": {
+          "AP": 0.5503807532989506,
+          "ROC": 0.7348502664902845,
+          "ROC_undefined_reason": null,
+          "Best_F1": 0.5464151648093596,
+          "test_labels_used_for_threshold_optimization": true,
+          "point_adjustment": false
+        },
+        "validation_only_control": {
+          "precision": 0.3856838091779765,
+          "recall": 0.8454726368159204,
+          "f1": 0.529721642093451,
+          "threshold": 17110.34878046875,
+          "quantile": 0.99,
+          "threshold_comparator": ">",
+          "test_features_used_for_calibration": false,
+          "test_labels_used_for_calibration": false,
+          "point_adjustment": false
+        }
+      },
+      "validation_score_seconds": 2.145817000011448,
+      "test_score_seconds": 37.04566430003615,
+      "window_evaluations": 71951,
+      "spectral_decomposition_in_scoring": false,
+      "attribution_saved": false,
+      "scores_path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_protocol_v3\\grasp_protocol_v3__lin__swan__swan_sf__seed1105\\s5_t10.npz"
+    }
+  ],
+  "data_audit": {
+    "id": "swan_sf",
+    "dataset": "swan",
+    "prepared_path": "data/public_datasets/flow_matching/grasp_protocol_v2/swan/swan_sf.npz",
+    "prepared_sha256": "e1a90f54d47f2abb5a2ba2af27da682131f4df2f2849414e57e23e01e7fa6f86",
+    "raw_sources": [
+      {
+        "path": "data/public_datasets/flow_matching/mtsbench/SWAN/swan_sf_train.csv",
+        "sha256": "ae9d42cb7911ced67f6bec294870ca2f7950fb5e1610a4942fadbafa8486a433"
+      },
+      {
+        "path": "data/public_datasets/flow_matching/mtsbench/SWAN/swan_sf_test.csv",
+        "sha256": "564a3a69292b4a5cfd678fe2c6984aa49f6dabaeadedd44bfccccaec5239484a"
+      }
+    ],
+    "raw_train_points": 19672,
+    "split_cut": 15737,
+    "fit_points": 15737,
+    "validation_points": 3935,
+    "test_points": 72000,
+    "test_anomaly_points": 20100,
+    "features": 38,
+    "paper_variables": 39,
+    "feature_count_discrepancy": true,
+    "normal_training_status": "verified_zero_labels",
+    "fit_window_count": 15688,
+    "validation_window_count": 3886,
+    "test_window_count": 71951,
+    "source_audit": {
+      "feature_names": [
+        "TOTUSJH",
+        "TOTBSQ",
+        "TOTPOT",
+        "TOTUSJZ",
+        "ABSNJZH",
+        "SAVNCPP",
+        "USFLUX",
+        "TOTFZ",
+        "MEANPOT",
+        "EPSZ",
+        "MEANSHR",
+        "SHRGT45",
+        "MEANGAM",
+        "MEANGBT",
+        "MEANGBZ",
+        "MEANGBH",
+        "MEANJZH",
+        "TOTFY",
+        "MEANJZD",
+        "MEANALP",
+        "TOTFX",
+        "EPSY",
+        "EPSX",
+        "R_VALUE",
+        "CRVAL1",
+        "CRLN_OBS",
+        "LAT_MIN",
+        "LON_MIN",
+        "LAT_MAX",
+        "LON_MAX",
+        "QUALITY",
+        "IS_TMFI",
+        "BFLARE",
+        "CFLARE",
+        "MFLARE",
+        "XFLARE",
+        "XR_MAX",
+        "XR_QUAL"
+      ],
+      "timestamps": {
+        "train": {
+          "first": "2000-01-01 00:00:00",
+          "last": "2002-09-26 22:00:00",
+          "monotonic": true
+        },
+        "test": {
+          "first": "2005-06-23 00:00:00",
+          "last": "2013-09-08 23:00:00",
+          "monotonic": true
+        }
+      },
+      "training_anomaly_points": 0,
+      "timestamp_identity": "split-specific source timestamps and row order; entity boundaries retained"
+    },
+    "train_only_scaler": {
+      "median": [
+        109.79161766427605,
+        902576622.3893,
+        7.167510432855177e+21,
+        2295775301630.038,
+        7.525211717955138,
+        644965299185.6748,
+        1.5930829208471184e+21,
+        -6.896515213991394e+23,
+        1881.226580056299,
+        -0.5826949720780651,
+        23.2614382342434,
+        4.1031652989449015,
+        30.334544652596342,
+        123.55687630744043,
+        124.10909511835108,
+        53.50452393957681,
+        0.0007316367027569,
+        -1.612043362204535e+22,
+        0.1806838037433196,
+        0.0024643825097276,
+        -1.7582466676047812e+22,
+        0.0248835927535584,
+        0.0411580664279638,
+        0.0,
+        223.862839,
+        263.178192,
+        3.667938,
+        -2.074256,
+        6.692411,
+        10.207301,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.23e-06,
+        12.0
+      ],
+      "mean": [
+        305.1626169607622,
+        3891992090.7515807,
+        1.0852574129680566e+23,
+        6278208406547.6875,
+        41.4241013709116,
+        2144531812602.708,
+        4.5793002135186697e+21,
+        -1.8388628813093173e+24,
+        436248.2433815505,
+        -0.5304256504971101,
+        26.18927621491827,
+        11.104307795097283,
+        34.1471406854236,
+        121.46471916884391,
+        122.77046639364936,
+        54.72076190157697,
+        0.0004028268090018369,
+        -1.085305984839892e+23,
+        0.3314377587114313,
+        0.0017608309675426538,
+        -6.4804778061874636e+22,
+        0.012395267187078311,
+        0.018506858863011996,
+        1.418514473790745,
+        201.065698432738,
+        198.70728841208506,
+        -0.722098970705977,
+        -3.9825264890385723,
+        4.580065097159533,
+        7.682772539747129,
+        2556.974264472263,
+        0.9601575903920696,
+        0.0,
+        0.001143801232763551,
+        0.0005719006163817755,
+        0.0,
+        -235.11234360995348,
+        11.944843362775625
+      ],
+      "scale": [
+        521.570342257543,
+        8127773323.662388,
+        1.6057244166730386e+24,
+        10484165665143.857,
+        112.13325347975933,
+        4786566349698.902,
+        8.160999960406271e+21,
+        3.2446255976209476e+24,
+        12700705.083050588,
+        0.15764267201891288,
+        7.998840992094515,
+        14.517086710445161,
+        9.164958630701037,
+        22.663966001612895,
+        22.83698851922826,
+        14.49123627720488,
+        0.007446704694027152,
+        5.067548212998718e+23,
+        0.7491082918156635,
+        0.02580423934918983,
+        1.1825085057623071e+24,
+        0.13926497457575512,
+        0.18539980134319797,
+        1.712261267510182,
+        122.48048173928221,
+        118.53868905344714,
+        15.8413429430375,
+        33.25478901460059,
+        16.466208780244486,
+        33.90595903667634,
+        12719.09410671598,
+        0.19558883404879554,
+        1.0,
+        0.03380078329718015,
+        0.02390760435650135,
+        1.0,
+        4843.110750687241,
+        0.7110330701676929
+      ],
+      "constant_channels": [
+        32,
+        35
+      ],
+      "repairs": [
+        0,
+        0
+      ],
+      "normalization": "train_zscore"
+    },
+    "boundary_windows_crossed": false,
+    "raw_files_overwritten": false
+  },
+  "artifacts": [
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_protocol_v3\\grasp_protocol_v3__lin__swan__swan_sf__seed1105\\checkpoint.pt",
+      "sha256": "a3854aeb270a42331ae15fd87f5ef652c8fdb63cb47104b279c44738a13674de"
+    },
+    {
+      "path": "experiments/runs/fm_grasp_protocol_v3/jobs/grasp_protocol_v3__lin__swan__swan_sf__seed1105/training_history.jsonl",
+      "sha256": "a84168dc874326053a6f16de70ffbee340375c38d3c82d16fde6c61f34056a87"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\grasp_protocol_v3\\grasp_protocol_v3__lin__swan__swan_sf__seed1105\\s5_t10.npz",
+      "sha256": "9a61110d29bd4e7e4b3898b4d001654b8ff6badfb08f5cdd264919200dedbd36"
+    }
+  ],
+  "boundary": "Paper-derived successor; every entity has full stride-one fitting, chronological 80/20 validation, 1500 epochs, validation every 50, and ten seeds. Euclidean channel distance, raw repaired fit graph features, train-only zscore, overlap averaging, GNN/Transformer projections, TSMixer normalization and last-epoch selection remain disclosed local choices. Test-label oracle Best-F1 is retrospective and separate from validation-only control. Native feature counts differ by one from paper prose; original-author equivalence remains unverified. Attribution uses all test windows, not an identified original figure population. RTX 3090 timing is local hardware timing and does not reproduce the paper hardware. All prior paper/task obligations remain required."
+}
