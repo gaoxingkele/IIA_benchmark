@@ -1,0 +1,7 @@
+Original Pi source-runtime PSM seed1107 completed all3epochs/1554updates with1930289parameters. The guarded complete saved-score audit independently checked all15streams,13238200 overlapping training score points and87800 test points. The original41-point dropped test tail is retained.
+
+Actual saved-score metrics: {"accuracy": 0.9886788154897495, "precision": 0.9725594949004371, "recall": 0.9870204551055615, "f1": 0.9797366167896604, "pointwise_no_PA_same_author_threshold": {"accuracy": 0.7179840546697038, "precision": 0.27948990435706694, "recall": 0.010802595908978887, "f1": 0.020801202198758254, "auroc": 0.4935565439911358, "average_precision": 0.27757125522699966}}
+
+Complete checkpoint re-inference and its final independent full-array review remain pending. The actual live controller and native admission state are archived in the JSON summary. Original32GiBcommit/24GiBphysical admission,16GiBemergency,CPU2 and score tolerances remain. All51 relevant checks passed. Original1140jobs/all six seeds and45/681/273scope remain required.
+
+Original training has no persisted resource-guard receipt. Source test-based model selection, pooled train/test calibration and point adjustment remain explicitly separated from unadjusted controls. No author-equivalence or strictTAB certificate is issued. The new readonly review template aligns its prose with the actual source1107 identity before freezing; every other field is identical to the original template. Original frozen files were preserved.
