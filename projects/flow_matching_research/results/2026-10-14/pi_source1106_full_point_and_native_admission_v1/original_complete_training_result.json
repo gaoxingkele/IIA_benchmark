@@ -1,0 +1,92 @@
+{
+  "status": "completed",
+  "experiment_sha256": "189f7ab96f950b57cd5a681c553de41950a5c4281ae17b44abdfc40bbe22626d",
+  "metrics": {
+    "accuracy": 0.9877562642369021,
+    "precision": 0.9721241631162507,
+    "recall": 0.9840630904460692,
+    "f1": 0.9780571941785225,
+    "pointwise_no_PA_same_author_threshold": {
+      "accuracy": 0.717995444191344,
+      "precision": 0.284375,
+      "recall": 0.011213341000575043,
+      "f1": 0.02157591085118154,
+      "auroc": 0.49450819170347937,
+      "average_precision": 0.277385365847968
+    }
+  },
+  "native_train_points": 132481,
+  "training_windows": 132382,
+  "steps_per_epoch": 518,
+  "epochs": [
+    {
+      "epoch": 1,
+      "steps": 518,
+      "train_loss": -127.7259346803643,
+      "validation_loss1": -135.66543952786193,
+      "validation_loss2": 136.08599551009019,
+      "early_stop": false,
+      "seconds": 3842.1490092277527
+    },
+    {
+      "epoch": 2,
+      "steps": 518,
+      "train_loss": -135.8230348977343,
+      "validation_loss1": -135.80911739783107,
+      "validation_loss2": 136.13068645688605,
+      "early_stop": false,
+      "seconds": 3854.8809139728546
+    },
+    {
+      "epoch": 3,
+      "steps": 518,
+      "train_loss": -135.86988865914952,
+      "validation_loss1": -135.82943249582897,
+      "validation_loss2": 136.1252827991897,
+      "early_stop": false,
+      "seconds": 3613.622081756592
+    }
+  ],
+  "native_test_points": 87841,
+  "scored_test_points": 87800,
+  "dropped_test_tail_points": 41,
+  "active_attention_layers": 1,
+  "parameter_count": 1930289,
+  "training_seconds": 11358.36973200005,
+  "evaluation_seconds": 789.5894661000348,
+  "torch_version": "2.13.0+cu126",
+  "strict_TAB_result": false,
+  "test_used_for_early_stopping": true,
+  "test_scores_used_for_calibration": true,
+  "artifacts": [
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__source_runtime__psm__full__seed1106/effective_author_config.yaml",
+      "sha256": "d8b40e95462fbd2296dcc4c429c12af8bb046600b513bf4f2ec3a0bbdb97c0da"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__source_runtime__psm__full__seed1106/checkpoints/PSM_checkpoint.pth",
+      "sha256": "487b82c47872e52baa22031bdbd9e4a9abd1cdf0274fef1bd4a3596cdd742b6a"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__source_runtime__psm__full__seed1106/checkpoints/author_scores.npz",
+      "sha256": "dc0d76cde2b085b28b10e63eef47ef3b93ad4689950983819d36a092399230ac"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__source_runtime__psm__full__seed1106/checkpoints/epochs.json",
+      "sha256": "2fe36d0e661de2891e6aa7c7358c4624a647aa6b96f170419af1fac315bfc9ae"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__source_runtime__psm__full__seed1106/checkpoints/PSM_global_hurst.pt",
+      "sha256": "6fd5b93b0a3824a95a53d7de83f6622d160a55a8bf203d3363d2b0ba921aec3a"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__source_runtime__psm__full__seed1106/posthoc_score_controls.json",
+      "sha256": "822d620a36fa6f716ef4cdbae971fdb28b90a83a8c535522aecede52ea3423fe"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/pi_author_dfa_cache_v1/pi_author__source_runtime__psm__full__seed1106.json",
+      "sha256": "932e49839b7e3ab421d45033eda70099296bbc9d942007846262b850eda27358"
+    }
+  ],
+  "boundary": "Pinned historical mirror reproduction and separately named causal/time-axis repair controls. Keep full source hyperparameters, stride-one training, source early stopping on test, source pooled train/test score calibration, original PA and original dropped inference tails. Neither branch proves journal equivalence or strict TAB generalization. Config axes on source_runtime are mirror sensitivity controls; e_layers produces e_layers-1 active layers. Temperature/stream grid is posthoc diagnostic, never select a strict leaderboard result using test labels."
+}
