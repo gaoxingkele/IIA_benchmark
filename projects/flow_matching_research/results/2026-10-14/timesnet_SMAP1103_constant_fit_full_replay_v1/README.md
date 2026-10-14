@@ -7,3 +7,5 @@ Full independent saved-score/point/core/event/bootstrap verification and checkpo
 All35original baseline slots,291corrected-data controls,all five original seeds [1103,1104,1105,1106,1107] and45-paper/681-method/273-data scope remain. Full TAB range evaluation remains with the pre-existing291-job collector. This local transcribed implementation is not a historical author-harness or full TAB training-harness reproduction. Literature: https://doi.org/10.48550/arXiv.2210.02186; data/protocol: https://github.com/decisionintelligence/TAB.
 
 Native-stage completion update: all train/validation/test timestamps now match bitwise after full checkpoint inference, including the complete compressed score archive digest. See ../timesnet_SMAP1103_bitwise_native_complete_point_pending_v1/README.md. The independently registered standalone point stage still awaits original admission; the earlier pending snapshot is preserved.
+
+Final stage completion update: the independently registered standalone point audit has now passed; both original stage obligations are complete. See ../timesnet_SMAP1103_complete_two_stage_replay_v1/README.md. Earlier pending snapshots are preserved.

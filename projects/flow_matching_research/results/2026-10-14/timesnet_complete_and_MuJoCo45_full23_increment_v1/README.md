@@ -1,0 +1,7 @@
+Two verification cases are complete; they address different tasks and do not form a shared algorithm ranking.68 relevant checks passed.
+
+TimesNet SMAP seed1103: both the complete native checkpoint inference and standalone saved-score/raw-data/point/core/event/bootstrap audit passed. All51entities/408160test points and the entire train/validation/test score archive match bitwise. Validation1% noPA F1=0.0453082580,AUROC=0.4362539773,AP=0.1213720771. Original local training uses1044nonoverlapping/end-aligned windows,3epochs and 27configured updates; the actual update trace was not saved. This does not certify author-harness or fullTAB-training-harness equivalence.
+
+Diffusion-TS MuJoCo seed45: original14000updates/28000minibatches, full10000x24x14 reference and10005x24x14 generated arrays, full checkpoint tensor restoration and four5-repeat evaluator statistics passed. MeanFID=0.0156868563,correlational=0.2093448890, discriminative=0.017,predictive=0.0075126674. This audit did not independently regenerate samples or retrain learned evaluators. Generation artifact-review catalog now23/70; MuJoCo42..45=4/5, so full five-seed mean/STD/CI remain null until seed46. Earlier22catalog records are unchanged.
+
+All original35baseline slots/291data controls,five generation seeds/all70jobs and45-paper/681-method/273-data scope remain. Full range evaluations, remaining models/seeds and historical fidelity gaps remain separate obligations.

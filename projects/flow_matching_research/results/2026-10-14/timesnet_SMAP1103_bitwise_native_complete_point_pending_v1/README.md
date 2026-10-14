@@ -5,3 +5,5 @@ Independent source-metric recomputation inside the native worker passed: validat
 The complete original local training uses1044nonoverlapping/end-aligned windows, configured9optimizer steps per epoch and3epochs (27configured steps total). These are derived from the frozen executed code and complete input geometry, not an independent measured update trace. No actual per-epoch update trace was saved. This local training/window/selection protocol does not certify a historical author pipeline or fullTAB-training harness.
 
 37 relevant checks passed and the actual native guard exited0 without abort. The separately registered standalone point audit is still alive waiting for original resource admission; its receipt is not complete. Both original stage obligations and the pre-existing full291-job TAB range collector remain. All35baseline slots, five seeds and45-paper/681-method/273-data scope remain required.
+
+Final stage completion update: the independently registered standalone point audit has now passed; both original stage obligations are complete. See ../timesnet_SMAP1103_complete_two_stage_replay_v1/README.md. Earlier pending snapshots are preserved.
