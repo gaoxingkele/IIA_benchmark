@@ -1,0 +1,128 @@
+{
+  "status": "completed",
+  "config": {
+    "schema_version": 1,
+    "id": "saits_paper_saits_electricity_author_missing0.4_seed29",
+    "paper_id": "saits",
+    "method": "saits",
+    "dataset": "electricity",
+    "missing_ratio": 0.4,
+    "seed": 29,
+    "device": "cuda",
+    "phase": "author_original_protocol",
+    "variant": "author",
+    "corrected_masking": false,
+    "bootstrap_group": "month",
+    "diagnostic": false,
+    "author_config": "configs/reproducibility/saits/electricity_saits_best.ini",
+    "author_config_sha256": "01ef5766501057eed113c41249c7b15c66afcdf5f5e011394b26ae71531fe0ec",
+    "dataset_root": "data/public_datasets/flow_matching/processed_campaign_v1/author_saits/electricity_missing0.4",
+    "dataset_sha256": "183ef7077f9f9d04de139a6b05129422942a50a5c14603d4a46e808fea049ffb",
+    "output_root": "experiments/runs/flow_matching_campaign/saits_paper_saits_electricity_author_missing0.4_seed29",
+    "citation": "https://arxiv.org/abs/2202.08516",
+    "data_citation": "https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014",
+    "boundary": "Frozen released best configuration reused across missing rates; exact historical per-rate tuning and preprocessing seeds unavailable. Corrected and released protocols compared separately."
+  },
+  "config_sha256": "6d901c70b688c9375306053b09767754b6ebfe4c3c2df5c8aa823cb63885a657",
+  "metrics": {
+    "mae": 0.8745051026344299,
+    "rmse": 1.3476463556289673,
+    "mre": 0.46826207637786865
+  },
+  "target_count": 3537183,
+  "training_seconds": 670.4340000000084,
+  "evaluation_seconds": 0.5320000000065193,
+  "validation_best": {
+    "validation_mae": 0.46409159898757935,
+    "training_step": 1393,
+    "epoch": 198
+  },
+  "author_snapshot": {
+    "paper_id": "saits",
+    "repository": "WenjieDu/SAITS",
+    "commit": "660b87f19c1277065f314f24134f646229e89ca9",
+    "archive_sha256": "5014e99a31b90e232a15a68916a47947b62922a415f44c378b980e34cc21722c",
+    "url": "https://codeload.github.com/WenjieDu/SAITS/zip/660b87f19c1277065f314f24134f646229e89ca9",
+    "original_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\original",
+    "status": "acquired_not_executed",
+    "version_boundary": "Current author commit; paper-era commit not yet established"
+  },
+  "dataset_sha256": "183ef7077f9f9d04de139a6b05129422942a50a5c14603d4a46e808fea049ffb",
+  "parameters": 11511000,
+  "patch_manifest": {
+    "paper_id": "saits",
+    "audit_revision": 5,
+    "status": "reviewed_fixes_applied_not_score_verified",
+    "patches": [
+      {
+        "file": "dataset_generating_scripts/gene_PhysioNet2012_dataset.py",
+        "original_sha256": "0e588135e3523ce9c0d22b2cbe7969bd64dbe4300f012682d19752f0f53259c5",
+        "corrected_sha256": "1309d043b8dd644ce20846fe9cdb34890b8f6d1ecac6702c38d57563bb513912",
+        "reason": "Replace unused TSDB dependency with metadata-only stdlib pickle export; freeze previously unspecified patient directory ordering lexically; export H5 row IDs/features/scaler for audit. Historical author file ordering is unavailable, so exact split alignment remains unverified. Hourly mean, 37 features, seed 26, train-only scaling and legacy replacement masks are unchanged.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\dataset_generating_scripts_gene_PhysioNet2012_dataset.py.patch"
+      },
+      {
+        "file": "run_models.py",
+        "original_sha256": "a2e246414a21800b59f3fbc64b141cd6fe05431ea567cb67bb6d09d47cccdd31",
+        "corrected_sha256": "ed4c57adb4ec16760555ad7fa051e1b6d2f023381228cb197c1bf3d999ea546d",
+        "reason": "Use Windows-valid timestamp directory names; no training or selection change.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\run_models.py.patch"
+      },
+      {
+        "file": "dataset_generating_scripts/gene_UCI_BeijingAirQuality_dataset.py",
+        "original_sha256": "9bf520d0ffc3a66fee16458015fc3497c25dfae9b7b178064a4c100a75c295a3",
+        "corrected_sha256": "ca02b4bb6b54d86ae4c89fba157ecd2b9b1a9af88c3240c589bee76113c9da4b",
+        "reason": "Metadata-only stdlib pickle compatibility, deterministic seed 26 (upstream seed unspecified), lexical station ordering for Air Quality and timestamp/month-group audit export. Preserve original calendar splits, scaling, windowing and replacement masks.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\dataset_generating_scripts_gene_UCI_BeijingAirQuality_dataset.py.patch"
+      },
+      {
+        "file": "dataset_generating_scripts/gene_UCI_electricity_dataset.py",
+        "original_sha256": "41389b62932b32015b985289a31b2586cc4a614d362e11aad6f2f3c4f17e7a61",
+        "corrected_sha256": "eb314716deb71b05513bfd0ae23b234c6644f7a9e7cc53c1806d49f8b52f54dc",
+        "reason": "Metadata-only stdlib pickle compatibility, deterministic seed 26 (upstream seed unspecified), lexical station ordering for Air Quality and timestamp/month-group audit export. Preserve original calendar splits, scaling, windowing and replacement masks.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\dataset_generating_scripts_gene_UCI_electricity_dataset.py.patch"
+      },
+      {
+        "file": "dataset_generating_scripts/gene_ETTm1_dataset.py",
+        "original_sha256": "b689ef7b4d9524d1b79589d118ac8936c76a1364f05491517be50555c5122301",
+        "corrected_sha256": "9045e357b7ebc6293325bd5e5f17e3963c2420ed989427e26d0138e91ddb5d33",
+        "reason": "Metadata-only stdlib pickle compatibility, deterministic seed 26 (upstream seed unspecified), lexical station ordering for Air Quality and timestamp/month-group audit export. Preserve original calendar splits, scaling, windowing and replacement masks.",
+        "patch_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\dataset_generating_scripts_gene_ETTm1_dataset.py.patch"
+      }
+    ],
+    "working_path": "experiments\\runs\\flow_matching_campaign\\sources\\saits\\corrected"
+  },
+  "environment": {
+    "python": "3.10.21 (main, Aug 25 2026, 13:58:42) [MSC v.1944 64 bit (AMD64)]",
+    "torch": "2.2.1+cu121",
+    "numpy": "1.23.5"
+  },
+  "bootstrap_group": "month",
+  "bootstrap_groups": 10,
+  "protocol_boundaries": [
+    "Preprocessing NumPy seed 26 registered locally; historical author seed unspecified.",
+    "Author replacement masks retained; realized missing fraction differs from the nominal rate.",
+    "Author chronological month split retained: earlier test, intermediate validation, later training.",
+    "Month bootstrap is a temporal block sensitivity estimate; temporal independence is not guaranteed.",
+    "Released author window_truncate multiplies the last start by stride twice and drops the final window. Local count 1397 differs from paper 1400; protocol alignment remains unverified.",
+    "Windows loader workers set to zero versus author four; MIT random draw stream can differ.",
+    "Author model, losses, Adam, validation frequency and MAE controller retained; resume saves full state at epoch boundaries.",
+    "Final checkpoint selected solely on validation MAE; test metrics use author functions aggregated on CPU.",
+    "Five preregistered model seeds share the frozen split; paper Tables 2/4 do not report uncertainty."
+  ],
+  "month_block_bootstrap_95_ci": {
+    "mae": [
+      0.8568780069075543,
+      0.8925106892804817
+    ],
+    "rmse": [
+      1.3236258494098245,
+      1.3721905393293041
+    ],
+    "mre": [
+      0.4636504576170562,
+      0.4723392676343656
+    ]
+  },
+  "test_windows": 290
+}
