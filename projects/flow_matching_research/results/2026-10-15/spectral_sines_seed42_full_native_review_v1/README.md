@@ -1,0 +1,3 @@
+Preserved provisional registration attempt, not a failed numerical experiment.
+
+The v1 registration helper matched dataset and seed without checking data_track, and attempted to read the uncompleted paper_sines_distribution result. It stopped before writing an audit configuration or launching a numeric auditor. The attempted launch then found no configuration and likewise launched no worker. Its source and31-check validation XML are preserved unchanged. The corrected v2 registration selects released_author_data explicitly and passed36checks; original70jobs and all five seeds are retained. No training, sampling, solver, evaluator, scope or numerical safeguard changed. See ../spectral_sines_seed42_released_track_full_native_review_v2/.
