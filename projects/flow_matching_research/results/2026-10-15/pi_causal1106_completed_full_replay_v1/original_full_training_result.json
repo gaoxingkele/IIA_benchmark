@@ -1,0 +1,92 @@
+{
+  "status": "completed",
+  "experiment_sha256": "05cd4728eefe28b258ec24cb309f1c28210bbf137c15b506eb3f925f05d55a1d",
+  "metrics": {
+    "accuracy": 0.9882232346241457,
+    "precision": 0.9740909460668673,
+    "recall": 0.9836934198636327,
+    "f1": 0.9788686340227254,
+    "pointwise_no_PA_same_author_threshold": {
+      "accuracy": 0.7182004555808656,
+      "precision": 0.2744874715261959,
+      "recall": 0.009898956707467346,
+      "f1": 0.019108785283856646,
+      "auroc": 0.49281856638811156,
+      "average_precision": 0.27585676488942296
+    }
+  },
+  "native_train_points": 132481,
+  "training_windows": 132382,
+  "steps_per_epoch": 518,
+  "epochs": [
+    {
+      "epoch": 1,
+      "steps": 518,
+      "train_loss": -126.454380182686,
+      "validation_loss1": -134.09077204490194,
+      "validation_loss2": 134.53088703655988,
+      "early_stop": false,
+      "seconds": 4307.665948867798
+    },
+    {
+      "epoch": 2,
+      "steps": 518,
+      "train_loss": -134.34241459084294,
+      "validation_loss1": -134.24850027901786,
+      "validation_loss2": 134.61128719763576,
+      "early_stop": false,
+      "seconds": 3826.637563943863
+    },
+    {
+      "epoch": 3,
+      "steps": 518,
+      "train_loss": -134.32441293134653,
+      "validation_loss1": -134.26700096019155,
+      "validation_loss2": 134.60893387419142,
+      "early_stop": false,
+      "seconds": 3785.300477743149
+    }
+  ],
+  "native_test_points": 87841,
+  "scored_test_points": 87800,
+  "dropped_test_tail_points": 41,
+  "active_attention_layers": 1,
+  "parameter_count": 1930289,
+  "training_seconds": 11967.087252099998,
+  "evaluation_seconds": 806.7720738000353,
+  "torch_version": "2.13.0+cu126",
+  "strict_TAB_result": false,
+  "test_used_for_early_stopping": true,
+  "test_scores_used_for_calibration": true,
+  "artifacts": [
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1106/effective_author_config.yaml",
+      "sha256": "f9ecca9fd909229b888ead57b512301b69df2ed5742bd0249d6261dddf806301"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1106/checkpoints/PSM_checkpoint.pth",
+      "sha256": "67fceb546b05dafb2c0bb30c80083afa03133a8e99e8968790255faac9c7c9c5"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1106/checkpoints/author_scores.npz",
+      "sha256": "0e1a7e068f5770d5e46057d59df4c393f31a30ce8eb78b59d339052e2ab733b8"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1106/checkpoints/epochs.json",
+      "sha256": "406228d449a3ccdd66e4a4b124b7d4ea65776cf0344e7f06f750a1ca822d6666"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1106/checkpoints/PSM_global_hurst.pt",
+      "sha256": "6fd5b93b0a3824a95a53d7de83f6622d160a55a8bf203d3363d2b0ba921aec3a"
+    },
+    {
+      "path": "experiments/runs/fm_pi_transformer_author_v1/jobs/pi_author__causal_axis_repaired__psm__full__seed1106/posthoc_score_controls.json",
+      "sha256": "8b562d0424a2edc4f120359584059c4c5a7b9b140befa063c8b414fdb329edc0"
+    },
+    {
+      "path": "data/public_datasets/flow_matching/pi_author_dfa_cache_v1/pi_author__causal_axis_repaired__psm__full__seed1106.json",
+      "sha256": "932e49839b7e3ab421d45033eda70099296bbc9d942007846262b850eda27358"
+    }
+  ],
+  "boundary": "Pinned historical mirror reproduction and separately named causal/time-axis repair controls. Keep full source hyperparameters, stride-one training, source early stopping on test, source pooled train/test score calibration, original PA and original dropped inference tails. Neither branch proves journal equivalence or strict TAB generalization. Config axes on source_runtime are mirror sensitivity controls; e_layers produces e_layers-1 active layers. Temperature/stream grid is posthoc diagnostic, never select a strict leaderboard result using test labels."
+}
