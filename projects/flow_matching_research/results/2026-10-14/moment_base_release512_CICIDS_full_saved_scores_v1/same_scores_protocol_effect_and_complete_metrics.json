@@ -1,0 +1,300 @@
+{
+  "canonical_id": "fm_moment_pretrained_base__release512__cicids__seed42",
+  "model": "MOMENT-1-base official fixed release;512context;zero-shot",
+  "dataset": "CICIDS mTSBench published entities",
+  "full_original_entities": 6,
+  "native_test_points": 1343920,
+  "native_validation_points": 55747,
+  "model_parameters": 109641608,
+  "scoring_seconds": 16447.890000000014,
+  "training_seconds": 0,
+  "fixed_pretrained_weight_evaluation_not_independent_training_seed_repeat": true,
+  "primary_validation_only_no_PA": {
+    "protocol": "strict_validation_only_no_pa_v1",
+    "calibration": {
+      "threshold": 16.05175041198732,
+      "false_alarm_percent": 1.0,
+      "calibration_split": "validation",
+      "calibration_sha256": "9155e42315c73ec34f9ca1dbf9805e36d7815b3298a3a8e10a89c3908f61e9e1",
+      "calibration_points": 55747,
+      "calibration_dataset_sha256": "8e55c18486751c87350bf47ca8fc3b93d1588c86e0541550833806be010f3aa7",
+      "model_artifact_sha256": "2a4549bcd75b9d9143477f8d4183f313576b486cb33bbce4987b722f97df755b",
+      "rule": "validation_score_percentile_linear_strict_greater"
+    },
+    "coverage": "complete",
+    "point_adjustment": false,
+    "per_entity": {
+      "cicids_0": {
+        "precision": 0.6096351399220687,
+        "recall": 0.03394812111648091,
+        "f1": 0.06431480997047721,
+        "true_positives": 1721.0,
+        "false_positives": 1102.0,
+        "false_negatives": 48974.0,
+        "auroc": 0.7378316637175876,
+        "average_precision": 0.3887836400859826
+      },
+      "cicids_2": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "true_positives": 0.0,
+        "false_positives": 462.0,
+        "false_negatives": 1600.0,
+        "auroc": 0.6284805513244418,
+        "average_precision": 0.014251934897324368
+      },
+      "cicids_3": {
+        "precision": 0.00683371298405467,
+        "recall": 0.3333333333333333,
+        "f1": 0.013392857142857144,
+        "true_positives": 12.0,
+        "false_positives": 1744.0,
+        "false_negatives": 24.0,
+        "auroc": 0.9230947633084792,
+        "average_precision": 0.1269596534984249
+      },
+      "cicids_5": {
+        "precision": 0.15925925925925927,
+        "recall": 0.022006141248720572,
+        "f1": 0.038669064748201434,
+        "true_positives": 43.0,
+        "false_positives": 227.0,
+        "false_negatives": 1911.0,
+        "auroc": 0.5220291017732164,
+        "average_precision": 0.017181345133955125
+      },
+      "cicids_6": {
+        "precision": 0.2699579831932773,
+        "recall": 0.0016221470410018178,
+        "f1": 0.003224915926316318,
+        "true_positives": 257.0,
+        "false_positives": 695.0,
+        "false_negatives": 158175.0,
+        "auroc": 0.054278367063156904,
+        "average_precision": 0.484426230823873
+      },
+      "cicids_7": {
+        "precision": 0.3986442866365397,
+        "recall": 0.022729991625792558,
+        "f1": 0.04300775706711473,
+        "true_positives": 2470.0,
+        "false_positives": 3726.0,
+        "false_negatives": 106197.0,
+        "auroc": 0.5919897543210522,
+        "average_precision": 0.6312440852509879
+      }
+    },
+    "micro": {
+      "precision": 0.3614254755598363,
+      "recall": 0.014011276230303935,
+      "f1": 0.026976752545358144,
+      "true_positives": 4503.0,
+      "false_positives": 7956.0,
+      "false_negatives": 316881.0,
+      "auroc": 0.42036558529884677,
+      "average_precision": 0.29272809909151154
+    },
+    "macro_f1": 0.027101567475827804,
+    "boundary": "Aligned timestamp order is caller-audited; no VUS/Affiliation or uncertainty is computed here. This diagnostic alone is not a leaderboard result.",
+    "event_metrics": {
+      "event_recall": 0.11411411411411411,
+      "events": 16317,
+      "detected_events": 1862,
+      "mean_detection_delay_points": 15.861976369495167,
+      "false_alarms_per_1000_normal_points": 7.780655155417511,
+      "delay_boundary": "Offline window scores use future context; delay in source points, not causal latency. Missed events reported separately."
+    },
+    "f1_ci95": {
+      "low": 0.003410614433867328,
+      "high": 0.061435771067431116,
+      "resamples": 200,
+      "seed": 10042,
+      "unit": "entity_cluster",
+      "block_points": null,
+      "boundary": "Conditional on this fitted model and fixed validation threshold; not paired algorithm or seed uncertainty."
+    }
+  },
+  "same_scores_protocol_controls": {
+    "validation_threshold": 16.05175041198732,
+    "validation_only_no_PA": {
+      "precision": 0.3614254755598363,
+      "recall": 0.014011276230303935,
+      "f1": 0.026976752545358144,
+      "true_positives": 4503.0,
+      "false_positives": 7956.0,
+      "false_negatives": 316881.0
+    },
+    "validation_only_same_threshold_with_PA": {
+      "precision": 0.9532860087016258,
+      "recall": 0.5051807183929505,
+      "f1": 0.660394511253882,
+      "true_positives": 162357.0,
+      "false_positives": 7956.0,
+      "false_negatives": 159027.0
+    },
+    "test_pool_calibration_ratio1": {
+      "ratio_percent": 1,
+      "threshold": 14.820120067596486,
+      "f_score": 0.03221687457027797,
+      "adjust_f_score": 0.7042870189989769
+    },
+    "best_test_label_selected_plain_grid_F1": 0.3529894710033712,
+    "best_test_label_selected_PA_grid_F1": 0.7734213926060756,
+    "all_controls_use_identical_frozen_score_arrays": true,
+    "primary_threshold_selected_using_test_features_or_labels": false,
+    "PA_control_uses_test_ground_truth_events": true
+  },
+  "same_validation_threshold_PA_f1_increase": 0.6334177587085239,
+  "same_validation_threshold_PA_true_positive_increase": 157854.0,
+  "raw_detector_scores_and_threshold_unchanged_in_PA_control": true,
+  "VUS_entity_macro": {
+    "VUS_ROC": {
+      "defined_entities": 6,
+      "undefined_entities": 0,
+      "mean_over_defined_entities": 0.6077739353070747
+    },
+    "VUS_PR": {
+      "defined_entities": 6,
+      "undefined_entities": 0,
+      "mean_over_defined_entities": 0.30604099050855943
+    }
+  },
+  "strict_affiliation_entity_macro": {
+    "0.1": {
+      "affiliation_f": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.2681782342849
+      },
+      "affiliation_precision": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.5975359466295277
+      },
+      "affiliation_recall": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.2918853655464259
+      }
+    },
+    "1": {
+      "affiliation_f": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.3408591842573238
+      },
+      "affiliation_precision": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.5662055062231856
+      },
+      "affiliation_recall": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.3803469947079718
+      }
+    },
+    "5": {
+      "affiliation_f": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.48413686781768944
+      },
+      "affiliation_precision": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.5858415734589603
+      },
+      "affiliation_recall": {
+        "defined_entities": 6,
+        "undefined_entities": 0,
+        "mean_over_defined_entities": 0.49796255823593505
+      }
+    }
+  },
+  "every_VUS_entity_buffer_and_threshold_budget": {
+    "cicids_0": {
+      "status": "defined",
+      "VUS_ROC": 0.7186365550799421,
+      "VUS_PR": 0.3621461484396942,
+      "max_buffer": 2,
+      "buffers_evaluated": 3,
+      "threshold_samples": 250
+    },
+    "cicids_2": {
+      "status": "defined",
+      "VUS_ROC": 0.5912133524469497,
+      "VUS_PR": 0.019877132587647315,
+      "max_buffer": 2,
+      "buffers_evaluated": 3,
+      "threshold_samples": 250
+    },
+    "cicids_3": {
+      "status": "defined",
+      "VUS_ROC": 0.8765441630748287,
+      "VUS_PR": 0.0029582969206649666,
+      "max_buffer": 2,
+      "buffers_evaluated": 3,
+      "threshold_samples": 250
+    },
+    "cicids_5": {
+      "status": "defined",
+      "VUS_ROC": 0.4573687872081578,
+      "VUS_PR": 0.015580492037507639,
+      "max_buffer": 2,
+      "buffers_evaluated": 3,
+      "threshold_samples": 250
+    },
+    "cicids_6": {
+      "status": "defined",
+      "VUS_ROC": 0.10574608831350182,
+      "VUS_PR": 0.5106498792606551,
+      "max_buffer": 62,
+      "buffers_evaluated": 63,
+      "threshold_samples": 250
+    },
+    "cicids_7": {
+      "status": "defined",
+      "VUS_ROC": 0.8971346657190679,
+      "VUS_PR": 0.9250339938051874,
+      "max_buffer": 12610,
+      "buffers_evaluated": 12611,
+      "threshold_samples": 250
+    }
+  },
+  "source_result_static_pending_range_fields_resolved_by_completed_external_range_artifact": [
+    "VUS_ROC",
+    "VUS_PR",
+    "affiliation_f"
+  ],
+  "data_grouping": "entity-isolated windows; chronological train/validation with purge; native held-out test",
+  "data_generalization_boundary": "within published entities; no unseen-entity claim",
+  "data_source_track": "pinned mTSBench entity CSV; full registered channels; no exact-author-subset assertion",
+  "native_score_context_and_offline_delay_boundaries": "Offline window scores use future context; delay in source points, not causal latency. Missed events reported separately.",
+  "raw_scores_sha256": "432da712b7cbbcf5c25b3ec061874f6f99cee5bcc7c1d78fecd0d6238b841200",
+  "pretrained_load_receipt": {
+    "checkpoint_sha256": "1a436826ffe618273ec62b9656dc4cab8edc470364f104e90542a4ebc14fb825",
+    "config_sha256": "f1c66c2bb845229c0ed27a1600dbcc956b85ab21f9e5fd8a1663e6641bed7755",
+    "state_tensors": 116,
+    "all_keys_strictly_loaded": true,
+    "parameter_count": 109641608,
+    "pretrained_size": "google/flan-t5-base",
+    "configured_sequence_length": 512,
+    "task": "reconstruction",
+    "random_reinitialized_head": false,
+    "hub_downloads": false,
+    "fine_tuning_epochs": 0,
+    "fit_points_used_for_parameter_estimation": 0
+  },
+  "model_reinference_in_this_review": false,
+  "VUS_and_affiliation_integrals_numerically_rerun_in_this_review": false,
+  "official_historical_paper_checkpoint_equivalence": false,
+  "complete_TAB_training_harness_equivalence": false,
+  "original_full_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "all_original_experiments_complete": false
+}
