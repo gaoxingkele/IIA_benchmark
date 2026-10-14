@@ -1,0 +1,7 @@
+Two additional original model reviews are closed: Pi causal-axis PSM seed1105 and BRITS Electricity nominal30% seed27. All original budgets, guards and tolerances remain. 97 relevant validation tests passed.
+
+Pi: all15 checkpoint-reinferred streams match the source arrays bitwise across 13,238,200 training score points and87,800 originally covered test points. PA F1=0.9788686340 versus noPA F1=0.0191087853 at the same source threshold; test-based selection, pooled train/test calibration and41 dropped tail points remain. Frozen review template prose incorrectly names source_runtime seed42; actual structured identity and all checkpoint/config/result/array digests bind causal_axis_repaired seed1105. The original proof is preserved unchanged.
+
+BRITS: full10000-epoch maximum/patience30 protocol terminated at next_epoch940, best source index908. Full290x100x370 grid /2,781,282 held-out coordinates /10 months passed native checkpoint replay and independent metric review at unchanged2e-6 tolerance. MAE=0.9764629584;RMSE=1.4681269702;MRE=0.5226215631. Only seeds26,27 are closed at this rate; no five-seed aggregate is claimed. Overall SAITS/BRITS complete reviewed models:36/210.
+
+These cases address different tasks and do not form a shared algorithm ranking. Full1140 Pi jobs/six seeds,210 SAITS/BRITS jobs and45-paper/681-method/273-data scope remain. No historical-author or strictTAB certificate; all original experiments remain incomplete.
