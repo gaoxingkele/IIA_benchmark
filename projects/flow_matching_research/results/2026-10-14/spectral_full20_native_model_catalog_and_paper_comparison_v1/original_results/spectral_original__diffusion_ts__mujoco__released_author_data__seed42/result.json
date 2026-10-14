@@ -1,0 +1,152 @@
+{
+  "status": "completed",
+  "job": {
+    "id": "spectral_original__diffusion_ts__mujoco__released_author_data__seed42",
+    "model": "diffusion_ts",
+    "dataset": "mujoco",
+    "data_track": "released_author_data",
+    "seed": 42,
+    "model_config": "configs/models/fm_spectral_author__diffusion_ts__mujoco__released_author_data.json",
+    "author_yaml": "experiments/runs/fm_project_acquisition/sources/spectral_mean_flow/original/src_base/configs/diffusion_ts/mujoco.yaml",
+    "training_updates": 14000,
+    "gradient_accumulate_every": 2,
+    "data_shape": [
+      10000,
+      24,
+      14
+    ],
+    "frozen_samples": "data/public_datasets/flow_matching/spectral_mean_flow_original_v2/released_author_data/mujoco/frozen_training_samples.npy",
+    "data_sha256": "ca2ed5aba5828f3e229a5a081fb3d9cd756458aca97aaadef2bfb1a02c3aadb7",
+    "reference_path": "data/public_datasets/flow_matching/spectral_mean_flow_original_v2/released_author_data/mujoco/samples/mujoco_norm_truth_24_train.npy",
+    "reference_sha256": "1d55a16a9078d6fa1fe71ef82c050976aae57da318549b7c4e6c4e85e79cff08",
+    "generation_batch_size": 2001,
+    "generation_field_chunk_size": null,
+    "expected_parameters": 360286,
+    "output_directory": "experiments/runs/fm_spectral_mean_flow_original_v1/jobs/spectral_original__diffusion_ts__mujoco__released_author_data__seed42",
+    "artifact_directory": "F:/aicoding/IIA_Data/experiments/spectral_mean_flow_original_v1/spectral_original__diffusion_ts__mujoco__released_author_data__seed42",
+    "paper_reported_parameters": null
+  },
+  "job_sha256": "b2e5b54184d60026d15a51f2bd580e0b0799a49cb315ab6b7527cc4cb195b934",
+  "optimizer_updates": 14000,
+  "gradient_accumulate_every": 2,
+  "training_minibatches": 28000,
+  "evaluated_reference_samples": 10000,
+  "generated_samples": 10005,
+  "evaluation_repeats": 5,
+  "parameter_count": 360286,
+  "training_seconds": 913.0050943000242,
+  "sampling_seconds": 202.78260579996277,
+  "evaluation_seconds": 305.509537200036,
+  "data_audit": {
+    "frozen_samples": "data/public_datasets/flow_matching/spectral_mean_flow_original_v2/released_author_data/mujoco/frozen_training_samples.npy",
+    "frozen_samples_sha256": "ca2ed5aba5828f3e229a5a081fb3d9cd756458aca97aaadef2bfb1a02c3aadb7",
+    "reference_path": "data/public_datasets/flow_matching/spectral_mean_flow_original_v2/released_author_data/mujoco/samples/mujoco_norm_truth_24_train.npy",
+    "reference_sha256": "1d55a16a9078d6fa1fe71ef82c050976aae57da318549b7c4e6c4e85e79cff08",
+    "shape": [
+      10000,
+      24,
+      14
+    ],
+    "actual_training_loader": "FrozenAuthorGenerationDataset over exact cached author-loader arrays",
+    "window_order": "full original stride-one or simulated-trajectory order",
+    "data_track": "released_author_data"
+  },
+  "metrics": {
+    "context_fid": {
+      "raw_repeats": [
+        0.015726828436381263,
+        0.016408375264336375,
+        0.016611862779924214,
+        0.015043307794987986,
+        0.01603712349380037
+      ],
+      "mean": 0.015965499553886042,
+      "std": 0.0006177491088946794,
+      "se": 0.0002762658001056846,
+      "ci95_low": 0.015198462725449061,
+      "ci95_high": 0.016732536382323023,
+      "author_display_halfwidth": 0.0007670368284369815,
+      "uncertainty_unit": "five full evaluator runs for one trained model"
+    },
+    "correlational": {
+      "raw_repeats": [
+        0.21679988612126952,
+        0.22840646238193685,
+        0.18374838483545214,
+        0.1679545390236799,
+        0.2094020758421223
+      ],
+      "mean": 0.2012622696408921,
+      "std": 0.02480232978116604,
+      "se": 0.011091939078210948,
+      "ci95_low": 0.17046610968004114,
+      "ci95_high": 0.23205842960174308,
+      "author_display_halfwidth": 0.030796159960850972,
+      "uncertainty_unit": "five full evaluator runs for one trained model"
+    },
+    "discriminative": {
+      "raw_repeats": [
+        0.009000000000000008,
+        0.02100000000000002,
+        0.02949999999999997,
+        0.016249999999999987,
+        0.010000000000000009
+      ],
+      "mean": 0.01715,
+      "std": 0.008451331256080299,
+      "se": 0.003779550237792846,
+      "ci95_low": 0.006656286242430875,
+      "ci95_high": 0.027643713757569122,
+      "author_display_halfwidth": 0.010493713757569124,
+      "uncertainty_unit": "five full evaluator runs for one trained model"
+    },
+    "predictive": {
+      "raw_repeats": [
+        0.0068210895450447765,
+        0.006702321142433367,
+        0.00856267296793523,
+        0.006847936815593293,
+        0.008606492754217496
+      ],
+      "mean": 0.007508102645044833,
+      "std": 0.0009843359626859384,
+      "se": 0.0004402084250526909,
+      "ci95_low": 0.0062858881180404575,
+      "ci95_high": 0.008730317172049208,
+      "author_display_halfwidth": 0.0012222145270043756,
+      "uncertainty_unit": "five full evaluator runs for one trained model"
+    }
+  },
+  "benchmark_smoke": false,
+  "author_equivalence_certified": false,
+  "explicit_boundaries": [
+    "Author source Table1 configurations are frozen unchanged; max_epochs denotes optimizer updates, not full passes over the data. Baseline gradient accumulation remains its own published configuration.",
+    "Released Sines samples frequency and phase from [0,0.1]; paper p25 specifies frequency [0,1] and phase [-pi,pi]. Both protocols are registered independently, never selected by resulting metric.",
+    "The original generation experiment uses all stride-one windows and fits MinMaxScaler on the full source series. This is distribution reconstruction, not held-out future-trajectory generalization or strict anomaly detection.",
+    "Raw real CSV/MAT bytes are extracted from the registered existing archive without overwriting it; original author loaders generate frozen cached arrays. Data seed123 is paired across algorithms and model seeds.",
+    "Original generation remains completely unmodified with batch2001, full noise draws and author ODE grids. Chunked fields are excluded: one-step agreement failed to imply full integrated trajectory agreement in a direct 500-step test (maximum difference10.226529 on the diagnostic small model). No sampling equivalence is claimed for chunking.",
+    "Five evaluator repetitions occur inside each complete independently trained model seed. Evaluator CI and between-training-seed STD/CI must be reported separately.",
+    "TensorFlow evaluators originally reset graphs without a fixed graph seed. The runtime reset wrapper now assigns graph seeds0..4; evaluator optimizer steps, networks, split functions and inputs remain unchanged. This reproducibility change is recorded separately from the released unseeded evaluator protocol.",
+    "Author display_scores computes a t-based95% half-width from five evaluations. The printed ± must not be relabeled as standard deviation without paper clarification.",
+    "Torch2.8/CUDA12.6 and TensorFlow2.15/TFP0.23 match recommended versions, but Windows/RTX3090 differs from the tested Linux/H100 setup. All unspecified dependency versions and hardware differences are recorded in a local lock.",
+    "No real leaderboard metric is inferred from interface preflights. All trained steps, full reference/generated arrays, model checkpoints and evaluator raw repeats must be verified before marking a job complete."
+  ],
+  "completed_utc": "2026-10-14T05:15:55.110965+00:00",
+  "artifacts": [
+    {
+      "role": "checkpoint",
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\spectral_mean_flow_original_v1\\spectral_original__diffusion_ts__mujoco__released_author_data__seed42\\author_output\\checkpoints\\checkpoint-10.pt",
+      "sha256": "589be77bc826aac6f6c27dd506de27667bd6db30b9bcd8e5abf9dc15a21e4f85"
+    },
+    {
+      "role": "generated",
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\spectral_mean_flow_original_v1\\spectral_original__diffusion_ts__mujoco__released_author_data__seed42\\fake_data.npy",
+      "sha256": "94b24f135e65e1337fe079b0b6e6f05766f45953431d8998edb6eaeab7958c40"
+    },
+    {
+      "role": "reference",
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\spectral_mean_flow_original_v1\\spectral_original__diffusion_ts__mujoco__released_author_data__seed42\\reference_data.npy",
+      "sha256": "1d55a16a9078d6fa1fe71ef82c050976aae57da318549b7c4e6c4e85e79cff08"
+    }
+  ]
+}
