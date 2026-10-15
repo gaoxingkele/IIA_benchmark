@@ -1,0 +1,79 @@
+{
+  "successor_configuration": "configs/runtime/fm_TAB878_fair_entity_continuation.v2.json",
+  "previous_owner": {
+    "pid": 6120,
+    "create_time": 1792096884.1711507,
+    "command": [
+      "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-u",
+      "-m",
+      "scripts.flow_matching.run_TAB_full878_metric_suite_v1"
+    ]
+  },
+  "successor_handle": {
+    "pid": 36640,
+    "create_time": 1792101950.3752148,
+    "command": [
+      "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-u",
+      "-m",
+      "scripts.flow_matching.continue_TAB878_fair_entities_v2"
+    ]
+  },
+  "successor_state_root": "experiments/runs/fm_TAB878_fair_entity_continuation_v2",
+  "state_root": "experiments/runs/fm_TAB878_queued_boundary_bridge_v1",
+  "resource_lock": "experiments/runs/fm_saits_readonly_checkpoint_cpu.lock",
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 30064771072,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 3221225472,
+    "maximum_worker_private_bytes": 6442450944
+  },
+  "required_cases": 878,
+  "required_label_views": 2057,
+  "maximum_hold_seconds": 2,
+  "successor_observation_seconds": 3,
+  "poll_seconds": 0.05,
+  "source_receipts": [
+    {
+      "path": "configs/reproducibility/fm_TAB_full878_original21_metric_suite.2026-10-16_v1.json",
+      "sha256": "6a33d96d3514fab1a10b64a16275760b877d702762e951f36521124578b73298"
+    },
+    {
+      "path": "configs/runtime/fm_TAB878_fair_entity_continuation.v2.json",
+      "sha256": "7f5b88832c40795b5256df4e9fc741e0d06af676191317a813e6fb02e5eda18a"
+    },
+    {
+      "path": "scripts/flow_matching/bridge_TAB878_queued_boundary_v1.py",
+      "sha256": "e8b415becbcb32c44fdc29bb4eb52de751cd6e559ef7e43637f83803b416caab"
+    },
+    {
+      "path": "scripts/flow_matching/win32_queued_audit_lock_v1.py",
+      "sha256": "b86127dfa066b50f3987c241aff6d426c50569df64b50fa8f8feb7413f6b8d3a"
+    },
+    {
+      "path": "tests/test_fm_TAB878_queued_boundary_bridge_v1.py",
+      "sha256": "810efca457bcaaf287b67f1cd4b2dc291883a0877830090121321ae6127f2a3f"
+    },
+    {
+      "path": "tests/test_fm_win32_queued_audit_lock_v1.py",
+      "sha256": "f8dcd2a000d68c1026f127745c116e95ba382f569f9748450310891dc2dc47f2"
+    }
+  ],
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "data_tasks": 273,
+    "paper_scalar_targets": 702
+  },
+  "all_original_experiments_complete": false,
+  "documentation": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-lockfileex",
+  "boundary": "Kernel queued byte0 lock interoperates with original msvcrt audit lock;no file byte written by queued helper. Wait for actual entity lock release,hold at most2seconds only to observe original parent blocked by this lock, then release for existing1second successor versus original10second retry. No process suspend/termination, numeric child action,budget/threshold/guard/metric change or new scientific repetition. If successor already handed off,exit;otherwise queue again rather than restart any calculation."
+}
