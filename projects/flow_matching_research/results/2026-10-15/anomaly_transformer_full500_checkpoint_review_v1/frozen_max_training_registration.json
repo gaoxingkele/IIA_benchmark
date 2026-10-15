@@ -1,0 +1,652 @@
+{
+  "schema_version": 1,
+  "contract": "configs/reproducibility/fm_anomaly_transformer_primary_paper_protocol.2026-10-15_v1.json",
+  "contract_sha256": "8d73a05363c69bdf8e9c513ed6da4cbf5b7258be75ff0a07ec5607cb06ce90aa",
+  "source_directory": "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original",
+  "source_repository": "https://github.com/thuml/Anomaly-Transformer",
+  "source_commit": "b0ee470c8012bff857fb600462aec6209c4a18d9",
+  "model": {
+    "d_model": 512,
+    "d_ff": 512,
+    "n_heads": 8,
+    "e_layers": 3,
+    "dropout": 0.0,
+    "window": 100
+  },
+  "training": {
+    "batch_size": 32,
+    "maximum_epochs": 10,
+    "window_stride": 100,
+    "learning_rate": 0.0001,
+    "discrepancy_weight": 3,
+    "patience": 3,
+    "kl_log_epsilon": 0.0001,
+    "cpu_threads": 2,
+    "optimizer": "Adam",
+    "backward_strategy": "one_joint_direct_Max_backward_then_one_Adam_step",
+    "loss_reduction": "per_window_Frobenius_squared_minus_lambda_L1_joint_discrepancy_then_batch_mean",
+    "learning_rate_schedule": "inherited_author_halving_after_epoch_two"
+  },
+  "python": "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "seeds": [
+    1103,
+    1104,
+    1105,
+    1106,
+    1107
+  ],
+  "score_streams": [
+    "all.reconstruction",
+    "all.association",
+    "all.addition",
+    "all.multiplication",
+    "layer1.multiplication",
+    "layer2.multiplication",
+    "layer3.multiplication"
+  ],
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "data_root": "data/public_datasets/mtsad",
+  "data_cache_root": "F:/aicoding/IIA_Data/experiments/anomaly_transformer_paper_contract_v1/derived_data",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/anomaly_transformer_paper_max_ablation_v1/models",
+  "state_root": "experiments/runs/fm_anomaly_transformer_paper_max_ablation_v1",
+  "resource_lock": "experiments/runs/fm_heavy_recovery_cpu.lock",
+  "settings": {
+    "minimum_available_memory_bytes": 34359738368,
+    "minimum_commit_headroom_bytes": 42949672960,
+    "emergency_commit_headroom_bytes": 17179869184
+  },
+  "jobs": [
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smd__seed1103",
+      "dataset": "SMD",
+      "seed": 1103,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smd__seed1104",
+      "dataset": "SMD",
+      "seed": 1104,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smd__seed1105",
+      "dataset": "SMD",
+      "seed": 1105,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smd__seed1106",
+      "dataset": "SMD",
+      "seed": 1106,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smd__seed1107",
+      "dataset": "SMD",
+      "seed": 1107,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__msl__seed1103",
+      "dataset": "MSL",
+      "seed": 1103,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__msl__seed1104",
+      "dataset": "MSL",
+      "seed": 1104,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__msl__seed1105",
+      "dataset": "MSL",
+      "seed": 1105,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__msl__seed1106",
+      "dataset": "MSL",
+      "seed": 1106,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__msl__seed1107",
+      "dataset": "MSL",
+      "seed": 1107,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smap__seed1103",
+      "dataset": "SMAP",
+      "seed": 1103,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smap__seed1104",
+      "dataset": "SMAP",
+      "seed": 1104,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smap__seed1105",
+      "dataset": "SMAP",
+      "seed": 1105,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smap__seed1106",
+      "dataset": "SMAP",
+      "seed": 1106,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__smap__seed1107",
+      "dataset": "SMAP",
+      "seed": 1107,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__psm__seed1103",
+      "dataset": "PSM",
+      "seed": 1103,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__psm__seed1104",
+      "dataset": "PSM",
+      "seed": 1104,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__psm__seed1105",
+      "dataset": "PSM",
+      "seed": 1105,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__psm__seed1106",
+      "dataset": "PSM",
+      "seed": 1106,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__psm__seed1107",
+      "dataset": "PSM",
+      "seed": 1107,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__swat__seed1103",
+      "dataset": "SWaT",
+      "seed": 1103,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__swat__seed1104",
+      "dataset": "SWaT",
+      "seed": 1104,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__swat__seed1105",
+      "dataset": "SWaT",
+      "seed": 1105,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__swat__seed1106",
+      "dataset": "SWaT",
+      "seed": 1106,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__learnable_prior_max__swat__seed1107",
+      "dataset": "SWaT",
+      "seed": 1107,
+      "variant": "learnable_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smd__seed1103",
+      "dataset": "SMD",
+      "seed": 1103,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smd__seed1104",
+      "dataset": "SMD",
+      "seed": 1104,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smd__seed1105",
+      "dataset": "SMD",
+      "seed": 1105,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smd__seed1106",
+      "dataset": "SMD",
+      "seed": 1106,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smd__seed1107",
+      "dataset": "SMD",
+      "seed": 1107,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__msl__seed1103",
+      "dataset": "MSL",
+      "seed": 1103,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__msl__seed1104",
+      "dataset": "MSL",
+      "seed": 1104,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__msl__seed1105",
+      "dataset": "MSL",
+      "seed": 1105,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__msl__seed1106",
+      "dataset": "MSL",
+      "seed": 1106,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__msl__seed1107",
+      "dataset": "MSL",
+      "seed": 1107,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smap__seed1103",
+      "dataset": "SMAP",
+      "seed": 1103,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smap__seed1104",
+      "dataset": "SMAP",
+      "seed": 1104,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smap__seed1105",
+      "dataset": "SMAP",
+      "seed": 1105,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smap__seed1106",
+      "dataset": "SMAP",
+      "seed": 1106,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__smap__seed1107",
+      "dataset": "SMAP",
+      "seed": 1107,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__psm__seed1103",
+      "dataset": "PSM",
+      "seed": 1103,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__psm__seed1104",
+      "dataset": "PSM",
+      "seed": 1104,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__psm__seed1105",
+      "dataset": "PSM",
+      "seed": 1105,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__psm__seed1106",
+      "dataset": "PSM",
+      "seed": 1106,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__psm__seed1107",
+      "dataset": "PSM",
+      "seed": 1107,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__swat__seed1103",
+      "dataset": "SWaT",
+      "seed": 1103,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__swat__seed1104",
+      "dataset": "SWaT",
+      "seed": 1104,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__swat__seed1105",
+      "dataset": "SWaT",
+      "seed": 1105,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__swat__seed1106",
+      "dataset": "SWaT",
+      "seed": 1106,
+      "variant": "fixed_sigma1_prior_max"
+    },
+    {
+      "id": "anomaly_transformer__paper_ablation__fixed_sigma1_prior_max__swat__seed1107",
+      "dataset": "SWaT",
+      "seed": 1107,
+      "variant": "fixed_sigma1_prior_max"
+    }
+  ],
+  "explicit_reconstruction_choices": [
+    "Use contiguous first80percent training and independent validation tail: all five Table13 counts match; historical ordering not certified",
+    "StandardScaler fit on training subset only; inherit PSM NaN-to-zero source preprocessing",
+    "Use source1e-4 log epsilon for numerical stability; mathematical KL has no specified epsilon",
+    "Use Algorithm3 feature mean in the scoring criterion; Equation6 feature-sum presentation is separately noted",
+    "Use Algorithm2 head means before KL, mean layers and no unreported temperature50",
+    "Seven validation-calibrated ROC operating points are saved; their curve integration is not certified as Figure3 AUC",
+    "CPU reproduction; original reported GPU efficiency is not reproduced by these timings",
+    "Apply Equation4 directly: per-window Frobenius reconstruction squared minus3 times joint symmetric-KL L1, then batch mean",
+    "Both P and S remain differentiable in direct Max; exactly one autograd execution and one Adam step per minibatch",
+    "Retain source FFN512 and sigma positivity mapping only for the learnable-prior branch",
+    "Fixed branch bypasses source sigma transforms to exactGaussian sigma1; no sigma-projection parameters remain in optimizer/checkpoint",
+    "Consume the discarded sigma-projection initialization RNG so every shared initial weight matches the learnable branch for the same seed",
+    "Retain parent patience3 and LR schedule; both validation-loss slots carry the same direct-Max loss, reducing checkpoint selection to one criterion",
+    "Each variant is fully retrained; reusing minimax checkpoints or changing score postprocessing cannot substitute for these ablations",
+    "Prespecified primary score is multiplication; no test-label selection of the best alternative criterion"
+  ],
+  "remaining_original_requirements": [
+    {
+      "evidence": "Table1/page7",
+      "requirement": "five real datasets main method and15 baselines",
+      "status": "full author-runtime main jobs queued; paper-equivalent protocol not certified"
+    },
+    {
+      "evidence": "Figure3/page7",
+      "requirement": "ROC/AUC at seven stated threshold proportions",
+      "status": "must not equate to continuous unadjusted-score AUROC without protocol verification"
+    },
+    {
+      "evidence": "Figure4/page7 and Table13/page19",
+      "requirement": "NeurIPS-TS six-benchmark coverage",
+      "status": "original data/loader experiment not established by the new five-dataset main queues"
+    },
+    {
+      "evidence": "Table2/page8",
+      "requirement": "vanilla Transformer Recon; Anomaly Transformer Recon/AssDis; fixed-prior Max; learnable-prior Max; learnable Minimax",
+      "status": "full paper-equivalent implementations/runs remain required"
+    },
+    {
+      "evidence": "Table3/page9",
+      "requirement": "normal/abnormal adjacent-association contrasts for Recon/Max/Minimax",
+      "status": "not certified by saved anomaly-score metrics"
+    },
+    {
+      "evidence": "Table4/page15",
+      "requirement": "single layer1/2/3 versus multilayer scoring",
+      "status": "posthoc full checkpoint inference needed; not extra training seeds"
+    },
+    {
+      "evidence": "Table5/page15",
+      "requirement": "L2/CE/Wasserstein/JSD versus symmetricKL discrepancy",
+      "status": "full training and exact distance conventions remain required"
+    },
+    {
+      "evidence": "Table6/page16",
+      "requirement": "learnable power-law versus Gaussian prior",
+      "status": "distance-zero handling and source implementation still require resolution"
+    },
+    {
+      "evidence": "Table7/pages16-17",
+      "requirement": "Recon/AssDis/Addition/Multiplication criteria",
+      "status": "posthoc inference and complete saved component arrays required"
+    },
+    {
+      "evidence": "Tables8-9/page18",
+      "requirement": "layers1/2/3/4 and hidden256/512/1024",
+      "status": "separate full training sensitivity runs and source-dependent ffn conventions required"
+    },
+    {
+      "evidence": "Tables10-11/pages18-19",
+      "requirement": "validation distribution and fixed-delta versus ratio thresholds",
+      "status": "source pooled threshold results do not certify this experiment"
+    },
+    {
+      "evidence": "Table12/page19",
+      "requirement": "additional BOCPD, TS-CP2 and U-Time baselines",
+      "status": "source presence or smaller local adapters do not certify paper-equivalent runs"
+    }
+  ],
+  "boundary": "Full Table2 direct-Max reconstruction with learnable Gaussian prior and fixedsigma1prior. Exactly50new training jobs:two variants xfive real datasets xfive registered seeds. Joint Equation4 gradient through P and S,one backward/Adam step per minibatch; fixed variant removes sigma-projection trainables after consuming paired initialization RNG. All512width/three layers/batch32/window100/max10epochs,independent validation,full saved score components and unchanged memory guards retained. Parent reconstruction conventions remain explicit,with actual Max update and fixed prior overriding minimax-only choices. No exact paper/strictTAB certificate; other Table2vanillaTransformer and all remaining 45/681/273minimum project experiments,replays and uncertainty remain required.",
+  "source_receipts": [
+    {
+      "path": "configs/datasets/mtsad_msl.json",
+      "sha256": "c05a14ab6cb1077bf4346d9c5019be3866a5cc015e4521d541b1390ff88d1693"
+    },
+    {
+      "path": "configs/datasets/mtsad_psm.json",
+      "sha256": "6c9873014dd684ad4ae5aab551bca23d3bb36b5bb8f62fc377f8bfea7f4143f8"
+    },
+    {
+      "path": "configs/datasets/mtsad_smap.json",
+      "sha256": "927ca78ab2af4a23e26c7e39df9360b7208013e79010a80248ae72af38c54e12"
+    },
+    {
+      "path": "configs/datasets/mtsad_smd.json",
+      "sha256": "06e3f5b2178162c228312803e6054f8c3fb28241c253818d5f0ec3fbc03e7cb7"
+    },
+    {
+      "path": "configs/datasets/mtsad_swat.json",
+      "sha256": "c9bda748320bd3cd16d3107efac65de1199179458f29e0ed45a31908bc671667"
+    },
+    {
+      "path": "configs/models/fm_anomaly_transformer_paper_contract.v1.json",
+      "sha256": "f89e8b848af3f6670ab37fa8d8e953553df5e57ea4c27af6d088af40cdc171ce"
+    },
+    {
+      "path": "configs/reproducibility/fm_anomaly_transformer_primary_paper_protocol.2026-10-15_v1.json",
+      "sha256": "8d73a05363c69bdf8e9c513ed6da4cbf5b7258be75ff0a07ec5607cb06ce90aa"
+    },
+    {
+      "path": "data/public_datasets/mtsad/msl/MSL_test.npy",
+      "sha256": "8b479ebeeabb63ff636e8adeb095a7bcc46a0cdc7befa189b45b05b1e90c9425"
+    },
+    {
+      "path": "data/public_datasets/mtsad/msl/MSL_test_label.npy",
+      "sha256": "23e120c30a645000f093ff5311de177601b8220ba3ca4281c6376883444f7b97"
+    },
+    {
+      "path": "data/public_datasets/mtsad/msl/MSL_train.npy",
+      "sha256": "d767ecfc8ea344f7a6e78f815a84dc7923f600df1beb14359f3e73202148b058"
+    },
+    {
+      "path": "data/public_datasets/mtsad/psm/test.csv",
+      "sha256": "566bc50117d13f58793d830c14975c55f627cab63953265d7d6ce2dbcf2b0f80"
+    },
+    {
+      "path": "data/public_datasets/mtsad/psm/test_label.csv",
+      "sha256": "e5b6b0c716a9b3d52e3a1b06761527811f75a218790c37b8a5e806741aeb0676"
+    },
+    {
+      "path": "data/public_datasets/mtsad/psm/train.csv",
+      "sha256": "816e0e2a5356b3b09d356925cd9a0fe1d327e3b350e9336d26ee3e650c72e112"
+    },
+    {
+      "path": "data/public_datasets/mtsad/smap/SMAP_test.npy",
+      "sha256": "458c3b354b6a602b711241c29fb50518dddb0c1c9248d7d2e1691a9c218d4ac0"
+    },
+    {
+      "path": "data/public_datasets/mtsad/smap/SMAP_test_label.npy",
+      "sha256": "55f94fcccc3ae35216cfd6ac5e0e2016ad9d08d5ff0aca9f09916c6501380e0f"
+    },
+    {
+      "path": "data/public_datasets/mtsad/smap/SMAP_train.npy",
+      "sha256": "1c823bed59f32d45a2e6323ac79bf7755c80c2ff68a2d3d7322e4dee40a11010"
+    },
+    {
+      "path": "data/public_datasets/mtsad/smd/SMD_test.npy",
+      "sha256": "64520f6b9351d609bb395e947a3c98f6c513f608c794c571f9a0176d98cdb671"
+    },
+    {
+      "path": "data/public_datasets/mtsad/smd/SMD_test_label.npy",
+      "sha256": "400a29e062ca8c8f8d7e4801c68c35801f3a2180d5d70fe118d6525a33dd3ed2"
+    },
+    {
+      "path": "data/public_datasets/mtsad/smd/SMD_train.npy",
+      "sha256": "ef3a4a4e9c87c939c23e0cdf1190c18a1d41ef1aadb5d6c5ae909514332ef791"
+    },
+    {
+      "path": "data/public_datasets/mtsad/swat/swat2.csv",
+      "sha256": "23c5bacf78de7527aac031ad43acc7ac99ec49b17b645aaa2a74a4a7d60a0a80"
+    },
+    {
+      "path": "data/public_datasets/mtsad/swat/swat_train2.csv",
+      "sha256": "cfdba4611fd7b093246309eae7b249da05decff8cde640c8283bfef8e6eaf5fb"
+    },
+    {
+      "path": "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original/model/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original/model/AnomalyTransformer.py",
+      "sha256": "d494f05348e5edc38c60d82ce48f34d28b35fa0c24f39aa2a26173c743097f5f"
+    },
+    {
+      "path": "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original/model/attn.py",
+      "sha256": "4caef08919b29c0b930458da67e570ffacfee921cb41f3009d50dabc6cc9aaf6"
+    },
+    {
+      "path": "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original/model/embed.py",
+      "sha256": "5c77a56aa84f175cd4b3a25aac71d19ed06276f4ee17e75970b08efc5731578b"
+    },
+    {
+      "path": "papers/literature/mtsad_pdfs/xu2022_anomaly_transformer.pdf",
+      "sha256": "ff8d3bb627fce9914eb8a9e78c4139e4852771dbee801da2c766dea028a17053"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+      "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+    },
+    {
+      "path": "scripts/flow_matching/register_anomaly_transformer_paper_contract_v1.py",
+      "sha256": "3a5a4e8fd1fa93aeeaaa2713bf801364477928ddf378d0fab0f1becdbd78dbe8"
+    },
+    {
+      "path": "scripts/flow_matching/run_anomaly_transformer_author_full_v1.py",
+      "sha256": "7d4e9bfeb1609b51796574e07f79cc4009f124d1a17c0270602cc87b35434fda"
+    },
+    {
+      "path": "scripts/flow_matching/run_anomaly_transformer_paper_contract_v1.py",
+      "sha256": "92dc36990938424297980d3a7b2841a6c390436270314e8678854a921e1aa760"
+    },
+    {
+      "path": "src/iia_benchmark/evaluation/mtsad_metrics.py",
+      "sha256": "5c65f924a059966d734a23da79a12cc36396ae0b2158f392c9b9c90ef7116aae"
+    },
+    {
+      "path": "tests/test_fm_anomaly_transformer_paper_contract_v1.py",
+      "sha256": "b9387b72f2bbc93e6d0b23375c0f393643af014bc16a1d7998c1c3a0a26968a2"
+    },
+    {
+      "path": "configs/experiments/fm_anomaly_transformer_paper_contract.v1.json",
+      "sha256": "920ffe2ea5db15523aa1664ef4f8bc032c4c1d39f1b013026288be4c143ad8e6"
+    },
+    {
+      "path": "scripts/flow_matching/run_anomaly_transformer_paper_max_ablation_v1.py",
+      "sha256": "eba6f4784c201c489b4fcc764d9ed971aa0eb65100b2f22f8940338112a64d8a"
+    },
+    {
+      "path": "scripts/flow_matching/register_anomaly_transformer_paper_max_ablation_v1.py",
+      "sha256": "c72d11e68ea97b1786fbf0468cb2b00c4b355cc21d7bbbc5a06b83ad2c0286db"
+    },
+    {
+      "path": "scripts/flow_matching/run_anomaly_transformer_cold_resource_entry_v1.py",
+      "sha256": "be21f0c1f11f332717fbdeeac03952dbb27114486282c7864dcc42f12a9320f8"
+    },
+    {
+      "path": "scripts/flow_matching/run_cached_resource_monitor_controller_v1.py",
+      "sha256": "6a5ca6bf4c418232235bf78eaa3bc2d99e478484d36b4ce66e4cf8b02c3377b6"
+    },
+    {
+      "path": "scripts/flow_matching/cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/run_light_controller.py",
+      "sha256": "97174fc6f18d76df74e8ed1d38e189d7098ce217c872434a5b6b238009868eff"
+    },
+    {
+      "path": "tests/test_fm_anomaly_transformer_paper_max_ablation_v1.py",
+      "sha256": "a9fe88a7a0b51d1c65da8e5080edca68711f26d6cf16802ec88e044fe66faddf"
+    },
+    {
+      "path": "configs/models/fm_anomaly_transformer_paper_max_ablation.v1.json",
+      "sha256": "28f0b74cc9209efa8c705ee8678d3ec9bae9008110f3f0bfa5d46446425e3408"
+    }
+  ],
+  "parent_registration": "configs/experiments/fm_anomaly_transformer_paper_contract.v1.json",
+  "parent_registration_sha256": "920ffe2ea5db15523aa1664ef4f8bc032c4c1d39f1b013026288be4c143ad8e6",
+  "base_training": {
+    "batch_size": 32,
+    "maximum_epochs": 10,
+    "window_stride": 100,
+    "learning_rate": 0.0001,
+    "discrepancy_weight": 3,
+    "patience": 3,
+    "kl_log_epsilon": 0.0001,
+    "cpu_threads": 2,
+    "optimizer": "Adam",
+    "backward_strategy": "two_detached_losses_one_accumulated_Adam_update",
+    "loss_reduction": "per_window_Frobenius_squared_and_L1_discrepancy_then_batch_mean",
+    "learning_rate_schedule": "inherited_author_halving_after_epoch_two"
+  },
+  "variants": [
+    "learnable_prior_max",
+    "fixed_sigma1_prior_max"
+  ],
+  "primary_score_stream": "all.multiplication",
+  "optimizer_update": "one_joint_direct_Max_backward_then_one_Adam_step",
+  "fixed_prior_scale": 1,
+  "paired_shared_parameter_initialization": true,
+  "paper_ablation_evidence": {
+    "pdf_page": 8,
+    "table": 2,
+    "visually_verified": true,
+    "rows": [
+      "Assoc / Fix / Max",
+      "Assoc / Learnable / Max"
+    ],
+    "caption_definition": "Fix sets the Gaussian scale sigma to1.0; Max is Equation4"
+  }
+}
