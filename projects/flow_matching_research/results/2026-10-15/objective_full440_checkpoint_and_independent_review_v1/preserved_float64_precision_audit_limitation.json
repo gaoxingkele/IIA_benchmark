@@ -1,0 +1,28 @@
+{
+  "detected_in": "full20epoch Target-CFM source/native toy integration fixture; no formal benchmark replay had launched",
+  "original_validation_failures": 1,
+  "original_validation_passes": 20,
+  "preserved_raw_failure_xml": "D:\\aicoding\\IIA_benchmark\\tmp\\Objective_full440_checkpoint_replay_validation_20261015_v1.xml",
+  "preserved_raw_failure_xml_sha256": "3889f5c4adf9077a8b7a3fb3ea41221d9b8da970c6c098daebbbca0a40fc1e83",
+  "original_failure": "Independent full-coordinate probability path mismatch: velocity",
+  "interpretation": "The preserved target velocity formula uses FP32 subtraction and division; some coordinates differ from its ideal float64 evaluation beyond the fixed2e-6tolerance.",
+  "unchanged_tolerance": {
+    "rtol": 2e-06,
+    "atol": 2e-06
+  },
+  "original_source_algorithm_modified": false,
+  "ideal_float64_comparison_removed": false,
+  "ideal_float64_failure_counts_or_errors_suppressed": false,
+  "source_FP32_program_check": "independent NumPy FP32 evaluation with source operation order at unchanged2e-6tolerance",
+  "native_array_check": "exact dtype/shape/content bytes,not an approximate match",
+  "every_ideal_float64_coordinate_still_audited": true,
+  "required_runtime_evidence": [
+    "float64_path_failure_coordinate_counts",
+    "maximum_path_absolute_errors",
+    "ideal_float64_path_allclose_passed"
+  ],
+  "certification_rule": "Any failed ideal coordinate leaves ideal_float64_path_equivalence_certified=false in both native and independent reports.",
+  "final_target_fixture_explicitly_asserts_failed_ideal_equivalence": true,
+  "final_tests_passed": 21,
+  "benchmark_performance_claim": false
+}
