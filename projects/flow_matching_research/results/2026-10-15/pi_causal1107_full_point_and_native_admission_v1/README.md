@@ -1,0 +1,7 @@
+Original Pi causal-axis-repaired PSM seed1107 completed all3epochs/1554updates with1930289parameters. The guarded complete saved-score audit independently checked all15streams,13238200 overlapping training score points and87800 test points. The original41-point dropped test tail is retained.
+
+Actual saved-score metrics: {"accuracy": 0.9882232346241457, "precision": 0.9740909460668673, "recall": 0.9836934198636327, "f1": 0.9788686340227254, "pointwise_no_PA_same_author_threshold": {"accuracy": 0.7182004555808656, "precision": 0.2744874715261959, "recall": 0.009898956707467346, "f1": 0.019108785283856646, "auroc": 0.48369406911714985, "average_precision": 0.2716012903026252}}
+
+Complete checkpoint re-inference and its final independent full-array review remain pending. The actual live controller and native admission state are archived in the JSON summary. Original32GiBcommit/24GiBphysical admission,16GiBemergency,CPU2 and score tolerances remain. All82 relevant checks passed. Original1140jobs/all six seeds and45/681/273scope remain required.
+
+Original training has no persisted resource-guard receipt. Source test-based model selection, pooled train/test calibration and point adjustment remain explicitly separated from unadjusted controls. No author-equivalence or strictTAB certificate is issued. The new readonly review template aligns its prose with the actual causal1107 identity before freezing; every other field is identical to the original template. Original frozen files were preserved.
