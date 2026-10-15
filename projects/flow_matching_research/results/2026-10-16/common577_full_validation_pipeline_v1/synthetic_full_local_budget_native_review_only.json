@@ -1,0 +1,120 @@
+[
+  {
+    "family": "baselines",
+    "metadata_path": "F:\\aicoding\\IIA_Data\\experiments\\common105_native577_unit_fixtures_20261016_v1\\test_actual_original_local_bud0\\fixture_metadata.json",
+    "metadata_sha256": "a505b640684c2e47f132520453e57fdfa8f5a12f56345c65204e6fe5c68b2efd",
+    "model": {
+      "schema_version": 1,
+      "id": "fm_strict_dcdetector__msl__registered",
+      "task": "time_series_anomaly_detection",
+      "entrypoint": "iia_benchmark.models.fm_legacy_window_adapter:LegacyWindowAdapter",
+      "parameters": {
+        "method": "dcdetector",
+        "parameters": {
+          "window": 90,
+          "patch_sizes": [
+            3,
+            5
+          ],
+          "d_model": 256,
+          "n_heads": 1,
+          "e_layers": 3,
+          "dropout": 0.0,
+          "temperature": 50.0,
+          "learning_rate": 0.0001,
+          "batch_size": 64
+        },
+        "epochs": 3,
+        "seed": 1103,
+        "device": "cpu"
+      },
+      "citation": "https://doi.org/10.1145/3580305.3599295",
+      "data_citations": [
+        "https://github.com/decisionintelligence/TAB"
+      ],
+      "source_config": "configs/models/mtsad_dcdetector.json",
+      "source_config_sha256": "55575afd9692348b4ba127698053f60991d5f2b7bd126548767b09b68a6b0b49",
+      "original_reproduction_status": "transcribed_from_reference_implementation",
+      "reproduction_status": "existing_local_transcription_strict_track_not_author_pipeline_equivalence",
+      "known_deviations": {
+        "source": "KDD 2023 DCdetector; dual attention, RevIN, multi-scale patching and the softmax(-series_loss - prior_loss) energy are transcribed from github.com/DAMO-DI-ML/KDD2023-DCdetector (model/DCdetector.py, model/attn.py, model/embed.py, solver.py).",
+        "hyperparameter_note": "Windows and anomaly ratios come from the repository's own per-dataset scripts (SMD 105/patch 5-7/ratio 0.6, MSL 90/3-5/1.0, SMAP 105/3-5-7/0.85, PSM 60/1-3-5/1.0, SWaT 105/3-5-7/1.0); argparse receives those as digit strings, so the digit list is the patch-size list."
+      },
+      "variant": "registered",
+      "boundary": "Full local baseline comparison, not historical author-harness equivalence; original known deviations remain explicit. USAD signed-loss control may be unstable and must be reported as such."
+    },
+    "reports": [
+      {
+        "phase": "native",
+        "path": "F:\\aicoding\\IIA_Data\\experiments\\common105_native577_unit_fixtures_20261016_v1\\test_actual_original_local_bud0\\replay\\fixture_only_not_benchmark\\native\\native_replay.json",
+        "sha256": "c5bbafc1e3a7f22b044a571ac755e9a46fa79688bb7f219178be8c46bbadf5f2",
+        "passed": true
+      },
+      {
+        "phase": "review",
+        "path": "F:\\aicoding\\IIA_Data\\experiments\\common105_native577_unit_fixtures_20261016_v1\\test_actual_original_local_bud0\\replay\\fixture_only_not_benchmark\\review\\all_label_view_independent_review.json",
+        "sha256": "267a7f0e7094ba901791efb236edb3dd6b26dcb3986b0b54494289288e10b723",
+        "passed": true
+      }
+    ],
+    "synthetic_only_not_benchmark_or_CUDA": true
+  },
+  {
+    "family": "fm",
+    "metadata_path": "F:\\aicoding\\IIA_Data\\experiments\\common105_native577_unit_fixtures_20261016_v1\\test_actual_original_local_bud1\\fixture_metadata.json",
+    "metadata_sha256": "f47f3c291268b03f4e2e8e757b633450df69c722e801b63d7c9970385a5a9b2d",
+    "model": {
+      "schema_version": 1,
+      "id": "fm_objective_independent",
+      "task": "time_series_anomaly_detection",
+      "kind": "window",
+      "family": "flow_matching_objective_adapters",
+      "entrypoint": "iia_benchmark.models.fm_objective_detectors:CFMObjectiveDetector",
+      "parameters": {
+        "objective": "independent",
+        "sigma": 0.0,
+        "window": 100,
+        "hidden_size": 128,
+        "epochs": 20,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "score_times": [
+          0.1,
+          0.3,
+          0.5,
+          0.7,
+          0.9
+        ],
+        "monte_carlo_samples": 4,
+        "score_weight": 1.0,
+        "seed": 1103
+      },
+      "citation": "https://arxiv.org/abs/2302.00482",
+      "source_repository": "atong01/conditional-flow-matching",
+      "source_commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+      "reproduction_status": "paper_objective_transcription_local_tsad_score_adapter_not_original_experiment",
+      "paper_score_status": "not_verified",
+      "deviations": [
+        "Shared MLP backbone and velocity-discrepancy TSAD score are local adaptation choices.",
+        "SciPy exact assignment/log-Sinkhorn replace POT numerical transport solvers.",
+        "Scoring uses independent pairs, not OT rematching or test-distribution calibration.",
+        "Scoring time grid, Monte Carlo seed and batching are frozen; no likelihood claim."
+      ]
+    },
+    "reports": [
+      {
+        "phase": "native",
+        "path": "F:\\aicoding\\IIA_Data\\experiments\\common105_native577_unit_fixtures_20261016_v1\\test_actual_original_local_bud1\\replay\\fixture_only_not_benchmark\\native\\native_replay.json",
+        "sha256": "9f2cf33c8b001bbacfe287347c89e6c4cc597033a84effce1e346f47f6a98505",
+        "passed": true
+      },
+      {
+        "phase": "review",
+        "path": "F:\\aicoding\\IIA_Data\\experiments\\common105_native577_unit_fixtures_20261016_v1\\test_actual_original_local_bud1\\replay\\fixture_only_not_benchmark\\review\\all_label_view_independent_review.json",
+        "sha256": "d429f9c2931ea08621f2185014ab71b6db08b8eefcb506d0ccd6dc9cadee40e2",
+        "passed": true
+      }
+    ],
+    "synthetic_only_not_benchmark_or_CUDA": true
+  }
+]
