@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "fm_moment_ICM_full_PILE_forecast_head_v1",
+  "entrypoint": "scripts.flow_matching.moment_icm_forecast_finetune_v1:worker",
+  "native_review_entrypoint": "scripts.flow_matching.moment_icm_forecast_finetune_v1:replay_worker",
+  "task": "long_horizon_forecasting",
+  "citation": "https://arxiv.org/abs/2409.13530v1",
+  "data_citation": "https://github.com/thuml/Autoformer",
+  "parameters": {
+    "branches": ["independent_head", "icm_beta_frozen", "icm_beta_finetuned"],
+    "lookback": 256,
+    "horizons": [96, 192, 384],
+    "epochs": 5,
+    "training_batch": 64,
+    "evaluation_batch": 256,
+    "num_workers": 5,
+    "shuffle_all_roles": true,
+    "drop_last": false,
+    "dtype": "bfloat16_autocast_with_float32_parameters",
+    "use_amp": true,
+    "optimizer": "AdamW",
+    "initial_learning_rate": 0.00005,
+    "weight_decay": 0,
+    "scheduler": "source_OneCycleLR",
+    "pct_start": 0.3,
+    "head_dropout": 0.1,
+    "gradient_checkpointing": false,
+    "train_seed": 13,
+    "source_validation_loss": "unweighted_average_of_batch_MSE",
+    "selection": "validation_only_best_epoch"
+  },
+  "reproduction_status": "complete_callable_source_loop_reconstruction_waits_actual_full_pretrained_models",
+  "boundaries": [
+    "Use actual complete 2086-source,80850189-item,39479-update Tiny/ICM final checkpoints only.",
+    "The local pretrained core uses source PatchEmbedding default add_positional_embedding=False;this matches the related forecast YAML and is not changed at fine tuning.",
+    "Read-only gradient auditing and bounded prediction/history storage do not change the source five-epoch optimizer/AMP/scheduler math.",
+    "The unpublished original ICM initialization,pipeline and historical settings are not certified equivalent.",
+    "No identity between the appendix 8fold/4fold labels and beta freeze/tune branches is asserted.",
+    "Other Table1/4/5 baselines and periodic AD callback obligations remain separate."
+  ]
+}
