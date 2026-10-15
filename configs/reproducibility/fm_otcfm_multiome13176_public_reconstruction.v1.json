@@ -1,0 +1,102 @@
+{
+  "inputs": {
+    "author": {
+      "path": "data/public_datasets/flow_matching/project_additions/otcfm_author_singlecell_mendeley/op_train_multi_targets_0.h5ad",
+      "bytes": 1059236146,
+      "sha256": "a16c28ef861503111bb2f4c6ab6b1d5ed3df07d49eb0baa7378515fc098af4d2"
+    },
+    "public": {
+      "path": "data/public_datasets/flow_matching/single_cell/neurips2022_public/multiome/log_cp10k/dataset_mod1.h5ad",
+      "bytes": 9433942170,
+      "sha256": "faa0d9be03f85e2a61b381c39195927d1e35cd7f9331d7a3331e1b2b17b2619b"
+    }
+  },
+  "reference_donor": "32606",
+  "paper_donor": "13176",
+  "days": [
+    2,
+    3,
+    4,
+    7
+  ],
+  "expected_reference_cells": 33701,
+  "expected_paper_cells": 35384,
+  "expected_features": 23418,
+  "public_layer": "normalized",
+  "encoding_transform": "log1p(expm1(public_float64)*100)",
+  "encoding_scale": 100.0,
+  "encoding_tolerance": {
+    "rtol": 2e-06,
+    "atol": 2e-06
+  },
+  "reference_match": "Unique intersection of positive gene supports; full bijection and every gene/cell value then verified.",
+  "pca_dimensions": 5,
+  "pca_initial_vector_seed": 0,
+  "pca_arpack_tolerance": 0.0,
+  "pca_fit_scope": "All donor13176 cells at days2,3,4,7, before leave-timepoint training as paper E5 describes.",
+  "whitening": "Original CustomTrajectoryDataModule StandardScaler block, ddof0, on all selected donor PC coordinates.",
+  "numerical_threads": 2,
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 34359738368,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 3221225472,
+    "maximum_worker_private_bytes": 6442450944
+  },
+  "resource_lock": "experiments/runs/fm_otcfm_singlecell_input_audit_cpu.lock",
+  "stable_samples": 6,
+  "poll_seconds": 5,
+  "state_root": "experiments/runs/fm_otcfm_multiome13176_public_reconstruction_v1",
+  "output_directory": "data/public_datasets/flow_matching/processed_otcfm_multiome13176_public_pca5_v1",
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/reconstruct_otcfm_multiome13176_public_v1.py",
+      "sha256": "c62858195036093d837c3c0d23c28a825a89195ea9357ed1bb279a903847cd38"
+    },
+    {
+      "path": "tests/test_fm_otcfm_multiome13176_reconstruction_v1.py",
+      "sha256": "7b06cbac125039faefc38229b275d63453224cb0dc9d07f41e82abfc43be4a90"
+    },
+    {
+      "path": "configs/acquisition/fm_otcfm_author_singlecell_mendeley.v1.json",
+      "sha256": "162aa809ab307f16768e3ba8fdadf6aa3eeee24ecc095fbe16a2331bb6f688a2"
+    },
+    {
+      "path": "projects/flow_matching_research/materials/catalog.json",
+      "sha256": "db05bfc2a2853edf61f573fe42d8d0c6a7f304032920f516878201a21526fd2c"
+    },
+    {
+      "path": "experiments/runs/flow_matching_campaign/sources/ot_cfm/original/runner/src/datamodules/components/time_dataset.py",
+      "sha256": "f6d4616c67c8111300c8be170d6373e2291fb39894a9aa2a18060807e6e96ff5"
+    },
+    {
+      "path": "experiments/runs/flow_matching_campaign/sources/ot_cfm/original/runner/src/datamodules/distribution_datamodule.py",
+      "sha256": "aad9fe1a871413d66206a5cd4e61c60cf4de896ac93102cb9fca8554d5bd9f9a"
+    },
+    {
+      "path": "scripts/flow_matching/cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    }
+  ],
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "paper_pdf_page": 32,
+  "paper_section": "E.5",
+  "author_data": "https://doi.org/10.17632/hhny5ff7yj.1",
+  "public_data": "https://openproblems-data.s3.amazonaws.com/resources/datasets/openproblems_neurips2022/pbmc_multiome/log_cp10k/dataset_mod1.h5ad",
+  "boundary": "Complete original cells/features, no subsampling or replacement. Full donor32606 matrix identity gate before applying fixed encoding to donor13176. First5 centered sparse PCs and original whitening, no organizer embedding reuse. Reconstructed paper-described input, not a claim of historical artifact bit identity; original PCA solver/seed history unavailable. CITE feature mapping and all original methods/baselines/ablations/full budgets remain pending.",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273,
+    "paper_scalar_targets": 702
+  },
+  "all_original_experiments_complete": false
+}
