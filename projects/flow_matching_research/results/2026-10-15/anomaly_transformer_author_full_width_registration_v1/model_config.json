@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "fm_anomaly_transformer_author_full_v1",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "scripts.flow_matching.run_anomaly_transformer_author_full_v1:run_worker",
+  "parameters": {
+    "d_model": 512,
+    "d_ff": 512,
+    "n_heads": 8,
+    "e_layers": 3,
+    "window": 100,
+    "batch_size": 256,
+    "k": 3,
+    "learning_rate": 0.0001,
+    "temperature": 50
+  },
+  "execution_config": "configs/experiments/fm_anomaly_transformer_author_full.v1.json",
+  "citation": "https://doi.org/10.48550/arXiv.2110.02642",
+  "code_citation": "https://github.com/thuml/Anomaly-Transformer/tree/b0ee470c8012bff857fb600462aec6209c4a18d9",
+  "data_citations": [
+    "10.1145/3292500.3330672",
+    "10.1145/3219819.3219845",
+    "10.1145/3447548.3467174"
+  ],
+  "reproduction_status": "full_width_pinned_author_runtime_registered_not_completed",
+  "boundary": "CPU compatibility port; source test-set selection, pooled calibration and PA retained. SWaT source loader unavailable. Full-width ablations, independent replay, paper-era equivalence and strict TAB acceptance remain separately required."
+}

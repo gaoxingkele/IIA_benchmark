@@ -1,0 +1,59 @@
+{
+  "captured_utc": "2026-10-15T05:04:36.824413+00:00",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "inspected_local_configuration": "configs/models/fm_strict_baselines/fm_strict_anomaly_transformer__smd__registered.json",
+  "inspected_local_configuration_sha256": "6653c89c262d22a56844a1b59a26f86b5f6cb931e5f4af77580c78d20582ac19",
+  "local_d_model": 32,
+  "local_d_ff": 32,
+  "existing_local_completed_SMD_seed1106_parameter_count": 22750,
+  "source_model_file": "experiments/runs/fm_baseline_code_completion/sources/anomaly_transformer_author/original/model/AnomalyTransformer.py",
+  "source_model_sha256": "d494f05348e5edc38c60d82ce48f34d28b35fa0c24f39aa2a26173c743097f5f",
+  "source_model_constructor_defaults": {
+    "d_model": 512,
+    "n_heads": 8,
+    "e_layers": 3,
+    "d_ff": 512,
+    "dropout": 0.0,
+    "activation": "gelu",
+    "output_attention": true
+  },
+  "full_width_source_pipeline_required": true,
+  "new_full_width_registration": "configs/experiments/fm_anomaly_transformer_author_full.v1.json",
+  "prior_local_results_promoted_to_author_equivalence": false,
+  "raw_SWaT_files": [
+    {
+      "path": "data/public_datasets/mtsad/swat/swat_train2.csv",
+      "exists": true,
+      "bytes": 182817723,
+      "sha256": "cfdba4611fd7b093246309eae7b249da05decff8cde640c8283bfef8e6eaf5fb"
+    },
+    {
+      "path": "data/public_datasets/mtsad/swat/swat2.csv",
+      "exists": true,
+      "bytes": 164416771,
+      "sha256": "23c5bacf78de7527aac031ad43acc7ac99ec49b17b645aaa2a74a4a7d60a0a80"
+    }
+  ],
+  "SWaT_missing_material_is_source_loader_not_local_CSV": true,
+  "SWaT_rows_discrepancy": {
+    "paper_train_rows": 475200,
+    "payload_train_rows": 495000,
+    "note": "The Anomaly Transformer era result tables list 475200 training rows for SWaT, while the Time-Series-Library SWATSegLoader loads swat_train2.csv unchanged at 495000 rows and does not subsample. The 19800-row gap (5.5 hours at one-second sampling) is unresolved from the published artefacts, so the payload is used as shipped and the difference is carried into the reproduction comparison instead of being silently trimmed."
+  },
+  "unresolved": [
+    "SWaT loader absent from pinned original snapshot",
+    "Paper-wide ablation and hyperparameter tables require their own full-width registrations",
+    "Independent checkpoint replay and multi-seed uncertainty required after training",
+    "Original snapshot is a maintainer version, not certified paper-era commit",
+    "Grouped strict TAB protocol is a separate required track"
+  ],
+  "scientific_benchmark_results_added": 0,
+  "small_fixture_tests_are_plumbing_only": true,
+  "new_controller_live": true,
+  "full_author_training_models_completed_by_this_registration": 0,
+  "all_original_experiments_complete": false
+}
