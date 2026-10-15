@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "fm_anomaly_transformer_paper_contract_v1",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "scripts.flow_matching.run_anomaly_transformer_paper_contract_v1:run_worker",
+  "execution_config": "configs/experiments/fm_anomaly_transformer_paper_contract.v1.json",
+  "parameters": {
+    "d_model": 512,
+    "d_ff": 512,
+    "n_heads": 8,
+    "e_layers": 3,
+    "window": 100,
+    "batch_size": 32,
+    "maximum_epochs": 10,
+    "lambda": 3,
+    "learning_rate": 0.0001,
+    "temperature": 1
+  },
+  "citation": "https://doi.org/10.48550/arXiv.2110.02642",
+  "code_citation": "https://github.com/thuml/Anomaly-Transformer/tree/b0ee470c8012bff857fb600462aec6209c4a18d9",
+  "data_citations": ["10.1145/3292500.3330672", "10.1145/3219819.3219845", "10.1145/3447548.3467174", "10.1007/978-3-319-71368-7_8"],
+  "reproduction_status": "primary_paper_contract_reconstruction_registered_not_completed",
+  "boundary": "Explicit reconstruction choices are frozen in the execution config. Independent validation and paper Algorithm2/3 aggregation are implemented. Historical partition identity, ambiguous executable conventions, all other paper experiments, strict TAB acceptance and exact paper equivalence remain uncertified."
+}
