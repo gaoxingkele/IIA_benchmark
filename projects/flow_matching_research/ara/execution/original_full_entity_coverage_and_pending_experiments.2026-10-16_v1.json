@@ -1,0 +1,74 @@
+{
+  "scope": "Additional full-entity scientific experiments;existing registered-subset obligations remain",
+  "source_configuration": "configs/datasets/fm_original_entity_coverage_inventory.2026-10-16_v1.json",
+  "evidence": "projects/flow_matching_research/results/2026-10-16/original_raw_entity_coverage_inventory_v1",
+  "full_data_targets": {
+    "SMAP": {
+      "distinct_entities": 54,
+      "metadata_rows": 55
+    },
+    "MSL": {
+      "distinct_entities": 27
+    },
+    "SMD": {
+      "distinct_entities": 28
+    }
+  },
+  "tasks": [
+    {
+      "id": "raw_to_CSV_every_coordinate_and_label_mapping",
+      "status": "not_run",
+      "requirements": [
+        "all shared and missing entities",
+        "original row identities",
+        "all channels",
+        "all role arrays",
+        "both original label endpoints and duplicate P-2 rows"
+      ]
+    },
+    {
+      "id": "full_raw_entity_preprocessing",
+      "status": "not_run",
+      "requirements": [
+        "all available original entities",
+        "separate immutable F-drive outputs",
+        "fit-only local repair/scaling",
+        "original NASA prescaling disclosed",
+        "no source overwrite"
+      ]
+    },
+    {
+      "id": "full_raw_entity_all_registered_algorithm_and_ablation_models",
+      "status": "not_run",
+      "requirements": [
+        "original algorithms/capacities/epochs/precision",
+        "frozen seeds and hyperparameters",
+        "all raw target datasets",
+        "full independent model inference and metrics",
+        "no test-based setting selection"
+      ]
+    },
+    {
+      "id": "explicit_P2_label_and_endpoint_sensitivity",
+      "status": "not_run",
+      "requirements": [
+        "retain both conflicting source metadata rows",
+        "declare source-first-row/end-exclusive baseline",
+        "other labels/endpoints separate controls",
+        "do not count repeated channel as independent bootstrap group"
+      ]
+    },
+    {
+      "id": "full_cohort_and_protocol_comparison",
+      "status": "not_run",
+      "requirements": [
+        "complete original seeds",
+        "grouped uncertainty",
+        "registered subset versus full source comparison",
+        "PA/oracle separated from validation-only metrics",
+        "author equivalence remains unproven until audited"
+      ]
+    }
+  ],
+  "all_original_experiments_complete": false
+}

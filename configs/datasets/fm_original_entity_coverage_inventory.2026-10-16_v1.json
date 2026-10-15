@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "fm_original_entity_coverage_inventory_v1",
+  "tranad_data_root": "data/public_datasets/mtsad_paper_repos/tranad/data",
+  "nasa_metadata": "data/public_datasets/mtsad_paper_repos/tranad/data/SMAP_MSL/labeled_anomalies.csv",
+  "nasa_mirror_archive": "data/public_datasets/flow_matching/nasa_author/nasa_smap_msl.zip",
+  "registered_CSV_root": "data/public_datasets/flow_matching/mtsbench",
+  "registered_prepared_manifest": "data/public_datasets/flow_matching/processed_tsad_constant_fit_v2/manifest.json",
+  "datasets": ["SMAP", "MSL", "SMD"],
+  "expected_label_rows": {"SMAP": 55, "MSL": 27},
+  "expected_unique_labelled_channels": {"SMAP": 54, "MSL": 27},
+  "expected_raw_SMD_pairs": 28,
+  "report_root": "projects/flow_matching_research/results/2026-10-16/original_raw_entity_coverage_inventory_v1",
+  "source_citations": [
+    "https://github.com/khundman/telemanom",
+    "https://github.com/imperial-qore/TranAD",
+    "https://github.com/NetManAIOps/OmniAnomaly",
+    "https://huggingface.co/datasets/PLAN-Lab/mTSBench"
+  ],
+  "duplicate_label_policy": "Inventory every original metadata row and every distinct channel separately; do not select, union or silently deduplicate conflicting anomaly labels.",
+  "scope": "Read-only raw file checksums, array headers, physical row counts, label metadata and entity-set comparison. No preprocessing, numerical coordinate equivalence, model training, inference or benchmark completion is claimed."
+}
