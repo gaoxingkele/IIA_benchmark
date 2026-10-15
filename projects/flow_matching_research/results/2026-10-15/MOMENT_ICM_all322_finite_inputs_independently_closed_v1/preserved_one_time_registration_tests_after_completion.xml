@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="17" time="23.045" timestamp="2026-10-15T23:52:51.646894+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_closure_v1" name="test_real_all3splits_independent_full_numeric_reconstruction_and_mask_corruption_rejection[0]" time="3.292" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_closure_v1" name="test_real_all3splits_independent_full_numeric_reconstruction_and_mask_corruption_rejection[160]" time="2.968" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_closure_v1" name="test_real_all3splits_independent_full_numeric_reconstruction_and_mask_corruption_rejection[321]" time="2.963" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_closure_v1" name="test_prerequisite_checks_are_cold_before_the_single_resource_API_install" time="1.942" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_v3" name="test_only_nonfinite_inputs_are_replaced_and_imputed_targets_never_become_observed" time="0.000" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_v3" name="test_no_all_missing_training_scaler_or_invalid_scale_is_silently_invented[nan-1.0]" time="0.000" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_v3" name="test_no_all_missing_training_scaler_or_invalid_scale_is_silently_invented[0.0-nan]" time="0.000" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_v3" name="test_no_all_missing_training_scaler_or_invalid_scale_is_silently_invented[0.0-0.0]" time="0.000" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_v3" name="test_loss_uses_mask_zero_predict_convention_and_excludes_raw_missing_targets" time="0.000" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_v3" name="test_real_source_all_splits_preserve_finite_values_and_complete_raw_target_identity[0]" time="2.884" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_v3" name="test_real_source_all_splits_preserve_finite_values_and_complete_raw_target_identity[160]" time="2.835" /><testcase classname="tests.test_fm_moment_icm_anomaly_finite_control_v3" name="test_real_source_all_splits_preserve_finite_values_and_complete_raw_target_identity[321]" time="2.965" /><testcase classname="tests.test_fm_moment_icm_finite_control_cold_metadata_v4" name="test_actual_pre_guard_leaves_resource_api_cold_and_installable_in_fresh_process" time="0.546"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;&#10;    File &quot;D:\aicoding\IIA_benchmark\scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py&quot;, line 29, in registration&#10;      base=ROOT/original['state_root'];require_pre_science_failure(base,original['artifact_root'])&#10;                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#10;    File &quot;D:\aicoding\IIA_benchmark\scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py&quot;, line 24, in require_pre_science_failure&#10;      raise ValueError('Only a diagnosed pre-science metadata failure can be replaced')&#10;  ValueError: Only a diagnosed pre-science metadata failure can be replaced&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', '-B', '-X', 'utf8'...ence metadata failure can be replaced\')\nValueError: Only a diagnosed pre-science metadata failure can be replaced\n').returncode">def test_actual_pre_guard_leaves_resource_api_cold_and_installable_in_fresh_process():
+        code=('import sys;from scripts.flow_matching.run_moment_icm_finite_control_cold_metadata_v4 import registration,pre_guard;'
+            'r=registration();pre_guard(r);'
+            'from scripts.flow_matching.run_anomaly_transformer_cold_resource_entry_v1 import install_facades;'
+            'a=install_facades();a["resource_snapshot"]();'
+            'assert not any(x in sys.modules for x in ["numpy","pandas","torch"])')
+        result=subprocess.run([sys.executable,'-B','-X','utf8','-c',code],cwd=p.ROOT,
+            env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'),capture_output=True,text=True,timeout=60)
+&gt;       assert result.returncode==0,result.stdout+result.stderr[-4000:]
+E       AssertionError: Traceback (most recent call last):
+E           File "&lt;string&gt;", line 1, in &lt;module&gt;
+E           File "D:\aicoding\IIA_benchmark\scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py", line 29, in registration
+E             base=ROOT/original['state_root'];require_pre_science_failure(base,original['artifact_root'])
+E                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "D:\aicoding\IIA_benchmark\scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py", line 24, in require_pre_science_failure
+E             raise ValueError('Only a diagnosed pre-science metadata failure can be replaced')
+E         ValueError: Only a diagnosed pre-science metadata failure can be replaced
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', '-B', '-X', 'utf8'...ence metadata failure can be replaced\')\nValueError: Only a diagnosed pre-science metadata failure can be replaced\n').returncode
+
+tests\test_fm_moment_icm_finite_control_cold_metadata_v4.py:18: AssertionError</failure></testcase><testcase classname="tests.test_fm_moment_icm_finite_control_cold_metadata_v4" name="test_cold_metadata_repair_cannot_replace_the_scientific_worker_or_relax_guards[worker]" time="0.347"><failure message="ValueError: Only a diagnosed pre-science metadata failure can be replaced">mutation = 'worker'
+
+    @pytest.mark.parametrize('mutation',['worker','guard','lock'])
+    def test_cold_metadata_repair_cannot_replace_the_scientific_worker_or_relax_guards(mutation):
+&gt;       runtime=p.registration();p.pre_guard(runtime)
+                ^^^^^^^^^^^^^^^^
+
+tests\test_fm_moment_icm_finite_control_cold_metadata_v4.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py:29: in registration
+    base=ROOT/original['state_root'];require_pre_science_failure(base,original['artifact_root'])
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+base = WindowsPath('D:/aicoding/IIA_benchmark/experiments/runs/fm_moment_icm_anomaly_finite_control_v3')
+artifact = WindowsPath('F:/aicoding/IIA_Data/experiments/moment_icm_anomaly_finite_control_v3')
+
+    def require_pre_science_failure(base,artifact):
+        base=Path(base);artifact=Path(artifact)
+        text=(base/'controller.stderr.log').read_text(encoding='utf-8')
+        if ('Install resource facades only in a fresh cold metadata interpreter' not in text
+                or (base/'worker_launch.json').exists() or artifact.exists()):
+&gt;           raise ValueError('Only a diagnosed pre-science metadata failure can be replaced')
+E           ValueError: Only a diagnosed pre-science metadata failure can be replaced
+
+scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py:24: ValueError</failure></testcase><testcase classname="tests.test_fm_moment_icm_finite_control_cold_metadata_v4" name="test_cold_metadata_repair_cannot_replace_the_scientific_worker_or_relax_guards[guard]" time="0.441"><failure message="ValueError: Only a diagnosed pre-science metadata failure can be replaced">mutation = 'guard'
+
+    @pytest.mark.parametrize('mutation',['worker','guard','lock'])
+    def test_cold_metadata_repair_cannot_replace_the_scientific_worker_or_relax_guards(mutation):
+&gt;       runtime=p.registration();p.pre_guard(runtime)
+                ^^^^^^^^^^^^^^^^
+
+tests\test_fm_moment_icm_finite_control_cold_metadata_v4.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py:29: in registration
+    base=ROOT/original['state_root'];require_pre_science_failure(base,original['artifact_root'])
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+base = WindowsPath('D:/aicoding/IIA_benchmark/experiments/runs/fm_moment_icm_anomaly_finite_control_v3')
+artifact = WindowsPath('F:/aicoding/IIA_Data/experiments/moment_icm_anomaly_finite_control_v3')
+
+    def require_pre_science_failure(base,artifact):
+        base=Path(base);artifact=Path(artifact)
+        text=(base/'controller.stderr.log').read_text(encoding='utf-8')
+        if ('Install resource facades only in a fresh cold metadata interpreter' not in text
+                or (base/'worker_launch.json').exists() or artifact.exists()):
+&gt;           raise ValueError('Only a diagnosed pre-science metadata failure can be replaced')
+E           ValueError: Only a diagnosed pre-science metadata failure can be replaced
+
+scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py:24: ValueError</failure></testcase><testcase classname="tests.test_fm_moment_icm_finite_control_cold_metadata_v4" name="test_cold_metadata_repair_cannot_replace_the_scientific_worker_or_relax_guards[lock]" time="0.396"><failure message="ValueError: Only a diagnosed pre-science metadata failure can be replaced">mutation = 'lock'
+
+    @pytest.mark.parametrize('mutation',['worker','guard','lock'])
+    def test_cold_metadata_repair_cannot_replace_the_scientific_worker_or_relax_guards(mutation):
+&gt;       runtime=p.registration();p.pre_guard(runtime)
+                ^^^^^^^^^^^^^^^^
+
+tests\test_fm_moment_icm_finite_control_cold_metadata_v4.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py:29: in registration
+    base=ROOT/original['state_root'];require_pre_science_failure(base,original['artifact_root'])
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+base = WindowsPath('D:/aicoding/IIA_benchmark/experiments/runs/fm_moment_icm_anomaly_finite_control_v3')
+artifact = WindowsPath('F:/aicoding/IIA_Data/experiments/moment_icm_anomaly_finite_control_v3')
+
+    def require_pre_science_failure(base,artifact):
+        base=Path(base);artifact=Path(artifact)
+        text=(base/'controller.stderr.log').read_text(encoding='utf-8')
+        if ('Install resource facades only in a fresh cold metadata interpreter' not in text
+                or (base/'worker_launch.json').exists() or artifact.exists()):
+&gt;           raise ValueError('Only a diagnosed pre-science metadata failure can be replaced')
+E           ValueError: Only a diagnosed pre-science metadata failure can be replaced
+
+scripts\flow_matching\run_moment_icm_finite_control_cold_metadata_v4.py:24: ValueError</failure></testcase><testcase classname="tests.test_fm_moment_icm_finite_control_cold_metadata_v4" name="test_an_existing_scientific_launch_or_artifact_is_never_retried_as_metadata" time="0.009" /></testsuite></testsuites>
