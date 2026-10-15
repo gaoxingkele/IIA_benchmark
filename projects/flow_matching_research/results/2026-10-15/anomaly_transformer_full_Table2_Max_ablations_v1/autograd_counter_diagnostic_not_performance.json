@@ -1,0 +1,13 @@
+{
+  "observed_fixture_issue": "With torch.set_default_device(cpu), Tensor.backward public dispatch was entered twice while autograd.backward executed once",
+  "analytical_probe_tensor_dispatch_entries": 2,
+  "analytical_probe_autograd_executions": 1,
+  "analytical_gradient_of_sum_of_squared_ones": [
+    2,
+    2
+  ],
+  "corrected_measurement_layer": "torch.autograd.backward, independently counted in both full-width integration fixtures",
+  "actual_required_backward_executions_per_optimizer_step": 1,
+  "real_data_numerical_jobs_launched_before_tests_passed": 0,
+  "benchmark_performance_claim": false
+}

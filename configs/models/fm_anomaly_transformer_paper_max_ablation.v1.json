@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "fm_anomaly_transformer_paper_max_ablation_v1",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "scripts.flow_matching.run_anomaly_transformer_paper_max_ablation_v1:run_worker",
+  "execution_config": "configs/experiments/fm_anomaly_transformer_paper_max_ablation.v1.json",
+  "variants": ["learnable_prior_max", "fixed_sigma1_prior_max"],
+  "parameters": {
+    "d_model": 512,
+    "d_ff": 512,
+    "layers": 3,
+    "heads": 8,
+    "window": 100,
+    "batch_size": 32,
+    "maximum_epochs": 10,
+    "lambda": 3,
+    "learning_rate": 0.0001,
+    "fixed_variant_sigma": 1
+  },
+  "optimization": "Joint direct maximization, Equation4, one backward then one Adam step",
+  "citation": "https://doi.org/10.48550/arXiv.2110.02642",
+  "evidence": "Primary PDF Table2/page8 and Equation4/page5",
+  "code_citation": "https://github.com/thuml/Anomaly-Transformer/tree/b0ee470c8012bff857fb600462aec6209c4a18d9",
+  "data_citations": ["10.1145/3292500.3330672", "10.1145/3219819.3219845", "10.1145/3447548.3467174", "10.1007/978-3-319-71368-7_8"],
+  "reproduction_status": "full_Table2_direct_Max_training_reconstruction_registered_not_completed",
+  "boundary": "Both variants require new full training, not posthoc reuse of a minimax checkpoint. Explicit parent reconstruction choices remain; fixed sigma1 trainables removed while shared initialization is paired. Exact paper equivalence, independent replay, complete ablations and strict TAB remain uncertified."
+}
