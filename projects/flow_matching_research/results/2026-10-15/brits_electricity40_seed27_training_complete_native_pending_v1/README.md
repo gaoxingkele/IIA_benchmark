@@ -27,3 +27,5 @@ All original seeds26..30, all210 SAITS/BRITS models, and all45papers /
 681method-baseline-ablation records /273data-task references remain in scope.
 The original job is terminal and must not be trained again. Ongoing Pi native
 inference and GRASP full training retain their original settings.
+
+Correction added 2026-10-15: the native replay waited for its CPU replay shared lock, not a GPU lock. The archived configuration and actual report specify CPU4 and no CUDA context. GRASP ownership was not established. See [CPU replay lock clarification](../brits_electricity40_seeds26_27_closed_full46_model_increment_v1/CPU_REPLAY_LOCK_CORRECTION.md). Frozen raw evidence and this snapshot's numerical status are preserved.
