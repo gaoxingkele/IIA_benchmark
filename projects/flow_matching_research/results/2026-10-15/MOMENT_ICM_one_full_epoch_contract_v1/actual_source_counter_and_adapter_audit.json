@@ -1,0 +1,130 @@
+{
+  "passed": true,
+  "captured_utc": "2026-10-15T10:23:52.104402+00:00",
+  "configuration": "configs/reproducibility/fm_moment_ICM_one_full_epoch_contract.2026-10-15_v1.json",
+  "configuration_sha256": "8491f9fad0dafe75f02888d253772d70c77451eca8efc9b4a78e4cb8aa26b9d5",
+  "source_sha256": "db87197248307c317ed1ba0c4a6553c840814034c703fb08b585a0d922c5ce1a",
+  "original_stop_condition": "opt_steps < self.args.max_opt_steps or cur_epoch < self.args.max_epoch",
+  "isolated_stop_condition": "cur_epoch < self.args.max_epoch",
+  "source_default_budgets": {
+    "configs/default.yaml": {
+      "max_opt_steps": 5000000,
+      "max_epoch": 50
+    },
+    "configs/pretraining/pretrain.yaml": {
+      "max_opt_steps": 5000000,
+      "max_epoch": 50
+    }
+  },
+  "original_ast_sha256": "705ff9d552fa04f54129824cd4753429122aa44340af6c6b12a2919c9842ca94",
+  "isolated_ast_sha256": "d5d770f6e77d432f1f8563a26cd4227198f149bde208db5d84c340ceec01723a",
+  "only_stopping_condition_changed": true,
+  "source_file_unchanged": true,
+  "original_loop_counter_projections": [
+    {
+      "counter_only_fixture": true,
+      "batches_per_epoch": 7,
+      "step_minimum": 20,
+      "requested_epochs": 1,
+      "outcomes": {
+        "source_two_minima_OR": {
+          "epochs": 3,
+          "optimizer_steps": 21,
+          "final_epoch_full": true,
+          "actual_neural_training": false
+        },
+        "paper_complete_epochs": {
+          "epochs": 1,
+          "optimizer_steps": 7,
+          "final_epoch_full": true,
+          "actual_neural_training": false
+        }
+      }
+    },
+    {
+      "counter_only_fixture": true,
+      "batches_per_epoch": 7,
+      "step_minimum": 21,
+      "requested_epochs": 1,
+      "outcomes": {
+        "source_two_minima_OR": {
+          "epochs": 3,
+          "optimizer_steps": 21,
+          "final_epoch_full": true,
+          "actual_neural_training": false
+        },
+        "paper_complete_epochs": {
+          "epochs": 1,
+          "optimizer_steps": 7,
+          "final_epoch_full": true,
+          "actual_neural_training": false
+        }
+      }
+    },
+    {
+      "counter_only_fixture": true,
+      "batches_per_epoch": 7,
+      "step_minimum": 22,
+      "requested_epochs": 1,
+      "outcomes": {
+        "source_two_minima_OR": {
+          "epochs": 4,
+          "optimizer_steps": 28,
+          "final_epoch_full": true,
+          "actual_neural_training": false
+        },
+        "paper_complete_epochs": {
+          "epochs": 1,
+          "optimizer_steps": 7,
+          "final_epoch_full": true,
+          "actual_neural_training": false
+        }
+      }
+    },
+    {
+      "counter_only_fixture": true,
+      "batches_per_epoch": 3,
+      "step_minimum": 2,
+      "requested_epochs": 4,
+      "outcomes": {
+        "source_two_minima_OR": {
+          "epochs": 4,
+          "optimizer_steps": 12,
+          "final_epoch_full": true,
+          "actual_neural_training": false
+        },
+        "paper_complete_epochs": {
+          "epochs": 4,
+          "optimizer_steps": 12,
+          "final_epoch_full": true,
+          "actual_neural_training": false
+        }
+      }
+    }
+  ],
+  "illustrative_counterexample": {
+    "hypothetical_batches_per_epoch": 2048,
+    "measured_real_corpus_budget": false,
+    "source_after_only_setting_max_epoch_1": {
+      "epochs": 2442,
+      "optimizer_steps": 5001216,
+      "final_epoch_full": true,
+      "actual_neural_training": false
+    },
+    "isolated_full_epoch_policy": {
+      "epochs": 1,
+      "optimizer_steps": 2048,
+      "final_epoch_full": true,
+      "actual_neural_training": false
+    }
+  },
+  "source_policy_may_be_intentional_for_its_own_recipe": true,
+  "adapted_callable_available": true,
+  "integrated_full_scientific_pretraining_runner_available": false,
+  "actual_model_updates": 0,
+  "neural_pretraining_epochs_executed": 0,
+  "actual_full_corpus_steps_or_tokens_certified": false,
+  "model_performance_results": 0,
+  "numerical_source_or_running_task_hotpatched": false,
+  "all_original_experiments_complete": false
+}
