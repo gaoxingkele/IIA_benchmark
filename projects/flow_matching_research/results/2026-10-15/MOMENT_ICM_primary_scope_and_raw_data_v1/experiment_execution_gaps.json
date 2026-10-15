@@ -1,0 +1,51 @@
+{
+  "paper_id": "moment_long_context",
+  "all702_original_reported_targets_indexed": true,
+  "all117_classification_and6_forecast_raw_datasets_locally_verified": true,
+  "original_pretraining_completed": false,
+  "original_forecast_and_SVM_experiments_completed": false,
+  "all_context_expansion_baselines_integrated": false,
+  "model_components_only": true,
+  "known_recipe": {
+    "evidence_pdf_pages": [
+      3,
+      4,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "lookback": 256,
+    "horizons": [
+      96,
+      192,
+      384
+    ],
+    "tiny_encoder_blocks": 4,
+    "d_model": 256,
+    "heads": 4,
+    "d_ff": 1024,
+    "ICM_additional_beta_parameters": 16,
+    "pretraining_epochs": 1,
+    "pretraining_main_text_max_channels": 8,
+    "appendix_D_channel_grouping": "Split multivariate data into8channel subdatasets;oversample remaining channels to8;univariate batches remain1channel",
+    "forecast_primary_metric": "MSE",
+    "forecast_additional_metric": "MAE",
+    "NBEATS_epochs": 10,
+    "NBEATS_batch": 64,
+    "classification": "Frozen zero-shot representations then train SVM on training labels"
+  },
+  "remaining_fields": [
+    "Table4labels8folds/4folds are not mapped to Table2freeze/fine-tune beta branches by the primary text;do not assert this identity.",
+    "The primary text describes subsampling whereas AppendixD describes8channel partition and remainder oversampling;preserve both and freeze a disclosed reconstruction before execution.",
+    "Original MOMENT-Tiny/ICM pretrained checkpoints unavailable locally;released small/base/large512 AD checkpoints are not substitutes.",
+    "Masking,optimizer/LR,scheduling,non-NBEATS training epochs/earlystopping,seeds,representation pooling and SVM selection need source alignment or explicitly disclosed reconstruction choices.",
+    "Dedicated concatenation,GraphTransformer,Crossformer,iTransformer and NBEATS full settings are not all integrated in current MomentICMT5 component entrypoints.",
+    "Table7has91univariate datasets in addition to26multivariate;both must remain in experiment scope."
+  ],
+  "original_archived_AD72_and6controls_are_separate": true,
+  "numeric_targets_are_not_actual_local_results": true,
+  "all_original_experiments_complete": false
+}
