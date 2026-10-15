@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "fm_anomaly_transformer_paper_sensitivity_v1",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "scripts.flow_matching.run_anomaly_transformer_paper_sensitivity_v1:run_worker",
+  "execution_config": "configs/experiments/fm_anomaly_transformer_paper_sensitivity.v1.json",
+  "axes": {
+    "window": [50, 100, 150, 200, 250, 300],
+    "weight": [0, 1, 2, 3, 4, 5, 6],
+    "layers": [1, 2, 3, 4],
+    "hidden": [256, 512, 1024]
+  },
+  "base": {"window": 100, "weight": 3, "layers": 3, "hidden": 512},
+  "design": "Complete reported single-factor scans, main model reused across axes; not a full factorial cross-product",
+  "citation": "https://doi.org/10.48550/arXiv.2110.02642",
+  "evidence": "Primary PDF Figure7/page13 and Tables8-9/page18, visually verified",
+  "code_citation": "https://github.com/thuml/Anomaly-Transformer/tree/b0ee470c8012bff857fb600462aec6209c4a18d9",
+  "data_citations": ["10.1145/3292500.3330672", "10.1145/3219819.3219845", "10.1145/3447548.3467174", "10.1007/978-3-319-71368-7_8"],
+  "reproduction_status": "full_reported_paper_sensitivity_reconstruction_registered_not_completed",
+  "boundary": "400 new full training jobs and25 referenced main models. All executable choices inherited from the explicit paper-contract reconstruction remain disclosed. CPU timings are not original GPU efficiency. Exact paper equivalence, independent replay, all other ablations and strict TAB acceptance remain uncertified."
+}
