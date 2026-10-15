@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "jobs": [
+    {
+      "raw_job": {
+        "dataset": "SMAP",
+        "entity": "G-7",
+        "loader": "npy",
+        "raw": {
+          "train": {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_paper_repos\\tranad\\data\\SMAP_MSL\\train\\G-7.npy",
+            "sha256": "f11ec2989110630857b54a30750eca5a94a72e4e91c63671f16d61f04c85f455",
+            "bytes": 489328,
+            "shape": [
+              2446,
+              25
+            ],
+            "dtype": "<f8",
+            "fortran_order": false,
+            "header_bytes": 128,
+            "complete_payload_byte_count_consistent": true
+          },
+          "test": {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_paper_repos\\tranad\\data\\SMAP_MSL\\test\\G-7.npy",
+            "sha256": "51c434210b75beedb37304dcce9e68c4bce0cac4e1d52b0f70a13b59ea7b31ef",
+            "bytes": 1605928,
+            "shape": [
+              8029,
+              25
+            ],
+            "dtype": "<f8",
+            "fortran_order": false,
+            "header_bytes": 128,
+            "complete_payload_byte_count_consistent": true
+          }
+        },
+        "metadata_rows": [
+          {
+            "source_row_index": 44,
+            "chan_id": "G-7",
+            "spacecraft": "SMAP",
+            "anomaly_sequences": "[[3650, 3750], [5050, 5100], [7560, 7675]]",
+            "class": "[contextual, point, contextual]",
+            "num_values": "8029"
+          }
+        ]
+      },
+      "CSV_roles": {
+        "train": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\SMAP\\SMAP_G-7_train.csv",
+          "sha256": "811149288dcbcee87ff4dd29f7af9a9081c5539c5e3f5496c189009790f41d01"
+        },
+        "val": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\SMAP\\SMAP_G-7_val.csv",
+          "sha256": "11a9d18b087358293c63f07c1c53eb6eedd8b278210e98e011e991944533a89c"
+        },
+        "test": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\SMAP\\SMAP_G-7_test.csv",
+          "sha256": "cefd6d1c3b1cb60737a5be7a069fa2e5d54d66dce13dea06fb2a351183ab7da1"
+        }
+      }
+    },
+    {
+      "raw_job": {
+        "dataset": "MSL",
+        "entity": "T-13",
+        "loader": "npy",
+        "raw": {
+          "train": {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_paper_repos\\tranad\\data\\SMAP_MSL\\train\\T-13.npy",
+            "sha256": "9f3d78fa06ddf72f26fc190e11d38a253c1e2b59a4fc0bd06633b98a010a4f86",
+            "bytes": 503928,
+            "shape": [
+              1145,
+              55
+            ],
+            "dtype": "<f8",
+            "fortran_order": false,
+            "header_bytes": 128,
+            "complete_payload_byte_count_consistent": true
+          },
+          "test": {
+            "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\mtsad_paper_repos\\tranad\\data\\SMAP_MSL\\test\\T-13.npy",
+            "sha256": "ebdf225ad1b21faf4c0c3013de07f1ab77cefd1329587421cfa424128b9433a6",
+            "bytes": 1069328,
+            "shape": [
+              2430,
+              55
+            ],
+            "dtype": "<f8",
+            "fortran_order": false,
+            "header_bytes": 128,
+            "complete_payload_byte_count_consistent": true
+          }
+        },
+        "metadata_rows": [
+          {
+            "source_row_index": 70,
+            "chan_id": "T-13",
+            "spacecraft": "MSL",
+            "anomaly_sequences": "[[690, 790], [1900, 2050]]",
+            "class": "[contextual, contextual]",
+            "num_values": "2430"
+          }
+        ]
+      },
+      "CSV_roles": {
+        "train": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\MSL\\MSL_T-13_train.csv",
+          "sha256": "d7d92ac74cc7bb8a170a854a3296cb07f5d65e3e1c2495e7b7c4d34fd8c96868"
+        },
+        "val": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\MSL\\MSL_T-13_val.csv",
+          "sha256": "dadf47fc6fb57cf906b55a455046562fd33d2811804ffbb4888bb73ac16c6b3e"
+        },
+        "test": {
+          "path": "D:\\aicoding\\IIA_benchmark\\data\\public_datasets\\flow_matching\\mtsbench\\MSL\\MSL_T-13_test.csv",
+          "sha256": "ea00213008e5a416fc38203083feef6404087067a09b78d9a0a8b71da0b79fb3"
+        }
+      }
+    }
+  ],
+  "required_entities": 2,
+  "required_CSV_files": 6,
+  "profiles": [
+    "direct_float64",
+    "CSV_pandas_default_C_read",
+    "CSV_pandas_round_trip_read",
+    "float32_then_float64"
+  ],
+  "raw_roles": [
+    "train",
+    "test"
+  ],
+  "timestamp_origins": [
+    0,
+    1
+  ],
+  "all_declared_comparisons": 96,
+  "model_scores_used": false,
+  "labels_used_to_select_representation": false,
+  "numpy_tolerance_used": false,
+  "old_strict_float64_mapping_gate_changed": false,
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3"
+  },
+  "python": "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 30064771072,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 3221225472,
+    "maximum_worker_private_bytes": 6442450944
+  },
+  "resource_lock": "experiments/runs/fm_saits_readonly_checkpoint_cpu.lock",
+  "state_root": "experiments/runs/fm_NASA_two_split_serialization_audit_v1",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/NASA_two_split_serialization_audit_v1",
+  "source_receipts": [
+    {
+      "path": "configs/reproducibility/fm_original_full109_entity_preparation.2026-10-16_v1.json",
+      "sha256": "f9c4469bd6e7d8aada219ffd89ba797c20ad1eb56bb91ce853b0f3d15a11596e"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-16/original_raw_entity_coverage_inventory_v1/actual_original_entity_coverage.json",
+      "sha256": "b36707e623d47989763adb597176f12f0844c8b7291be2112bbdf905a7394b40"
+    },
+    {
+      "path": "configs/reproducibility/fm_timesnet_all5_NASA_label_protocol.2026-10-16_v2.json",
+      "sha256": "cc596ee5a2e482e4705499ef089cd0dfcd67eac9436dbec79a8da814303425b8"
+    },
+    {
+      "path": "scripts/flow_matching/audit_NASA_split_representation_v1.py",
+      "sha256": "8451ea0a0c38e767c34a69a05fd0466ceaee19c4681b5beab4e45bdd3b884698"
+    },
+    {
+      "path": "tests/test_fm_NASA_split_representation_v1.py",
+      "sha256": "dd0a7155895259bb32ed7f9a2ccfd9d9a1aef1cfe274f744bd80d28a36b25e55"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_original_full_entity_tsad_v1.py",
+      "sha256": "357a722ae0baa8db3268398be1e9be96078ddde2e9cc657a281d24c7a605ac53"
+    },
+    {
+      "path": "scripts/flow_matching/verify_moment_icm_PILE_anomaly_v1.py",
+      "sha256": "66be5503fffd52a06eb977868dbe6d10f31d46695db87e1d1010fcc3857b99dd"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/run_anomaly_transformer_cold_resource_entry_v1.py",
+      "sha256": "be21f0c1f11f332717fbdeeac03952dbb27114486282c7864dcc42f12a9320f8"
+    },
+    {
+      "path": "scripts/flow_matching/resume_anomaly_transformer_full500_metadata_v1.py",
+      "sha256": "8fa38f05e41bdd1a4e07bf7593e2b1bf4cda690005603a66390f26b40dea3793"
+    },
+    {
+      "path": "scripts/flow_matching/run_cached_resource_monitor_controller_v1.py",
+      "sha256": "6a5ca6bf4c418232235bf78eaa3bc2d99e478484d36b4ce66e4cf8b02c3377b6"
+    },
+    {
+      "path": "scripts/flow_matching/cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+      "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+    }
+  ],
+  "citations": [
+    "https://github.com/PLAN-Lab/mTSBench",
+    "https://github.com/khundman/telemanom"
+  ],
+  "boundary": "All6CSV roles/all4fixed representations/all2raw roles/all2timestamp origins. Profile matching is exact equality under a named parameter-free transform,not a relaxed tolerance. Record every match/failure;never choose by any model performance. Current software transformation compatibility does not certify unknown historical writer/version. Source files and old model/mapping gates unchanged. Full109rawdata/873experiments and all other paper obligations remain."
+}
