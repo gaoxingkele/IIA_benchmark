@@ -1,0 +1,125 @@
+{
+  "captured_utc": "2026-10-15T01:18:20.751274+00:00",
+  "method": "brits",
+  "dataset": "electricity",
+  "nominal_missing_ratio": 0.4,
+  "full_test_shape": [
+    290,
+    100,
+    370
+  ],
+  "full_test_cells_per_model": 10730000,
+  "held_out_coordinates_per_model": 3537183,
+  "actual_target_fraction": 0.32965358807082945,
+  "model_parameters": 6993328,
+  "required_maximum_epochs": 10000,
+  "author_early_stop_patience": 30,
+  "required_original_training_seeds": [
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "fully_verified_original_seeds": [
+    26
+  ],
+  "complete_five_seed_aggregate": false,
+  "reviewed_SAITS_BRITS_models": 45,
+  "required_SAITS_BRITS_models": 210,
+  "one_original_training_full_native_model_and_independent_review_passed": true,
+  "per_model": [
+    {
+      "id": "saits_paper_brits_electricity_author_missing0.4_seed26",
+      "seed": 26,
+      "full_training_completion": {
+        "id": "saits_paper_brits_electricity_author_missing0.4_seed26",
+        "full_training_finished": true,
+        "full_test_units": 290,
+        "held_out_coordinates": 3537183.0,
+        "metrics_independently_recomputed": true,
+        "original_maximum_epochs": 10000,
+        "next_epoch": 1292,
+        "author_patience_remaining": 0,
+        "benchmark_smoke": false,
+        "result_sha256": "a0ad45187229516fb49fcfdc71d139c5fa43ef9bbd4c644f1f8eceecb3bfcf8c",
+        "resume_sha256": "daf3fcad0a937ac2436db294e23e42f45e842024cab788f4dbea70b47ccd5112",
+        "best_sha256": "796c5e8dfc78eef36b845f96998183ea8e374f05d05d23d0cb7ce9dd8b083aad",
+        "statistics_sha256": "54c55ff090968ff36de76ba0dc98f67b4b35d1313c9626d8ada913d06d3c3940"
+      },
+      "validation_best": {
+        "validation_mae": 0.43273475766181946,
+        "training_step": 8827,
+        "epoch": 1260
+      },
+      "independently_recomputed_metrics": {
+        "mae": 1.0097925040592945,
+        "rmse": 1.5034084192153117,
+        "mre": 0.5407030245365146
+      },
+      "original_month_block_bootstrap_95_ci": {
+        "mae": [
+          0.9858755807370051,
+          1.0340397405534265
+        ],
+        "rmse": [
+          1.476965861685524,
+          1.5299784098029625
+        ],
+        "mre": [
+          0.5340643846142982,
+          0.5472737831540297
+        ]
+      },
+      "full_artifact_hashes": {
+        "config": "98a7954c0701b7b4b11ee20e81c73fe922f7de11f889dd8aeefc063c46c89737",
+        "result": "a0ad45187229516fb49fcfdc71d139c5fa43ef9bbd4c644f1f8eceecb3bfcf8c",
+        "checkpoint": "796c5e8dfc78eef36b845f96998183ea8e374f05d05d23d0cb7ce9dd8b083aad",
+        "arrays": "052745dc3b3a999ca669fbeb8592a7951c4e580b162459f3c1767067420c6143",
+        "dataset": "183ef7077f9f9d04de139a6b05129422942a50a5c14603d4a46e808fea049ffb",
+        "resume": "daf3fcad0a937ac2436db294e23e42f45e842024cab788f4dbea70b47ccd5112",
+        "original_group_statistics": "54c55ff090968ff36de76ba0dc98f67b4b35d1313c9626d8ada913d06d3c3940",
+        "data_audit": "5661d4b3d58bbb60019f49e8551a25f342776759420c5435a525acd2c082cba0"
+      },
+      "current_proof_hashes": {
+        "original_result": "a0ad45187229516fb49fcfdc71d139c5fa43ef9bbd4c644f1f8eceecb3bfcf8c",
+        "original_training_guard": "0617919ad9f41ba314e204366a57bcc97d5bc70a7d1a788082341bd3d3c2f1e6",
+        "native_configuration": "e29f3ec7b8727862110bb8f74b7e174629f74151f042627922e2c13376cf322c",
+        "independent_configuration": "30176cea2c0190e5503fe99d451168a6d646133985b951636175defc0189e717",
+        "full_native_report": "5af061cc0879c329a6ecf2b739573d77ffbc2cd29532a738ac80dfc41a4b6847",
+        "full_independent_proof": "5b684b20c436b43bad093b5ec98b9fa5a44efee525e6a9aadea44b0dac5c7031",
+        "native_guard": "fd2a32871d28db076fa3933e91562270e622cda20716913103e822a0c759b436",
+        "independent_guard": "1f390218088ea7381b7bc71fdd6c54e6e26bbfa581099c612f9ff149523f0167"
+      },
+      "citation": "https://arxiv.org/abs/2202.08516",
+      "data_citation": "https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014",
+      "protocol_boundaries": [
+        "Preprocessing NumPy seed 26 registered locally; historical author seed unspecified.",
+        "Author replacement masks retained; realized missing fraction differs from the nominal rate.",
+        "Author chronological month split retained: earlier test, intermediate validation, later training.",
+        "Month bootstrap is a temporal block sensitivity estimate; temporal independence is not guaranteed.",
+        "Released author window_truncate multiplies the last start by stride twice and drops the final window. Local count 1397 differs from paper 1400; protocol alignment remains unverified.",
+        "Windows loader workers set to zero versus author four; MIT random draw stream can differ.",
+        "Author model, losses, Adam, validation frequency and MAE controller retained; resume saves full state at epoch boundaries.",
+        "Final checkpoint selected solely on validation MAE; test metrics use author functions aggregated on CPU.",
+        "Five preregistered model seeds share the frozen split; paper Tables 2/4 do not report uncertainty."
+      ]
+    }
+  ],
+  "original_prediction_bitwise_equivalence_claimed": false,
+  "metric_tolerance": {
+    "rtol": 2e-06,
+    "atol": 2e-06
+  },
+  "within_model_month_block_uncertainty_is_not_training_seed_uncertainty": true,
+  "additional_training_updates": 0,
+  "additional_model_reinference_in_this_archive": 0,
+  "author_equivalence_certified": false,
+  "strict_TAB_result": false,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "all_original_experiments_complete": false
+}
