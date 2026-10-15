@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "fm_plain_transformer_paper_baseline_v1",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "scripts.flow_matching.run_plain_transformer_paper_baseline_v1:run_worker",
+  "execution_config": "configs/experiments/fm_plain_transformer_paper_baseline.v1.json",
+  "parameters": {"d_model": 512, "d_ff": 512, "layers": 3, "heads": 8, "window": 100, "batch_size": 32, "maximum_epochs": 10, "learning_rate": 0.0001},
+  "architecture": "Standard scaled-dot-product Transformer encoder; prior and sigma trainables removed; paired shared initialization",
+  "training": "One reconstruction backward and one Adam step per minibatch",
+  "criterion": "Mean-feature squared reconstruction error",
+  "citation": "https://doi.org/10.48550/arXiv.2110.02642",
+  "evidence": "Primary PDF Table2/page8, Transformer/Recon row",
+  "code_citation": "https://github.com/thuml/Anomaly-Transformer/tree/b0ee470c8012bff857fb600462aec6209c4a18d9",
+  "data_citations": ["10.1145/3292500.3330672", "10.1145/3219819.3219845", "10.1145/3447548.3467174", "10.1007/978-3-319-71368-7_8"],
+  "reproduction_status": "full_Table2_plain_Transformer_reconstruction_registered_not_completed",
+  "boundary": "25new full models; historical baseline-specific tuning and executable architecture conventions are not certified. This is a pure reconstruction baseline, distinct from lambda0with association scoring. Independent replay,uncertainty,exact paper equivalence and strict TAB acceptance remain unproven."
+}
