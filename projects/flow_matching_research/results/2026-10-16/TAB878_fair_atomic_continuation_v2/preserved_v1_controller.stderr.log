@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_TAB878_fair_entities_v1.py", line 246, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_TAB878_fair_entities_v1.py", line 243, in main
+    else:controller(config,c)
+         ^^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_TAB878_fair_entities_v1.py", line 194, in controller
+    old,oldlock=handoff(config,c,api,base,update)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_TAB878_fair_entities_v1.py", line 99, in handoff
+    update(state='waiting_actual_metric_lock_release_no_process_stopped');time.sleep(config['handoff_poll_seconds']);continue
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_TAB878_fair_entities_v1.py", line 187, in update
+    write(base/'status.json',state)
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\run_original_full_raw873_experiments_v2.py", line 42, in write
+    with path.open('x',encoding='utf-8',newline='\n') as stream:json.dump(value,stream,indent=2,allow_nan=False);stream.write('\n')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: 'D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_TAB878_fair_entity_continuation_v1\\status.json'

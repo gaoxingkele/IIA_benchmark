@@ -1,0 +1,36 @@
+{
+  "failed_handle": {
+    "pid": 38300,
+    "create_time": 1792101780.1273036,
+    "command": [
+      "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-u",
+      "-m",
+      "scripts.flow_matching.continue_TAB878_fair_entities_v1"
+    ]
+  },
+  "exact_failed_handle_now": {
+    "expected": {
+      "pid": 38300,
+      "create_time": 1792101780.1273036,
+      "command": [
+        "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "-m",
+        "scripts.flow_matching.continue_TAB878_fair_entities_v1"
+      ]
+    },
+    "alive": false
+  },
+  "cause": "Original TAB module exports an exclusive new-file writer. The new v1 scheduler mistakenly reused it for mutable status, so second heartbeat raised FileExistsError.",
+  "failure_before_any_handoff": true,
+  "original_numerical_process_or_metric_changed": false,
+  "correction": "v2 retains entire v1 controller code object in private globals and binds only its status writer to existing atomic replacement. Original metric stage functions remain v1/original.",
+  "scientific_retry_executed": false
+}
