@@ -1,0 +1,81 @@
+{
+  "inputs": {
+    "author": {
+      "path": "data/public_datasets/flow_matching/project_additions/otcfm_author_singlecell_mendeley/op_train_multi_targets_0.h5ad",
+      "bytes": 1059236146,
+      "sha256": "a16c28ef861503111bb2f4c6ab6b1d5ed3df07d49eb0baa7378515fc098af4d2"
+    },
+    "public": {
+      "path": "data/public_datasets/flow_matching/single_cell/neurips2022_public/multiome/log_cp10k/dataset_mod1.h5ad",
+      "bytes": 9433942170,
+      "sha256": "faa0d9be03f85e2a61b381c39195927d1e35cd7f9331d7a3331e1b2b17b2619b"
+    }
+  },
+  "reference_donor": "32606",
+  "days": [
+    2,
+    3,
+    4,
+    7
+  ],
+  "expected_reference_cells": 33701,
+  "expected_public_reference_candidates": 33704,
+  "expected_public_cells": 161868,
+  "expected_features": 23418,
+  "public_layer": "normalized",
+  "encoding_scale": 100.0,
+  "encoding_tolerance": {
+    "rtol": 2e-06,
+    "atol": 2e-06
+  },
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 34359738368,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 3221225472,
+    "maximum_worker_private_bytes": 6442450944
+  },
+  "resource_lock": "experiments/runs/fm_otcfm_singlecell_input_audit_cpu.lock",
+  "stable_samples": 6,
+  "poll_seconds": 5,
+  "numerical_threads": 2,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273,
+    "paper_scalar_targets": 702
+  },
+  "state_root": "experiments/runs/fm_otcfm_multiome_full_reference_overlap_v1",
+  "output_directory": "data/public_datasets/flow_matching/otcfm_multiome_full_reference_overlap_v1",
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/audit_otcfm_multiome_full_reference_overlap_v1.py",
+      "sha256": "8ea25f654b3cc6cd7aa7c0ab85660ee9d55c0e083ee693b6a12a6b7cfeee0c58"
+    },
+    {
+      "path": "tests/test_fm_otcfm_multiome_full_reference_overlap_v1.py",
+      "sha256": "598565d2db5012f14f7eef496d73d27366d55e1ec911a6734d739dee60406807"
+    },
+    {
+      "path": "configs/reproducibility/fm_otcfm_multiome13176_public_reconstruction.v3.json",
+      "sha256": "916951231f998eb929283d4e3f9f51a9bfc24703e5f6d15ad2ebd82183b91a8f"
+    },
+    {
+      "path": "scripts/flow_matching/reconstruct_otcfm_multiome13176_public_v3.py",
+      "sha256": "c15e6b002b80a033cec501511cefde5a93fc2056c3e2a9807196218a05b775e2"
+    },
+    {
+      "path": "experiments/runs/fm_otcfm_multiome13176_public_reconstruction_v3/guard_receipt.json",
+      "sha256": "7ab302fd5e564104fac712cf469240ddedbfa5f400bcd6de3eafafaea47dd149"
+    },
+    {
+      "path": "experiments/runs/fm_otcfm_multiome13176_public_reconstruction_v3/worker.stderr.log",
+      "sha256": "c8b90df169cef6639dddcb9180344dc80cb6f4f1bdd8f0896751a44f730b3cb7"
+    }
+  ],
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "author_data": "https://doi.org/10.17632/hhny5ff7yj.1",
+  "public_data": "https://openproblems-data.s3.amazonaws.com/resources/datasets/openproblems_neurips2022/pbmc_multiome/log_cp10k/dataset_mod1.h5ad",
+  "boundary": "Complete33701-cell reference, all23418 genes and original expression tolerance. Every failed anchor is retained; optional global same-day candidates are provenance diagnostics, not substitutes for the registered donor. Every resolved row is then checked across every gene, including implicit zeros. No PCA, whitening, training input or model is produced. Numerical expression agreement does not prove biological identity or which metadata source is correct.",
+  "all_original_experiments_complete": false
+}
