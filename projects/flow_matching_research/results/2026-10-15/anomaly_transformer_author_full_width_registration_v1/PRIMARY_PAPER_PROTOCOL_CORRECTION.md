@@ -1,0 +1,7 @@
+Primary-PDF SWaT/protocol correction,2026-10-15
+
+The exact primary PDF SHA256 ff8d3bb627fce9914eb8a9e78c4139e4852771dbee801da2c766dea028a17053 Table13,page19, states396000training/99000validation/449919test rows. Training plus validation is495000, matching the local CSV pool. Earlier local metadata attributing475200rows to this paper is stale and is corrected here. The frozen dataset/model/runtime configurations and their historical raw proof snapshots remain unchanged; this note supersedes only that metadata claim.
+
+The real unresolved split difference is full495000pool training/test-set checkpoint selection in the author scripts versus independent396000/99000training/validation in the paper. Further differences are batch256 versus32, source stride1 versus paper non-overlapped100 windows for several datasets, source3-epoch scripts versus paper up-to10, source pooled train/test calibration versus validation, and head/layer discrepancy aggregation and temperature. The new contract records these directly from PDF pages6,15,16,18,19. Full author-runtime reproducibility does not certify paper-algorithm equivalence.
+
+The already-frozen SWaT restoration config inherited the earlier475200metadata; this is an explicit metadata discrepancy, not an instruction to trim rows. The actual code uses the full495000pool, with all model/training/scoring/resource settings preserved. No numerical worker, raw file or frozen config was changed by this correction.

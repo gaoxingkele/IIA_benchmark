@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "fm_anomaly_transformer_swat_restored_v1",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "scripts.flow_matching.run_anomaly_transformer_swat_restored_v1:run_worker",
+  "execution_config": "configs/experiments/fm_anomaly_transformer_swat_restored.v1.json",
+  "parameters": {
+    "d_model": 512,
+    "d_ff": 512,
+    "n_heads": 8,
+    "e_layers": 3,
+    "window": 100,
+    "batch_size": 256,
+    "epochs": 3,
+    "anomaly_ratio": 0.1
+  },
+  "citation": "https://doi.org/10.48550/arXiv.2110.02642",
+  "code_citation": "https://github.com/thuml/Anomaly-Transformer/tree/b0ee470c8012bff857fb600462aec6209c4a18d9",
+  "loader_citation": "MaelNet author snapshot a5f5bb5a23b90773fd15a5059a6f0c0ef2853c56, data_provider/data_loader.py:SWATSegLoader",
+  "data_citation": "10.1007/978-3-319-71368-7_8",
+  "reproduction_status": "full_width_SWaT_loader_restoration_registered_not_completed",
+  "boundary": "Recovered CSV loader implementation; original unavailable SWaT loader and475200-paper-row selection remain uncertified. All495000payload train rows retained. Source test-selection/calibration and PA remain; not strict TAB."
+}

@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "paper": "papers/literature/mtsad_pdfs/xu2022_anomaly_transformer.pdf",
+  "paper_sha256": "ff8d3bb627fce9914eb8a9e78c4139e4852771dbee801da2c766dea028a17053",
+  "evidence_pages": {
+    "6": {
+      "pdf_page": 6,
+      "text_sha256": "15584a935de3622b5d8bb179c3052d639ecf281bc6f5bb1d57b92b7cc4298402"
+    },
+    "7": {
+      "pdf_page": 7,
+      "text_sha256": "a100c9a5199b2478762b3fed0a9959bd763b615b655d1d62bbeea0c26b93eac5"
+    },
+    "8": {
+      "pdf_page": 8,
+      "text_sha256": "826f5c1f050d05a3480d2de18576a0a584ad420376d26c35a04f5c4f55758ac2"
+    },
+    "9": {
+      "pdf_page": 9,
+      "text_sha256": "1505954ce677bda09aa62e2b0e6d7dd8e1d7c8760a5ffc3c64d19547175d8288"
+    },
+    "15": {
+      "pdf_page": 15,
+      "text_sha256": "908d90f7b60fa1e14fd0102d698f370b3856969d675bedf9b7690fbc7c8aa9c2"
+    },
+    "16": {
+      "pdf_page": 16,
+      "text_sha256": "4d3e0793d6f9d861fb047199dd2524856b7971cb5c577d55e46b47bf94363c9c"
+    },
+    "17": {
+      "pdf_page": 17,
+      "text_sha256": "9bd2752a72b4cdf5e9fd09ab87db1d80ed1696220883931397b0eebc6b59828e"
+    },
+    "18": {
+      "pdf_page": 18,
+      "text_sha256": "65213d75a6f324deaa5a6f5ce917c741204431a594b6a6146cf8ba2383846921"
+    },
+    "19": {
+      "pdf_page": 19,
+      "text_sha256": "3ec54357a0febdb4bfe0159d12b5789baefc219d5446fd06e017e8c4efde36c3"
+    }
+  },
+  "reported_table13_splits": {
+    "SMD": {
+      "train": 566724,
+      "validation": 141681,
+      "test": 708420,
+      "features": 38
+    },
+    "PSM": {
+      "train": 105984,
+      "validation": 26497,
+      "test": 87841,
+      "features": 25
+    },
+    "MSL": {
+      "train": 46653,
+      "validation": 11664,
+      "test": 73729,
+      "features": 55
+    },
+    "SMAP": {
+      "train": 108146,
+      "validation": 27037,
+      "test": 427617,
+      "features": 25
+    },
+    "SWaT": {
+      "train": 396000,
+      "validation": 99000,
+      "test": 449919,
+      "features": 51
+    },
+    "NeurIPS-TS": {
+      "train": 20000,
+      "validation": 10000,
+      "test": 20000,
+      "features": 1
+    }
+  },
+  "partition_order": "First80percent/last20percent reproduces all five stated counts; exact source identity still requires audit",
+  "paper_training": {
+    "d_model": 512,
+    "heads": 8,
+    "layers": 3,
+    "window": 100,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "lambda_discrepancy": 3,
+    "maximum_epochs": 10,
+    "train_window_stride": 100,
+    "early_stopping_patience": "not specified by paper text"
+  },
+  "paper_evaluation": {
+    "calibration": "independent validation subset",
+    "r_percent": {
+      "SMD": 0.5,
+      "MSL": 1,
+      "SMAP": 1,
+      "SWaT": 0.1,
+      "PSM": 1
+    },
+    "fixed_delta": {
+      "SMD": 0.1,
+      "MSL": 0.1,
+      "SMAP": 0.01,
+      "SWaT": 0.1,
+      "PSM": 0.01
+    },
+    "reported_main_F1_uses_PA": true,
+    "ROC_predefined_r_percent": [
+      0.5,
+      1,
+      1.5,
+      2,
+      10,
+      20,
+      30
+    ]
+  },
+  "author_source_differences": [
+    "Author scripts batch256 versus paper batch32",
+    "Author scripts3epochs on MSL/SMAP/PSM/SWaT versus paper early stop within10; preserve source branch separately",
+    "MSL/SMAP/PSM source training stride1 versus paper non-overlapped window100",
+    "Source fits scaler/trains on full concatenated training pool; paper has80/20 train/validation counts",
+    "Source checkpoint selection uses self.test_loader; paper describes independent validation",
+    "Source percentile calibration combines train/test scores; paper describes validation scores",
+    "Source averages KL over heads; Algorithm2 averages distributions over heads before KL",
+    "Source uses temperature50 and sums layer contributions during scoring; Algorithm2/3 states layer mean and no temperature50"
+  ],
+  "head_aggregation_counterexample": {
+    "mean_of_symmetric_head_KL": 0.8785344727767457,
+    "symmetric_KL_of_head_means": 0.0,
+    "diagnostic_only_not_benchmark_result": true
+  },
+  "paper_internal_discrepancies": [
+    "SMAP final F1 is96.69 in Table1 but96.90 in Table2",
+    "Equation6 uses feature squared-L2 sum while Algorithm3 specifies feature mean; fixed-delta interpretation needs explicit choice"
+  ],
+  "required_experiment_groups": [
+    {
+      "evidence": "Table1/page7",
+      "requirement": "five real datasets main method and15 baselines",
+      "status": "full author-runtime main jobs queued; paper-equivalent protocol not certified"
+    },
+    {
+      "evidence": "Figure3/page7",
+      "requirement": "ROC/AUC at seven stated threshold proportions",
+      "status": "must not equate to continuous unadjusted-score AUROC without protocol verification"
+    },
+    {
+      "evidence": "Figure4/page7 and Table13/page19",
+      "requirement": "NeurIPS-TS six-benchmark coverage",
+      "status": "original data/loader experiment not established by the new five-dataset main queues"
+    },
+    {
+      "evidence": "Table2/page8",
+      "requirement": "vanilla Transformer Recon; Anomaly Transformer Recon/AssDis; fixed-prior Max; learnable-prior Max; learnable Minimax",
+      "status": "full paper-equivalent implementations/runs remain required"
+    },
+    {
+      "evidence": "Table3/page9",
+      "requirement": "normal/abnormal adjacent-association contrasts for Recon/Max/Minimax",
+      "status": "not certified by saved anomaly-score metrics"
+    },
+    {
+      "evidence": "Table4/page15",
+      "requirement": "single layer1/2/3 versus multilayer scoring",
+      "status": "posthoc full checkpoint inference needed; not extra training seeds"
+    },
+    {
+      "evidence": "Table5/page15",
+      "requirement": "L2/CE/Wasserstein/JSD versus symmetricKL discrepancy",
+      "status": "full training and exact distance conventions remain required"
+    },
+    {
+      "evidence": "Table6/page16",
+      "requirement": "learnable power-law versus Gaussian prior",
+      "status": "distance-zero handling and source implementation still require resolution"
+    },
+    {
+      "evidence": "Table7/pages16-17",
+      "requirement": "Recon/AssDis/Addition/Multiplication criteria",
+      "status": "posthoc inference and complete saved component arrays required"
+    },
+    {
+      "evidence": "Tables8-9/page18",
+      "requirement": "layers1/2/3/4 and hidden256/512/1024",
+      "status": "separate full training sensitivity runs and source-dependent ffn conventions required"
+    },
+    {
+      "evidence": "Tables10-11/pages18-19",
+      "requirement": "validation distribution and fixed-delta versus ratio thresholds",
+      "status": "source pooled threshold results do not certify this experiment"
+    },
+    {
+      "evidence": "Table12/page19",
+      "requirement": "additional BOCPD, TS-CP2 and U-Time baselines",
+      "status": "source presence or smaller local adapters do not certify paper-equivalent runs"
+    }
+  ],
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "supersedes_only_stale_metadata": "The475200SWaT row attribution in earlier local config/prose is not supported by this primary PDF. It does not change any frozen scientific artifact.",
+  "all_original_experiments_complete": false
+}

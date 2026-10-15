@@ -1,0 +1,7 @@
+Full-width Anomaly Transformer SWaT loader-restoration lane
+
+The exact SWATSegLoader class extracted from the pinned MaelNet author source is connected to the unchanged full-width Anomaly Transformer model and training/scoring solver. Five seed slots1103..1107 are registered. Their exact live controller handle, full source/data hashes, resource admission state and15 passing fidelity/integration checks are archived. Small fixture computations validate the interface only; no benchmark model has completed by this registration.
+
+The restored implementation retains512/512width,three layers,eight heads,window100,batch256,3epochs, original minimax updates,source early stopping,pooled threshold and PA. It uses every495000training-pool row and449919test rows; no guessed trimming or replacement of raw data. All32GiBphysical/40GiBcommit admission and16GiBemergency protection remain. The lane waits without owning the shared heavy lock.
+
+This is a separately named source-loader reconstruction. Original SWaT source equivalence remains uncertified. Read PRIMARY_PAPER_PROTOCOL_CORRECTION.md: the primary PDF actually has396000train +99000validation=495000pool rows, so the earlier475200attribution is corrected. The source model/solver still differs from the paper protocol and Algorithm2/3. All paper tables/ablations, sixth NeurIPS-TS benchmark, independent checkpoint replay,uncertainty and strict TAB remain required. Full45/681/273 scope remains; the old19-record Anomaly Transformer source inventory is not an exhaustive ablation completion certificate.
