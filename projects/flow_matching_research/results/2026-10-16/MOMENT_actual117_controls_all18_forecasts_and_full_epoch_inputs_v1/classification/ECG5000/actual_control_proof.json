@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "job": {
+    "dataset": "ECG5000",
+    "splits": {
+      "TRAIN": {
+        "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/classification/UCR/ECG5000/ECG5000_TRAIN.ts",
+        "sha256": "1935be5cc08203aa7c0de288fbceb48997d475f43ee610fa373fd6f4a0d66775",
+        "instances": 500
+      },
+      "TEST": {
+        "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/classification/UCR/ECG5000/ECG5000_TEST.ts",
+        "sha256": "2343d4f750e3b2b4b0f470d985afadc590dbc69695597db6bb4888ef01c015ce",
+        "instances": 4500
+      }
+    }
+  },
+  "configuration_sha256": "c21898ec60cd8a4e21dfe4d65a7ed0ffbf77fc7a4134ce095aad05b111eaa4cb",
+  "environment": {
+    "python": "3.10.21",
+    "numpy": "1.25.2",
+    "pandas": "2.2.2",
+    "scipy": "1.9.3",
+    "scikit-learn": "1.5.2"
+  },
+  "strict_train_only_standardization": true,
+  "test_scaler_fit_calls": 0,
+  "test_transform_calls": 1,
+  "test_native_grid_adjustment": null,
+  "original_no_normalization_exception": false,
+  "unchanged_TRAIN": {
+    "all_original_train_coordinates_checked": true,
+    "checked_value_coordinates": 128000,
+    "directory": "F:\\aicoding\\IIA_Data\\experiments\\moment_icm_classification_source_preprocessing_v1\\ECG5000\\TRAIN",
+    "files_sha256": {
+      "input_mask.npy": "481d8c7882b4b3e3507e34dd43b6063ba1bef9667dc81ceb5e9ea944c55dfed9",
+      "labels.npy": "d52cfa6ed1029e106d53cb7d13919d308ca0195d3105a9147f8796ebc036775a",
+      "original_instance_rows.npy": "44e9deb4b77534cc2039f5307edb9c19f72ed3d315538db870cd4d582e01e187",
+      "values.npy": "3f8a868a738ab9ceafa634389ab806a69ca94794472188fe9a2c9277cb99ad61"
+    }
+  },
+  "TEST": {
+    "instances": 4500,
+    "channels": 1,
+    "sequence_length": 256,
+    "values_shape": [
+      4500,
+      1,
+      256
+    ],
+    "values_dtype": "float64",
+    "source_coordinates_copied_and_checked": 1152000,
+    "official_instance_order_and_all_channels_retained": true,
+    "files_sha256": {
+      "input_mask.npy": "3818ab2bb4911048620112284966ea1bf78b5480963d9b773ca0e6c9da7376fa",
+      "labels.npy": "6d527cdd2f034ea8fffa0424e39b7fc316272d43dc97cf86dfbc487bd4493083",
+      "original_instance_rows.npy": "52d52609233e9e194ab2dbe06652df4dc0228640004470f01677e1ae4e79f293",
+      "values.npy": "228131e4972df80e9e7ca421d2c9b1b224604459181bbfe2b589c1117fab42e9"
+    },
+    "source_scaler_fit_sample_shape": [
+      140
+    ]
+  },
+  "complete_TEST_comparison_to_source_transductive": {
+    "values.npy": {
+      "shape": [
+        4500,
+        1,
+        256
+      ],
+      "dtype": "float64",
+      "changed_coordinates": 630000,
+      "maximum_absolute_difference": 2.4325783680018347
+    },
+    "input_mask.npy": {
+      "shape": [
+        4500,
+        256
+      ],
+      "dtype": "float64",
+      "changed_coordinates": 0,
+      "maximum_absolute_difference": 0.0
+    },
+    "labels.npy": {
+      "shape": [
+        4500
+      ],
+      "dtype": "int64",
+      "changed_coordinates": 0,
+      "maximum_absolute_difference": 0.0
+    },
+    "original_instance_rows.npy": {
+      "shape": [
+        4500
+      ],
+      "dtype": "int64",
+      "changed_coordinates": 0,
+      "maximum_absolute_difference": 0.0
+    }
+  },
+  "original_source_preprocessing_proof_sha256": "1a41d2523c7b01e427a05f9c4e933a2c8ea7b5e6a0060e9dc9d1a6723d520825",
+  "neural_model_training_or_inference_or_SVM_performed": false,
+  "raw_data_overwritten": false,
+  "historical_ICM_pipeline_equivalence_certified": false,
+  "all_original_experiments_complete": false
+}

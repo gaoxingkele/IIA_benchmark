@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "paper_citation": "https://arxiv.org/abs/2409.13530v1",
+  "data_citation": "https://github.com/thuml/Autoformer",
+  "paper_scope": "configs/reproducibility/fm_moment_ICM_primary_scope_data.2026-10-15_v1.json",
+  "original_source_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+  "related_forecast_recipe": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/configs/forecasting/linear_probing.yaml",
+  "jobs": [
+    {
+      "dataset": "Exchange",
+      "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/exchange_rate.csv",
+      "sha256": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97",
+      "raw_rows": 7588
+    },
+    {
+      "dataset": "ETTh1",
+      "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/ETTh1.csv",
+      "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066",
+      "raw_rows": 17420
+    },
+    {
+      "dataset": "ETTh2",
+      "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/ETTh2.csv",
+      "sha256": "a3dc2c597b9218c7ce1cd55eb77b283fd459a1d09d753063f944967dd6b9218b",
+      "raw_rows": 17420
+    },
+    {
+      "dataset": "ETTm1",
+      "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/ETTm1.csv",
+      "sha256": "6ce1759b1a18e3328421d5d75fadcb316c449fcd7cec32820c8dafda71986c9e",
+      "raw_rows": 69680
+    },
+    {
+      "dataset": "ETTm2",
+      "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/ETTm2.csv",
+      "sha256": "db973ca252c6410a30d0469b13d696cf919648d0f3fd588c60f03fdbdbadd1fd",
+      "raw_rows": 69680
+    },
+    {
+      "dataset": "Weather",
+      "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/weather.csv",
+      "sha256": "9b2b19b13e342d9c9b9c51620d42b4be232df7fba30e7f5c4968b7c79ab138ad",
+      "raw_rows": 52696
+    }
+  ],
+  "required_datasets": 6,
+  "required_horizon_dataset_pairs": 18,
+  "roles": [
+    "train",
+    "val",
+    "test"
+  ],
+  "sequence_length": 256,
+  "horizons": [
+    96,
+    192,
+    384
+  ],
+  "output_type": "multivariate",
+  "stride": 1,
+  "other_dataset_ratios": {
+    "train": 0.7,
+    "validation": 0.1,
+    "test": 0.2
+  },
+  "source_fixed_ETT_month_borders": true,
+  "source_scaler_fit": "original_train_rows_only",
+  "source_cubic_interpolation_precedes_split": true,
+  "python": "D:\\aicoding\\IIA_benchmark\\.venv\\moment-author-py310\\Scripts\\python.exe",
+  "environment": {
+    "python": "3.10.21",
+    "numpy": "1.25.2",
+    "pandas": "2.2.2",
+    "scipy": "1.9.3",
+    "scikit-learn": "1.5.2"
+  },
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 22548578304,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 3221225472,
+    "maximum_worker_private_bytes": 3221225472
+  },
+  "resource_lock": "experiments/runs/fm_bounded_strict_baseline_cpu.lock",
+  "source_receipts": [
+    {
+      "path": "configs/reproducibility/fm_moment_ICM_primary_scope_data.2026-10-15_v1.json",
+      "sha256": "6859d4a5b2c5d304a2af33998bc9d2d8a3e1c9db59e84ee49ee260394e05d7a6"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/configs/forecasting/linear_probing.yaml",
+      "sha256": "f1f93e25d6216e83338c7e07f68402e7bf9a4d230c44ecac467e319e66649fe2"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/data/classification_datasets.py",
+      "sha256": "4f283a6c6f2749dbf63dcbab8baa63fff60e53de8a35dbae60f1c42cbd0ccc94"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/data/load_data.py",
+      "sha256": "b6b20a475e8829a86ce8d2150889b5e61596986110b7dc13416b412a4775c471"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/utils/data.py",
+      "sha256": "23caa9cae98106919c51c7f816998471a4f277aaf3c3092e18440f75fce44177"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/scripts/zero_shot/unsupervised_representation_learning_multivariate.py",
+      "sha256": "1a469fd70a72bbd1ea0cb477197d2a6c940277e679e3370d8bc7ffcbae23960c"
+    },
+    {
+      "path": "projects/flow_matching_research/results/2026-10-15/MOMENT_ICM_primary_scope_and_raw_data_v1/complete_raw_data_audit.json",
+      "sha256": "e76d6cd8a09dacb3b1e5496779f6a08d22815f62916a7fe7ce4953320ff30e87"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_resources.py",
+      "sha256": "189a8fc6b82fb8aba9ea58d6b24cd1477befc1612df5d118427eecf7d1e18d7c"
+    },
+    {
+      "path": "scripts/flow_matching/heavy_scheduler_v2.py",
+      "sha256": "178e0226cecf0b3a706bc254da81edd6db30b53dd94356c86a5ae459adf9eeab"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_moment_icm_PILE_long_forecast_v1.py",
+      "sha256": "fa7ff8361b55d70230dcaa1cd2c90cffd614d8a5d7c24a6e9be2107d80f4ec31"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_moment_icm_classification_v1.py",
+      "sha256": "6c699097fe1bc9d51a4af0bd1e1678931350dd2da3ee49062c44ffaa788b4b21"
+    },
+    {
+      "path": "scripts/flow_matching/prepare_moment_icm_forecast_evaluation_inputs_v1.py",
+      "sha256": "baa41ab6d4be54f25ae5b2c4163e65a1c68e26dd89015cbe10b46211dbacdbb5"
+    },
+    {
+      "path": "scripts/flow_matching/resume_anomaly_transformer_full500_metadata_v1.py",
+      "sha256": "8fa38f05e41bdd1a4e07bf7593e2b1bf4cda690005603a66390f26b40dea3793"
+    },
+    {
+      "path": "scripts/flow_matching/run_anomaly_transformer_cold_resource_entry_v1.py",
+      "sha256": "be21f0c1f11f332717fbdeeac03952dbb27114486282c7864dcc42f12a9320f8"
+    },
+    {
+      "path": "scripts/flow_matching/run_cached_resource_monitor_controller_v1.py",
+      "sha256": "6a5ca6bf4c418232235bf78eaa3bc2d99e478484d36b4ce66e4cf8b02c3377b6"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/verify_moment_icm_PILE_anomaly_v1.py",
+      "sha256": "66be5503fffd52a06eb977868dbe6d10f31d46695db87e1d1010fcc3857b99dd"
+    },
+    {
+      "path": "tests/test_fm_moment_icm_forecast_evaluation_inputs_v1.py",
+      "sha256": "08ad8f2720613be7b1cd7af7b5f0c6401b23a2f3d87a961d112947bbca211def"
+    }
+  ],
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/moment_icm_forecast_evaluation_inputs_v1",
+  "state_root": "experiments/runs/fm_moment_icm_forecast_evaluation_inputs_v1",
+  "boundary": "All6raw datasets/all18horizons,256lookback and all multivariate channels;source downstream70/10/20 and fixed ETT months remain separate from pretraining60/10/30. Exact TC matrices,all stride1window bounds and source endpoint samples,not tensor-expanded copies. Historical preprocessing equivalence and global cubic interpolation temporal independence remain unproven;no trained forecaster metrics."
+}

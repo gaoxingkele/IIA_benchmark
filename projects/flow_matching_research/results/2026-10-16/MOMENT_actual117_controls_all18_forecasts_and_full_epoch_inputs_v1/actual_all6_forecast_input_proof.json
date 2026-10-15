@@ -1,0 +1,2471 @@
+{
+  "passed": true,
+  "configuration_sha256": "6e339635e63abfa3e3c1263c4f86af7bcd41df7dd55b3bac812890aa46bd2a53",
+  "environment": {
+    "python": "3.10.21",
+    "numpy": "1.25.2",
+    "pandas": "2.2.2",
+    "scipy": "1.9.3",
+    "scikit-learn": "1.5.2"
+  },
+  "datasets": 6,
+  "horizon_dataset_pairs": 18,
+  "role_horizon_groups": 54,
+  "source_records": [
+    {
+      "job": {
+        "dataset": "Exchange",
+        "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/exchange_rate.csv",
+        "sha256": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97",
+        "raw_rows": 7588
+      },
+      "roles": {
+        "train": {
+          "time_rows": 5311,
+          "channels": 8,
+          "original_CSV_rows": 7588,
+          "raw_time_start": 0,
+          "raw_time_end_exclusive": 5311,
+          "files": {
+            "values_TC": {
+              "sha256": "43cdbe884f9591fd205c43ceae90c95d94ab8216c6ebf87bfdbc9b98d82c9d9e",
+              "shape": [
+                5311,
+                8
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "e36350852981f21c3e5d7167af0cae18e1112434f1bbc73ffd3598209e18604c",
+              "shape": [
+                5311
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 4960,
+              "input_coordinates": 10158080,
+              "target_coordinates": 3809280,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 5311,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                2480,
+                4959
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 4864,
+              "input_coordinates": 9961472,
+              "target_coordinates": 7471104,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 5311,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                2432,
+                4863
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 4672,
+              "input_coordinates": 9568256,
+              "target_coordinates": 14352384,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 5311,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                2336,
+                4671
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              0.7229358747881756,
+              1.671601238373188,
+              0.785566129919036,
+              0.755919234795707,
+              0.13668337883637732,
+              0.008887640369045378,
+              0.6267546676708718,
+              0.6048248685746563
+            ],
+            "var": [
+              0.010631181639957773,
+              0.028076012492234646,
+              0.010718273488237687,
+              0.010928547495186257,
+              0.0006834869786713955,
+              1.2125245485040248e-06,
+              0.0030958852415323744,
+              0.009081994100750567
+            ],
+            "scale": [
+              0.10310762163854703,
+              0.16755898212938228,
+              0.10352909488756137,
+              0.10453969339531399,
+              0.02614358389110788,
+              0.0011011469241223103,
+              0.055640679736433614,
+              0.09529949685465589
+            ],
+            "train_rows": 5311
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "val": {
+          "time_rows": 1016,
+          "channels": 8,
+          "original_CSV_rows": 7588,
+          "raw_time_start": 5055,
+          "raw_time_end_exclusive": 6071,
+          "files": {
+            "values_TC": {
+              "sha256": "811e4730816dff6d1accc4034902e646113e2f9f180911bf2f725c03da1bd77d",
+              "shape": [
+                1016,
+                8
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "d6b9830c5dd2e60bdcc0cd04032870fb46e258a79511659491e09f0eb0e389c7",
+              "shape": [
+                1016
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 665,
+              "input_coordinates": 1361920,
+              "target_coordinates": 510720,
+              "source_target_row_start": 5311,
+              "source_target_row_end_exclusive": 6071,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                332,
+                664
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 569,
+              "input_coordinates": 1165312,
+              "target_coordinates": 873984,
+              "source_target_row_start": 5311,
+              "source_target_row_end_exclusive": 6071,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                284,
+                568
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 377,
+              "input_coordinates": 772096,
+              "target_coordinates": 1158144,
+              "source_target_row_start": 5311,
+              "source_target_row_end_exclusive": 6071,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                188,
+                376
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              0.7229358747881756,
+              1.671601238373188,
+              0.785566129919036,
+              0.755919234795707,
+              0.13668337883637732,
+              0.008887640369045378,
+              0.6267546676708718,
+              0.6048248685746563
+            ],
+            "var": [
+              0.010631181639957773,
+              0.028076012492234646,
+              0.010718273488237687,
+              0.010928547495186257,
+              0.0006834869786713955,
+              1.2125245485040248e-06,
+              0.0030958852415323744,
+              0.009081994100750567
+            ],
+            "scale": [
+              0.10310762163854703,
+              0.16755898212938228,
+              0.10352909488756137,
+              0.10453969339531399,
+              0.02614358389110788,
+              0.0011011469241223103,
+              0.055640679736433614,
+              0.09529949685465589
+            ],
+            "train_rows": 5311
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "test": {
+          "time_rows": 1773,
+          "channels": 8,
+          "original_CSV_rows": 7588,
+          "raw_time_start": 5815,
+          "raw_time_end_exclusive": 7588,
+          "files": {
+            "values_TC": {
+              "sha256": "75cb241545a26bf36ed37e81e39af81b8653f2a53d017c10c6761d79476e0f08",
+              "shape": [
+                1773,
+                8
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "1ec4279d3c0e921c96f7742f84a8a030722104e20f5db6d9639c638f8f0f147c",
+              "shape": [
+                1773
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 1422,
+              "input_coordinates": 2912256,
+              "target_coordinates": 1092096,
+              "source_target_row_start": 6071,
+              "source_target_row_end_exclusive": 7588,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                711,
+                1421
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 1326,
+              "input_coordinates": 2715648,
+              "target_coordinates": 2036736,
+              "source_target_row_start": 6071,
+              "source_target_row_end_exclusive": 7588,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                663,
+                1325
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 1134,
+              "input_coordinates": 2322432,
+              "target_coordinates": 3483648,
+              "source_target_row_start": 6071,
+              "source_target_row_end_exclusive": 7588,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                567,
+                1133
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              0.7229358747881756,
+              1.671601238373188,
+              0.785566129919036,
+              0.755919234795707,
+              0.13668337883637732,
+              0.008887640369045378,
+              0.6267546676708718,
+              0.6048248685746563
+            ],
+            "var": [
+              0.010631181639957773,
+              0.028076012492234646,
+              0.010718273488237687,
+              0.010928547495186257,
+              0.0006834869786713955,
+              1.2125245485040248e-06,
+              0.0030958852415323744,
+              0.009081994100750567
+            ],
+            "scale": [
+              0.10310762163854703,
+              0.16755898212938228,
+              0.10352909488756137,
+              0.10453969339531399,
+              0.02614358389110788,
+              0.0011011469241223103,
+              0.055640679736433614,
+              0.09529949685465589
+            ],
+            "train_rows": 5311
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        }
+      },
+      "total_source_raw_rows": 7588,
+      "selected_source_time_end_exclusive": 7588,
+      "original_rows_outside_source_fixed_month_selection": 0,
+      "all_raw_rows_preserved_on_disk": true,
+      "training_scaler_fixed_across_all_roles": true,
+      "full_window_populations_and_horizons_retained": true,
+      "forecast_target_roles_overlap": false,
+      "validation_and_test_include256historical_context_rows": true,
+      "original_cubic_interpolation_precedes_split": true,
+      "strict_temporal_independence_of_interpolation_certified": false
+    },
+    {
+      "job": {
+        "dataset": "ETTh1",
+        "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/ETTh1.csv",
+        "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066",
+        "raw_rows": 17420
+      },
+      "roles": {
+        "train": {
+          "time_rows": 8640,
+          "channels": 7,
+          "original_CSV_rows": 17420,
+          "raw_time_start": 0,
+          "raw_time_end_exclusive": 8640,
+          "files": {
+            "values_TC": {
+              "sha256": "d1d08bc9ccb6247c5ac0cfc3659e4202961d243b1b0dab22427d02a0ec9e33b9",
+              "shape": [
+                8640,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "e1e20376c3faf682e69e167a24628ae483d0c057fea9bbf3eb67bd7815a409db",
+              "shape": [
+                8640
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 8289,
+              "input_coordinates": 14853888,
+              "target_coordinates": 5570208,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 8640,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                4144,
+                8288
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 8193,
+              "input_coordinates": 14681856,
+              "target_coordinates": 11011392,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 8640,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                4096,
+                8192
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 8001,
+              "input_coordinates": 14337792,
+              "target_coordinates": 21506688,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 8640,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                4000,
+                8000
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              7.937742245659508,
+              2.0210386567335163,
+              5.079770601157927,
+              0.7461858799957015,
+              2.781762386375555,
+              0.7884531235540096,
+              17.1282616982271
+            ],
+            "var": [
+              33.78805569350125,
+              4.368537449655475,
+              30.457082568011693,
+              3.710937107809115,
+              1.0475986345001667,
+              0.39719821764044544,
+              84.20798753088393
+            ],
+            "scale": [
+              5.812749409143771,
+              2.0901046504076,
+              5.518793579036245,
+              1.9263792741329822,
+              1.0235226594952194,
+              0.6302366362251923,
+              9.176491024944335
+            ],
+            "train_rows": 8640
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "val": {
+          "time_rows": 3136,
+          "channels": 7,
+          "original_CSV_rows": 17420,
+          "raw_time_start": 8384,
+          "raw_time_end_exclusive": 11520,
+          "files": {
+            "values_TC": {
+              "sha256": "1d763a6cbbf68aaf7678dc0cd4f3039d8e4f20e30fe8dfc289c6aa2f5cbbb5e5",
+              "shape": [
+                3136,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "89b8b71f9b32a65a18ced3e3920790b821b6a05c433a9b10cd3167e058898e28",
+              "shape": [
+                3136
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 2785,
+              "input_coordinates": 4990720,
+              "target_coordinates": 1871520,
+              "source_target_row_start": 8640,
+              "source_target_row_end_exclusive": 11520,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1392,
+                2784
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 2689,
+              "input_coordinates": 4818688,
+              "target_coordinates": 3614016,
+              "source_target_row_start": 8640,
+              "source_target_row_end_exclusive": 11520,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1344,
+                2688
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 2497,
+              "input_coordinates": 4474624,
+              "target_coordinates": 6711936,
+              "source_target_row_start": 8640,
+              "source_target_row_end_exclusive": 11520,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1248,
+                2496
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              7.937742245659508,
+              2.0210386567335163,
+              5.079770601157927,
+              0.7461858799957015,
+              2.781762386375555,
+              0.7884531235540096,
+              17.1282616982271
+            ],
+            "var": [
+              33.78805569350125,
+              4.368537449655475,
+              30.457082568011693,
+              3.710937107809115,
+              1.0475986345001667,
+              0.39719821764044544,
+              84.20798753088393
+            ],
+            "scale": [
+              5.812749409143771,
+              2.0901046504076,
+              5.518793579036245,
+              1.9263792741329822,
+              1.0235226594952194,
+              0.6302366362251923,
+              9.176491024944335
+            ],
+            "train_rows": 8640
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "test": {
+          "time_rows": 3136,
+          "channels": 7,
+          "original_CSV_rows": 17420,
+          "raw_time_start": 11264,
+          "raw_time_end_exclusive": 14400,
+          "files": {
+            "values_TC": {
+              "sha256": "25c485076613197424cb2cece51517a08f0b2317a855d33400f95abb2f2c7327",
+              "shape": [
+                3136,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "48cb6f02dabc81478054bf4aef5f0230a679f6bea627778e20457a466a3fd581",
+              "shape": [
+                3136
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 2785,
+              "input_coordinates": 4990720,
+              "target_coordinates": 1871520,
+              "source_target_row_start": 11520,
+              "source_target_row_end_exclusive": 14400,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1392,
+                2784
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 2689,
+              "input_coordinates": 4818688,
+              "target_coordinates": 3614016,
+              "source_target_row_start": 11520,
+              "source_target_row_end_exclusive": 14400,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1344,
+                2688
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 2497,
+              "input_coordinates": 4474624,
+              "target_coordinates": 6711936,
+              "source_target_row_start": 11520,
+              "source_target_row_end_exclusive": 14400,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1248,
+                2496
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              7.937742245659508,
+              2.0210386567335163,
+              5.079770601157927,
+              0.7461858799957015,
+              2.781762386375555,
+              0.7884531235540096,
+              17.1282616982271
+            ],
+            "var": [
+              33.78805569350125,
+              4.368537449655475,
+              30.457082568011693,
+              3.710937107809115,
+              1.0475986345001667,
+              0.39719821764044544,
+              84.20798753088393
+            ],
+            "scale": [
+              5.812749409143771,
+              2.0901046504076,
+              5.518793579036245,
+              1.9263792741329822,
+              1.0235226594952194,
+              0.6302366362251923,
+              9.176491024944335
+            ],
+            "train_rows": 8640
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        }
+      },
+      "total_source_raw_rows": 17420,
+      "selected_source_time_end_exclusive": 14400,
+      "original_rows_outside_source_fixed_month_selection": 3020,
+      "all_raw_rows_preserved_on_disk": true,
+      "training_scaler_fixed_across_all_roles": true,
+      "full_window_populations_and_horizons_retained": true,
+      "forecast_target_roles_overlap": false,
+      "validation_and_test_include256historical_context_rows": true,
+      "original_cubic_interpolation_precedes_split": true,
+      "strict_temporal_independence_of_interpolation_certified": false
+    },
+    {
+      "job": {
+        "dataset": "ETTh2",
+        "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/ETTh2.csv",
+        "sha256": "a3dc2c597b9218c7ce1cd55eb77b283fd459a1d09d753063f944967dd6b9218b",
+        "raw_rows": 17420
+      },
+      "roles": {
+        "train": {
+          "time_rows": 8640,
+          "channels": 7,
+          "original_CSV_rows": 17420,
+          "raw_time_start": 0,
+          "raw_time_end_exclusive": 8640,
+          "files": {
+            "values_TC": {
+              "sha256": "ed63dbd3df42554e820679f9baf82e4ee7fe702bae0a86d64f7071b55a656869",
+              "shape": [
+                8640,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "e1e20376c3faf682e69e167a24628ae483d0c057fea9bbf3eb67bd7815a409db",
+              "shape": [
+                8640
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 8289,
+              "input_coordinates": 14853888,
+              "target_coordinates": 5570208,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 8640,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                4144,
+                8288
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 8193,
+              "input_coordinates": 14681856,
+              "target_coordinates": 11011392,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 8640,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                4096,
+                8192
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 8001,
+              "input_coordinates": 14337792,
+              "target_coordinates": 21506688,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 8640,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                4000,
+                8000
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              41.53683496078959,
+              12.273452896210882,
+              46.60977329964991,
+              10.526153112865156,
+              1.1869920139097505,
+              -2.373217913729173,
+              26.872023494265697
+            ],
+            "var": [
+              109.17827976021215,
+              21.04160169803542,
+              284.19858129011436,
+              9.111979567209104,
+              21.538985119281367,
+              71.58701121493046,
+              134.20571253452223
+            ],
+            "scale": [
+              10.448841072588488,
+              4.587112566531959,
+              16.858190332598408,
+              3.018605566682919,
+              4.641011217319063,
+              8.460910779279644,
+              11.584718923414682
+            ],
+            "train_rows": 8640
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "val": {
+          "time_rows": 3136,
+          "channels": 7,
+          "original_CSV_rows": 17420,
+          "raw_time_start": 8384,
+          "raw_time_end_exclusive": 11520,
+          "files": {
+            "values_TC": {
+              "sha256": "1cff415e2c84a553918bc9ee878c44613b47d0f2f3057634872d3f28ee5ec75c",
+              "shape": [
+                3136,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "89b8b71f9b32a65a18ced3e3920790b821b6a05c433a9b10cd3167e058898e28",
+              "shape": [
+                3136
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 2785,
+              "input_coordinates": 4990720,
+              "target_coordinates": 1871520,
+              "source_target_row_start": 8640,
+              "source_target_row_end_exclusive": 11520,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1392,
+                2784
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 2689,
+              "input_coordinates": 4818688,
+              "target_coordinates": 3614016,
+              "source_target_row_start": 8640,
+              "source_target_row_end_exclusive": 11520,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1344,
+                2688
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 2497,
+              "input_coordinates": 4474624,
+              "target_coordinates": 6711936,
+              "source_target_row_start": 8640,
+              "source_target_row_end_exclusive": 11520,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1248,
+                2496
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              41.53683496078959,
+              12.273452896210882,
+              46.60977329964991,
+              10.526153112865156,
+              1.1869920139097505,
+              -2.373217913729173,
+              26.872023494265697
+            ],
+            "var": [
+              109.17827976021215,
+              21.04160169803542,
+              284.19858129011436,
+              9.111979567209104,
+              21.538985119281367,
+              71.58701121493046,
+              134.20571253452223
+            ],
+            "scale": [
+              10.448841072588488,
+              4.587112566531959,
+              16.858190332598408,
+              3.018605566682919,
+              4.641011217319063,
+              8.460910779279644,
+              11.584718923414682
+            ],
+            "train_rows": 8640
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "test": {
+          "time_rows": 3136,
+          "channels": 7,
+          "original_CSV_rows": 17420,
+          "raw_time_start": 11264,
+          "raw_time_end_exclusive": 14400,
+          "files": {
+            "values_TC": {
+              "sha256": "1a25d511cfc57842899c0b40962951a2d526e29b05ab4d0f8a88099da6977433",
+              "shape": [
+                3136,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "48cb6f02dabc81478054bf4aef5f0230a679f6bea627778e20457a466a3fd581",
+              "shape": [
+                3136
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 2785,
+              "input_coordinates": 4990720,
+              "target_coordinates": 1871520,
+              "source_target_row_start": 11520,
+              "source_target_row_end_exclusive": 14400,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1392,
+                2784
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 2689,
+              "input_coordinates": 4818688,
+              "target_coordinates": 3614016,
+              "source_target_row_start": 11520,
+              "source_target_row_end_exclusive": 14400,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1344,
+                2688
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 2497,
+              "input_coordinates": 4474624,
+              "target_coordinates": 6711936,
+              "source_target_row_start": 11520,
+              "source_target_row_end_exclusive": 14400,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                1248,
+                2496
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              41.53683496078959,
+              12.273452896210882,
+              46.60977329964991,
+              10.526153112865156,
+              1.1869920139097505,
+              -2.373217913729173,
+              26.872023494265697
+            ],
+            "var": [
+              109.17827976021215,
+              21.04160169803542,
+              284.19858129011436,
+              9.111979567209104,
+              21.538985119281367,
+              71.58701121493046,
+              134.20571253452223
+            ],
+            "scale": [
+              10.448841072588488,
+              4.587112566531959,
+              16.858190332598408,
+              3.018605566682919,
+              4.641011217319063,
+              8.460910779279644,
+              11.584718923414682
+            ],
+            "train_rows": 8640
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        }
+      },
+      "total_source_raw_rows": 17420,
+      "selected_source_time_end_exclusive": 14400,
+      "original_rows_outside_source_fixed_month_selection": 3020,
+      "all_raw_rows_preserved_on_disk": true,
+      "training_scaler_fixed_across_all_roles": true,
+      "full_window_populations_and_horizons_retained": true,
+      "forecast_target_roles_overlap": false,
+      "validation_and_test_include256historical_context_rows": true,
+      "original_cubic_interpolation_precedes_split": true,
+      "strict_temporal_independence_of_interpolation_certified": false
+    },
+    {
+      "job": {
+        "dataset": "ETTm1",
+        "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/ETTm1.csv",
+        "sha256": "6ce1759b1a18e3328421d5d75fadcb316c449fcd7cec32820c8dafda71986c9e",
+        "raw_rows": 69680
+      },
+      "roles": {
+        "train": {
+          "time_rows": 34560,
+          "channels": 7,
+          "original_CSV_rows": 69680,
+          "raw_time_start": 0,
+          "raw_time_end_exclusive": 34560,
+          "files": {
+            "values_TC": {
+              "sha256": "13406b835076c9ed36fe72bb3cf7359b1723831ad2494d4c22dd06fd1a8129db",
+              "shape": [
+                34560,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "e506c98362ef8be9548fab76929872284cc94865dbbc01292b9f4b7af5b1d68c",
+              "shape": [
+                34560
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 34209,
+              "input_coordinates": 61302528,
+              "target_coordinates": 22988448,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 34560,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                17104,
+                34208
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 34113,
+              "input_coordinates": 61130496,
+              "target_coordinates": 45847872,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 34560,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                17056,
+                34112
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 33921,
+              "input_coordinates": 60786432,
+              "target_coordinates": 91179648,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 34560,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                16960,
+                33920
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              7.9900134819611495,
+              2.0387478002096975,
+              5.109928063464273,
+              0.7562241616995178,
+              2.80470208448802,
+              0.7911860229808587,
+              17.12495024489946
+            ],
+            "var": [
+              34.024970087341885,
+              4.366619124570424,
+              30.459832503657392,
+              3.7023957767657945,
+              1.082752744085373,
+              0.39998296098578723,
+              84.14457613637322
+            ],
+            "scale": [
+              5.833092669188608,
+              2.0896456935496084,
+              5.519042716237789,
+              1.9241610579070023,
+              1.0405540563014364,
+              0.632442061366721,
+              9.173035273908697
+            ],
+            "train_rows": 34560
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "val": {
+          "time_rows": 11776,
+          "channels": 7,
+          "original_CSV_rows": 69680,
+          "raw_time_start": 34304,
+          "raw_time_end_exclusive": 46080,
+          "files": {
+            "values_TC": {
+              "sha256": "e373421f962506ab3d88e62aafcff9e783383b10f655333d75c919cf9b50f66d",
+              "shape": [
+                11776,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "79cc6d6a46557d8ee01f3ed07b4fd0df92c010584e7c8d0bfbef055ae956e87e",
+              "shape": [
+                11776
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 11425,
+              "input_coordinates": 20473600,
+              "target_coordinates": 7677600,
+              "source_target_row_start": 34560,
+              "source_target_row_end_exclusive": 46080,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5712,
+                11424
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 11329,
+              "input_coordinates": 20301568,
+              "target_coordinates": 15226176,
+              "source_target_row_start": 34560,
+              "source_target_row_end_exclusive": 46080,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5664,
+                11328
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 11137,
+              "input_coordinates": 19957504,
+              "target_coordinates": 29936256,
+              "source_target_row_start": 34560,
+              "source_target_row_end_exclusive": 46080,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5568,
+                11136
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              7.9900134819611495,
+              2.0387478002096975,
+              5.109928063464273,
+              0.7562241616995178,
+              2.80470208448802,
+              0.7911860229808587,
+              17.12495024489946
+            ],
+            "var": [
+              34.024970087341885,
+              4.366619124570424,
+              30.459832503657392,
+              3.7023957767657945,
+              1.082752744085373,
+              0.39998296098578723,
+              84.14457613637322
+            ],
+            "scale": [
+              5.833092669188608,
+              2.0896456935496084,
+              5.519042716237789,
+              1.9241610579070023,
+              1.0405540563014364,
+              0.632442061366721,
+              9.173035273908697
+            ],
+            "train_rows": 34560
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "test": {
+          "time_rows": 11776,
+          "channels": 7,
+          "original_CSV_rows": 69680,
+          "raw_time_start": 45824,
+          "raw_time_end_exclusive": 57600,
+          "files": {
+            "values_TC": {
+              "sha256": "251bca4a2ed5885b88da7af9be4015c35e53b73571cd7b335811b4a493ce0785",
+              "shape": [
+                11776,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "0b245509909468e734d7e3c867b6418139da3d7f900200f7318516e2063d85be",
+              "shape": [
+                11776
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 11425,
+              "input_coordinates": 20473600,
+              "target_coordinates": 7677600,
+              "source_target_row_start": 46080,
+              "source_target_row_end_exclusive": 57600,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5712,
+                11424
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 11329,
+              "input_coordinates": 20301568,
+              "target_coordinates": 15226176,
+              "source_target_row_start": 46080,
+              "source_target_row_end_exclusive": 57600,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5664,
+                11328
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 11137,
+              "input_coordinates": 19957504,
+              "target_coordinates": 29936256,
+              "source_target_row_start": 46080,
+              "source_target_row_end_exclusive": 57600,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5568,
+                11136
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              7.9900134819611495,
+              2.0387478002096975,
+              5.109928063464273,
+              0.7562241616995178,
+              2.80470208448802,
+              0.7911860229808587,
+              17.12495024489946
+            ],
+            "var": [
+              34.024970087341885,
+              4.366619124570424,
+              30.459832503657392,
+              3.7023957767657945,
+              1.082752744085373,
+              0.39998296098578723,
+              84.14457613637322
+            ],
+            "scale": [
+              5.833092669188608,
+              2.0896456935496084,
+              5.519042716237789,
+              1.9241610579070023,
+              1.0405540563014364,
+              0.632442061366721,
+              9.173035273908697
+            ],
+            "train_rows": 34560
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        }
+      },
+      "total_source_raw_rows": 69680,
+      "selected_source_time_end_exclusive": 57600,
+      "original_rows_outside_source_fixed_month_selection": 12080,
+      "all_raw_rows_preserved_on_disk": true,
+      "training_scaler_fixed_across_all_roles": true,
+      "full_window_populations_and_horizons_retained": true,
+      "forecast_target_roles_overlap": false,
+      "validation_and_test_include256historical_context_rows": true,
+      "original_cubic_interpolation_precedes_split": true,
+      "strict_temporal_independence_of_interpolation_certified": false
+    },
+    {
+      "job": {
+        "dataset": "ETTm2",
+        "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/ETTm2.csv",
+        "sha256": "db973ca252c6410a30d0469b13d696cf919648d0f3fd588c60f03fdbdbadd1fd",
+        "raw_rows": 69680
+      },
+      "roles": {
+        "train": {
+          "time_rows": 34560,
+          "channels": 7,
+          "original_CSV_rows": 69680,
+          "raw_time_start": 0,
+          "raw_time_end_exclusive": 34560,
+          "files": {
+            "values_TC": {
+              "sha256": "bff4ba6964850ad6ea5f9ef40b14309150e65c4ee4e30e8938632cb9d46455bf",
+              "shape": [
+                34560,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "e506c98362ef8be9548fab76929872284cc94865dbbc01292b9f4b7af5b1d68c",
+              "shape": [
+                34560
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 34209,
+              "input_coordinates": 61302528,
+              "target_coordinates": 22988448,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 34560,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                17104,
+                34208
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 34113,
+              "input_coordinates": 61130496,
+              "target_coordinates": 45847872,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 34560,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                17056,
+                34112
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 33921,
+              "input_coordinates": 60786432,
+              "target_coordinates": 91179648,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 34560,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                16960,
+                33920
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              41.563521036533295,
+              12.296357093737633,
+              46.63532032141531,
+              10.545372991001717,
+              1.1863941557532935,
+              -2.3657672772184015,
+              26.872426852797744
+            ],
+            "var": [
+              109.58426369331879,
+              21.198155986623426,
+              284.0696444909117,
+              9.149488005862798,
+              21.65079095012862,
+              71.62956922727683,
+              134.11367967613106
+            ],
+            "scale": [
+              10.46825026894747,
+              4.604145521877369,
+              16.854365739799043,
+              3.0248120612465823,
+              4.653041043245656,
+              8.463425383807483,
+              11.580746075971575
+            ],
+            "train_rows": 34560
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "val": {
+          "time_rows": 11776,
+          "channels": 7,
+          "original_CSV_rows": 69680,
+          "raw_time_start": 34304,
+          "raw_time_end_exclusive": 46080,
+          "files": {
+            "values_TC": {
+              "sha256": "985742b20ba8341396bd7a3d715a37cbcf3c0c8f40f40ad4b303db6bbe33bd9e",
+              "shape": [
+                11776,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "79cc6d6a46557d8ee01f3ed07b4fd0df92c010584e7c8d0bfbef055ae956e87e",
+              "shape": [
+                11776
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 11425,
+              "input_coordinates": 20473600,
+              "target_coordinates": 7677600,
+              "source_target_row_start": 34560,
+              "source_target_row_end_exclusive": 46080,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5712,
+                11424
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 11329,
+              "input_coordinates": 20301568,
+              "target_coordinates": 15226176,
+              "source_target_row_start": 34560,
+              "source_target_row_end_exclusive": 46080,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5664,
+                11328
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 11137,
+              "input_coordinates": 19957504,
+              "target_coordinates": 29936256,
+              "source_target_row_start": 34560,
+              "source_target_row_end_exclusive": 46080,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5568,
+                11136
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              41.563521036533295,
+              12.296357093737633,
+              46.63532032141531,
+              10.545372991001717,
+              1.1863941557532935,
+              -2.3657672772184015,
+              26.872426852797744
+            ],
+            "var": [
+              109.58426369331879,
+              21.198155986623426,
+              284.0696444909117,
+              9.149488005862798,
+              21.65079095012862,
+              71.62956922727683,
+              134.11367967613106
+            ],
+            "scale": [
+              10.46825026894747,
+              4.604145521877369,
+              16.854365739799043,
+              3.0248120612465823,
+              4.653041043245656,
+              8.463425383807483,
+              11.580746075971575
+            ],
+            "train_rows": 34560
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "test": {
+          "time_rows": 11776,
+          "channels": 7,
+          "original_CSV_rows": 69680,
+          "raw_time_start": 45824,
+          "raw_time_end_exclusive": 57600,
+          "files": {
+            "values_TC": {
+              "sha256": "df5fb12a8fbfdcda1cf8c50238f1671da72d3dc2ba8f8d7ca65522a591d3d9af",
+              "shape": [
+                11776,
+                7
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "0b245509909468e734d7e3c867b6418139da3d7f900200f7318516e2063d85be",
+              "shape": [
+                11776
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 11425,
+              "input_coordinates": 20473600,
+              "target_coordinates": 7677600,
+              "source_target_row_start": 46080,
+              "source_target_row_end_exclusive": 57600,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5712,
+                11424
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 11329,
+              "input_coordinates": 20301568,
+              "target_coordinates": 15226176,
+              "source_target_row_start": 46080,
+              "source_target_row_end_exclusive": 57600,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5664,
+                11328
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 11137,
+              "input_coordinates": 19957504,
+              "target_coordinates": 29936256,
+              "source_target_row_start": 46080,
+              "source_target_row_end_exclusive": 57600,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5568,
+                11136
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              41.563521036533295,
+              12.296357093737633,
+              46.63532032141531,
+              10.545372991001717,
+              1.1863941557532935,
+              -2.3657672772184015,
+              26.872426852797744
+            ],
+            "var": [
+              109.58426369331879,
+              21.198155986623426,
+              284.0696444909117,
+              9.149488005862798,
+              21.65079095012862,
+              71.62956922727683,
+              134.11367967613106
+            ],
+            "scale": [
+              10.46825026894747,
+              4.604145521877369,
+              16.854365739799043,
+              3.0248120612465823,
+              4.653041043245656,
+              8.463425383807483,
+              11.580746075971575
+            ],
+            "train_rows": 34560
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        }
+      },
+      "total_source_raw_rows": 69680,
+      "selected_source_time_end_exclusive": 57600,
+      "original_rows_outside_source_fixed_month_selection": 12080,
+      "all_raw_rows_preserved_on_disk": true,
+      "training_scaler_fixed_across_all_roles": true,
+      "full_window_populations_and_horizons_retained": true,
+      "forecast_target_roles_overlap": false,
+      "validation_and_test_include256historical_context_rows": true,
+      "original_cubic_interpolation_precedes_split": true,
+      "strict_temporal_independence_of_interpolation_certified": false
+    },
+    {
+      "job": {
+        "dataset": "Weather",
+        "path": "data/public_datasets/flow_matching/project_additions/moment_timeseries_pile/forecasting/autoformer/weather.csv",
+        "sha256": "9b2b19b13e342d9c9b9c51620d42b4be232df7fba30e7f5c4968b7c79ab138ad",
+        "raw_rows": 52696
+      },
+      "roles": {
+        "train": {
+          "time_rows": 36887,
+          "channels": 21,
+          "original_CSV_rows": 52696,
+          "raw_time_start": 0,
+          "raw_time_end_exclusive": 36887,
+          "files": {
+            "values_TC": {
+              "sha256": "27f0711463274d3cf41736f7250aa61a92361bf271a1d17f0c29ddc3b938df54",
+              "shape": [
+                36887,
+                21
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "43a380428f0baefbde1e742909ec159cfc3305fdda670d9458ec10269913626f",
+              "shape": [
+                36887
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 36536,
+              "input_coordinates": 196417536,
+              "target_coordinates": 73656576,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 36887,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                18268,
+                36535
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 36440,
+              "input_coordinates": 195901440,
+              "target_coordinates": 146926080,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 36887,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                18220,
+                36439
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 36248,
+              "input_coordinates": 194869248,
+              "target_coordinates": 292303872,
+              "source_target_row_start": 256,
+              "source_target_row_end_exclusive": 36887,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                18124,
+                36247
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              990.6424618429255,
+              11.978743188657251,
+              285.9094998237861,
+              5.474408599235503,
+              67.52999105375878,
+              15.683926315504108,
+              9.844447095182584,
+              5.839411445766801,
+              6.215718545829153,
+              9.94795076856345,
+              1206.7523290047984,
+              1.9474169761704665,
+              3.7608498929162035,
+              175.98528397538428,
+              0.011481009569767126,
+              23.287065903977012,
+              160.64175752975302,
+              318.0403689646759,
+              378.4815870089733,
+              22.81172038929704,
+              411.0543416379755
+            ],
+            "var": [
+              74.48915223086846,
+              59.57404105333116,
+              62.6737637778011,
+              41.78854206288374,
+              351.7560013527001,
+              65.75720286962142,
+              19.32644033124153,
+              34.842067490511226,
+              7.839335487568596,
+              19.908869672204183,
+              1449.1848054169543,
+              2714.348872266367,
+              6.739147516899099,
+              7562.742916799968,
+              0.015075983204034037,
+              11098.054687536061,
+              57014.83419573724,
+              219075.99998900638,
+              413902.68657104933,
+              63.64839136888593,
+              147423.0530783795
+            ],
+            "scale": [
+              8.630709833546048,
+              7.718422186776981,
+              7.916676308767531,
+              6.464405778018869,
+              18.755159326241408,
+              8.109081505918006,
+              4.396184747169019,
+              5.902716958360042,
+              2.7998813345512694,
+              4.461935641871606,
+              38.068159995158084,
+              52.09941335817868,
+              2.5959868098469028,
+              86.96403231681457,
+              0.1227842954291551,
+              105.34730507960829,
+              238.7777925095574,
+              468.055552246746,
+              643.3526922078195,
+              7.9779941945883825,
+              383.95709796587886
+            ],
+            "train_rows": 36887
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "val": {
+          "time_rows": 5526,
+          "channels": 21,
+          "original_CSV_rows": 52696,
+          "raw_time_start": 36631,
+          "raw_time_end_exclusive": 42157,
+          "files": {
+            "values_TC": {
+              "sha256": "26b08401ce898c2beb6e71fbb2c9b4c82faa420003140a13ceee302d10a277e1",
+              "shape": [
+                5526,
+                21
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "6e01d8990c3b0b94675da7b11eadfe213476c0b75e4d10cc85b1e55def6c0999",
+              "shape": [
+                5526
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 5175,
+              "input_coordinates": 27820800,
+              "target_coordinates": 10432800,
+              "source_target_row_start": 36887,
+              "source_target_row_end_exclusive": 42157,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                2587,
+                5174
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 5079,
+              "input_coordinates": 27304704,
+              "target_coordinates": 20478528,
+              "source_target_row_start": 36887,
+              "source_target_row_end_exclusive": 42157,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                2539,
+                5078
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 4887,
+              "input_coordinates": 26272512,
+              "target_coordinates": 39408768,
+              "source_target_row_start": 36887,
+              "source_target_row_end_exclusive": 42157,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                2443,
+                4886
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              990.6424618429255,
+              11.978743188657251,
+              285.9094998237861,
+              5.474408599235503,
+              67.52999105375878,
+              15.683926315504108,
+              9.844447095182584,
+              5.839411445766801,
+              6.215718545829153,
+              9.94795076856345,
+              1206.7523290047984,
+              1.9474169761704665,
+              3.7608498929162035,
+              175.98528397538428,
+              0.011481009569767126,
+              23.287065903977012,
+              160.64175752975302,
+              318.0403689646759,
+              378.4815870089733,
+              22.81172038929704,
+              411.0543416379755
+            ],
+            "var": [
+              74.48915223086846,
+              59.57404105333116,
+              62.6737637778011,
+              41.78854206288374,
+              351.7560013527001,
+              65.75720286962142,
+              19.32644033124153,
+              34.842067490511226,
+              7.839335487568596,
+              19.908869672204183,
+              1449.1848054169543,
+              2714.348872266367,
+              6.739147516899099,
+              7562.742916799968,
+              0.015075983204034037,
+              11098.054687536061,
+              57014.83419573724,
+              219075.99998900638,
+              413902.68657104933,
+              63.64839136888593,
+              147423.0530783795
+            ],
+            "scale": [
+              8.630709833546048,
+              7.718422186776981,
+              7.916676308767531,
+              6.464405778018869,
+              18.755159326241408,
+              8.109081505918006,
+              4.396184747169019,
+              5.902716958360042,
+              2.7998813345512694,
+              4.461935641871606,
+              38.068159995158084,
+              52.09941335817868,
+              2.5959868098469028,
+              86.96403231681457,
+              0.1227842954291551,
+              105.34730507960829,
+              238.7777925095574,
+              468.055552246746,
+              643.3526922078195,
+              7.9779941945883825,
+              383.95709796587886
+            ],
+            "train_rows": 36887
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        },
+        "test": {
+          "time_rows": 10795,
+          "channels": 21,
+          "original_CSV_rows": 52696,
+          "raw_time_start": 41901,
+          "raw_time_end_exclusive": 52696,
+          "files": {
+            "values_TC": {
+              "sha256": "b0bcdc9d39f7766e051ba08052ffdc249fdaf5682cae1e168944c3701b08aeb1",
+              "shape": [
+                10795,
+                21
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "original_CSV_rows": {
+              "sha256": "127f0c6426b1f355991274fddec4b0a240fcd9452054669d93d93648ce98fee0",
+              "shape": [
+                10795
+              ],
+              "dtype": "int64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            },
+            "input_mask_window": {
+              "sha256": "d5e8a4b72139e8f1baacc4a735926cf5e1dff8529cf84e39043c629151871c0e",
+              "shape": [
+                256
+              ],
+              "dtype": "float64",
+              "all_source_coordinates_byte_equal": true,
+              "storage_order": "C",
+              "write_mapping_blocks": 1,
+              "mappings_released_after_each_bounded_block": true
+            }
+          },
+          "windows_by_horizon": [
+            {
+              "horizon": 96,
+              "windows": 10444,
+              "input_coordinates": 56146944,
+              "target_coordinates": 21055104,
+              "source_target_row_start": 42157,
+              "source_target_row_end_exclusive": 52696,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5222,
+                10443
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 192,
+              "windows": 10348,
+              "input_coordinates": 55630848,
+              "target_coordinates": 41723136,
+              "source_target_row_start": 42157,
+              "source_target_row_end_exclusive": 52696,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5174,
+                10347
+              ],
+              "every_window_value_independently_rebuilt": false
+            },
+            {
+              "horizon": 384,
+              "windows": 10156,
+              "input_coordinates": 54598656,
+              "target_coordinates": 81897984,
+              "source_target_row_start": 42157,
+              "source_target_row_end_exclusive": 52696,
+              "every_window_bound_checked": true,
+              "actual_source_windows_value_checked_at": [
+                0,
+                5078,
+                10155
+              ],
+              "every_window_value_independently_rebuilt": false
+            }
+          ],
+          "training_scaler": {
+            "mean": [
+              990.6424618429255,
+              11.978743188657251,
+              285.9094998237861,
+              5.474408599235503,
+              67.52999105375878,
+              15.683926315504108,
+              9.844447095182584,
+              5.839411445766801,
+              6.215718545829153,
+              9.94795076856345,
+              1206.7523290047984,
+              1.9474169761704665,
+              3.7608498929162035,
+              175.98528397538428,
+              0.011481009569767126,
+              23.287065903977012,
+              160.64175752975302,
+              318.0403689646759,
+              378.4815870089733,
+              22.81172038929704,
+              411.0543416379755
+            ],
+            "var": [
+              74.48915223086846,
+              59.57404105333116,
+              62.6737637778011,
+              41.78854206288374,
+              351.7560013527001,
+              65.75720286962142,
+              19.32644033124153,
+              34.842067490511226,
+              7.839335487568596,
+              19.908869672204183,
+              1449.1848054169543,
+              2714.348872266367,
+              6.739147516899099,
+              7562.742916799968,
+              0.015075983204034037,
+              11098.054687536061,
+              57014.83419573724,
+              219075.99998900638,
+              413902.68657104933,
+              63.64839136888593,
+              147423.0530783795
+            ],
+            "scale": [
+              8.630709833546048,
+              7.718422186776981,
+              7.916676308767531,
+              6.464405778018869,
+              18.755159326241408,
+              8.109081505918006,
+              4.396184747169019,
+              5.902716958360042,
+              2.7998813345512694,
+              4.461935641871606,
+              38.068159995158084,
+              52.09941335817868,
+              2.5959868098469028,
+              86.96403231681457,
+              0.1227842954291551,
+              105.34730507960829,
+              238.7777925095574,
+              468.055552246746,
+              643.3526922078195,
+              7.9779941945883825,
+              383.95709796587886
+            ],
+            "train_rows": 36887
+          },
+          "all_TC_coordinates_saved_byte_exact": true,
+          "repeated_window_tensor_materialized": false
+        }
+      },
+      "total_source_raw_rows": 52696,
+      "selected_source_time_end_exclusive": 52696,
+      "original_rows_outside_source_fixed_month_selection": 0,
+      "all_raw_rows_preserved_on_disk": true,
+      "training_scaler_fixed_across_all_roles": true,
+      "full_window_populations_and_horizons_retained": true,
+      "forecast_target_roles_overlap": false,
+      "validation_and_test_include256historical_context_rows": true,
+      "original_cubic_interpolation_precedes_split": true,
+      "strict_temporal_independence_of_interpolation_certified": false
+    }
+  ],
+  "same_as_pretraining_input_split": false,
+  "raw_data_overwritten": false,
+  "model_training_or_prediction_performed": false,
+  "all_original_experiments_complete": false
+}
