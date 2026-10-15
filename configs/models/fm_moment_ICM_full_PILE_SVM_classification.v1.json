@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "fm_moment_ICM_full_PILE_SVM_classification_v1",
+  "task": "time_series_classification",
+  "entrypoint": "scripts.flow_matching.moment_icm_svm_classification_v1:run_case",
+  "independent_review_entrypoint": "scripts.flow_matching.moment_icm_svm_classification_v1:review_case",
+  "citation": "https://arxiv.org/abs/2409.13530v1",
+  "data_citation": "https://www.timeseriesclassification.com/",
+  "parameters": {
+    "model_variants": ["independent", "icm"],
+    "required_pretraining_sources": 2086,
+    "required_pretraining_items": 80850189,
+    "required_pretraining_updates": 39479,
+    "checkpoint_phase": "final_post_scheduler",
+    "sequence_length": 256,
+    "patch_length": 8,
+    "feature_dimensions_per_channel": 256,
+    "case_batch_size": 1,
+    "all_channels_simultaneous": true,
+    "device": "cpu",
+    "dtype": "float32",
+    "training_seed": 13,
+    "source_SVM_CV": 5,
+    "source_SVM_jobs": 10,
+    "source_SVM_MAX_SAMPLES": 10000
+  },
+  "reproduction_status": "complete_callable_reconstruction_requires_actual_full_pretraining_and_data_guards_not_yet_executed",
+  "boundaries": [
+    "Original source TEST-fitted normalization and separate TRAIN-fitted control remain separate.",
+    "Full source SVM including positive-infinite C candidate is retained; any failed-candidate warnings are recorded.",
+    "CPU casebatch1 and channel-preserving masked temporal pooling are disclosed reconstruction choices.",
+    "Wilson intervals are descriptive conditional uncertainty; unknown subject groups and model seed variability remain unverified.",
+    "No historical paper equivalence, strict leaderboard promotion or completion of periodic AD callbacks."
+  ]
+}
