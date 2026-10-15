@@ -1,0 +1,135 @@
+{
+  "inputs": {
+    "author": {
+      "path": "data/public_datasets/flow_matching/project_additions/otcfm_author_singlecell_mendeley/op_train_multi_targets_0.h5ad",
+      "bytes": 1059236146,
+      "sha256": "a16c28ef861503111bb2f4c6ab6b1d5ed3df07d49eb0baa7378515fc098af4d2"
+    },
+    "public": {
+      "path": "data/public_datasets/flow_matching/single_cell/neurips2022_public/multiome/log_cp10k/dataset_mod1.h5ad",
+      "bytes": 9433942170,
+      "sha256": "faa0d9be03f85e2a61b381c39195927d1e35cd7f9331d7a3331e1b2b17b2619b"
+    }
+  },
+  "reference_donor": "32606",
+  "paper_donor": "13176",
+  "days": [
+    2,
+    3,
+    4,
+    7
+  ],
+  "expected_reference_cells": 33701,
+  "expected_public_reference_candidates": 33704,
+  "expected_paper_cells": 35384,
+  "expected_features": 23418,
+  "public_layer": "normalized",
+  "encoding_transform": "log1p(expm1(public_float64)*100)",
+  "encoding_scale": 100.0,
+  "encoding_tolerance": {
+    "rtol": 2e-06,
+    "atol": 2e-06
+  },
+  "reference_match": "Unique positive-gene support and fixed transformed expression-value anchors; full33701-to33704 injection and every author matrix coordinate verified. No positive-support-only identity claim.",
+  "pca_dimensions": 5,
+  "pca_initial_vector_seed": 0,
+  "pca_arpack_tolerance": 0.0,
+  "pca_fit_scope": "All donor13176 cells at days2,3,4,7, before leave-timepoint training as paper E5 describes.",
+  "whitening": "Original CustomTrajectoryDataModule StandardScaler block, ddof0, on all selected donor PC coordinates.",
+  "numerical_threads": 2,
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 34359738368,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 3221225472,
+    "maximum_worker_private_bytes": 6442450944
+  },
+  "resource_lock": "experiments/runs/fm_otcfm_singlecell_input_audit_cpu.lock",
+  "stable_samples": 6,
+  "poll_seconds": 5,
+  "state_root": "experiments/runs/fm_otcfm_multiome13176_public_reconstruction_v3",
+  "output_directory": "data/public_datasets/flow_matching/processed_otcfm_multiome13176_public_pca5_v3",
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/reconstruct_otcfm_multiome13176_public_v3.py",
+      "sha256": "c15e6b002b80a033cec501511cefde5a93fc2056c3e2a9807196218a05b775e2"
+    },
+    {
+      "path": "tests/test_fm_otcfm_multiome13176_reconstruction_v3.py",
+      "sha256": "118ecce0d3adb0a507aa40eb9d5a2230e4153ed69a54bea8b6b7fe2bf4d2eae9"
+    },
+    {
+      "path": "configs/acquisition/fm_otcfm_author_singlecell_mendeley.v1.json",
+      "sha256": "162aa809ab307f16768e3ba8fdadf6aa3eeee24ecc095fbe16a2331bb6f688a2"
+    },
+    {
+      "path": "projects/flow_matching_research/materials/catalog.json",
+      "sha256": "db05bfc2a2853edf61f573fe42d8d0c6a7f304032920f516878201a21526fd2c"
+    },
+    {
+      "path": "scripts/flow_matching/reconstruct_otcfm_multiome13176_public_v2.py",
+      "sha256": "75bb8fd72f2dbcc624903de4f1706f4c4fdcae2e34af3a8a92480bafa8f0e928"
+    },
+    {
+      "path": "configs/reproducibility/fm_otcfm_multiome13176_public_reconstruction.v2.json",
+      "sha256": "3856b8ee98295745737a69ea0aee9ee105f14489457a72845732c4f4dfb5ea70"
+    },
+    {
+      "path": "experiments/runs/fm_otcfm_multiome13176_public_reconstruction_v2/guard_receipt.json",
+      "sha256": "cacc733aa1d849e19b527a744d2c41ea6329d4cab60aac9d505869386707ee30"
+    },
+    {
+      "path": "experiments/runs/fm_otcfm_multiome13176_public_reconstruction_v2/worker.stderr.log",
+      "sha256": "86247abe976a03097a605af6de839a85cccf04698c7c1e4878f3f91d678e71b7"
+    },
+    {
+      "path": "scripts/flow_matching/reconstruct_otcfm_multiome13176_public_v1.py",
+      "sha256": "c62858195036093d837c3c0d23c28a825a89195ea9357ed1bb279a903847cd38"
+    },
+    {
+      "path": "configs/reproducibility/fm_otcfm_multiome13176_public_reconstruction.v1.json",
+      "sha256": "846dc00080676769b31fc6bc6cc5877e92134de389c496536bb76e3454a8faf6"
+    },
+    {
+      "path": "experiments/runs/fm_otcfm_multiome13176_public_reconstruction_v1/guard_receipt.json",
+      "sha256": "8a5571aebb6ce310b07975900b6ebd95544c5ba47f0ce66908d74969ba2e466d"
+    },
+    {
+      "path": "experiments/runs/fm_otcfm_multiome13176_public_reconstruction_v1/worker.stderr.log",
+      "sha256": "aa12e352c964a3db214aad00339ab8c5e0e002bd7334a0febb3bb062c23205e5"
+    },
+    {
+      "path": "experiments/runs/flow_matching_campaign/sources/ot_cfm/original/runner/src/datamodules/components/time_dataset.py",
+      "sha256": "f6d4616c67c8111300c8be170d6373e2291fb39894a9aa2a18060807e6e96ff5"
+    },
+    {
+      "path": "experiments/runs/flow_matching_campaign/sources/ot_cfm/original/runner/src/datamodules/distribution_datamodule.py",
+      "sha256": "aad9fe1a871413d66206a5cd4e61c60cf4de896ac93102cb9fca8554d5bd9f9a"
+    },
+    {
+      "path": "scripts/flow_matching/cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    }
+  ],
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "paper_pdf_page": 32,
+  "paper_section": "E.5",
+  "author_data": "https://doi.org/10.17632/hhny5ff7yj.1",
+  "public_data": "https://openproblems-data.s3.amazonaws.com/resources/datasets/openproblems_neurips2022/pbmc_multiome/log_cp10k/dataset_mod1.h5ad",
+  "boundary": "Complete original cells/features, no subsampling or replacement. Full donor32606 matrix identity gate before applying fixed encoding to donor13176. Public reference candidates contain3 more day2 cells than the released author subset; their IDs and metadata are recorded, omission cause unknown. This discrepancy is not a zero-cell/QC claim. Full paper13176 cohort remains35384.  First5 centered sparse PCs and original whitening, no organizer embedding reuse. Reconstructed paper-described input, not a claim of historical artifact bit identity; original PCA solver/seed history unavailable. CITE feature mapping and all original methods/baselines/ablations/full budgets remain pending.",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273,
+    "paper_scalar_targets": 702
+  },
+  "all_original_experiments_complete": false
+}
