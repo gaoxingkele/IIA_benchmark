@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "id": "timesnet_moment_original_metric_audit_20261016_v1",
+  "purpose": "original_tables_architecture_data_metric_identity_audit_only",
+  "papers": {
+    "timesnet_primary": "papers/literature/flow_matching/user_supplied/2026-10-07/timesnet/12da8da7bf1b3db1bdbd55ef0358967c6b49d84f6183f7da7176c57cecd4d513.pdf",
+    "timesnet_alternate": "papers/literature/mtsad_pdfs/wu2023_timesnet.pdf",
+    "moment": "papers/literature/mtsad_pdfs/goswami2024_moment.pdf"
+  },
+  "immutable_inputs": [
+    {
+      "path": "papers/literature/flow_matching/user_supplied/2026-10-07/timesnet/12da8da7bf1b3db1bdbd55ef0358967c6b49d84f6183f7da7176c57cecd4d513.pdf",
+      "sha256": "12da8da7bf1b3db1bdbd55ef0358967c6b49d84f6183f7da7176c57cecd4d513"
+    },
+    {
+      "path": "papers/literature/mtsad_pdfs/wu2023_timesnet.pdf",
+      "sha256": "a45cb3d35c7b4db7091439ee714fd43dd6cd9e8f2fb1867f5463ae0433aebbd1"
+    },
+    {
+      "path": "papers/literature/mtsad_pdfs/goswami2024_moment.pdf",
+      "sha256": "037108e4be01e9ae7643bbe54bd4f65c9b5710d53f336c05054e68be645124e2"
+    },
+    {
+      "path": "configs/models/mtsad_timesnet.json",
+      "sha256": "d80dc9199b8a71336ff03a8e41835e07114ce84db43846980da5657b316a3d03"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/models/TimesNet.py",
+      "sha256": "f64c4bed1fd7347090044a0163bd4209c9f9ec1c1b19ceff47842df36b64bba7"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/exp/exp_anomaly_detection.py",
+      "sha256": "c7d85b45256fb6dbd7edb6ad76d09aa8be2306a0175036aa8d7804b5dbe4d1bc"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/utils/tools.py",
+      "sha256": "f47237f29d2a27570ef11871d9acdc51d1742b3bd1d8d09e5226e4140f4ad024"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/scripts/anomaly_detection/SMD/TimesNet.sh",
+      "sha256": "8cc1422bb32924317e4f2af2638f9c494fdf62a0e13362e0af45362ce4bfffe4"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/scripts/anomaly_detection/MSL/TimesNet.sh",
+      "sha256": "6d7537724f99f9857f95564bf6e858823dbbf7643ef013e85e943743312c477a"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/scripts/anomaly_detection/SMAP/TimesNet.sh",
+      "sha256": "79fa08e7dcc544c7ecacd13dfacf425845ff3ae4f6f9abfe439052657b6a822b"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/scripts/anomaly_detection/SWAT/TimesNet.sh",
+      "sha256": "e6ee435fb59855097921fee24dbc2f75f787308a55e450cf819db8704d9db63b"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original/scripts/anomaly_detection/PSM/TimesNet.sh",
+      "sha256": "5959a165ae55210dad41c7a592456d4fe35ae02d7ca6e85de82404ed168c0278"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/utils/anomaly_detection_metrics.py",
+      "sha256": "1c50c56c19944aead21fdddef67f9bff68fad3728310a7d38f9368224a66673c"
+    },
+    {
+      "path": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original/moment/data/anomaly_detection_datasets.py",
+      "sha256": "0cc0e323d3b719b5a502b7a00271fc2b6d54b4ee166ae2307f9e24ed95d241d1"
+    }
+  ],
+  "timesnet_author_root": "experiments/runs/mtsad_protocol_audit/sources/timesnet_tslib/original",
+  "moment_author_root": "experiments/runs/mtsad_protocol_audit/sources/moment_research/original",
+  "local_timesnet_model": "configs/models/mtsad_timesnet.json",
+  "timesnet_table15_models": [
+    "LSTM",
+    "Transformer",
+    "LogTrans",
+    "TCN",
+    "Reformer",
+    "Informer",
+    "Anomaly Transformer reconstruction-only",
+    "Pyraformer",
+    "Autoformer",
+    "LSSL",
+    "Stationary",
+    "DLinear",
+    "ETSformer",
+    "LightTS",
+    "FEDformer",
+    "TimesNet (Inception)",
+    "TimesNet (ResNeXt)"
+  ],
+  "timesnet_paper_settings": {
+    "top_k": 3,
+    "e_layers": 3,
+    "d_min": 32,
+    "d_max": 128,
+    "learning_rate": 0.0001,
+    "loss": "MSE",
+    "batch_size": 128,
+    "epochs": 10,
+    "optimizer": "Adam",
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "repeats": 3,
+    "window": 100
+  },
+  "timesnet_paper_datasets": {
+    "SMD": {
+      "channels": 38,
+      "train": 566724,
+      "validation": 141681,
+      "test": 708420
+    },
+    "MSL": {
+      "channels": 55,
+      "train": 44653,
+      "validation": 11664,
+      "test": 73729
+    },
+    "SMAP": {
+      "channels": 25,
+      "train": 108146,
+      "validation": 27037,
+      "test": 427617
+    },
+    "SWaT": {
+      "channels": 51,
+      "train": 396000,
+      "validation": 99000,
+      "test": 449919
+    },
+    "PSM": {
+      "channels": 25,
+      "train": 105984,
+      "validation": 26497,
+      "test": 87841
+    }
+  },
+  "page_anchors": {
+    "timesnet_primary": {
+      "8": [
+        "4.5 ANOMALY DETECTION",
+        "consecutive non-overlapping segments"
+      ],
+      "9": [
+        "Table 5:",
+        "(ResNeXt)",
+        "(Inception)"
+      ],
+      "12": [
+        "repeated three times"
+      ],
+      "14": [
+        "(108146, 27037, 427617)",
+        "Anomaly Detection"
+      ],
+      "22": [
+        "Table 15:",
+        "(ResNeXt)",
+        "(Inception)"
+      ]
+    },
+    "moment": {
+      "6": [
+        "UCR anomaly archive",
+        "SMD"
+      ],
+      "7": [
+        "On 44 time series",
+        "adjusted best"
+      ],
+      "9": [
+        "Table 7.",
+        "248 time series",
+        "0.628"
+      ],
+      "20": [
+        "Table 12.",
+        "SMD",
+        "Time Series Pile"
+      ],
+      "27": [
+        "Table 22.",
+        "45 datasets",
+        "46 univariate time series"
+      ],
+      "28": [
+        "512",
+        "2560",
+        "factor of 10"
+      ],
+      "33": [
+        "Table 26.",
+        "Hyperparameter values for anomaly detection."
+      ],
+      "29": [
+        "17To ensure a fair comparison",
+        "joint criterion",
+        "disadvantage"
+      ]
+    }
+  }
+}
