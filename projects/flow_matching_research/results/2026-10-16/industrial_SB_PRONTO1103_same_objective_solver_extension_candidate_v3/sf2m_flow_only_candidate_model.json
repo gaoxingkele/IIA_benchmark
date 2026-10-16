@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "fm_objective_sf2m_flow_only__stable_numerics_v2__extended_final_sinkhorn_v3",
+  "task": "time_series_anomaly_detection",
+  "kind": "window",
+  "family": "flow_matching_objective_adapters",
+  "entrypoint": "iia_benchmark.models.fm_objective_stable_extended:ExtendedStableCFMObjectiveDetector",
+  "parameters": {
+    "objective": "sf2m",
+    "sigma": 1.0,
+    "window": 100,
+    "hidden_size": 128,
+    "epochs": 20,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "score_times": [
+      0.1,
+      0.3,
+      0.5,
+      0.7,
+      0.9
+    ],
+    "monte_carlo_samples": 4,
+    "score_weight": 0.0,
+    "seed": 1103,
+    "sinkhorn_max_final_iterations": 200000
+  },
+  "citation": "https://arxiv.org/abs/2307.03672",
+  "source_repository": "atong01/conditional-flow-matching",
+  "source_commit": "7c653857de4c25b979a740ef8b6a5d5ddb09b6c1",
+  "reproduction_status": "local_sf2m_flow_only_ablation_not_paper_performance; candidate final-iteration extension, real-coupling and full-run qualification still required",
+  "paper_score_status": "not_verified",
+  "deviations": [
+    "Shared MLP backbone and velocity-discrepancy TSAD score are local adaptation choices.",
+    "SciPy exact assignment/log-Sinkhorn replace POT numerical transport solvers.",
+    "Scoring uses independent pairs, not OT rematching or test-distribution calibration.",
+    "Scoring time grid, Monte Carlo seed and batching are frozen; no likelihood claim."
+  ],
+  "numerical_repair": {
+    "original_config": "configs/models/fm_objective_sf2m_flow_only_stable_v2.json",
+    "original_config_sha256": "390189c628d440332b5e537736631bf160b131d26028d17411ad6885f6a2808b",
+    "original_solver_source": "src/iia_benchmark/models/fm_objective_stable.py",
+    "original_solver_sha256": "30e97881643e02830800507f10d83549144299935a63e28901339a2e48cd28c4",
+    "repair": "Return every successful v2 plan untouched; only documented nonconvergence invokes the identical final entropy problem with200000 final iterations.",
+    "same_regularization_uniform_marginals_and_tolerance": true,
+    "original_full_training_code_object_reused": true,
+    "original_training_RNG_backbone_epochs_scoring_unchanged": true,
+    "changes_to_training_budget": 0,
+    "failed_original_industrial_case": "fm_objective_sb__stable_numerics_v2__industrial_v1__pronto_day4__seed1103",
+    "real_coupling_diagnostic": "F:/aicoding/IIA_Data/experiments/industrial_SB_transport_extension_v3/all20_real_coupling_problems.json",
+    "real_coupling_diagnostic_required_before_full_job_activation": true,
+    "full_original_case_reproduction_complete": false
+  },
+  "data_citation": "configs/datasets/pronto_public.json"
+}
