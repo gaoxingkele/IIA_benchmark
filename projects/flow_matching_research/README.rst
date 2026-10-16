@@ -40,6 +40,14 @@
 327个完整数组从原始输入独立重建，117318335个训练、测试和逐特征标签坐标逐字节相同，原始文件哈希保持。
 五个源码分支的真实128窗口批次前向/反向预检通过，优化器更新0；数据准备不冒充完整模型训练或基准性能。
 
+原始生成任务另见 `Diffusion-TS论文分布Sines完整五种子组 <results/2026-10-16/Spectral_PaperSines46_full34_complete5_source_cohort_v2/README.md>`_，
+`两套Sines协议的五模型统计 <results/2026-10-16/Spectral_PaperSines46_full34_complete5_source_cohort_v2/both_complete_Sines_five_model_cohorts_8_metrics.csv>`_，
+以及 `原论文Table1目标对照 <results/2026-10-16/Spectral_PaperSines46_full34_complete5_source_cohort_v2/paper_Table1_Sines_two_protocol_comparisons.csv>`_。
+原始训练及完整产物核验34/70，完整五训练种子组6/14；与独立生成/评估重跑轨道的7/70分别统计，不相加。
+同种子、同模型与其他数值参数下，发布数据协议predictive score五模型均值0.094030，论文文字分布协议为0.318330；原论文Table1为0.095。
+四种指标的全部五种子配对差、训练模型SD/SE/t95与单模型内部五次评估分开列出，保留参数量及历史环境差异，不认证论文成绩已经重现。
+该源生成轨道新组尚未并入上方v60指标表，捕获范围与时间单独保留。
+
 `LS4 完整四数据集续跑 <results/2026-10-11/ls4_cauchy_corrected_resume_v3/README.md>`_ 已修正当前环境的共轭 Cauchy 回退，
 40 项完整数据审计通过，40 个原始槽位及 387 万次生成器更新预算保持不变。
 两个修正版控制器正在等待完整 GPU 预检资源；审计和数学一致性诊断不作为生成性能结果。
