@@ -1,0 +1,127 @@
+{
+  "captured_utc": "2026-10-16T11:00:06.166387+00:00",
+  "original_author_commit": "7ffb98d0c18189cc3d9ab732b4cb0278200a0af0",
+  "source_variants": [
+    {
+      "variant": "TranAD",
+      "parameters": 57273,
+      "LayerNorm_modules": 0,
+      "model_class_source_file": "experiments\\runs\\fm_tsad_baseline_sources\\sources\\tranad_baselines\\original\\src\\models.py",
+      "model_forward_first_line": 517,
+      "source_learning_rate": 0.001,
+      "parameter_dtype": "torch.float64",
+      "full_training_batch": 128
+    },
+    {
+      "variant": "TranAD_Basic",
+      "parameters": 9482,
+      "LayerNorm_modules": 0,
+      "model_class_source_file": "experiments\\runs\\fm_tsad_baseline_sources\\sources\\tranad_baselines\\original\\src\\models.py",
+      "model_forward_first_line": 370,
+      "source_learning_rate": 0.001,
+      "parameter_dtype": "torch.float64",
+      "full_training_batch": 128
+    },
+    {
+      "variant": "TranAD_Transformer",
+      "parameters": 18699,
+      "LayerNorm_modules": 0,
+      "model_class_source_file": "experiments\\runs\\fm_tsad_baseline_sources\\sources\\tranad_baselines\\original\\src\\models.py",
+      "model_forward_first_line": 406,
+      "source_learning_rate": 0.001,
+      "parameter_dtype": "torch.float64",
+      "full_training_batch": 128
+    },
+    {
+      "variant": "TranAD_Adversarial",
+      "parameters": 35207,
+      "LayerNorm_modules": 0,
+      "model_class_source_file": "experiments\\runs\\fm_tsad_baseline_sources\\sources\\tranad_baselines\\original\\src\\models.py",
+      "model_forward_first_line": 446,
+      "source_learning_rate": 0.001,
+      "parameter_dtype": "torch.float64",
+      "full_training_batch": 128
+    },
+    {
+      "variant": "TranAD_SelfConditioning",
+      "parameters": 57273,
+      "LayerNorm_modules": 0,
+      "model_class_source_file": "experiments\\runs\\fm_tsad_baseline_sources\\sources\\tranad_baselines\\original\\src\\models.py",
+      "model_forward_first_line": 482,
+      "source_learning_rate": 0.001,
+      "parameter_dtype": "torch.float64",
+      "full_training_batch": 128
+    }
+  ],
+  "local_LayerNorm_modules": 8,
+  "source_with_unadapted_modern_torch_container_actual_failure": {
+    "error_type": "TypeError",
+    "message": "TransformerEncoderLayer.forward() got an unexpected keyword argument 'is_causal'"
+  },
+  "original_class_forward_and_backprop_AST_unmodified": true,
+  "only_current_torch_container_call_compatibility_restored": true,
+  "observed_implementation_and_protocol_differences": [
+    {
+      "component": "normalization",
+      "old_local": "8 PyTorch standard LayerNorm modules",
+      "new_source": "0 LayerNorm; unchanged author custom residual layers",
+      "evidence_source": "src/dlutils.py:212-251",
+      "evidence_local": "src/iia_benchmark/models/mtsad_detectors.py:1279-1302"
+    },
+    {
+      "component": "activation",
+      "old_local": "Standard Transformer layer default ReLU",
+      "new_source": "Exact author literal nn.LeakyReLU(True), preserved without reinterpretation",
+      "evidence_source": "src/dlutils.py:222 and243",
+      "evidence_local": "nn.TransformerEncoderLayer/DecoderLayer constructors"
+    },
+    {
+      "component": "position_encoding",
+      "old_local": "Alternating sine/cosine dimensions",
+      "new_source": "Both sin and cos added in every dimension with author divisor",
+      "evidence_source": "src/dlutils.py:196-210",
+      "evidence_local": "src/iia_benchmark/models/mtsad_detectors.py:1261-1274"
+    },
+    {
+      "component": "learning_rate",
+      "old_local": "SMAP/MSL/SMD configured .01",
+      "new_source": "SMAP .001, MSL .002, SMD .0001 from exact constants.py",
+      "evidence_source": "src/constants.py:lr_d",
+      "evidence_local": "configs/models/fm_strict_baselines/fm_strict_tranad__smap__reference_float64.json"
+    },
+    {
+      "component": "training_order",
+      "old_local": "Seeded torch.randperm every epoch",
+      "new_source": "Original sequential DataLoader with no shuffle argument",
+      "evidence_source": "main.py:251-273",
+      "evidence_local": "src/iia_benchmark/models/mtsad_detectors.py:1344-1350"
+    },
+    {
+      "component": "inference_batch",
+      "old_local": "Local inference batch128",
+      "new_source": "Original one complete population batch, no chunking",
+      "evidence_source": "main.py:254",
+      "evidence_local": "src/iia_benchmark/models/mtsad_detectors.py:1374"
+    },
+    {
+      "component": "window_and_preprocessing",
+      "old_local": "Local grouped/window grid and prepared inputs",
+      "new_source": "Exact preprocess.py; original previous-row windows plus repeated-first-row padding; per-entity training",
+      "evidence_source": "preprocess.py, main.py:convert_to_windows andload_dataset",
+      "evidence_local": "Original local full109 and constant_fit variants kept separate"
+    },
+    {
+      "component": "threshold_reporting",
+      "old_local": "Validation percentiles and independent full TAB metric controls",
+      "new_source": "Original per-feature and average-score POT with test-label PA, original Hit/NDCG",
+      "evidence_source": "main.py:331-348, src/pot.py",
+      "evidence_local": "Existing frozen local scores/metric protocols unchanged"
+    }
+  ],
+  "old_local_low_F1_explained_causally": false,
+  "paper_table_variant_mapping_certified": false,
+  "historical_environment_certified": false,
+  "full_author_training_conditions_complete": 0,
+  "synthetic_diagnostics_are_benchmark_performance": false,
+  "all_original_experiments_complete": false
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "tranad_author_source_TranAD",
+  "task": "time_series_anomaly_detection",
+  "entrypoint": "iia_benchmark.models.tranad_author_source_v1:author_model",
+  "parameters": {
+    "variant": "TranAD"
+  },
+  "source_root": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original",
+  "source_receipts": [
+    {
+      "path": "LICENSE",
+      "sha256": "4389d205c769d6edf92105fe2f4ac8cb8b8feabcef7baa359136dd3eec79cf12"
+    },
+    {
+      "path": "main.py",
+      "sha256": "0529c581d3d871bf5cc32316b45428ce9642650b8a0fa2e40e754341f57d4c0c"
+    },
+    {
+      "path": "preprocess.py",
+      "sha256": "cbc05abdc69bcbd9d6ca14d1a8f6238eded144c075caef2a268828183c67d0fe"
+    },
+    {
+      "path": "src/models.py",
+      "sha256": "43a30e7caa7c8b28e91b5e875c724219c9c15789da1f6009bb2015fb1f81d84b"
+    },
+    {
+      "path": "src/dlutils.py",
+      "sha256": "35265d47f3c1c0f999590ab25cf47774cfd2293c99ca3f842419f31dfef750fe"
+    },
+    {
+      "path": "src/constants.py",
+      "sha256": "00f710d5ae8a4a5f14b9153abe6833f4eece52d8462d25522cfb8ebcf99735dc"
+    },
+    {
+      "path": "src/pot.py",
+      "sha256": "83fd5dbd6e5c9f50840dc3ef891552c5bcf3691f403e294819260850c92bed46"
+    },
+    {
+      "path": "src/spot.py",
+      "sha256": "7d68506d28421da21247e6ac76e9684ed1a687820426695fe3016416b68035bb"
+    },
+    {
+      "path": "src/diagnosis.py",
+      "sha256": "42a9176c722dfb18cab82d651138ccc994e0d8d13937b845965a1de25609cb1d"
+    }
+  ],
+  "citation": "https://doi.org/10.14778/3514061.3514067",
+  "author_repository": "https://github.com/imperial-qore/TranAD",
+  "author_commit": "7ffb98d0c18189cc3d9ab732b4cb0278200a0af0",
+  "data_citations": [
+    "Author SMAP_MSL and SMD raw arrays, labels and exact preprocess.py in frozen source_root"
+  ],
+  "reproduction_status": "source_AST_callable_all_entity_full_training_and_replay_pending",
+  "runner": "scripts.flow_matching.run_tranad_author_all_entities_v1",
+  "boundary": "Exact frozen author class and forward, custom layers without LayerNorm, source sin+cos positional encoding and literal LeakyReLU(True). Original sequential containers restored for modern torch compatibility. Preserve old local adaptation separately. Historical environment and paper-table equivalence remain unproven."
+}
