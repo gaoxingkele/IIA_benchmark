@@ -1,0 +1,564 @@
+{
+  "original_queue": "configs/experiments/fm_otcfm_singlecell_native_full120.v4.json",
+  "canonical_id": "otcfm_singlecell__released_yaml__otcfm__released_author_donor32606__leave1__seed43",
+  "original_job": {
+    "id": "otcfm_singlecell__released_yaml__otcfm__released_author_donor32606__leave1__seed43",
+    "dataset": "released_author_donor32606",
+    "protocol": "released_yaml",
+    "method": "otcfm",
+    "leaveout_timepoint": 1,
+    "seed": 43,
+    "scientific_protocol": {
+      "max_epochs": 1000,
+      "validation_every_n_epochs": 10,
+      "early_stopping_monitor": "val/loss",
+      "early_stopping_min_delta": 0.0,
+      "optimizer": "AdamW",
+      "learning_rate": 0.001,
+      "weight_decay": 1e-05,
+      "ode_grid_points_per_interval": 101,
+      "data_split_fractions": [
+        0.8,
+        0.1,
+        0.1
+      ],
+      "data_split_seed": 42,
+      "full_test_timepoint_arrays": true,
+      "whitening_before_timepoint_splits": true,
+      "validation_loss_includes_leftout_timepoint": true,
+      "batch_size": 512,
+      "early_stopping_patience_validation_checks": 100,
+      "maximum_training_wall_seconds": null,
+      "ode_solver": "euler",
+      "boundary": "The full released generic CFM experiment/model/default callback settings, not the paper single-cell batch/stopping/solver recipe."
+    },
+    "net": {
+      "hidden_dims": [
+        64,
+        64,
+        64
+      ],
+      "batch_norm": false,
+      "activation": "selu"
+    },
+    "sigma_min": 0.1,
+    "ot_sampler": "exact",
+    "expected_model_parameters": 9093,
+    "native_dimensions": 5,
+    "author_equivalence_certified": false,
+    "all_original_experiments_complete": false,
+    "data": {
+      "path": "data/public_datasets/flow_matching/project_additions/otcfm_author_singlecell_mendeley/op_train_multi_targets_0.h5ad",
+      "sha256": "a16c28ef861503111bb2f4c6ab6b1d5ed3df07d49eb0baa7378515fc098af4d2",
+      "cells": 33701,
+      "donor": "32606",
+      "days": {
+        "2": 7264,
+        "3": 8544,
+        "4": 10933,
+        "7": 6960
+      },
+      "citation": "https://doi.org/10.17632/hhny5ff7yj.1",
+      "historical_paper_donor": false
+    },
+    "source_yaml": "experiments/runs/flow_matching_campaign/sources/ot_cfm/original/runner/configs/model/otcfm.yaml",
+    "model_config": "configs/models/fm_otcfm_singlecell_native__otcfm.v4.json",
+    "artifact_directory": "F:/aicoding/IIA_Data/experiments/otcfm_singlecell_native_full120_v4/e0d92711fcb8e865b88a"
+  },
+  "original_terminal_guard": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_otcfm_singlecell_native_full120_v4\\attempts\\e0d92711fcb8e865b88a\\guard_receipt.json",
+  "original_artifact_root": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a",
+  "preserved_checkpoint_files": 101,
+  "observed_validation_checkpoints": 100,
+  "state_root": "experiments/runs/fm_otcfm_completed1000_CPU_test_recovery_v1",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/otcfm_completed1000_CPU_test_recovery_v1",
+  "python": "F:\\aicoding\\IIA_Data\\environments\\otcfm_author_py310_v1\\Scripts\\python.exe",
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 42949672960,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 6442450944,
+    "maximum_worker_private_bytes": 8589934592
+  },
+  "proof_settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 25769803776,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 6442450944,
+    "maximum_worker_private_bytes": 8589934592
+  },
+  "proof_boundary": "Read-only checkpoint/CSV inspection, no model/data instantiation, training, ODE or LP. Full numerical tests/replays retain stronger40GiB admission and all original emergency/RSS/private caps.",
+  "resource_lock": "experiments/runs/fm_otcfm_singlecell_training_cpu.lock",
+  "readonly_lock": "experiments/runs/fm_otcfm_singlecell_readonly_replay_cpu.lock",
+  "native_metric_tolerance": {
+    "rtol": 2e-06,
+    "atol": 2e-06
+  },
+  "source_receipts": [
+    {
+      "path": "configs/experiments/fm_otcfm_singlecell_native_full120.v4.json",
+      "sha256": "b70ae2988c086f0935d76b1d8d9a7c8c8de47e0bed8d05154f796d5c65b95a86"
+    },
+    {
+      "path": "configs/reproducibility/fm_otcfm_author_core_py310.lock.v1.json",
+      "sha256": "3494256efc2fc9a9c5c076b3473c3f4bf5b0149e7847be09d13d747f7a066482"
+    },
+    {
+      "path": "scripts/flow_matching/recover_otcfm_completed1000_CPU_test_v1.py",
+      "sha256": "f545f4a4e2aa9ca99dbdff28172641b520f9255ee522be2710661e06387710e7"
+    },
+    {
+      "path": "tests/test_fm_otcfm_completed1000_CPU_test_recovery_v1.py",
+      "sha256": "37de74900258eab58669c98a09f47bf814067a666dc348a45d188a8c67cb8c93"
+    },
+    {
+      "path": "scripts/flow_matching/run_otcfm_singlecell_native_v4.py",
+      "sha256": "4bc62547000baf05ef01ecb23fb911865c24a819b88194bd19bf06929a8fd4aa"
+    },
+    {
+      "path": "scripts/flow_matching/audit_otcfm_singlecell_full_replay_v2.py",
+      "sha256": "221cf8291642a3d75e871624530668a994ea0bbf2bdee423ce8caa80372cc508"
+    },
+    {
+      "path": "scripts/flow_matching/audit_cfm_checkpoint_replay_v1.py",
+      "sha256": "4ac7c62f53d9c8a6985f87d5dd2e0c5acafad7ca5aa66549e6cd56724c758896"
+    },
+    {
+      "path": "scripts/flow_matching/run_cached_resource_monitor_controller_v1.py",
+      "sha256": "6a5ca6bf4c418232235bf78eaa3bc2d99e478484d36b4ce66e4cf8b02c3377b6"
+    },
+    {
+      "path": "scripts/flow_matching/cached_resource_snapshot_v1.py",
+      "sha256": "9a57941b16ae737b9252df04a7883626c94fd5508b5bbf04c0a8c89f99a40aba"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_otcfm_singlecell_native_full120_v4\\attempts\\e0d92711fcb8e865b88a\\guard_receipt.json",
+      "sha256": "7a88e95a58f1c7f2829ea645acb654fef119fa7d0702bcdbabb6c9f5445882c1"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\progress.json",
+      "sha256": "713ff2f1b950fcc86ad1f409292a66ae136c9f98ddac8022f89dc9048e0514bb"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\csv\\version_0\\metrics.csv",
+      "sha256": "31a39d20a6bf95c0def14fc4727593be0d5360a1b279387faab5ffa2c0b75ecb"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0009.ckpt",
+      "sha256": "ab31a8467b332abef3bc9362d135647e1bfadd57d692791119f0e2c5c4bd9401"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0019.ckpt",
+      "sha256": "88cd4a4e67339836c1fadf210ca8683e6c1f40acafd0f9eee270631a9cff0884"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0029.ckpt",
+      "sha256": "8961c67f2b80fc05be0b3ce8c87884b514c7ce3a656c594540b0b30310b18a96"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0039.ckpt",
+      "sha256": "bbbf912c401f51a56c815437e0539868bb527cfc25f4e08e8c20a06c09793ff0"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0049.ckpt",
+      "sha256": "80ac0964bed9afedbfff4659181ab903a23104881837b180a437cc2f06551bc9"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0059.ckpt",
+      "sha256": "931e6f3def0e90ab0e849bb5e42f72daa514c32a25d78459a8df2509b8e8a942"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0069.ckpt",
+      "sha256": "b18d81b38129ab7e42d0a5febd850fa9ec8a0f88cc44bb416ce76e19304a2c08"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0079.ckpt",
+      "sha256": "049c45786a8f7cd446344e183d015e769c5bd44d9b73687b8ae72a19b53c9d7a"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0089.ckpt",
+      "sha256": "329e3c329c42c8b5805636d79b77626c889880b21e869adf4df2dc428b1df87b"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0099.ckpt",
+      "sha256": "da9e8c78447573289b318996ea0fb3741f80e2aec0f2bb06f38830c4871f9904"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0109.ckpt",
+      "sha256": "5de595280ea6ae356aa4600e718d2c3bbc78e5c3ede93c9623d33dbf71d03a86"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0119.ckpt",
+      "sha256": "f431e225370ad1c73633dd4e50174023624b1123da01c019c325914b4b8dbfea"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0129.ckpt",
+      "sha256": "11ba0b6618462ee5be3da296ded53bb1a6586618f758c46c383bcc9f4a30004e"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0139.ckpt",
+      "sha256": "91d6fc9e4502c1e3832dbe72131f76cba9561a4107100de14e33c48a674ac40f"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0149.ckpt",
+      "sha256": "40437595642c20b9b88c460706c566fb54ace490e9d47900983c74c7f547ae03"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0159.ckpt",
+      "sha256": "ca14ce25c508060642858f1b8cabc6612eccdd40d3aea0d244ea2d05ff7ba6eb"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0169.ckpt",
+      "sha256": "71918be5222153e023eadf2395ae3a4c685f935f0fe0e76016f74868435ab89a"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0179.ckpt",
+      "sha256": "4c6c95dc0a88693fadb2ffb2f1ce298248124dcac94ac8377ae4d4180810692e"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0189.ckpt",
+      "sha256": "9b35981b98da4f246b2bc739aabe5d43d09d05dc6ce383a7618b594cd65125bc"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0199.ckpt",
+      "sha256": "b74700c30465e09c0ba3620f2dc6d6b3213ffda06aa047c1b7ec0ba41db30249"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0209.ckpt",
+      "sha256": "0fb065e8d4ab0662cfb4868860d80df656781ae8e0cddf34664fc16bae31330e"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0219.ckpt",
+      "sha256": "bc654dd2a97cd4908fb516c6332a9f47f4a059f825a74b47768d39e8c6c89e00"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0229.ckpt",
+      "sha256": "5be5780d1688f56a63dc0d89dce703b30c12f2b432ff86a108ef48505e980734"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0239.ckpt",
+      "sha256": "d0abcb17da35d9475e1c9a35cdc89501973e60837a4bd9201a2cc942923bb4dd"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0249.ckpt",
+      "sha256": "e2dd3de88e15b182193e8366c404193d770ce52370d5f8772a553378adf3820b"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0259.ckpt",
+      "sha256": "26236538ba147dee9846aa1ec0885c5497025621060ddc91f40ed4527188e9f0"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0269.ckpt",
+      "sha256": "fb16f5c2e8f383027dd7efa8d45e05bb98484d4d8c2d11295c2252aef2afe137"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0279.ckpt",
+      "sha256": "53bf8d64547279b08ca662114f6376c2376bf58f3f3b9004d087823c88916fdf"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0289.ckpt",
+      "sha256": "77cd26ec9accc9d45b6cde7ad2df94a95f9f568b80fc765b11c7d0c8623fe50c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0299.ckpt",
+      "sha256": "9c10cf893419c5fde81eb8609237c9744de31fea14eebb35e1713a9719b16a23"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0309.ckpt",
+      "sha256": "d0201f2fc160422e494a26c8d6c842f87fe93cdde3fe94946ba1b7d84031b3b7"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0319.ckpt",
+      "sha256": "5fe54a1a2f4e67b561d23ade1bbd78e68579067f8c940f2f0f532147fae5f848"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0329.ckpt",
+      "sha256": "b7955a96971105d4c5d8d7a5dd862835a5ab9b0352a5319193dc61af69da2103"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0339.ckpt",
+      "sha256": "619fb21898f14807c467f060aff52961af48c729892a78cd63498d86d749d4d5"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0349.ckpt",
+      "sha256": "3c46bd28ae64efc9e1a0c77740acf4e26f40bfe9337991331608056a12067be8"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0359.ckpt",
+      "sha256": "78e517325629ab1e5633778b1f03a4cf0eb19558ee8d6a2cab10867f8d927252"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0369.ckpt",
+      "sha256": "fd26568c3bcc27fd6d885f4cdaed7bd7f8c6cdcd70f88d2495ec3e222fc7898c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0379.ckpt",
+      "sha256": "95c103e25b0752b576ec4885afa8bd178e66ee306357c4aa2d446ddd73083405"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0389.ckpt",
+      "sha256": "42705d206f87d70a6ac4c65682bfb9edd5b2128b7c62423ead58bffecfbb20c3"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0399.ckpt",
+      "sha256": "38cb015c8a5b7e1ce4aa9209f8c46ef19ca391b9074d99b36f525eafc45bfbdd"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0409.ckpt",
+      "sha256": "ab574bb0ef581f2bd55326fc479438616b9c2f0de34cd30340295292d0cc3473"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0419.ckpt",
+      "sha256": "56286a812f4216ef0fffe6821fae6dd5364ac6cf7dae51066d8465b6380c968b"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0429.ckpt",
+      "sha256": "757d3b712ee07385f27188a10868692a778f526f5d85c442a5636169784391d6"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0439.ckpt",
+      "sha256": "0bc19619ec6f7c423469a9d6ac817b5a313c0248f3fe9d16558f7cec184afcc9"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0449.ckpt",
+      "sha256": "d3dd3c12e0a7269ff9797abbdb1a87fd2c20a2ef795a0a589544e30383dc4615"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0459.ckpt",
+      "sha256": "61317de74f93cc89c3ed3232b842b4605833656a5bf34c6752a61d61538a0779"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0469.ckpt",
+      "sha256": "17670af5cc35380c6106517cfc60adcbf7c8990798cbc8490f1a848d23d1ac84"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0479.ckpt",
+      "sha256": "0cac94beecea37bb8f3ab357d0a8d54f12db80527b572f039e39a83508098cdd"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0489.ckpt",
+      "sha256": "b64ce8b9545ad0e1163fb94a76991e7896a312d8a37972e7ca454cab96757f0c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0499.ckpt",
+      "sha256": "673272b681a148b586eb06226d8edf9b1475f516d7b9be72f5d323a5c9c517ad"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0509.ckpt",
+      "sha256": "5d6df67153fcb533a4b68146ef276350a909c30194cbe15fefdaa63cb034ff85"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0519.ckpt",
+      "sha256": "d7f73745a750b513d2230f238c36bf8c9da1496d9e5e00de4b866199f07df2d6"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0529.ckpt",
+      "sha256": "16b55c95d1e051b1e39bb44a5ddba87b58e7a00d34ecc3f49e327af5700d43ec"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0539.ckpt",
+      "sha256": "2f4d3eabb53a2702eb11a3a87edcf9759d406927cff75cd5fecf78a3d82b5177"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0549.ckpt",
+      "sha256": "fb61a3b9e45aa2603d4fe3d98a0dbcc402d8ae3cde6214cf243f05e21c6664f6"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0559.ckpt",
+      "sha256": "2c7ed211785b9a691b37a76f467d7878be0231613af9bbe7efd48da31d2307ac"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0569.ckpt",
+      "sha256": "3da80270d0ba2b37050c85b5999e0f9ed498bbf6524bd042a7ab0016e3971f21"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0579.ckpt",
+      "sha256": "fda35efbc70769709cc5cb6107032ec5c15d1e5b9e96d2ec113e5a751f7d6fd8"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0589.ckpt",
+      "sha256": "37c4b9edfcd7d1e75ed6da4f3728dcf66176ed2d82a8eeded02a670e94442621"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0599.ckpt",
+      "sha256": "228926446e7a8f4822086aab4e1d3adc1a450be03d18e3f8da5abc6f0f2711a3"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0609.ckpt",
+      "sha256": "2d9c169793f91760f3aecfeb65fd0ba2ce42a6a4cb3a42f9754ef5529720570c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0619.ckpt",
+      "sha256": "35a6aa404c334ba9808abfb5e715665c5e7c47047d1598d1d1a9e48b6606c965"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0629.ckpt",
+      "sha256": "3ba99bef875e2411b95516f5374c445a707286a45bec7290187923f30d77b9d4"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0639.ckpt",
+      "sha256": "b9c91b7aa6ffb97b31e7a5c9110b41c40f34a8222e12e6fde2fd84522d4e6e9c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0649.ckpt",
+      "sha256": "4cdae93ff042ecc8ac18fc50b1dbedb8c60815bbfe4c7698c175bfcf0d76ec50"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0659.ckpt",
+      "sha256": "72200da0ef55c435fbd52a764d5dec064e0df08771e0797a24c239340d4d8c5b"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0669.ckpt",
+      "sha256": "d776cd0ff35d295fc643b3bd5aed879ffdc693f6d4d3f884efeaea0024e1ce54"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0679.ckpt",
+      "sha256": "dff2604c968393b2a4fc3c9d199edb6ca1d236416fed37e583fd6377e7ed26b6"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0689.ckpt",
+      "sha256": "69ae7ec2d88271c27c892dbbc8d487d13a884400fda1062bd84169c0a40f698f"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0699.ckpt",
+      "sha256": "6f64ba4a729db9dc70d389bead662a9d1982daefe25040a4f6fbbc5cbc406878"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0709.ckpt",
+      "sha256": "d7c5e54b60045dc94602f458da1f2e19f135c564fd7688ef0031837de89267f6"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0719.ckpt",
+      "sha256": "1e5e66219b1f32683c7961facb7c20d91d50d1b48e02a188f71ee5428965f50c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0729.ckpt",
+      "sha256": "14226e12723f556dcc87560e05c569a6c7e5712fd0a411a81a40d99b20a4c688"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0739.ckpt",
+      "sha256": "d56c0627dad7d894385b43b2a3aaa7e7aef295614d05f33c82960f1e2b1faf74"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0749.ckpt",
+      "sha256": "450105d18fb4acc0f9f9436642dadda400291d54f53a6c6fd5b963cf8724507c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0759.ckpt",
+      "sha256": "0f04ab3e7c9e21ee6df4181a9413e6afac361037a6b19bc9c83476bed0bb148e"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0769.ckpt",
+      "sha256": "3daf15ece00a9866526b2c41a5f15949972b8ca2ab64d9210dfa813336167daa"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0779.ckpt",
+      "sha256": "af4a40bc1ddbd388e7874d2a4106a9caf7c44c5867023cef6e99ba1bb242bd87"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0789.ckpt",
+      "sha256": "aa2b22e573b6b23596d7f7735ba3b8386e60c74f95c60851a97fe27a9cc32dda"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0799.ckpt",
+      "sha256": "a4bfe03d52d8592335f099991c4aac804422225c050f7334d72922a1fc511f8b"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0809.ckpt",
+      "sha256": "b365b40eac2a7f9eecbb1642c8764c88f50b61d8e3df43d09a134da354c40b88"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0819.ckpt",
+      "sha256": "af539c713c7570faabc4304971edb3d4a36cddd12693745adf50f860cd6b4615"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0829.ckpt",
+      "sha256": "685705b1c9bbfa05d5a1de15ad7be1dde4b6848e94539583f12e982bb316b434"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0839.ckpt",
+      "sha256": "062255f1cbc7ac622bfc8819cfb8ea653ce11624287ff94a1aadea9967b43fc0"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0849.ckpt",
+      "sha256": "0f60f78f6880057fd270212fb97c85b6d93bc9533581c0bf0544a41af72067b0"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0859.ckpt",
+      "sha256": "0a6a61c37cb495bdc9cbcd6d07c0ba3bcf8f3cb613381439503bdfe75c5f2090"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0869.ckpt",
+      "sha256": "5c6696295668e0113115f51bca67894e56323505012623a599e651247ded61e8"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0879.ckpt",
+      "sha256": "6a9ec25d1cc85c8537749d9e43d51978e4150b4a2ad831a467bb011cc4581873"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0889.ckpt",
+      "sha256": "440b976c728662fd99967c2f81db9a9ca46983e87c0fe1b62bccedb0da50909c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0899.ckpt",
+      "sha256": "456a457df26b68776c1f06d119725ab2375fb609b72780b5c8593fbb2fd7a02a"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0909.ckpt",
+      "sha256": "b08e9fc443428d2a367d220928e8154c57ee1159648af7d2b725e29018991dce"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0919.ckpt",
+      "sha256": "a7e20558ce1874aa4a10d6b0ea944ccd6ece1f07d3e36df19e06111fe7267291"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0929.ckpt",
+      "sha256": "ef403d4378b94c91ebc95a552f86fc684edb00cf78c03213f0279bc463261efb"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0939.ckpt",
+      "sha256": "a9aebe3cda91394b5c9ef6c64adf63a9070b3fc3c42f868ede459d13d693e59b"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0949.ckpt",
+      "sha256": "8a08c2b041a6c557a035554651bd5f9bd003860bc133b74344a67e8339fd7fef"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0959.ckpt",
+      "sha256": "db2ce88913d535face967dabde295192185c6e7a72f817197f490dd4182d742d"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0969.ckpt",
+      "sha256": "8cb73a949f3fd70ff9d2a5bdd2eb90fc958c94b3e0e36e15a3a1e854e9bc3d39"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0979.ckpt",
+      "sha256": "76513f7aead419c71dfefe2201585741c9f65fd888f98c9985d8afa9e72a710a"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0989.ckpt",
+      "sha256": "80fa50212122c07c651e42b780a49a1eaefc8dc3c6cc4763e986b719feb0e62c"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\epoch_0999.ckpt",
+      "sha256": "fb28d287ce4007a9d8fc9a08a5f40300365e33f10002b10b9d7a16eeb552a234"
+    },
+    {
+      "path": "F:\\aicoding\\IIA_Data\\experiments\\otcfm_singlecell_native_full120_v4\\e0d92711fcb8e865b88a\\checkpoints\\last.ckpt",
+      "sha256": "fb28d287ce4007a9d8fc9a08a5f40300365e33f10002b10b9d7a16eeb552a234"
+    }
+  ],
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273,
+    "paper_scalar_targets": 702
+  },
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "actual_new_model_training_updates": 0,
+  "per_epoch_callback_history_available": false,
+  "all_original_experiments_complete": false
+}
