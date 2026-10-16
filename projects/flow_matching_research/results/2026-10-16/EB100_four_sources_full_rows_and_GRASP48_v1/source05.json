@@ -1,0 +1,98 @@
+{
+  "preparation_configuration": "configs/data/fm_CITE13176_GEO_raw_backed_QC_pca5.v2.json",
+  "preparation_handle": {
+    "pid": 11692,
+    "create_time": 1792114907.4238987,
+    "command": [
+      "C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-u",
+      "-m",
+      "scripts.flow_matching.prepare_CITE13176_GEO_raw_backed_QC_v2"
+    ],
+    "configuration": "configs/data/fm_CITE13176_GEO_raw_backed_QC_pca5.v2.json",
+    "configuration_sha256": "0db6de6639f512f13b7406c65757707b549fcdef3c0b8a034a1ef30763158883",
+    "all_QC_cells": 29394,
+    "all_RNA_features": 58676,
+    "prior_failure_preserved": true,
+    "all_original_experiments_complete": false
+  },
+  "family_locks": [
+    "experiments/runs/fm_otcfm_singlecell_readonly_replay_cpu.lock",
+    "experiments/runs/fm_otcfm_singlecell_training_cpu.lock"
+  ],
+  "maximum_lock_acquisition_seconds": 900,
+  "maximum_owned_window_seconds": 900,
+  "initial_headroom_grace_seconds": 120,
+  "acquisition_poll_seconds": 0.5,
+  "owned_poll_seconds": 2,
+  "original_preparation_settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 34359738368,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "maximum_worker_rss_bytes": 3221225472,
+    "maximum_worker_private_bytes": 6442450944
+  },
+  "original_preparation_stable_samples": 6,
+  "original_preparation_poll_seconds": 5,
+  "state_root": "experiments/runs/fm_CITE13176_GEO_nonpreemptive_data_window_v1",
+  "source_receipts": [
+    {
+      "path": "D:\\aicoding\\IIA_benchmark\\experiments\\runs\\fm_CITE13176_GEO_raw_backed_QC_pca5_v2\\launch.json",
+      "sha256": "641bb9e398cceaa553ea42effa2d29620530311212c775c45c40ccdb4ac6d1c3"
+    },
+    {
+      "path": "configs/data/fm_CITE13176_GEO_raw_backed_QC_pca5.v2.json",
+      "sha256": "0db6de6639f512f13b7406c65757707b549fcdef3c0b8a034a1ef30763158883"
+    },
+    {
+      "path": "configs/experiments/fm_otcfm_EB100_code_referenced_native_full90.v1.json",
+      "sha256": "d61263dda84c97d429eb4dc99ad66f68d1d1ef403d0341ca32abd0d1ccd7b06c"
+    },
+    {
+      "path": "configs/experiments/fm_otcfm_EB_CITE_native_full150.v2.json",
+      "sha256": "3504e90e27ea06765e8b51888b5d6f5371b22df399fbcb5ec1315fba840db503"
+    },
+    {
+      "path": "configs/experiments/fm_otcfm_singlecell_native_full120.v4.json",
+      "sha256": "b70ae2988c086f0935d76b1d8d9a7c8c8de47e0bed8d05154f796d5c65b95a86"
+    },
+    {
+      "path": "configs/reproducibility/fm_otcfm_EB100_full90_checkpoint_replay.v1.json",
+      "sha256": "0e92ec4b70d368b42648da1f4b630660a4c9644454caa8c80b10b54ac79e0b18"
+    },
+    {
+      "path": "configs/reproducibility/fm_otcfm_EB_CITE_full150_checkpoint_replay.v1.json",
+      "sha256": "2a320c5305f427e73799d28c37fb2e7a92e2a7ecf2b3b2a507ec3ef4de768c6b"
+    },
+    {
+      "path": "configs/reproducibility/fm_otcfm_singlecell_full120_checkpoint_replay.v2.json",
+      "sha256": "ef8a5eee8ed7af07e4d3b2c46c35622782aec330f02e2bb60b4b828361ddea10"
+    },
+    {
+      "path": "scripts/flow_matching/reserve_CITE_full_preprocessing_window_v1.py",
+      "sha256": "a3b433ffa26247fda46e04503a6b3d6670863f6842fe432bc67bafbd02d4546c"
+    },
+    {
+      "path": "scripts/flow_matching/run_cfm_ts_low_memory_queue_v2.py",
+      "sha256": "4619679071800d3851f0056c2b13c572532d4a1c24af80abddfc92c0dc545a2d"
+    },
+    {
+      "path": "scripts/flow_matching/run_tsad_queue.py",
+      "sha256": "ebb7ef07ded5d226f522343f49ffc5d697118b4ea820ff53fa1fe945beb2bcde"
+    },
+    {
+      "path": "tests/test_fm_CITE_full_preprocessing_window_v1.py",
+      "sha256": "42a14d50019058c9cc943f75636df889f7c2b6e1664840e9210945cef384ba31"
+    }
+  ],
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273,
+    "paper_scalar_targets": 702
+  },
+  "boundary": "One bounded natural-release window;only acquire both actual existing training/replay locks when both idle. Release earlier lock immediately if second lock is busy;never wait while owning only one. Allow the existing CITE controller own unchanged6x5second stable admission and original32GiB gate. Keep family slots reserved through the existing full data worker until terminal guard or900seconds. Deadline/emergency/missing owner releases only metadata locks;all numerical children continue under their original guards. No process signals,source edits,resource snapshot fabrication,guard lowering,epoch/batch/data changes or retry."
+}

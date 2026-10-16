@@ -1,0 +1,7 @@
+GRASP GNN / Swan / swan_sf / seed1107
+
+Full1500epochs/93000updates/54706parameters completed the original5source x10flow recipe,3935validation/72000test points. Native checkpoint restoration/reinference and independent full-array/forward-budget/metric checks passed. All48completed IDs equal immutable47-ID closure plus this model;all source/checkpoint/array/proof hashes were rechecked.
+
+Independent replay metrics: {"paper_retrospective": {"AP": 0.4088511231915698, "ROC": 0.6004809785369875, "ROC_undefined_reason": null, "Best_F1": 0.4633485558851054, "test_labels_used_for_threshold_optimization": true, "point_adjustment": false}, "validation_only_control": {"precision": 0.3653948314115184, "recall": 0.5817412935323383, "f1": 0.44885894704516227, "threshold": 20216.24260820311, "quantile": 0.99, "threshold_comparator": ">", "test_features_used_for_calibration": false, "test_labels_used_for_calibration": false, "point_adjustment": false}}
+
+GNN has5/10original Swan seeds1103..1107,with1108..1112 pending. Original score rtol0.0002/atol0.001,metric bounds,model/recipe budgets and resource guards remain. Frozen template prose incorrectly names tau1/seed1104;structured canonical/profile/checkpoint bindings prove GNN/seed1107. No bitwise replay,full10seed aggregate,strictTAB or original-author equivalence claim. Validation-only99% threshold/noPA F1=0.44885894704516227;test-label oracle BestF1=0.4633485558851054 remains diagnostic. Keep all9120entity models/480cohorts/10seeds and original45/681/273/702scope.
