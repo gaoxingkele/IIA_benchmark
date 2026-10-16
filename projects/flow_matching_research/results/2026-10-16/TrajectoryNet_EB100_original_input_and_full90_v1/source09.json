@@ -1,0 +1,36 @@
+{
+  "id": "fm_otcfm_EB100_code_referenced_native__otcfm",
+  "task": "single_cell_timepoint_interpolation",
+  "callable_implementation": "scripts.flow_matching.run_otcfm_EB100_code_referenced_native90_v1:instantiate_case",
+  "reproduction_status": "Full90 source-code-referenced original2020 public EB100 conditions; full18-case native preflight and original training/test budgets required.",
+  "native_author_yaml": "experiments/runs/flow_matching_campaign/sources/ot_cfm/original/runner/configs/model/otcfm.yaml",
+  "native_author_yaml_sha256": "cd134a839abffbcd1f2ce0bb0b7a5a1f815777dd55f2bb8c55fda7cdedf79bfe",
+  "author_target": "src.models.cfm_module.CFMLitModule",
+  "parameters": {
+    "net": {
+      "hidden_dims": [
+        64,
+        64,
+        64
+      ],
+      "batch_norm": false,
+      "activation": "selu"
+    },
+    "optimizer": {
+      "name": "AdamW",
+      "lr": 0.001,
+      "weight_decay": 1e-05
+    },
+    "sigma_min": 0.1,
+    "ot_sampler": "exact"
+  },
+  "dataset_and_protocol_binding": "configs/experiments/fm_otcfm_EB100_code_referenced_native_full90.v1.json",
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "data_citations": [
+    "https://github.com/KrishnaswamyLab/TrajectoryNet/blob/810c89b081f95405bc0ad42bfb3cb41038e13700/data/eb_velocity_v5.npz",
+    "https://arxiv.org/abs/2002.04461"
+  ],
+  "historical_paper_equivalence_certified": false,
+  "strict_TAB_anomaly_detection_method": false,
+  "compatibility": "Empty Torchdyn auxiliary args ABI only; original author vector-field equations, gradients, parameters, optimizer and solver settings retained. EB released trainbatch512 yields238 minimum validation samples. A readonly validation-only hparams view uses238, preserving train512/test loaders, all data/splits and original optimizer/stopping/budgets. Other branches keep128/512. Disclosed source repair; not identical historical validation."
+}
