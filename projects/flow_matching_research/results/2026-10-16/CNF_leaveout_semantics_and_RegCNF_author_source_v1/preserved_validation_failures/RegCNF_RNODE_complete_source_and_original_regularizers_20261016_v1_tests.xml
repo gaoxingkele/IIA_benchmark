@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="9" time="3.594" timestamp="2026-10-16T11:04:49.195878+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_complete_real_git_blob_verification_and_fingerprint" time="0.011" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[../outside]" time="0.004" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[/absolute]" time="0.003" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[source/../outside]" time="0.003" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[source/C:/outside]" time="0.003" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[source/a\\b]" time="0.003" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_missing_original_file_or_truncated_metadata_is_fatal" time="0.003" /><testcase classname="tests.test_fm_RegCNF_RNODE_original_regularizers_v1" name="test_native_original_kinetic_scaling_and_differentiation" time="0.857" /><testcase classname="tests.test_fm_RegCNF_RNODE_original_regularizers_v1" name="test_all_four_author_regularizers_execute_the_original_functions" time="0.007"><failure message="AssertionError: Tensor-likes are not close!&#10;&#10;Mismatched elements: 3 / 3 (100.0%)&#10;Greatest absolute difference: 46.23111111111098 at index (2,) (up to 1e-07 allowed)&#10;Greatest relative difference: 0.15582191780821913 at index (0,) (up to 1e-07 allowed)">def test_all_four_author_regularizers_execute_the_original_functions():
+        reg = original()
+        x = torch.arange(15, dtype=torch.float64).reshape(3, 5).requires_grad_()
+        t = torch.tensor(0.5, dtype=torch.float64, requires_grad=True)
+        dx = 2 * x + t
+        context = SimpleNamespace(sqjacnorm=torch.full((3,), 4.0, dtype=torch.float64))
+        torch.testing.assert_close(reg.directional_derivative(x, t, None, dx, None, None),
+                                   0.5 * (2 * dx).square().mean(dim=1))
+        # This checks the original implementation, including its native time-gradient
+        # normalization, without substituting an independently invented equation.
+        total = reg.total_derivative(x, t, None, dx, None, None)
+&gt;       torch.testing.assert_close(total, 0.5 * (2 * dx + torch.ones_like(dx) / x.numel()).square().mean(dim=1))
+E       AssertionError: Tensor-likes are not close!
+E       
+E       Mismatched elements: 3 / 3 (100.0%)
+E       Greatest absolute difference: 46.23111111111098 at index (2,) (up to 1e-07 allowed)
+E       Greatest relative difference: 0.15582191780821913 at index (0,) (up to 1e-07 allowed)
+
+tests\test_fm_RegCNF_RNODE_original_regularizers_v1.py:50: AssertionError</failure></testcase></testsuite></testsuites>

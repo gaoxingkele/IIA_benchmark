@@ -1,0 +1,36 @@
+{
+  "method": "Finlay_2020_regularized_neural_ODE_author_source",
+  "reproduction_status": "complete_pinned_original_source_acquired_native_experiments_pending",
+  "acquisition_configuration": "configs/acquisition/fm_RegCNF_RNODE_author_source.v1.json",
+  "source_root": "F:/aicoding/IIA_Data/flow_matching/RegCNF_RNODE_author_source_v1/original",
+  "source_commit": "8302dfb806284f6c42da0687d6100f4bac45726f",
+  "source_repository": "https://github.com/cfinlay/ffjord-rnode",
+  "citation": "https://arxiv.org/abs/2002.02798v3",
+  "source_training_entry": "train.py",
+  "source_model": "lib/layers/cnf.py:CNF",
+  "source_regularization_wrapper": "lib/layers/wrappers/cnf_regularization.py:RegularizedODEfunc",
+  "source_regularizers": {
+    "kinetic_energy": "lib/layers/wrappers/cnf_regularization.py:quadratic_cost",
+    "jacobian_norm2": "lib/layers/wrappers/cnf_regularization.py:jacobian_frobenius_regularization_fn",
+    "total_deriv": "lib/layers/wrappers/cnf_regularization.py:total_derivative",
+    "directional_penalty": "lib/layers/wrappers/cnf_regularization.py:directional_derivative"
+  },
+  "author_image_recipes": {
+    "MNIST": "example-scripts/mnist.sh",
+    "CIFAR10": "example-scripts/cifar10.sh",
+    "ImageNet64": "example-scripts/imagenet64.sh",
+    "CelebAHQ256_5bit": "example-scripts/celeba5bit.sh"
+  },
+  "original_image_environment_certified": false,
+  "full_original_image_training_complete": false,
+  "single_cell_adaptation_complete": false,
+  "single_cell_regularization_coefficients_certified": false,
+  "historical_OTCFM_RegCNF_equivalence_certified": false,
+  "historical_SF2M_RegCNF_equivalence_certified": false,
+  "complete_ablations_verified": false,
+  "tests": [
+    "tests/test_fm_RegCNF_RNODE_author_source_v1.py",
+    "tests/test_fm_RegCNF_RNODE_original_regularizers_v1.py"
+  ],
+  "boundary": "Original author source component coverage, not completed model training or single-cell reproduction. Preserve the original kinetic-energy one-half and feature-mean scaling and the native stochastic Jacobian-context estimator. The later SF2M Table4 Reg.CNF EB0.825 is explicitly starred as a borrowed result; its experiment recipe and dataset identity must be traced separately. Existing unregularized FFJORD, Onken OT-Flow and the separately repaired plain CNF cannot substitute for this baseline. Original 45 papers/681 method-baseline-ablation records/273 data tasks/702 scalar targets remain the minimum required scope."
+}

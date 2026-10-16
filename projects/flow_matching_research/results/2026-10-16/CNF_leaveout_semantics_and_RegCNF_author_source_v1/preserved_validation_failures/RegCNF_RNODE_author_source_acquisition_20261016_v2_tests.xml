@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="7" time="0.544" timestamp="2026-10-16T11:02:43.940343+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_complete_real_git_blob_verification_and_fingerprint" time="0.009" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[../outside]" time="0.003" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[/absolute]" time="0.003" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[source/../outside]" time="0.003" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[source/C:/outside]" time="0.004" /><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_no_unsafe_archive_member_can_be_extracted[source/a\\b]" time="0.003"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'Unsafe'&#10;  Actual message: 'Duplicate or unregistered source archive member'">tmp_path = WindowsPath('C:/Users/10175/AppData/Local/Temp/pytest-of-admin/pytest-235/test_no_unsafe_archive_member_4')
+bad = 'source/a\\b'
+
+    @pytest.mark.parametrize('bad', ['../outside', '/absolute', 'source/../outside', 'source/C:/outside', 'source/a\\b'])
+    def test_no_unsafe_archive_member_can_be_extracted(tmp_path, bad):
+        p = tmp_path / 'bad.zip'
+        with zipfile.ZipFile(p, 'w') as z:
+            # ZipInfo normalizes backslashes on Windows during construction; assign
+            # afterward to actually exercise a malicious raw archive member.
+            info = zipfile.ZipInfo('fixture')
+            info.filename = bad
+            z.writestr(info, b'x')
+&gt;       with pytest.raises(ValueError, match='Unsafe'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'Unsafe'
+E         Actual message: 'Duplicate or unregistered source archive member'
+
+tests\test_fm_RegCNF_RNODE_author_source_v1.py:34: AssertionError</failure></testcase><testcase classname="tests.test_fm_RegCNF_RNODE_author_source_v1" name="test_missing_original_file_or_truncated_metadata_is_fatal" time="0.004" /></testsuite></testsuites>
