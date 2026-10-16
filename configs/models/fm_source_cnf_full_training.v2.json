@@ -1,0 +1,19 @@
+{
+  "method": "source_derived_CNF_full_trajectory_likelihood",
+  "callable": "scripts.flow_matching.run_source_cnf_full120_v2.instantiate_case",
+  "source_model_configuration": "configs/models/fm_source_cnf_full_training.v1.json",
+  "hidden_dims": [64, 64, 64],
+  "expected_parameters": 9093,
+  "native_dimensions": 5,
+  "likelihood_trace": "exact",
+  "training_batch": 1024,
+  "max_epochs": 1000,
+  "validation_every_n_epochs": 10,
+  "early_stopping_patience_validation_checks": 100,
+  "validation_likelihood_excludes_requested_leftout": true,
+  "evaluation_inference_mode": false,
+  "full_training_plan_status": "full120_training_and_checkpoint_replay_implemented_requires_native_framework_lifecycle",
+  "historical_paper_equivalence_certified": false,
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "boundary": "Only corrects v1 metadata about the validation likelihood and isolates output paths. The source CNF exclusion branch runs for training and validation. Source default/experiment decay remain separate and no actual original-source numerical recipe is changed."
+}
