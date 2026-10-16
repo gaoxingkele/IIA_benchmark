@@ -14,6 +14,11 @@
 其他算法沿用各行原捕获时间，近期独立结果包仍需后续逐轨核验合并。
 空白还包括已完成但指标未定义的情况；原论文、TAB、新数据及全部论文消融的完整目标尚未完成。
 
+原论文单细胞轨道另见 `全420条件矩阵 <results/2026-10-16/Singlecell420_full_native30_delta_v4/all420_original_case_execution_matrix.csv>`_、
+`1232行源与原生标量对照 <results/2026-10-16/Singlecell420_full_native30_delta_v4/all_complete_native_original_scalar_comparisons.csv>`_，
+以及 `完整性与统计口径 <results/2026-10-16/Singlecell420_full_native30_delta_v4/README.md>`_。
+该快照源完成36/420，完整原生核验30/420，完整固定留出五种子组5/84；部分组不计算完整五种子均值或论文行。
+
 `LS4 完整四数据集续跑 <results/2026-10-11/ls4_cauchy_corrected_resume_v3/README.md>`_ 已修正当前环境的共轭 Cauchy 回退，
 40 项完整数据审计通过，40 个原始槽位及 387 万次生成器更新预算保持不变。
 两个修正版控制器正在等待完整 GPU 预检资源；审计和数学一致性诊断不作为生成性能结果。
