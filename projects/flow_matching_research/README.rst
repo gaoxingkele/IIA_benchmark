@@ -4,14 +4,15 @@
 算法与数据集实验结果
 ------------------
 
-2026-10-11 发布的完整清单见 `可筛选全部指标 <results/2026-10-11/all_algorithm_dataset_metrics_v8/results.html>`_，
-`全量 CSV <results/2026-10-11/all_algorithm_dataset_metrics_v8/all_algorithm_dataset_metrics.csv>`_，
-以及 `F1 数据集矩阵 <results/2026-10-11/all_algorithm_dataset_metrics_v8/overview.md>`_。
-本次快照共 7117 条汇总指标，1776 条有实测值，5341 条缺结果；指标条数不是训练次数。
-严格异常检测有 730 个登记组合，210 个完成预定重复、9 个部分重复，511 个暂无完整运行。
-严格异常检测、TAB 诊断、作者流程、原生方法、插补、历史记录与论文报告值分别列出。
-这份清单完整保留当前登记结果与缺口，全论文和全消融实验尚未全部完成。
-总表捕获后核验的 `Pi 双种子结果 <results/2026-10-11/pi_two_full_seed_audit_v2/README.md>`_ 单独保留；总表 Pi 仍为较早单种子记录。
+2026-10-16 的 v55 增量快照见 `可筛选指标表 <results/2026-10-16/all_algorithm_dataset_metrics_v55/results.html>`_，
+`全量 CSV <results/2026-10-16/all_algorithm_dataset_metrics_v55/all_algorithm_dataset_metrics.csv>`_，
+以及 `验证与口径说明 <results/2026-10-16/all_algorithm_dataset_metrics_v55/README.md>`_。
+共10991行指标，2320行有数值；指标行数不是训练次数，也不是已完成实验数。
+原v54全部8626行和捕获时间保留，增加CrossAD全139条件及生成重跑全70条件的独立轨道。
+新增数值只来自已完整核验的11个CrossAD条件和6个生成重跑条件；其余新增条件留空。
+固定检查点结果、五次评估器内部重复及五/十训练种子汇总分别标注，不能相互替代。
+其他算法沿用各行原捕获时间，近期独立结果包仍需后续逐轨核验合并。
+空白还包括已完成但指标未定义的情况；原论文、TAB、新数据及全部论文消融的完整目标尚未完成。
 
 `LS4 完整四数据集续跑 <results/2026-10-11/ls4_cauchy_corrected_resume_v3/README.md>`_ 已修正当前环境的共轭 Cauchy 回退，
 40 项完整数据审计通过，40 个原始槽位及 387 万次生成器更新预算保持不变。
@@ -126,10 +127,10 @@ ARA 参考文献工程
 当前CPU合成输入接口测试通过，仅验证接口。审计不启动训练、不修改现有队列；
 缺失实现与未覆盖消融继续纳入FM-001、FM-003、FM-004和FM-008，数值复现由FM-006验收。
 
-算法与数据集实验指标
-------------------
+历史算法与数据集指标快照
+------------------------------
 
-`最新完整指标清单 <results/2026-10-11/all_algorithm_dataset_metrics_v9/README.md>`_ 列出7117条算法—数据集技术指标及空缺，其中1776条有实测值；合并Pi最新2/6种子核验，其他轨道保留原核验时间。
+`2026-10-11 v9历史指标清单 <results/2026-10-11/all_algorithm_dataset_metrics_v9/README.md>`_ 列出当时7117条算法—数据集技术指标及空缺，其中1776条有实测值；合并当时Pi的2/6种子核验，其他轨道保留原核验时间。
 `全部指标筛选表 <results/2026-10-11/all_algorithm_dataset_metrics_v9/results.html>`_、
 `全量CSV <results/2026-10-11/all_algorithm_dataset_metrics_v9/all_algorithm_dataset_metrics.csv>`_、
 `全部可阅读指标 <results/2026-10-11/all_algorithm_dataset_metrics_v9/all_metrics.md>`_ 包含协议、完成数、均值、STD、SE、95%区间、论文值和来源。
