@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="9" skipped="0" tests="27" time="5.213" timestamp="2026-10-16T21:36:31.812329+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_windows_and_alignment_include_overlapping_tail" time="1.271" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_whole_payload_rejects_truncation_dtype_and_bitwise_changes[tail]" time="0.001" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_whole_payload_rejects_truncation_dtype_and_bitwise_changes[dtype]" time="0.000" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_whole_payload_rejects_truncation_dtype_and_bitwise_changes[one_bit]" time="0.000" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_whole_payload_rejects_truncation_dtype_and_bitwise_changes[signed_zero]" time="0.000" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_full_role_layout_rejects_missing_or_leaking_groups[missing_role]" time="0.000" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_full_role_layout_rejects_missing_or_leaking_groups[duplicate_prefix]" time="0.000" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_full_role_layout_rejects_missing_or_leaking_groups[role_contamination]" time="0.000" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_tie_ranks_micro_macro_and_per_segment_events_match_source" time="0.000"><failure message="ValueError: Require lowercase SHA256 provenance">def test_independent_tie_ranks_micro_macro_and_per_segment_events_match_source():
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_metrics_reject_protocol_and_metric_corruption[test_calibration]" time="0.001"><failure message="ValueError: Require lowercase SHA256 provenance">fault = 'test_calibration'
+
+    @pytest.mark.parametrize('fault', ['test_calibration', 'PA', 'labels', 'threshold', 'checkpoint', 'data', 'count', 'missing_budget'])
+    def test_independent_metrics_reject_protocol_and_metric_corruption(fault):
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_metrics_reject_protocol_and_metric_corruption[PA]" time="0.001"><failure message="ValueError: Require lowercase SHA256 provenance">fault = 'PA'
+
+    @pytest.mark.parametrize('fault', ['test_calibration', 'PA', 'labels', 'threshold', 'checkpoint', 'data', 'count', 'missing_budget'])
+    def test_independent_metrics_reject_protocol_and_metric_corruption(fault):
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_metrics_reject_protocol_and_metric_corruption[labels]" time="0.001"><failure message="ValueError: Require lowercase SHA256 provenance">fault = 'labels'
+
+    @pytest.mark.parametrize('fault', ['test_calibration', 'PA', 'labels', 'threshold', 'checkpoint', 'data', 'count', 'missing_budget'])
+    def test_independent_metrics_reject_protocol_and_metric_corruption(fault):
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_metrics_reject_protocol_and_metric_corruption[threshold]" time="0.001"><failure message="ValueError: Require lowercase SHA256 provenance">fault = 'threshold'
+
+    @pytest.mark.parametrize('fault', ['test_calibration', 'PA', 'labels', 'threshold', 'checkpoint', 'data', 'count', 'missing_budget'])
+    def test_independent_metrics_reject_protocol_and_metric_corruption(fault):
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_metrics_reject_protocol_and_metric_corruption[checkpoint]" time="0.001"><failure message="ValueError: Require lowercase SHA256 provenance">fault = 'checkpoint'
+
+    @pytest.mark.parametrize('fault', ['test_calibration', 'PA', 'labels', 'threshold', 'checkpoint', 'data', 'count', 'missing_budget'])
+    def test_independent_metrics_reject_protocol_and_metric_corruption(fault):
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_metrics_reject_protocol_and_metric_corruption[data]" time="0.001"><failure message="ValueError: Require lowercase SHA256 provenance">fault = 'data'
+
+    @pytest.mark.parametrize('fault', ['test_calibration', 'PA', 'labels', 'threshold', 'checkpoint', 'data', 'count', 'missing_budget'])
+    def test_independent_metrics_reject_protocol_and_metric_corruption(fault):
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_metrics_reject_protocol_and_metric_corruption[count]" time="0.001"><failure message="ValueError: Require lowercase SHA256 provenance">fault = 'count'
+
+    @pytest.mark.parametrize('fault', ['test_calibration', 'PA', 'labels', 'threshold', 'checkpoint', 'data', 'count', 'missing_budget'])
+    def test_independent_metrics_reject_protocol_and_metric_corruption(fault):
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_independent_metrics_reject_protocol_and_metric_corruption[missing_budget]" time="0.001"><failure message="ValueError: Require lowercase SHA256 provenance">fault = 'missing_budget'
+
+    @pytest.mark.parametrize('fault', ['test_calibration', 'PA', 'labels', 'threshold', 'checkpoint', 'data', 'count', 'missing_budget'])
+    def test_independent_metrics_reject_protocol_and_metric_corruption(fault):
+&gt;       dataset, payload, metrics = fixture_metrics()
+                                    ^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_industrial_SB_extended_full_replay_v1.py:64: in fixture_metrics
+    metrics = evaluate_saved(entities, payload['v_validation'], np.array([0., 1.]), 'raw', 'checkpoint', settings, 1103)['strict']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_tsad_experiment.py:93: in evaluate_saved
+    calibration = calibrate_validation(validation, false_alarm_percent=ratio, calibration_split='validation',
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+validation_scores = array([0., 1., 2., 3., 4., 5.]), false_alarm_percent = 0.1
+calibration_split = 'validation', calibration_dataset_sha256 = 'raw'
+model_artifact_sha256 = 'checkpoint'
+
+    def calibrate_validation(
+        validation_scores: np.ndarray, *, false_alarm_percent: float,
+        calibration_split: str, calibration_dataset_sha256: str,
+        model_artifact_sha256: str,
+    ) -&gt; FrozenThreshold:
+        """Freeze an alarm-budget quantile from a predeclared validation split.
+    
+        This does not certify that the validation split is clean: callers must
+        supply its audited manifest and keep anomaly-contamination metadata.
+        """
+        if calibration_split != "validation":
+            raise ValueError("Strict calibration requires the validation split")
+        if not 0 &lt; false_alarm_percent &lt; 100:
+            raise ValueError("false_alarm_percent must lie between 0 and 100")
+        for digest in (calibration_dataset_sha256, model_artifact_sha256):
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+&gt;               raise ValueError("Require lowercase SHA256 provenance")
+E               ValueError: Require lowercase SHA256 provenance
+
+src\iia_benchmark\evaluation\mtsad_strict.py:55: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_exact_full_source_gate_requires_successful_guard_and_all_twenty_epochs" time="0.025" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_failed_incomplete_or_unbound_source_never_enters_inference[guard_abort]" time="0.018" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_failed_incomplete_or_unbound_source_never_enters_inference[exit]" time="0.016" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_failed_incomplete_or_unbound_source_never_enters_inference[proof_hash]" time="0.017" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_failed_incomplete_or_unbound_source_never_enters_inference[losses]" time="0.021" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_failed_incomplete_or_unbound_source_never_enters_inference[couplings]" time="0.020" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_failed_incomplete_or_unbound_source_never_enters_inference[marginal]" time="0.020" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_failed_incomplete_or_unbound_source_never_enters_inference[score_hash]" time="0.019" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_checkpoint_restore_never_calls_fit_and_preserves_every_score" time="2.733" /><testcase classname="tests.test_fm_industrial_SB_extended_full_replay_v1" name="test_cold_registration_imports_no_numerical_libraries_and_retains_original_gates" time="0.109" /></testsuite></testsuites>
