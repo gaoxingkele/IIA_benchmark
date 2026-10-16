@@ -4,12 +4,12 @@
 算法与数据集实验结果
 ------------------
 
-2026-10-16 的 v58 增量快照见 `可筛选指标表 <results/2026-10-16/all_algorithm_dataset_metrics_v58/results.html>`_，
-`全量 CSV <results/2026-10-16/all_algorithm_dataset_metrics_v58/all_algorithm_dataset_metrics.csv>`_，
-以及 `验证与口径说明 <results/2026-10-16/all_algorithm_dataset_metrics_v58/README.md>`_。
-共10991行指标，2369行有数值；指标行数不是训练次数，也不是已完成实验数。
+2026-10-16 的 v59 增量快照见 `可筛选指标表 <results/2026-10-16/all_algorithm_dataset_metrics_v59/results.html>`_，
+`全量 CSV <results/2026-10-16/all_algorithm_dataset_metrics_v59/all_algorithm_dataset_metrics.csv>`_，
+以及 `验证与口径说明 <results/2026-10-16/all_algorithm_dataset_metrics_v59/README.md>`_。
+共10991行指标，2384行有数值；指标行数不是训练次数，也不是已完成实验数。
 原v54全部8626行和捕获时间保留，增加CrossAD全139条件及生成重跑全70条件的独立轨道。
-新增数值只来自已完整核验的14个CrossAD条件和7个生成重跑条件；其余新增条件留空。
+新增数值只来自已完整核验的15个CrossAD条件和7个生成重跑条件；其余新增条件留空。
 固定检查点结果、五次评估器内部重复及五/十训练种子汇总分别标注，不能相互替代。
 其他算法沿用各行原捕获时间，近期独立结果包仍需后续逐轨核验合并。
 空白还包括已完成但指标未定义的情况；原论文、TAB、新数据及全部论文消融的完整目标尚未完成。
@@ -25,7 +25,7 @@
 完整435826测试点、4种标签边界、43416次原始指标调用保留，2256次非有限输出未补零或静默剔除。
 第一套标签、验证1%阈值的实体macro F1为0.082353，加入PA后为0.251307；micro F1为0.248130，加入PA后为0.549058。
 本轨道1/878固定模型指标对照完成；实体bootstrap不是五训练种子区间，原始TAB指标函数对照也不认证TAB完整训练协议。
-此新完整结果包尚未并入上方v58表，所有范围与捕获时间分别保留。
+此新完整结果包尚未并入上方v59表，所有范围与捕获时间分别保留。
 
 `TranAD作者五分支独立源码轨道 <results/2026-10-16/TranAD_author_all109_five_branches_source_execution_v1/README.md>`_ 已补齐五个源类的可调用入口，
 并登记 `全部3270条件矩阵 <results/2026-10-16/TranAD_author_all109_five_branches_source_execution_v1/all3270_original_source_condition_matrix.csv>`_。
