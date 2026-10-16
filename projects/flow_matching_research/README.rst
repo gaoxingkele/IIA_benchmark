@@ -19,6 +19,14 @@
 以及 `完整性与统计口径 <results/2026-10-16/Singlecell420_full_native30_delta_v4/README.md>`_。
 该快照源完成36/420，完整原生核验30/420，完整固定留出五种子组5/84；部分组不计算完整五种子均值或论文行。
 
+原始TAB函数完整评分对照另见 `TranAD FP64／SMAP／seed1104 全54实体报告 <results/2026-10-16/TAB878_TranAD64_SMAP1104_full54_v1/README.md>`_、
+`804行实体macro指标 <results/2026-10-16/TAB878_TranAD64_SMAP1104_full54_v1/all804_entity_macro_metrics.csv>`_，
+以及 `52行固定阈值、PA与聚合方式对照 <results/2026-10-16/TAB878_TranAD64_SMAP1104_full54_v1/all52_threshold_and_PA_protocol_controls.csv>`_。
+完整435826测试点、4种标签边界、43416次原始指标调用保留，2256次非有限输出未补零或静默剔除。
+第一套标签、验证1%阈值的实体macro F1为0.082353，加入PA后为0.251307；micro F1为0.248130，加入PA后为0.549058。
+本轨道1/878固定模型指标对照完成；实体bootstrap不是五训练种子区间，原始TAB指标函数对照也不认证TAB完整训练协议。
+此新完整结果包尚未并入上方v57表，所有范围与捕获时间分别保留。
+
 `LS4 完整四数据集续跑 <results/2026-10-11/ls4_cauchy_corrected_resume_v3/README.md>`_ 已修正当前环境的共轭 Cauchy 回退，
 40 项完整数据审计通过，40 个原始槽位及 387 万次生成器更新预算保持不变。
 两个修正版控制器正在等待完整 GPU 预检资源；审计和数学一致性诊断不作为生成性能结果。
