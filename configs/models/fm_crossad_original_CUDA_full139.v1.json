@@ -1,0 +1,20 @@
+{
+  "method": "CrossAD_original_CUDA_FP32_complete139",
+  "callable": "scripts.flow_matching.run_crossad_original_CUDA_full139_v1.source_or_replay",
+  "configuration": "configs/experiments/fm_crossad_original_CUDA_full139.v1.json",
+  "source_queue": "configs/experiments/fm_crossad_complete_queue.v7.json",
+  "citation": "https://arxiv.org/abs/2510.12489",
+  "code_citation": "https://github.com/decisionintelligence/CrossAD/tree/ff0fb2d41291b76452898910312dd38ed3389bf3",
+  "data_citation": "Original author DADA datasets and full raw/cache receipts in the source queue",
+  "conditions": {"released_checkpoints": 7, "main_fresh_training": 42, "paper_reconstructed_ablations": 90},
+  "device": "cuda:0",
+  "weights_dtype": "float32",
+  "precision": "ieee",
+  "TF32": false,
+  "autocast": false,
+  "activation_checkpointing": false,
+  "new_independent_training_seed_slots": 0,
+  "tests": "tests/test_fm_crossad_original_CUDA_full139_v1.py",
+  "reproduction_status": "Full source budget, native shape probe, complete CPU/GPU comparison, original author evaluations and fresh full checkpoint replay; waiting on actual first complete CUDA condition",
+  "boundary": "All139 source conditions remain explicit. The existing CPU queue is unchanged. Actual GPU execution is a separately declared device protocol, never additional independent seeds or CPU completion credit. Table3 rows1..5 remain explicit paper reconstructions with unpublished author architectures unverified. Preserve every original dataset, full batch/sequence/channels, training maximum, earlystop, LR schedule, main/ablation algorithm, all native scores/tails/labels/rows and metrics/uncertainty. No historical framework, strictTAB or paper equivalence certification."
+}
