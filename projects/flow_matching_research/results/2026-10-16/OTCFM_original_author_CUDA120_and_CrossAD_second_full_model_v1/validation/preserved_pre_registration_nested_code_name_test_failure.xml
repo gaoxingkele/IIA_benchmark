@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="0.565" timestamp="2026-10-16T14:02:59.492728+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_otcfm_singlecell_original_CUDA_full120_v1" name="test_all120_original_science_and_all24_full_probes_survive_without_new_seeds" time="0.013" /><testcase classname="tests.test_fm_otcfm_singlecell_original_CUDA_full120_v1" name="test_only_exact_device_and_full_probe_observations_change_in_native_AST" time="0.014" /><testcase classname="tests.test_fm_otcfm_singlecell_original_CUDA_full120_v1" name="test_private_source_and_replay_keep_native_losses_and_all_independent_LP_checks" time="0.032"><failure message="assert False&#10; +  where False = all(&lt;generator object test_private_source_and_replay_keep_native_losses_and_all_independent_LP_checks.&lt;locals&gt;.&lt;genexpr&gt; at 0x000001DED0BC68E0&gt;)">def test_private_source_and_replay_keep_native_losses_and_all_independent_LP_checks():
+        c=s.registration();native,inspect,audit=s.modules(c)
+        assert native.QUEUE==s.CONFIG and inspect.native is native and audit.native is native
+        assert audit.inspect is inspect.inspect and audit.CONFIG==s.CONFIG
+        assert native.identity.__code__.co_code==s.original.identity.__code__.co_code
+        assert inspect.validate_record.__code__.co_code==s.integrity.validate_record.__code__.co_code
+&gt;       assert all(name in audit.worker.__code__.co_names for name in ['inspect','Trainer','test','isclose','load_state_dict'])
+E       assert False
+E        +  where False = all(&lt;generator object test_private_source_and_replay_keep_native_losses_and_all_independent_LP_checks.&lt;locals&gt;.&lt;genexpr&gt; at 0x000001DED0BC68E0&gt;)
+
+tests\test_fm_otcfm_singlecell_original_CUDA_full120_v1.py:41: AssertionError</failure></testcase><testcase classname="tests.test_fm_otcfm_singlecell_original_CUDA_full120_v1" name="test_GPU_emergency_monitor_keeps_all_original_CPU_resource_caps_and_own_child" time="0.018" /></testsuite></testsuites>

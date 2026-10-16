@@ -1,0 +1,18 @@
+{
+  "method": "original_author_singlecell_SBCFM_CUDA_FP32",
+  "callable": "scripts.flow_matching.run_otcfm_singlecell_original_CUDA_full120_v1.worker",
+  "configuration": "configs/experiments/fm_otcfm_singlecell_original_CUDA_full120.v1.json",
+  "source_model": "configs/models/fm_otcfm_singlecell_native__sbcfm.v4.json",
+  "execution_device": "cuda:0",
+  "weights_dtype": "float32",
+  "TF32": false,
+  "autocast": false,
+  "native_parameters": 9093,
+  "maximum_epochs": 1000,
+  "new_independent_training_seed_slots": 0,
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "data_citations": ["https://doi.org/10.17632/hhny5ff7yj.1", "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE194122"],
+  "tests": "tests/test_fm_otcfm_singlecell_original_CUDA_full120_v1.py",
+  "reproduction_status": "Full original batch/ODE GPU preflight and complete training/native W1 replay pending;separate device protocol",
+  "boundary": "Keep original Sinkhorn coupling and sigma1,existing disclosed normalized-pair assertion/empty-ODE-args compatibility,all source budgets/data/recipes/solvers. Same-device full native reinference and independent full exact-W1 LP checks required. No additional independent seeds,CPU replacement,historical equivalence or strictTAB certification."
+}
