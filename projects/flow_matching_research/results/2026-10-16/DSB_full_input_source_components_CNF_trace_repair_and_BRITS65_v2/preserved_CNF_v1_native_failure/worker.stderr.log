@@ -1,0 +1,48 @@
+Global seed set to 42
+Traceback (most recent call last):
+  File "D:\aicoding\IIA_benchmark\tmp\python\cpython-3.10-windows-x86_64-none\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "D:\aicoding\IIA_benchmark\tmp\python\cpython-3.10-windows-x86_64-none\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\preflight_otcfm_source_cnf_full_inputs_v1.py", line 165, in <module>
+    if __name__=='__main__':main()
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\preflight_otcfm_source_cnf_full_inputs_v1.py", line 161, in main
+    if a.worker:worker(c)
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\preflight_otcfm_source_cnf_full_inputs_v1.py", line 99, in worker
+    reg,loss=model.step(batch,training=True);objective=reg+loss;objective.backward()
+  File "<isolated_original_CNF_leaveout>", line 32, in step
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torch\nn\modules\module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\preflight_otcfm_source_cnf_full_inputs_v1.py", line 95, in forward
+    def forward(self,x,ts):self.starts.append(x.detach().clone());return self.inner(x,ts)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torch\nn\modules\module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\aicoding\IIA_benchmark\experiments\runs\flow_matching_campaign\sources\ot_cfm\original\runner\src\models\components\augmentation.py", line 338, in forward
+    input = module(*input)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torch\nn\modules\module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torchdyn\core\neuralde.py", line 94, in forward
+    t_eval, sol =  super().forward(x, t_span, save_at, args)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torchdyn\core\problems.py", line 89, in forward
+    return self.odeint(x, t_span, save_at, args)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torchdyn\core\problems.py", line 82, in odeint
+    return odeint(self.vf, x, t_span, self.solver, self.atol, self.rtol, interpolator=self.interpolator,
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torchdyn\numerics\odeint.py", line 88, in odeint
+    k1 = f_(t, x)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torchdyn\numerics\odeint.py", line 56, in <lambda>
+    f_ = lambda t, x: -f(-t, x)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torch\nn\modules\module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torchdyn\core\defunc.py", line 77, in forward
+    else: x = self.vf(t, x, args=args)
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torch\nn\modules\module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\aicoding\IIA_benchmark\experiments\runs\flow_matching_campaign\sources\ot_cfm\original\runner\src\models\components\augmentation.py", line 300, in forward
+    augs = [aug_fn(t, x, dx, SharedContext) for aug_fn in self.augmentation_list]
+  File "D:\aicoding\IIA_benchmark\experiments\runs\flow_matching_campaign\sources\ot_cfm\original\runner\src\models\components\augmentation.py", line 300, in <listcomp>
+    augs = [aug_fn(t, x, dx, SharedContext) for aug_fn in self.augmentation_list]
+  File "F:\aicoding\IIA_Data\environments\otcfm_author_py310_v1\lib\site-packages\torch\nn\modules\module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\aicoding\IIA_benchmark\experiments\runs\flow_matching_campaign\sources\ot_cfm\original\runner\src\models\components\augmentation.py", line 134, in forward
+    return -self.trace_estimator(dx, x) + 0 * x
+RuntimeError: The size of tensor a (1024) must match the size of tensor b (5) at non-singleton dimension 1
