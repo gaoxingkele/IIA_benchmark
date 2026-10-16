@@ -1,0 +1,58 @@
+{
+  "path": "scripts/mtsad/score_pot.py",
+  "sha256": "b37d2be5c6cc2e2be11ff6bd035d7c2b9303078f445faf417cdf6899050ce50d",
+  "faults": [
+    {
+      "old": "quantile(finite,1-level)",
+      "source": "sorted(init_data)[int(level*n)]",
+      "effect": "opposite_tail_initialization"
+    },
+    {
+      "old": "initial+sigma*log(risk*n/Nt)",
+      "source": "initial-sigma*log(risk*n/Nt)",
+      "effect": "reversed_zero_shape_extreme_quantile"
+    }
+  ],
+  "old_source_and_records_preserved": true,
+  "new_lane_uses_unmodified_author_Grimshaw_and_POT": true,
+  "scipy_genpareto_fit_is_not_original_Grimshaw": true,
+  "original_source_PA_index0_and_epsilon_retained": true,
+  "author_source_files": [
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/LICENSE",
+      "sha256": "4389d205c769d6edf92105fe2f4ac8cb8b8feabcef7baa359136dd3eec79cf12"
+    },
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/main.py",
+      "sha256": "0529c581d3d871bf5cc32316b45428ce9642650b8a0fa2e40e754341f57d4c0c"
+    },
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/preprocess.py",
+      "sha256": "cbc05abdc69bcbd9d6ca14d1a8f6238eded144c075caef2a268828183c67d0fe"
+    },
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/src/constants.py",
+      "sha256": "00f710d5ae8a4a5f14b9153abe6833f4eece52d8462d25522cfb8ebcf99735dc"
+    },
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/src/diagnosis.py",
+      "sha256": "42a9176c722dfb18cab82d651138ccc994e0d8d13937b845965a1de25609cb1d"
+    },
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/src/dlutils.py",
+      "sha256": "35265d47f3c1c0f999590ab25cf47774cfd2293c99ca3f842419f31dfef750fe"
+    },
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/src/models.py",
+      "sha256": "43a30e7caa7c8b28e91b5e875c724219c9c15789da1f6009bb2015fb1f81d84b"
+    },
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/src/pot.py",
+      "sha256": "83fd5dbd6e5c9f50840dc3ef891552c5bcf3691f403e294819260850c92bed46"
+    },
+    {
+      "path": "experiments/runs/fm_tsad_baseline_sources/sources/tranad_baselines/original/src/spot.py",
+      "sha256": "7d68506d28421da21247e6ac76e9684ed1a687820426695fe3016416b68035bb"
+    }
+  ]
+}

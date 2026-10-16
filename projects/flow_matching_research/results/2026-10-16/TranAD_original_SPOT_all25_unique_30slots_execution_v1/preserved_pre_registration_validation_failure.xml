@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="7" time="3.277" timestamp="2026-10-16T19:31:22.035258+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_tranad_original_SPOT_full30_v1" name="test_original_zero_shape_extreme_quantile_uses_negative_log_upper_tail" time="2.158" /><testcase classname="tests.test_fm_tranad_original_SPOT_full30_v1" name="test_original_initialize_uses_level_not_one_minus_level" time="0.013" /><testcase classname="tests.test_fm_tranad_original_SPOT_full30_v1" name="test_exact_original_POT_output_and_all_labels_keep_shared_threshold_and_inputs" time="0.101" /><testcase classname="tests.test_fm_tranad_original_SPOT_full30_v1" name="test_constant_training_population_is_undefined_not_a_percentile_replacement" time="0.001" /><testcase classname="tests.test_fm_tranad_original_SPOT_full30_v1" name="test_original_PA_index0_quirk_and_epsilon_are_preserved" time="0.013" /><testcase classname="tests.test_fm_tranad_original_SPOT_full30_v1" name="test_nonfinite_source_metric_is_retained_as_explicit_null" time="0.000" /><testcase classname="tests.test_fm_tranad_original_SPOT_full30_v1" name="test_all30_frozen_FP64_cases_two_tracks_and_own_source_receipts_remain" time="0.010"><failure message="ValueError: All fifteen original FP64 cases per data track required">def test_all30_frozen_FP64_cases_two_tracks_and_own_source_receipts_remain():
+&gt;       c=s.registration();assert len(c['entries'])==30
+          ^^^^^^^^^^^^^^^^
+
+tests\test_fm_tranad_original_SPOT_full30_v1.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def registration():
+        entries=[]
+        for module in [original,matched]:
+            c=read(ROOT/module.CONFIG)
+            selected=[e for e in c['entries'] if e['case']['family']=='tranad64']
+&gt;           if len(selected)!=15:raise ValueError('All fifteen original FP64 cases per data track required')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           ValueError: All fifteen original FP64 cases per data track required
+
+scripts\flow_matching\evaluate_tranad_original_SPOT_full30_v1.py:38: ValueError</failure></testcase></testsuite></testsuites>
