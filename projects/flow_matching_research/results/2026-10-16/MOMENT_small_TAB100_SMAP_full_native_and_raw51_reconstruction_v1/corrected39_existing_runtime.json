@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "original_runtime": "configs/runtime/fm_moment_full78_checkpoint_replay.v1.json",
+  "original_runtime_sha256": "bfbeee1100da957d8f4591563df7439adb868280fa51d59025939f9e2dc2da8e",
+  "required_original_cases": 78,
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273
+  },
+  "selected_ids": [
+    "fm_moment_pretrained_small__TAB100__psm__seed42",
+    "fm_moment_pretrained_small__TAB100__smap__seed42",
+    "fm_moment_pretrained_small__TAB100__msl__seed42",
+    "fm_moment_pretrained_small__TAB100__smd__seed42",
+    "fm_moment_pretrained_small__TAB100__swat__seed42",
+    "fm_moment_pretrained_small__TAB100__swan__seed42",
+    "fm_moment_pretrained_small__TAB100__cicids__seed42",
+    "fm_moment_pretrained_small__TAB100__tep_classic__seed42",
+    "fm_moment_pretrained_small__TAB100__skab__seed42",
+    "fm_moment_pretrained_small__TAB100__pronto_day2__seed42",
+    "fm_moment_pretrained_small__TAB100__pronto_day3__seed42",
+    "fm_moment_pretrained_small__TAB100__pronto_day4__seed42",
+    "fm_moment_pretrained_base__TAB100__psm__seed42",
+    "fm_moment_pretrained_base__TAB100__smap__seed42",
+    "fm_moment_pretrained_base__TAB100__msl__seed42",
+    "fm_moment_pretrained_base__TAB100__smd__seed42",
+    "fm_moment_pretrained_base__TAB100__swat__seed42",
+    "fm_moment_pretrained_base__TAB100__swan__seed42",
+    "fm_moment_pretrained_base__TAB100__cicids__seed42",
+    "fm_moment_pretrained_base__TAB100__tep_classic__seed42",
+    "fm_moment_pretrained_base__TAB100__skab__seed42",
+    "fm_moment_pretrained_base__TAB100__pronto_day2__seed42",
+    "fm_moment_pretrained_base__TAB100__pronto_day3__seed42",
+    "fm_moment_pretrained_base__TAB100__pronto_day4__seed42",
+    "fm_moment_pretrained_large__TAB100__psm__seed42",
+    "fm_moment_pretrained_large__TAB100__smap__seed42",
+    "fm_moment_pretrained_large__TAB100__msl__seed42",
+    "fm_moment_pretrained_large__TAB100__smd__seed42",
+    "fm_moment_pretrained_large__TAB100__swat__seed42",
+    "fm_moment_pretrained_large__TAB100__swan__seed42",
+    "fm_moment_pretrained_large__TAB100__cicids__seed42",
+    "fm_moment_pretrained_large__TAB100__tep_classic__seed42",
+    "fm_moment_pretrained_large__TAB100__skab__seed42",
+    "fm_moment_pretrained_large__TAB100__pronto_day2__seed42",
+    "fm_moment_pretrained_large__TAB100__pronto_day3__seed42",
+    "fm_moment_pretrained_large__TAB100__pronto_day4__seed42",
+    "fm_moment_pretrained_small__TAB100__smap__seed42__constant_fit_v2",
+    "fm_moment_pretrained_base__TAB100__smap__seed42__constant_fit_v2",
+    "fm_moment_pretrained_large__TAB100__smap__seed42__constant_fit_v2"
+  ],
+  "settings": {
+    "minimum_available_memory_bytes": 17179869184,
+    "minimum_commit_headroom_bytes": 34359738368,
+    "emergency_commit_headroom_bytes": 17179869184,
+    "guard_poll_seconds": 2,
+    "controller_yield_seconds": 2,
+    "maximum_worker_rss_bytes": 10737418240,
+    "maximum_worker_private_bytes": 12884901888
+  },
+  "resource_lock": "experiments/runs/fm_bounded_strict_baseline_cpu.lock",
+  "state_root": "experiments/runs/fm_moment_TAB100_metadata_recovery_v2",
+  "artifact_root": "F:/aicoding/IIA_Data/experiments/moment_TAB100_metadata_recovery_v2",
+  "controller_python": "C:/Users/10175/AppData/Local/Programs/Python/Python312/python.exe",
+  "source_receipts": [
+    {
+      "path": "scripts/flow_matching/run_moment_full_checkpoint_replay_v1.py",
+      "sha256": "0db5147ee2284964e1665b5921df7322085dd01ad24326778972c4d25582b0d8"
+    },
+    {
+      "path": "scripts/flow_matching/run_moment_TAB100_metadata_recovery_v2.py",
+      "sha256": "477345b909ed5ed010fcbb101f2615a907aff62cee9574666f281272e164c388"
+    },
+    {
+      "path": "tests/test_fm_moment_TAB100_metadata_recovery_v2.py",
+      "sha256": "b6c5d2952acd06122dcd3d3641d4879c458a0fa5a317d1da42e691f8bf35b1c3"
+    }
+  ],
+  "correction": {
+    "old_comparison": "audit['configured_sequence_length'] != job['window']",
+    "new_comparison": "audit['configured_sequence_length'] != _registered_checkpoint_length(case)",
+    "official_checkpoint_sequence_length": 512,
+    "external_window": 100,
+    "native_and_independent_numerical_bodies_changed": false
+  },
+  "citation": "https://arxiv.org/abs/2402.03885",
+  "data_citation": "https://github.com/decisionintelligence/TAB",
+  "boundary": "All39 registered context100 slots remain separate from context512 and original78 scope. Only proven v1 pre-native metadata rejections may enter new isolated attempts. No numerical training/inference retry,changed windows,padding,weights,data,thresholds,tolerances or resource policy. Historical guard gaps,preprocessing reconstruction,TAB harness and paper equivalence remain unproven."
+}
