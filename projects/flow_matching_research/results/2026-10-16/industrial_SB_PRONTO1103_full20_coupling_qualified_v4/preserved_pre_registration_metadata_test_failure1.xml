@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.625" timestamp="2026-10-16T21:26:46.881691+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_industrial_SB_math_diagnostic_lock_v4" name="test_only_exact_math_settings_select_separate_lock_and_full_guard_stays_same" time="0.001" /><testcase classname="tests.test_fm_industrial_SB_math_diagnostic_lock_v4" name="test_original_controller_source_is_unchanged_and_only_one_path_expression_changes" time="0.004"><failure message="assert (None, 0, ('i...ist_ok'), ...) == (None, 0, ('i...ist_ok'), ...)&#10;  &#10;  At index 11 diff: &lt;code object update at 0x0000025BB060DD70, file &quot;D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_industrial_SB_transport_extension_v3.py&quot;, line 119&gt; != &lt;code object update at 0x0000025BB060DBD0, file &quot;D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_industrial_SB_transport_extension_v3.py&quot;, line 119&gt;&#10;  Use -v to get more diff">def test_original_controller_source_is_unchanged_and_only_one_path_expression_changes():
+        before=(m.ROOT/(original.MODULE.replace('.','/')+'.py')).read_bytes()
+        entry=m.original_controller_with_diagnostic_lock()
+        assert (m.ROOT/(original.MODULE.replace('.','/')+'.py')).read_bytes()==before
+        assert entry.__globals__['_selected_stage_lock'] is m.selected_lock
+&gt;       assert entry.__code__.co_consts==original.controller.__code__.co_consts
+E       assert (None, 0, ('i...ist_ok'), ...) == (None, 0, ('i...ist_ok'), ...)
+E         
+E         At index 11 diff: &lt;code object update at 0x0000025BB060DD70, file "D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_industrial_SB_transport_extension_v3.py", line 119&gt; != &lt;code object update at 0x0000025BB060DBD0, file "D:\aicoding\IIA_benchmark\scripts\flow_matching\continue_industrial_SB_transport_extension_v3.py", line 119&gt;
+E         Use -v to get more diff
+
+tests\test_fm_industrial_SB_math_diagnostic_lock_v4.py:24: AssertionError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_math_diagnostic_lock_v4" name="test_numerical_children_and_worker_invocations_remain_the_original_source_commands" time="0.006" /></testsuite></testsuites>

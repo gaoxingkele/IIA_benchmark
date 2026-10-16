@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.541" timestamp="2026-10-16T21:27:16.174282+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_industrial_SB_math_diagnostic_lock_v4" name="test_only_exact_math_settings_select_separate_lock_and_full_guard_stays_same" time="0.001" /><testcase classname="tests.test_fm_industrial_SB_math_diagnostic_lock_v4" name="test_original_controller_source_is_unchanged_and_only_one_path_expression_changes" time="0.004"><failure message="AssertionError: assert b'\x87\x00\x8...x03Y\x00w\x01' == b'\x87\x00\x8...x03Y\x00w\x01'&#10;  &#10;  At index 181 diff: b'\x12' != b'\x13'&#10;  Use -v to get more diff">def test_original_controller_source_is_unchanged_and_only_one_path_expression_changes():
+        before=(m.ROOT/(original.MODULE.replace('.','/')+'.py')).read_bytes()
+        entry=m.original_controller_with_diagnostic_lock()
+        assert (m.ROOT/(original.MODULE.replace('.','/')+'.py')).read_bytes()==before
+        assert entry.__globals__['_selected_stage_lock'] is m.selected_lock
+        # The nested run code must differ at the selected lock expression; comparing
+        # nested code objects by identity would incorrectly reject this change.
+&gt;       assert entry.__code__.co_code==original.controller.__code__.co_code
+E       AssertionError: assert b'\x87\x00\x8...x03Y\x00w\x01' == b'\x87\x00\x8...x03Y\x00w\x01'
+E         
+E         At index 181 diff: b'\x12' != b'\x13'
+E         Use -v to get more diff
+
+tests\test_fm_industrial_SB_math_diagnostic_lock_v4.py:26: AssertionError</failure></testcase><testcase classname="tests.test_fm_industrial_SB_math_diagnostic_lock_v4" name="test_numerical_children_and_worker_invocations_remain_the_original_source_commands" time="0.008" /></testsuite></testsuites>
