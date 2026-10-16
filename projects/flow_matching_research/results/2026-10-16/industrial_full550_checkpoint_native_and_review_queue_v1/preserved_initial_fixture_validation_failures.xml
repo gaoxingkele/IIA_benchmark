@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="32" time="7.673" timestamp="2026-10-16T23:12:25.214239+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[False-100]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[False-101]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[False-199]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[False-200]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[False-201]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[False-351]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[True-100]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[True-101]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[True-199]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[True-200]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[True-201]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_original_overlap_and_tail_alignment_for_both_score_layouts[True-351]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_never_pad_drop_tail_or_accept_nonfinite_scores[missing_tail]" time="0.001" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_never_pad_drop_tail_or_accept_nonfinite_scores[nonfinite]" time="0.000" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_never_pad_drop_tail_or_accept_nonfinite_scores[wrong_width]" time="0.000" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_never_pad_drop_tail_or_accept_nonfinite_scores[wrong_window_count]" time="0.000" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_source_score_matches_restored_model_and_observed_formulas[independent]" time="1.831" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_source_score_matches_restored_model_and_observed_formulas[target]" time="0.005" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_source_score_matches_restored_model_and_observed_formulas[vp]" time="0.005" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_source_score_matches_restored_model_and_observed_formulas[sf2m_auxiliary]" time="0.002"><failure message="TypeError: CFMObjectiveDetector.__init__() got an unexpected keyword argument 'entropic_regularization'">family = 'sf2m_auxiliary'
+
+    @pytest.mark.parametrize('family',['independent','target','vp','sf2m_auxiliary','reflow2'])
+    def test_full_source_score_matches_restored_model_and_observed_formulas(family):
+        torch.set_num_threads(2)
+        stable=family=='sf2m_auxiliary';staged=family=='reflow2'
+        entry=('fm_reflow:ReflowCFMDetector' if staged else 'fm_objective_stable:StableCFMObjectiveDetector' if stable
+            else 'fm_objective_detectors:CFMObjectiveDetector')
+        params=dict(objective='sf2m' if stable else 'rectified' if staged else family,window=100,hidden_size=8,
+            epochs=1,batch_size=64,seed=1103,device='cpu',monte_carlo_samples=1,score_times=[.5],sigma=0.1)
+        if stable:params.update(score_weight=1.0,entropic_regularization=2.)
+        if staged:params.update(sigma=0.,reflow_stages=2,reflow_epochs=1,reflow_ode_steps=2,reflow_solver='heun')
+        config=dict(entrypoint='iia_benchmark.models.'+entry,parameters=params)
+&gt;       source=build_configured_method(config);values=np.random.default_rng(1103).normal(size=(3,100,2)).astype(np.float32)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_full550_checkpoint_replays_v1.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+config = {'entrypoint': 'iia_benchmark.models.fm_objective_stable:StableCFMObjectiveDetector', 'parameters': {'objective': 'sf2m', 'window': 100, 'hidden_size': 8, 'epochs': 1, ...}}
+overrides = None
+
+    def build_configured_method(config, overrides=None):
+        if not isinstance(config,dict):config=load_model_config(config)
+        entry=config.get('entrypoint')
+        if not entry:
+            raise ValueError('No callable registered: '+config.get('reproduction_status','unknown'))
+        module,symbol=entry.split(':',1)
+        if not module.startswith('iia_benchmark.models.'):
+            raise ValueError('Expected an explicit local model entrypoint')
+        implementation=getattr(importlib.import_module(module),symbol)
+        if not callable(implementation):raise TypeError('Configured symbol is not callable')
+        parameters={**config.get('parameters',{}),**(overrides or {})}
+&gt;       return implementation(**parameters)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: CFMObjectiveDetector.__init__() got an unexpected keyword argument 'entropic_regularization'
+
+scripts\flow_matching\model_registry.py:31: TypeError</failure></testcase><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_full_source_score_matches_restored_model_and_observed_formulas[reflow2]" time="0.010" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score[fm_strict_anomaly_transformer__psm__registered]" time="0.505" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score[fm_strict_dcdetector__psm__registered]" time="0.031"><failure message="RuntimeError: shape '[6, 60, 1]' is invalid for input of size 600">name = 'fm_strict_dcdetector__psm__registered'
+
+    @pytest.mark.parametrize('name',[
+        'fm_strict_anomaly_transformer__psm__registered','fm_strict_dcdetector__psm__registered',
+        'fm_strict_itransformer__psm__registered','fm_strict_timesnet__psm__registered',
+        'fm_strict_tranad__psm__registered','fm_strict_usad__psm__registered','fm_strict_usad__psm__signed_paper_loss'])
+    def test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score(name):
+        torch.set_num_threads(2)
+        config=deepcopy(s.read(s.ROOT/'configs/models/fm_strict_baselines'/(name+'.json')))
+        # Only a unit fixture: original registered550 configurations stay frozen.
+        config['parameters']['epochs']=1
+        source=build_configured_method(config,dict(seed=1103,device='cpu'))
+&gt;       data=np.random.default_rng(1103).normal(size=(3,100,2)).astype(np.float32);source.fit(data)
+                                                                                   ^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_full550_checkpoint_replays_v1.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\iia_benchmark\models\fm_legacy_window_adapter.py:34: in fit
+    self._delegate.fit(windows)
+src\iia_benchmark\models\mtsad_detectors.py:808: in fit
+    series, prior = model(batch)
+                    ^^^^^^^^^^^^
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py:1778: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py:1789: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = DCdetector(
+  (embedding_patch_size): ModuleList(
+    (0): DataEmbedding(
+      (value_embedding): TokenEmbedding(
+   ...inner_attention): DACStructure()
+    )
+  )
+  (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True, bias=True)
+)
+x = tensor([[[ 7.4473e-01,  4.6845e-01],
+         [-1.0283e+00, -6.2963e-02],
+         [-9.2892e-01,  2.1795e-01],
+       ...e+00],
+         [ 1.0059e+00,  7.9474e-02],
+         [ 7.0737e-01, -5.6102e-01],
+         [-2.4199e-01,  2.1917e-01]]])
+
+    def forward(self, x):
+        batch, _, channels = x.shape
+        mean = x.mean(dim=1, keepdim=True)
+        std = torch.sqrt(x.var(dim=1, keepdim=True, unbiased=False) + 1e-5)
+        x = (x - mean) / std
+        x_ori = self.embedding_window_size(x)
+        series_all: list = []
+        prior_all: list = []
+        for patch_index, patch in enumerate(patch_sizes):
+            patch_size_input = x.permute(0, 2, 1)
+            patch_num_input = x.permute(0, 2, 1)
+&gt;           patch_size_input = patch_size_input.reshape(
+                batch * channels, window // patch, patch
+            )
+E           RuntimeError: shape '[6, 60, 1]' is invalid for input of size 600
+
+src\iia_benchmark\models\mtsad_detectors.py:744: RuntimeError</failure></testcase><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score[fm_strict_itransformer__psm__registered]" time="0.038" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score[fm_strict_timesnet__psm__registered]" time="0.560" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score[fm_strict_tranad__psm__registered]" time="0.022"><failure message="ValueError: Every complete original input window required">name = 'fm_strict_tranad__psm__registered'
+
+    @pytest.mark.parametrize('name',[
+        'fm_strict_anomaly_transformer__psm__registered','fm_strict_dcdetector__psm__registered',
+        'fm_strict_itransformer__psm__registered','fm_strict_timesnet__psm__registered',
+        'fm_strict_tranad__psm__registered','fm_strict_usad__psm__registered','fm_strict_usad__psm__signed_paper_loss'])
+    def test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score(name):
+        torch.set_num_threads(2)
+        config=deepcopy(s.read(s.ROOT/'configs/models/fm_strict_baselines'/(name+'.json')))
+        # Only a unit fixture: original registered550 configurations stay frozen.
+        config['parameters']['epochs']=1
+        source=build_configured_method(config,dict(seed=1103,device='cpu'))
+        data=np.random.default_rng(1103).normal(size=(3,100,2)).astype(np.float32);source.fit(data)
+        saved=checkpoint(source,config);job=dict(window=100,parameter_overrides=saved['overrides'])
+        model,score,obs=s.restore(saved,job,config,2);before=s.check_weights(model,saved)
+&gt;       actual=score(data);expected=source.score(data)
+               ^^^^^^^^^^^
+
+tests\test_fm_industrial_full550_checkpoint_replays_v1.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+windows = array([[[ 1.6480032 , -0.7965409 ],
+        [-1.1044647 , -0.326072  ],
+        [ 1.8303188 ,  0.2606191 ],
+        [ ...   [-0.13478626, -0.47476986],
+        [-0.36032337, -0.9450575 ],
+        [ 0.71208096, -0.74894655]]], dtype=float32)
+
+    def score(windows):
+        if windows.ndim!=3 or windows.shape[1]!=delegate.window or not np.isfinite(windows).all():
+&gt;           raise ValueError('Every complete original input window required')
+E           ValueError: Every complete original input window required
+
+scripts\flow_matching\legacy_baseline_checkpoint_math_v1.py:82: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score[fm_strict_usad__psm__registered]" time="0.015" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_all_seven_legacy_architectures_restore_without_fit_and_preserve_source_score[fm_strict_usad__psm__signed_paper_loss]" time="0.012" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_corrupted_checkpoint_dtype_cannot_be_silently_cast_and_certified" time="0.008"><failure message="ValueError: Every original tensor requires exact dtype,shape and content bytes">def test_corrupted_checkpoint_dtype_cannot_be_silently_cast_and_certified():
+        config=dict(entrypoint='iia_benchmark.models.fm_objective_detectors:CFMObjectiveDetector',parameters=dict(
+            objective='independent',window=100,hidden_size=8,epochs=1,device='cpu',seed=1103))
+        torch.set_num_threads(2);source=build_configured_method(config);source.fit(np.zeros((2,100,2),dtype=np.float32))
+        saved=checkpoint(source,config);key=next(iter(saved['modules']['_model']));saved['modules']['_model'][key]=saved['modules']['_model'][key].double()
+&gt;       model,_,_=s.restore(saved,dict(window=100,parameter_overrides=saved['overrides']),config,2)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_fm_industrial_full550_checkpoint_replays_v1.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\replay_industrial_full550_checkpoints_v1.py:133: in restore
+    model=restore_model(checkpoint,job,configuration,features)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\reflow_checkpoint_evidence_v1.py:27: in restore_model
+    for key,value in model._model.state_dict().items():tensor_bytes(value,checkpoint['modules']['_model'][key])
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+actual = tensor([[-0.0598, -0.0476, -0.0477,  ...,  0.0401, -0.0489,  0.0623],
+        [ 0.0384, -0.0249,  0.0464,  ..., -0.045...0562,  0.0440,  ...,  0.0357,  0.0483, -0.0153],
+        [-0.0138,  0.0369, -0.0326,  ...,  0.0496,  0.0210, -0.0681]])
+expected = tensor([[-0.0598, -0.0476, -0.0477,  ...,  0.0401, -0.0489,  0.0623],
+        [ 0.0384, -0.0249,  0.0464,  ..., -0.045...,  0.0483, -0.0153],
+        [-0.0138,  0.0369, -0.0326,  ...,  0.0496,  0.0210, -0.0681]],
+       dtype=torch.float64)
+
+    def tensor_bytes(actual,expected):
+        import torch
+        if (actual.device.type!='cpu' or expected.device.type!='cpu' or actual.dtype!=expected.dtype or actual.shape!=expected.shape
+                or not torch.equal(actual.contiguous().reshape(-1).view(torch.uint8),expected.contiguous().reshape(-1).view(torch.uint8))):
+&gt;           raise ValueError('Every original tensor requires exact dtype,shape and content bytes')
+E           ValueError: Every original tensor requires exact dtype,shape and content bytes
+
+scripts\flow_matching\reflow_checkpoint_evidence_v1.py:15: ValueError</failure></testcase><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_missing_source_is_pending_and_does_not_create_artifacts" time="0.005" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_only_explicit_native_and_review_phases_are_callable" time="0.000" /><testcase classname="tests.test_fm_industrial_full550_checkpoint_replays_v1" name="test_cold_full_scope_registration_retains_original_resources_and_has_no_numeric_imports" time="0.458"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;&#10;    File &quot;D:\aicoding\IIA_benchmark\scripts\flow_matching\replay_industrial_full550_checkpoints_v1.py&quot;, line 75, in verify&#10;      raise ValueError('Explicit complete source architecture and CPU scoring protocol required')&#10;  ValueError: Explicit complete source architecture and CPU scoring protocol required&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', '-B', '-X', 'utf8'...U scoring protocol required\')\nValueError: Explicit complete source architecture and CPU scoring protocol required\n').returncode">def test_cold_full_scope_registration_retains_original_resources_and_has_no_numeric_imports():
+        code=('import sys;from scripts.flow_matching import replay_industrial_full550_checkpoints_v1 as s;'
+            'c=s.registration();q,m,j,e=s.verify(c);assert len(j)==550 and len(e)==550;'
+            'assert c["source_cpu_threads"]==2 and c["settings"]["minimum_commit_headroom_bytes"]==32*2**30;'
+            'assert c["resource_lock"]=="experiments/runs/fm_bounded_strict_baseline_cpu.lock";'
+            'assert c["new_optimizer_updates"]==0 and not c["independent_historical_training_updates"];'
+            'assert not any(n in sys.modules for n in ["torch","numpy","sklearn","scipy","pandas"])')
+        result=subprocess.run([sys.executable,'-B','-X','utf8','-c',code],cwd=s.ROOT,capture_output=True,text=True)
+&gt;       assert result.returncode==0,result.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "&lt;string&gt;", line 1, in &lt;module&gt;
+E           File "D:\aicoding\IIA_benchmark\scripts\flow_matching\replay_industrial_full550_checkpoints_v1.py", line 75, in verify
+E             raise ValueError('Explicit complete source architecture and CPU scoring protocol required')
+E         ValueError: Explicit complete source architecture and CPU scoring protocol required
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['C:\\Users\\10175\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', '-B', '-X', 'utf8'...U scoring protocol required\')\nValueError: Explicit complete source architecture and CPU scoring protocol required\n').returncode
+
+tests\test_fm_industrial_full550_checkpoint_replays_v1.py:115: AssertionError</failure></testcase></testsuite></testsuites>
