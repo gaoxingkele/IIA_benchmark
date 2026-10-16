@@ -1,0 +1,50 @@
+{
+  "output_directory": "F:/aicoding/IIA_Data/flow_matching/otcfm_released_EB_CITE_lossless_native_inputs_v1",
+  "inputs": [
+    {
+      "id": "released_author_EB",
+      "source": "data/public_datasets/flow_matching/project_additions/otcfm_author_singlecell_mendeley/ebdata_v3.h5ad",
+      "source_sha256": "0233307058f579636e298a842a17c2e0fb58c128f5bb7cf6f2563775fbc6124c",
+      "cells": 18203,
+      "released_PC_dimensions": 50,
+      "label_key": "sample_labels",
+      "model_timepoint_counts": {
+        "0": 2656,
+        "1": 4374,
+        "2": 3650,
+        "3": 3873,
+        "4": 3650
+      },
+      "filename": "EB_author_loader_input.npz",
+      "boundary": "Author EB artifact stores50 PCs, whereas paper describes100; the required first5 are finite but historical normalization/PCA identity remains uncertified."
+    },
+    {
+      "id": "released_author_CITE",
+      "source": "data/public_datasets/flow_matching/project_additions/otcfm_author_singlecell_mendeley/op_cite_inputs_0.h5ad",
+      "source_sha256": "fa1d117df3d6c23e0b80a997a259bcac3a79ad27d581e1a6654e107c39885e4c",
+      "cells": 31240,
+      "released_PC_dimensions": 100,
+      "label_key": "day",
+      "model_timepoint_counts": {
+        "2": 7476,
+        "3": 6999,
+        "4": 9511,
+        "7": 7254
+      },
+      "filename": "CITE_author_loader_input.npz",
+      "boundary": "Released CITE artifact contains donor32606, not paper-described13176; keep separate released-author and independent-paper-described data tracks."
+    }
+  ],
+  "source_acquisition": "configs/acquisition/fm_otcfm_author_singlecell_mendeley.v1.json",
+  "source_audit": "projects/flow_matching_research/results/2026-10-16/OTCFM_first_complete_native_model_and_full120_replay_v1/EB_CITE_complete_released_input_audit.json",
+  "source_audit_sha256": "ef7fc1a5d9cbce09e284999796b62d8eb144cdaf7b02e960f03361a0f244fabc",
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "data_citation": "https://doi.org/10.17632/hhny5ff7yj.1",
+  "original_scope": {
+    "papers": 45,
+    "method_baseline_ablation_records": 681,
+    "original_data_task_records": 273,
+    "paper_scalar_targets": 702
+  },
+  "boundary": "All original50/100 PC columns and every author cell are retained exactly, not downsampled. Native max_dim5/whitenTrue applies once. EB categories map to their existing ordinal0..4 times; CITE retains numeric2/3/4/7 days. No raw overwrite, new PCA or model training; historical paper identity remains uncertified."
+}

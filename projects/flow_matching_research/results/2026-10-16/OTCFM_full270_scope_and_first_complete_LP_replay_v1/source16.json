@@ -1,0 +1,36 @@
+{
+  "id": "fm_otcfm_EB_CITE_native__sbcfm",
+  "task": "single_cell_timepoint_interpolation",
+  "callable_implementation": "scripts.flow_matching.run_otcfm_EB_CITE_native150_v2:instantiate_case",
+  "reproduction_status": "Full150 released-author EB/CITE grid registered; gated30 native preflight and complete original training/test evidence required. Not certified historical-paper identity.",
+  "native_author_yaml": "experiments/runs/flow_matching_campaign/sources/ot_cfm/original/runner/configs/model/sbcfm.yaml",
+  "native_author_yaml_sha256": "7515cbab03f5ad7363622c4fd7fd100bd8017b9dd6e6ced61d8a7d191ecd9f99",
+  "author_target": "src.models.cfm_module.SBCFMLitModule",
+  "parameters": {
+    "net": {
+      "hidden_dims": [
+        64,
+        64,
+        64
+      ],
+      "batch_norm": false,
+      "activation": "selu"
+    },
+    "optimizer": {
+      "name": "AdamW",
+      "lr": 0.001,
+      "weight_decay": 1e-05
+    },
+    "sigma_min": 1.0,
+    "ot_sampler": "sinkhorn"
+  },
+  "dataset_and_protocol_binding": "configs/experiments/fm_otcfm_EB_CITE_native_full150.v2.json",
+  "citation": "https://arxiv.org/abs/2302.00482",
+  "data_citations": [
+    "https://doi.org/10.17632/hhny5ff7yj.1",
+    "https://www.kaggle.com/competitions/open-problems-multimodal/data"
+  ],
+  "historical_paper_equivalence_certified": false,
+  "strict_TAB_anomaly_detection_method": false,
+  "compatibility": "Empty Torchdyn auxiliary args ABI only; original author vector-field equations, gradients, parameters, optimizer and solver settings retained. Original Gaussian formula via normalized-pair view repairs released non-trajectory assertion; original parent pair selection, Sinkhorn, leaveout bridging and physical-time rescaling retained. Algorithm4/Eq21 reproduction repair; not certified historical code. EB released trainbatch512 yields266 minimum validation samples. A readonly validation-only hparams view uses266, preserving train512/test loaders, all data/splits and original optimizer/stopping/budgets. Other branches keep128/512. Disclosed source repair; not identical historical validation."
+}
