@@ -1,0 +1,18 @@
+{
+  "method": "original_TrajectoryNet_and_RNODE_regularizer_value_gradient_conformance",
+  "callable": "scripts.flow_matching.audit_trajectorynet_rnode_regularizer_semantics_v1.compare",
+  "reproduction_status": "analytic_original_source_conformance_only_full_EB_training_and_coefficient_binding_pending",
+  "citations": [
+    "https://proceedings.mlr.press/v119/tong20a/tong20a-supp.pdf",
+    "https://github.com/KrishnaswamyLab/TrajectoryNet/tree/810c89b081f95405bc0ad42bfb3cb41038e13700",
+    "https://arxiv.org/abs/2002.02798v3",
+    "https://github.com/cfinlay/ffjord-rnode/tree/8302dfb806284f6c42da0687d6100f4bac45726f"
+  ],
+  "trajectorynet_energy": "batch_mean(sum_features(dx**2))",
+  "rnode_energy": "per_sample(0.5*mean_features(dx**2))",
+  "trajectorynet_Jacobian": "batch_mean(Frobenius(J)/dimensions)",
+  "rnode_Jacobian": "unchanged ODE context sqjacnorm estimator tensor",
+  "EB_Jacobian_coefficient": null,
+  "full_original_energy_grid_training_complete": false,
+  "boundary": "Analytic value/gradient gate only. Energy coefficients differ by 2*dimensions under matched vector fields; Jacobian losses are different functions so no single universal coefficient conversion is asserted. RNODE estimator identity is checked without claiming that a supplied analytic context is a native full ODE estimator execution. No historical EB recipe inferred; unresolved original45 energy models per protocol remain required."
+}
