@@ -4,12 +4,12 @@
 算法与数据集实验结果
 ------------------
 
-2026-10-16 的 v55 增量快照见 `可筛选指标表 <results/2026-10-16/all_algorithm_dataset_metrics_v55/results.html>`_，
-`全量 CSV <results/2026-10-16/all_algorithm_dataset_metrics_v55/all_algorithm_dataset_metrics.csv>`_，
-以及 `验证与口径说明 <results/2026-10-16/all_algorithm_dataset_metrics_v55/README.md>`_。
-共10991行指标，2320行有数值；指标行数不是训练次数，也不是已完成实验数。
+2026-10-16 的 v56 增量快照见 `可筛选指标表 <results/2026-10-16/all_algorithm_dataset_metrics_v56/results.html>`_，
+`全量 CSV <results/2026-10-16/all_algorithm_dataset_metrics_v56/all_algorithm_dataset_metrics.csv>`_，
+以及 `验证与口径说明 <results/2026-10-16/all_algorithm_dataset_metrics_v56/README.md>`_。
+共10991行指标，2335行有数值；指标行数不是训练次数，也不是已完成实验数。
 原v54全部8626行和捕获时间保留，增加CrossAD全139条件及生成重跑全70条件的独立轨道。
-新增数值只来自已完整核验的11个CrossAD条件和6个生成重跑条件；其余新增条件留空。
+新增数值只来自已完整核验的12个CrossAD条件和6个生成重跑条件；其余新增条件留空。
 固定检查点结果、五次评估器内部重复及五/十训练种子汇总分别标注，不能相互替代。
 其他算法沿用各行原捕获时间，近期独立结果包仍需后续逐轨核验合并。
 空白还包括已完成但指标未定义的情况；原论文、TAB、新数据及全部论文消融的完整目标尚未完成。
