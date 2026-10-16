@@ -1,0 +1,23 @@
+{
+  "method": "TrajectoryNet_source_with_returned_best_checkpoint_state_v1",
+  "callable": "iia_benchmark.models.trajectorynet_best_checkpoint_v1.corrected_functions",
+  "citation": "https://arxiv.org/abs/2002.04461v2",
+  "source_repository": "https://github.com/KrishnaswamyLab/TrajectoryNet",
+  "source_commit": "810c89b081f95405bc0ad42bfb3cb41038e13700",
+  "original_training_source_sha256": "d2a0ece7162369faa4a8ff4875376067d3cbea942191590085348029889827ab",
+  "author_source_modified": false,
+  "source_changes": [
+    "Return the existing local best_loss from original train_eval",
+    "Assign the train_eval return to original train caller best_loss"
+  ],
+  "maximum_training_iterations": 10000,
+  "training_batch_size": 1000,
+  "optimizer": "unchanged original torch.optim.Adam",
+  "loss_backward_optimizer_updates_changed": false,
+  "solver_tolerance_changed": false,
+  "tests": "tests/test_fm_trajectorynet_best_checkpoint_v1.py",
+  "reproduction_status": "isolated_control_flow_correction_implemented_training_not_yet_executed",
+  "completed_training_models": 0,
+  "historical_paper_checkpoint_selected_by_this_fix": false,
+  "boundary": "The returned-best state corrects a proven defect in the pinned source. It is a separately named correction, never evidence that published historical results used this bug or that an existing author checkpoint was selected by this corrected code. The original 10000 iterations and numerical bodies are retained. Existing replay and other active workers are unchanged."
+}

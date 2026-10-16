@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="2.427" timestamp="2026-10-16T11:58:55.741487+08:00" hostname="JINLONG3090"><testcase classname="tests.test_fm_trajectorynet_author_replay_v1" name="test_released_checkpoint_is_complete_original_model_not_new_seed_or_final_step_proof" time="0.001" /><testcase classname="tests.test_fm_trajectorynet_author_replay_v1" name="test_literal_author_arguments_bind_density_only_and_exact_original_budget" time="0.003"><failure message="ValueError: Exactly one original logged Namespace required">def test_literal_author_arguments_bind_density_only_and_exact_original_budget():
+&gt;       args=s.logged_arguments((SOURCE/'results/fig8_results/logs').read_text())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_fm_trajectorynet_author_replay_v1.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+text = '/home/atong/TrajectoryNet/src/scrna.py\n""" scrna.py\n\nLearns ODE from scrna data\n\n"""\nimport os\nimport matplotl...5000)\n[TEST] Iter 10000 | Test Loss 3.114314 | NFE 68\nSkipping vis as data dimension is &gt;2\nTraining has finished.\n'
+
+    def logged_arguments(text):
+        lines=[line for line in text.splitlines() if line.startswith('Namespace(')]
+&gt;       if len(lines)!=1:raise ValueError('Exactly one original logged Namespace required')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Exactly one original logged Namespace required
+
+src\iia_benchmark\models\trajectorynet_author_replay_v1.py:15: ValueError</failure></testcase><testcase classname="tests.test_fm_trajectorynet_author_replay_v1" name="test_nonliteral_namespace_and_pickle_code_execution_are_rejected" time="0.000" /><testcase classname="tests.test_fm_trajectorynet_author_replay_v1" name="test_original_emd_default_is_W2_and_euclidean_keyword_would_be_sqrt_W1" time="0.102" /></testsuite></testsuites>
