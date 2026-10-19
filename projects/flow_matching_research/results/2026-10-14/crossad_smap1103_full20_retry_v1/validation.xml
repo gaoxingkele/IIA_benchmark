@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="32" time="13.922" timestamp="2026-10-14T00:42:01.489643+08:00" hostname="JINLONG3090"><testcase classname="tests.test_crossad_smap_full_retry_v1" name="test_all139_slots_unchanged_except_one_fresh_output" time="0.084" /><testcase classname="tests.test_crossad_smap_full_retry_v1" name="test_full_original_recipe_required[train_epochs-19]" time="0.052" /><testcase classname="tests.test_crossad_smap_full_retry_v1" name="test_full_original_recipe_required[batch_size-64]" time="0.057" /><testcase classname="tests.test_crossad_smap_full_retry_v1" name="test_full_original_recipe_required[patience-2]" time="0.050" /><testcase classname="tests.test_crossad_smap_full_retry_v1" name="test_actual_six_epoch_weight_only_state_is_preserved" time="0.832" /><testcase classname="tests.test_crossad_smap_full_retry_v1" name="test_claimed_partial_epoch_credit_rejected" time="0.680" /><testcase classname="tests.test_crossad_smap_full_retry_v1" name="test_budget_guards_and_actual_native_preflight_verified" time="5.009"><failure message="MemoryError">def test_budget_guards_and_actual_native_preflight_verified():
+        config = retry.previous.read(retry.ROOT / CONFIG)
+&gt;       queue, job, _ = retry.verify(config, check_live=False)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_crossad_smap_full_retry_v1.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\crossad_smap1103_full_retry_v1.py:78: in verify
+    return FunctionType(previous.verify.__code__, namespace)(config, root, check_live)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\crossad_gecco1103_full_retry_v1.py:120: in verify
+    if digest(root / name) != expected_sha:
+       ^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_light_controller.py:40: in digest
+    for block in iter(lambda: stream.read(1024*1024), b''):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+&gt;   for block in iter(lambda: stream.read(1024*1024), b''):
+                              ^^^^^^^^^^^^^^^^^^^^^^
+E   MemoryError
+
+scripts\flow_matching\run_light_controller.py:40: MemoryError</failure></testcase><testcase classname="tests.test_crossad_smap_full_retry_v1" name="test_live_same_canonical_worker_rejected" time="1.016"><failure message="MemoryError">def test_live_same_canonical_worker_rejected():
+        config = retry.previous.read(retry.ROOT / CONFIG)
+        worker = type('Worker', (), {'info': dict(name='python.exe', create_time=1791905617.644876,
+            cmdline=config['incident']['stopped_scientific_identity']['command'])})()
+        with patch('psutil.process_iter', return_value=[worker]):
+            with pytest.raises(ValueError, match='live canonical'):
+&gt;               retry.verify_incident(retry.ROOT, config['incident'])
+
+tests\test_crossad_smap_full_retry_v1.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\flow_matching\crossad_smap1103_full_retry_v1.py:39: in verify_incident
+    if previous.digest(root / pin['path']) != pin['sha256']:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_light_controller.py:40: in digest
+    for block in iter(lambda: stream.read(1024*1024), b''):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+&gt;   for block in iter(lambda: stream.read(1024*1024), b''):
+                              ^^^^^^^^^^^^^^^^^^^^^^
+E   MemoryError
+
+scripts\flow_matching\run_light_controller.py:40: MemoryError</failure></testcase><testcase classname="tests.test_crossad_psm_full_retry_v1" name="test_only_failed_PSM_output_changes_and_all139_slots_remain" time="1.014"><failure message="MemoryError">def test_only_failed_PSM_output_changes_and_all139_slots_remain():
+&gt;       original = json.loads(Path('configs/experiments/fm_crossad_complete_queue.v7.json').read_text())
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_crossad_psm_full_retry_v1.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('configs/experiments/fm_crossad_complete_queue.v7.json')
+encoding = 'utf-8', errors = None
+
+    def read_text(self, encoding=None, errors=None):
+        """
+        Open the file in text mode, read it, and close the file.
+        """
+        encoding = io.text_encoding(encoding)
+        with self.open(mode='r', encoding=encoding, errors=errors) as f:
+&gt;           return f.read()
+                   ^^^^^^^^
+E           MemoryError
+
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1028: MemoryError</failure></testcase><testcase classname="tests.test_crossad_psm_full_retry_v1" name="test_shortened_or_changed_original_recipe_is_rejected[train_epochs-19]" time="1.030"><failure message="MemoryError">field = 'train_epochs', value = 19
+
+    @pytest.mark.parametrize('field,value', [('train_epochs', 19), ('batch_size', 64), ('patience', 2)])
+    def test_shortened_or_changed_original_recipe_is_rejected(field, value):
+&gt;       original = json.loads(Path('configs/experiments/fm_crossad_complete_queue.v7.json').read_text())
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_crossad_psm_full_retry_v1.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1028: in read_text
+    return f.read()
+           ^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;encodings.utf_8.IncrementalDecoder object at 0x00000180774E97F0&gt;
+input = b'{\n  "schema_version": 7,\n  "settings": {\n    "source": "experiments/runs/mtsad_protocol_audit/sources/crossad/ori..._queue.v6.json",\n  "evaluator_parent_sha256": "13e5479c407102689d32fe8a8b0eda984b2ae28b9fdb0e99276b7100db8ca402"\n}\n'
+final = True
+
+&gt;   ???
+E   MemoryError
+
+&lt;frozen codecs&gt;:322: MemoryError</failure></testcase><testcase classname="tests.test_crossad_psm_full_retry_v1" name="test_shortened_or_changed_original_recipe_is_rejected[batch_size-64]" time="0.119" /><testcase classname="tests.test_crossad_psm_full_retry_v1" name="test_shortened_or_changed_original_recipe_is_rejected[patience-2]" time="0.090" /><testcase classname="tests.test_crossad_psm_full_retry_v1" name="test_canonical_slot_cannot_be_removed" time="0.110" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_full_roster_keeps_every_other_method_and_ablation_binding" time="0.003" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_shortened_scope_or_changed_original_budget[missing]" time="0.003" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_shortened_scope_or_changed_original_budget[duplicate]" time="0.014" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_shortened_scope_or_changed_original_budget[seed]" time="0.005" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_shortened_scope_or_changed_original_budget[epochs]" time="0.003" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_shortened_scope_or_changed_original_budget[batch]" time="0.003" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_shortened_scope_or_changed_original_budget[patience]" time="0.003" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_all139_verified_and_only_admission_is_stronger" time="0.662" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_weakened_guard_duplicate_slot_or_false_resume_credit[guard]" time="1.341"><failure message="MemoryError">tmp_path = WindowsPath('C:/Users/10175/AppData/Local/Temp/pytest-of-admin/pytest-15/test_reject_weakened_guard_dup0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000180776C23F0&gt;
+kind = 'guard'
+
+    @pytest.mark.parametrize('kind', ['guard', 'cpu', 'lock', 'selected', 'roster', 'credit', 'source', 'archive'])
+    def test_reject_weakened_guard_duplicate_slot_or_false_resume_credit(tmp_path, monkeypatch, kind):
+&gt;       config = config_fixture(tmp_path, monkeypatch)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_fm_crossad_gecco1103_full_retry_v1.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fm_crossad_gecco1103_full_retry_v1.py:94: in config_fixture
+    'source_receipts': [{'path': p, 'sha256': retry.digest(root / p)} for p in paths]}
+                                              ^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\run_light_controller.py:40: in digest
+    for block in iter(lambda: stream.read(1024*1024), b''):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+&gt;   for block in iter(lambda: stream.read(1024*1024), b''):
+                              ^^^^^^^^^^^^^^^^^^^^^^
+E   MemoryError
+
+scripts\flow_matching\run_light_controller.py:40: MemoryError</failure></testcase><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_weakened_guard_duplicate_slot_or_false_resume_credit[cpu]" time="0.559" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_weakened_guard_duplicate_slot_or_false_resume_credit[lock]" time="0.054" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_weakened_guard_duplicate_slot_or_false_resume_credit[selected]" time="0.058" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_weakened_guard_duplicate_slot_or_false_resume_credit[roster]" time="0.060" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_weakened_guard_duplicate_slot_or_false_resume_credit[credit]" time="0.075" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_weakened_guard_duplicate_slot_or_false_resume_credit[source]" time="0.052" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_reject_weakened_guard_duplicate_slot_or_false_resume_credit[archive]" time="0.069" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_live_original_identity_prevents_duplicate_training" time="0.064" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_partial_weights_or_one_successful_stage_cannot_claim_native_completion" time="0.018" /><testcase classname="tests.test_fm_crossad_gecco1103_full_retry_v1" name="test_frozen_output_and_raw_incident_bytes_never_overwritten" time="0.007" /></testsuite></testsuites>

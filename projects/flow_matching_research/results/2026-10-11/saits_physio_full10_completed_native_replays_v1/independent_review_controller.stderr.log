@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\verify_saits_physio_completed_full_replay_v1.py", line 64, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\verify_saits_physio_completed_full_replay_v1.py", line 61, in main
+    namespace['main']()
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\verify_saits_completed_full_replay_batch_v1.py", line 147, in main
+    check_terminal(read(ROOT/producer['artifact_directory']/'checkpoint_replay_audit.json'),read(receipt_path),producer)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\aicoding\IIA_benchmark\scripts\flow_matching\audit_cfm_checkpoint_replay_v1.py", line 24, in read
+    return json.loads(Path(path).read_text(encoding='utf-8'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'F:\\aicoding\\IIA_Data\\experiments\\saits_physio_full10_completed_native_replays_v1\\checkpoint_replay_audit.json'

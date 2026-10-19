@@ -1,0 +1,48 @@
+session:
+  id: "2026-10-15_001"
+  date: "2026-10-15"
+  started: "2026-10-15T12:00"
+  last_turn: "2026-10-15T18:00"
+  turn_count: 2
+  summary: "Finished the MTDA CCF-A report and emailed it to 张令羽, 丁威, and iamafan."
+
+events_logged:
+  - turn: 1
+    type: question
+    id: N25
+    routing: direct
+    provenance: user
+    summary: "User asked for the innovation gap, the reason MTDA works, and a CCF-A next step."
+  - turn: 1
+    type: observation
+    id: O13
+    routing: staged
+    provenance: ai-suggested
+    summary: "MTDA drops p(h|c), then post-hoc localizes and late-fuses activity; macro gain is real but not a new estimand."
+  - turn: 2
+    type: observation
+    id: O14
+    routing: staged
+    provenance: ai-executed
+    summary: "Full MTDA report written and sent to three recipients; send script returned success."
+
+ai_actions:
+  - turn: 1
+    action: "Read revised/张令羽/实验.md and the seven-model comparison workbook. No code or experiment was run."
+    provenance: ai-executed
+    files_changed: []
+
+claims_touched: []
+
+logic_revisions: []
+
+key_context:
+  - turn: 1
+    excerpt: "User said the method looks like a combination of existing pieces even though the experimental effect is decent, and wants a CCF-A paper."
+
+open_threads:
+  - "Recipients have not accepted or rejected the diagnosis that MTDA lacks a new estimand."
+  - "No ablation yet separates the scalar detail d, the flow, the 50/50 residual, and the activity sum."
+
+ai_suggestions_pending:
+  - "Reframe the paper as an intervention on p(detail, activity | state, context), with localization inside that same conditional path, before adding any new branch."

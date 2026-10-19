@@ -1,0 +1,49 @@
+.....F.......                                                            [100%]
+================================== FAILURES ===================================
+_ test_actual_complete_restore_and_remaining_training_match_uninterrupted_weights_optimizer_losses_and_predictions _
+
+tmp_path = WindowsPath('C:/Users/10175/AppData/Local/Temp/pytest-of-admin/pytest-837/test_actual_complete_restore_a0')
+saved_boundary = (<iia_benchmark.models.fm_cfm_ts_original.CFMTSPaperTrajectory object at 0x000001E394BDC4A0>, <test_fm_cfm_complete_ep...pytest-of-admin/pytest-837/test_actual_complete_restore_a0/first/complete_epoch_checkpoints/epoch_0002/full_state.pt'))
+
+    def test_actual_complete_restore_and_remaining_training_match_uninterrupted_weights_optimizer_losses_and_predictions(tmp_path,saved_boundary):
+        _,_,path=saved_boundary
+        baseline=full_network();whole=CompleteEpochLane(job(),tmp_path/'whole',interval=2)
+        baseline.fit=bind_fit(baseline,whole);baseline.fit(data())
+        resumed=full_network();continuation=CompleteEpochLane(job(),tmp_path/'continuation',interval=2,
+            resume=path,resume_sha256=sha(path))
+>       resumed.fit=bind_fit(resumed,continuation);resumed.fit(data())
+                                                   ^^^^^^^^^^^^^^^^^^^
+
+tests\test_fm_cfm_complete_epoch_native_state_v1.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\iia_benchmark\models\fm_cfm_ts_original.py:1: in fit
+    """CFM-TS original-task reconstruction with declared architecture and dopri5.
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts\flow_matching\cfm_complete_epoch_checkpoint_v1.py:160: in restore_epoch
+    write(self.artifacts/'complete_epoch_restore_verification.json', dict(completed_original_epochs=epoch,
+scripts\flow_matching\run_cfm_ts_original_job.py:59: in write
+    temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2, allow_nan=False)+'\n', encoding='utf-8')
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1047: in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/10175/AppData/Local/Temp/pytest-of-admin/pytest-837/test_actual_complete_restore_a0/continuation/complete_epoch_restore_verification.json.tmp')
+mode = 'w', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\10175\\AppData\\Local\\Temp\\pytest-of-admin\\pytest-837\\test_actual_complete_restore_a0\\continuation\\complete_epoch_restore_verification.json.tmp'
+
+C:\Users\10175\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_fm_cfm_complete_epoch_native_state_v1.py::test_actual_complete_restore_and_remaining_training_match_uninterrupted_weights_optimizer_losses_and_predictions
+1 failed, 12 passed in 162.79s (0:02:42)
