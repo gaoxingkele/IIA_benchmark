@@ -2,6 +2,9 @@
 
 **当前状态：用户要求停止，实验目标已暂停。未经用户明确要求，不恢复实验。**
 
+- [2026-10-19：学术研究方向与交接](2026-10-19-research-direction-and-handoff.md)
+- [完整研究交接文档](../reports/2026-10-19-research-handoff.md)
+- [已有结果分析报告](../reports/2026-10-17-evaluation-findings/analysis_report.md)
 - [2026-10-17：实验停止总结、GRASP 数量与范围复盘](2026-10-17-experiment-stop-and-scope-review.md)
 - [停止进程的核验记录](../results/2026-10-17/user_requested_stop_v1/process_stop_receipt.json)
 - [最近完整指标快照 v74](../results/2026-10-16/all_algorithm_dataset_metrics_v74/README.md)
